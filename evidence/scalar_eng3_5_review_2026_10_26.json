@@ -1,0 +1,5949 @@
+{
+ "schema": 1,
+ "task_id": "scalar_eng3_5",
+ "date": "2026-10-26",
+ "target": {
+  "path": "assets/pc/HERCULES/ENG3.DLL",
+  "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "image_base": 268435456
+ },
+ "module_section": {
+  "name": ".text",
+  "rva": 4096,
+  "virtual_size": 199692,
+  "raw_size": 200192,
+  "highlow_fields_in_text": 4865
+ },
+ "method": {
+  "access_survey": "All PE HIGHLOW fixups were enumerated across ENG3.DLL. Every .text fixup targeting a candidate cell was decoded as one complete instruction. Ledger row disassembly was used when a row covered the field; exact field decoding from surrounding original bytes was used otherwise. PUSH immediate address-taking references are separated from direct memory accesses. Adjacent scalar boundaries were reviewed together.",
+  "owner_rule": "A scalar owner passes only when every direct memory operand accesses the cell base at offset 0 with no base/index register and the exact declared width. Pointer payload indexing occurs after loading a pointer and does not enlarge the pointer cell. No capacity or array inference was used.",
+  "anchor_rule": "Each accepted cell has one complete absolute MOV with exactly one HIGHLOW operand fixup to that cell, outside all assigned callers. blocker_rows_overlapping is empty for blocker-free choices. For g_2bf30, g_2bf64, g_2bf70, g_2bff0, and g_eng3_41048, the only external MOV anchor lies in another pending row; the report records these fallbacks and the other candidate references.",
+  "zero_tail": "ENG3.DLL .data writable zero tail RVA [0x3f400, 0x44334)."
+ },
+ "cells": {
+  "g_2bf30": {
+   "rva": 265104,
+   "members": [
+    "g_2bf30"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c",
+   "owner_symbol": "_g_2bf30",
+   "accesses": [
+    {
+     "field_rva": 119882,
+     "fixup_type": 3,
+     "instruction_rva": 119879,
+     "instruction_size": 7,
+     "bytes": "668b35900b0410",
+     "mnemonic": "mov",
+     "operands": "si, word ptr [0x10040b90]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265104,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 119937,
+     "fixup_type": 3,
+     "instruction_rva": 119935,
+     "instruction_size": 6,
+     "bytes": "66a3900b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040b90], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265104,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 120006,
+     "fixup_type": 3,
+     "instruction_rva": 120004,
+     "instruction_size": 6,
+     "bytes": "66a3900b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040b90], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265104,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 121413,
+     "fixup_type": 3,
+     "instruction_rva": 121410,
+     "instruction_size": 7,
+     "bytes": "668915900b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040b90], dx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265104,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 4,
+   "address_takings": 0,
+   "direct_memory_accesses": 4,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 121410,
+    "size": 7,
+    "operand": 0,
+    "bytes": "668915900b0410",
+    "sha256": "4a72fa2e964b344b7f6363bc08653638456aa296e56af87ef97cdaace30d68ac",
+    "mnemonic": "mov",
+    "operands": "word ptr [0x10040b90], dx",
+    "fixup_field_rva": 121413,
+    "fixup_type": 3,
+    "row_id": "eng3.shared_1d9b0",
+    "blocker_rows_overlapping": [
+     "eng3.shared_1d9b0"
+    ],
+    "lane_callers_overlapping": [],
+    "fallback_reason": "Only external MOV is inside pending eng3.shared_1d9b0; other target references are in assigned eng3.shared_1d430."
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2bf40": {
+   "rva": 265124,
+   "members": [
+    "g_2bf40"
+   ],
+   "size": 4,
+   "type": "TitleCfg *",
+   "owner_source": "src/title/title_common.c",
+   "owner_symbol": "_g_2bf40",
+   "accesses": [
+    {
+     "field_rva": 117368,
+     "fixup_type": 3,
+     "instruction_rva": 117367,
+     "instruction_size": 5,
+     "bytes": "a1a40b0410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10040ba4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265124,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 117395,
+     "fixup_type": 3,
+     "instruction_rva": 117394,
+     "instruction_size": 5,
+     "bytes": "a1a40b0410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10040ba4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265124,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 117415,
+     "fixup_type": 3,
+     "instruction_rva": 117414,
+     "instruction_size": 5,
+     "bytes": "a1a40b0410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10040ba4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265124,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 117439,
+     "fixup_type": 3,
+     "instruction_rva": 117438,
+     "instruction_size": 5,
+     "bytes": "a1a40b0410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10040ba4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265124,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 117583,
+     "fixup_type": 3,
+     "instruction_rva": 117582,
+     "instruction_size": 5,
+     "bytes": "a1a40b0410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10040ba4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265124,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cb00"
+    },
+    {
+     "field_rva": 117599,
+     "fixup_type": 3,
+     "instruction_rva": 117597,
+     "instruction_size": 6,
+     "bytes": "8b15a40b0410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x10040ba4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265124,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cb00"
+    },
+    {
+     "field_rva": 117611,
+     "fixup_type": 3,
+     "instruction_rva": 117609,
+     "instruction_size": 6,
+     "bytes": "8b0da40b0410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040ba4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265124,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cb00"
+    },
+    {
+     "field_rva": 117626,
+     "fixup_type": 3,
+     "instruction_rva": 117625,
+     "instruction_size": 5,
+     "bytes": "a1a40b0410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10040ba4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265124,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cb00"
+    },
+    {
+     "field_rva": 121439,
+     "fixup_type": 3,
+     "instruction_rva": 121437,
+     "instruction_size": 6,
+     "bytes": "890da40b0410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10040ba4], ecx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265124,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 9,
+   "address_takings": 0,
+   "direct_memory_accesses": 9,
+   "memory_widths": [
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 117367,
+    "size": 5,
+    "operand": 1,
+    "bytes": "a1a40b0410",
+    "sha256": "5118d7d0a9a04c8470fc5e6e6321c6b805a35bd57e4296245cfdfa412564b249",
+    "mnemonic": "mov",
+    "operands": "eax, dword ptr [0x10040ba4]",
+    "fixup_field_rva": 117368,
+    "fixup_type": 3,
+    "row_id": null,
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2bf44": {
+   "rva": 265128,
+   "members": [
+    "g_2bf44"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c",
+   "owner_symbol": "_g_2bf44",
+   "accesses": [
+    {
+     "field_rva": 113347,
+     "fixup_type": 3,
+     "instruction_rva": 113344,
+     "instruction_size": 7,
+     "bytes": "668b35a80b0410",
+     "mnemonic": "mov",
+     "operands": "si, word ptr [0x10040ba8]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265128,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b9f0"
+    },
+    {
+     "field_rva": 114067,
+     "fixup_type": 3,
+     "instruction_rva": 114064,
+     "instruction_size": 7,
+     "bytes": "668b35a80b0410",
+     "mnemonic": "mov",
+     "operands": "si, word ptr [0x10040ba8]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265128,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 120102,
+     "fixup_type": 3,
+     "instruction_rva": 120100,
+     "instruction_size": 6,
+     "bytes": "66a1a80b0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040ba8]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265128,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 121635,
+     "fixup_type": 3,
+     "instruction_rva": 121632,
+     "instruction_size": 7,
+     "bytes": "66891da80b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040ba8], bx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265128,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 4,
+   "address_takings": 0,
+   "direct_memory_accesses": 4,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 113344,
+    "size": 7,
+    "operand": 1,
+    "bytes": "668b35a80b0410",
+    "sha256": "f84dcf8058fec213198dd27ef4bcec26d53e6efcd7f4a59555cc660617624a1b",
+    "mnemonic": "mov",
+    "operands": "si, word ptr [0x10040ba8]",
+    "fixup_field_rva": 113347,
+    "fixup_type": 3,
+    "row_id": "eng3.eng3_1b9f0",
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2bf58": {
+   "rva": 265144,
+   "members": [
+    "g_2bf58"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c",
+   "owner_symbol": "_g_2bf58",
+   "accesses": [
+    {
+     "field_rva": 35712,
+     "fixup_type": 3,
+     "instruction_rva": 35709,
+     "instruction_size": 7,
+     "bytes": "668b15b80b0410",
+     "mnemonic": "mov",
+     "operands": "dx, word ptr [0x10040bb8]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265144,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 118626,
+     "fixup_type": 3,
+     "instruction_rva": 118624,
+     "instruction_size": 6,
+     "bytes": "66a1b80b0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040bb8]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265144,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 118711,
+     "fixup_type": 3,
+     "instruction_rva": 118708,
+     "instruction_size": 7,
+     "bytes": "668b0db80b0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040bb8]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265144,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 121554,
+     "fixup_type": 3,
+     "instruction_rva": 121551,
+     "instruction_size": 7,
+     "bytes": "66893db80b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bb8], di",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265144,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 4,
+   "address_takings": 0,
+   "direct_memory_accesses": 4,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 35709,
+    "size": 7,
+    "operand": 1,
+    "bytes": "668b15b80b0410",
+    "sha256": "521703416b2295a75399a9d7e542403de22f1bf86000292aa85e929ab6105dbf",
+    "mnemonic": "mov",
+    "operands": "dx, word ptr [0x10040bb8]",
+    "fixup_field_rva": 35712,
+    "fixup_type": 3,
+    "row_id": null,
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2bf62": {
+   "rva": 265154,
+   "members": [
+    "g_2bf62"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c",
+   "owner_symbol": "_g_2bf62",
+   "accesses": [
+    {
+     "field_rva": 113472,
+     "fixup_type": 3,
+     "instruction_rva": 113469,
+     "instruction_size": 7,
+     "bytes": "668b3dc20b0410",
+     "mnemonic": "mov",
+     "operands": "di, word ptr [0x10040bc2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265154,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b9f0"
+    },
+    {
+     "field_rva": 114192,
+     "fixup_type": 3,
+     "instruction_rva": 114189,
+     "instruction_size": 7,
+     "bytes": "668b35c20b0410",
+     "mnemonic": "mov",
+     "operands": "si, word ptr [0x10040bc2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265154,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 118788,
+     "fixup_type": 3,
+     "instruction_rva": 118786,
+     "instruction_size": 6,
+     "bytes": "66a1c20b0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040bc2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265154,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 121612,
+     "fixup_type": 3,
+     "instruction_rva": 121609,
+     "instruction_size": 7,
+     "bytes": "668935c20b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bc2], si",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265154,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 4,
+   "address_takings": 0,
+   "direct_memory_accesses": 4,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 113469,
+    "size": 7,
+    "operand": 1,
+    "bytes": "668b3dc20b0410",
+    "sha256": "8287b3232a046abfea6e87f413c41bb04bf08589452d2b48e6171302c3a39f43",
+    "mnemonic": "mov",
+    "operands": "di, word ptr [0x10040bc2]",
+    "fixup_field_rva": 113472,
+    "fixup_type": 3,
+    "row_id": "eng3.eng3_1b9f0",
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2bf64": {
+   "rva": 265156,
+   "members": [
+    "g_2bf64"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c",
+   "owner_symbol": "_g_2bf64",
+   "accesses": [
+    {
+     "field_rva": 118554,
+     "fixup_type": 3,
+     "instruction_rva": 118551,
+     "instruction_size": 7,
+     "bytes": "668b35c40b0410",
+     "mnemonic": "mov",
+     "operands": "si, word ptr [0x10040bc4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265156,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 118613,
+     "fixup_type": 3,
+     "instruction_rva": 118611,
+     "instruction_size": 6,
+     "bytes": "66a3c40b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bc4], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265156,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 118682,
+     "fixup_type": 3,
+     "instruction_rva": 118680,
+     "instruction_size": 6,
+     "bytes": "66a3c40b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bc4], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265156,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 121575,
+     "fixup_type": 3,
+     "instruction_rva": 121572,
+     "instruction_size": 7,
+     "bytes": "66893dc40b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bc4], di",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265156,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 4,
+   "address_takings": 0,
+   "direct_memory_accesses": 4,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 121572,
+    "size": 7,
+    "operand": 0,
+    "bytes": "66893dc40b0410",
+    "sha256": "57a1edc9f8a67ba3b53b0283976f50670f246b2c2e0f7f27aa2b900fba3918ae",
+    "mnemonic": "mov",
+    "operands": "word ptr [0x10040bc4], di",
+    "fixup_field_rva": 121575,
+    "fixup_type": 3,
+    "row_id": "eng3.shared_1d9b0",
+    "blocker_rows_overlapping": [
+     "eng3.shared_1d9b0"
+    ],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_eng3_40bc6": {
+   "rva": 265158,
+   "members": [
+    "g_eng3_40bc6"
+   ],
+   "size": 2,
+   "type": "short",
+   "owner_source": null,
+   "owner_symbol": null,
+   "skip": true,
+   "accesses": [
+    {
+     "field_rva": 112889,
+     "fixup_type": 3,
+     "instruction_rva": 112887,
+     "instruction_size": 6,
+     "bytes": "66a3c60b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bc6], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265158,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1b8f0"
+    },
+    {
+     "field_rva": 114733,
+     "fixup_type": 3,
+     "instruction_rva": 114730,
+     "instruction_size": 7,
+     "bytes": "668b1dc60b0410",
+     "mnemonic": "mov",
+     "operands": "bx, word ptr [0x10040bc6]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265158,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 114761,
+     "fixup_type": 3,
+     "instruction_rva": 114759,
+     "instruction_size": 6,
+     "bytes": "66a3c60b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bc6], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265158,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 115073,
+     "fixup_type": 3,
+     "instruction_rva": 115070,
+     "instruction_size": 7,
+     "bytes": "668b15c60b0410",
+     "mnemonic": "mov",
+     "operands": "dx, word ptr [0x10040bc6]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265158,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 115283,
+     "fixup_type": 3,
+     "instruction_rva": 115280,
+     "instruction_size": 7,
+     "bytes": "668b1dc60b0410",
+     "mnemonic": "mov",
+     "operands": "bx, word ptr [0x10040bc6]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265158,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 115769,
+     "fixup_type": 3,
+     "instruction_rva": 115766,
+     "instruction_size": 7,
+     "bytes": "66391dc60b0410",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040bc6], bx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265158,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 116125,
+     "fixup_type": 3,
+     "instruction_rva": 116123,
+     "instruction_size": 6,
+     "bytes": "3b1dc60b0410",
+     "mnemonic": "cmp",
+     "operands": "ebx, dword ptr [0x10040bc6]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 265158,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 7,
+   "address_takings": 0,
+   "direct_memory_accesses": 7,
+   "memory_widths": [
+    2,
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": false,
+   "extent_decision": "skip: one native dword read at RVA 0x1c59b overlaps this 2-byte cell",
+   "offset_references": [],
+   "zero_tail_contains_extent": true
+  },
+  "g_2bf6e": {
+   "rva": 265166,
+   "members": [
+    "g_2bf6e"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c",
+   "owner_symbol": "_g_2bf6e",
+   "accesses": [
+    {
+     "field_rva": 35628,
+     "fixup_type": 3,
+     "instruction_rva": 35626,
+     "instruction_size": 6,
+     "bytes": "66a1ce0b0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040bce]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265166,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 119954,
+     "fixup_type": 3,
+     "instruction_rva": 119952,
+     "instruction_size": 6,
+     "bytes": "66a1ce0b0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040bce]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265166,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 120039,
+     "fixup_type": 3,
+     "instruction_rva": 120036,
+     "instruction_size": 7,
+     "bytes": "668b0dce0b0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040bce]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265166,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 121358,
+     "fixup_type": 3,
+     "instruction_rva": 121355,
+     "instruction_size": 7,
+     "bytes": "66892dce0b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bce], bp",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265166,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    },
+    {
+     "field_rva": 121372,
+     "fixup_type": 3,
+     "instruction_rva": 121369,
+     "instruction_size": 7,
+     "bytes": "668b15ce0b0410",
+     "mnemonic": "mov",
+     "operands": "dx, word ptr [0x10040bce]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265166,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 5,
+   "address_takings": 0,
+   "direct_memory_accesses": 5,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 35626,
+    "size": 6,
+    "operand": 1,
+    "bytes": "66a1ce0b0410",
+    "sha256": "7d41c00a80855a34980fd638b7330b5c7917c3d00ee58da8c82f6ceedfbf44ec",
+    "mnemonic": "mov",
+    "operands": "ax, word ptr [0x10040bce]",
+    "fixup_field_rva": 35628,
+    "fixup_type": 3,
+    "row_id": null,
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2bf70": {
+   "rva": 265168,
+   "members": [
+    "g_2bf70"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c",
+   "owner_symbol": "_g_2bf70",
+   "accesses": [
+    {
+     "field_rva": 118702,
+     "fixup_type": 3,
+     "instruction_rva": 118699,
+     "instruction_size": 7,
+     "bytes": "668b35d00b0410",
+     "mnemonic": "mov",
+     "operands": "si, word ptr [0x10040bd0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265168,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 118761,
+     "fixup_type": 3,
+     "instruction_rva": 118759,
+     "instruction_size": 6,
+     "bytes": "66a3d00b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bd0], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265168,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 118836,
+     "fixup_type": 3,
+     "instruction_rva": 118834,
+     "instruction_size": 6,
+     "bytes": "66a3d00b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bd0], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265168,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 121619,
+     "fixup_type": 3,
+     "instruction_rva": 121616,
+     "instruction_size": 7,
+     "bytes": "668935d00b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bd0], si",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265168,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 4,
+   "address_takings": 0,
+   "direct_memory_accesses": 4,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 121616,
+    "size": 7,
+    "operand": 0,
+    "bytes": "668935d00b0410",
+    "sha256": "8c063bac1dc513c8158d09fc04586bd89b05b0b830c0d0001a9cab5169fc9a47",
+    "mnemonic": "mov",
+    "operands": "word ptr [0x10040bd0], si",
+    "fixup_field_rva": 121619,
+    "fixup_type": 3,
+    "row_id": "eng3.shared_1d9b0",
+    "blocker_rows_overlapping": [
+     "eng3.shared_1d9b0"
+    ],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2bf72,g_alternate_limit_primary": {
+   "rva": 265170,
+   "members": [
+    "g_2bf72",
+    "g_alternate_limit_primary"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c for g_2bf72; assigned file for g_alternate_limit_primary",
+   "owner_symbol": "_g_2bf72 / _g_alternate_limit_primary",
+   "accesses": [
+    {
+     "field_rva": 107402,
+     "fixup_type": 3,
+     "instruction_rva": 107400,
+     "instruction_size": 6,
+     "bytes": "66a1d20b0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040bd2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1a330"
+    },
+    {
+     "field_rva": 113304,
+     "fixup_type": 3,
+     "instruction_rva": 113301,
+     "instruction_size": 7,
+     "bytes": "668b0dd20b0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040bd2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b9f0"
+    },
+    {
+     "field_rva": 113451,
+     "fixup_type": 3,
+     "instruction_rva": 113448,
+     "instruction_size": 7,
+     "bytes": "668b15d20b0410",
+     "mnemonic": "mov",
+     "operands": "dx, word ptr [0x10040bd2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b9f0"
+    },
+    {
+     "field_rva": 114074,
+     "fixup_type": 3,
+     "instruction_rva": 114071,
+     "instruction_size": 7,
+     "bytes": "668b15d20b0410",
+     "mnemonic": "mov",
+     "operands": "dx, word ptr [0x10040bd2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 114169,
+     "fixup_type": 3,
+     "instruction_rva": 114167,
+     "instruction_size": 6,
+     "bytes": "66a1d20b0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040bd2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 114634,
+     "fixup_type": 3,
+     "instruction_rva": 114631,
+     "instruction_size": 7,
+     "bytes": "66392dd20b0410",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040bd2], bp",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 114677,
+     "fixup_type": 3,
+     "instruction_rva": 114674,
+     "instruction_size": 7,
+     "bytes": "668b15d20b0410",
+     "mnemonic": "mov",
+     "operands": "dx, word ptr [0x10040bd2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 119891,
+     "fixup_type": 3,
+     "instruction_rva": 119888,
+     "instruction_size": 7,
+     "bytes": "668b0dd20b0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040bd2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 120854,
+     "fixup_type": 3,
+     "instruction_rva": 120851,
+     "instruction_size": 7,
+     "bytes": "66391dd20b0410",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040bd2], bx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d810"
+    },
+    {
+     "field_rva": 120906,
+     "fixup_type": 3,
+     "instruction_rva": 120903,
+     "instruction_size": 7,
+     "bytes": "668b0dd20b0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040bd2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d810"
+    },
+    {
+     "field_rva": 120934,
+     "fixup_type": 3,
+     "instruction_rva": 120931,
+     "instruction_size": 7,
+     "bytes": "66393dd20b0410",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040bd2], di",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d860"
+    },
+    {
+     "field_rva": 120964,
+     "fixup_type": 3,
+     "instruction_rva": 120961,
+     "instruction_size": 7,
+     "bytes": "668b0dd20b0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040bd2]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d860"
+    },
+    {
+     "field_rva": 121488,
+     "fixup_type": 3,
+     "instruction_rva": 121485,
+     "instruction_size": 7,
+     "bytes": "66892dd20b0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040bd2], bp",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265170,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 13,
+   "address_takings": 0,
+   "direct_memory_accesses": 13,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 113301,
+    "size": 7,
+    "operand": 1,
+    "bytes": "668b0dd20b0410",
+    "sha256": "226e626acb62a7b56e41c51c7bcd60e9e3c3decc4ea571591fd888fc35bdb175",
+    "mnemonic": "mov",
+    "operands": "cx, word ptr [0x10040bd2]",
+    "fixup_field_rva": 113304,
+    "fixup_type": 3,
+    "row_id": "eng3.eng3_1b9f0",
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2bff0": {
+   "rva": 265264,
+   "members": [
+    "g_2bff0"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c",
+   "owner_symbol": "_g_2bff0",
+   "accesses": [
+    {
+     "field_rva": 120030,
+     "fixup_type": 3,
+     "instruction_rva": 120027,
+     "instruction_size": 7,
+     "bytes": "668b35300c0410",
+     "mnemonic": "mov",
+     "operands": "si, word ptr [0x10040c30]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265264,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 120085,
+     "fixup_type": 3,
+     "instruction_rva": 120083,
+     "instruction_size": 6,
+     "bytes": "66a3300c0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040c30], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265264,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 120146,
+     "fixup_type": 3,
+     "instruction_rva": 120144,
+     "instruction_size": 6,
+     "bytes": "66a3300c0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040c30], ax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265264,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 121642,
+     "fixup_type": 3,
+     "instruction_rva": 121639,
+     "instruction_size": 7,
+     "bytes": "66891d300c0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040c30], bx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265264,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 4,
+   "address_takings": 0,
+   "direct_memory_accesses": 4,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 121639,
+    "size": 7,
+    "operand": 0,
+    "bytes": "66891d300c0410",
+    "sha256": "61d6bde134f8cfea3b3f88dc7d93b25bdf0f7166c73528e9e031f6f3de1de6d2",
+    "mnemonic": "mov",
+    "operands": "word ptr [0x10040c30], bx",
+    "fixup_field_rva": 121642,
+    "fixup_type": 3,
+    "row_id": "eng3.shared_1d9b0",
+    "blocker_rows_overlapping": [
+     "eng3.shared_1d9b0"
+    ],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2bff2,g_eng3_middle_limit_primary": {
+   "rva": 265266,
+   "members": [
+    "g_2bff2",
+    "g_eng3_middle_limit_primary"
+   ],
+   "size": 2,
+   "type": "unsigned short",
+   "owner_source": "src/title/title_common.c for g_2bff2; assigned file for g_eng3_middle_limit_primary",
+   "owner_symbol": "_g_2bff2 / _g_eng3_middle_limit_primary",
+   "accesses": [
+    {
+     "field_rva": 107358,
+     "fixup_type": 3,
+     "instruction_rva": 107356,
+     "instruction_size": 6,
+     "bytes": "66a1320c0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040c32]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1a330"
+    },
+    {
+     "field_rva": 113478,
+     "fixup_type": 3,
+     "instruction_rva": 113476,
+     "instruction_size": 6,
+     "bytes": "66a1320c0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040c32]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b9f0"
+    },
+    {
+     "field_rva": 113665,
+     "fixup_type": 3,
+     "instruction_rva": 113662,
+     "instruction_size": 7,
+     "bytes": "668b15320c0410",
+     "mnemonic": "mov",
+     "operands": "dx, word ptr [0x10040c32]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b9f0"
+    },
+    {
+     "field_rva": 114199,
+     "fixup_type": 3,
+     "instruction_rva": 114196,
+     "instruction_size": 7,
+     "bytes": "668b0d320c0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040c32]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 114269,
+     "fixup_type": 3,
+     "instruction_rva": 114267,
+     "instruction_size": 6,
+     "bytes": "66a1320c0410",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040c32]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 114573,
+     "fixup_type": 3,
+     "instruction_rva": 114570,
+     "instruction_size": 7,
+     "bytes": "66392d320c0410",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040c32], bp",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 114616,
+     "fixup_type": 3,
+     "instruction_rva": 114613,
+     "instruction_size": 7,
+     "bytes": "668b15320c0410",
+     "mnemonic": "mov",
+     "operands": "dx, word ptr [0x10040c32]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 118563,
+     "fixup_type": 3,
+     "instruction_rva": 118560,
+     "instruction_size": 7,
+     "bytes": "668b0d320c0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040c32]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 119510,
+     "fixup_type": 3,
+     "instruction_rva": 119507,
+     "instruction_size": 7,
+     "bytes": "66391d320c0410",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040c32], bx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.process_middle_actor_pool"
+    },
+    {
+     "field_rva": 119562,
+     "fixup_type": 3,
+     "instruction_rva": 119559,
+     "instruction_size": 7,
+     "bytes": "668b0d320c0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040c32]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.process_middle_actor_pool"
+    },
+    {
+     "field_rva": 119591,
+     "fixup_type": 3,
+     "instruction_rva": 119588,
+     "instruction_size": 7,
+     "bytes": "66393d320c0410",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040c32], di",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d320"
+    },
+    {
+     "field_rva": 119620,
+     "fixup_type": 3,
+     "instruction_rva": 119617,
+     "instruction_size": 7,
+     "bytes": "668b0d320c0410",
+     "mnemonic": "mov",
+     "operands": "cx, word ptr [0x10040c32]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d320"
+    },
+    {
+     "field_rva": 121561,
+     "fixup_type": 3,
+     "instruction_rva": 121558,
+     "instruction_size": 7,
+     "bytes": "66891d320c0410",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040c32], bx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 2,
+       "absolute_rva": 265266,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 2,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d9b0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 13,
+   "address_takings": 0,
+   "direct_memory_accesses": 13,
+   "memory_widths": [
+    2
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 113476,
+    "size": 6,
+    "operand": 1,
+    "bytes": "66a1320c0410",
+    "sha256": "c937b87ce733c7a2c4b0fd90b976e67d3ca1e40af9063b420aa6a2d1d24f82b3",
+    "mnemonic": "mov",
+    "operands": "ax, word ptr [0x10040c32]",
+    "fixup_field_rva": 113478,
+    "fixup_type": 3,
+    "row_id": "eng3.eng3_1b9f0",
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2df4c,g_eng3_middle_actor_pool": {
+   "rva": 274804,
+   "members": [
+    "g_2df4c",
+    "g_eng3_middle_actor_pool"
+   ],
+   "size": 4,
+   "type": "pointer",
+   "owner_source": "src/title/behavioral/title_data.c for g_2df4c; assigned file for g_eng3_middle_actor_pool",
+   "owner_symbol": "_g_2df4c / _g_eng3_middle_actor_pool",
+   "accesses": [
+    {
+     "field_rva": 35700,
+     "fixup_type": 3,
+     "instruction_rva": 35699,
+     "instruction_size": 5,
+     "bytes": "a174310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 96812,
+     "fixup_type": 3,
+     "instruction_rva": 96811,
+     "instruction_size": 5,
+     "bytes": "a174310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.178a0"
+    },
+    {
+     "field_rva": 107386,
+     "fixup_type": 3,
+     "instruction_rva": 107385,
+     "instruction_size": 5,
+     "bytes": "6874310410",
+     "mnemonic": "push",
+     "operands": "0x10043174",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "immediate",
+       "value": "0x10043174"
+      }
+     ],
+     "access_kind": "address-taking",
+     "access_width_bytes": null,
+     "direct_absolute_offset": null,
+     "row_id": "eng3.1a330"
+    },
+    {
+     "field_rva": 107743,
+     "fixup_type": 3,
+     "instruction_rva": 107742,
+     "instruction_size": 5,
+     "bytes": "a174310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1a460"
+    },
+    {
+     "field_rva": 113507,
+     "fixup_type": 3,
+     "instruction_rva": 113506,
+     "instruction_size": 5,
+     "bytes": "a174310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b9f0"
+    },
+    {
+     "field_rva": 114225,
+     "fixup_type": 3,
+     "instruction_rva": 114223,
+     "instruction_size": 6,
+     "bytes": "8b0d74310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 114564,
+     "fixup_type": 3,
+     "instruction_rva": 114563,
+     "instruction_size": 5,
+     "bytes": "a174310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 118545,
+     "fixup_type": 3,
+     "instruction_rva": 118543,
+     "instruction_size": 6,
+     "bytes": "8b3d74310410",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 118693,
+     "fixup_type": 3,
+     "instruction_rva": 118691,
+     "instruction_size": 6,
+     "bytes": "8b3d74310410",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1cf00"
+    },
+    {
+     "field_rva": 119521,
+     "fixup_type": 3,
+     "instruction_rva": 119520,
+     "instruction_size": 5,
+     "bytes": "a174310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.process_middle_actor_pool"
+    },
+    {
+     "field_rva": 119600,
+     "fixup_type": 3,
+     "instruction_rva": 119599,
+     "instruction_size": 5,
+     "bytes": "a174310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10043174]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274804,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d320"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 11,
+   "address_takings": 1,
+   "direct_memory_accesses": 10,
+   "memory_widths": [
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 113506,
+    "size": 5,
+    "operand": 1,
+    "bytes": "a174310410",
+    "sha256": "98431472967a45f5f8e5042813e377ba488db4221e59de6911409323aae97b3c",
+    "mnemonic": "mov",
+    "operands": "eax, dword ptr [0x10043174]",
+    "fixup_field_rva": 113507,
+    "fixup_type": 3,
+    "row_id": "eng3.eng3_1b9f0",
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_2dfa0,g_alternate_actor_pool": {
+   "rva": 274880,
+   "members": [
+    "g_2dfa0",
+    "g_alternate_actor_pool"
+   ],
+   "size": 4,
+   "type": "pointer",
+   "owner_source": "src/title/behavioral/title_data.c for g_2dfa0; src/eng1/actor_storage.c for g_alternate_actor_pool",
+   "owner_symbol": "_g_2dfa0 / _g_alternate_actor_pool",
+   "accesses": [
+    {
+     "field_rva": 35618,
+     "fixup_type": 3,
+     "instruction_rva": 35616,
+     "instruction_size": 6,
+     "bytes": "8b0dc0310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 107423,
+     "fixup_type": 3,
+     "instruction_rva": 107422,
+     "instruction_size": 5,
+     "bytes": "68c0310410",
+     "mnemonic": "push",
+     "operands": "0x100431c0",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "immediate",
+       "value": "0x100431c0"
+      }
+     ],
+     "access_kind": "address-taking",
+     "access_width_bytes": null,
+     "direct_absolute_offset": null,
+     "row_id": "eng3.1a330"
+    },
+    {
+     "field_rva": 107761,
+     "fixup_type": 3,
+     "instruction_rva": 107760,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1a460"
+    },
+    {
+     "field_rva": 113378,
+     "fixup_type": 3,
+     "instruction_rva": 113377,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b9f0"
+    },
+    {
+     "field_rva": 114100,
+     "fixup_type": 3,
+     "instruction_rva": 114098,
+     "instruction_size": 6,
+     "bytes": "8b0dc0310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 114625,
+     "fixup_type": 3,
+     "instruction_rva": 114624,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1bd40"
+    },
+    {
+     "field_rva": 119873,
+     "fixup_type": 3,
+     "instruction_rva": 119871,
+     "instruction_size": 6,
+     "bytes": "8b3dc0310410",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 120021,
+     "fixup_type": 3,
+     "instruction_rva": 120019,
+     "instruction_size": 6,
+     "bytes": "8b3dc0310410",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d430"
+    },
+    {
+     "field_rva": 120865,
+     "fixup_type": 3,
+     "instruction_rva": 120864,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d810"
+    },
+    {
+     "field_rva": 120944,
+     "fixup_type": 3,
+     "instruction_rva": 120943,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_1d860"
+    },
+    {
+     "field_rva": 143208,
+     "fixup_type": 3,
+     "instruction_rva": 143206,
+     "instruction_size": 6,
+     "bytes": "8b0dc0310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143230,
+     "fixup_type": 3,
+     "instruction_rva": 143228,
+     "instruction_size": 6,
+     "bytes": "8b0dc0310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143246,
+     "fixup_type": 3,
+     "instruction_rva": 143244,
+     "instruction_size": 6,
+     "bytes": "8b0dc0310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143258,
+     "fixup_type": 3,
+     "instruction_rva": 143256,
+     "instruction_size": 6,
+     "bytes": "8b0dc0310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143280,
+     "fixup_type": 3,
+     "instruction_rva": 143278,
+     "instruction_size": 6,
+     "bytes": "8b0dc0310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143292,
+     "fixup_type": 3,
+     "instruction_rva": 143290,
+     "instruction_size": 6,
+     "bytes": "8b0dc0310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143306,
+     "fixup_type": 3,
+     "instruction_rva": 143304,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143318,
+     "fixup_type": 3,
+     "instruction_rva": 143316,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143328,
+     "fixup_type": 3,
+     "instruction_rva": 143326,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143523,
+     "fixup_type": 3,
+     "instruction_rva": 143521,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143535,
+     "fixup_type": 3,
+     "instruction_rva": 143534,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143568,
+     "fixup_type": 3,
+     "instruction_rva": 143566,
+     "instruction_size": 6,
+     "bytes": "8b0dc0310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143587,
+     "fixup_type": 3,
+     "instruction_rva": 143585,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143628,
+     "fixup_type": 3,
+     "instruction_rva": 143626,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143654,
+     "fixup_type": 3,
+     "instruction_rva": 143652,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143662,
+     "fixup_type": 3,
+     "instruction_rva": 143661,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143699,
+     "fixup_type": 3,
+     "instruction_rva": 143697,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143707,
+     "fixup_type": 3,
+     "instruction_rva": 143706,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143721,
+     "fixup_type": 3,
+     "instruction_rva": 143719,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143732,
+     "fixup_type": 3,
+     "instruction_rva": 143731,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22f00"
+    },
+    {
+     "field_rva": 143794,
+     "fixup_type": 3,
+     "instruction_rva": 143793,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_231a0"
+    },
+    {
+     "field_rva": 143815,
+     "fixup_type": 3,
+     "instruction_rva": 143814,
+     "instruction_size": 5,
+     "bytes": "a1c0310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_231a0"
+    },
+    {
+     "field_rva": 143838,
+     "fixup_type": 3,
+     "instruction_rva": 143836,
+     "instruction_size": 6,
+     "bytes": "8b15c0310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431c0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274880,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_231a0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 33,
+   "address_takings": 1,
+   "direct_memory_accesses": 32,
+   "memory_widths": [
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 113377,
+    "size": 5,
+    "operand": 1,
+    "bytes": "a1c0310410",
+    "sha256": "c40c55fc9a77f1cea919b44ee0f1271fe703ad67f6dfe5e944a70dcf24e796f2",
+    "mnemonic": "mov",
+    "operands": "eax, dword ptr [0x100431c0]",
+    "fixup_field_rva": 113378,
+    "fixup_type": 3,
+    "row_id": "eng3.eng3_1b9f0",
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_eng3_40524": {
+   "rva": 263460,
+   "members": [
+    "g_eng3_40524"
+   ],
+   "size": 4,
+   "type": "int *",
+   "owner_source": "src/eng3/loader_zero_cells_5.c",
+   "owner_symbol": "_g_eng3_40524",
+   "accesses": [
+    {
+     "field_rva": 147206,
+     "fixup_type": 3,
+     "instruction_rva": 147204,
+     "instruction_size": 10,
+     "bytes": "c7052405041000000000",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10040524], 0",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263460,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      },
+      {
+       "index": 1,
+       "kind": "immediate",
+       "value": "0x0"
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_23ef0"
+    },
+    {
+     "field_rva": 148553,
+     "fixup_type": 3,
+     "instruction_rva": 148551,
+     "instruction_size": 6,
+     "bytes": "8b0d24050410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040524]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263460,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.24420"
+    },
+    {
+     "field_rva": 148835,
+     "fixup_type": 3,
+     "instruction_rva": 148834,
+     "instruction_size": 5,
+     "bytes": "a324050410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10040524], eax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263460,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.24420"
+    },
+    {
+     "field_rva": 148861,
+     "fixup_type": 3,
+     "instruction_rva": 148859,
+     "instruction_size": 6,
+     "bytes": "8b3d24050410",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x10040524]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263460,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.24570"
+    },
+    {
+     "field_rva": 149201,
+     "fixup_type": 3,
+     "instruction_rva": 149199,
+     "instruction_size": 6,
+     "bytes": "893d24050410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10040524], edi",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263460,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.24570"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 5,
+   "address_takings": 0,
+   "direct_memory_accesses": 5,
+   "memory_widths": [
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 147204,
+    "size": 10,
+    "operand": 0,
+    "bytes": "c7052405041000000000",
+    "sha256": "f0c69503e8bb11522e7d47dfaee69fd96fffc2665f0da2def1121e65357463e3",
+    "mnemonic": "mov",
+    "operands": "dword ptr [0x10040524], 0",
+    "fixup_field_rva": 147206,
+    "fixup_type": 3,
+    "row_id": "eng3.eng3_23ef0",
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_eng3_41048": {
+   "rva": 266312,
+   "members": [
+    "g_eng3_41048"
+   ],
+   "size": 4,
+   "type": "int",
+   "owner_source": "src/eng3/loader_zero_cells_5.c",
+   "owner_symbol": "_g_eng3_41048",
+   "accesses": [
+    {
+     "field_rva": 109466,
+     "fixup_type": 3,
+     "instruction_rva": 109464,
+     "instruction_size": 10,
+     "bytes": "c7054810041001000000",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10041048], 1",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 266312,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      },
+      {
+       "index": 1,
+       "kind": "immediate",
+       "value": "0x1"
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1ab20"
+    },
+    {
+     "field_rva": 112883,
+     "fixup_type": 3,
+     "instruction_rva": 112882,
+     "instruction_size": 5,
+     "bytes": "a348100410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10041048], eax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 266312,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1b8f0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 2,
+   "address_takings": 0,
+   "direct_memory_accesses": 2,
+   "memory_widths": [
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 109464,
+    "size": 10,
+    "operand": 0,
+    "bytes": "c7054810041001000000",
+    "sha256": "79672d0acd9351707924ecff26e207b8037df224ed43ec7ead983c6e1ffbb614",
+    "mnemonic": "mov",
+    "operands": "dword ptr [0x10041048], 1",
+    "fixup_field_rva": 109466,
+    "fixup_type": 3,
+    "row_id": "eng3.1ab20",
+    "blocker_rows_overlapping": [
+     "eng3.1ab20"
+    ],
+    "lane_callers_overlapping": [],
+    "fallback_reason": "Only external MOV is inside pending eng3.1ab20; the other target reference is in assigned eng3.1b8f0."
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_eng3_actor_431d4": {
+   "rva": 274900,
+   "members": [
+    "g_eng3_actor_431d4"
+   ],
+   "size": 4,
+   "type": "Actor *",
+   "owner_source": "src/eng3/loader_zero_cells_5.c",
+   "owner_symbol": "_g_eng3_actor_431d4",
+   "accesses": [
+    {
+     "field_rva": 6386,
+     "fixup_type": 3,
+     "instruction_rva": 6384,
+     "instruction_size": 6,
+     "bytes": "8935d4310410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100431d4], esi",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 23009,
+     "fixup_type": 3,
+     "instruction_rva": 23008,
+     "instruction_size": 5,
+     "bytes": "a3d4310410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100431d4], eax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.059d0"
+    },
+    {
+     "field_rva": 83693,
+     "fixup_type": 3,
+     "instruction_rva": 83692,
+     "instruction_size": 5,
+     "bytes": "a3d4310410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100431d4], eax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.146d0"
+    },
+    {
+     "field_rva": 90942,
+     "fixup_type": 3,
+     "instruction_rva": 90940,
+     "instruction_size": 6,
+     "bytes": "8935d4310410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100431d4], esi",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.16320"
+    },
+    {
+     "field_rva": 108004,
+     "fixup_type": 3,
+     "instruction_rva": 108002,
+     "instruction_size": 6,
+     "bytes": "8915d4310410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100431d4], edx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1a560"
+    },
+    {
+     "field_rva": 109288,
+     "fixup_type": 3,
+     "instruction_rva": 109287,
+     "instruction_size": 5,
+     "bytes": "a3d4310410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100431d4], eax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1aac0"
+    },
+    {
+     "field_rva": 109336,
+     "fixup_type": 3,
+     "instruction_rva": 109335,
+     "instruction_size": 5,
+     "bytes": "a3d4310410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100431d4], eax",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1aaf0"
+    },
+    {
+     "field_rva": 109447,
+     "fixup_type": 3,
+     "instruction_rva": 109446,
+     "instruction_size": 5,
+     "bytes": "a1d4310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431d4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1ab20"
+    },
+    {
+     "field_rva": 115533,
+     "fixup_type": 3,
+     "instruction_rva": 115531,
+     "instruction_size": 6,
+     "bytes": "8b0dd4310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431d4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 115967,
+     "fixup_type": 3,
+     "instruction_rva": 115966,
+     "instruction_size": 5,
+     "bytes": "a1d4310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431d4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 140129,
+     "fixup_type": 3,
+     "instruction_rva": 140128,
+     "instruction_size": 5,
+     "bytes": "a1d4310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431d4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140273,
+     "fixup_type": 3,
+     "instruction_rva": 140271,
+     "instruction_size": 6,
+     "bytes": "8b15d4310410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x100431d4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140366,
+     "fixup_type": 3,
+     "instruction_rva": 140365,
+     "instruction_size": 5,
+     "bytes": "a1d4310410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100431d4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140469,
+     "fixup_type": 3,
+     "instruction_rva": 140467,
+     "instruction_size": 6,
+     "bytes": "8b0dd4310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431d4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140592,
+     "fixup_type": 3,
+     "instruction_rva": 140590,
+     "instruction_size": 6,
+     "bytes": "8b0dd4310410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100431d4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140900,
+     "fixup_type": 3,
+     "instruction_rva": 140898,
+     "instruction_size": 6,
+     "bytes": "3b05d4310410",
+     "mnemonic": "cmp",
+     "operands": "eax, dword ptr [0x100431d4]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.22620"
+    },
+    {
+     "field_rva": 165122,
+     "fixup_type": 3,
+     "instruction_rva": 165120,
+     "instruction_size": 6,
+     "bytes": "890dd4310410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100431d4], ecx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 274900,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.284f0"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 17,
+   "address_takings": 0,
+   "direct_memory_accesses": 17,
+   "memory_widths": [
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 6384,
+    "size": 6,
+    "operand": 0,
+    "bytes": "8935d4310410",
+    "sha256": "6c784617d9b2ea6d86e0759fe2bf16fc3c16fa2357eee7c26e14756ea860a95b",
+    "mnemonic": "mov",
+    "operands": "dword ptr [0x100431d4], esi",
+    "fixup_field_rva": 6386,
+    "fixup_type": 3,
+    "row_id": null,
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_eng3_camera_x_405e0": {
+   "rva": 263648,
+   "members": [
+    "g_eng3_camera_x_405e0"
+   ],
+   "size": 4,
+   "type": "long",
+   "owner_source": "src/eng3/loader_zero_cells_5.c",
+   "owner_symbol": "_g_eng3_camera_x_405e0",
+   "accesses": [
+    {
+     "field_rva": 6704,
+     "fixup_type": 3,
+     "instruction_rva": 6702,
+     "instruction_size": 6,
+     "bytes": "8915e0050410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100405e0], edx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_019b0"
+    },
+    {
+     "field_rva": 113289,
+     "fixup_type": 3,
+     "instruction_rva": 113288,
+     "instruction_size": 5,
+     "bytes": "a1e0050410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100405e0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b9f0"
+    },
+    {
+     "field_rva": 116591,
+     "fixup_type": 3,
+     "instruction_rva": 116589,
+     "instruction_size": 6,
+     "bytes": "890de0050410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100405e0], ecx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 139382,
+     "fixup_type": 3,
+     "instruction_rva": 139380,
+     "instruction_size": 6,
+     "bytes": "8b1de0050410",
+     "mnemonic": "mov",
+     "operands": "ebx, dword ptr [0x100405e0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 139987,
+     "fixup_type": 3,
+     "instruction_rva": 139985,
+     "instruction_size": 6,
+     "bytes": "8b35e0050410",
+     "mnemonic": "mov",
+     "operands": "esi, dword ptr [0x100405e0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140049,
+     "fixup_type": 3,
+     "instruction_rva": 140047,
+     "instruction_size": 6,
+     "bytes": "8b35e0050410",
+     "mnemonic": "mov",
+     "operands": "esi, dword ptr [0x100405e0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140291,
+     "fixup_type": 3,
+     "instruction_rva": 140289,
+     "instruction_size": 6,
+     "bytes": "8935e0050410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100405e0], esi",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140773,
+     "fixup_type": 3,
+     "instruction_rva": 140772,
+     "instruction_size": 5,
+     "bytes": "a1e0050410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x100405e0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140908,
+     "fixup_type": 3,
+     "instruction_rva": 140906,
+     "instruction_size": 6,
+     "bytes": "8b0de0050410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x100405e0]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.22620"
+    },
+    {
+     "field_rva": 140930,
+     "fixup_type": 3,
+     "instruction_rva": 140928,
+     "instruction_size": 6,
+     "bytes": "890de0050410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x100405e0], ecx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263648,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.22620"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 10,
+   "address_takings": 0,
+   "direct_memory_accesses": 10,
+   "memory_widths": [
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 116589,
+    "size": 6,
+    "operand": 0,
+    "bytes": "890de0050410",
+    "sha256": "2a2398d0069dfc967793f87569a389ae7f8a3977af5f26b523fb6437a413deec",
+    "mnemonic": "mov",
+    "operands": "dword ptr [0x100405e0], ecx",
+    "fixup_field_rva": 116591,
+    "fixup_type": 3,
+    "row_id": null,
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_eng3_layer_40638": {
+   "rva": 263736,
+   "members": [
+    "g_eng3_layer_40638"
+   ],
+   "size": 1,
+   "type": "signed char",
+   "owner_source": "src/eng3/loader_zero_cells_5.c",
+   "owner_symbol": "_g_eng3_layer_40638",
+   "accesses": [
+    {
+     "field_rva": 95586,
+     "fixup_type": 3,
+     "instruction_rva": 95585,
+     "instruction_size": 5,
+     "bytes": "a038060410",
+     "mnemonic": "mov",
+     "operands": "al, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.174e0"
+    },
+    {
+     "field_rva": 107088,
+     "fixup_type": 3,
+     "instruction_rva": 107085,
+     "instruction_size": 7,
+     "bytes": "0fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "eax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1a180"
+    },
+    {
+     "field_rva": 107600,
+     "fixup_type": 3,
+     "instruction_rva": 107598,
+     "instruction_size": 7,
+     "bytes": "c6053806041001",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x10040638], 1",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      },
+      {
+       "index": 1,
+       "kind": "immediate",
+       "value": "0x1"
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1a330"
+    },
+    {
+     "field_rva": 116630,
+     "fixup_type": 3,
+     "instruction_rva": 116628,
+     "instruction_size": 6,
+     "bytes": "881538060410",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x10040638], dl",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 117907,
+     "fixup_type": 3,
+     "instruction_rva": 117903,
+     "instruction_size": 8,
+     "bytes": "660fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "ax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.remove_actor"
+    },
+    {
+     "field_rva": 117965,
+     "fixup_type": 3,
+     "instruction_rva": 117961,
+     "instruction_size": 8,
+     "bytes": "660fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "ax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.remove_actor"
+    },
+    {
+     "field_rva": 119357,
+     "fixup_type": 3,
+     "instruction_rva": 119353,
+     "instruction_size": 8,
+     "bytes": "660fbe1538060410",
+     "mnemonic": "movsx",
+     "operands": "dx, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.remove_actor_variant"
+    },
+    {
+     "field_rva": 119399,
+     "fixup_type": 3,
+     "instruction_rva": 119395,
+     "instruction_size": 8,
+     "bytes": "660fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "ax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.remove_actor_variant"
+    },
+    {
+     "field_rva": 120708,
+     "fixup_type": 3,
+     "instruction_rva": 120704,
+     "instruction_size": 8,
+     "bytes": "660fbe1538060410",
+     "mnemonic": "movsx",
+     "operands": "dx, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.release_actor"
+    },
+    {
+     "field_rva": 120750,
+     "fixup_type": 3,
+     "instruction_rva": 120746,
+     "instruction_size": 8,
+     "bytes": "660fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "ax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.release_actor"
+    },
+    {
+     "field_rva": 131712,
+     "fixup_type": 3,
+     "instruction_rva": 131709,
+     "instruction_size": 7,
+     "bytes": "0fbe0d38060410",
+     "mnemonic": "movsx",
+     "operands": "ecx, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 131758,
+     "fixup_type": 3,
+     "instruction_rva": 131755,
+     "instruction_size": 7,
+     "bytes": "0fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "eax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 131927,
+     "fixup_type": 3,
+     "instruction_rva": 131924,
+     "instruction_size": 7,
+     "bytes": "0fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "eax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 132055,
+     "fixup_type": 3,
+     "instruction_rva": 132052,
+     "instruction_size": 7,
+     "bytes": "0fbe0d38060410",
+     "mnemonic": "movsx",
+     "operands": "ecx, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 132291,
+     "fixup_type": 3,
+     "instruction_rva": 132288,
+     "instruction_size": 7,
+     "bytes": "0fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "eax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_204c0"
+    },
+    {
+     "field_rva": 139398,
+     "fixup_type": 3,
+     "instruction_rva": 139395,
+     "instruction_size": 7,
+     "bytes": "0fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "eax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 140516,
+     "fixup_type": 3,
+     "instruction_rva": 140513,
+     "instruction_size": 7,
+     "bytes": "0fbe0538060410",
+     "mnemonic": "movsx",
+     "operands": "eax, byte ptr [0x10040638]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_222c0"
+    },
+    {
+     "field_rva": 140914,
+     "fixup_type": 3,
+     "instruction_rva": 140912,
+     "instruction_size": 6,
+     "bytes": "881d38060410",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x10040638], bl",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 1,
+       "absolute_rva": 263736,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 1,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.22620"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 18,
+   "address_takings": 0,
+   "direct_memory_accesses": 18,
+   "memory_widths": [
+    1
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 116628,
+    "size": 6,
+    "operand": 0,
+    "bytes": "881538060410",
+    "sha256": "0e9005981a980360045ac3a342550585dd221586c712bb969964c717b6c30c43",
+    "mnemonic": "mov",
+    "operands": "byte ptr [0x10040638], dl",
+    "fixup_field_rva": 116630,
+    "fixup_type": 3,
+    "row_id": null,
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_eng3_layers_40674": {
+   "rva": 263796,
+   "members": [
+    "g_eng3_layers_40674"
+   ],
+   "size": 4,
+   "type": "Eng3Layer *",
+   "owner_source": "src/eng3/loader_zero_cells_5.c",
+   "owner_symbol": "_g_eng3_layers_40674",
+   "accesses": [
+    {
+     "field_rva": 110562,
+     "fixup_type": 3,
+     "instruction_rva": 110560,
+     "instruction_size": 6,
+     "bytes": "890d74060410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10040674], ecx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1af10"
+    },
+    {
+     "field_rva": 111412,
+     "fixup_type": 3,
+     "instruction_rva": 111410,
+     "instruction_size": 6,
+     "bytes": "8b0d74060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b2e0"
+    },
+    {
+     "field_rva": 111783,
+     "fixup_type": 3,
+     "instruction_rva": 111781,
+     "instruction_size": 6,
+     "bytes": "8b0d74060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_1b4a0"
+    },
+    {
+     "field_rva": 114787,
+     "fixup_type": 3,
+     "instruction_rva": 114785,
+     "instruction_size": 6,
+     "bytes": "8b0d74060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 114863,
+     "fixup_type": 3,
+     "instruction_rva": 114861,
+     "instruction_size": 6,
+     "bytes": "8b0d74060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 115143,
+     "fixup_type": 3,
+     "instruction_rva": 115141,
+     "instruction_size": 6,
+     "bytes": "8b0d74060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 131718,
+     "fixup_type": 3,
+     "instruction_rva": 131716,
+     "instruction_size": 6,
+     "bytes": "8b3d74060410",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 131764,
+     "fixup_type": 3,
+     "instruction_rva": 131762,
+     "instruction_size": 6,
+     "bytes": "8b1574060410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 131903,
+     "fixup_type": 3,
+     "instruction_rva": 131901,
+     "instruction_size": 6,
+     "bytes": "8b1574060410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 132013,
+     "fixup_type": 3,
+     "instruction_rva": 132012,
+     "instruction_size": 5,
+     "bytes": "a174060410",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 132065,
+     "fixup_type": 3,
+     "instruction_rva": 132063,
+     "instruction_size": 6,
+     "bytes": "8b0d74060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": null
+    },
+    {
+     "field_rva": 132324,
+     "fixup_type": 3,
+     "instruction_rva": 132322,
+     "instruction_size": 6,
+     "bytes": "8b3574060410",
+     "mnemonic": "mov",
+     "operands": "esi, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_204c0"
+    },
+    {
+     "field_rva": 140852,
+     "fixup_type": 3,
+     "instruction_rva": 140850,
+     "instruction_size": 6,
+     "bytes": "8b3d74060410",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.22620"
+    },
+    {
+     "field_rva": 141301,
+     "fixup_type": 3,
+     "instruction_rva": 141299,
+     "instruction_size": 6,
+     "bytes": "8b0d74060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22790"
+    },
+    {
+     "field_rva": 141386,
+     "fixup_type": 3,
+     "instruction_rva": 141384,
+     "instruction_size": 6,
+     "bytes": "8b3d74060410",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_22790"
+    },
+    {
+     "field_rva": 146232,
+     "fixup_type": 3,
+     "instruction_rva": 146230,
+     "instruction_size": 6,
+     "bytes": "8b0d74060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040674]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263796,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_23b00"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 16,
+   "address_takings": 0,
+   "direct_memory_accesses": 16,
+   "memory_widths": [
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 111410,
+    "size": 6,
+    "operand": 1,
+    "bytes": "8b0d74060410",
+    "sha256": "0858c569dabb89d05465a520b46c0b0244b5f00bcb536ebb3285f7531316ac3b",
+    "mnemonic": "mov",
+    "operands": "ecx, dword ptr [0x10040674]",
+    "fixup_field_rva": 111412,
+    "fixup_type": 3,
+    "row_id": "eng3.eng3_1b2e0",
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  },
+  "g_eng3_shape_table_40654": {
+   "rva": 263764,
+   "members": [
+    "g_eng3_shape_table_40654"
+   ],
+   "size": 4,
+   "type": "char *",
+   "owner_source": "src/eng3/loader_zero_cells_5.c",
+   "owner_symbol": "_g_eng3_shape_table_40654",
+   "accesses": [
+    {
+     "field_rva": 110754,
+     "fixup_type": 3,
+     "instruction_rva": 110752,
+     "instruction_size": 6,
+     "bytes": "890d54060410",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10040654], ecx",
+     "operand_inventory": [
+      {
+       "index": 0,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263764,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.1af10"
+    },
+    {
+     "field_rva": 146873,
+     "fixup_type": 3,
+     "instruction_rva": 146871,
+     "instruction_size": 6,
+     "bytes": "8b0d54060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040654]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263764,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.23d90"
+    },
+    {
+     "field_rva": 147025,
+     "fixup_type": 3,
+     "instruction_rva": 147023,
+     "instruction_size": 6,
+     "bytes": "8b0d54060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040654]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263764,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_23e20"
+    },
+    {
+     "field_rva": 147118,
+     "fixup_type": 3,
+     "instruction_rva": 147116,
+     "instruction_size": 6,
+     "bytes": "8b0d54060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040654]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263764,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.shared_23e20"
+    },
+    {
+     "field_rva": 148580,
+     "fixup_type": 3,
+     "instruction_rva": 148578,
+     "instruction_size": 6,
+     "bytes": "8b0d54060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040654]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263764,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.24420"
+    },
+    {
+     "field_rva": 148871,
+     "fixup_type": 3,
+     "instruction_rva": 148869,
+     "instruction_size": 6,
+     "bytes": "8b1554060410",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x10040654]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263764,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.24570"
+    },
+    {
+     "field_rva": 149633,
+     "fixup_type": 3,
+     "instruction_rva": 149631,
+     "instruction_size": 6,
+     "bytes": "8b0d54060410",
+     "mnemonic": "mov",
+     "operands": "ecx, dword ptr [0x10040654]",
+     "operand_inventory": [
+      {
+       "index": 1,
+       "kind": "memory",
+       "width_bytes": 4,
+       "absolute_rva": 263764,
+       "base_register": null,
+       "index_register": null,
+       "direct_absolute_unindexed": true
+      }
+     ],
+     "access_kind": "direct_memory",
+     "access_width_bytes": 4,
+     "direct_absolute_offset": 0,
+     "row_id": "eng3.eng3_24870"
+    }
+   ],
+   "file_backed_absolute_fixup_fields": 7,
+   "address_takings": 0,
+   "direct_memory_accesses": 7,
+   "memory_widths": [
+    4
+   ],
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "extent_pass": true,
+   "extent_decision": "pass: every native memory operand is direct, unindexed, at offset 0 and has the declared scalar width; address-taking references are listed separately",
+   "offset_references": [],
+   "anchor": {
+    "rva": 149631,
+    "size": 6,
+    "operand": 1,
+    "bytes": "8b0d54060410",
+    "sha256": "7b803d1ddfd2ff352f7fd10f737ab0fc3c2a1dd69b48d2bbd8f3d01d6f02c571",
+    "mnemonic": "mov",
+    "operands": "ecx, dword ptr [0x10040654]",
+    "fixup_field_rva": 149633,
+    "fixup_type": 3,
+    "row_id": "eng3.eng3_24870",
+    "blocker_rows_overlapping": [],
+    "lane_callers_overlapping": [],
+    "fallback_reason": null
+   },
+   "zero_tail_contains_extent": true
+  }
+ },
+ "neighborhoods": [
+  {
+   "start_rva": 265154,
+   "end_rva": 265160,
+   "cells": [
+    "g_2bf62",
+    "g_2bf64",
+    "g_eng3_40bc6"
+   ],
+   "result": "Word operands at 0x40bc2 and 0x40bc4 end at their declared extents; the dword operand at 0x40bc6 starts at the skipped cell and exceeds its two-byte width."
+  },
+  {
+   "start_rva": 265168,
+   "end_rva": 265172,
+   "cells": [
+    "g_2bf70",
+    "g_2bf72",
+    "g_alternate_limit_primary"
+   ],
+   "result": "All references start at a word cell base with width two."
+  },
+  {
+   "start_rva": 265264,
+   "end_rva": 265268,
+   "cells": [
+    "g_2bff0",
+    "g_2bff2",
+    "g_eng3_middle_limit_primary"
+   ],
+   "result": "All references start at a word cell base with width two."
+  }
+ ],
+ "skipped_cells": [
+  {
+   "symbol": "_g_eng3_40bc6",
+   "rva": 265158,
+   "declared_width_bytes": 2,
+   "reason": "The complete native instruction at RVA 0x1c59b is CMP EBX, dword ptr [0x10040bc6], so this address is read as a dword. No owner is inferred and its binding is omitted."
+  }
+ ],
+ "neighborhood_accesses": [
+  {
+   "range_rva": [
+    "0x40bc0",
+    "0x40bc9"
+   ],
+   "near_cells": [
+    "g_2bf62",
+    "g_2bf64",
+    "g_eng3_40bc6"
+   ],
+   "starts": [
+    {
+     "target_rva": "0x40bc0",
+     "fields": [
+      "0x8b9e",
+      "0x1c908",
+      "0x1c963",
+      "0x1da07"
+     ],
+     "width_bytes": [
+      2
+     ],
+     "count": 4,
+     "span": "[0x40bc0,0x40bc2), ends at g_2bf62 start"
+    },
+    {
+     "target_rva": "0x40bc2",
+     "fields": [
+      "0x1bb40",
+      "0x1be10",
+      "0x1d004",
+      "0x1db0c"
+     ],
+     "width_bytes": [
+      2
+     ],
+     "count": 4,
+     "span": "[0x40bc2,0x40bc4)"
+    },
+    {
+     "target_rva": "0x40bc4",
+     "fields": [
+      "0x1cf1a",
+      "0x1cf55",
+      "0x1cf9a",
+      "0x1dae7"
+     ],
+     "width_bytes": [
+      2
+     ],
+     "count": 4,
+     "span": "[0x40bc4,0x40bc6), ends at g_eng3_40bc6 start"
+    },
+    {
+     "target_rva": "0x40bc6",
+     "fields": [
+      "0x1b8f9",
+      "0x1c02d",
+      "0x1c049",
+      "0x1c181",
+      "0x1c253",
+      "0x1c439",
+      "0x1c59d"
+     ],
+     "width_bytes": [
+      2,
+      4
+     ],
+     "count": 7,
+     "span": "g_eng3_40bc6; the 4-byte access at 0x1c59d exceeds its declared extent"
+    },
+    {
+     "target_rva": "0x40bc8",
+     "fields": [
+      "0x1daed"
+     ],
+     "width_bytes": [
+      4
+     ],
+     "count": 1,
+     "span": "starts at g_eng3_40bc6 end; no overlap"
+    }
+   ]
+  },
+  {
+   "range_rva": [
+    "0x40bcc",
+    "0x40bd5"
+   ],
+   "near_cells": [
+    "g_2bf6e",
+    "g_2bf70",
+    "g_2bf72",
+    "g_alternate_limit_primary"
+   ],
+   "starts": [
+    {
+     "target_rva": "0x40bcc",
+     "fields": [
+      "0x1a33c",
+      "0x1bc20",
+      "0x1bd28",
+      "0x1be79",
+      "0x1bebe",
+      "0x1bf50",
+      "0x1bf7b",
+      "0x1c8c3",
+      "0x1cdc6",
+      "0x1cdfa",
+      "0x1ce16",
+      "0x1ce34",
+      "0x1dab6"
+     ],
+     "width_bytes": [
+      2
+     ],
+     "count": 13,
+     "span": "[0x40bcc,0x40bce), ends at g_2bf6e start"
+    },
+    {
+     "target_rva": "0x40bce",
+     "fields": [
+      "0x8b2c",
+      "0x1d492",
+      "0x1d4e7",
+      "0x1da0e",
+      "0x1da1c"
+     ],
+     "width_bytes": [
+      2
+     ],
+     "count": 5,
+     "span": "[0x40bce,0x40bd0)"
+    },
+    {
+     "target_rva": "0x40bd0",
+     "fields": [
+      "0x1cfae",
+      "0x1cfe9",
+      "0x1d034",
+      "0x1db13"
+     ],
+     "width_bytes": [
+      2
+     ],
+     "count": 4,
+     "span": "[0x40bd0,0x40bd2), ends at g_2bf72 start"
+    },
+    {
+     "target_rva": "0x40bd2",
+     "fields": [
+      "0x1a38a",
+      "0x1ba98",
+      "0x1bb2b",
+      "0x1bd9a",
+      "0x1bdf9",
+      "0x1bfca",
+      "0x1bff5",
+      "0x1d453",
+      "0x1d816",
+      "0x1d84a",
+      "0x1d866",
+      "0x1d884",
+      "0x1da90"
+     ],
+     "width_bytes": [
+      2
+     ],
+     "count": 13,
+     "span": "[0x40bd2,0x40bd4)"
+    },
+    {
+     "target_rva": "0x40bd4",
+     "fields": [
+      "0x1db31",
+      "0x22b47"
+     ],
+     "width_bytes": [
+      4
+     ],
+     "count": 2,
+     "span": "starts at g_alternate_limit_primary end; no overlap"
+    }
+   ]
+  },
+  {
+   "range_rva": [
+    "0x431d1",
+    "0x431d8"
+   ],
+   "near_cells": [
+    "g_eng3_actor_431d4"
+   ],
+   "starts": [
+    {
+     "target_rva": "0x431d1",
+     "fields": [
+      "0x1a63c"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 1,
+     "span": "one byte ends before g_eng3_actor_431d4"
+    },
+    {
+     "target_rva": "0x431d2",
+     "fields": [
+      "0x1a665",
+      "0xad75"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 2,
+     "span": "one-byte accesses end before g_eng3_actor_431d4"
+    },
+    {
+     "target_rva": "0x431d4",
+     "fields": [
+      "0x059e1",
+      "0x146ed",
+      "0x1633e",
+      "0x1a5e4",
+      "0x1aae8",
+      "0x1ab18",
+      "0x1ab87",
+      "0x1c34d",
+      "0x1c4ff",
+      "0x22361",
+      "0x223f1",
+      "0x2244e",
+      "0x224b5",
+      "0x22530",
+      "0x22664",
+      "0x28502"
+     ],
+     "width_bytes": [
+      4
+     ],
+     "count": 17,
+     "span": "the pointer cell itself"
+    },
+    {
+     "target_rva": "0x431d8",
+     "fields": [
+      "0x8b66",
+      "0x8bef",
+      "0xa4d0",
+      "0xa4d9"
+     ],
+     "width_bytes": [
+      4
+     ],
+     "count": 4,
+     "span": "starts at g_eng3_actor_431d4 end; no overlap"
+    }
+   ]
+  },
+  {
+   "range_rva": [
+    "0x40634",
+    "0x4063e"
+   ],
+   "near_cells": [
+    "g_eng3_layer_40638"
+   ],
+   "starts": [
+    {
+     "target_rva": "0x40634",
+     "fields": [
+      "0xab82",
+      "0x23c21"
+     ],
+     "width_bytes": [
+      1,
+      4
+     ],
+     "count": 2,
+     "span": "byte store and dword read occupy [0x40634,0x40638); the dword ends exactly at g_eng3_layer_40638 start"
+    },
+    {
+     "target_rva": "0x40635",
+     "fields": [
+      "0x18ac5",
+      "0x2232e"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 2,
+     "span": "byte accesses end before the cell"
+    },
+    {
+     "target_rva": "0x40636",
+     "fields": [
+      "0x1c7de",
+      "0x1c825",
+      "0x22419"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 3,
+     "span": "byte accesses end before the cell"
+    },
+    {
+     "target_rva": "0x40637",
+     "fields": [
+      "0x1c7ea",
+      "0x2255c"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 2,
+     "span": "byte accesses end at the cell start"
+    },
+    {
+     "target_rva": "0x40638",
+     "fields": [
+      "0x17562",
+      "0x1a250",
+      "0x1a450",
+      "0x1c796",
+      "0x1cc93",
+      "0x1cccd",
+      "0x1d23d",
+      "0x1d267",
+      "0x1d784",
+      "0x1d7ae",
+      "0x20280",
+      "0x202ae",
+      "0x20357",
+      "0x203d7",
+      "0x204c3",
+      "0x22086",
+      "0x224e4",
+      "0x22672"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 18,
+     "span": "the declared byte cell; every access is direct at offset 0"
+    },
+    {
+     "target_rva": "0x40639",
+     "fields": [
+      "0x177ec",
+      "0x1819e",
+      "0x1c888",
+      "0x222f3"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 4,
+     "span": "starts after the cell; no overlap"
+    },
+    {
+     "target_rva": "0x4063a",
+     "fields": [
+      "0x181a4",
+      "0x222c4",
+      "0x2233c",
+      "0x22380",
+      "0x22427",
+      "0x2256a"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 6,
+     "span": "starts after the cell; no overlap"
+    },
+    {
+     "target_rva": "0x4063b",
+     "fields": [
+      "0x1a67c",
+      "0x1c81e",
+      "0x1c847",
+      "0x1c869",
+      "0x201d8"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 5,
+     "span": "starts after the cell; no overlap"
+    },
+    {
+     "target_rva": "0x4063c",
+     "fields": [
+      "0x1a683",
+      "0x201df",
+      "0x2231e",
+      "0x22326"
+     ],
+     "width_bytes": [
+      1
+     ],
+     "count": 4,
+     "span": "starts after the cell; no overlap"
+    },
+    {
+     "target_rva": "0x4063e",
+     "fields": [
+      "0x1a674",
+      "0x1b456"
+     ],
+     "width_bytes": [
+      2
+     ],
+     "count": 2,
+     "span": "starts after the cell; no overlap"
+    }
+   ]
+  }
+ ],
+ "neighborhood_result": "Adjacent scalar roots were included where they could overlap an extent. The only preceding roots whose accesses reach a candidate cell are 0x40bc0 (word ends at 0x40bc2), 0x40bcc (word ends at 0x40bce), 0x40634 (dword ends at 0x40638), bytes 0x40635?0x40637 (all byte accesses end before 0x40638), and bytes 0x431d1?0x431d2 (all byte accesses end before 0x431d4). None crosses into a passing scalar. Target 0x40bc6 itself has a dword read and remains skipped."
+}

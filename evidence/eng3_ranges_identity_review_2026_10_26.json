@@ -1,0 +1,221 @@
+{
+ "task_id": "eng3_ranges",
+ "function_ids": [
+  "eng3.16550",
+  "eng3.1b7f0",
+  "eng3.1b920"
+ ],
+ "target": {
+  "path": "assets/pc/HERCULES/ENG3.DLL",
+  "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+ },
+ "priority_counts_from_classify": {
+  "_eng3_1eff0": 12,
+  "_eng3_01600": 9,
+  "_g_eng3_ranges_4078c": 5,
+  "_g_eng3_40b92": 3
+ },
+ "symbols": {
+  "_eng3_1eff0": {
+   "result": "identity established from the callee own ledger row and ENG1 cross-module twin",
+   "identity_id": "eng3.shared_1eff0",
+   "rva": 126960,
+   "size": 176,
+   "target_function_sha256": "4fb406a6bbac2bb710fb24bb3d65db968f5f31c98ecde4782bb46a35fa68f0af",
+   "source": "src/eng1/actor_unit_282e0.cpp",
+   "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "ledger_proof_scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+   "ledger_masked_sha256": "2dbdbb61300a3e6562a548d01e6b22ebe21a6ef73d475d92a661bc8d3f8053d4",
+   "basis": "recovery.json#eng3.shared_1eff0 records the ENG1 source as a relocation-masked twin at the ENG3 own native entry; no identity is inferred from its callers.",
+   "acceptance": "CODEGEN_SIMILAR only; no function-match acceptance claim."
+  },
+  "_eng3_01600": {
+   "result": "identity established at the native entry through an outside direct caller and a decoded native body",
+   "identity_id": "eng3.01600",
+   "rva": 5632,
+   "native_extent_size": 624,
+   "native_extent_sha256": "1c5b81c860d01501f0353d8dfc0a8834f4f967e9ab7079afe2b7e171bc118af7",
+   "native_instruction_body_size": 610,
+   "native_instruction_body_sha256": "558b1c9d443cc6f706c1d5e7b3351113e3e079dabacb321e4e296134c5f52125",
+   "body_decoded": true,
+   "last_instruction": "ret",
+   "native_alignment_padding_bytes": 14,
+   "outside_caller": {
+    "recovery_id": "eng3.eng3_26770",
+    "status": "RECONSTRUCTED",
+    "source": "src/eng3/handlers_25040.c",
+    "source_sha256": "3aa2c3be889d92ca3962085aa34c9a6c54ed7d2326d91e728a04ff10e7e4de78",
+    "source_line": 834,
+    "source_expression": "eng3_01600(o)",
+    "native_call_rva": 158368,
+    "native_call_and_cleanup_bytes": "e85babfdff83c404",
+    "native_call_destination": 5632,
+    "outside_pending_set": "eng3.eng3_26770 is not a row in work/velocity_b/classify.json."
+   },
+   "boundary_basis": "The native body decodes completely through RET at RVA 0x1861, then has 14 NOP bytes to the next function-map start at RVA 0x1870. The 624-byte extent comes from a diagnostic native function map, not an accepted recovery extent.",
+   "acceptance": "Native identity only; no source equality or function-match acceptance claim."
+  },
+  "_g_eng3_ranges_4078c": {
+   "result": "unsupported BSS form; not bound",
+   "rva": 264076,
+   "section": ".data",
+   "file_backed": false,
+   "owner_source": null,
+   "source_uses": [
+    "src/eng3/handlers_16240.cpp:497,499,509,511 use g_eng3_ranges_4078c[layer].field",
+    "src/eng3/render_unit_22f00.cpp:1478,1499 index the pointer by object layer",
+    "src/eng3/track_unit_20010.cpp:534,536,548,1590 index the pointer by layer",
+    "src/eng3/track_unit_20010.cpp:1579-1582 frees/reallocates the pointer slot"
+   ],
+   "owner_search": "No definition for g_eng3_ranges_4078c was found anywhere under src; the current declarations are extern.",
+   "first_unsupported_form": "Indexed/aliased BSS is expressly unsupported by docs/matching.md; no explicit BSS owner proof can be made from the available source."
+  },
+  "_g_eng3_40b92": {
+   "result": "no binding; owner source is missing",
+   "rva": 265106,
+   "size": 2,
+   "section": ".data",
+   "file_backed": false,
+   "declaration": "src/eng3/handlers_16240.cpp:231 declares extern short g_eng3_40b92",
+   "owner_search": "No definition for g_eng3_40b92 was found anywhere under src; only the extern declaration and client accesses are present.",
+   "first_blocker": "No real owner source and no separately pinned explicit BSS owner proof with an independent native anchor."
+  }
+ },
+ "target_rows": {
+  "eng3.16550": {
+   "unbound_blockers": [
+    "_g_eng3_40b92",
+    "_g_eng3_ranges_4078c"
+   ],
+   "reused_identity": [
+    "_g_engine_interface (accepted BSS record)"
+   ],
+   "references": [
+    {
+     "sym": "_g_eng3_40b92",
+     "kind": "data_undefined",
+     "off": 3,
+     "typ": 6,
+     "addend": 0,
+     "dest": 265106
+    },
+    {
+     "sym": "_g_eng3_ranges_4078c",
+     "kind": "data_undefined",
+     "off": 25,
+     "typ": 6,
+     "addend": 0,
+     "dest": 264076
+    },
+    {
+     "sym": "_g_engine_interface",
+     "kind": "data_undefined",
+     "off": 33,
+     "typ": 6,
+     "addend": 4,
+     "dest": 264096
+    }
+   ]
+  },
+  "eng3.1b7f0": {
+   "unbound_blockers": [
+    "_g_eng3_ranges_4078c"
+   ],
+   "reused_identity": [
+    "_eng3_1eeb0 (accepted function identity)",
+    "_g_engine_interface (accepted BSS record)",
+    "_release_actor (accepted function identity)",
+    "_eng3_24a80 (callee own recovery row)"
+   ],
+   "references": [
+    {
+     "sym": "_eng3_1eeb0",
+     "kind": "function_shape_equal",
+     "callee": "eng3.1eeb0",
+     "off": 15,
+     "typ": 20,
+     "addend": 0,
+     "dest": 126640
+    },
+    {
+     "sym": "_g_eng3_ranges_4078c",
+     "kind": "data_undefined",
+     "off": 21,
+     "typ": 6,
+     "addend": 0,
+     "dest": 264076
+    },
+    {
+     "sym": "_g_engine_interface",
+     "kind": "data_undefined",
+     "off": 33,
+     "typ": 6,
+     "addend": 4,
+     "dest": 264096
+    },
+    {
+     "sym": "_release_actor",
+     "kind": "function_shape_equal",
+     "callee": "eng3.release_actor",
+     "off": 79,
+     "typ": 20,
+     "addend": 0,
+     "dest": 120544
+    },
+    {
+     "sym": "_eng3_24a80",
+     "kind": "function_shape_equal",
+     "callee": "eng3.24a80",
+     "off": 136,
+     "typ": 20,
+     "addend": 0,
+     "dest": 150144
+    }
+   ]
+  },
+  "eng3.1b920": {
+   "unbound_blockers": [
+    "_g_eng3_ranges_4078c"
+   ],
+   "reused_identity": [
+    "_g_engine_interface (accepted BSS record)"
+   ],
+   "references": [
+    {
+     "sym": "_g_eng3_ranges_4078c",
+     "kind": "data_undefined",
+     "off": 4,
+     "typ": 6,
+     "addend": 0,
+     "dest": 264076
+    },
+    {
+     "sym": "_g_engine_interface",
+     "kind": "data_undefined",
+     "off": 17,
+     "typ": 6,
+     "addend": 4,
+     "dest": 264096
+    }
+   ]
+  }
+ },
+ "source_hashes": {
+  "src/eng3/handlers_16240.cpp": "3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e",
+  "src/eng3/track_unit_20010.cpp": "629d9271c5771e823424e5918fab502cb511cb742c75932151083f4ef2a50d41",
+  "src/eng3/render_unit_22f00.cpp": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+  "src/eng3/handlers_25040.c": "3aa2c3be889d92ca3962085aa34c9a6c54ed7d2326d91e728a04ff10e7e4de78",
+  "src/eng3/actor_services_1e000.c": "d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475",
+  "src/eng1/actor_unit_282e0.cpp": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+  "src/shared/release_actor_repaired.c": "df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac",
+  "src/shared/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+  "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529"
+ },
+ "native_review_path": "work/velocity_b/eng3_ranges/identity_review.json",
+ "native_function_map_path": "work/velocity_b/eng3_ranges/native_function_map.json",
+ "focused_references_check": {
+  "result": "not run: none of the three caller rows has a complete independent reference inventory because the unsupported/missing BSS symbols remain unresolved",
+  "compiler_calls": 0
+ }
+}

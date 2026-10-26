@@ -1,0 +1,3045 @@
+{
+ "schema": 1,
+ "scope": "Lane-local ENG1 callee identity review proposal. No matching acceptance claim. Candidate destinations are admitted only with independent ENG1 native entry/extent and nonpending direct-call witnesses; cross-module aliases resolve to ENG1 addresses.",
+ "reviewed_at": "2026-10-26",
+ "target": {
+  "path": "assets/pc/HERCULES/ENG1.DLL",
+  "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "image_base": "0x10000000"
+ },
+ "current_recovery_sha256": "e16a835a0852c05d4f0f52f754000e118452a2eaa707e31638e0b199c54277e9",
+ "capstone_version": "5.0.7",
+ "outside_direct_call_scan": {
+  "method": "Capstone x86-32 decoding of every ENG1 recovery-row native contribution, including complete recorded contribution spans; direct CALL/JMP immediate operands only.",
+  "pending_rows_excluded": [
+   "eng1.091f0",
+   "eng1.16990",
+   "eng1.29c20",
+   "eng1.349f0",
+   "eng1.34bb0",
+   "eng1.34c00",
+   "eng1.36150",
+   "eng1.361a0",
+   "eng1.3bcb0",
+   "eng1.3d780",
+   "eng1.3fe00",
+   "eng1.call_1fdf0",
+   "eng1.dispatch_local_1fd20",
+   "eng1.dispatch_local_1fd90",
+   "eng1.native_code_target_001d80",
+   "eng1.native_code_target_001e30",
+   "eng1.native_code_target_011450",
+   "eng1.native_code_target_040e20",
+   "eng1.od_0827f",
+   "eng1.shared_03410",
+   "eng1.shared_03750",
+   "eng1.shared_03870",
+   "eng1.shared_038d0",
+   "eng1.shared_04c10",
+   "eng1.shared_303d0",
+   "eng1.shared_31000",
+   "eng1.shared_31d30",
+   "eng1.target_033e0"
+  ],
+  "callers_are_independent_only_when_caller_id_not_in_pending_rows": true,
+  "scope_limit": "Absence means no caller found in decoded recovery-row spans; it is not a whole-image negative proof."
+ },
+ "function_identities": {
+  "_eng1_02500": {
+   "symbol": "_eng1_02500",
+   "candidate_native_rva": 9472,
+   "candidate_native_rva_hex": "0x2500",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": null,
+   "extent": {
+    "basis": "native body review proposal",
+    "size": 1056,
+    "end_rva_exclusive": 10528,
+    "native_span_sha256": "caa2a06b98e8d47b952c2e2dfd7a513a95bdc9748ebaa84484f474314b029235",
+    "details": {
+     "size": 1056,
+     "end_rva": 10528,
+     "ret_rvas": [
+      "0x25f1",
+      "0x2795",
+      "0x291e"
+     ],
+     "abi": "cdecl; two 32-bit stack arguments; external caller cleans 8 bytes; native body returns with plain RET and EAX result path.",
+     "abi_witness_rva": "0x3a467",
+     "extent_basis": "Native entry 0x2500 through the last RET at 0x291e and one alignment NOP at 0x291f; next independently indexed entry 0x2920. Full-span hash is pinned below."
+    }
+   },
+   "source_body": null,
+   "fresh_own_shape_status": "native_review_recorded_source_shape_check_required_if_source_exists",
+   "outside_direct_callers": [
+    {
+     "site_rva": 238695,
+     "kind": "call",
+     "bytes": "e89480fcff",
+     "caller_id": "eng1.3a420",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 1,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_02920": {
+   "symbol": "_eng1_02920",
+   "candidate_native_rva": 10528,
+   "candidate_native_rva_hex": "0x2920",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": null,
+   "extent": {
+    "basis": "native body review proposal",
+    "size": 240,
+    "end_rva_exclusive": 10768,
+    "native_span_sha256": "cbe27dc72324f9a39c54872a8e15cce3bcc39cd74ab037333903bd27f0cb219a",
+    "details": {
+     "size": 240,
+     "end_rva": 10768,
+     "ret_rvas": [
+      "0x2a0b"
+     ],
+     "abi": "cdecl; two 32-bit stack arguments; outside caller cleans 8 bytes; plain RET.",
+     "abi_witness_rva": "0x3a413",
+     "extent_basis": "Native entry 0x2920 through RET at 0x2a0b and four alignment NOPs; next independently indexed entry 0x2a10."
+    }
+   },
+   "source_body": null,
+   "fresh_own_shape_status": "native_review_recorded_source_shape_check_required_if_source_exists",
+   "outside_direct_callers": [
+    {
+     "site_rva": 238611,
+     "kind": "call",
+     "bytes": "e80885fcff",
+     "caller_id": "eng1.3a390",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 1,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_10900": {
+   "symbol": "_eng1_10900",
+   "candidate_native_rva": 67840,
+   "candidate_native_rva_hex": "0x10900",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.eng1_10900",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.eng1_10900",
+    "row_id": "eng1.eng1_10900",
+    "row_status": "RECONSTRUCTED",
+    "size": 224,
+    "end_rva_exclusive": 68064,
+    "native_span_sha256": "9bbfbf2ff6f3f071850fbedd400c3a5581eb7a966bb6247b271d80d7b137e422"
+   },
+   "source_body": {
+    "path": "src/eng1/level_unit_10120.c",
+    "sha256": "33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180",
+    "source_exists": true,
+    "status": "RECONSTRUCTED"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.eng1_10900]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_19820": {
+   "symbol": "_eng1_19820",
+   "candidate_native_rva": 104480,
+   "candidate_native_rva_hex": "0x19820",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_19900": {
+   "symbol": "_eng1_19900",
+   "candidate_native_rva": 104704,
+   "candidate_native_rva_hex": "0x19900",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_1ab50": {
+   "symbol": "_eng1_1ab50",
+   "candidate_native_rva": 109392,
+   "candidate_native_rva_hex": "0x1ab50",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": null,
+   "extent": {
+    "basis": "native body review proposal",
+    "size": 80,
+    "end_rva_exclusive": 109472,
+    "native_span_sha256": "11857df924fb80fbe62e646abd64a2e2588573bbb909a1657dd5f749f43025bc",
+    "details": {
+     "size": 80,
+     "end_rva": 109472,
+     "ret_rvas": [
+      "0x1ab65",
+      "0x1ab8a",
+      "0x1ab9c"
+     ],
+     "abi": "cdecl(void); no stack arguments; plain RET; callers do not adjust ESP after call.",
+     "abi_witness_rva": "0x3e1b2",
+     "extent_basis": "Entry 0x1ab50 has three returning paths through 0x1ab9c; three alignment NOPs through 0x1ab9f; next separately called entry is 0x1aba0."
+    }
+   },
+   "source_body": null,
+   "fresh_own_shape_status": "native_review_recorded_source_shape_check_required_if_source_exists",
+   "outside_direct_callers": [
+    {
+     "site_rva": 254386,
+     "kind": "call",
+     "bytes": "e899c9fdff",
+     "caller_id": "eng1.3e160",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 254674,
+     "kind": "call",
+     "bytes": "e879c8fdff",
+     "caller_id": "eng1.3e280",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 255163,
+     "kind": "call",
+     "bytes": "e890c6fdff",
+     "caller_id": "eng1.3e3d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 255537,
+     "kind": "call",
+     "bytes": "e81ac5fdff",
+     "caller_id": "eng1.3e5d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 255925,
+     "kind": "call",
+     "bytes": "e896c3fdff",
+     "caller_id": "eng1.3e770",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 259008,
+     "kind": "call",
+     "bytes": "e88bb7fdff",
+     "caller_id": "eng1.3f1c0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 259457,
+     "kind": "call",
+     "bytes": "e8cab5fdff",
+     "caller_id": "eng1.3f4b0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 260536,
+     "kind": "call",
+     "bytes": "e893b1fdff",
+     "caller_id": "eng1.3f8d0",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 8,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_26de0": {
+   "symbol": "_eng1_26de0",
+   "candidate_native_rva": 159200,
+   "candidate_native_rva_hex": "0x26de0",
+   "native_identity_status": "blocked_native_extent_review_required",
+   "own_entry_row": null,
+   "extent": {
+    "basis": "independent native body review in evidence/eng1_spatial_query_recovery_2026_10_25.json",
+    "size": 176,
+    "end_rva_exclusive": 159376,
+    "native_span_sha256": "b62a0366a9da129b4ac73710b25793e908c60b996271f6b8e5c48ef049402065",
+    "review_evidence": "evidence/eng1_spatial_query_recovery_2026_10_25.json#functions.eng1.spatial_query_26de0"
+   },
+   "source_body": null,
+   "fresh_own_shape_status": "pinned prior fresh source comparison; current source hash rechecked",
+   "outside_direct_callers": [
+    {
+     "site_rva": 217946,
+     "kind": "call",
+     "bytes": "e8811affff",
+     "caller_id": "eng1.352f0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 41012,
+     "kind": "call",
+     "bytes": "e8a7cd0100",
+     "caller_id": "eng1.native_code_target_00a010",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 42235,
+     "kind": "call",
+     "bytes": "e8e0c80100",
+     "caller_id": "eng1.native_code_target_00a490",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 44356,
+     "kind": "call",
+     "bytes": "e897c00100",
+     "caller_id": "eng1.native_code_target_00a910",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 222815,
+     "kind": "call",
+     "bytes": "e87c07ffff",
+     "caller_id": "eng1.365f0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 67066,
+     "kind": "call",
+     "bytes": "e8e1670100",
+     "caller_id": "eng1.native_code_target_0105a0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 242200,
+     "kind": "call",
+     "bytes": "e8c3bbfeff",
+     "caller_id": "eng1.3b200",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 254341,
+     "kind": "call",
+     "bytes": "e8568cfeff",
+     "caller_id": "eng1.3e160",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 254629,
+     "kind": "call",
+     "bytes": "e8368bfeff",
+     "caller_id": "eng1.3e280",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 255113,
+     "kind": "call",
+     "bytes": "e85289feff",
+     "caller_id": "eng1.3e3d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 255492,
+     "kind": "call",
+     "bytes": "e8d787feff",
+     "caller_id": "eng1.3e5d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 255882,
+     "kind": "call",
+     "bytes": "e85186feff",
+     "caller_id": "eng1.3e770",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 258962,
+     "kind": "call",
+     "bytes": "e8497afeff",
+     "caller_id": "eng1.3f1c0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 259411,
+     "kind": "call",
+     "bytes": "e88878feff",
+     "caller_id": "eng1.3f4b0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 260491,
+     "kind": "call",
+     "bytes": "e85074feff",
+     "caller_id": "eng1.3f8d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 262781,
+     "kind": "call",
+     "bytes": "e85e6bfeff",
+     "caller_id": "eng1.eng1_3ff30",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 16,
+   "independent_evidence_refs": [
+    "evidence/eng1_spatial_query_recovery_2026_10_25.json#functions.eng1.spatial_query_26de0"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here.",
+   "native_body_review": {
+    "entry_rva": 159200,
+    "extent_bytes": 176,
+    "abi": "cdecl(void*) -> 32-bit EAX",
+    "review_path": "evidence/eng1_spatial_query_recovery_2026_10_25.json",
+    "review_anchor": "functions.eng1.spatial_query_26de0"
+   },
+   "source_body_current_sha256": "4e8555018694420b0acd4223588d9a59235e4c001e9fa543ca97f04538187cd6",
+   "source_shape_comparison": "NEAR in pinned candidate comparison; 224-byte contribution vs native 176-byte extent; native entry/extent/ABI reviewed."
+  },
+  "_eng1_26f20": {
+   "symbol": "_eng1_26f20",
+   "candidate_native_rva": 159520,
+   "candidate_native_rva_hex": "0x26f20",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_27450": {
+   "symbol": "_eng1_27450",
+   "candidate_native_rva": 160848,
+   "candidate_native_rva_hex": "0x27450",
+   "native_identity_status": "blocked_native_extent_review_required",
+   "own_entry_row": null,
+   "extent": {
+    "basis": "independent native body review in evidence/eng1_actor_resource_helpers_2026_10_25.json",
+    "size": 64,
+    "end_rva_exclusive": 160912,
+    "native_span_sha256": "339e8f3f209a6f1a5be59fcda7f40801e66b70847e0f7be9535d31d794c5b353",
+    "review_evidence": "evidence/eng1_actor_resource_helpers_2026_10_25.json#native_identity.functions[_mark_actor_resource_for_release]"
+   },
+   "source_body": null,
+   "fresh_own_shape_status": "pinned prior fresh source comparison; current source hash rechecked",
+   "outside_direct_callers": [
+    {
+     "site_rva": 166753,
+     "kind": "call",
+     "bytes": "e8eae8ffff",
+     "caller_id": "eng1.eng1_interpret_animation_triples",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 165036,
+     "kind": "call",
+     "bytes": "e89fefffff",
+     "caller_id": "eng1.interpret_signed_pairs",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 166111,
+     "kind": "call",
+     "bytes": "e86cebffff",
+     "caller_id": "eng1.interpret_word_stream",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 72568,
+     "kind": "call",
+     "bytes": "e8d3580100",
+     "caller_id": "eng1.native_code_target_011ac0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 77359,
+     "kind": "call",
+     "bytes": "e81c460100",
+     "caller_id": "eng1.native_code_target_012d80",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 262928,
+     "kind": "call",
+     "bytes": "e83b71feff",
+     "caller_id": "eng1.eng1_3ff30",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 6,
+   "independent_evidence_refs": [
+    "evidence/eng1_actor_resource_helpers_2026_10_25.json#native_identity.functions[_mark_actor_resource_for_release]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here.",
+   "native_body_review": {
+    "entry_rva": 160848,
+    "extent_bytes": 64,
+    "abi": "cdecl(Actor*) -> unspecified; outside caller cleans 4-byte argument",
+    "review_path": "evidence/eng1_actor_resource_helpers_2026_10_25.json",
+    "review_anchor": "native_identity.functions[_mark_actor_resource_for_release]"
+   },
+   "source_body_current_sha256": "153dd8975eb79cc8ae40990c5b887c2a0f542ae85fbdf8c4a453dc4344eb8200",
+   "source_shape_comparison": "NEAR in pinned canonical fresh compilation; current source hash matches; 96-byte contribution vs native 64-byte extent; native entry/extent/ABI reviewed."
+  },
+  "_eng1_296e0": {
+   "symbol": "_eng1_296e0",
+   "candidate_native_rva": 169696,
+   "candidate_native_rva_hex": "0x296e0",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.eng1_296e0",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.eng1_296e0",
+    "row_id": "eng1.eng1_296e0",
+    "row_status": "RECONSTRUCTED",
+    "size": 400,
+    "end_rva_exclusive": 170096,
+    "native_span_sha256": "5f18d2c4204954604ebff00c5c3daeb33634a50d062ca001b243081dbb837af0"
+   },
+   "source_body": {
+    "path": "src/eng1/actor_unit_282e0.cpp",
+    "sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+    "source_exists": true,
+    "status": "RECONSTRUCTED"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.eng1_296e0]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_2ae50": {
+   "symbol": "_eng1_2ae50",
+   "candidate_native_rva": 175696,
+   "candidate_native_rva_hex": "0x2ae50",
+   "native_identity_status": "identity_supported_by_own_row_and_outside_callers",
+   "own_entry_row": "eng1.native_code_target_002ae50",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.native_code_target_002ae50",
+    "row_id": "eng1.native_code_target_002ae50",
+    "row_status": "FUNCTION_MATCH_RELOCATED",
+    "size": 80,
+    "end_rva_exclusive": 175776,
+    "native_span_sha256": "2288ab76d641c7c3b59513440bd9924162fd8b3f4813bb24b92af670e7c55cf7"
+   },
+   "source_body": {
+    "path": "src/eng1/spatial_neighbor_helpers.cpp",
+    "sha256": "325a22994199395a728293a50329b027df89ed2282a72b6db36bcbc88a2f1d46",
+    "source_exists": true,
+    "status": "FUNCTION_MATCH_RELOCATED"
+   },
+   "fresh_own_shape_status": "accepted_own_row",
+   "outside_direct_callers": [
+    {
+     "site_rva": 215743,
+     "kind": "call",
+     "bytes": "e88c63ffff",
+     "caller_id": "eng1.34a30",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 218730,
+     "kind": "call",
+     "bytes": "e8e157ffff",
+     "caller_id": "eng1.35590",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 218803,
+     "kind": "call",
+     "bytes": "e89857ffff",
+     "caller_id": "eng1.35590",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 224271,
+     "kind": "call",
+     "bytes": "e83c42ffff",
+     "caller_id": "eng1.36b90",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 64009,
+     "kind": "call",
+     "bytes": "e842b40100",
+     "caller_id": "eng1.native_code_target_00fa00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 66509,
+     "kind": "call",
+     "bytes": "e87eaa0100",
+     "caller_id": "eng1.native_code_target_0103c0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 71874,
+     "kind": "call",
+     "bytes": "e889950100",
+     "caller_id": "eng1.native_code_target_011810",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 71998,
+     "kind": "call",
+     "bytes": "e80d950100",
+     "caller_id": "eng1.native_code_target_011810",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 248731,
+     "kind": "call",
+     "bytes": "e8b0e2feff",
+     "caller_id": "eng1.3cb90",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 250972,
+     "kind": "call",
+     "bytes": "e8efd9feff",
+     "caller_id": "eng1.3d440",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 252271,
+     "kind": "call",
+     "bytes": "e8dcd4feff",
+     "caller_id": "eng1.3d930",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 259902,
+     "kind": "call",
+     "bytes": "e80db7feff",
+     "caller_id": "eng1.3f720",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 260255,
+     "kind": "call",
+     "bytes": "e8acb5feff",
+     "caller_id": "eng1.3f720",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 13,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.native_code_target_002ae50]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_2bc50": {
+   "symbol": "_eng1_2bc50",
+   "candidate_native_rva": 179280,
+   "candidate_native_rva_hex": "0x2bc50",
+   "native_identity_status": "identity_supported_by_own_row_and_outside_callers",
+   "own_entry_row": "eng1.damped_contact_motion",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.damped_contact_motion",
+    "row_id": "eng1.damped_contact_motion",
+    "row_status": "FUNCTION_MATCH_RELOCATED",
+    "size": 208,
+    "end_rva_exclusive": 179488,
+    "native_span_sha256": "9941600236c26fce45be1a83dfed55f8162b556e394f2c39b69788ddbdd180fb"
+   },
+   "source_body": {
+    "path": "src/eng1/contact_motion.c",
+    "sha256": "384601e3f2bb4905f2cb12b8c03e708a6eac22cf0fd9dbdf63672c06a443deab",
+    "source_exists": true,
+    "status": "FUNCTION_MATCH_RELOCATED"
+   },
+   "fresh_own_shape_status": "accepted_own_row",
+   "outside_direct_callers": [
+    {
+     "site_rva": 39107,
+     "kind": "call",
+     "bytes": "e888230200",
+     "caller_id": "eng1.native_code_target_009890",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 42989,
+     "kind": "call",
+     "bytes": "e85e140200",
+     "caller_id": "eng1.native_code_target_00a670",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 63175,
+     "kind": "call",
+     "bytes": "e884c50100",
+     "caller_id": "eng1.eng1_native_code_target_00f4f0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 73240,
+     "kind": "call",
+     "bytes": "e8339e0100",
+     "caller_id": "eng1.eng1_native_code_target_011df0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 79327,
+     "kind": "call",
+     "bytes": "e86c860100",
+     "caller_id": "eng1.native_code_target_013570",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 81654,
+     "kind": "call",
+     "bytes": "e8557d0100",
+     "caller_id": "eng1.eng1_native_code_target_013d70",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 81699,
+     "kind": "call",
+     "bytes": "e8287d0100",
+     "caller_id": "eng1.eng1_native_code_target_013d70",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 81993,
+     "kind": "call",
+     "bytes": "e8027c0100",
+     "caller_id": "eng1.eng1_native_code_target_013d70",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 83027,
+     "kind": "call",
+     "bytes": "e8f8770100",
+     "caller_id": "eng1.eng1_native_code_target_0142d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 83072,
+     "kind": "call",
+     "bytes": "e8cb770100",
+     "caller_id": "eng1.eng1_native_code_target_0142d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 83394,
+     "kind": "call",
+     "bytes": "e889760100",
+     "caller_id": "eng1.eng1_native_code_target_0142d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 256159,
+     "kind": "call",
+     "bytes": "e8acd3feff",
+     "caller_id": "eng1.3e770",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 257815,
+     "kind": "call",
+     "bytes": "e834cdfeff",
+     "caller_id": "eng1.3eec0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 257836,
+     "kind": "call",
+     "bytes": "e81fcdfeff",
+     "caller_id": "eng1.3eec0",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 14,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.damped_contact_motion]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_guarded_advance_frame": {
+   "symbol": "_eng1_guarded_advance_frame",
+   "candidate_native_rva": 168560,
+   "candidate_native_rva_hex": "0x29270",
+   "native_identity_status": "identity_supported_by_own_row_and_outside_callers",
+   "own_entry_row": "eng1.advance_frame",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.advance_frame",
+    "row_id": "eng1.advance_frame",
+    "row_status": "FUNCTION_MATCH",
+    "size": 80,
+    "end_rva_exclusive": 168640,
+    "native_span_sha256": "aa2394869877c323eb23cd4ea09299153ff6261eb4e63b5b195420c0bceefe6d"
+   },
+   "source_body": {
+    "path": "src/shared/frame_state.c",
+    "sha256": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+    "source_exists": true,
+    "status": "FUNCTION_MATCH"
+   },
+   "fresh_own_shape_status": "accepted_own_row",
+   "outside_direct_callers": [
+    {
+     "site_rva": 183522,
+     "kind": "call",
+     "bytes": "e889c5ffff",
+     "caller_id": "eng1.native_code_target_02cc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 62562,
+     "kind": "call",
+     "bytes": "e8099e0100",
+     "caller_id": "eng1.native_code_target_00f430",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 166767,
+     "kind": "call",
+     "bytes": "e8fc060000",
+     "caller_id": "eng1.eng1_interpret_animation_triples",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 165050,
+     "kind": "call",
+     "bytes": "e8b10d0000",
+     "caller_id": "eng1.interpret_signed_pairs",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 148130,
+     "kind": "call",
+     "bytes": "e8c94f0000",
+     "caller_id": "eng1.24270",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 210949,
+     "kind": "call",
+     "bytes": "e8665affff",
+     "caller_id": "eng1.337f0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 211238,
+     "kind": "call",
+     "bytes": "e84559ffff",
+     "caller_id": "eng1.33910",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 212710,
+     "kind": "call",
+     "bytes": "e88553ffff",
+     "caller_id": "eng1.33ee0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 212934,
+     "kind": "call",
+     "bytes": "e8a552ffff",
+     "caller_id": "eng1.33fc0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 213432,
+     "kind": "call",
+     "bytes": "e8b350ffff",
+     "caller_id": "eng1.341a0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 213793,
+     "kind": "call",
+     "bytes": "e84a4fffff",
+     "caller_id": "eng1.342f0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 213926,
+     "kind": "call",
+     "bytes": "e8c54effff",
+     "caller_id": "eng1.343a0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 215206,
+     "kind": "call",
+     "bytes": "e8c549ffff",
+     "caller_id": "eng1.348a0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 216198,
+     "kind": "call",
+     "bytes": "e8e545ffff",
+     "caller_id": "eng1.34c80",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 216573,
+     "kind": "call",
+     "bytes": "e86e44ffff",
+     "caller_id": "eng1.34de0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 217630,
+     "kind": "call",
+     "bytes": "e84d40ffff",
+     "caller_id": "eng1.35200",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 220262,
+     "kind": "call",
+     "bytes": "e80536ffff",
+     "caller_id": "eng1.35c60",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 220406,
+     "kind": "call",
+     "bytes": "e87535ffff",
+     "caller_id": "eng1.35cf0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 36332,
+     "kind": "call",
+     "bytes": "e87f040200",
+     "caller_id": "eng1.native_code_target_008dd0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 37069,
+     "kind": "call",
+     "bytes": "e89e010200",
+     "caller_id": "eng1.native_code_target_0090c0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 37323,
+     "kind": "call",
+     "bytes": "e8a0000200",
+     "caller_id": "eng1.native_code_target_009190",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 42517,
+     "kind": "call",
+     "bytes": "e856ec0100",
+     "caller_id": "eng1.native_code_target_00a600",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 43179,
+     "kind": "call",
+     "bytes": "e8c0e90100",
+     "caller_id": "eng1.native_code_target_00a870",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 44582,
+     "kind": "call",
+     "bytes": "e845e40100",
+     "caller_id": "eng1.native_code_target_00ae00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 47938,
+     "kind": "call",
+     "bytes": "e829d70100",
+     "caller_id": "eng1.native_code_target_00bb10",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 229543,
+     "kind": "call",
+     "bytes": "e8c411ffff",
+     "caller_id": "eng1.38090",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 230337,
+     "kind": "call",
+     "bytes": "e8aa0effff",
+     "caller_id": "eng1.383b0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 230856,
+     "kind": "call",
+     "bytes": "e8a30cffff",
+     "caller_id": "eng1.38590",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 232794,
+     "kind": "call",
+     "bytes": "e81105ffff",
+     "caller_id": "eng1.38d10",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 232996,
+     "kind": "call",
+     "bytes": "e84704ffff",
+     "caller_id": "eng1.38de0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 233353,
+     "kind": "call",
+     "bytes": "e8e202ffff",
+     "caller_id": "eng1.38f50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 234598,
+     "kind": "call",
+     "bytes": "e805fefeff",
+     "caller_id": "eng1.39460",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 237398,
+     "kind": "call",
+     "bytes": "e815f3feff",
+     "caller_id": "eng1.39f20",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 51405,
+     "kind": "call",
+     "bytes": "e89ec90100",
+     "caller_id": "eng1.native_code_target_00c8c0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 57815,
+     "kind": "call",
+     "bytes": "e894b00100",
+     "caller_id": "eng1.native_code_target_00e170",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 58321,
+     "kind": "call",
+     "bytes": "e89aae0100",
+     "caller_id": "eng1.native_code_target_00e3b0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 58678,
+     "kind": "call",
+     "bytes": "e835ad0100",
+     "caller_id": "eng1.native_code_target_00e520",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 66893,
+     "kind": "call",
+     "bytes": "e81e8d0100",
+     "caller_id": "eng1.native_code_target_010540",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 71158,
+     "kind": "call",
+     "bytes": "e8757c0100",
+     "caller_id": "eng1.native_code_target_0115f0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 73038,
+     "kind": "call",
+     "bytes": "e81d750100",
+     "caller_id": "eng1.11d30",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 238902,
+     "kind": "call",
+     "bytes": "e835edfeff",
+     "caller_id": "eng1.3a530",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 239592,
+     "kind": "call",
+     "bytes": "e883eafeff",
+     "caller_id": "eng1.3a7a0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 240217,
+     "kind": "call",
+     "bytes": "e812e8feff",
+     "caller_id": "eng1.3aa10",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 240445,
+     "kind": "call",
+     "bytes": "e82ee7feff",
+     "caller_id": "eng1.3aaf0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 240647,
+     "kind": "call",
+     "bytes": "e864e6feff",
+     "caller_id": "eng1.3abd0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 242134,
+     "kind": "call",
+     "bytes": "e895e0feff",
+     "caller_id": "eng1.3b190",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 244868,
+     "kind": "call",
+     "bytes": "e8e7d5feff",
+     "caller_id": "eng1.3bc20",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 245851,
+     "kind": "call",
+     "bytes": "e810d2feff",
+     "caller_id": "eng1.3c050",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 254502,
+     "kind": "call",
+     "bytes": "e845b0feff",
+     "caller_id": "eng1.3e220",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 254838,
+     "kind": "call",
+     "bytes": "e8f5aefeff",
+     "caller_id": "eng1.3e370",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 255366,
+     "kind": "call",
+     "bytes": "e8e5acfeff",
+     "caller_id": "eng1.3e580",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 255702,
+     "kind": "call",
+     "bytes": "e895abfeff",
+     "caller_id": "eng1.3e6d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 261912,
+     "kind": "call",
+     "bytes": "e85393feff",
+     "caller_id": "eng1.3fe40",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 53,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.advance_frame]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_001ac10": {
+   "symbol": "_eng1_native_code_target_001ac10",
+   "candidate_native_rva": 109584,
+   "candidate_native_rva_hex": "0x1ac10",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_001ae00": {
+   "symbol": "_eng1_native_code_target_001ae00",
+   "candidate_native_rva": 110080,
+   "candidate_native_rva_hex": "0x1ae00",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_0021050": {
+   "symbol": "_eng1_native_code_target_0021050",
+   "candidate_native_rva": 135248,
+   "candidate_native_rva_hex": "0x21050",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_0021210": {
+   "symbol": "_eng1_native_code_target_0021210",
+   "candidate_native_rva": 135696,
+   "candidate_native_rva_hex": "0x21210",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_0028820": {
+   "symbol": "_eng1_native_code_target_0028820",
+   "candidate_native_rva": 165920,
+   "candidate_native_rva_hex": "0x28820",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.interpret_word_stream",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.interpret_word_stream",
+    "row_id": "eng1.interpret_word_stream",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 640,
+    "end_rva_exclusive": 166560,
+    "native_span_sha256": "8d150ad97393ccc2a0a61865f0103a62c64579515e544b874ea2dba105e6509e"
+   },
+   "source_body": {
+    "path": "src/eng1/actor_unit_282e0.cpp",
+    "sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 168921,
+     "kind": "call",
+     "bytes": "e842f4ffff",
+     "caller_id": "eng1.change_kind",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 197474,
+     "kind": "call",
+     "bytes": "e8b984ffff",
+     "caller_id": "eng1.30290",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 197571,
+     "kind": "call",
+     "bytes": "e85884ffff",
+     "caller_id": "eng1.30380",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 212193,
+     "kind": "call",
+     "bytes": "e83a4bffff",
+     "caller_id": "eng1.33cc0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 212254,
+     "kind": "call",
+     "bytes": "e8fd4affff",
+     "caller_id": "eng1.33cf0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 212406,
+     "kind": "call",
+     "bytes": "e8654affff",
+     "caller_id": "eng1.33db0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 212562,
+     "kind": "call",
+     "bytes": "e8c949ffff",
+     "caller_id": "eng1.33e10",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 212626,
+     "kind": "call",
+     "bytes": "e88949ffff",
+     "caller_id": "eng1.33e80",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 221141,
+     "kind": "call",
+     "bytes": "e84628ffff",
+     "caller_id": "eng1.35fb0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 221178,
+     "kind": "call",
+     "bytes": "e82128ffff",
+     "caller_id": "eng1.35fe0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 51759,
+     "kind": "call",
+     "bytes": "e8ecbd0100",
+     "caller_id": "eng1.eng1_native_code_target_00c940",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 39093,
+     "kind": "call",
+     "bytes": "e866ef0100",
+     "caller_id": "eng1.native_code_target_009890",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 39228,
+     "kind": "call",
+     "bytes": "e8dfee0100",
+     "caller_id": "eng1.native_code_target_009890",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 39420,
+     "kind": "call",
+     "bytes": "e81fee0100",
+     "caller_id": "eng1.native_code_target_0099e0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 40161,
+     "kind": "call",
+     "bytes": "e83aeb0100",
+     "caller_id": "eng1.native_code_target_009a20",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 41230,
+     "kind": "call",
+     "bytes": "e80de70100",
+     "caller_id": "eng1.native_code_target_00a010",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 42151,
+     "kind": "call",
+     "bytes": "e874e30100",
+     "caller_id": "eng1.native_code_target_00a490",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 42453,
+     "kind": "call",
+     "bytes": "e846e20100",
+     "caller_id": "eng1.native_code_target_00a490",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 224696,
+     "kind": "call",
+     "bytes": "e8631affff",
+     "caller_id": "eng1.36d70",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 224870,
+     "kind": "call",
+     "bytes": "e8b519ffff",
+     "caller_id": "eng1.36e10",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 225684,
+     "kind": "call",
+     "bytes": "e88716ffff",
+     "caller_id": "eng1.37080",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 225917,
+     "kind": "call",
+     "bytes": "e89e15ffff",
+     "caller_id": "eng1.37230",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 225959,
+     "kind": "call",
+     "bytes": "e87415ffff",
+     "caller_id": "eng1.37230",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 226131,
+     "kind": "call",
+     "bytes": "e8c814ffff",
+     "caller_id": "eng1.37300",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 226243,
+     "kind": "call",
+     "bytes": "e85814ffff",
+     "caller_id": "eng1.37390",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 226289,
+     "kind": "call",
+     "bytes": "e82a14ffff",
+     "caller_id": "eng1.37390",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 226382,
+     "kind": "call",
+     "bytes": "e8cd13ffff",
+     "caller_id": "eng1.37400",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 229197,
+     "kind": "call",
+     "bytes": "e8ce08ffff",
+     "caller_id": "eng1.37e30",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 229239,
+     "kind": "call",
+     "bytes": "e8a408ffff",
+     "caller_id": "eng1.37e30",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 231509,
+     "kind": "call",
+     "bytes": "e8c6fffeff",
+     "caller_id": "eng1.387f0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 232034,
+     "kind": "call",
+     "bytes": "e8b9fdfeff",
+     "caller_id": "eng1.389c0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 234169,
+     "kind": "call",
+     "bytes": "e862f5feff",
+     "caller_id": "eng1.39090",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 234442,
+     "kind": "call",
+     "bytes": "e851f4feff",
+     "caller_id": "eng1.393b0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 235583,
+     "kind": "call",
+     "bytes": "e8dceffeff",
+     "caller_id": "eng1.39750",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 235762,
+     "kind": "call",
+     "bytes": "e829effeff",
+     "caller_id": "eng1.398b0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 236346,
+     "kind": "call",
+     "bytes": "e8e1ecfeff",
+     "caller_id": "eng1.39b00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 236675,
+     "kind": "call",
+     "bytes": "e898ebfeff",
+     "caller_id": "eng1.39c50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 236826,
+     "kind": "call",
+     "bytes": "e801ebfeff",
+     "caller_id": "eng1.39cf0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 52281,
+     "kind": "call",
+     "bytes": "e8e2bb0100",
+     "caller_id": "eng1.native_code_target_00cc30",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 53866,
+     "kind": "call",
+     "bytes": "e8b1b50100",
+     "caller_id": "eng1.native_code_target_00d240",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 54102,
+     "kind": "call",
+     "bytes": "e8c5b40100",
+     "caller_id": "eng1.native_code_target_00d350",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 54171,
+     "kind": "call",
+     "bytes": "e880b40100",
+     "caller_id": "eng1.native_code_target_00d390",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 54230,
+     "kind": "call",
+     "bytes": "e845b40100",
+     "caller_id": "eng1.native_code_target_00d3d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 54342,
+     "kind": "call",
+     "bytes": "e8d5b30100",
+     "caller_id": "eng1.native_code_target_00d440",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 61046,
+     "kind": "call",
+     "bytes": "e8a5990100",
+     "caller_id": "eng1.native_code_target_00ee70",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 61158,
+     "kind": "call",
+     "bytes": "e835990100",
+     "caller_id": "eng1.native_code_target_00eee0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 61388,
+     "kind": "call",
+     "bytes": "e84f980100",
+     "caller_id": "eng1.native_code_target_00efa0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 63849,
+     "kind": "call",
+     "bytes": "e8b28e0100",
+     "caller_id": "eng1.native_code_target_00f910",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 64307,
+     "kind": "call",
+     "bytes": "e8e88c0100",
+     "caller_id": "eng1.native_code_target_00fa00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 64710,
+     "kind": "call",
+     "bytes": "e8558b0100",
+     "caller_id": "eng1.native_code_target_00fa00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 75809,
+     "kind": "call",
+     "bytes": "e8fa5f0100",
+     "caller_id": "eng1.dispatch_local_12790",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 76755,
+     "kind": "call",
+     "bytes": "e8485c0100",
+     "caller_id": "eng1.native_code_target_012b00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 76773,
+     "kind": "call",
+     "bytes": "e8365c0100",
+     "caller_id": "eng1.native_code_target_012b00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 77501,
+     "kind": "call",
+     "bytes": "e85e590100",
+     "caller_id": "eng1.native_code_target_012d80",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 79273,
+     "kind": "call",
+     "bytes": "e872520100",
+     "caller_id": "eng1.native_code_target_013570",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 79958,
+     "kind": "call",
+     "bytes": "e8c54f0100",
+     "caller_id": "eng1.native_code_target_013840",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 80338,
+     "kind": "call",
+     "bytes": "e8494e0100",
+     "caller_id": "eng1.native_code_target_013990",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 80651,
+     "kind": "call",
+     "bytes": "e8104d0100",
+     "caller_id": "eng1.native_code_target_0139f0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 80249,
+     "kind": "call",
+     "bytes": "e8a24e0100",
+     "caller_id": "eng1.eng1_native_code_target_013880",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 244742,
+     "kind": "call",
+     "bytes": "e815ccfeff",
+     "caller_id": "eng1.3bc00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 260870,
+     "kind": "call",
+     "bytes": "e8158dfeff",
+     "caller_id": "eng1.3fb00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 107330,
+     "kind": "call",
+     "bytes": "e8d9e40000",
+     "caller_id": "eng1.native_code_target_01a2b0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 107456,
+     "kind": "call",
+     "bytes": "e85be40000",
+     "caller_id": "eng1.native_code_target_01a390",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 85992,
+     "kind": "call",
+     "bytes": "e833380100",
+     "caller_id": "eng1.frame_callback_14fb0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 86049,
+     "kind": "call",
+     "bytes": "e8fa370100",
+     "caller_id": "eng1.frame_callback_15000",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 86090,
+     "kind": "call",
+     "bytes": "e8d1370100",
+     "caller_id": "eng1.frame_callback_15030",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 86145,
+     "kind": "call",
+     "bytes": "e89a370100",
+     "caller_id": "eng1.frame_callback_15060",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 67,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.interpret_word_stream]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_002a810": {
+   "symbol": "_eng1_native_code_target_002a810",
+   "candidate_native_rva": 174096,
+   "candidate_native_rva_hex": "0x2a810",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": null,
+   "extent": {
+    "basis": "native body review proposal",
+    "size": 112,
+    "end_rva_exclusive": 174208,
+    "native_span_sha256": "f7e1d7f26a234502e73af8bf670447ec4545c6261b02f8ee6c0af90f2b6c1c70",
+    "details": {
+     "size": 112,
+     "end_rva": 174208,
+     "ret_rvas": [
+      "0x2a870"
+     ],
+     "abi": "cdecl; four 32-bit stack arguments; external caller cleans 16 bytes; EAX carries boolean result.",
+     "abi_witness_rva": "0x2a1bc",
+     "extent_basis": "Entry 0x2a810 through RET at 0x2a870 and fifteen alignment NOPs; next separately called helper entry 0x2a880."
+    }
+   },
+   "source_body": null,
+   "fresh_own_shape_status": "native_review_recorded_source_shape_check_required_if_source_exists",
+   "outside_direct_callers": [
+    {
+     "site_rva": 172476,
+     "kind": "call",
+     "bytes": "e84f060000",
+     "caller_id": "eng1.dispatch_local_2a170",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 260949,
+     "kind": "call",
+     "bytes": "e8b6acfeff",
+     "caller_id": "eng1.3fb00",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 96346,
+     "kind": "call",
+     "bytes": "e8b12f0100",
+     "caller_id": "eng1.eng1_17810",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 3,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_002b130": {
+   "symbol": "_eng1_native_code_target_002b130",
+   "candidate_native_rva": 176432,
+   "candidate_native_rva_hex": "0x2b130",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": null,
+   "extent": {
+    "basis": "native body review proposal",
+    "size": 496,
+    "end_rva_exclusive": 176928,
+    "native_span_sha256": "c47a6dc20bdd642e0709d87edc7ead00f6965c8d4887db49f8dc4c82fb523659",
+    "details": {
+     "size": 496,
+     "end_rva": 176928,
+     "ret_rvas": [
+      "0x2b2f8",
+      "0x2b319"
+     ],
+     "abi": "cdecl(Actor*) -> int; outside caller pushes one pointer, cleans four bytes, then tests EAX.",
+     "abi_witness_rva": "0x3cac5",
+     "extent_basis": "Independently decoded entry 0x2b130 with terminal RET at 0x2b319 and six alignment NOPs through 0x2b31f; start 0x2b320 is next native entry. Full-span hash matches prior diagnostic inventory; prior extent caveat retained until the next-entry call witness is pinned."
+    }
+   },
+   "source_body": null,
+   "fresh_own_shape_status": "native_review_recorded_source_shape_check_required_if_source_exists",
+   "outside_direct_callers": [
+    {
+     "site_rva": 248517,
+     "kind": "call",
+     "bytes": "e866e6feff",
+     "caller_id": "eng1.3ca80",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 249457,
+     "kind": "call",
+     "bytes": "e8bae2feff",
+     "caller_id": "eng1.3ce10",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 250707,
+     "kind": "call",
+     "bytes": "e8d8ddfeff",
+     "caller_id": "eng1.3d310",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 251964,
+     "kind": "call",
+     "bytes": "e8efd8feff",
+     "caller_id": "eng1.3d800",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 252899,
+     "kind": "call",
+     "bytes": "e848d5feff",
+     "caller_id": "eng1.3db90",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 257081,
+     "kind": "call",
+     "bytes": "e8f2c4feff",
+     "caller_id": "eng1.3ebc0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 257688,
+     "kind": "call",
+     "bytes": "e893c2feff",
+     "caller_id": "eng1.3edf0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 259684,
+     "kind": "call",
+     "bytes": "e8c7bafeff",
+     "caller_id": "eng1.3f620",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 8,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_0033700": {
+   "symbol": "_eng1_native_code_target_0033700",
+   "candidate_native_rva": 210688,
+   "candidate_native_rva_hex": "0x33700",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.33700",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.33700",
+    "row_id": "eng1.33700",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 32,
+    "end_rva_exclusive": 210720,
+    "native_span_sha256": "c2f51567b8ace2f4600a53c9690ad19af7f1f43b656e1c8a9f63ec92d9562741"
+   },
+   "source_body": {
+    "path": "src/eng1/status_panel_32b10.c",
+    "sha256": "504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.33700]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_0033720": {
+   "symbol": "_eng1_native_code_target_0033720",
+   "candidate_native_rva": 210720,
+   "candidate_native_rva_hex": "0x33720",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.33720",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.33720",
+    "row_id": "eng1.33720",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 144,
+    "end_rva_exclusive": 210864,
+    "native_span_sha256": "9550f9c4bdff187db0ea5a7dbee231de90c595b294693f44254695a6a2bfd97e"
+   },
+   "source_body": {
+    "path": "src/eng1/status_panel_32b10.c",
+    "sha256": "504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.33720]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_003c170": {
+   "symbol": "_eng1_native_code_target_003c170",
+   "candidate_native_rva": 246128,
+   "candidate_native_rva_hex": "0x3c170",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.3c170",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.3c170",
+    "row_id": "eng1.3c170",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 112,
+    "end_rva_exclusive": 246240,
+    "native_span_sha256": "0a817106a58dd17cc68150029fb57fad4078c51452a2f19893713df3a266c039"
+   },
+   "source_body": {
+    "path": "src/eng1/player_scene_3a040.c",
+    "sha256": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.3c170]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_003ca50": {
+   "symbol": "_eng1_native_code_target_003ca50",
+   "candidate_native_rva": 248400,
+   "candidate_native_rva_hex": "0x3ca50",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.3ca50",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.3ca50",
+    "row_id": "eng1.3ca50",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 48,
+    "end_rva_exclusive": 248448,
+    "native_span_sha256": "4e3afac3bca3d58398cbdc1dc09e0b6059f917268663e69eb5a983fe46d3827c"
+   },
+   "source_body": {
+    "path": "src/eng1/player_scene_3a040.c",
+    "sha256": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.3ca50]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_0044120": {
+   "symbol": "_eng1_native_code_target_0044120",
+   "candidate_native_rva": 278816,
+   "candidate_native_rva_hex": "0x44120",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_0044240": {
+   "symbol": "_eng1_native_code_target_0044240",
+   "candidate_native_rva": 279104,
+   "candidate_native_rva_hex": "0x44240",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_00c720": {
+   "symbol": "_eng1_native_code_target_00c720",
+   "candidate_native_rva": 50976,
+   "candidate_native_rva_hex": "0xc720",
+   "native_identity_status": "identity_supported_by_own_row_and_outside_callers",
+   "own_entry_row": "eng1.empty_c720",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.empty_c720",
+    "row_id": "eng1.empty_c720",
+    "row_status": "FUNCTION_MATCH",
+    "size": 16,
+    "end_rva_exclusive": 50992,
+    "native_span_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca"
+   },
+   "source_body": {
+    "path": "src/shared/empty_entries.c",
+    "sha256": "a52e56e14dec826c3fa6e7127582cac6f9dfcba675857c61c0eca1775250551b",
+    "source_exists": true,
+    "status": "FUNCTION_MATCH"
+   },
+   "fresh_own_shape_status": "accepted_own_row",
+   "outside_direct_callers": [
+    {
+     "site_rva": 224879,
+     "kind": "call",
+     "bytes": "e8ac58fdff",
+     "caller_id": "eng1.36e10",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 229395,
+     "kind": "call",
+     "bytes": "e80847fdff",
+     "caller_id": "eng1.37fe0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 230166,
+     "kind": "call",
+     "bytes": "e80544fdff",
+     "caller_id": "eng1.38310",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 230391,
+     "kind": "call",
+     "bytes": "e82443fdff",
+     "caller_id": "eng1.383d0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 230630,
+     "kind": "call",
+     "bytes": "e83542fdff",
+     "caller_id": "eng1.384c0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 233171,
+     "kind": "call",
+     "bytes": "e84838fdff",
+     "caller_id": "eng1.38ea0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 237043,
+     "kind": "call",
+     "bytes": "e82829fdff",
+     "caller_id": "eng1.39dc0",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 7,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.empty_c720]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_00e3e0": {
+   "symbol": "_eng1_native_code_target_00e3e0",
+   "candidate_native_rva": 58336,
+   "candidate_native_rva_hex": "0xe3e0",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.dispatch_local_00e3e0",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.dispatch_local_00e3e0",
+    "row_id": "eng1.dispatch_local_00e3e0",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 32,
+    "end_rva_exclusive": 58368,
+    "native_span_sha256": "13fc2f307f51957d341367ffac3254158eb6d87572c5754e72028d7505fa85a1"
+   },
+   "source_body": {
+    "path": "src/eng1/forest_entry.c",
+    "sha256": "be06c87251b80cd78e6c068da11cc3f7bde6b71090dc9cb0f55e0971d3bbe98d",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.dispatch_local_00e3e0]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_01abf0": {
+   "symbol": "_eng1_native_code_target_01abf0",
+   "candidate_native_rva": 109552,
+   "candidate_native_rva_hex": "0x1abf0",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_0337b0": {
+   "symbol": "_eng1_native_code_target_0337b0",
+   "candidate_native_rva": 210864,
+   "candidate_native_rva_hex": "0x337b0",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.337b0",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.337b0",
+    "row_id": "eng1.337b0",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 64,
+    "end_rva_exclusive": 210928,
+    "native_span_sha256": "ec2548cc871aa3b3973dce4bb47b94270e1e82c4dedd6ef6a6b00290ee93dcc0"
+   },
+   "source_body": {
+    "path": "src/eng1/status_panel_32b10.c",
+    "sha256": "504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.337b0]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_native_code_target_03c130": {
+   "symbol": "_eng1_native_code_target_03c130",
+   "candidate_native_rva": 246064,
+   "candidate_native_rva_hex": "0x3c130",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.3c130",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.3c130",
+    "row_id": "eng1.3c130",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 64,
+    "end_rva_exclusive": 246128,
+    "native_span_sha256": "ea401487c7f038846692855f0a1c2cf77d181fbe927860fbcf0ce096641888a4"
+   },
+   "source_body": {
+    "path": "src/eng1/player_scene_3a040.c",
+    "sha256": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.3c130]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_eng1_target_03410": {
+   "symbol": "_eng1_target_03410",
+   "candidate_native_rva": 13328,
+   "candidate_native_rva_hex": "0x3410",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": "eng1.shared_03410",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.shared_03410",
+    "row_id": "eng1.shared_03410",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 96,
+    "end_rva_exclusive": 13424,
+    "native_span_sha256": "46d489af3f5e4b9e8fe447a7806d75040e1716f75673a1f370e5372d7a163b57"
+   },
+   "source_body": {
+    "path": "src/title/u02b70.c",
+    "sha256": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.shared_03410]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_snd_lock": {
+   "symbol": "_snd_lock",
+   "candidate_native_rva": 181840,
+   "candidate_native_rva_hex": "0x2c650",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.dispatch_local_2c650",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.dispatch_local_2c650",
+    "row_id": "eng1.dispatch_local_2c650",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 16,
+    "end_rva_exclusive": 181856,
+    "native_span_sha256": "9c3fd69236439daff229ec174dbb7e5861e89273781c4f099efccb086351ce2c"
+   },
+   "source_body": {
+    "path": "src/eng1/host_wrappers.c",
+    "sha256": "84c4a2618601b7734de042088fcc9add82457df7a3d8fc7bf676fcad4c9552cf",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 28069,
+     "kind": "call",
+     "bytes": "e8a6580200",
+     "caller_id": "eng1.od_06da0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 30186,
+     "kind": "call",
+     "bytes": "e861500200",
+     "caller_id": "eng1.od_075e3",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 31978,
+     "kind": "call",
+     "bytes": "e861490200",
+     "caller_id": "eng1.od_07cde",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 32109,
+     "kind": "call",
+     "bytes": "e8de480200",
+     "caller_id": "eng1.od_07d67",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 32517,
+     "kind": "call",
+     "bytes": "e846470200",
+     "caller_id": "eng1.od_07ef6",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 32660,
+     "kind": "call",
+     "bytes": "e8b7460200",
+     "caller_id": "eng1.od_07f8e",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 33051,
+     "kind": "call",
+     "bytes": "e830450200",
+     "caller_id": "eng1.od_08117",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 33184,
+     "kind": "call",
+     "bytes": "e8ab440200",
+     "caller_id": "eng1.od_0819a",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 8,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.dispatch_local_2c650]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_snd_unlock": {
+   "symbol": "_snd_unlock",
+   "candidate_native_rva": 181856,
+   "candidate_native_rva_hex": "0x2c660",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.dispatch_local_2c660",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.dispatch_local_2c660",
+    "row_id": "eng1.dispatch_local_2c660",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 16,
+    "end_rva_exclusive": 181872,
+    "native_span_sha256": "fbfe60acef9f4a55acd07187f6d603864222415d277b64c673d26543b351b58f"
+   },
+   "source_body": {
+    "path": "src/eng1/host_wrappers.c",
+    "sha256": "84c4a2618601b7734de042088fcc9add82457df7a3d8fc7bf676fcad4c9552cf",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 30169,
+     "kind": "call",
+     "bytes": "e882500200",
+     "caller_id": "eng1.od_06da0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 31956,
+     "kind": "call",
+     "bytes": "e887490200",
+     "caller_id": "eng1.od_075e3",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 32094,
+     "kind": "call",
+     "bytes": "e8fd480200",
+     "caller_id": "eng1.od_07cde",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 32493,
+     "kind": "call",
+     "bytes": "e86e470200",
+     "caller_id": "eng1.od_07d67",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 32645,
+     "kind": "call",
+     "bytes": "e8d6460200",
+     "caller_id": "eng1.od_07ef6",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 33038,
+     "kind": "call",
+     "bytes": "e84d450200",
+     "caller_id": "eng1.od_07f8e",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 33169,
+     "kind": "call",
+     "bytes": "e8ca440200",
+     "caller_id": "eng1.od_08117",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 33398,
+     "kind": "call",
+     "bytes": "e8e5430200",
+     "caller_id": "eng1.od_0819a",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 8,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.dispatch_local_2c660]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_03100": {
+   "symbol": "_title_03100",
+   "candidate_native_rva": 16400,
+   "candidate_native_rva_hex": "0x4010",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.eng1_04010",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.eng1_04010",
+    "row_id": "eng1.eng1_04010",
+    "row_status": "RECONSTRUCTED",
+    "size": 800,
+    "end_rva_exclusive": 17200,
+    "native_span_sha256": "27456f880f8551feaa4c061c31d75e6b095e41b6ec382c67cbb5a500c48e9a45"
+   },
+   "source_body": {
+    "path": "src/eng1/sprite_unit_03cd0.c",
+    "sha256": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+    "source_exists": true,
+    "status": "RECONSTRUCTED"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 16340,
+     "kind": "call",
+     "bytes": "e837000000",
+     "caller_id": "eng1.03f60",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 1,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.eng1_04010]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_03420": {
+   "symbol": "_title_03420",
+   "candidate_native_rva": 17200,
+   "candidate_native_rva_hex": "0x4330",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.eng1_04330",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.eng1_04330",
+    "row_id": "eng1.eng1_04330",
+    "row_status": "RECONSTRUCTED",
+    "size": 800,
+    "end_rva_exclusive": 18000,
+    "native_span_sha256": "28db4716ed847c7adb28fb677282ca402ee6c10f44b111af8ba0e2767feaf9d5"
+   },
+   "source_body": {
+    "path": "src/eng1/sprite_unit_03cd0.c",
+    "sha256": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+    "source_exists": true,
+    "status": "RECONSTRUCTED"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 16317,
+     "kind": "call",
+     "bytes": "e86e030000",
+     "caller_id": "eng1.03f60",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 1,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.eng1_04330]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_03740": {
+   "symbol": "_title_03740",
+   "candidate_native_rva": 18000,
+   "candidate_native_rva_hex": "0x4650",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.eng1_04650",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.eng1_04650",
+    "row_id": "eng1.eng1_04650",
+    "row_status": "RECONSTRUCTED",
+    "size": 608,
+    "end_rva_exclusive": 18608,
+    "native_span_sha256": "5abc5551d3afd308114bdd7089742328ca2d1d378b0ea284dad8145121af97c3"
+   },
+   "source_body": {
+    "path": "src/eng1/sprite_unit_03cd0.c",
+    "sha256": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+    "source_exists": true,
+    "status": "RECONSTRUCTED"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 16384,
+     "kind": "call",
+     "bytes": "e84b060000",
+     "caller_id": "eng1.03f60",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 1,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.eng1_04650]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_039b0": {
+   "symbol": "_title_039b0",
+   "candidate_native_rva": 18608,
+   "candidate_native_rva_hex": "0x48b0",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.eng1_048b0",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.eng1_048b0",
+    "row_id": "eng1.eng1_048b0",
+    "row_status": "RECONSTRUCTED",
+    "size": 864,
+    "end_rva_exclusive": 19472,
+    "native_span_sha256": "4bbefea842a00d55cc22188b49757ccda392cc5f0aff381a1d724008cf20224e"
+   },
+   "source_body": {
+    "path": "src/eng1/sprite_unit_03cd0.c",
+    "sha256": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+    "source_exists": true,
+    "status": "RECONSTRUCTED"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 16372,
+     "kind": "call",
+     "bytes": "e8b7080000",
+     "caller_id": "eng1.03f60",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 1,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.eng1_048b0]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_04b50": {
+   "symbol": "_title_04b50",
+   "candidate_native_rva": 13600,
+   "candidate_native_rva_hex": "0x3520",
+   "native_identity_status": "identity_supported_by_own_row_and_outside_callers",
+   "own_entry_row": "eng1.resource_reset",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.resource_reset",
+    "row_id": "eng1.resource_reset",
+    "row_status": "FUNCTION_MATCH_RELOCATED",
+    "size": 32,
+    "end_rva_exclusive": 13632,
+    "native_span_sha256": "6aa1ca86d36db469b15590c8b307b41dae8f931a9b1cdc688d5aa0f8a953f42d"
+   },
+   "source_body": {
+    "path": "src/eng1/resource_callbacks.c",
+    "sha256": "430253a93d7021b622437009a3258560b60f744bd7468de6b8c1eef9b2b6e007",
+    "source_exists": true,
+    "status": "FUNCTION_MATCH_RELOCATED"
+   },
+   "fresh_own_shape_status": "accepted_own_row",
+   "outside_direct_callers": [
+    {
+     "site_rva": 14433,
+     "kind": "call",
+     "bytes": "e8bafcffff",
+     "caller_id": "eng1.resource_load_failed",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 164555,
+     "kind": "call",
+     "bytes": "e850b2fdff",
+     "caller_id": "eng1.resource_action_dispatch",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 76018,
+     "kind": "call",
+     "bytes": "e8290cffff",
+     "caller_id": "eng1.resource_reset_mask",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 47983,
+     "kind": "call",
+     "bytes": "e8ac79ffff",
+     "caller_id": "eng1.native_code_target_00bb10",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 48404,
+     "kind": "call",
+     "bytes": "e80778ffff",
+     "caller_id": "eng1.native_code_target_00bc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 49322,
+     "kind": "call",
+     "bytes": "e87174ffff",
+     "caller_id": "eng1.native_code_target_00bc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 49332,
+     "kind": "call",
+     "bytes": "e86774ffff",
+     "caller_id": "eng1.native_code_target_00bc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 49671,
+     "kind": "call",
+     "bytes": "e81473ffff",
+     "caller_id": "eng1.native_code_target_00bc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 49768,
+     "kind": "call",
+     "bytes": "e8b372ffff",
+     "caller_id": "eng1.native_code_target_00bc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 49873,
+     "kind": "call",
+     "bytes": "e84a72ffff",
+     "caller_id": "eng1.native_code_target_00bc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 49900,
+     "kind": "call",
+     "bytes": "e82f72ffff",
+     "caller_id": "eng1.native_code_target_00bc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 49912,
+     "kind": "call",
+     "bytes": "e82372ffff",
+     "caller_id": "eng1.native_code_target_00bc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 50052,
+     "kind": "call",
+     "bytes": "e89771ffff",
+     "caller_id": "eng1.native_code_target_00bc50",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 229315,
+     "kind": "call",
+     "bytes": "e858b5fcff",
+     "caller_id": "eng1.37fa0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 230569,
+     "kind": "call",
+     "bytes": "e872b0fcff",
+     "caller_id": "eng1.38490",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 75791,
+     "kind": "call",
+     "bytes": "e80c0dffff",
+     "caller_id": "eng1.dispatch_local_12790",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 77245,
+     "kind": "call",
+     "bytes": "e85e07ffff",
+     "caller_id": "eng1.native_code_target_012d80",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 17,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.resource_reset]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_04b70": {
+   "symbol": "_title_04b70",
+   "candidate_native_rva": 13632,
+   "candidate_native_rva_hex": "0x3540",
+   "native_identity_status": "blocked_no_outside_direct_caller_found",
+   "own_entry_row": null,
+   "extent": null,
+   "source_body": null,
+   "fresh_own_shape_status": "no_own_recovery_row_native_review_required",
+   "outside_direct_callers": [],
+   "outside_direct_call_count": 0,
+   "independent_evidence_refs": [],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_0c2d0": {
+   "symbol": "_title_0c2d0",
+   "candidate_native_rva": 180832,
+   "candidate_native_rva_hex": "0x2c260",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.engine_file_cancel",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.engine_file_cancel",
+    "row_id": "eng1.engine_file_cancel",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 16,
+    "end_rva_exclusive": 180848,
+    "native_span_sha256": "cb5d9f72ecd8b0a401fe4870754258c387575b900edd4af2ae0ef2e133507d70"
+   },
+   "source_body": {
+    "path": "src/eng1/engine_file_bridge.c",
+    "sha256": "3f944e94258ab8ccbfe5cf8eeca3329da0cf3fa792c10406d53c29fc1e7d7dc5",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 25056,
+     "kind": "call",
+     "bytes": "e87b600200",
+     "caller_id": "eng1.od_060f9",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 25190,
+     "kind": "call",
+     "bytes": "e8f55f0200",
+     "caller_id": "eng1.od_060f9",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 25325,
+     "kind": "call",
+     "bytes": "e86e5f0200",
+     "caller_id": "eng1.od_060f9",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 3,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.engine_file_cancel]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_0c330": {
+   "symbol": "_title_0c330",
+   "candidate_native_rva": 180944,
+   "candidate_native_rva_hex": "0x2c2d0",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.dispatch_engine_2c2d0",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.dispatch_engine_2c2d0",
+    "row_id": "eng1.dispatch_engine_2c2d0",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 16,
+    "end_rva_exclusive": 180960,
+    "native_span_sha256": "69c9769d56710f785c8b9faf201052f3984c98b91e3da16587a557c914dcdc06"
+   },
+   "source_body": {
+    "path": "src/eng1/frame_lifecycle_bridges.c",
+    "sha256": "62897a8120677bbd5a468718949cbfdb0cb493d794a42bf57e525c16c9b31a1a",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 130170,
+     "kind": "call",
+     "bytes": "e851c60000",
+     "caller_id": "eng1.dispatch_local_1fc60",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 12093,
+     "kind": "call",
+     "bytes": "e88e930200",
+     "caller_id": "eng1.dispatch_local_02f30",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 25254,
+     "kind": "call",
+     "bytes": "e825600200",
+     "caller_id": "eng1.od_060f9",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 207808,
+     "kind": "call",
+     "bytes": "e80b97ffff",
+     "caller_id": "eng1.dispatch_local_32b10",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 59049,
+     "kind": "call",
+     "bytes": "e822dc0100",
+     "caller_id": "eng1.dispatch_local_0e670",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 59080,
+     "kind": "call",
+     "bytes": "e803dc0100",
+     "caller_id": "eng1.dispatch_local_0e670",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 59387,
+     "kind": "call",
+     "bytes": "e8d0da0100",
+     "caller_id": "eng1.0e720",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 60266,
+     "kind": "call",
+     "bytes": "e861d70100",
+     "caller_id": "eng1.0eb60",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 60877,
+     "kind": "call",
+     "bytes": "e8fed40100",
+     "caller_id": "eng1.0ed40",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 60935,
+     "kind": "call",
+     "bytes": "e8c4d40100",
+     "caller_id": "eng1.0edf0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 60238,
+     "kind": "call",
+     "bytes": "e87dd70100",
+     "caller_id": "eng1.eng1_0e8d0",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 11,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.dispatch_engine_2c2d0]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_0c7e0": {
+   "symbol": "_title_0c7e0",
+   "candidate_native_rva": 182048,
+   "candidate_native_rva_hex": "0x2c720",
+   "native_identity_status": "identity_evidence_incomplete_source_shape_may_need_refresh",
+   "own_entry_row": "eng1.dispatch_engine_2c720",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.dispatch_engine_2c720",
+    "row_id": "eng1.dispatch_engine_2c720",
+    "row_status": "CODEGEN_SIMILAR",
+    "size": 16,
+    "end_rva_exclusive": 182064,
+    "native_span_sha256": "b1e75b9cc9415a341c0a244a1a3b3f6abb6f9d4c8b3ef1603656218ac99e560f"
+   },
+   "source_body": {
+    "path": "src/eng1/control_unit_2c030.c",
+    "sha256": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
+    "source_exists": true,
+    "status": "CODEGEN_SIMILAR"
+   },
+   "fresh_own_shape_status": "fresh_own_shape_check_required",
+   "outside_direct_callers": [
+    {
+     "site_rva": 198614,
+     "kind": "call",
+     "bytes": "e845bfffff",
+     "caller_id": "eng1.eng1_30790",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 202176,
+     "kind": "call",
+     "bytes": "e85bb1ffff",
+     "caller_id": "eng1.eng1_31540",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 205432,
+     "kind": "call",
+     "bytes": "e8a3a4ffff",
+     "caller_id": "eng1.eng1_32130",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 201866,
+     "kind": "call",
+     "bytes": "e891b2ffff",
+     "caller_id": "eng1.shared_31470",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 206714,
+     "kind": "call",
+     "bytes": "e8a19fffff",
+     "caller_id": "eng1.eng1_32300",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 5,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.dispatch_engine_2c720]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_18680": {
+   "symbol": "_title_18680",
+   "candidate_native_rva": 200832,
+   "candidate_native_rva_hex": "0x31080",
+   "native_identity_status": "identity_supported_by_own_row_and_outside_callers",
+   "own_entry_row": "eng1.resource_metadata_pointer",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.resource_metadata_pointer",
+    "row_id": "eng1.resource_metadata_pointer",
+    "row_status": "FUNCTION_MATCH_RELOCATED",
+    "size": 96,
+    "end_rva_exclusive": 200928,
+    "native_span_sha256": "04c1f9d66daf72d4c5d1903088225d8cf76f987d52b7bea9a79caf4a2489f13d"
+   },
+   "source_body": {
+    "path": "src/eng1/resource_metadata.c",
+    "sha256": "a6c579e74b9d008d11f5eb3735f09e1bfe107b7847d323befba2a88bece044f0",
+    "source_exists": true,
+    "status": "FUNCTION_MATCH_RELOCATED"
+   },
+   "fresh_own_shape_status": "accepted_own_row",
+   "outside_direct_callers": [
+    {
+     "site_rva": 200348,
+     "kind": "call",
+     "bytes": "e8df010000",
+     "caller_id": "eng1.extent_producer_30e40",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 1,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.resource_metadata_pointer]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  },
+  "_title_195f0": {
+   "symbol": "_title_195f0",
+   "candidate_native_rva": 205008,
+   "candidate_native_rva_hex": "0x320d0",
+   "native_identity_status": "identity_supported_by_own_row_and_outside_callers",
+   "own_entry_row": "eng1.320d0",
+   "extent": {
+    "basis": "recovery.json native row under ENG1 identity eng1.320d0",
+    "row_id": "eng1.320d0",
+    "row_status": "FUNCTION_MATCH_RELOCATED",
+    "size": 96,
+    "end_rva_exclusive": 205104,
+    "native_span_sha256": "6512097fb662a368b2f604e5be265b0c07265cf10c197ed3fa039d23d4df45fc"
+   },
+   "source_body": {
+    "path": "src/eng1/render_unit_30010.cpp",
+    "sha256": "537a53c3dd7428634a552f9a104431ade7db1a4b1d2efe05f5d5deb101fa8c6b",
+    "source_exists": true,
+    "status": "FUNCTION_MATCH_RELOCATED"
+   },
+   "fresh_own_shape_status": "accepted_own_row",
+   "outside_direct_callers": [
+    {
+     "site_rva": 21658,
+     "kind": "call",
+     "bytes": "e831cc0200",
+     "caller_id": "eng1.05370",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 197691,
+     "kind": "call",
+     "bytes": "e8901c0000",
+     "caller_id": "eng1.30430",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 197934,
+     "kind": "call",
+     "bytes": "e89d1b0000",
+     "caller_id": "eng1.304f0",
+     "independent_of_pending_rows": true
+    },
+    {
+     "site_rva": 175702,
+     "kind": "call",
+     "bytes": "e875720000",
+     "caller_id": "eng1.native_code_target_002ae50",
+     "independent_of_pending_rows": true
+    }
+   ],
+   "outside_direct_call_count": 4,
+   "independent_evidence_refs": [
+    "recovery.json#functions[eng1.320d0]"
+   ],
+   "identity_note": "Candidate RVA came from the reference census for inventory only; native identity is supported only by the independent entry/extent record and outside caller witnesses listed here."
+  }
+ },
+ "identity_summary": {
+  "total": 45,
+  "outside_direct_callers_found": 24,
+  "own_recovery_entry_rows": 27,
+  "native_body_spans_reviewed": 32,
+  "blocked_no_outside_direct_caller": [
+   "_eng1_10900",
+   "_eng1_19820",
+   "_eng1_19900",
+   "_eng1_26f20",
+   "_eng1_296e0",
+   "_eng1_native_code_target_001ac10",
+   "_eng1_native_code_target_001ae00",
+   "_eng1_native_code_target_0021050",
+   "_eng1_native_code_target_0021210",
+   "_eng1_native_code_target_0033700",
+   "_eng1_native_code_target_0033720",
+   "_eng1_native_code_target_003c170",
+   "_eng1_native_code_target_003ca50",
+   "_eng1_native_code_target_0044120",
+   "_eng1_native_code_target_0044240",
+   "_eng1_native_code_target_00e3e0",
+   "_eng1_native_code_target_01abf0",
+   "_eng1_native_code_target_0337b0",
+   "_eng1_native_code_target_03c130",
+   "_eng1_target_03410",
+   "_title_04b70"
+  ],
+  "native_review_required": [
+   "_eng1_19820",
+   "_eng1_19900",
+   "_eng1_26de0",
+   "_eng1_26f20",
+   "_eng1_27450",
+   "_eng1_native_code_target_001ac10",
+   "_eng1_native_code_target_001ae00",
+   "_eng1_native_code_target_0021050",
+   "_eng1_native_code_target_0021210",
+   "_eng1_native_code_target_0044120",
+   "_eng1_native_code_target_0044240",
+   "_eng1_native_code_target_01abf0",
+   "_title_04b70"
+  ]
+ }
+}

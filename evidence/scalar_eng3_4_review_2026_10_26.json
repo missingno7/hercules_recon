@@ -1,0 +1,2793 @@
+{
+ "schema": 1,
+ "task_id": "scalar_eng3_4",
+ "target": "assets/pc/HERCULES/ENG3.DLL",
+ "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+ "observed_recovery_sha256": "e16a835a0852c05d4f0f52f754000e118452a2eaa707e31638e0b199c54277e9",
+ "observed_blockers_sha256": "6f4c0d1f6383c9ae5771e609237c938e3cdf8fd1ad8be4b6f35f97c0c38d0acc",
+ "blocker_count": 1489,
+ "source_question": "Does every exact native access and each neighboring absolute target establish a complete scalar loader-zero owner, with an independent complete MOV/LEA/PUSH HIGHLOW anchor?",
+ "method": "Read-only complete HIGHLOW relocation sweep over +/-16 RVA neighborhoods; every exact target fixup is disassembled using work/velocity_b/eng3_ranges/native_function_map.json intervals; exact address references are listed with instruction bytes and widths; nearby target RVAs are counted separately. Function map is used for instruction boundaries only.",
+ "native_function_map": "work/velocity_b/eng3_ranges/native_function_map.json",
+ "native_function_map_sha256": "6e334515f9510ec2a7462cc173c7c61238afa96f3a312ea90a8267663d0421d2",
+ "native_scan_path": "work/velocity_b/scalar_eng3_4/native_scan.json",
+ "native_scan_sha256": "663413b658e1e4c8df24bc3e9fbc3c3233749be9a1ed416d1cdcc6b007c0f6b1",
+ "classification": "The module sweep inventories HIGHLOW fixup targets within plus/minus 16 RVAs of each requested cell and disassembles all exact-target fixups on the native instruction map. For every passing scalar, all memory accesses are base/index-free direct memory operands at the exact address and expected width. The only additional exact-target uses are PUSH-immediate address-taking references, recorded separately. Nearby targets are accounted separately; an interior access within a proposed extent is disqualifying.",
+ "native_storage": {
+  "accepted_cells": {
+   "_g_2bf28": {
+    "rva": 265096,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121362,
+     "instruction_size": 7,
+     "instruction_bytes": "668915880b0410",
+     "instruction": "mov word ptr [0x10040b88], dx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 121365,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "15aa79899fde55d8a39dc0c805d9cf9756269f03e7b4bd12886ee09628974f85",
+     "identity": {
+      "rva": 121362,
+      "size": 7,
+      "operand": 0,
+      "sha256": "15aa79899fde55d8a39dc0c805d9cf9756269f03e7b4bd12886ee09628974f85"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265096,
+     "width": 2,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-8": 1,
+      "-4": 1,
+      "0": 4,
+      "4": 58,
+      "8": 4,
+      "10": 4,
+      "12": 4,
+      "16": 33
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf28.exact_references"
+    }
+   },
+   "_g_2bf32": {
+    "rva": 265108,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.eng3_1b9f0",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 113687,
+     "instruction_size": 7,
+     "instruction_bytes": "668b3d940b0410",
+     "instruction": "mov di, word ptr [0x10040b94]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 113690,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "b1752662464fd6bfb30a3822410f78a5c8767545eebf6d71be662c1c364eabdf",
+     "identity": {
+      "rva": 113687,
+      "size": 7,
+      "operand": 1,
+      "sha256": "b1752662464fd6bfb30a3822410f78a5c8767545eebf6d71be662c1c364eabdf"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265108,
+     "width": 2,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 1,
+      "-12": 4,
+      "-8": 58,
+      "-4": 4,
+      "-2": 4,
+      "0": 4,
+      "4": 33,
+      "8": 8,
+      "12": 5,
+      "16": 9
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf32.exact_references"
+    }
+   },
+   "_g_2bf60": {
+    "rva": 265152,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121348,
+     "instruction_size": 7,
+     "instruction_bytes": "668915c00b0410",
+     "instruction": "mov word ptr [0x10040bc0], dx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 121351,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "1fb30d5e51cd959c519c19813e73765927888992c812bad242d5db5dd573dfa5",
+     "identity": {
+      "rva": 121348,
+      "size": 7,
+      "operand": 0,
+      "sha256": "1fb30d5e51cd959c519c19813e73765927888992c812bad242d5db5dd573dfa5"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265152,
+     "width": 2,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 3,
+      "-12": 34,
+      "-8": 4,
+      "-4": 5,
+      "0": 4,
+      "2": 4,
+      "4": 4,
+      "6": 7,
+      "8": 1,
+      "12": 13,
+      "14": 5,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf60.exact_references"
+    }
+   },
+   "_g_2bf6c": {
+    "rva": 265164,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.eng3_1b9f0",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 113694,
+     "instruction_size": 6,
+     "instruction_bytes": "66a1cc0b0410",
+     "instruction": "mov ax, word ptr [0x10040bcc]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 113696,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "e15e81ec9385fb1fe48c7e5cea23445381f286ba79b1b5119846eed7a8fa534c",
+     "identity": {
+      "rva": 113694,
+      "size": 6,
+      "operand": 1,
+      "sha256": "e15e81ec9385fb1fe48c7e5cea23445381f286ba79b1b5119846eed7a8fa534c"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265164,
+     "width": 2,
+     "native_exact_fixup_refs": 13,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "cmp",
+       "count": 3
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 10
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 5,
+      "-12": 4,
+      "-10": 4,
+      "-8": 4,
+      "-6": 7,
+      "-4": 1,
+      "0": 13,
+      "2": 5,
+      "4": 4,
+      "6": 13,
+      "8": 2,
+      "12": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf6c.exact_references"
+    }
+   },
+   "_g_2bf80": {
+    "rva": 265176,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121397,
+     "instruction_size": 7,
+     "instruction_bytes": "66890dd80b0410",
+     "instruction": "mov word ptr [0x10040bd8], cx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 121400,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "248e54ab02c84f22073d8d493bae3a6c1bc320bebee3453a506a3bf172ad965e",
+     "identity": {
+      "rva": 121397,
+      "size": 7,
+      "operand": 0,
+      "sha256": "248e54ab02c84f22073d8d493bae3a6c1bc320bebee3453a506a3bf172ad965e"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265176,
+     "width": 2,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 1,
+      "-12": 13,
+      "-10": 5,
+      "-8": 4,
+      "-6": 13,
+      "-4": 2,
+      "0": 4,
+      "8": 7
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf80.exact_references"
+    }
+   },
+   "_g_2d320": {
+    "rva": 271680,
+    "size": 4,
+    "owner_source": "src/title/u02b70.c",
+    "anchor": {
+     "function_id": "eng3.eng3_195d0",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 103888,
+     "instruction_size": 5,
+     "instruction_bytes": "a140250410",
+     "instruction": "mov eax, dword ptr [0x10042540]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 103889,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "a949f0672636a6a3cfc58f5caebcba6ae3d47b183c6cf7b147d4d97ed71e85ce",
+     "identity": {
+      "rva": 103888,
+      "size": 5,
+      "operand": 1,
+      "sha256": "a949f0672636a6a3cfc58f5caebcba6ae3d47b183c6cf7b147d4d97ed71e85ce"
+     }
+    },
+    "extent_sweep": {
+     "rva": 271680,
+     "width": 4,
+     "native_exact_fixup_refs": 233,
+     "access_signature_counts": [
+      {
+       "operand_kind": "imm",
+       "operand_width": 4,
+       "mnemonic": "push",
+       "count": 1
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 232
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "0": 233,
+      "4": 5,
+      "8": 5,
+      "12": 8,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2d320.exact_references"
+    }
+   },
+   "_g_2df44": {
+    "rva": 274796,
+    "size": 4,
+    "owner_source": "src/title/u02b70.c",
+    "anchor": {
+     "function_id": "eng3.shared_0aa70",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 43641,
+     "instruction_size": 5,
+     "instruction_bytes": "a16c310410",
+     "instruction": "mov eax, dword ptr [0x1004316c]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 43642,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "f65251af8ce476c805acd97ead9edbbf34d3944bda743e762a2e6d5918010214",
+     "identity": {
+      "rva": 43641,
+      "size": 5,
+      "operand": 1,
+      "sha256": "f65251af8ce476c805acd97ead9edbbf34d3944bda743e762a2e6d5918010214"
+     }
+    },
+    "extent_sweep": {
+     "rva": 274796,
+     "width": 4,
+     "native_exact_fixup_refs": 3,
+     "access_signature_counts": [
+      {
+       "operand_kind": "imm",
+       "operand_width": 4,
+       "mnemonic": "push",
+       "count": 1
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 2
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-12": 1,
+      "-8": 59,
+      "-4": 3,
+      "0": 3,
+      "4": 4,
+      "8": 11,
+      "12": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2df44.exact_references"
+    }
+   },
+   "_g_2df50": {
+    "rva": 274808,
+    "size": 1,
+    "owner_source": "src/title/u02b70.c",
+    "anchor": {
+     "function_id": "eng3.shared_0aa70",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 43632,
+     "instruction_size": 5,
+     "instruction_bytes": "a078310410",
+     "instruction": "mov al, byte ptr [0x10043178]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 1,
+     "fixup_field_rva": 43633,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "acfbd1646ca04b1f53f4440b3455fbe1a1009d10896adf83da29cf1abc3635b4",
+     "identity": {
+      "rva": 43632,
+      "size": 5,
+      "operand": 1,
+      "sha256": "acfbd1646ca04b1f53f4440b3455fbe1a1009d10896adf83da29cf1abc3635b4"
+     }
+    },
+    "extent_sweep": {
+     "rva": 274808,
+     "width": 1,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 1,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 3,
+      "-12": 3,
+      "-8": 4,
+      "-4": 11,
+      "0": 4,
+      "8": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2df50.exact_references"
+    }
+   },
+   "_g_context_sequence_phase": {
+    "rva": 260772,
+    "size": 4,
+    "owner_source": "src/eng1/runtime_storage.c",
+    "anchor": {
+     "function_id": "eng3.shared_0a470",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 42435,
+     "instruction_size": 5,
+     "instruction_bytes": "a1a4fa0310",
+     "instruction": "mov eax, dword ptr [0x1003faa4]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 42436,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "9caa7d0eeac474b9082be84ff97ae595f1b4e9c1e37562356837306500b8060d",
+     "identity": {
+      "rva": 42435,
+      "size": 5,
+      "operand": 1,
+      "sha256": "9caa7d0eeac474b9082be84ff97ae595f1b4e9c1e37562356837306500b8060d"
+     }
+    },
+    "extent_sweep": {
+     "rva": 260772,
+     "width": 4,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 4,
+      "-12": 3,
+      "-4": 29,
+      "0": 4,
+      "4": 10,
+      "8": 7,
+      "16": 1
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_context_sequence_phase.exact_references"
+    }
+   },
+   "_g_dispatch_frame_base_71ec8": {
+    "rva": 267340,
+    "size": 4,
+    "owner_source": "src/eng1/frame_data.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93452,
+     "instruction_size": 6,
+     "instruction_bytes": "8b1d4c140410",
+     "instruction": "mov ebx, dword ptr [0x1004144c]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93454,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "5f17bc26a4a2d9bcba79c2aa03211a3595e1f497b7aebb9b4ecb0b0595c24142",
+     "identity": {
+      "rva": 93452,
+      "size": 6,
+      "operand": 1,
+      "sha256": "5f17bc26a4a2d9bcba79c2aa03211a3595e1f497b7aebb9b4ecb0b0595c24142"
+     }
+    },
+    "extent_sweep": {
+     "rva": 267340,
+     "width": 4,
+     "native_exact_fixup_refs": 31,
+     "access_signature_counts": [
+      {
+       "operand_kind": "imm",
+       "operand_width": 4,
+       "mnemonic": "push",
+       "count": 1
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "cmp",
+       "count": 3
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 27
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-8": 6,
+      "-4": 54,
+      "0": 31
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_dispatch_frame_base_71ec8.exact_references"
+    }
+   },
+   "_g_dispatch_frame_current_71ec4": {
+    "rva": 267336,
+    "size": 4,
+    "owner_source": "src/eng1/frame_data.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93446,
+     "instruction_size": 6,
+     "instruction_bytes": "8b0d48140410",
+     "instruction": "mov ecx, dword ptr [0x10041448]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93448,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "3786a579dd60b3431f33d4607f2d27a368e39466671bbb21014379d8ba7b1aa8",
+     "identity": {
+      "rva": 93446,
+      "size": 6,
+      "operand": 1,
+      "sha256": "3786a579dd60b3431f33d4607f2d27a368e39466671bbb21014379d8ba7b1aa8"
+     }
+    },
+    "extent_sweep": {
+     "rva": 267336,
+     "width": 4,
+     "native_exact_fixup_refs": 54,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 54
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-4": 6,
+      "0": 54,
+      "4": 31
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_dispatch_frame_current_71ec4.exact_references"
+    }
+   },
+   "_g_eng3_41cb0": {
+    "rva": 269488,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_15680",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 88847,
+     "instruction_size": 10,
+     "instruction_bytes": "c705b01c041000000000",
+     "instruction": "mov dword ptr [0x10041cb0], 0",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 88849,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "cc36c8f1bf7a65e27226d778e64efc3d5d2d8a663c98df561dc516f4d38d07cb",
+     "identity": {
+      "rva": 88847,
+      "size": 10,
+      "operand": 0,
+      "sha256": "cc36c8f1bf7a65e27226d778e64efc3d5d2d8a663c98df561dc516f4d38d07cb"
+     }
+    },
+    "extent_sweep": {
+     "rva": 269488,
+     "width": 4,
+     "native_exact_fixup_refs": 11,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 11
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 1,
+      "-12": 1,
+      "-8": 1,
+      "0": 11,
+      "4": 79,
+      "8": 1,
+      "12": 2,
+      "16": 2
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_41cb0.exact_references"
+    }
+   },
+   "_g_eng3_41d50": {
+    "rva": 269648,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_15680",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 88857,
+     "instruction_size": 6,
+     "instruction_bytes": "892d501d0410",
+     "instruction": "mov dword ptr [0x10041d50], ebp",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 88859,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "98fa8c31ace045e83fdeab9bc2fd0492b67c6ceaa45d7a08d44483bd7c686a4e",
+     "identity": {
+      "rva": 88857,
+      "size": 6,
+      "operand": 0,
+      "sha256": "98fa8c31ace045e83fdeab9bc2fd0492b67c6ceaa45d7a08d44483bd7c686a4e"
+     }
+    },
+    "extent_sweep": {
+     "rva": 269648,
+     "width": 4,
+     "native_exact_fixup_refs": 15,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 15
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-8": 8,
+      "-4": 2,
+      "0": 15,
+      "4": 482,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_41d50.exact_references"
+    }
+   },
+   "_g_eng3_actor_3fb0c": {
+    "rva": 260876,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.02ac0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 10998,
+     "instruction_size": 6,
+     "instruction_bytes": "8b0d0cfb0310",
+     "instruction": "mov ecx, dword ptr [0x1003fb0c]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 11000,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "2bc7e58a244b733a4d6b0f6a57ad69b7646671cdb455c8be8b57068ad49323e8",
+     "identity": {
+      "rva": 10998,
+      "size": 6,
+      "operand": 1,
+      "sha256": "2bc7e58a244b733a4d6b0f6a57ad69b7646671cdb455c8be8b57068ad49323e8"
+     }
+    },
+    "extent_sweep": {
+     "rva": 260876,
+     "width": 4,
+     "native_exact_fixup_refs": 83,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 83
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 6,
+      "-12": 2,
+      "-8": 2,
+      "-4": 4,
+      "0": 83,
+      "8": 2
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_actor_3fb0c.exact_references"
+    }
+   },
+   "_g_eng3_center_y_40620": {
+    "rva": 263712,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93314,
+     "instruction_size": 6,
+     "instruction_bytes": "8b1520060410",
+     "instruction": "mov edx, dword ptr [0x10040620]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93316,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "650d1d0a01a0bb1df788764267306796c722b0a3784d78cf287e310822d7d541",
+     "identity": {
+      "rva": 93314,
+      "size": 6,
+      "operand": 1,
+      "sha256": "650d1d0a01a0bb1df788764267306796c722b0a3784d78cf287e310822d7d541"
+     }
+    },
+    "extent_sweep": {
+     "rva": 263712,
+     "width": 4,
+     "native_exact_fixup_refs": 8,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 8
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 7,
+      "-12": 4,
+      "-4": 3,
+      "0": 8,
+      "4": 5,
+      "8": 2,
+      "9": 2,
+      "10": 2,
+      "12": 1,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_center_y_40620.exact_references"
+    }
+   },
+   "_g_eng3_tile_actions_40bd4": {
+    "rva": 265172,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121647,
+     "instruction_size": 6,
+     "instruction_bytes": "890dd40b0410",
+     "instruction": "mov dword ptr [0x10040bd4], ecx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 121649,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "2d15f56c0c2b1efa9e8acd6d9cbff0647476ac5ea2eeacab0407172085974b7a",
+     "identity": {
+      "rva": 121647,
+      "size": 6,
+      "operand": 0,
+      "sha256": "2d15f56c0c2b1efa9e8acd6d9cbff0647476ac5ea2eeacab0407172085974b7a"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265172,
+     "width": 4,
+     "native_exact_fixup_refs": 2,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 2
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 4,
+      "-14": 7,
+      "-12": 1,
+      "-8": 13,
+      "-6": 5,
+      "-4": 4,
+      "-2": 13,
+      "0": 2,
+      "4": 4,
+      "12": 7
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_tile_actions_40bd4.exact_references"
+    }
+   },
+   "_g_eng3_tiles_40c38": {
+    "rva": 265272,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121659,
+     "instruction_size": 5,
+     "instruction_bytes": "a3380c0410",
+     "instruction": "mov dword ptr [0x10040c38], eax",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 121660,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "2d28010f69fbf9e003a80e987e5dabd562464facf35d9a7b889a7532762772b9",
+     "identity": {
+      "rva": 121659,
+      "size": 5,
+      "operand": 0,
+      "sha256": "2d28010f69fbf9e003a80e987e5dabd562464facf35d9a7b889a7532762772b9"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265272,
+     "width": 4,
+     "native_exact_fixup_refs": 3,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 3
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-8": 4,
+      "-6": 13,
+      "-4": 2,
+      "0": 3,
+      "8": 2,
+      "12": 2
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_tiles_40c38.exact_references"
+    }
+   },
+   "_g_eng3_unknown_3fb88": {
+    "rva": 261000,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93410,
+     "instruction_size": 5,
+     "instruction_bytes": "a188fb0310",
+     "instruction": "mov eax, dword ptr [0x1003fb88]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93411,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "18032c2f36bfff92e746d7e77c026d1602b688b3791362c3291930edc255f140",
+     "identity": {
+      "rva": 93410,
+      "size": 5,
+      "operand": 1,
+      "sha256": "18032c2f36bfff92e746d7e77c026d1602b688b3791362c3291930edc255f140"
+     }
+    },
+    "extent_sweep": {
+     "rva": 261000,
+     "width": 4,
+     "native_exact_fixup_refs": 7,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "cmp",
+       "count": 1
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 6
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 2,
+      "-12": 1,
+      "-8": 3,
+      "-4": 2,
+      "0": 7,
+      "4": 4,
+      "12": 4,
+      "16": 3
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_unknown_3fb88.exact_references"
+    }
+   },
+   "_g_eng3_unknown_3fb8c": {
+    "rva": 261004,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93375,
+     "instruction_size": 5,
+     "instruction_bytes": "a18cfb0310",
+     "instruction": "mov eax, dword ptr [0x1003fb8c]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93376,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "c815d2d59c861ac852a9d75b97f0e722fc7045339d301b3a8e3b6a98596b92a6",
+     "identity": {
+      "rva": 93375,
+      "size": 5,
+      "operand": 1,
+      "sha256": "c815d2d59c861ac852a9d75b97f0e722fc7045339d301b3a8e3b6a98596b92a6"
+     }
+    },
+    "extent_sweep": {
+     "rva": 261004,
+     "width": 4,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 1,
+      "-12": 3,
+      "-8": 2,
+      "-4": 7,
+      "0": 4,
+      "8": 4,
+      "12": 3,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_unknown_3fb8c.exact_references"
+    }
+   },
+   "_g_eng3_vsync_gate_41444": {
+    "rva": 267332,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_1abb0",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 109792,
+     "instruction_size": 6,
+     "instruction_bytes": "891d44140410",
+     "instruction": "mov dword ptr [0x10041444], ebx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 109794,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "a949bd99381bcf89b558d43af3a286278399ba3382b720ee676fc560dab0db51",
+     "identity": {
+      "rva": 109792,
+      "size": 6,
+      "operand": 0,
+      "sha256": "a949bd99381bcf89b558d43af3a286278399ba3382b720ee676fc560dab0db51"
+     }
+    },
+    "extent_sweep": {
+     "rva": 267332,
+     "width": 4,
+     "native_exact_fixup_refs": 6,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 6
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "0": 6,
+      "4": 54,
+      "8": 31
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_vsync_gate_41444.exact_references"
+    }
+   },
+   "_g_eng3_track_40794": {
+    "rva": 264084,
+    "size": 4,
+    "owner_source": "src/eng3/eng3_track_storage.c",
+    "anchor": {
+     "function_id": "eng3.eng3_22790",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 141365,
+     "instruction_size": 5,
+     "instruction_bytes": "a394070410",
+     "instruction": "mov dword ptr [0x10040794], eax",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 141366,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "5b6550b9e74b006acaa2fe6c186fcd55194f8233d85cb9cfa68aa355cd4dba96",
+     "identity": {
+      "rva": 141365,
+      "size": 5,
+      "operand": 0,
+      "sha256": "5b6550b9e74b006acaa2fe6c186fcd55194f8233d85cb9cfa68aa355cd4dba96"
+     },
+     "accepted_binding_reused_verbatim": true
+    },
+    "extent_sweep": {
+     "rva": 264084,
+     "width": 4,
+     "native_exact_fixup_refs": 13,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 13
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 2,
+      "-15": 2,
+      "-14": 5,
+      "-13": 1,
+      "-12": 3,
+      "-11": 3,
+      "-10": 5,
+      "-8": 13,
+      "-4": 6,
+      "0": 13,
+      "12": 2,
+      "16": 412
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_track_40794.exact_references"
+    }
+   }
+  },
+  "bss_anchor_verification": {
+   "_g_2bf28": {
+    "rva": 265096,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121362,
+     "instruction_size": 7,
+     "instruction_bytes": "668915880b0410",
+     "instruction": "mov word ptr [0x10040b88], dx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 121365,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "15aa79899fde55d8a39dc0c805d9cf9756269f03e7b4bd12886ee09628974f85",
+     "identity": {
+      "rva": 121362,
+      "size": 7,
+      "operand": 0,
+      "sha256": "15aa79899fde55d8a39dc0c805d9cf9756269f03e7b4bd12886ee09628974f85"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265096,
+     "width": 2,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-8": 1,
+      "-4": 1,
+      "0": 4,
+      "4": 58,
+      "8": 4,
+      "10": 4,
+      "12": 4,
+      "16": 33
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf28.exact_references"
+    }
+   },
+   "_g_2bf32": {
+    "rva": 265108,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.eng3_1b9f0",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 113687,
+     "instruction_size": 7,
+     "instruction_bytes": "668b3d940b0410",
+     "instruction": "mov di, word ptr [0x10040b94]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 113690,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "b1752662464fd6bfb30a3822410f78a5c8767545eebf6d71be662c1c364eabdf",
+     "identity": {
+      "rva": 113687,
+      "size": 7,
+      "operand": 1,
+      "sha256": "b1752662464fd6bfb30a3822410f78a5c8767545eebf6d71be662c1c364eabdf"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265108,
+     "width": 2,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 1,
+      "-12": 4,
+      "-8": 58,
+      "-4": 4,
+      "-2": 4,
+      "0": 4,
+      "4": 33,
+      "8": 8,
+      "12": 5,
+      "16": 9
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf32.exact_references"
+    }
+   },
+   "_g_2bf60": {
+    "rva": 265152,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121348,
+     "instruction_size": 7,
+     "instruction_bytes": "668915c00b0410",
+     "instruction": "mov word ptr [0x10040bc0], dx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 121351,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "1fb30d5e51cd959c519c19813e73765927888992c812bad242d5db5dd573dfa5",
+     "identity": {
+      "rva": 121348,
+      "size": 7,
+      "operand": 0,
+      "sha256": "1fb30d5e51cd959c519c19813e73765927888992c812bad242d5db5dd573dfa5"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265152,
+     "width": 2,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 3,
+      "-12": 34,
+      "-8": 4,
+      "-4": 5,
+      "0": 4,
+      "2": 4,
+      "4": 4,
+      "6": 7,
+      "8": 1,
+      "12": 13,
+      "14": 5,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf60.exact_references"
+    }
+   },
+   "_g_2bf6c": {
+    "rva": 265164,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.eng3_1b9f0",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 113694,
+     "instruction_size": 6,
+     "instruction_bytes": "66a1cc0b0410",
+     "instruction": "mov ax, word ptr [0x10040bcc]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 113696,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "e15e81ec9385fb1fe48c7e5cea23445381f286ba79b1b5119846eed7a8fa534c",
+     "identity": {
+      "rva": 113694,
+      "size": 6,
+      "operand": 1,
+      "sha256": "e15e81ec9385fb1fe48c7e5cea23445381f286ba79b1b5119846eed7a8fa534c"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265164,
+     "width": 2,
+     "native_exact_fixup_refs": 13,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "cmp",
+       "count": 3
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 10
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 5,
+      "-12": 4,
+      "-10": 4,
+      "-8": 4,
+      "-6": 7,
+      "-4": 1,
+      "0": 13,
+      "2": 5,
+      "4": 4,
+      "6": 13,
+      "8": 2,
+      "12": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf6c.exact_references"
+    }
+   },
+   "_g_2bf80": {
+    "rva": 265176,
+    "size": 2,
+    "owner_source": "src/title/title_common.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121397,
+     "instruction_size": 7,
+     "instruction_bytes": "66890dd80b0410",
+     "instruction": "mov word ptr [0x10040bd8], cx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 2,
+     "fixup_field_rva": 121400,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "248e54ab02c84f22073d8d493bae3a6c1bc320bebee3453a506a3bf172ad965e",
+     "identity": {
+      "rva": 121397,
+      "size": 7,
+      "operand": 0,
+      "sha256": "248e54ab02c84f22073d8d493bae3a6c1bc320bebee3453a506a3bf172ad965e"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265176,
+     "width": 2,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 2,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 1,
+      "-12": 13,
+      "-10": 5,
+      "-8": 4,
+      "-6": 13,
+      "-4": 2,
+      "0": 4,
+      "8": 7
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2bf80.exact_references"
+    }
+   },
+   "_g_2d320": {
+    "rva": 271680,
+    "size": 4,
+    "owner_source": "src/title/u02b70.c",
+    "anchor": {
+     "function_id": "eng3.eng3_195d0",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 103888,
+     "instruction_size": 5,
+     "instruction_bytes": "a140250410",
+     "instruction": "mov eax, dword ptr [0x10042540]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 103889,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "a949f0672636a6a3cfc58f5caebcba6ae3d47b183c6cf7b147d4d97ed71e85ce",
+     "identity": {
+      "rva": 103888,
+      "size": 5,
+      "operand": 1,
+      "sha256": "a949f0672636a6a3cfc58f5caebcba6ae3d47b183c6cf7b147d4d97ed71e85ce"
+     }
+    },
+    "extent_sweep": {
+     "rva": 271680,
+     "width": 4,
+     "native_exact_fixup_refs": 233,
+     "access_signature_counts": [
+      {
+       "operand_kind": "imm",
+       "operand_width": 4,
+       "mnemonic": "push",
+       "count": 1
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 232
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "0": 233,
+      "4": 5,
+      "8": 5,
+      "12": 8,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2d320.exact_references"
+    }
+   },
+   "_g_2df44": {
+    "rva": 274796,
+    "size": 4,
+    "owner_source": "src/title/u02b70.c",
+    "anchor": {
+     "function_id": "eng3.shared_0aa70",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 43641,
+     "instruction_size": 5,
+     "instruction_bytes": "a16c310410",
+     "instruction": "mov eax, dword ptr [0x1004316c]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 43642,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "f65251af8ce476c805acd97ead9edbbf34d3944bda743e762a2e6d5918010214",
+     "identity": {
+      "rva": 43641,
+      "size": 5,
+      "operand": 1,
+      "sha256": "f65251af8ce476c805acd97ead9edbbf34d3944bda743e762a2e6d5918010214"
+     }
+    },
+    "extent_sweep": {
+     "rva": 274796,
+     "width": 4,
+     "native_exact_fixup_refs": 3,
+     "access_signature_counts": [
+      {
+       "operand_kind": "imm",
+       "operand_width": 4,
+       "mnemonic": "push",
+       "count": 1
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 2
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-12": 1,
+      "-8": 59,
+      "-4": 3,
+      "0": 3,
+      "4": 4,
+      "8": 11,
+      "12": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2df44.exact_references"
+    }
+   },
+   "_g_2df50": {
+    "rva": 274808,
+    "size": 1,
+    "owner_source": "src/title/u02b70.c",
+    "anchor": {
+     "function_id": "eng3.shared_0aa70",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 43632,
+     "instruction_size": 5,
+     "instruction_bytes": "a078310410",
+     "instruction": "mov al, byte ptr [0x10043178]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 1,
+     "fixup_field_rva": 43633,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "acfbd1646ca04b1f53f4440b3455fbe1a1009d10896adf83da29cf1abc3635b4",
+     "identity": {
+      "rva": 43632,
+      "size": 5,
+      "operand": 1,
+      "sha256": "acfbd1646ca04b1f53f4440b3455fbe1a1009d10896adf83da29cf1abc3635b4"
+     }
+    },
+    "extent_sweep": {
+     "rva": 274808,
+     "width": 1,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 1,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 3,
+      "-12": 3,
+      "-8": 4,
+      "-4": 11,
+      "0": 4,
+      "8": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_2df50.exact_references"
+    }
+   },
+   "_g_context_sequence_phase": {
+    "rva": 260772,
+    "size": 4,
+    "owner_source": "src/eng1/runtime_storage.c",
+    "anchor": {
+     "function_id": "eng3.shared_0a470",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 42435,
+     "instruction_size": 5,
+     "instruction_bytes": "a1a4fa0310",
+     "instruction": "mov eax, dword ptr [0x1003faa4]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 42436,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "9caa7d0eeac474b9082be84ff97ae595f1b4e9c1e37562356837306500b8060d",
+     "identity": {
+      "rva": 42435,
+      "size": 5,
+      "operand": 1,
+      "sha256": "9caa7d0eeac474b9082be84ff97ae595f1b4e9c1e37562356837306500b8060d"
+     }
+    },
+    "extent_sweep": {
+     "rva": 260772,
+     "width": 4,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 4,
+      "-12": 3,
+      "-4": 29,
+      "0": 4,
+      "4": 10,
+      "8": 7,
+      "16": 1
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_context_sequence_phase.exact_references"
+    }
+   },
+   "_g_dispatch_frame_base_71ec8": {
+    "rva": 267340,
+    "size": 4,
+    "owner_source": "src/eng1/frame_data.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93452,
+     "instruction_size": 6,
+     "instruction_bytes": "8b1d4c140410",
+     "instruction": "mov ebx, dword ptr [0x1004144c]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93454,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "5f17bc26a4a2d9bcba79c2aa03211a3595e1f497b7aebb9b4ecb0b0595c24142",
+     "identity": {
+      "rva": 93452,
+      "size": 6,
+      "operand": 1,
+      "sha256": "5f17bc26a4a2d9bcba79c2aa03211a3595e1f497b7aebb9b4ecb0b0595c24142"
+     }
+    },
+    "extent_sweep": {
+     "rva": 267340,
+     "width": 4,
+     "native_exact_fixup_refs": 31,
+     "access_signature_counts": [
+      {
+       "operand_kind": "imm",
+       "operand_width": 4,
+       "mnemonic": "push",
+       "count": 1
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "cmp",
+       "count": 3
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 27
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-8": 6,
+      "-4": 54,
+      "0": 31
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_dispatch_frame_base_71ec8.exact_references"
+    }
+   },
+   "_g_dispatch_frame_current_71ec4": {
+    "rva": 267336,
+    "size": 4,
+    "owner_source": "src/eng1/frame_data.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93446,
+     "instruction_size": 6,
+     "instruction_bytes": "8b0d48140410",
+     "instruction": "mov ecx, dword ptr [0x10041448]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93448,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "3786a579dd60b3431f33d4607f2d27a368e39466671bbb21014379d8ba7b1aa8",
+     "identity": {
+      "rva": 93446,
+      "size": 6,
+      "operand": 1,
+      "sha256": "3786a579dd60b3431f33d4607f2d27a368e39466671bbb21014379d8ba7b1aa8"
+     }
+    },
+    "extent_sweep": {
+     "rva": 267336,
+     "width": 4,
+     "native_exact_fixup_refs": 54,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 54
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-4": 6,
+      "0": 54,
+      "4": 31
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_dispatch_frame_current_71ec4.exact_references"
+    }
+   },
+   "_g_eng3_41cb0": {
+    "rva": 269488,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_15680",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 88847,
+     "instruction_size": 10,
+     "instruction_bytes": "c705b01c041000000000",
+     "instruction": "mov dword ptr [0x10041cb0], 0",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 88849,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "cc36c8f1bf7a65e27226d778e64efc3d5d2d8a663c98df561dc516f4d38d07cb",
+     "identity": {
+      "rva": 88847,
+      "size": 10,
+      "operand": 0,
+      "sha256": "cc36c8f1bf7a65e27226d778e64efc3d5d2d8a663c98df561dc516f4d38d07cb"
+     }
+    },
+    "extent_sweep": {
+     "rva": 269488,
+     "width": 4,
+     "native_exact_fixup_refs": 11,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 11
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 1,
+      "-12": 1,
+      "-8": 1,
+      "0": 11,
+      "4": 79,
+      "8": 1,
+      "12": 2,
+      "16": 2
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_41cb0.exact_references"
+    }
+   },
+   "_g_eng3_41d50": {
+    "rva": 269648,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_15680",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 88857,
+     "instruction_size": 6,
+     "instruction_bytes": "892d501d0410",
+     "instruction": "mov dword ptr [0x10041d50], ebp",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 88859,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "98fa8c31ace045e83fdeab9bc2fd0492b67c6ceaa45d7a08d44483bd7c686a4e",
+     "identity": {
+      "rva": 88857,
+      "size": 6,
+      "operand": 0,
+      "sha256": "98fa8c31ace045e83fdeab9bc2fd0492b67c6ceaa45d7a08d44483bd7c686a4e"
+     }
+    },
+    "extent_sweep": {
+     "rva": 269648,
+     "width": 4,
+     "native_exact_fixup_refs": 15,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 15
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-8": 8,
+      "-4": 2,
+      "0": 15,
+      "4": 482,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_41d50.exact_references"
+    }
+   },
+   "_g_eng3_actor_3fb0c": {
+    "rva": 260876,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.02ac0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 10998,
+     "instruction_size": 6,
+     "instruction_bytes": "8b0d0cfb0310",
+     "instruction": "mov ecx, dword ptr [0x1003fb0c]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 11000,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "2bc7e58a244b733a4d6b0f6a57ad69b7646671cdb455c8be8b57068ad49323e8",
+     "identity": {
+      "rva": 10998,
+      "size": 6,
+      "operand": 1,
+      "sha256": "2bc7e58a244b733a4d6b0f6a57ad69b7646671cdb455c8be8b57068ad49323e8"
+     }
+    },
+    "extent_sweep": {
+     "rva": 260876,
+     "width": 4,
+     "native_exact_fixup_refs": 83,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 83
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 6,
+      "-12": 2,
+      "-8": 2,
+      "-4": 4,
+      "0": 83,
+      "8": 2
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_actor_3fb0c.exact_references"
+    }
+   },
+   "_g_eng3_center_y_40620": {
+    "rva": 263712,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93314,
+     "instruction_size": 6,
+     "instruction_bytes": "8b1520060410",
+     "instruction": "mov edx, dword ptr [0x10040620]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93316,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "650d1d0a01a0bb1df788764267306796c722b0a3784d78cf287e310822d7d541",
+     "identity": {
+      "rva": 93314,
+      "size": 6,
+      "operand": 1,
+      "sha256": "650d1d0a01a0bb1df788764267306796c722b0a3784d78cf287e310822d7d541"
+     }
+    },
+    "extent_sweep": {
+     "rva": 263712,
+     "width": 4,
+     "native_exact_fixup_refs": 8,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 8
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 7,
+      "-12": 4,
+      "-4": 3,
+      "0": 8,
+      "4": 5,
+      "8": 2,
+      "9": 2,
+      "10": 2,
+      "12": 1,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_center_y_40620.exact_references"
+    }
+   },
+   "_g_eng3_tile_actions_40bd4": {
+    "rva": 265172,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121647,
+     "instruction_size": 6,
+     "instruction_bytes": "890dd40b0410",
+     "instruction": "mov dword ptr [0x10040bd4], ecx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 121649,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "2d15f56c0c2b1efa9e8acd6d9cbff0647476ac5ea2eeacab0407172085974b7a",
+     "identity": {
+      "rva": 121647,
+      "size": 6,
+      "operand": 0,
+      "sha256": "2d15f56c0c2b1efa9e8acd6d9cbff0647476ac5ea2eeacab0407172085974b7a"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265172,
+     "width": 4,
+     "native_exact_fixup_refs": 2,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 2
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 4,
+      "-14": 7,
+      "-12": 1,
+      "-8": 13,
+      "-6": 5,
+      "-4": 4,
+      "-2": 13,
+      "0": 2,
+      "4": 4,
+      "12": 7
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_tile_actions_40bd4.exact_references"
+    }
+   },
+   "_g_eng3_tiles_40c38": {
+    "rva": 265272,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.shared_1d9b0",
+     "function_status": "CODEGEN_SIMILAR",
+     "pending_blocker": true,
+     "instruction_rva": 121659,
+     "instruction_size": 5,
+     "instruction_bytes": "a3380c0410",
+     "instruction": "mov dword ptr [0x10040c38], eax",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 121660,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "2d28010f69fbf9e003a80e987e5dabd562464facf35d9a7b889a7532762772b9",
+     "identity": {
+      "rva": 121659,
+      "size": 5,
+      "operand": 0,
+      "sha256": "2d28010f69fbf9e003a80e987e5dabd562464facf35d9a7b889a7532762772b9"
+     }
+    },
+    "extent_sweep": {
+     "rva": 265272,
+     "width": 4,
+     "native_exact_fixup_refs": 3,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 3
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-8": 4,
+      "-6": 13,
+      "-4": 2,
+      "0": 3,
+      "8": 2,
+      "12": 2
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_tiles_40c38.exact_references"
+    }
+   },
+   "_g_eng3_unknown_3fb88": {
+    "rva": 261000,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93410,
+     "instruction_size": 5,
+     "instruction_bytes": "a188fb0310",
+     "instruction": "mov eax, dword ptr [0x1003fb88]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93411,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "18032c2f36bfff92e746d7e77c026d1602b688b3791362c3291930edc255f140",
+     "identity": {
+      "rva": 93410,
+      "size": 5,
+      "operand": 1,
+      "sha256": "18032c2f36bfff92e746d7e77c026d1602b688b3791362c3291930edc255f140"
+     }
+    },
+    "extent_sweep": {
+     "rva": 261000,
+     "width": 4,
+     "native_exact_fixup_refs": 7,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "cmp",
+       "count": 1
+      },
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 6
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 2,
+      "-12": 1,
+      "-8": 3,
+      "-4": 2,
+      "0": 7,
+      "4": 4,
+      "12": 4,
+      "16": 3
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_unknown_3fb88.exact_references"
+    }
+   },
+   "_g_eng3_unknown_3fb8c": {
+    "rva": 261004,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_16c40",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 93375,
+     "instruction_size": 5,
+     "instruction_bytes": "a18cfb0310",
+     "instruction": "mov eax, dword ptr [0x1003fb8c]",
+     "absolute_operand_index": 1,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 93376,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "c815d2d59c861ac852a9d75b97f0e722fc7045339d301b3a8e3b6a98596b92a6",
+     "identity": {
+      "rva": 93375,
+      "size": 5,
+      "operand": 1,
+      "sha256": "c815d2d59c861ac852a9d75b97f0e722fc7045339d301b3a8e3b6a98596b92a6"
+     }
+    },
+    "extent_sweep": {
+     "rva": 261004,
+     "width": 4,
+     "native_exact_fixup_refs": 4,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 4
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 1,
+      "-12": 3,
+      "-8": 2,
+      "-4": 7,
+      "0": 4,
+      "8": 4,
+      "12": 3,
+      "16": 4
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_unknown_3fb8c.exact_references"
+    }
+   },
+   "_g_eng3_vsync_gate_41444": {
+    "rva": 267332,
+    "size": 4,
+    "owner_source": "src/eng3/loader_zero_cells_4.c",
+    "anchor": {
+     "function_id": "eng3.eng3_1abb0",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 109792,
+     "instruction_size": 6,
+     "instruction_bytes": "891d44140410",
+     "instruction": "mov dword ptr [0x10041444], ebx",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 109794,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "a949bd99381bcf89b558d43af3a286278399ba3382b720ee676fc560dab0db51",
+     "identity": {
+      "rva": 109792,
+      "size": 6,
+      "operand": 0,
+      "sha256": "a949bd99381bcf89b558d43af3a286278399ba3382b720ee676fc560dab0db51"
+     }
+    },
+    "extent_sweep": {
+     "rva": 267332,
+     "width": 4,
+     "native_exact_fixup_refs": 6,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 6
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "0": 6,
+      "4": 54,
+      "8": 31
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_vsync_gate_41444.exact_references"
+    }
+   },
+   "_g_eng3_track_40794": {
+    "rva": 264084,
+    "size": 4,
+    "owner_source": "src/eng3/eng3_track_storage.c",
+    "anchor": {
+     "function_id": "eng3.eng3_22790",
+     "function_status": "RECONSTRUCTED",
+     "pending_blocker": false,
+     "instruction_rva": 141365,
+     "instruction_size": 5,
+     "instruction_bytes": "a394070410",
+     "instruction": "mov dword ptr [0x10040794], eax",
+     "absolute_operand_index": 0,
+     "absolute_operand_kind": "mem",
+     "absolute_operand_width": 4,
+     "fixup_field_rva": 141366,
+     "fixup_type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)",
+     "instruction_sha256": "5b6550b9e74b006acaa2fe6c186fcd55194f8233d85cb9cfa68aa355cd4dba96",
+     "identity": {
+      "rva": 141365,
+      "size": 5,
+      "operand": 0,
+      "sha256": "5b6550b9e74b006acaa2fe6c186fcd55194f8233d85cb9cfa68aa355cd4dba96"
+     },
+     "accepted_binding_reused_verbatim": true
+    },
+    "extent_sweep": {
+     "rva": 264084,
+     "width": 4,
+     "native_exact_fixup_refs": 13,
+     "access_signature_counts": [
+      {
+       "operand_kind": "mem",
+       "operand_width": 4,
+       "mnemonic": "mov",
+       "count": 13
+      }
+     ],
+     "interior_fixup_references": [],
+     "nearby_target_offsets": {
+      "-16": 2,
+      "-15": 2,
+      "-14": 5,
+      "-13": 1,
+      "-12": 3,
+      "-11": 3,
+      "-10": 5,
+      "-8": 13,
+      "-4": 6,
+      "0": 13,
+      "12": 2,
+      "16": 412
+     },
+     "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_eng3_track_40794.exact_references"
+    }
+   }
+  },
+  "skipped_cells": {
+   "_g_effect_level_6ee64": {
+    "reason": "No complete independent MOV/LEA/PUSH absolute-address witness exists outside the pending caller; the only external exact-address instruction is CMP, which is not an allowed owner anchor.",
+    "rva": 260644,
+    "width": 4,
+    "native_exact_fixup_refs": 2,
+    "nearby_target_offsets": {
+     "0": 2,
+     "4": 3,
+     "8": 1,
+     "12": 2,
+     "16": 3
+    },
+    "interior_fixup_references": [],
+    "exceptional_references": [
+     {
+      "field_rva": 32303,
+      "target_rva": 260644,
+      "section": ".text",
+      "instruction_rva": 32301,
+      "size": 6,
+      "bytes": "893524fa0310",
+      "instruction_sha256": "d590a1c163c5b8088deddeb717a8a2d70abc187ab02727a208f0c2e6459d071d",
+      "asm": "mov dword ptr [0x1003fa24], esi",
+      "function_start": 32256,
+      "function_end": 32368,
+      "function_map_decoded": true,
+      "function_map_id": "eng3.shared_07e00",
+      "function_ids_at_start": [
+       "eng3.shared_07e00"
+      ],
+      "function_pending_ids": [
+       "eng3.shared_07e00"
+      ],
+      "operand_index": 0,
+      "operand_kind": "mem",
+      "operand_width": 4,
+      "operand_base": 0,
+      "operand_index_reg": 0,
+      "operands": [
+       {
+        "i": 0,
+        "kind": "mem",
+        "size": 4,
+        "base": 0,
+        "index": 0,
+        "disp": "0x1003fa24"
+       },
+       {
+        "i": 1,
+        "kind": "other",
+        "size": 4
+       }
+      ]
+     }
+    ],
+    "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_effect_level_6ee64.exact_references"
+   },
+   "_g_frame_word_6ee84": {
+    "reason": "A full module sweep found one exact-address byte read (mov cl, byte ptr [0x1003fa44]) alongside word accesses. Width is inconsistent, so a two-byte scalar owner is not established.",
+    "rva": 260676,
+    "width": 2,
+    "native_exact_fixup_refs": 9,
+    "nearby_target_offsets": {
+     "-16": 3,
+     "-12": 6,
+     "-8": 13,
+     "-4": 5,
+     "0": 9,
+     "4": 8,
+     "8": 4,
+     "12": 12,
+     "16": 9
+    },
+    "interior_fixup_references": [],
+    "exceptional_references": [
+     {
+      "field_rva": 44293,
+      "target_rva": 260676,
+      "section": ".text",
+      "instruction_rva": 44291,
+      "size": 6,
+      "bytes": "8a0d44fa0310",
+      "instruction_sha256": "0709169722f30fc1b05d37700a2e150f74db5667d2c00f41cf2e33d91ae602e9",
+      "asm": "mov cl, byte ptr [0x1003fa44]",
+      "function_start": 44208,
+      "function_end": 44320,
+      "function_map_decoded": true,
+      "function_map_id": "eng3.shared_0acb0",
+      "function_ids_at_start": [
+       "eng3.shared_0acb0"
+      ],
+      "function_pending_ids": [
+       "eng3.shared_0acb0"
+      ],
+      "operand_index": 1,
+      "operand_kind": "mem",
+      "operand_width": 1,
+      "operand_base": 0,
+      "operand_index_reg": 0,
+      "operands": [
+       {
+        "i": 0,
+        "kind": "other",
+        "size": 1
+       },
+       {
+        "i": 1,
+        "kind": "mem",
+        "size": 1,
+        "base": 0,
+        "index": 0,
+        "disp": "0x1003fa44"
+       }
+      ]
+     }
+    ],
+    "complete_reference_inventory": "work/velocity_b/scalar_eng3_4/native_scan.json#cells._g_frame_word_6ee84.exact_references"
+   }
+  }
+ },
+ "native_extent": {
+  "local_labels": {
+   "eng3.shared_07330": {
+    "$L543": {
+     "target_rva": 29936,
+     "row_rva": 29488,
+     "offset_in_row": 448,
+     "reference_offset": 91,
+     "type": 6,
+     "addend": 0
+    },
+    "$L544": {
+     "target_rva": 29908,
+     "row_rva": 29488,
+     "offset_in_row": 420,
+     "reference_offset": 98,
+     "type": 6,
+     "addend": 0
+    },
+    "$L303": {
+     "target_rva": 29590,
+     "row_rva": 29488,
+     "offset_in_row": 102,
+     "reference_offset": 436,
+     "type": 6,
+     "addend": 0
+    },
+    "$L305": {
+     "target_rva": 29660,
+     "row_rva": 29488,
+     "offset_in_row": 172,
+     "reference_offset": 424,
+     "type": 6,
+     "addend": 0
+    },
+    "$L307": {
+     "target_rva": 29733,
+     "row_rva": 29488,
+     "offset_in_row": 245,
+     "reference_offset": 428,
+     "type": 6,
+     "addend": 0
+    },
+    "$L310": {
+     "target_rva": 29814,
+     "row_rva": 29488,
+     "offset_in_row": 326,
+     "reference_offset": 432,
+     "type": 6,
+     "addend": 0
+    },
+    "$L308": {
+     "target_rva": 29788,
+     "row_rva": 29488,
+     "offset_in_row": 300,
+     "reference_offset": 440,
+     "type": 6,
+     "addend": 0
+    },
+    "$L312": {
+     "target_rva": 29901,
+     "row_rva": 29488,
+     "offset_in_row": 413,
+     "reference_offset": 444,
+     "type": 6,
+     "addend": 0
+    }
+   }
+  }
+ },
+ "source_owners": {
+  "_g_2bf28": {
+   "source": "src/title/title_common.c",
+   "declaration": "unsigned short g_2bf28;",
+   "size": 2,
+   "sha256": "07b69ad6f4fe3c87ae485e592c19cffd1d8982ce851ebb80d3c83298ff19a052",
+   "kind": "existing real source definition"
+  },
+  "_g_2bf32": {
+   "source": "src/title/title_common.c",
+   "declaration": "unsigned short g_2bf32;",
+   "size": 2,
+   "sha256": "07b69ad6f4fe3c87ae485e592c19cffd1d8982ce851ebb80d3c83298ff19a052",
+   "kind": "existing real source definition"
+  },
+  "_g_2bf60": {
+   "source": "src/title/title_common.c",
+   "declaration": "unsigned short g_2bf60;",
+   "size": 2,
+   "sha256": "07b69ad6f4fe3c87ae485e592c19cffd1d8982ce851ebb80d3c83298ff19a052",
+   "kind": "existing real source definition"
+  },
+  "_g_2bf6c": {
+   "source": "src/title/title_common.c",
+   "declaration": "unsigned short g_2bf6c;",
+   "size": 2,
+   "sha256": "07b69ad6f4fe3c87ae485e592c19cffd1d8982ce851ebb80d3c83298ff19a052",
+   "kind": "existing real source definition"
+  },
+  "_g_2bf80": {
+   "source": "src/title/title_common.c",
+   "declaration": "unsigned short g_2bf80;",
+   "size": 2,
+   "sha256": "07b69ad6f4fe3c87ae485e592c19cffd1d8982ce851ebb80d3c83298ff19a052",
+   "kind": "existing real source definition"
+  },
+  "_g_2d320": {
+   "source": "src/title/u02b70.c",
+   "declaration": "void *g_2d320;",
+   "size": 4,
+   "sha256": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+   "kind": "existing real source definition"
+  },
+  "_g_2df44": {
+   "source": "src/title/u02b70.c",
+   "declaration": "int g_2df44;",
+   "size": 4,
+   "sha256": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+   "kind": "existing real source definition"
+  },
+  "_g_2df50": {
+   "source": "src/title/u02b70.c",
+   "declaration": "unsigned char g_2df50;",
+   "size": 1,
+   "sha256": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+   "kind": "existing real source definition"
+  },
+  "_g_context_sequence_phase": {
+   "source": "src/eng1/runtime_storage.c",
+   "declaration": "int g_context_sequence_phase;",
+   "size": 4,
+   "sha256": "496e70c4fe23f02c1e2a7b1a4cf4a02e26ff9f2d7ecd8a139e7b9e43d21fc8ae",
+   "kind": "existing real source definition"
+  },
+  "_g_dispatch_frame_base_71ec8": {
+   "source": "src/eng1/frame_data.c",
+   "declaration": "eng1_u8 *g_dispatch_frame_base_71ec8;",
+   "size": 4,
+   "sha256": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+   "kind": "existing real source definition"
+  },
+  "_g_dispatch_frame_current_71ec4": {
+   "source": "src/eng1/frame_data.c",
+   "declaration": "eng1_u8 *g_dispatch_frame_current_71ec4;",
+   "size": 4,
+   "sha256": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+   "kind": "existing real source definition"
+  },
+  "_g_eng3_41cb0": {
+   "source": "src/eng3/loader_zero_cells_4.c",
+   "declaration": "int g_eng3_41cb0;",
+   "size": 4,
+   "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+   "kind": "new minimal data-only owner"
+  },
+  "_g_eng3_41d50": {
+   "source": "src/eng3/loader_zero_cells_4.c",
+   "declaration": "int g_eng3_41d50;",
+   "size": 4,
+   "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+   "kind": "new minimal data-only owner"
+  },
+  "_g_eng3_actor_3fb0c": {
+   "source": "src/eng3/loader_zero_cells_4.c",
+   "declaration": "Actor *g_eng3_actor_3fb0c;",
+   "size": 4,
+   "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+   "kind": "new minimal data-only owner"
+  },
+  "_g_eng3_center_y_40620": {
+   "source": "src/eng3/loader_zero_cells_4.c",
+   "declaration": "long g_eng3_center_y_40620;",
+   "size": 4,
+   "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+   "kind": "new minimal data-only owner"
+  },
+  "_g_eng3_tile_actions_40bd4": {
+   "source": "src/eng3/loader_zero_cells_4.c",
+   "declaration": "void (**g_eng3_tile_actions_40bd4)(int);",
+   "size": 4,
+   "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+   "kind": "new minimal data-only owner"
+  },
+  "_g_eng3_tiles_40c38": {
+   "source": "src/eng3/loader_zero_cells_4.c",
+   "declaration": "unsigned short *g_eng3_tiles_40c38;",
+   "size": 4,
+   "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+   "kind": "new minimal data-only owner"
+  },
+  "_g_eng3_unknown_3fb88": {
+   "source": "src/eng3/loader_zero_cells_4.c",
+   "declaration": "long g_eng3_unknown_3fb88;",
+   "size": 4,
+   "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+   "kind": "new minimal data-only owner"
+  },
+  "_g_eng3_unknown_3fb8c": {
+   "source": "src/eng3/loader_zero_cells_4.c",
+   "declaration": "long g_eng3_unknown_3fb8c;",
+   "size": 4,
+   "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+   "kind": "new minimal data-only owner"
+  },
+  "_g_eng3_vsync_gate_41444": {
+   "source": "src/eng3/loader_zero_cells_4.c",
+   "declaration": "int g_eng3_vsync_gate_41444;",
+   "size": 4,
+   "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+   "kind": "new minimal data-only owner"
+  },
+  "_g_eng3_track_40794": {
+   "source": "src/eng3/eng3_track_storage.c",
+   "declaration": "Eng3Cell *g_eng3_track_40794;",
+   "size": 4,
+   "sha256": "fa195f28be6b16daef489fafada76d724dbc70f2d995c3aa090678874e0d270b",
+   "kind": "existing real source definition"
+  }
+ },
+ "new_owner_source": {
+  "path": "src/eng3/loader_zero_cells_4.c",
+  "sha256": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+  "definitions": [
+   "_g_eng3_41cb0",
+   "_g_eng3_41d50",
+   "_g_eng3_actor_3fb0c",
+   "_g_eng3_center_y_40620",
+   "_g_eng3_tile_actions_40bd4",
+   "_g_eng3_tiles_40c38",
+   "_g_eng3_unknown_3fb88",
+   "_g_eng3_unknown_3fb8c",
+   "_g_eng3_vsync_gate_41444"
+  ]
+ },
+ "anchor_selection": {
+  "rule": "One complete absolute-address MOV/LEA/PUSH instruction with exact HIGHLOW fixup, outside every assigned caller. Prefer an anchor outside work/velocity_b/blockers.json; where none exists, use a separate pending row outside this lane and mark it pending.",
+  "chosen": {
+   "_g_2bf28": {
+    "function_id": "eng3.shared_1d9b0",
+    "instruction_rva": 121362,
+    "pending_blocker": true
+   },
+   "_g_2bf32": {
+    "function_id": "eng3.eng3_1b9f0",
+    "instruction_rva": 113687,
+    "pending_blocker": false
+   },
+   "_g_2bf60": {
+    "function_id": "eng3.shared_1d9b0",
+    "instruction_rva": 121348,
+    "pending_blocker": true
+   },
+   "_g_2bf6c": {
+    "function_id": "eng3.eng3_1b9f0",
+    "instruction_rva": 113694,
+    "pending_blocker": false
+   },
+   "_g_2bf80": {
+    "function_id": "eng3.shared_1d9b0",
+    "instruction_rva": 121397,
+    "pending_blocker": true
+   },
+   "_g_2d320": {
+    "function_id": "eng3.eng3_195d0",
+    "instruction_rva": 103888,
+    "pending_blocker": false
+   },
+   "_g_2df44": {
+    "function_id": "eng3.shared_0aa70",
+    "instruction_rva": 43641,
+    "pending_blocker": true
+   },
+   "_g_2df50": {
+    "function_id": "eng3.shared_0aa70",
+    "instruction_rva": 43632,
+    "pending_blocker": true
+   },
+   "_g_context_sequence_phase": {
+    "function_id": "eng3.shared_0a470",
+    "instruction_rva": 42435,
+    "pending_blocker": true
+   },
+   "_g_dispatch_frame_base_71ec8": {
+    "function_id": "eng3.eng3_16c40",
+    "instruction_rva": 93452,
+    "pending_blocker": false
+   },
+   "_g_dispatch_frame_current_71ec4": {
+    "function_id": "eng3.eng3_16c40",
+    "instruction_rva": 93446,
+    "pending_blocker": false
+   },
+   "_g_eng3_41cb0": {
+    "function_id": "eng3.eng3_15680",
+    "instruction_rva": 88847,
+    "pending_blocker": false
+   },
+   "_g_eng3_41d50": {
+    "function_id": "eng3.eng3_15680",
+    "instruction_rva": 88857,
+    "pending_blocker": false
+   },
+   "_g_eng3_actor_3fb0c": {
+    "function_id": "eng3.02ac0",
+    "instruction_rva": 10998,
+    "pending_blocker": true
+   },
+   "_g_eng3_center_y_40620": {
+    "function_id": "eng3.eng3_16c40",
+    "instruction_rva": 93314,
+    "pending_blocker": false
+   },
+   "_g_eng3_tile_actions_40bd4": {
+    "function_id": "eng3.shared_1d9b0",
+    "instruction_rva": 121647,
+    "pending_blocker": true
+   },
+   "_g_eng3_tiles_40c38": {
+    "function_id": "eng3.shared_1d9b0",
+    "instruction_rva": 121659,
+    "pending_blocker": true
+   },
+   "_g_eng3_unknown_3fb88": {
+    "function_id": "eng3.eng3_16c40",
+    "instruction_rva": 93410,
+    "pending_blocker": false
+   },
+   "_g_eng3_unknown_3fb8c": {
+    "function_id": "eng3.eng3_16c40",
+    "instruction_rva": 93375,
+    "pending_blocker": false
+   },
+   "_g_eng3_vsync_gate_41444": {
+    "function_id": "eng3.eng3_1abb0",
+    "instruction_rva": 109792,
+    "pending_blocker": false
+   },
+   "_g_eng3_track_40794": {
+    "function_id": "eng3.eng3_22790",
+    "instruction_rva": 141365,
+    "pending_blocker": false
+   }
+  },
+  "cells_without_nonpending_anchor": [
+   "_g_2bf28",
+   "_g_2bf60",
+   "_g_2bf80",
+   "_g_2df44",
+   "_g_2df50",
+   "_g_context_sequence_phase",
+   "_g_eng3_actor_3fb0c",
+   "_g_eng3_tile_actions_40bd4",
+   "_g_eng3_tiles_40c38"
+  ],
+  "cells_without_qualifying_anchor": [
+   "_g_effect_level_6ee64"
+  ]
+ },
+ "skipped_cells": {
+  "_g_effect_level_6ee64": "No complete independent MOV/LEA/PUSH absolute-address witness exists outside the pending caller; the only external exact-address instruction is CMP, which is not an allowed owner anchor.",
+  "_g_frame_word_6ee84": "A full module sweep found one exact-address byte read (mov cl, byte ptr [0x1003fa44]) alongside word accesses. Width is inconsistent, so a two-byte scalar owner is not established."
+ },
+ "passed_binding_ids": [
+  "eng3.shared_1c8a0",
+  "eng3.shared_1ce10",
+  "eng3.22690",
+  "eng3.22710",
+  "eng3.22b90",
+  "eng3.shared_0a9d0",
+  "eng3.03200",
+  "eng3.16ea0",
+  "eng3.18350",
+  "eng3.1a320",
+  "eng3.1b890"
+ ],
+ "blocked_row_ids": [
+  "eng3.shared_07330",
+  "eng3.shared_07e00",
+  "eng3.22b30"
+ ],
+ "evidence_paths": {
+  "proposed_durable_review": "evidence/scalar_eng3_4_review_2026_10_26.json",
+  "lane_review": "evidence/scalar_eng3_4_review_2026_10_26.json",
+  "bindings": "work/velocity_b/scalar_eng3_4/bindings.json",
+  "complete_extent_scan": "work/velocity_b/scalar_eng3_4/native_scan.json"
+ },
+ "review_inputs": {
+  "work/velocity_b/classify.json": "2c8b0393e02b021c988390a9e9a322a30cfea07f2931c1c98d2076773f883f67",
+  "work/velocity_b/blockers.json": "6f4c0d1f6383c9ae5771e609237c938e3cdf8fd1ad8be4b6f35f97c0c38d0acc",
+  "work/velocity_b/eng3_ranges/native_function_map.json": "6e334515f9510ec2a7462cc173c7c61238afa96f3a312ea90a8267663d0421d2",
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "docs/matching.md": "32e13a6ca19dd313ad8323734d8bdc2088eba86a9c6e4c84a0ef006f06d73aad",
+  "docs/loader_zero_matching_2026_10_25.md": "7a6b34c91135686eedfea24bf3c89aa52acf2fb308e0509a51fe36c2adbfa700",
+  "scripts/zero_storage.py": "69fc9c90e6760cd373b7449778f48dc63ea3d0a661550716cf2b18da75dcf923"
+ },
+ "row_blockers": {
+  "eng3.shared_07330": {
+   "reason": "The reference comparator cannot fully decode its compiler contribution outside a declared table: the complete 576-byte target/source span decodes only through byte offset 573, leaving bytes 05 90 at offsets 574-575. No relocation-backed table starts exist in that tail, and the supported table boundary requires complete relocated entries.",
+   "source": "src/eng1/level_frame_01e50.c",
+   "target_rva": 29488,
+   "size": 576,
+   "remaining_offset": 574,
+   "remaining_bytes": "0590",
+   "compiled_object": "build/match/compile-30w5yaxe/candidate.obj"
+  },
+  "eng3.shared_07e00": {
+   "reason": "Both exact native cells in this caller are unsupported: _g_effect_level_6ee64 lacks an independent MOV/LEA/PUSH address anchor; _g_frame_word_6ee84 has an exact byte-width read among word-width accesses.",
+   "unresolved_cells": [
+    "_g_effect_level_6ee64",
+    "_g_frame_word_6ee84"
+   ]
+  },
+  "eng3.22b30": {
+   "reason": "The complete native transfer at RVA 0x22b59 is an indirect table call (call dword ptr [edx + ecx*4]); index is derived from the tile command with a 0x7f mask and four-byte stride. Existing callback proof v1 only supports reviewed 0x1ff masks and 8/12-byte stride with independent same-root witness. No independent callee table extent or finite target set is established here, so the indirect control transfer remains unsupported. The BSS root g_eng3_tile_actions_40bd4 itself still has direct scalar width-4 accesses at offset zero.",
+   "source": "src/eng3/track_unit_20010.cpp",
+   "target_rva": 142128,
+   "indirect_call_rva": 142169,
+   "instruction_bytes": "ff148a",
+   "instruction": "call dword ptr [edx + ecx*4]",
+   "root": "_g_eng3_tile_actions_40bd4",
+   "mask": 127,
+   "stride": 4,
+   "blocked_on": "unreviewed dynamic callback table extent/callee set"
+  }
+ },
+ "focused_cli_pass_ids": [],
+ "reference_check_results": {
+  "successful_group_report": {
+   "path": "work/velocity_b/scalar_eng3_4/handlers_report.json",
+   "sha256": "3b6cf3f3ed444c57ba89dccfdcf31667729ea05534f21691b6bd8ad84712e09e",
+   "ids": [
+    "eng3.16ea0",
+    "eng3.18350",
+    "eng3.1a320",
+    "eng3.1b890",
+    "eng3.03200"
+   ]
+  },
+  "successful_exact_row_report": {
+   "path": "work/velocity_b/scalar_eng3_4/eng3_03200_report.json",
+   "sha256": "563d263fa71a73a3883dcecc14ba60dcbaf99dbbbab93e346c9328c78b6c3d8e",
+   "id": "eng3.03200"
+  },
+  "fresh_object_direct_comparisons": {
+   "path": "work/velocity_b/scalar_eng3_4/direct_compare_report.json",
+   "sha256": "17b2bec903ccf1c6f0abdfc71974deb050a58cf514330a3ad1acc4dcca2a13a9",
+   "ids": [
+    "eng3.shared_0a9d0",
+    "eng3.shared_1c8a0",
+    "eng3.shared_1ce10",
+    "eng3.22690",
+    "eng3.22710",
+    "eng3.22b90"
+   ],
+   "scope": "underlying relocated_compare rerun on fresh objects after grouped command stopped at eng3.22b30; not standalone CLI output"
+  }
+ }
+}

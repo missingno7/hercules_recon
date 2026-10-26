@@ -1,0 +1,6580 @@
+{
+ "schema": 1,
+ "task_id": "scalar_eng1_0",
+ "review_date": "2026-10-26",
+ "target": {
+  "path": "assets/pc/HERCULES/ENG1.DLL",
+  "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "image_base": 268435456
+ },
+ "blocker_file": {
+  "path": "work/velocity_b/blockers.json",
+  "sha256": "6f4c0d1f6383c9ae5771e609237c938e3cdf8fd1ad8be4b6f35f97c0c38d0acc"
+ },
+ "lane_callers": [
+  {
+   "id": "eng1.dispatch_local_02180",
+   "rva": 8576,
+   "size": 272
+  },
+  {
+   "id": "eng1.02290",
+   "rva": 8848,
+   "size": 368
+  },
+  {
+   "id": "eng1.02400",
+   "rva": 9216,
+   "size": 48
+  },
+  {
+   "id": "eng1.02430",
+   "rva": 9264,
+   "size": 32
+  },
+  {
+   "id": "eng1.native_code_target_00bb10",
+   "rva": 47888,
+   "size": 128
+  },
+  {
+   "id": "eng1.33720",
+   "rva": 210720,
+   "size": 144
+  },
+  {
+   "id": "eng1.33ee0",
+   "rva": 212704,
+   "size": 80
+  },
+  {
+   "id": "eng1.33f30",
+   "rva": 212784,
+   "size": 144
+  },
+  {
+   "id": "eng1.0eba0",
+   "rva": 60320,
+   "size": 48
+  },
+  {
+   "id": "eng1.0ed40",
+   "rva": 60736,
+   "size": 176
+  },
+  {
+   "id": "eng1.0edf0",
+   "rva": 60912,
+   "size": 80
+  },
+  {
+   "id": "eng1.0ee40",
+   "rva": 60992,
+   "size": 48
+  }
+ ],
+ "scan_method": {
+  "question": "For each assigned loader-zero address, are all module HIGHLOW references in its +/-0x10 neighborhood direct scalar accesses at the proposed extent, with an independent complete MOV/LEA/PUSH anchor?",
+  "method": "Enumerated every non-ABSOLUTE PE base relocation in ENG1.DLL; matched HIGHLOW fields in the queried cell neighborhoods against complete x86 instructions from each recovery row and remaining .text gaps. Eight fields in uncovered code spans were locally decoded from exact instruction bytes and neighboring control flow. Non-.text fields are recorded as data pointers.",
+  "base_relocations": 13882,
+  "text_section": {
+   "name": ".text",
+   "rva": 4096,
+   "raw_size": 307200,
+   "virtual_size": 306908
+  },
+  "eng1_recovery_rows": 923,
+  "text_disassembly_regions": 1003,
+  "decoded_instruction_count_with_regions": 98387,
+  "local_instruction_boundary_corrections": [
+   {
+    "fixup_rva": 119225,
+    "instruction_rva": 119224,
+    "instruction_size": 5,
+    "bytes": "a110210710",
+    "instruction": "mov eax, dword ptr [0x10072110]"
+   },
+   {
+    "fixup_rva": 119282,
+    "instruction_rva": 119281,
+    "instruction_size": 5,
+    "bytes": "a1b8ef0610",
+    "instruction": "mov eax, dword ptr [0x1006efb8]"
+   },
+   {
+    "fixup_rva": 119613,
+    "instruction_rva": 119612,
+    "instruction_size": 5,
+    "bytes": "a1b8ef0610",
+    "instruction": "mov eax, dword ptr [0x1006efb8]"
+   },
+   {
+    "fixup_rva": 120538,
+    "instruction_rva": 120537,
+    "instruction_size": 5,
+    "bytes": "a110210710",
+    "instruction": "mov eax, dword ptr [0x10072110]"
+   },
+   {
+    "fixup_rva": 120640,
+    "instruction_rva": 120639,
+    "instruction_size": 5,
+    "bytes": "a1b8ef0610",
+    "instruction": "mov eax, dword ptr [0x1006efb8]"
+   },
+   {
+    "fixup_rva": 120648,
+    "instruction_rva": 120647,
+    "instruction_size": 5,
+    "bytes": "a3b8ef0610",
+    "instruction": "mov dword ptr [0x1006efb8], eax"
+   },
+   {
+    "fixup_rva": 120667,
+    "instruction_rva": 120665,
+    "instruction_size": 10,
+    "bytes": "c7058421071020000000",
+    "instruction": "mov dword ptr [0x10072184], 0x20"
+   },
+   {
+    "fixup_rva": 121350,
+    "instruction_rva": 121349,
+    "instruction_size": 5,
+    "bytes": "a1b8ef0610",
+    "instruction": "mov eax, dword ptr [0x1006efb8]"
+   }
+  ],
+  "neighborhood_scan_radius": 16,
+  "unresolved_neighborhood_relocations": [],
+  "limitations": "Recovery rows provide firm boundaries where present. Gap instructions are reported with exact instruction bytes and HIGHLOW fixups; masked similarity and caller-implied operands are not treated as owner identity evidence."
+ },
+ "cell_extent_surveys": [
+  {
+   "symbol": "_g_boss_state_6ffda",
+   "rva": 458714,
+   "declared_extent": 2,
+   "caller_declared_type": "unsigned short",
+   "native_direct_access_count": 3,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 66527,
+     "instruction_size": 8,
+     "bytes": "66833ddaff061009",
+     "instruction_sha256": "0fdd67a71569d627276ccb50022c4fc764eeddc2df30a241814f47554289ea04",
+     "instruction": "cmp word ptr [0x1006ffda], 9",
+     "operand": 0,
+     "target_rva": 458714,
+     "fixup_rva": 66530,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_0103c0",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_0103c0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 148275,
+     "instruction_size": 6,
+     "bytes": "66a3daff0610",
+     "instruction_sha256": "e220581020524ab56829ec3367c3ab109718f77345b9173ad2802b560efdbdc4",
+     "instruction": "mov word ptr [0x1006ffda], ax",
+     "operand": 0,
+     "target_rva": 458714,
+     "fixup_rva": 148277,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.24320",
+     "containing_recovery_row": {
+      "id": "eng1.24320",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 210802,
+     "instruction_size": 8,
+     "bytes": "66833ddaff061008",
+     "instruction_sha256": "f1380d5f37b59b8754390f3feca9baaee15349caf23383d14226fdd4e5da77d2",
+     "instruction": "cmp word ptr [0x1006ffda], 8",
+     "operand": 0,
+     "target_rva": 458714,
+     "fixup_rva": 210805,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33720",
+     "containing_recovery_row": {
+      "id": "eng1.33720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    458698,
+    458730
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 458700,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      209333
+     ],
+     "fixup_rvas": [
+      209335
+     ]
+    },
+    {
+     "target_rva": 458704,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 2,
+     "instruction_rvas": [
+      209216,
+      209976
+     ],
+     "fixup_rvas": [
+      209218,
+      209979
+     ]
+    },
+    {
+     "target_rva": 458704,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      209222
+     ],
+     "fixup_rvas": [
+      209224
+     ]
+    },
+    {
+     "target_rva": 458712,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      213160
+     ],
+     "fixup_rvas": [
+      213163
+     ]
+    },
+    {
+     "target_rva": 458712,
+     "access_width": 4,
+     "overlaps_proposed_extent": true,
+     "count": 1,
+     "instruction_rvas": [
+      213110
+     ],
+     "fixup_rvas": [
+      213112
+     ]
+    },
+    {
+     "target_rva": 458716,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      71498,
+      72389,
+      72484
+     ],
+     "fixup_rvas": [
+      71501,
+      72392,
+      72487
+     ]
+    },
+    {
+     "target_rva": 458724,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 2,
+     "instruction_rvas": [
+      149699,
+      149749
+     ],
+     "fixup_rvas": [
+      149701,
+      149752
+     ]
+    },
+    {
+     "target_rva": 458728,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      237552,
+      237562,
+      237598
+     ],
+     "fixup_rvas": [
+      237553,
+      237563,
+      237599
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [
+    {
+     "instruction_rva": 210434,
+     "instruction_size": 6,
+     "bytes": "81ffd0ff0610",
+     "instruction_sha256": "608fb745e5eab16d256e9efe45bad9ed77992a84ff80061785ac4f0826a6bcf7",
+     "instruction": "cmp edi, 0x1006ffd0",
+     "operand": 1,
+     "target_rva": 458704,
+     "fixup_rva": 210436,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "absolute_address_or_base"
+    }
+   ],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [
+    {
+     "instruction_rva": 213110,
+     "instruction_size": 6,
+     "bytes": "8b15d8ff0610",
+     "instruction_sha256": "942e008d50b5d8a84c0ff53ecfdd529ba901f0ca5ec57641103ad1bc728ae757",
+     "instruction": "mov edx, dword ptr [0x1006ffd8]",
+     "operand": 1,
+     "target_rva": 458712,
+     "fixup_rva": 213112,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.34000",
+     "containing_recovery_row": {
+      "id": "eng1.34000",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "scalar_extent_complete": false,
+   "owner_source": null,
+   "owner_symbol": null,
+   "independent_anchor": null,
+   "skip_reason": "Native DWORD read at RVA 0x34076 accesses [0x6ffd8..0x6ffdb], overlapping this word at offset +2; this word is part of a larger/overlapping object and has no scalar owner proof."
+  },
+  {
+   "symbol": "_g_eng1_dword_6ef38",
+   "rva": 454456,
+   "declared_extent": 4,
+   "caller_declared_type": "long",
+   "native_direct_access_count": 13,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 51260,
+     "instruction_size": 7,
+     "bytes": "833d38ef061005",
+     "instruction_sha256": "be05f00ff771155ee4c5fc581cdb1c5a48d9538afd278a92996f7a853e6dc5a6",
+     "instruction": "cmp dword ptr [0x1006ef38], 5",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 51262,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00c7e0",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00c7e0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 51299,
+     "instruction_size": 10,
+     "bytes": "c70538ef061006000000",
+     "instruction_sha256": "1f4adb493ea5c697f9f1aa88442ca76f809961c48ee505ed8d5e7e6bb2ad5503",
+     "instruction": "mov dword ptr [0x1006ef38], 6",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 51301,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00c7e0",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00c7e0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 51358,
+     "instruction_size": 5,
+     "bytes": "a138ef0610",
+     "instruction_sha256": "03ecea19159bf3aa805a04c3a1761138c814a1038729b40d2d8bc9e2037f025c",
+     "instruction": "mov eax, dword ptr [0x1006ef38]",
+     "operand": 1,
+     "target_rva": 454456,
+     "fixup_rva": 51359,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00c7e0",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00c7e0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 51367,
+     "instruction_size": 10,
+     "bytes": "c70538ef061001000000",
+     "instruction_sha256": "ffecb8c4822a51fea3884f99c975150e8d61d5cd767b131a2dd1ee1571ca08df",
+     "instruction": "mov dword ptr [0x1006ef38], 1",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 51369,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00c7e0",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00c7e0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 58992,
+     "instruction_size": 5,
+     "bytes": "a138ef0610",
+     "instruction_sha256": "03ecea19159bf3aa805a04c3a1761138c814a1038729b40d2d8bc9e2037f025c",
+     "instruction": "mov eax, dword ptr [0x1006ef38]",
+     "operand": 1,
+     "target_rva": 454456,
+     "fixup_rva": 58993,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.dispatch_local_0e670",
+     "containing_recovery_row": {
+      "id": "eng1.dispatch_local_0e670",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 59098,
+     "instruction_size": 10,
+     "bytes": "c70538ef061000000000",
+     "instruction_sha256": "c522442722b56bbfb6b04e253119b6958da10c77d63ae3659d070e135b52ec3a",
+     "instruction": "mov dword ptr [0x1006ef38], 0",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 59100,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.dispatch_local_0e670",
+     "containing_recovery_row": {
+      "id": "eng1.dispatch_local_0e670",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 59119,
+     "instruction_size": 10,
+     "bytes": "c70538ef061007000000",
+     "instruction_sha256": "152a3d1eb10d4e7c064cbaab951f4739f3e8cf4348e81f154f3927084f55af9a",
+     "instruction": "mov dword ptr [0x1006ef38], 7",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 59121,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.dispatch_local_0e670",
+     "containing_recovery_row": {
+      "id": "eng1.dispatch_local_0e670",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 59574,
+     "instruction_size": 10,
+     "bytes": "c70538ef061002000000",
+     "instruction_sha256": "18486ed94f58048afe1a85abb3d1ff5e83913e2e2879b2a83ad24501ef49eb93",
+     "instruction": "mov dword ptr [0x1006ef38], 2",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 59576,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0e720",
+     "containing_recovery_row": {
+      "id": "eng1.0e720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60305,
+     "instruction_size": 10,
+     "bytes": "c70538ef061001000000",
+     "instruction_sha256": "ffecb8c4822a51fea3884f99c975150e8d61d5cd767b131a2dd1ee1571ca08df",
+     "instruction": "mov dword ptr [0x1006ef38], 1",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 60307,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0eb60",
+     "containing_recovery_row": {
+      "id": "eng1.0eb60",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60328,
+     "instruction_size": 10,
+     "bytes": "c70538ef061003000000",
+     "instruction_sha256": "89339de0bbdf551055a2140c4f8504076edebe64aa1da3212b403aa71f7fee1d",
+     "instruction": "mov dword ptr [0x1006ef38], 3",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 60330,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0eba0",
+     "containing_recovery_row": {
+      "id": "eng1.0eba0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60718,
+     "instruction_size": 10,
+     "bytes": "c70538ef061004000000",
+     "instruction_sha256": "1d816dcb6d28f747469ae3084a3e51e32e9f6b3105606fce4181fccc6215b28e",
+     "instruction": "mov dword ptr [0x1006ef38], 4",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 60720,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60949,
+     "instruction_size": 10,
+     "bytes": "c70538ef061003000000",
+     "instruction_sha256": "89339de0bbdf551055a2140c4f8504076edebe64aa1da3212b403aa71f7fee1d",
+     "instruction": "mov dword ptr [0x1006ef38], 3",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 60951,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0edf0",
+     "containing_recovery_row": {
+      "id": "eng1.0edf0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 61000,
+     "instruction_size": 10,
+     "bytes": "c70538ef061005000000",
+     "instruction_sha256": "abea8672616dedd843071d49cb6bd6ffb83d204ed4ac0d54182bf55d1d713569",
+     "instruction": "mov dword ptr [0x1006ef38], 5",
+     "operand": 0,
+     "target_rva": 454456,
+     "fixup_rva": 61002,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0ee40",
+     "containing_recovery_row": {
+      "id": "eng1.0ee40",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    454440,
+    454472
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 454440,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      59213,
+      59242,
+      59312,
+      59483
+     ],
+     "fixup_rvas": [
+      59215,
+      59243,
+      59314,
+      59485
+     ]
+    },
+    {
+     "target_rva": 454444,
+     "access_width": 1,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      60138
+     ],
+     "fixup_rvas": [
+      60140
+     ]
+    },
+    {
+     "target_rva": 454444,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      59748,
+      59917,
+      60004,
+      60180
+     ],
+     "fixup_rvas": [
+      59750,
+      59920,
+      60007,
+      60182
+     ]
+    },
+    {
+     "target_rva": 454444,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 9,
+     "instruction_rvas": [
+      59494,
+      59614,
+      59679,
+      59711,
+      59768,
+      59795,
+      59854,
+      59939,
+      59960
+     ],
+     "fixup_rvas": [
+      59496,
+      59616,
+      59680,
+      59713,
+      59770,
+      59796,
+      59855,
+      59941,
+      59962
+     ]
+    },
+    {
+     "target_rva": 454448,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      60446,
+      60502,
+      60526,
+      60585,
+      60682,
+      60817
+     ],
+     "fixup_rvas": [
+      60448,
+      60503,
+      60528,
+      60587,
+      60684,
+      60819
+     ]
+    },
+    {
+     "target_rva": 454452,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      59039,
+      59368,
+      59538,
+      59692,
+      60231,
+      60256
+     ],
+     "fixup_rvas": [
+      59040,
+      59370,
+      59539,
+      59693,
+      60233,
+      60257
+     ]
+    },
+    {
+     "target_rva": 454460,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      51277,
+      59009,
+      59030,
+      59088
+     ],
+     "fixup_rvas": [
+      51279,
+      59011,
+      59031,
+      59090
+     ]
+    },
+    {
+     "target_rva": 454464,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      75361,
+      75483,
+      75495,
+      75513,
+      75571,
+      75582
+     ],
+     "fixup_rvas": [
+      75364,
+      75486,
+      75498,
+      75516,
+      75573,
+      75584
+     ]
+    },
+    {
+     "target_rva": 454468,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 2,
+     "instruction_rvas": [
+      85766,
+      85775
+     ],
+     "fixup_rvas": [
+      85767,
+      85776
+     ]
+    },
+    {
+     "target_rva": 454472,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 2,
+     "instruction_rvas": [
+      85586,
+      85813
+     ],
+     "fixup_rvas": [
+      85588,
+      85814
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [
+    {
+     "instruction_rva": 59413,
+     "instruction_size": 5,
+     "bytes": "6834ef0610",
+     "instruction_sha256": "2395184a8b6de3de9485ed13b9678b85e0e24dc40395394be2941fe08230e1b8",
+     "instruction": "push 0x1006ef34",
+     "operand": 0,
+     "target_rva": 454452,
+     "fixup_rva": 59414,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0e720",
+     "containing_recovery_row": {
+      "id": "eng1.0e720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "absolute_address_or_base"
+    },
+    {
+     "instruction_rva": 59461,
+     "instruction_size": 5,
+     "bytes": "6834ef0610",
+     "instruction_sha256": "2395184a8b6de3de9485ed13b9678b85e0e24dc40395394be2941fe08230e1b8",
+     "instruction": "push 0x1006ef34",
+     "operand": 0,
+     "target_rva": 454452,
+     "fixup_rva": 59462,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0e720",
+     "containing_recovery_row": {
+      "id": "eng1.0e720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "absolute_address_or_base"
+    }
+   ],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/loader_zero_cells_0.c",
+   "owner_symbol": "g_eng1_dword_6ef38",
+   "independent_anchor": {
+    "rva": 60718,
+    "size": 10,
+    "operand": 0,
+    "sha256": "1d816dcb6d28f747469ae3084a3e51e32e9f6b3105606fce4181fccc6215b28e",
+    "bytes": "c70538ef061004000000",
+    "instruction": "mov dword ptr [0x1006ef38], 4",
+    "fixup_rva": 60720,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": {
+     "id": "eng1.eng1_0ebd0",
+     "status": "RECONSTRUCTED"
+    },
+    "pending_blocker_overlaps": [],
+    "lane_caller_overlaps": [],
+    "boundary_source": "recovery-row:eng1.eng1_0ebd0"
+   }
+  },
+  {
+   "symbol": "_g_eng1_dword_721b4",
+   "rva": 467380,
+   "declared_extent": 4,
+   "caller_declared_type": "long",
+   "native_direct_access_count": 8,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 47976,
+     "instruction_size": 5,
+     "bytes": "a3b4210710",
+     "instruction_sha256": "3bf7bed5d18c62b0d97e5a3286631bf32e0a0d753e254b00aaa46b190e1513e5",
+     "instruction": "mov dword ptr [0x100721b4], eax",
+     "operand": 0,
+     "target_rva": 467380,
+     "fixup_rva": 47977,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bb10",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bb10",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 48512,
+     "instruction_size": 5,
+     "bytes": "a1b4210710",
+     "instruction_sha256": "8b62ca356f0d3aa9579ca2eefc08be7cc62f4355789e1f16e6352f5a3ccb505c",
+     "instruction": "mov eax, dword ptr [0x100721b4]",
+     "operand": 1,
+     "target_rva": 467380,
+     "fixup_rva": 48513,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 48677,
+     "instruction_size": 5,
+     "bytes": "a1b4210710",
+     "instruction_sha256": "8b62ca356f0d3aa9579ca2eefc08be7cc62f4355789e1f16e6352f5a3ccb505c",
+     "instruction": "mov eax, dword ptr [0x100721b4]",
+     "operand": 1,
+     "target_rva": 467380,
+     "fixup_rva": 48678,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 48963,
+     "instruction_size": 5,
+     "bytes": "a1b4210710",
+     "instruction_sha256": "8b62ca356f0d3aa9579ca2eefc08be7cc62f4355789e1f16e6352f5a3ccb505c",
+     "instruction": "mov eax, dword ptr [0x100721b4]",
+     "operand": 1,
+     "target_rva": 467380,
+     "fixup_rva": 48964,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 49741,
+     "instruction_size": 6,
+     "bytes": "8b0db4210710",
+     "instruction_sha256": "9b1bbea62cb67e193c98205ba7e48b4860de9ef323422f579c967b02d2f0def2",
+     "instruction": "mov ecx, dword ptr [0x100721b4]",
+     "operand": 1,
+     "target_rva": 467380,
+     "fixup_rva": 49743,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 49754,
+     "instruction_size": 6,
+     "bytes": "890db4210710",
+     "instruction_sha256": "959eb59091da9f422ef1953569ccb56e371a57b82d466194298e6629376bc5e4",
+     "instruction": "mov dword ptr [0x100721b4], ecx",
+     "operand": 0,
+     "target_rva": 467380,
+     "fixup_rva": 49756,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 49883,
+     "instruction_size": 5,
+     "bytes": "a1b4210710",
+     "instruction_sha256": "8b62ca356f0d3aa9579ca2eefc08be7cc62f4355789e1f16e6352f5a3ccb505c",
+     "instruction": "mov eax, dword ptr [0x100721b4]",
+     "operand": 1,
+     "target_rva": 467380,
+     "fixup_rva": 49884,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 49891,
+     "instruction_size": 5,
+     "bytes": "a3b4210710",
+     "instruction_sha256": "3bf7bed5d18c62b0d97e5a3286631bf32e0a0d753e254b00aaa46b190e1513e5",
+     "instruction": "mov dword ptr [0x100721b4], eax",
+     "operand": 0,
+     "target_rva": 467380,
+     "fixup_rva": 49892,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    467364,
+    467396
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 467364,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      73722,
+      73908,
+      73952,
+      74329
+     ],
+     "fixup_rvas": [
+      73724,
+      73911,
+      73955,
+      74332
+     ]
+    },
+    {
+     "target_rva": 467366,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 5,
+     "instruction_rvas": [
+      73734,
+      73841,
+      73874,
+      73915,
+      73961
+     ],
+     "fixup_rvas": [
+      73737,
+      73843,
+      73876,
+      73918,
+      73964
+     ]
+    },
+    {
+     "target_rva": 467368,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      78559,
+      78574,
+      78596,
+      78618,
+      78637,
+      87564
+     ],
+     "fixup_rvas": [
+      78560,
+      78576,
+      78598,
+      78620,
+      78639,
+      87566
+     ]
+    },
+    {
+     "target_rva": 467372,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      68996,
+      69024,
+      69033,
+      72350
+     ],
+     "fixup_rvas": [
+      68998,
+      69025,
+      69034,
+      72352
+     ]
+    },
+    {
+     "target_rva": 467376,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 2,
+     "instruction_rvas": [
+      72404,
+      72618
+     ],
+     "fixup_rvas": [
+      72406,
+      72620
+     ]
+    },
+    {
+     "target_rva": 467384,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 27,
+     "instruction_rvas": [
+      26489,
+      26495,
+      26504,
+      26537,
+      26546,
+      26563,
+      26581,
+      26590,
+      26607,
+      28523,
+      28529,
+      28538,
+      28569,
+      28578,
+      28596,
+      28614,
+      28623,
+      28640,
+      30516,
+      30521,
+      30530,
+      30563,
+      30572,
+      30589,
+      30608,
+      30617,
+      30632
+     ],
+     "fixup_rvas": [
+      26491,
+      26497,
+      26506,
+      26539,
+      26547,
+      26565,
+      26583,
+      26592,
+      26609,
+      28525,
+      28531,
+      28540,
+      28571,
+      28580,
+      28597,
+      28616,
+      28625,
+      28641,
+      30517,
+      30523,
+      30532,
+      30565,
+      30574,
+      30591,
+      30610,
+      30618,
+      30634
+     ]
+    },
+    {
+     "target_rva": 467388,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 54,
+     "instruction_rvas": [
+      26513,
+      26523,
+      26555,
+      26576,
+      26627,
+      26639,
+      26651,
+      26663,
+      26719,
+      26739,
+      26771,
+      26780,
+      26790,
+      26799,
+      26983,
+      26999,
+      27044,
+      27069,
+      28547,
+      28557,
+      28588,
+      28608,
+      28660,
+      28672,
+      28684,
+      28696,
+      28752,
+      28772,
+      28804,
+      28813,
+      28823,
+      28832,
+      29016,
+      29032,
+      29074,
+      29098,
+      30539,
+      30549,
+      30582,
+      30602,
+      30653,
+      30665,
+      30677,
+      30689,
+      30745,
+      30765,
+      30797,
+      30806,
+      30816,
+      30825,
+      31002,
+      31018,
+      31057,
+      31076
+     ],
+     "fixup_rvas": [
+      26515,
+      26525,
+      26557,
+      26577,
+      26629,
+      26641,
+      26653,
+      26665,
+      26720,
+      26741,
+      26773,
+      26782,
+      26792,
+      26801,
+      26985,
+      27001,
+      27046,
+      27071,
+      28549,
+      28558,
+      28590,
+      28610,
+      28662,
+      28674,
+      28686,
+      28698,
+      28753,
+      28774,
+      28806,
+      28815,
+      28825,
+      28834,
+      29018,
+      29034,
+      29076,
+      29100,
+      30541,
+      30551,
+      30583,
+      30604,
+      30655,
+      30667,
+      30679,
+      30691,
+      30746,
+      30767,
+      30799,
+      30808,
+      30818,
+      30827,
+      31004,
+      31020,
+      31059,
+      31078
+     ]
+    },
+    {
+     "target_rva": 467392,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 51,
+     "instruction_rvas": [
+      26529,
+      26599,
+      26622,
+      26673,
+      26685,
+      26697,
+      26709,
+      26745,
+      26765,
+      26809,
+      26818,
+      26828,
+      26837,
+      27005,
+      27020,
+      27056,
+      27097,
+      28562,
+      28632,
+      28654,
+      28706,
+      28718,
+      28730,
+      28742,
+      28778,
+      28798,
+      28842,
+      28851,
+      28861,
+      28870,
+      29038,
+      29053,
+      29086,
+      29126,
+      30555,
+      30625,
+      30647,
+      30699,
+      30711,
+      30723,
+      30735,
+      30771,
+      30791,
+      30835,
+      30844,
+      30854,
+      30863,
+      31024,
+      31039,
+      31066,
+      31095
+     ],
+     "fixup_rvas": [
+      26531,
+      26601,
+      26623,
+      26675,
+      26687,
+      26699,
+      26711,
+      26746,
+      26767,
+      26811,
+      26820,
+      26830,
+      26839,
+      27006,
+      27021,
+      27057,
+      27099,
+      28563,
+      28634,
+      28656,
+      28708,
+      28720,
+      28732,
+      28744,
+      28779,
+      28800,
+      28844,
+      28853,
+      28863,
+      28872,
+      29039,
+      29054,
+      29087,
+      29127,
+      30557,
+      30626,
+      30649,
+      30701,
+      30713,
+      30725,
+      30737,
+      30772,
+      30793,
+      30837,
+      30846,
+      30856,
+      30865,
+      31025,
+      31040,
+      31067,
+      31096
+     ]
+    },
+    {
+     "target_rva": 467396,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 18,
+     "instruction_rvas": [
+      26864,
+      26885,
+      26892,
+      26913,
+      26920,
+      26930,
+      28896,
+      28916,
+      28924,
+      28946,
+      28953,
+      28963,
+      30887,
+      30905,
+      30913,
+      30932,
+      30939,
+      30949
+     ],
+     "fixup_rvas": [
+      26865,
+      26886,
+      26893,
+      26914,
+      26921,
+      26932,
+      28898,
+      28918,
+      28926,
+      28947,
+      28954,
+      28965,
+      30889,
+      30907,
+      30915,
+      30933,
+      30940,
+      30951
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/loader_zero_cells_0.c",
+   "owner_symbol": "g_eng1_dword_721b4",
+   "independent_anchor": {
+    "rva": 48512,
+    "size": 5,
+    "operand": 1,
+    "sha256": "8b62ca356f0d3aa9579ca2eefc08be7cc62f4355789e1f16e6352f5a3ccb505c",
+    "bytes": "a1b4210710",
+    "instruction": "mov eax, dword ptr [0x100721b4]",
+    "fixup_rva": 48513,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": {
+     "id": "eng1.native_code_target_00bc50",
+     "status": "CODEGEN_SIMILAR"
+    },
+    "pending_blocker_overlaps": [
+     "eng1.native_code_target_00bc50"
+    ],
+    "lane_caller_overlaps": [],
+    "boundary_source": "recovery-row:eng1.native_code_target_00bc50"
+   }
+  },
+  {
+   "symbol": "_g_eng1_setup_dword_6efac",
+   "rva": 454572,
+   "declared_extent": 4,
+   "caller_declared_type": "unsigned long",
+   "native_direct_access_count": 9,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 8881,
+     "instruction_size": 6,
+     "bytes": "8935acef0610",
+     "instruction_sha256": "a3327199ea9ab0b2e3cda1b2f03b9e28a2efbb8f9e13555bb9da0d8bd62a24c4",
+     "instruction": "mov dword ptr [0x1006efac], esi",
+     "operand": 0,
+     "target_rva": 454572,
+     "fixup_rva": 8883,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02290",
+     "containing_recovery_row": {
+      "id": "eng1.02290",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 8901,
+     "instruction_size": 6,
+     "bytes": "8935acef0610",
+     "instruction_sha256": "a3327199ea9ab0b2e3cda1b2f03b9e28a2efbb8f9e13555bb9da0d8bd62a24c4",
+     "instruction": "mov dword ptr [0x1006efac], esi",
+     "operand": 0,
+     "target_rva": 454572,
+     "fixup_rva": 8903,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02290",
+     "containing_recovery_row": {
+      "id": "eng1.02290",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 9150,
+     "instruction_size": 6,
+     "bytes": "8935acef0610",
+     "instruction_sha256": "a3327199ea9ab0b2e3cda1b2f03b9e28a2efbb8f9e13555bb9da0d8bd62a24c4",
+     "instruction": "mov dword ptr [0x1006efac], esi",
+     "operand": 0,
+     "target_rva": 454572,
+     "fixup_rva": 9152,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02290",
+     "containing_recovery_row": {
+      "id": "eng1.02290",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 9164,
+     "instruction_size": 6,
+     "bytes": "8935acef0610",
+     "instruction_sha256": "a3327199ea9ab0b2e3cda1b2f03b9e28a2efbb8f9e13555bb9da0d8bd62a24c4",
+     "instruction": "mov dword ptr [0x1006efac], esi",
+     "operand": 0,
+     "target_rva": 454572,
+     "fixup_rva": 9166,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02290",
+     "containing_recovery_row": {
+      "id": "eng1.02290",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 9178,
+     "instruction_size": 6,
+     "bytes": "8935acef0610",
+     "instruction_sha256": "a3327199ea9ab0b2e3cda1b2f03b9e28a2efbb8f9e13555bb9da0d8bd62a24c4",
+     "instruction": "mov dword ptr [0x1006efac], esi",
+     "operand": 0,
+     "target_rva": 454572,
+     "fixup_rva": 9180,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02290",
+     "containing_recovery_row": {
+      "id": "eng1.02290",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 9239,
+     "instruction_size": 10,
+     "bytes": "c705acef061000000000",
+     "instruction_sha256": "66241d2d1e85217f35d0cf00f2950eb55cf38cfb4c8f95ccfc42a5fad901020c",
+     "instruction": "mov dword ptr [0x1006efac], 0",
+     "operand": 0,
+     "target_rva": 454572,
+     "fixup_rva": 9241,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02400",
+     "containing_recovery_row": {
+      "id": "eng1.02400",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 9277,
+     "instruction_size": 5,
+     "bytes": "a3acef0610",
+     "instruction_sha256": "91a92a4bca2cf96426418332a1715bf20510d1ef1105c703bc65bc143c9bcd43",
+     "instruction": "mov dword ptr [0x1006efac], eax",
+     "operand": 0,
+     "target_rva": 454572,
+     "fixup_rva": 9278,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02430",
+     "containing_recovery_row": {
+      "id": "eng1.02430",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 86951,
+     "instruction_size": 6,
+     "bytes": "891dacef0610",
+     "instruction_sha256": "a33156c064cc4ab3a23f07bbc9cd5795c5f913880536b18950a8fe01a6a1744e",
+     "instruction": "mov dword ptr [0x1006efac], ebx",
+     "operand": 0,
+     "target_rva": 454572,
+     "fixup_rva": 86953,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 226539,
+     "instruction_size": 6,
+     "bytes": "891dacef0610",
+     "instruction_sha256": "a33156c064cc4ab3a23f07bbc9cd5795c5f913880536b18950a8fe01a6a1744e",
+     "instruction": "mov dword ptr [0x1006efac], ebx",
+     "operand": 0,
+     "target_rva": 454572,
+     "fixup_rva": 226541,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.374c0",
+     "containing_recovery_row": {
+      "id": "eng1.374c0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    454556,
+    454588
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 454556,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      82380,
+      83796,
+      84997,
+      87024,
+      91699,
+      101203
+     ],
+     "fixup_rvas": [
+      82383,
+      83799,
+      85000,
+      87027,
+      91701,
+      101206
+     ]
+    },
+    {
+     "target_rva": 454556,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      91677
+     ],
+     "fixup_rvas": [
+      91679
+     ]
+    },
+    {
+     "target_rva": 454560,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      86930,
+      88024,
+      88033,
+      88057,
+      90286,
+      91488
+     ],
+     "fixup_rvas": [
+      86932,
+      88025,
+      88034,
+      88059,
+      90288,
+      91490
+     ]
+    },
+    {
+     "target_rva": 454564,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 7,
+     "instruction_rvas": [
+      88668,
+      88679,
+      98885,
+      99015,
+      99672,
+      100213,
+      184181
+     ],
+     "fixup_rvas": [
+      88670,
+      88681,
+      98887,
+      99017,
+      99674,
+      100215,
+      184183
+     ]
+    },
+    {
+     "target_rva": 454568,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 7,
+     "instruction_rvas": [
+      86999,
+      91319,
+      91334,
+      91364,
+      91404,
+      91442,
+      93356
+     ],
+     "fixup_rvas": [
+      87001,
+      91321,
+      91335,
+      91366,
+      91406,
+      91444,
+      93358
+     ]
+    },
+    {
+     "target_rva": 454576,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 8,
+     "instruction_rvas": [
+      8678,
+      8699,
+      8726,
+      8763,
+      8887,
+      8907,
+      86957,
+      226545
+     ],
+     "fixup_rvas": [
+      8680,
+      8701,
+      8728,
+      8765,
+      8889,
+      8909,
+      86959,
+      226547
+     ]
+    },
+    {
+     "target_rva": 454580,
+     "access_width": 1,
+     "overlaps_proposed_extent": false,
+     "count": 29,
+     "instruction_rvas": [
+      74071,
+      74121,
+      74131,
+      74186,
+      74196,
+      74281,
+      86963,
+      88294,
+      88470,
+      89554,
+      98308,
+      99082,
+      99116,
+      99140,
+      100262,
+      100296,
+      100320,
+      100400,
+      101554,
+      106653,
+      106691,
+      106715,
+      225708,
+      225743,
+      225767,
+      226551,
+      228070,
+      228293,
+      228740
+     ],
+     "fixup_rvas": [
+      74073,
+      74123,
+      74133,
+      74188,
+      74198,
+      74283,
+      86965,
+      88296,
+      88472,
+      89556,
+      98311,
+      99085,
+      99119,
+      99142,
+      100265,
+      100299,
+      100322,
+      100401,
+      101556,
+      106656,
+      106694,
+      106717,
+      225711,
+      225746,
+      225769,
+      226553,
+      228073,
+      228295,
+      228743
+     ]
+    },
+    {
+     "target_rva": 454584,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 11,
+     "instruction_rvas": [
+      109656,
+      110325,
+      113328,
+      117955,
+      119281,
+      119612,
+      120639,
+      120647,
+      121349,
+      123161,
+      123200
+     ],
+     "fixup_rvas": [
+      109658,
+      110326,
+      113329,
+      117957,
+      119282,
+      119613,
+      120640,
+      120648,
+      121350,
+      123163,
+      123201
+     ]
+    },
+    {
+     "target_rva": 454588,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      110926
+     ],
+     "fixup_rvas": [
+      110928
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/setup_shared_state.c",
+   "owner_symbol": "g_eng1_setup_dword_6efac",
+   "independent_anchor": {
+    "rva": 86951,
+    "size": 6,
+    "operand": 0,
+    "sha256": "a33156c064cc4ab3a23f07bbc9cd5795c5f913880536b18950a8fe01a6a1744e",
+    "bytes": "891dacef0610",
+    "instruction": "mov dword ptr [0x1006efac], ebx",
+    "fixup_rva": 86953,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": null,
+    "pending_blocker_overlaps": [],
+    "lane_caller_overlaps": [],
+    "boundary_source": "text-gap-sweep"
+   }
+  },
+  {
+   "symbol": "_g_eng1_setup_dword_72114",
+   "rva": 467220,
+   "declared_extent": 4,
+   "caller_declared_type": "unsigned long",
+   "native_direct_access_count": 3,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 9282,
+     "instruction_size": 5,
+     "bytes": "a314210710",
+     "instruction_sha256": "eb990438bfd76921aa8df80ceb30de591c5e8596411c2ddf2917dcea3169a13a",
+     "instruction": "mov dword ptr [0x10072114], eax",
+     "operand": 0,
+     "target_rva": 467220,
+     "fixup_rva": 9283,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02430",
+     "containing_recovery_row": {
+      "id": "eng1.02430",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 86993,
+     "instruction_size": 6,
+     "bytes": "891d14210710",
+     "instruction_sha256": "a0a091390416f406d244361710838f3256dce52fa16aaf1adb35a1e0a4c8a596",
+     "instruction": "mov dword ptr [0x10072114], ebx",
+     "operand": 0,
+     "target_rva": 467220,
+     "fixup_rva": 86995,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 226606,
+     "instruction_size": 6,
+     "bytes": "891d14210710",
+     "instruction_sha256": "a0a091390416f406d244361710838f3256dce52fa16aaf1adb35a1e0a4c8a596",
+     "instruction": "mov dword ptr [0x10072114], ebx",
+     "operand": 0,
+     "target_rva": 467220,
+     "fixup_rva": 226608,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.374c0",
+     "containing_recovery_row": {
+      "id": "eng1.374c0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    467204,
+    467236
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 467204,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      75415,
+      75760,
+      78051,
+      86694
+     ],
+     "fixup_rvas": [
+      75417,
+      75761,
+      78052,
+      86696
+     ]
+    },
+    {
+     "target_rva": 467208,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 69,
+     "instruction_rvas": [
+      74007,
+      74524,
+      85634,
+      87330,
+      87374,
+      87823,
+      88709,
+      88790,
+      89100,
+      89567,
+      90913,
+      90950,
+      90995,
+      91080,
+      91155,
+      92090,
+      92139,
+      92266,
+      92773,
+      93284,
+      93307,
+      93438,
+      93828,
+      93911,
+      93924,
+      94213,
+      94309,
+      94405,
+      94704,
+      95045,
+      95381,
+      95477,
+      95749,
+      95973,
+      96421,
+      96523,
+      96853,
+      97209,
+      97247,
+      97781,
+      98373,
+      98437,
+      98491,
+      98604,
+      99615,
+      100153,
+      100338,
+      100512,
+      100821,
+      100898,
+      101221,
+      101336,
+      101359,
+      101569,
+      101707,
+      101730,
+      101748,
+      102557,
+      102774,
+      102800,
+      102926,
+      103157,
+      103180,
+      105971,
+      106006,
+      106094,
+      106243,
+      226970,
+      228631
+     ],
+     "fixup_rvas": [
+      74009,
+      74527,
+      85636,
+      87333,
+      87377,
+      87826,
+      88712,
+      88793,
+      89103,
+      89570,
+      90916,
+      90953,
+      90998,
+      91083,
+      91158,
+      92093,
+      92142,
+      92269,
+      92776,
+      93287,
+      93310,
+      93441,
+      93831,
+      93914,
+      93927,
+      94216,
+      94312,
+      94408,
+      94706,
+      95048,
+      95384,
+      95480,
+      95752,
+      95976,
+      96424,
+      96526,
+      96856,
+      97212,
+      97250,
+      97784,
+      98376,
+      98440,
+      98494,
+      98607,
+      99618,
+      100156,
+      100341,
+      100515,
+      100824,
+      100901,
+      101224,
+      101339,
+      101362,
+      101572,
+      101710,
+      101733,
+      101751,
+      102560,
+      102777,
+      102803,
+      102929,
+      103160,
+      103183,
+      105973,
+      106009,
+      106097,
+      106246,
+      226973,
+      228634
+     ]
+    },
+    {
+     "target_rva": 467212,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 7,
+     "instruction_rvas": [
+      92342,
+      101136,
+      101184,
+      104451,
+      104563,
+      104675,
+      104787
+     ],
+     "fixup_rvas": [
+      92344,
+      101138,
+      101186,
+      104452,
+      104564,
+      104676,
+      104788
+     ]
+    },
+    {
+     "target_rva": 467216,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 49,
+     "instruction_rvas": [
+      5714,
+      6538,
+      74043,
+      77552,
+      86786,
+      87738,
+      87755,
+      87802,
+      87953,
+      88975,
+      88983,
+      89002,
+      89018,
+      89048,
+      90540,
+      90625,
+      90730,
+      92062,
+      92238,
+      93005,
+      93632,
+      94034,
+      94650,
+      95240,
+      96169,
+      96709,
+      103085,
+      119224,
+      120537,
+      137265,
+      146485,
+      183839,
+      218613,
+      225408,
+      225516,
+      225528,
+      226507,
+      228532,
+      228559,
+      228600,
+      228912,
+      258772,
+      263548,
+      268598,
+      269008,
+      269168,
+      277803,
+      279149,
+      281953
+     ],
+     "fixup_rvas": [
+      5715,
+      6539,
+      74045,
+      77554,
+      86788,
+      87740,
+      87757,
+      87804,
+      87955,
+      88977,
+      88985,
+      89004,
+      89020,
+      89050,
+      90541,
+      90626,
+      90731,
+      92063,
+      92239,
+      93006,
+      93633,
+      94035,
+      94651,
+      95241,
+      96170,
+      96710,
+      103086,
+      119225,
+      120538,
+      137266,
+      146487,
+      183841,
+      218614,
+      225409,
+      225517,
+      225529,
+      226509,
+      228534,
+      228561,
+      228602,
+      228913,
+      258773,
+      263549,
+      268599,
+      269009,
+      269169,
+      277804,
+      279150,
+      281955
+     ]
+    },
+    {
+     "target_rva": 467224,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      47932,
+      85663,
+      86834,
+      95304,
+      103008,
+      103023
+     ],
+     "fixup_rvas": [
+      47934,
+      85665,
+      86836,
+      95305,
+      103009,
+      103024
+     ]
+    },
+    {
+     "target_rva": 467228,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 10,
+     "instruction_rvas": [
+      86877,
+      88560,
+      88584,
+      94894,
+      94942,
+      98355,
+      98417,
+      98987,
+      100815,
+      101089
+     ],
+     "fixup_rvas": [
+      86879,
+      88561,
+      88586,
+      94896,
+      94943,
+      98357,
+      98419,
+      98989,
+      100817,
+      101091
+     ]
+    },
+    {
+     "target_rva": 467232,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 7,
+     "instruction_rvas": [
+      47971,
+      49599,
+      49614,
+      49625,
+      86840,
+      95313,
+      95371
+     ],
+     "fixup_rvas": [
+      47972,
+      49601,
+      49616,
+      49627,
+      86842,
+      95315,
+      95373
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/setup_shared_state.c",
+   "owner_symbol": "g_eng1_setup_dword_72114",
+   "independent_anchor": {
+    "rva": 86993,
+    "size": 6,
+    "operand": 0,
+    "sha256": "a0a091390416f406d244361710838f3256dce52fa16aaf1adb35a1e0a4c8a596",
+    "bytes": "891d14210710",
+    "instruction": "mov dword ptr [0x10072114], ebx",
+    "fixup_rva": 86995,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": null,
+    "pending_blocker_overlaps": [],
+    "lane_caller_overlaps": [],
+    "boundary_source": "text-gap-sweep"
+   }
+  },
+  {
+   "symbol": "_g_eng1_setup_dword_72118",
+   "rva": 467224,
+   "declared_extent": 4,
+   "caller_declared_type": "unsigned long",
+   "native_direct_access_count": 6,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 47932,
+     "instruction_size": 6,
+     "bytes": "893518210710",
+     "instruction_sha256": "5025ddfabfb7a39d844881fc2b68774eb49aecf7862c2edfefaf326cd5a22561",
+     "instruction": "mov dword ptr [0x10072118], esi",
+     "operand": 0,
+     "target_rva": 467224,
+     "fixup_rva": 47934,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bb10",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bb10",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 85663,
+     "instruction_size": 6,
+     "bytes": "8b1518210710",
+     "instruction_sha256": "3a23d9310343715cc19400555e1a91e53fa02b3bb522d6b86e855ceb218fea4d",
+     "instruction": "mov edx, dword ptr [0x10072118]",
+     "operand": 1,
+     "target_rva": 467224,
+     "fixup_rva": 85665,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 86834,
+     "instruction_size": 6,
+     "bytes": "891d18210710",
+     "instruction_sha256": "f763f950cf554cfd9ca713b9e7848e82de4c08ace9484fa38448c74d38ad8d74",
+     "instruction": "mov dword ptr [0x10072118], ebx",
+     "operand": 0,
+     "target_rva": 467224,
+     "fixup_rva": 86836,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 95304,
+     "instruction_size": 5,
+     "bytes": "a118210710",
+     "instruction_sha256": "64b7379242c5f63a9a80f75116236e9c3f9803b3390388aad02b283fe13a521a",
+     "instruction": "mov eax, dword ptr [0x10072118]",
+     "operand": 1,
+     "target_rva": 467224,
+     "fixup_rva": 95305,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.17400",
+     "containing_recovery_row": {
+      "id": "eng1.17400",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 103008,
+     "instruction_size": 5,
+     "bytes": "a118210710",
+     "instruction_sha256": "64b7379242c5f63a9a80f75116236e9c3f9803b3390388aad02b283fe13a521a",
+     "instruction": "mov eax, dword ptr [0x10072118]",
+     "operand": 1,
+     "target_rva": 467224,
+     "fixup_rva": 103009,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 103023,
+     "instruction_size": 5,
+     "bytes": "a118210710",
+     "instruction_sha256": "64b7379242c5f63a9a80f75116236e9c3f9803b3390388aad02b283fe13a521a",
+     "instruction": "mov eax, dword ptr [0x10072118]",
+     "operand": 1,
+     "target_rva": 467224,
+     "fixup_rva": 103024,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    467208,
+    467240
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 467208,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 69,
+     "instruction_rvas": [
+      74007,
+      74524,
+      85634,
+      87330,
+      87374,
+      87823,
+      88709,
+      88790,
+      89100,
+      89567,
+      90913,
+      90950,
+      90995,
+      91080,
+      91155,
+      92090,
+      92139,
+      92266,
+      92773,
+      93284,
+      93307,
+      93438,
+      93828,
+      93911,
+      93924,
+      94213,
+      94309,
+      94405,
+      94704,
+      95045,
+      95381,
+      95477,
+      95749,
+      95973,
+      96421,
+      96523,
+      96853,
+      97209,
+      97247,
+      97781,
+      98373,
+      98437,
+      98491,
+      98604,
+      99615,
+      100153,
+      100338,
+      100512,
+      100821,
+      100898,
+      101221,
+      101336,
+      101359,
+      101569,
+      101707,
+      101730,
+      101748,
+      102557,
+      102774,
+      102800,
+      102926,
+      103157,
+      103180,
+      105971,
+      106006,
+      106094,
+      106243,
+      226970,
+      228631
+     ],
+     "fixup_rvas": [
+      74009,
+      74527,
+      85636,
+      87333,
+      87377,
+      87826,
+      88712,
+      88793,
+      89103,
+      89570,
+      90916,
+      90953,
+      90998,
+      91083,
+      91158,
+      92093,
+      92142,
+      92269,
+      92776,
+      93287,
+      93310,
+      93441,
+      93831,
+      93914,
+      93927,
+      94216,
+      94312,
+      94408,
+      94706,
+      95048,
+      95384,
+      95480,
+      95752,
+      95976,
+      96424,
+      96526,
+      96856,
+      97212,
+      97250,
+      97784,
+      98376,
+      98440,
+      98494,
+      98607,
+      99618,
+      100156,
+      100341,
+      100515,
+      100824,
+      100901,
+      101224,
+      101339,
+      101362,
+      101572,
+      101710,
+      101733,
+      101751,
+      102560,
+      102777,
+      102803,
+      102929,
+      103160,
+      103183,
+      105973,
+      106009,
+      106097,
+      106246,
+      226973,
+      228634
+     ]
+    },
+    {
+     "target_rva": 467212,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 7,
+     "instruction_rvas": [
+      92342,
+      101136,
+      101184,
+      104451,
+      104563,
+      104675,
+      104787
+     ],
+     "fixup_rvas": [
+      92344,
+      101138,
+      101186,
+      104452,
+      104564,
+      104676,
+      104788
+     ]
+    },
+    {
+     "target_rva": 467216,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 49,
+     "instruction_rvas": [
+      5714,
+      6538,
+      74043,
+      77552,
+      86786,
+      87738,
+      87755,
+      87802,
+      87953,
+      88975,
+      88983,
+      89002,
+      89018,
+      89048,
+      90540,
+      90625,
+      90730,
+      92062,
+      92238,
+      93005,
+      93632,
+      94034,
+      94650,
+      95240,
+      96169,
+      96709,
+      103085,
+      119224,
+      120537,
+      137265,
+      146485,
+      183839,
+      218613,
+      225408,
+      225516,
+      225528,
+      226507,
+      228532,
+      228559,
+      228600,
+      228912,
+      258772,
+      263548,
+      268598,
+      269008,
+      269168,
+      277803,
+      279149,
+      281953
+     ],
+     "fixup_rvas": [
+      5715,
+      6539,
+      74045,
+      77554,
+      86788,
+      87740,
+      87757,
+      87804,
+      87955,
+      88977,
+      88985,
+      89004,
+      89020,
+      89050,
+      90541,
+      90626,
+      90731,
+      92063,
+      92239,
+      93006,
+      93633,
+      94035,
+      94651,
+      95241,
+      96170,
+      96710,
+      103086,
+      119225,
+      120538,
+      137266,
+      146487,
+      183841,
+      218614,
+      225409,
+      225517,
+      225529,
+      226509,
+      228534,
+      228561,
+      228602,
+      228913,
+      258773,
+      263549,
+      268599,
+      269009,
+      269169,
+      277804,
+      279150,
+      281955
+     ]
+    },
+    {
+     "target_rva": 467220,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      9282,
+      86993,
+      226606
+     ],
+     "fixup_rvas": [
+      9283,
+      86995,
+      226608
+     ]
+    },
+    {
+     "target_rva": 467228,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 10,
+     "instruction_rvas": [
+      86877,
+      88560,
+      88584,
+      94894,
+      94942,
+      98355,
+      98417,
+      98987,
+      100815,
+      101089
+     ],
+     "fixup_rvas": [
+      86879,
+      88561,
+      88586,
+      94896,
+      94943,
+      98357,
+      98419,
+      98989,
+      100817,
+      101091
+     ]
+    },
+    {
+     "target_rva": 467232,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 7,
+     "instruction_rvas": [
+      47971,
+      49599,
+      49614,
+      49625,
+      86840,
+      95313,
+      95371
+     ],
+     "fixup_rvas": [
+      47972,
+      49601,
+      49616,
+      49627,
+      86842,
+      95315,
+      95373
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/setup_shared_state.c",
+   "owner_symbol": "g_eng1_setup_dword_72118",
+   "independent_anchor": {
+    "rva": 85663,
+    "size": 6,
+    "operand": 1,
+    "sha256": "3a23d9310343715cc19400555e1a91e53fa02b3bb522d6b86e855ceb218fea4d",
+    "bytes": "8b1518210710",
+    "instruction": "mov edx, dword ptr [0x10072118]",
+    "fixup_rva": 85665,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": null,
+    "pending_blocker_overlaps": [],
+    "lane_caller_overlaps": [],
+    "boundary_source": "text-gap-sweep"
+   }
+  },
+  {
+   "symbol": "_g_eng1_setup_dword_72120",
+   "rva": 467232,
+   "declared_extent": 4,
+   "caller_declared_type": "unsigned long",
+   "native_direct_access_count": 7,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 47971,
+     "instruction_size": 5,
+     "bytes": "a320210710",
+     "instruction_sha256": "747fdb2660a833001b427cc8b148eb9bec476d7cebd26db144695eb42112d139",
+     "instruction": "mov dword ptr [0x10072120], eax",
+     "operand": 0,
+     "target_rva": 467232,
+     "fixup_rva": 47972,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bb10",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bb10",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 49599,
+     "instruction_size": 10,
+     "bytes": "c7052021071001000000",
+     "instruction_sha256": "0a1e097c22ed1315bfa02c86e6b281a3cc932010888011bde92dce0a67167287",
+     "instruction": "mov dword ptr [0x10072120], 1",
+     "operand": 0,
+     "target_rva": 467232,
+     "fixup_rva": 49601,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 49614,
+     "instruction_size": 7,
+     "bytes": "833d2021071002",
+     "instruction_sha256": "4ee8128a15f84477eaef335661861c7daf28a67c3079398a050b3b411e31d521",
+     "instruction": "cmp dword ptr [0x10072120], 2",
+     "operand": 0,
+     "target_rva": 467232,
+     "fixup_rva": 49616,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 49625,
+     "instruction_size": 10,
+     "bytes": "c7052021071000000000",
+     "instruction_sha256": "a8c05f406ba201e5fe8d869e60620a54450bf262e3b5e67c430796a802a82a77",
+     "instruction": "mov dword ptr [0x10072120], 0",
+     "operand": 0,
+     "target_rva": 467232,
+     "fixup_rva": 49627,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bc50",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bc50",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 86840,
+     "instruction_size": 6,
+     "bytes": "891d20210710",
+     "instruction_sha256": "f6fc0c2a9c16bcc3c71a29327f820299e9cb1d1d26d4b0a6a709961f916ab126",
+     "instruction": "mov dword ptr [0x10072120], ebx",
+     "operand": 0,
+     "target_rva": 467232,
+     "fixup_rva": 86842,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 95313,
+     "instruction_size": 7,
+     "bytes": "833d2021071001",
+     "instruction_sha256": "e58af2b9843e6a9889f76235e73a6a30ceb36087001b8928b779d1569049fb43",
+     "instruction": "cmp dword ptr [0x10072120], 1",
+     "operand": 0,
+     "target_rva": 467232,
+     "fixup_rva": 95315,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.17400",
+     "containing_recovery_row": {
+      "id": "eng1.17400",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 95371,
+     "instruction_size": 10,
+     "bytes": "c7052021071002000000",
+     "instruction_sha256": "4303bac03e49f8271b42e748c0ed1e3a1da57b89403dbbbd10384822a40bcbb0",
+     "instruction": "mov dword ptr [0x10072120], 2",
+     "operand": 0,
+     "target_rva": 467232,
+     "fixup_rva": 95373,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.17400",
+     "containing_recovery_row": {
+      "id": "eng1.17400",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    467216,
+    467248
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 467216,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 49,
+     "instruction_rvas": [
+      5714,
+      6538,
+      74043,
+      77552,
+      86786,
+      87738,
+      87755,
+      87802,
+      87953,
+      88975,
+      88983,
+      89002,
+      89018,
+      89048,
+      90540,
+      90625,
+      90730,
+      92062,
+      92238,
+      93005,
+      93632,
+      94034,
+      94650,
+      95240,
+      96169,
+      96709,
+      103085,
+      119224,
+      120537,
+      137265,
+      146485,
+      183839,
+      218613,
+      225408,
+      225516,
+      225528,
+      226507,
+      228532,
+      228559,
+      228600,
+      228912,
+      258772,
+      263548,
+      268598,
+      269008,
+      269168,
+      277803,
+      279149,
+      281953
+     ],
+     "fixup_rvas": [
+      5715,
+      6539,
+      74045,
+      77554,
+      86788,
+      87740,
+      87757,
+      87804,
+      87955,
+      88977,
+      88985,
+      89004,
+      89020,
+      89050,
+      90541,
+      90626,
+      90731,
+      92063,
+      92239,
+      93006,
+      93633,
+      94035,
+      94651,
+      95241,
+      96170,
+      96710,
+      103086,
+      119225,
+      120538,
+      137266,
+      146487,
+      183841,
+      218614,
+      225409,
+      225517,
+      225529,
+      226509,
+      228534,
+      228561,
+      228602,
+      228913,
+      258773,
+      263549,
+      268599,
+      269009,
+      269169,
+      277804,
+      279150,
+      281955
+     ]
+    },
+    {
+     "target_rva": 467220,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      9282,
+      86993,
+      226606
+     ],
+     "fixup_rvas": [
+      9283,
+      86995,
+      226608
+     ]
+    },
+    {
+     "target_rva": 467224,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      47932,
+      85663,
+      86834,
+      95304,
+      103008,
+      103023
+     ],
+     "fixup_rvas": [
+      47934,
+      85665,
+      86836,
+      95305,
+      103009,
+      103024
+     ]
+    },
+    {
+     "target_rva": 467228,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 10,
+     "instruction_rvas": [
+      86877,
+      88560,
+      88584,
+      94894,
+      94942,
+      98355,
+      98417,
+      98987,
+      100815,
+      101089
+     ],
+     "fixup_rvas": [
+      86879,
+      88561,
+      88586,
+      94896,
+      94943,
+      98357,
+      98419,
+      98989,
+      100817,
+      101091
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/setup_shared_state.c",
+   "owner_symbol": "g_eng1_setup_dword_72120",
+   "independent_anchor": {
+    "rva": 86840,
+    "size": 6,
+    "operand": 0,
+    "sha256": "f6fc0c2a9c16bcc3c71a29327f820299e9cb1d1d26d4b0a6a709961f916ab126",
+    "bytes": "891d20210710",
+    "instruction": "mov dword ptr [0x10072120], ebx",
+    "fixup_rva": 86842,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": null,
+    "pending_blocker_overlaps": [],
+    "lane_caller_overlaps": [],
+    "boundary_source": "text-gap-sweep"
+   }
+  },
+  {
+   "symbol": "_g_eng1_setup_dword_72188",
+   "rva": 467336,
+   "declared_extent": 4,
+   "caller_declared_type": "unsigned long",
+   "native_direct_access_count": 18,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 47991,
+     "instruction_size": 10,
+     "bytes": "c7058821071005000000",
+     "instruction_sha256": "2133901bbde5fd903b7831b5b5b4f254e865e4c2aaba37de3c40a35c8aade6fd",
+     "instruction": "mov dword ptr [0x10072188], 5",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 47993,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_00bb10",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_00bb10",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 72384,
+     "instruction_size": 5,
+     "bytes": "a188210710",
+     "instruction_sha256": "e549bfaadfdc1f40ef089f863a758a9f9645f11c0b6489a11349642c71902df2",
+     "instruction": "mov eax, dword ptr [0x10072188]",
+     "operand": 1,
+     "target_rva": 467336,
+     "fixup_rva": 72385,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_011ac0",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_011ac0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 72448,
+     "instruction_size": 10,
+     "bytes": "c7058821071002000000",
+     "instruction_sha256": "a7ab0434a47f3632b21af6b1e99a4a4350a08080d5853a44a1f24f96a72c3706",
+     "instruction": "mov dword ptr [0x10072188], 2",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 72450,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.native_code_target_011ac0",
+     "containing_recovery_row": {
+      "id": "eng1.native_code_target_011ac0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 73754,
+     "instruction_size": 5,
+     "bytes": "a388210710",
+     "instruction_sha256": "f696ccbe585fff874678fb8f16a441d3f69afbba273f5bc7781fafe916fc5a86",
+     "instruction": "mov dword ptr [0x10072188], eax",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 73755,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 74774,
+     "instruction_size": 5,
+     "bytes": "a188210710",
+     "instruction_sha256": "e549bfaadfdc1f40ef089f863a758a9f9645f11c0b6489a11349642c71902df2",
+     "instruction": "mov eax, dword ptr [0x10072188]",
+     "operand": 1,
+     "target_rva": 467336,
+     "fixup_rva": 74775,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 74890,
+     "instruction_size": 5,
+     "bytes": "a388210710",
+     "instruction_sha256": "f696ccbe585fff874678fb8f16a441d3f69afbba273f5bc7781fafe916fc5a86",
+     "instruction": "mov dword ptr [0x10072188], eax",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 74891,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 74918,
+     "instruction_size": 10,
+     "bytes": "c7058821071003000000",
+     "instruction_sha256": "3752be0e6cfa171f0f1ad4fcedd938c087bbd096d842e303307d945427203dbc",
+     "instruction": "mov dword ptr [0x10072188], 3",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 74920,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 74998,
+     "instruction_size": 10,
+     "bytes": "c7058821071001000000",
+     "instruction_sha256": "056322e1bedfb22a268a5fc5ec287b5187f358dd29c2e215691b16d504d7cd9f",
+     "instruction": "mov dword ptr [0x10072188], 1",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 75000,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 75072,
+     "instruction_size": 6,
+     "bytes": "891d88210710",
+     "instruction_sha256": "f7e4bbdac09c488d2c61ee2142aa70f51199a39770dc7c7d1ca30654ec717d09",
+     "instruction": "mov dword ptr [0x10072188], ebx",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 75074,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 75088,
+     "instruction_size": 10,
+     "bytes": "c7058821071006000000",
+     "instruction_sha256": "a19aa737a9d5e6d7988708a48e98d336bc8e4dc5735f0d1a380186482ea96d95",
+     "instruction": "mov dword ptr [0x10072188], 6",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 75090,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 75193,
+     "instruction_size": 10,
+     "bytes": "c7058821071008000000",
+     "instruction_sha256": "d795d3024f84ae9dc01107c3f4c596ad07f839b8e619681058e26961d9f8e6d4",
+     "instruction": "mov dword ptr [0x10072188], 8",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 75195,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 75229,
+     "instruction_size": 6,
+     "bytes": "891d88210710",
+     "instruction_sha256": "f7e4bbdac09c488d2c61ee2142aa70f51199a39770dc7c7d1ca30654ec717d09",
+     "instruction": "mov dword ptr [0x10072188], ebx",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 75231,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 109935,
+     "instruction_size": 10,
+     "bytes": "c7058821071005000000",
+     "instruction_sha256": "2133901bbde5fd903b7831b5b5b4f254e865e4c2aaba37de3c40a35c8aade6fd",
+     "instruction": "mov dword ptr [0x10072188], 5",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 109937,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 135666,
+     "instruction_size": 10,
+     "bytes": "c7058821071005000000",
+     "instruction_sha256": "2133901bbde5fd903b7831b5b5b4f254e865e4c2aaba37de3c40a35c8aade6fd",
+     "instruction": "mov dword ptr [0x10072188], 5",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 135668,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 148354,
+     "instruction_size": 5,
+     "bytes": "a188210710",
+     "instruction_sha256": "e549bfaadfdc1f40ef089f863a758a9f9645f11c0b6489a11349642c71902df2",
+     "instruction": "mov eax, dword ptr [0x10072188]",
+     "operand": 1,
+     "target_rva": 467336,
+     "fixup_rva": 148355,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.24320",
+     "containing_recovery_row": {
+      "id": "eng1.24320",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 210793,
+     "instruction_size": 5,
+     "bytes": "a188210710",
+     "instruction_sha256": "e549bfaadfdc1f40ef089f863a758a9f9645f11c0b6489a11349642c71902df2",
+     "instruction": "mov eax, dword ptr [0x10072188]",
+     "operand": 1,
+     "target_rva": 467336,
+     "fixup_rva": 210794,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33720",
+     "containing_recovery_row": {
+      "id": "eng1.33720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 210843,
+     "instruction_size": 10,
+     "bytes": "c7058821071002000000",
+     "instruction_sha256": "a7ab0434a47f3632b21af6b1e99a4a4350a08080d5853a44a1f24f96a72c3706",
+     "instruction": "mov dword ptr [0x10072188], 2",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 210845,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33720",
+     "containing_recovery_row": {
+      "id": "eng1.33720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 278972,
+     "instruction_size": 10,
+     "bytes": "c7058821071005000000",
+     "instruction_sha256": "2133901bbde5fd903b7831b5b5b4f254e865e4c2aaba37de3c40a35c8aade6fd",
+     "instruction": "mov dword ptr [0x10072188], 5",
+     "operand": 0,
+     "target_rva": 467336,
+     "fixup_rva": 278974,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    467320,
+    467352
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 467320,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      50632,
+      85618,
+      85628
+     ],
+     "fixup_rvas": [
+      50633,
+      85620,
+      85630
+     ]
+    },
+    {
+     "target_rva": 467324,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 256,
+     "instruction_rvas": [
+      4736,
+      4795,
+      5456,
+      5515,
+      5600,
+      5796,
+      6417,
+      6632,
+      7563,
+      38664,
+      38731,
+      39140,
+      40233,
+      42196,
+      44259,
+      44302,
+      47659,
+      48080,
+      50441,
+      50648,
+      53871,
+      56221,
+      56303,
+      57441,
+      57525,
+      64083,
+      64184,
+      64215,
+      64240,
+      64335,
+      66537,
+      69305,
+      70148,
+      70196,
+      70824,
+      71411,
+      71459,
+      71537,
+      71600,
+      72417,
+      77296,
+      77316,
+      79751,
+      80065,
+      80094,
+      80459,
+      87043,
+      87300,
+      87358,
+      87394,
+      87425,
+      87437,
+      87483,
+      87532,
+      87684,
+      87698,
+      88040,
+      88063,
+      88095,
+      88163,
+      88205,
+      88372,
+      88386,
+      88405,
+      88767,
+      89178,
+      89191,
+      89210,
+      89233,
+      89259,
+      89300,
+      89320,
+      89602,
+      89627,
+      89711,
+      89998,
+      90016,
+      90040,
+      90089,
+      90144,
+      90169,
+      90202,
+      90234,
+      90269,
+      90335,
+      90374,
+      90774,
+      90840,
+      90881,
+      91224,
+      91298,
+      91344,
+      91384,
+      91423,
+      91457,
+      91483,
+      91513,
+      91624,
+      91638,
+      92324,
+      92395,
+      93424,
+      94601,
+      94785,
+      95394,
+      95724,
+      96125,
+      96144,
+      96272,
+      97027,
+      97052,
+      97108,
+      97133,
+      97716,
+      97732,
+      97748,
+      97762,
+      97855,
+      97939,
+      97968,
+      98069,
+      98163,
+      98653,
+      98711,
+      98946,
+      99460,
+      99490,
+      99532,
+      100113,
+      100717,
+      101850,
+      103063,
+      103104,
+      103531,
+      103597,
+      103848,
+      103925,
+      103970,
+      103994,
+      104368,
+      104480,
+      104592,
+      104704,
+      104841,
+      105504,
+      105859,
+      106081,
+      106354,
+      106384,
+      106635,
+      106986,
+      107205,
+      107231,
+      107249,
+      107266,
+      107368,
+      107554,
+      107639,
+      107673,
+      107724,
+      121812,
+      124512,
+      138639,
+      144513,
+      147094,
+      148553,
+      148688,
+      148741,
+      148860,
+      149765,
+      150712,
+      150948,
+      151770,
+      154880,
+      154924,
+      156321,
+      157375,
+      184458,
+      184939,
+      184964,
+      185145,
+      185170,
+      186165,
+      186384,
+      186435,
+      196482,
+      197315,
+      210812,
+      211398,
+      212411,
+      213021,
+      214428,
+      214942,
+      215621,
+      216991,
+      218238,
+      218295,
+      218412,
+      218512,
+      221060,
+      221994,
+      225779,
+      225800,
+      226157,
+      226557,
+      226588,
+      226624,
+      226662,
+      227014,
+      227109,
+      227374,
+      227410,
+      227458,
+      227501,
+      227533,
+      227552,
+      227603,
+      227655,
+      227699,
+      227744,
+      227769,
+      227787,
+      232104,
+      235143,
+      236932,
+      239066,
+      240872,
+      241165,
+      247013,
+      249942,
+      253542,
+      254771,
+      255296,
+      255641,
+      256036,
+      256231,
+      257883,
+      258621,
+      259326,
+      260924,
+      261964,
+      263301,
+      263570,
+      263648,
+      263831,
+      265835,
+      266629,
+      266930,
+      267462,
+      268149,
+      268625,
+      272656,
+      277002,
+      285618,
+      286175,
+      286868
+     ],
+     "fixup_rvas": [
+      4738,
+      4797,
+      5458,
+      5517,
+      5602,
+      5798,
+      6419,
+      6634,
+      7564,
+      38666,
+      38732,
+      39142,
+      40234,
+      42198,
+      44260,
+      44304,
+      47661,
+      48082,
+      50442,
+      50649,
+      53873,
+      56222,
+      56304,
+      57443,
+      57527,
+      64085,
+      64186,
+      64217,
+      64242,
+      64337,
+      66539,
+      69307,
+      70150,
+      70197,
+      70826,
+      71413,
+      71460,
+      71538,
+      71601,
+      72419,
+      77298,
+      77318,
+      79753,
+      80067,
+      80096,
+      80460,
+      87044,
+      87302,
+      87360,
+      87395,
+      87427,
+      87438,
+      87485,
+      87533,
+      87685,
+      87700,
+      88041,
+      88065,
+      88096,
+      88164,
+      88207,
+      88373,
+      88387,
+      88407,
+      88768,
+      89179,
+      89192,
+      89211,
+      89234,
+      89260,
+      89301,
+      89321,
+      89603,
+      89629,
+      89713,
+      90000,
+      90018,
+      90042,
+      90091,
+      90145,
+      90170,
+      90203,
+      90235,
+      90271,
+      90337,
+      90375,
+      90776,
+      90842,
+      90882,
+      91226,
+      91300,
+      91346,
+      91386,
+      91424,
+      91459,
+      91484,
+      91515,
+      91625,
+      91639,
+      92325,
+      92397,
+      93425,
+      94602,
+      94787,
+      95395,
+      95725,
+      96126,
+      96145,
+      96274,
+      97028,
+      97054,
+      97109,
+      97135,
+      97718,
+      97734,
+      97749,
+      97764,
+      97857,
+      97941,
+      97969,
+      98071,
+      98165,
+      98655,
+      98712,
+      98947,
+      99461,
+      99492,
+      99534,
+      100114,
+      100718,
+      101851,
+      103064,
+      103106,
+      103533,
+      103598,
+      103849,
+      103926,
+      103971,
+      103995,
+      104369,
+      104481,
+      104593,
+      104705,
+      104843,
+      105505,
+      105860,
+      106082,
+      106355,
+      106386,
+      106637,
+      106987,
+      107206,
+      107233,
+      107251,
+      107267,
+      107370,
+      107555,
+      107641,
+      107675,
+      107726,
+      121814,
+      124514,
+      138640,
+      144514,
+      147096,
+      148555,
+      148690,
+      148743,
+      148861,
+      149767,
+      150713,
+      150950,
+      151772,
+      154881,
+      154926,
+      156322,
+      157376,
+      184459,
+      184941,
+      184965,
+      185147,
+      185171,
+      186167,
+      186385,
+      186437,
+      196484,
+      197317,
+      210814,
+      211399,
+      212412,
+      213023,
+      214430,
+      214944,
+      215622,
+      216993,
+      218240,
+      218297,
+      218414,
+      218514,
+      221062,
+      221996,
+      225780,
+      225801,
+      226158,
+      226559,
+      226590,
+      226625,
+      226663,
+      227015,
+      227111,
+      227375,
+      227411,
+      227459,
+      227502,
+      227534,
+      227553,
+      227604,
+      227656,
+      227700,
+      227745,
+      227770,
+      227788,
+      232105,
+      235144,
+      236933,
+      239068,
+      240873,
+      241167,
+      247015,
+      249944,
+      253544,
+      254773,
+      255298,
+      255643,
+      256037,
+      256232,
+      257885,
+      258623,
+      259328,
+      260925,
+      261966,
+      263303,
+      263572,
+      263650,
+      263833,
+      265836,
+      266630,
+      266932,
+      267464,
+      268151,
+      268626,
+      272658,
+      277003,
+      285619,
+      286176,
+      286870
+     ]
+    },
+    {
+     "target_rva": 467328,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      87410,
+      89119,
+      226647
+     ],
+     "fixup_rvas": [
+      87412,
+      89121,
+      226649
+     ]
+    },
+    {
+     "target_rva": 467332,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 17,
+     "instruction_rvas": [
+      49802,
+      67282,
+      74815,
+      74878,
+      74949,
+      75015,
+      75131,
+      75187,
+      120665,
+      139523,
+      148442,
+      148464,
+      148481,
+      151472,
+      151501,
+      151518,
+      282107
+     ],
+     "fixup_rvas": [
+      49804,
+      67283,
+      74817,
+      74880,
+      74951,
+      75017,
+      75133,
+      75189,
+      120667,
+      139525,
+      148443,
+      148466,
+      148483,
+      151474,
+      151503,
+      151520,
+      282108
+     ]
+    },
+    {
+     "target_rva": 467340,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      74864,
+      75026,
+      75036
+     ],
+     "fixup_rvas": [
+      74866,
+      75027,
+      75037
+     ]
+    },
+    {
+     "target_rva": 467344,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      78416,
+      78450,
+      87570
+     ],
+     "fixup_rvas": [
+      78418,
+      78452,
+      87572
+     ]
+    },
+    {
+     "target_rva": 467348,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 12,
+     "instruction_rvas": [
+      73728,
+      74513,
+      74537,
+      88629,
+      90739,
+      90753,
+      90800,
+      97401,
+      97411,
+      97421,
+      101792,
+      105316
+     ],
+     "fixup_rvas": [
+      73730,
+      74515,
+      74539,
+      88632,
+      90741,
+      90755,
+      90803,
+      97404,
+      97414,
+      97424,
+      101795,
+      105319
+     ]
+    },
+    {
+     "target_rva": 467352,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      76346
+     ],
+     "fixup_rvas": [
+      76348
+     ]
+    },
+    {
+     "target_rva": 467352,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 2,
+     "instruction_rvas": [
+      76268,
+      76359
+     ],
+     "fixup_rvas": [
+      76269,
+      76360
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/setup_shared_state.c",
+   "owner_symbol": "g_eng1_setup_dword_72188",
+   "independent_anchor": {
+    "rva": 73754,
+    "size": 5,
+    "operand": 0,
+    "sha256": "f696ccbe585fff874678fb8f16a441d3f69afbba273f5bc7781fafe916fc5a86",
+    "bytes": "a388210710",
+    "instruction": "mov dword ptr [0x10072188], eax",
+    "fixup_rva": 73755,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": null,
+    "pending_blocker_overlaps": [],
+    "lane_caller_overlaps": [],
+    "boundary_source": "text-gap-sweep"
+   }
+  },
+  {
+   "symbol": "_g_level_timer_70800",
+   "rva": 460800,
+   "declared_extent": 2,
+   "caller_declared_type": "short",
+   "native_direct_access_count": 3,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 210697,
+     "instruction_size": 9,
+     "bytes": "66c70500080710ffff",
+     "instruction_sha256": "b8874d8e66dcdec49aa46faf0b0b7ab5b0c96feab37ad0ff9bc9e604b6f7ad2a",
+     "instruction": "mov word ptr [0x10070800], 0xffff",
+     "operand": 0,
+     "target_rva": 460800,
+     "fixup_rva": 210700,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33700",
+     "containing_recovery_row": {
+      "id": "eng1.33700",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 210720,
+     "instruction_size": 7,
+     "bytes": "66ff0d00080710",
+     "instruction_sha256": "cc063f21a480e0d97ed7d14c307d713271d00e18e4b37137a2edc3f4f65cb8ab",
+     "instruction": "dec word ptr [0x10070800]",
+     "operand": 0,
+     "target_rva": 460800,
+     "fixup_rva": 210723,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33720",
+     "containing_recovery_row": {
+      "id": "eng1.33720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 210787,
+     "instruction_size": 6,
+     "bytes": "66a300080710",
+     "instruction_sha256": "c277898ab4e16d738e1ecaff524244a42308ab7105e077e97c068fe51183b87e",
+     "instruction": "mov word ptr [0x10070800], ax",
+     "operand": 0,
+     "target_rva": 460800,
+     "fixup_rva": 210789,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33720",
+     "containing_recovery_row": {
+      "id": "eng1.33720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    460784,
+    460816
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 460784,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 2,
+     "instruction_rvas": [
+      238494,
+      238594
+     ],
+     "fixup_rvas": [
+      238495,
+      238595
+     ]
+    },
+    {
+     "target_rva": 460788,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 16,
+     "instruction_rvas": [
+      229323,
+      229605,
+      229737,
+      230577,
+      230807,
+      230920,
+      230984,
+      233305,
+      233415,
+      234190,
+      234236,
+      237353,
+      237460,
+      238253,
+      238311,
+      246144
+     ],
+     "fixup_rvas": [
+      229325,
+      229606,
+      229739,
+      230579,
+      230808,
+      230922,
+      230986,
+      233306,
+      233416,
+      234192,
+      234238,
+      237354,
+      237461,
+      238255,
+      238313,
+      246146
+     ]
+    },
+    {
+     "target_rva": 460792,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 19,
+     "instruction_rvas": [
+      226919,
+      241418,
+      241460,
+      241483,
+      241502,
+      241510,
+      241774,
+      241785,
+      241822,
+      241831,
+      241870,
+      241879,
+      241918,
+      241927,
+      241966,
+      241975,
+      242014,
+      242025,
+      246177
+     ],
+     "fixup_rvas": [
+      226921,
+      241420,
+      241461,
+      241484,
+      241503,
+      241511,
+      241775,
+      241786,
+      241823,
+      241832,
+      241871,
+      241880,
+      241919,
+      241928,
+      241967,
+      241976,
+      242015,
+      242026,
+      246179
+     ]
+    },
+    {
+     "target_rva": 460796,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 17,
+     "instruction_rvas": [
+      225647,
+      225663,
+      225675,
+      225922,
+      225937,
+      225949,
+      226008,
+      226411,
+      226441,
+      226464,
+      226936,
+      228665,
+      229202,
+      229218,
+      229229,
+      241559,
+      241618
+     ],
+     "fixup_rvas": [
+      225649,
+      225665,
+      225676,
+      225923,
+      225939,
+      225951,
+      226009,
+      226413,
+      226442,
+      226466,
+      226937,
+      228666,
+      229204,
+      229219,
+      229231,
+      241560,
+      241619
+     ]
+    },
+    {
+     "target_rva": 460802,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 11,
+     "instruction_rvas": [
+      210688,
+      210729,
+      210741,
+      210767,
+      212736,
+      212746,
+      212803,
+      212819,
+      220664,
+      220866,
+      221012
+     ],
+     "fixup_rvas": [
+      210691,
+      210732,
+      210744,
+      210770,
+      212738,
+      212749,
+      212805,
+      212822,
+      220667,
+      220869,
+      221015
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/loader_zero_cells_0.c",
+   "owner_symbol": "g_level_timer_70800",
+   "independent_anchor": {
+    "rva": 210697,
+    "size": 9,
+    "operand": 0,
+    "sha256": "b8874d8e66dcdec49aa46faf0b0b7ab5b0c96feab37ad0ff9bc9e604b6f7ad2a",
+    "bytes": "66c70500080710ffff",
+    "instruction": "mov word ptr [0x10070800], 0xffff",
+    "fixup_rva": 210700,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": {
+     "id": "eng1.33700",
+     "status": "CODEGEN_SIMILAR"
+    },
+    "pending_blocker_overlaps": [
+     "eng1.33700"
+    ],
+    "lane_caller_overlaps": [],
+    "boundary_source": "recovery-row:eng1.33700"
+   }
+  },
+  {
+   "symbol": "_g_level_toggle_70802",
+   "rva": 460802,
+   "declared_extent": 2,
+   "caller_declared_type": "unsigned short",
+   "native_direct_access_count": 11,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 210688,
+     "instruction_size": 9,
+     "bytes": "66c705020807100000",
+     "instruction_sha256": "848c348b4ce5bd3e7b942bf9fc10a319226966e735a13d1da5d9ac1617f5f9f4",
+     "instruction": "mov word ptr [0x10070802], 0",
+     "operand": 0,
+     "target_rva": 460802,
+     "fixup_rva": 210691,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33700",
+     "containing_recovery_row": {
+      "id": "eng1.33700",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 210729,
+     "instruction_size": 8,
+     "bytes": "66833d0208071000",
+     "instruction_sha256": "5d4c4a68c14b010e1ec43e7129d8b14e5734bb1ad4587714a77061ab6f7dd370",
+     "instruction": "cmp word ptr [0x10070802], 0",
+     "operand": 0,
+     "target_rva": 460802,
+     "fixup_rva": 210732,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33720",
+     "containing_recovery_row": {
+      "id": "eng1.33720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 210741,
+     "instruction_size": 9,
+     "bytes": "66c705020807100000",
+     "instruction_sha256": "848c348b4ce5bd3e7b942bf9fc10a319226966e735a13d1da5d9ac1617f5f9f4",
+     "instruction": "mov word ptr [0x10070802], 0",
+     "operand": 0,
+     "target_rva": 460802,
+     "fixup_rva": 210744,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33720",
+     "containing_recovery_row": {
+      "id": "eng1.33720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 210767,
+     "instruction_size": 9,
+     "bytes": "66c705020807100100",
+     "instruction_sha256": "7ee021e0de4f4adc87b9c82de80a0c769a61cc1771d879e6885c714f680ab371",
+     "instruction": "mov word ptr [0x10070802], 1",
+     "operand": 0,
+     "target_rva": 460802,
+     "fixup_rva": 210770,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33720",
+     "containing_recovery_row": {
+      "id": "eng1.33720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 212736,
+     "instruction_size": 6,
+     "bytes": "66a102080710",
+     "instruction_sha256": "f3228bccbb4074722fafc662f94d706f5dade5da0da8985f135cc64062463044",
+     "instruction": "mov ax, word ptr [0x10070802]",
+     "operand": 1,
+     "target_rva": 460802,
+     "fixup_rva": 212738,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33ee0",
+     "containing_recovery_row": {
+      "id": "eng1.33ee0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 212746,
+     "instruction_size": 8,
+     "bytes": "66833d0208071000",
+     "instruction_sha256": "5d4c4a68c14b010e1ec43e7129d8b14e5734bb1ad4587714a77061ab6f7dd370",
+     "instruction": "cmp word ptr [0x10070802], 0",
+     "operand": 0,
+     "target_rva": 460802,
+     "fixup_rva": 212749,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33ee0",
+     "containing_recovery_row": {
+      "id": "eng1.33ee0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 212803,
+     "instruction_size": 6,
+     "bytes": "66a102080710",
+     "instruction_sha256": "f3228bccbb4074722fafc662f94d706f5dade5da0da8985f135cc64062463044",
+     "instruction": "mov ax, word ptr [0x10070802]",
+     "operand": 1,
+     "target_rva": 460802,
+     "fixup_rva": 212805,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33f30",
+     "containing_recovery_row": {
+      "id": "eng1.33f30",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 212819,
+     "instruction_size": 8,
+     "bytes": "66833d0208071000",
+     "instruction_sha256": "5d4c4a68c14b010e1ec43e7129d8b14e5734bb1ad4587714a77061ab6f7dd370",
+     "instruction": "cmp word ptr [0x10070802], 0",
+     "operand": 0,
+     "target_rva": 460802,
+     "fixup_rva": 212822,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.33f30",
+     "containing_recovery_row": {
+      "id": "eng1.33f30",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 220664,
+     "instruction_size": 7,
+     "bytes": "66391d02080710",
+     "instruction_sha256": "d3050a875b486a81218576ff61ce9a97dde7c831e835f237eb48fdbb62da8a31",
+     "instruction": "cmp word ptr [0x10070802], bx",
+     "operand": 0,
+     "target_rva": 460802,
+     "fixup_rva": 220667,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_35d70",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_35d70",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 220866,
+     "instruction_size": 7,
+     "bytes": "66392d02080710",
+     "instruction_sha256": "5f8885154083945248a0bb240b58f207a3003c1bf7ca80ad9cdabc99f39fa27d",
+     "instruction": "cmp word ptr [0x10070802], bp",
+     "operand": 0,
+     "target_rva": 460802,
+     "fixup_rva": 220869,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_35d70",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_35d70",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 221012,
+     "instruction_size": 7,
+     "bytes": "66392d02080710",
+     "instruction_sha256": "5f8885154083945248a0bb240b58f207a3003c1bf7ca80ad9cdabc99f39fa27d",
+     "instruction": "cmp word ptr [0x10070802], bp",
+     "operand": 0,
+     "target_rva": 460802,
+     "fixup_rva": 221015,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_35d70",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_35d70",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 2,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    460786,
+    460818
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 460788,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 16,
+     "instruction_rvas": [
+      229323,
+      229605,
+      229737,
+      230577,
+      230807,
+      230920,
+      230984,
+      233305,
+      233415,
+      234190,
+      234236,
+      237353,
+      237460,
+      238253,
+      238311,
+      246144
+     ],
+     "fixup_rvas": [
+      229325,
+      229606,
+      229739,
+      230579,
+      230808,
+      230922,
+      230986,
+      233306,
+      233416,
+      234192,
+      234238,
+      237354,
+      237461,
+      238255,
+      238313,
+      246146
+     ]
+    },
+    {
+     "target_rva": 460792,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 19,
+     "instruction_rvas": [
+      226919,
+      241418,
+      241460,
+      241483,
+      241502,
+      241510,
+      241774,
+      241785,
+      241822,
+      241831,
+      241870,
+      241879,
+      241918,
+      241927,
+      241966,
+      241975,
+      242014,
+      242025,
+      246177
+     ],
+     "fixup_rvas": [
+      226921,
+      241420,
+      241461,
+      241484,
+      241503,
+      241511,
+      241775,
+      241786,
+      241823,
+      241832,
+      241871,
+      241880,
+      241919,
+      241928,
+      241967,
+      241976,
+      242015,
+      242026,
+      246179
+     ]
+    },
+    {
+     "target_rva": 460796,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 17,
+     "instruction_rvas": [
+      225647,
+      225663,
+      225675,
+      225922,
+      225937,
+      225949,
+      226008,
+      226411,
+      226441,
+      226464,
+      226936,
+      228665,
+      229202,
+      229218,
+      229229,
+      241559,
+      241618
+     ],
+     "fixup_rvas": [
+      225649,
+      225665,
+      225676,
+      225923,
+      225939,
+      225951,
+      226009,
+      226413,
+      226442,
+      226466,
+      226937,
+      228666,
+      229204,
+      229219,
+      229231,
+      241560,
+      241619
+     ]
+    },
+    {
+     "target_rva": 460800,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      210697,
+      210720,
+      210787
+     ],
+     "fixup_rvas": [
+      210700,
+      210723,
+      210789
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/loader_zero_cells_0.c",
+   "owner_symbol": "g_level_toggle_70802",
+   "independent_anchor": {
+    "rva": 210688,
+    "size": 9,
+    "operand": 0,
+    "sha256": "848c348b4ce5bd3e7b942bf9fc10a319226966e735a13d1da5d9ac1617f5f9f4",
+    "bytes": "66c705020807100000",
+    "instruction": "mov word ptr [0x10070802], 0",
+    "fixup_rva": 210691,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": {
+     "id": "eng1.33700",
+     "status": "CODEGEN_SIMILAR"
+    },
+    "pending_blocker_overlaps": [
+     "eng1.33700"
+    ],
+    "lane_caller_overlaps": [],
+    "boundary_source": "recovery-row:eng1.33700"
+   }
+  },
+  {
+   "symbol": "_g_music_file_size_6ef30",
+   "rva": 454448,
+   "declared_extent": 4,
+   "caller_declared_type": "unsigned long",
+   "native_direct_access_count": 6,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 60446,
+     "instruction_size": 6,
+     "bytes": "890d30ef0610",
+     "instruction_sha256": "13983d0529917639e1cbe6aabe81fc43384c1639aa8f4b680dde8e825fe26eb1",
+     "instruction": "mov dword ptr [0x1006ef30], ecx",
+     "operand": 0,
+     "target_rva": 454448,
+     "fixup_rva": 60448,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60502,
+     "instruction_size": 5,
+     "bytes": "a330ef0610",
+     "instruction_sha256": "7477115c2eab9da087f4d874cdff94c75ab5fa7ce9de42854bf26138644c9a64",
+     "instruction": "mov dword ptr [0x1006ef30], eax",
+     "operand": 0,
+     "target_rva": 454448,
+     "fixup_rva": 60503,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60526,
+     "instruction_size": 6,
+     "bytes": "8b0d30ef0610",
+     "instruction_sha256": "6635dfc09b92065bf037b3bac505f72cbe4da196ce0c375065999ef34ec1cc7a",
+     "instruction": "mov ecx, dword ptr [0x1006ef30]",
+     "operand": 1,
+     "target_rva": 454448,
+     "fixup_rva": 60528,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60585,
+     "instruction_size": 6,
+     "bytes": "8b1530ef0610",
+     "instruction_sha256": "5f7cf1e350370b5f28eb5113604a754c3525e97af1bb442548399b7ea9fc4805",
+     "instruction": "mov edx, dword ptr [0x1006ef30]",
+     "operand": 1,
+     "target_rva": 454448,
+     "fixup_rva": 60587,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60682,
+     "instruction_size": 6,
+     "bytes": "8b1530ef0610",
+     "instruction_sha256": "5f7cf1e350370b5f28eb5113604a754c3525e97af1bb442548399b7ea9fc4805",
+     "instruction": "mov edx, dword ptr [0x1006ef30]",
+     "operand": 1,
+     "target_rva": 454448,
+     "fixup_rva": 60684,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60817,
+     "instruction_size": 6,
+     "bytes": "8b0d30ef0610",
+     "instruction_sha256": "6635dfc09b92065bf037b3bac505f72cbe4da196ce0c375065999ef34ec1cc7a",
+     "instruction": "mov ecx, dword ptr [0x1006ef30]",
+     "operand": 1,
+     "target_rva": 454448,
+     "fixup_rva": 60819,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0ed40",
+     "containing_recovery_row": {
+      "id": "eng1.0ed40",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    454432,
+    454464
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 454432,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      59357,
+      59379,
+      59392,
+      59437,
+      59532,
+      59724
+     ],
+     "fixup_rvas": [
+      59359,
+      59380,
+      59393,
+      59439,
+      59534,
+      59726
+     ]
+    },
+    {
+     "target_rva": 454436,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 12,
+     "instruction_rvas": [
+      59062,
+      60436,
+      60463,
+      60507,
+      60538,
+      60596,
+      60742,
+      60772,
+      60800,
+      60828,
+      60860,
+      60912
+     ],
+     "fixup_rvas": [
+      59064,
+      60438,
+      60464,
+      60508,
+      60539,
+      60598,
+      60744,
+      60774,
+      60801,
+      60830,
+      60862,
+      60913
+     ]
+    },
+    {
+     "target_rva": 454440,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      59213,
+      59242,
+      59312,
+      59483
+     ],
+     "fixup_rvas": [
+      59215,
+      59243,
+      59314,
+      59485
+     ]
+    },
+    {
+     "target_rva": 454444,
+     "access_width": 1,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      60138
+     ],
+     "fixup_rvas": [
+      60140
+     ]
+    },
+    {
+     "target_rva": 454444,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      59748,
+      59917,
+      60004,
+      60180
+     ],
+     "fixup_rvas": [
+      59750,
+      59920,
+      60007,
+      60182
+     ]
+    },
+    {
+     "target_rva": 454444,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 9,
+     "instruction_rvas": [
+      59494,
+      59614,
+      59679,
+      59711,
+      59768,
+      59795,
+      59854,
+      59939,
+      59960
+     ],
+     "fixup_rvas": [
+      59496,
+      59616,
+      59680,
+      59713,
+      59770,
+      59796,
+      59855,
+      59941,
+      59962
+     ]
+    },
+    {
+     "target_rva": 454452,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      59039,
+      59368,
+      59538,
+      59692,
+      60231,
+      60256
+     ],
+     "fixup_rvas": [
+      59040,
+      59370,
+      59539,
+      59693,
+      60233,
+      60257
+     ]
+    },
+    {
+     "target_rva": 454456,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 13,
+     "instruction_rvas": [
+      51260,
+      51299,
+      51358,
+      51367,
+      58992,
+      59098,
+      59119,
+      59574,
+      60305,
+      60328,
+      60718,
+      60949,
+      61000
+     ],
+     "fixup_rvas": [
+      51262,
+      51301,
+      51359,
+      51369,
+      58993,
+      59100,
+      59121,
+      59576,
+      60307,
+      60330,
+      60720,
+      60951,
+      61002
+     ]
+    },
+    {
+     "target_rva": 454460,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      51277,
+      59009,
+      59030,
+      59088
+     ],
+     "fixup_rvas": [
+      51279,
+      59011,
+      59031,
+      59090
+     ]
+    },
+    {
+     "target_rva": 454464,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      75361,
+      75483,
+      75495,
+      75513,
+      75571,
+      75582
+     ],
+     "fixup_rvas": [
+      75364,
+      75486,
+      75498,
+      75516,
+      75573,
+      75584
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [
+    {
+     "instruction_rva": 59413,
+     "instruction_size": 5,
+     "bytes": "6834ef0610",
+     "instruction_sha256": "2395184a8b6de3de9485ed13b9678b85e0e24dc40395394be2941fe08230e1b8",
+     "instruction": "push 0x1006ef34",
+     "operand": 0,
+     "target_rva": 454452,
+     "fixup_rva": 59414,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0e720",
+     "containing_recovery_row": {
+      "id": "eng1.0e720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "absolute_address_or_base"
+    },
+    {
+     "instruction_rva": 59461,
+     "instruction_size": 5,
+     "bytes": "6834ef0610",
+     "instruction_sha256": "2395184a8b6de3de9485ed13b9678b85e0e24dc40395394be2941fe08230e1b8",
+     "instruction": "push 0x1006ef34",
+     "operand": 0,
+     "target_rva": 454452,
+     "fixup_rva": 59462,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0e720",
+     "containing_recovery_row": {
+      "id": "eng1.0e720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "absolute_address_or_base"
+    }
+   ],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/loader_zero_cells_0.c",
+   "owner_symbol": "g_music_file_size_6ef30",
+   "independent_anchor": {
+    "rva": 60446,
+    "size": 6,
+    "operand": 0,
+    "sha256": "13983d0529917639e1cbe6aabe81fc43384c1639aa8f4b680dde8e825fe26eb1",
+    "bytes": "890d30ef0610",
+    "instruction": "mov dword ptr [0x1006ef30], ecx",
+    "fixup_rva": 60448,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": {
+     "id": "eng1.eng1_0ebd0",
+     "status": "RECONSTRUCTED"
+    },
+    "pending_blocker_overlaps": [],
+    "lane_caller_overlaps": [],
+    "boundary_source": "recovery-row:eng1.eng1_0ebd0"
+   }
+  },
+  {
+   "symbol": "_g_music_slot_6ef24",
+   "rva": 454436,
+   "declared_extent": 4,
+   "caller_declared_type": "int",
+   "native_direct_access_count": 12,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 59062,
+     "instruction_size": 6,
+     "bytes": "8b0d24ef0610",
+     "instruction_sha256": "231dcacbdc5e8a15ed5dfa4142f91bea8cc3c20c54dd4f5520eea279f45d4b4a",
+     "instruction": "mov ecx, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 59064,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.dispatch_local_0e670",
+     "containing_recovery_row": {
+      "id": "eng1.dispatch_local_0e670",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60436,
+     "instruction_size": 10,
+     "bytes": "c70524ef061000000000",
+     "instruction_sha256": "57040d92ce4e559c0a9c47c3caa24ac77a05c4fd1ac499d7f8bd2e5f5a69f7fd",
+     "instruction": "mov dword ptr [0x1006ef24], 0",
+     "operand": 0,
+     "target_rva": 454436,
+     "fixup_rva": 60438,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60463,
+     "instruction_size": 5,
+     "bytes": "a124ef0610",
+     "instruction_sha256": "12f1a353b534314de4410a3bbb8e5aec66d2b4e4012cf6a5e37645376463c60b",
+     "instruction": "mov eax, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60464,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60507,
+     "instruction_size": 5,
+     "bytes": "a124ef0610",
+     "instruction_sha256": "12f1a353b534314de4410a3bbb8e5aec66d2b4e4012cf6a5e37645376463c60b",
+     "instruction": "mov eax, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60508,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60538,
+     "instruction_size": 5,
+     "bytes": "a124ef0610",
+     "instruction_sha256": "12f1a353b534314de4410a3bbb8e5aec66d2b4e4012cf6a5e37645376463c60b",
+     "instruction": "mov eax, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60539,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60596,
+     "instruction_size": 6,
+     "bytes": "8b0d24ef0610",
+     "instruction_sha256": "231dcacbdc5e8a15ed5dfa4142f91bea8cc3c20c54dd4f5520eea279f45d4b4a",
+     "instruction": "mov ecx, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60598,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.eng1_0ebd0",
+     "containing_recovery_row": {
+      "id": "eng1.eng1_0ebd0",
+      "status": "RECONSTRUCTED"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60742,
+     "instruction_size": 6,
+     "bytes": "8b1524ef0610",
+     "instruction_sha256": "71cc14bd4ad59585f7fb79e3dd71d634f56cfe907572906284bba9285d996c09",
+     "instruction": "mov edx, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60744,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0ed40",
+     "containing_recovery_row": {
+      "id": "eng1.0ed40",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60772,
+     "instruction_size": 6,
+     "bytes": "8b1524ef0610",
+     "instruction_sha256": "71cc14bd4ad59585f7fb79e3dd71d634f56cfe907572906284bba9285d996c09",
+     "instruction": "mov edx, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60774,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0ed40",
+     "containing_recovery_row": {
+      "id": "eng1.0ed40",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60800,
+     "instruction_size": 5,
+     "bytes": "a124ef0610",
+     "instruction_sha256": "12f1a353b534314de4410a3bbb8e5aec66d2b4e4012cf6a5e37645376463c60b",
+     "instruction": "mov eax, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60801,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0ed40",
+     "containing_recovery_row": {
+      "id": "eng1.0ed40",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60828,
+     "instruction_size": 6,
+     "bytes": "8b1524ef0610",
+     "instruction_sha256": "71cc14bd4ad59585f7fb79e3dd71d634f56cfe907572906284bba9285d996c09",
+     "instruction": "mov edx, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60830,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0ed40",
+     "containing_recovery_row": {
+      "id": "eng1.0ed40",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60860,
+     "instruction_size": 6,
+     "bytes": "8b0d24ef0610",
+     "instruction_sha256": "231dcacbdc5e8a15ed5dfa4142f91bea8cc3c20c54dd4f5520eea279f45d4b4a",
+     "instruction": "mov ecx, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60862,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0ed40",
+     "containing_recovery_row": {
+      "id": "eng1.0ed40",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 60912,
+     "instruction_size": 5,
+     "bytes": "a124ef0610",
+     "instruction_sha256": "12f1a353b534314de4410a3bbb8e5aec66d2b4e4012cf6a5e37645376463c60b",
+     "instruction": "mov eax, dword ptr [0x1006ef24]",
+     "operand": 1,
+     "target_rva": 454436,
+     "fixup_rva": 60913,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0edf0",
+     "containing_recovery_row": {
+      "id": "eng1.0edf0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    454420,
+    454452
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 454420,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      51098,
+      51126,
+      51289,
+      85563
+     ],
+     "fixup_rvas": [
+      51099,
+      51128,
+      51290,
+      85565
+     ]
+    },
+    {
+     "target_rva": 454428,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 3,
+     "instruction_rvas": [
+      59223,
+      59287,
+      59305
+     ],
+     "fixup_rvas": [
+      59224,
+      59288,
+      59306
+     ]
+    },
+    {
+     "target_rva": 454432,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      59357,
+      59379,
+      59392,
+      59437,
+      59532,
+      59724
+     ],
+     "fixup_rvas": [
+      59359,
+      59380,
+      59393,
+      59439,
+      59534,
+      59726
+     ]
+    },
+    {
+     "target_rva": 454440,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      59213,
+      59242,
+      59312,
+      59483
+     ],
+     "fixup_rvas": [
+      59215,
+      59243,
+      59314,
+      59485
+     ]
+    },
+    {
+     "target_rva": 454444,
+     "access_width": 1,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      60138
+     ],
+     "fixup_rvas": [
+      60140
+     ]
+    },
+    {
+     "target_rva": 454444,
+     "access_width": 2,
+     "overlaps_proposed_extent": false,
+     "count": 4,
+     "instruction_rvas": [
+      59748,
+      59917,
+      60004,
+      60180
+     ],
+     "fixup_rvas": [
+      59750,
+      59920,
+      60007,
+      60182
+     ]
+    },
+    {
+     "target_rva": 454444,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 9,
+     "instruction_rvas": [
+      59494,
+      59614,
+      59679,
+      59711,
+      59768,
+      59795,
+      59854,
+      59939,
+      59960
+     ],
+     "fixup_rvas": [
+      59496,
+      59616,
+      59680,
+      59713,
+      59770,
+      59796,
+      59855,
+      59941,
+      59962
+     ]
+    },
+    {
+     "target_rva": 454448,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      60446,
+      60502,
+      60526,
+      60585,
+      60682,
+      60817
+     ],
+     "fixup_rvas": [
+      60448,
+      60503,
+      60528,
+      60587,
+      60684,
+      60819
+     ]
+    },
+    {
+     "target_rva": 454452,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      59039,
+      59368,
+      59538,
+      59692,
+      60231,
+      60256
+     ],
+     "fixup_rvas": [
+      59040,
+      59370,
+      59539,
+      59693,
+      60233,
+      60257
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [
+    {
+     "instruction_rva": 59413,
+     "instruction_size": 5,
+     "bytes": "6834ef0610",
+     "instruction_sha256": "2395184a8b6de3de9485ed13b9678b85e0e24dc40395394be2941fe08230e1b8",
+     "instruction": "push 0x1006ef34",
+     "operand": 0,
+     "target_rva": 454452,
+     "fixup_rva": 59414,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0e720",
+     "containing_recovery_row": {
+      "id": "eng1.0e720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "absolute_address_or_base"
+    },
+    {
+     "instruction_rva": 59461,
+     "instruction_size": 5,
+     "bytes": "6834ef0610",
+     "instruction_sha256": "2395184a8b6de3de9485ed13b9678b85e0e24dc40395394be2941fe08230e1b8",
+     "instruction": "push 0x1006ef34",
+     "operand": 0,
+     "target_rva": 454452,
+     "fixup_rva": 59462,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.0e720",
+     "containing_recovery_row": {
+      "id": "eng1.0e720",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "absolute_address_or_base"
+    }
+   ],
+   "data_pointer_references_in_neighborhood": [
+    {
+     "field_rva": 321616,
+     "target_rva": 454424,
+     "fixup_type": "HIGHLOW",
+     "section": ".data",
+     "field_bytes": "18ef0610"
+    }
+   ],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/loader_zero_cells_0.c",
+   "owner_symbol": "g_music_slot_6ef24",
+   "independent_anchor": {
+    "rva": 60436,
+    "size": 10,
+    "operand": 0,
+    "sha256": "57040d92ce4e559c0a9c47c3caa24ac77a05c4fd1ac499d7f8bd2e5f5a69f7fd",
+    "bytes": "c70524ef061000000000",
+    "instruction": "mov dword ptr [0x1006ef24], 0",
+    "fixup_rva": 60438,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": {
+     "id": "eng1.eng1_0ebd0",
+     "status": "RECONSTRUCTED"
+    },
+    "pending_blocker_overlaps": [],
+    "lane_caller_overlaps": [],
+    "boundary_source": "recovery-row:eng1.eng1_0ebd0"
+   }
+  },
+  {
+   "symbol": "_g_resource_transition_ticks_6efb0",
+   "rva": 454576,
+   "declared_extent": 4,
+   "caller_declared_type": "unsigned long",
+   "native_direct_access_count": 8,
+   "direct_absolute_memory_accesses": [
+    {
+     "instruction_rva": 8678,
+     "instruction_size": 6,
+     "bytes": "8b0db0ef0610",
+     "instruction_sha256": "192fac6e25568e04deb223a4f073c06e21a7643022f153c139d2674ea6a3e415",
+     "instruction": "mov ecx, dword ptr [0x1006efb0]",
+     "operand": 1,
+     "target_rva": 454576,
+     "fixup_rva": 8680,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.dispatch_local_02180",
+     "containing_recovery_row": {
+      "id": "eng1.dispatch_local_02180",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 8699,
+     "instruction_size": 10,
+     "bytes": "c705b0ef061001000000",
+     "instruction_sha256": "3667e49747d14e96ef1f9036703201d49476057c00b808a5e141e22a7d29861d",
+     "instruction": "mov dword ptr [0x1006efb0], 1",
+     "operand": 0,
+     "target_rva": 454576,
+     "fixup_rva": 8701,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.dispatch_local_02180",
+     "containing_recovery_row": {
+      "id": "eng1.dispatch_local_02180",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 8726,
+     "instruction_size": 6,
+     "bytes": "890db0ef0610",
+     "instruction_sha256": "2494ca4355f68d1cff495ef8a87de5e4f3da5e8d581675b97baecaa6c337de91",
+     "instruction": "mov dword ptr [0x1006efb0], ecx",
+     "operand": 0,
+     "target_rva": 454576,
+     "fixup_rva": 8728,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.dispatch_local_02180",
+     "containing_recovery_row": {
+      "id": "eng1.dispatch_local_02180",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 8763,
+     "instruction_size": 6,
+     "bytes": "890db0ef0610",
+     "instruction_sha256": "2494ca4355f68d1cff495ef8a87de5e4f3da5e8d581675b97baecaa6c337de91",
+     "instruction": "mov dword ptr [0x1006efb0], ecx",
+     "operand": 0,
+     "target_rva": 454576,
+     "fixup_rva": 8765,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.dispatch_local_02180",
+     "containing_recovery_row": {
+      "id": "eng1.dispatch_local_02180",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 8887,
+     "instruction_size": 6,
+     "bytes": "8935b0ef0610",
+     "instruction_sha256": "2a67f48c95bbf1b9af658f4d498cf0284ab94fb4e2c29cba615a274c1dcfa4e0",
+     "instruction": "mov dword ptr [0x1006efb0], esi",
+     "operand": 0,
+     "target_rva": 454576,
+     "fixup_rva": 8889,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02290",
+     "containing_recovery_row": {
+      "id": "eng1.02290",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 8907,
+     "instruction_size": 6,
+     "bytes": "8935b0ef0610",
+     "instruction_sha256": "2a67f48c95bbf1b9af658f4d498cf0284ab94fb4e2c29cba615a274c1dcfa4e0",
+     "instruction": "mov dword ptr [0x1006efb0], esi",
+     "operand": 0,
+     "target_rva": 454576,
+     "fixup_rva": 8909,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.02290",
+     "containing_recovery_row": {
+      "id": "eng1.02290",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 86957,
+     "instruction_size": 6,
+     "bytes": "891db0ef0610",
+     "instruction_sha256": "3081303cd46f4c272af1e1306fa351a8a6f71e2b38bee1641a32771dd25bc6f4",
+     "instruction": "mov dword ptr [0x1006efb0], ebx",
+     "operand": 0,
+     "target_rva": 454576,
+     "fixup_rva": 86959,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "text-gap-sweep",
+     "containing_recovery_row": null,
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    },
+    {
+     "instruction_rva": 226545,
+     "instruction_size": 6,
+     "bytes": "891db0ef0610",
+     "instruction_sha256": "3081303cd46f4c272af1e1306fa351a8a6f71e2b38bee1641a32771dd25bc6f4",
+     "instruction": "mov dword ptr [0x1006efb0], ebx",
+     "operand": 0,
+     "target_rva": 454576,
+     "fixup_rva": 226547,
+     "fixup_type": "HIGHLOW",
+     "boundary_source": "recovery-row:eng1.374c0",
+     "containing_recovery_row": {
+      "id": "eng1.374c0",
+      "status": "CODEGEN_SIMILAR"
+     },
+     "operand_kind": "direct_absolute_memory",
+     "access_width": 4,
+     "overlaps_proposed_extent": true
+    }
+   ],
+   "neighborhood_rva_range": [
+    454560,
+    454592
+   ],
+   "neighbor_absolute_memory_accesses": [
+    {
+     "target_rva": 454560,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 6,
+     "instruction_rvas": [
+      86930,
+      88024,
+      88033,
+      88057,
+      90286,
+      91488
+     ],
+     "fixup_rvas": [
+      86932,
+      88025,
+      88034,
+      88059,
+      90288,
+      91490
+     ]
+    },
+    {
+     "target_rva": 454564,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 7,
+     "instruction_rvas": [
+      88668,
+      88679,
+      98885,
+      99015,
+      99672,
+      100213,
+      184181
+     ],
+     "fixup_rvas": [
+      88670,
+      88681,
+      98887,
+      99017,
+      99674,
+      100215,
+      184183
+     ]
+    },
+    {
+     "target_rva": 454568,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 7,
+     "instruction_rvas": [
+      86999,
+      91319,
+      91334,
+      91364,
+      91404,
+      91442,
+      93356
+     ],
+     "fixup_rvas": [
+      87001,
+      91321,
+      91335,
+      91366,
+      91406,
+      91444,
+      93358
+     ]
+    },
+    {
+     "target_rva": 454572,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 9,
+     "instruction_rvas": [
+      8881,
+      8901,
+      9150,
+      9164,
+      9178,
+      9239,
+      9277,
+      86951,
+      226539
+     ],
+     "fixup_rvas": [
+      8883,
+      8903,
+      9152,
+      9166,
+      9180,
+      9241,
+      9278,
+      86953,
+      226541
+     ]
+    },
+    {
+     "target_rva": 454580,
+     "access_width": 1,
+     "overlaps_proposed_extent": false,
+     "count": 29,
+     "instruction_rvas": [
+      74071,
+      74121,
+      74131,
+      74186,
+      74196,
+      74281,
+      86963,
+      88294,
+      88470,
+      89554,
+      98308,
+      99082,
+      99116,
+      99140,
+      100262,
+      100296,
+      100320,
+      100400,
+      101554,
+      106653,
+      106691,
+      106715,
+      225708,
+      225743,
+      225767,
+      226551,
+      228070,
+      228293,
+      228740
+     ],
+     "fixup_rvas": [
+      74073,
+      74123,
+      74133,
+      74188,
+      74198,
+      74283,
+      86965,
+      88296,
+      88472,
+      89556,
+      98311,
+      99085,
+      99119,
+      99142,
+      100265,
+      100299,
+      100322,
+      100401,
+      101556,
+      106656,
+      106694,
+      106717,
+      225711,
+      225746,
+      225769,
+      226553,
+      228073,
+      228295,
+      228743
+     ]
+    },
+    {
+     "target_rva": 454584,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 11,
+     "instruction_rvas": [
+      109656,
+      110325,
+      113328,
+      117955,
+      119281,
+      119612,
+      120639,
+      120647,
+      121349,
+      123161,
+      123200
+     ],
+     "fixup_rvas": [
+      109658,
+      110326,
+      113329,
+      117957,
+      119282,
+      119613,
+      120640,
+      120648,
+      121350,
+      123163,
+      123201
+     ]
+    },
+    {
+     "target_rva": 454588,
+     "access_width": 4,
+     "overlaps_proposed_extent": false,
+     "count": 1,
+     "instruction_rvas": [
+      110926
+     ],
+     "fixup_rvas": [
+      110928
+     ]
+    }
+   ],
+   "address_only_references_in_neighborhood": [],
+   "data_pointer_references_in_neighborhood": [],
+   "unresolved_neighborhood_references": [],
+   "overlap_or_width_conflicts": [],
+   "scalar_extent_complete": true,
+   "owner_source": "src/eng1/level_storage.c",
+   "owner_symbol": "g_resource_transition_ticks_6efb0",
+   "independent_anchor": {
+    "rva": 86957,
+    "size": 6,
+    "operand": 0,
+    "sha256": "3081303cd46f4c272af1e1306fa351a8a6f71e2b38bee1641a32771dd25bc6f4",
+    "bytes": "891db0ef0610",
+    "instruction": "mov dword ptr [0x1006efb0], ebx",
+    "fixup_rva": 86959,
+    "fixup_type": "HIGHLOW",
+    "containing_recovery_row": null,
+    "pending_blocker_overlaps": [],
+    "lane_caller_overlaps": [],
+    "boundary_source": "text-gap-sweep"
+   }
+  }
+ ],
+ "existing_owners": {
+  "_g_eng1_setup_dword_6efac": {
+   "source": "src/eng1/setup_shared_state.c",
+   "definition": "unsigned long g_eng1_setup_dword_6efa8, g_eng1_setup_dword_6efac;"
+  },
+  "_g_eng1_setup_dword_72114": {
+   "source": "src/eng1/setup_shared_state.c",
+   "definition": "unsigned long g_eng1_setup_dword_72114;"
+  },
+  "_g_eng1_setup_dword_72118": {
+   "source": "src/eng1/setup_shared_state.c",
+   "definition": "unsigned long g_eng1_setup_dword_72118, g_eng1_setup_dword_7211c;"
+  },
+  "_g_eng1_setup_dword_72120": {
+   "source": "src/eng1/setup_shared_state.c",
+   "definition": "unsigned long g_eng1_setup_dword_72120, g_eng1_setup_dword_7216c;"
+  },
+  "_g_eng1_setup_dword_72188": {
+   "source": "src/eng1/setup_shared_state.c",
+   "definition": "unsigned long g_eng1_setup_dword_6ef5c, g_eng1_setup_dword_72188;"
+  },
+  "_g_resource_transition_ticks_6efb0": {
+   "source": "src/eng1/level_storage.c",
+   "definition": "unsigned long g_resource_transition_ticks_6efb0;"
+  }
+ },
+ "new_owner_file": {
+  "path": "src/eng1/loader_zero_cells_0.c",
+  "sha256": "081ac9df79fdf35cca15012de212289ce4fda98e0fc8eceff691dd9b20678b17",
+  "line_endings": "LF",
+  "contents": [
+   "long g_eng1_dword_6ef38;",
+   "long g_eng1_dword_721b4;",
+   "short g_level_timer_70800;",
+   "unsigned short g_level_toggle_70802;",
+   "unsigned long g_music_file_size_6ef30;",
+   "int g_music_slot_6ef24;"
+  ]
+ },
+ "function_identities": {
+  "accepted_rows": [
+   {
+    "id": "eng1.resource_reset",
+    "identity_source": "accepted recovery row",
+    "rva": 13600,
+    "size": 32,
+    "status": "FUNCTION_MATCH_RELOCATED",
+    "symbol": "_resource_reset"
+   },
+   {
+    "id": "eng1.advance_frame",
+    "rva": 168560,
+    "size": 80,
+    "status": "FUNCTION_MATCH",
+    "symbol": "_advance_frame"
+   },
+   {
+    "id": "eng1.select_frame",
+    "rva": 168688,
+    "size": 48,
+    "status": "FUNCTION_MATCH",
+    "symbol": "_select_frame"
+   },
+   {
+    "id": "eng1.native_code_target_002a290",
+    "rva": 172688,
+    "size": 160,
+    "status": "FUNCTION_MATCH_RELOCATED",
+    "symbol": "_eng1_native_code_target_002a290"
+   },
+   {
+    "id": "eng1.native_code_target_002a9e0",
+    "rva": 174560,
+    "size": 80,
+    "status": "FUNCTION_MATCH_RELOCATED",
+    "symbol": "_eng1_2a9e0"
+   }
+  ],
+  "fresh_own_shape_equal": [
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.02290",
+    "masked_equal": true,
+    "object_sha256": "203e292414c738f7112169c6fa9cd97ec0ec212a1fc9c6a08bcfc485aea86236",
+    "relocations": 24,
+    "rva": 8848,
+    "size": 368,
+    "source": "src/eng1/level_frame_01e50.c",
+    "source_sha256": "0499866aec5e068f0b4db3e0b3f559c2b82006680a3aef0a358bb1ab53877d87",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.02400",
+    "masked_equal": true,
+    "object_sha256": "203e292414c738f7112169c6fa9cd97ec0ec212a1fc9c6a08bcfc485aea86236",
+    "relocations": 4,
+    "rva": 9216,
+    "size": 48,
+    "source": "src/eng1/level_frame_01e50.c",
+    "source_sha256": "0499866aec5e068f0b4db3e0b3f559c2b82006680a3aef0a358bb1ab53877d87",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.02430",
+    "masked_equal": true,
+    "object_sha256": "203e292414c738f7112169c6fa9cd97ec0ec212a1fc9c6a08bcfc485aea86236",
+    "relocations": 4,
+    "rva": 9264,
+    "size": 32,
+    "source": "src/eng1/level_frame_01e50.c",
+    "source_sha256": "0499866aec5e068f0b4db3e0b3f559c2b82006680a3aef0a358bb1ab53877d87",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.dispatch_engine_2c420",
+    "masked_equal": true,
+    "object_sha256": "0f7b6949472772d7388c212cf30ecb0e969ff899a1ee0900a02c5a5d9c94ea52",
+    "relocations": 1,
+    "rva": 181280,
+    "size": 16,
+    "source": "src/eng1/dispatcher_bridges.c",
+    "source_sha256": "473cc81e81b1ac4ff02acda903ca9d1ee181067ee56ec0d6c0250da9602a3831",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.dispatch_engine_2c540",
+    "masked_equal": true,
+    "object_sha256": "0f7b6949472772d7388c212cf30ecb0e969ff899a1ee0900a02c5a5d9c94ea52",
+    "relocations": 1,
+    "rva": 181568,
+    "size": 32,
+    "source": "src/eng1/dispatcher_bridges.c",
+    "source_sha256": "473cc81e81b1ac4ff02acda903ca9d1ee181067ee56ec0d6c0250da9602a3831",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.dispatch_engine_2c450",
+    "masked_equal": true,
+    "object_sha256": "04821dfc43737c50b2fa388ac63583b1a253defbb3c83b68e133c3b8bd267a96",
+    "relocations": 1,
+    "rva": 181328,
+    "size": 16,
+    "source": "src/eng1/control_unit_2c030.c",
+    "source_sha256": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.dispatch_engine_2c4d0",
+    "masked_equal": true,
+    "object_sha256": "04821dfc43737c50b2fa388ac63583b1a253defbb3c83b68e133c3b8bd267a96",
+    "relocations": 1,
+    "rva": 181456,
+    "size": 16,
+    "source": "src/eng1/control_unit_2c030.c",
+    "source_sha256": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.dispatch_engine_2c590",
+    "masked_equal": true,
+    "object_sha256": "04821dfc43737c50b2fa388ac63583b1a253defbb3c83b68e133c3b8bd267a96",
+    "relocations": 1,
+    "rva": 181648,
+    "size": 16,
+    "source": "src/eng1/control_unit_2c030.c",
+    "source_sha256": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.2c560",
+    "masked_equal": true,
+    "object_sha256": "04821dfc43737c50b2fa388ac63583b1a253defbb3c83b68e133c3b8bd267a96",
+    "relocations": 1,
+    "rva": 181600,
+    "size": 16,
+    "source": "src/eng1/control_unit_2c030.c",
+    "source_sha256": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.2c3e0",
+    "masked_equal": true,
+    "object_sha256": "04821dfc43737c50b2fa388ac63583b1a253defbb3c83b68e133c3b8bd267a96",
+    "relocations": 1,
+    "rva": 181216,
+    "size": 32,
+    "source": "src/eng1/control_unit_2c030.c",
+    "source_sha256": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   },
+   {
+    "differing_bytes": 0,
+    "fresh_own_shape_equal": true,
+    "id": "eng1.dispatch_engine_2c2d0",
+    "masked_equal": true,
+    "object_sha256": "02e6fbbcf3c3f3401fcca497b74e440401cc27a91525cec6a4a8a4ed4e72e751",
+    "relocations": 1,
+    "rva": 180944,
+    "size": 16,
+    "source": "src/eng1/frame_lifecycle_bridges.c",
+    "source_sha256": "62897a8120677bbd5a468718949cbfdb0cb493d794a42bf57e525c16c9b31a1a",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+   }
+  ]
+ },
+ "caller_locals": {
+  "eng1.02290": [
+   {
+    "symbol": "$L548",
+    "rva": 9196,
+    "role": "table",
+    "size": 16,
+    "references": [
+     {
+      "offset": 294,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   },
+   {
+    "symbol": "$L350",
+    "rva": 9188,
+    "role": "code",
+    "size": 1,
+    "references": [
+     {
+      "offset": 348,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   },
+   {
+    "symbol": "$L354",
+    "rva": 9146,
+    "role": "code",
+    "size": 1,
+    "references": [
+     {
+      "offset": 352,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   },
+   {
+    "symbol": "$L355",
+    "rva": 9160,
+    "role": "code",
+    "size": 1,
+    "references": [
+     {
+      "offset": 356,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   },
+   {
+    "symbol": "$L356",
+    "rva": 9174,
+    "role": "code",
+    "size": 1,
+    "references": [
+     {
+      "offset": 360,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  ]
+ },
+ "caller_jump_tables": {
+  "eng1.02290": {
+   "offset": 348,
+   "size": 16,
+   "rva": 9196,
+   "bytes": "e4230010ba230010c8230010d6230010",
+   "evidence": "Four DIR32 local-code entries are independently bounded inside the complete 0x2290..0x2400 contribution; offset 294 refers to this table base. The 16-byte table ends at 364; the following four bytes are 0x90 padding.",
+   "entries": [
+    {
+     "offset": 348,
+     "target_rva": 9188
+    },
+    {
+     "offset": 352,
+     "target_rva": 9146
+    },
+    {
+     "offset": 356,
+     "target_rva": 9160
+    },
+    {
+     "offset": 360,
+     "target_rva": 9174
+    }
+   ]
+  }
+ }
+}

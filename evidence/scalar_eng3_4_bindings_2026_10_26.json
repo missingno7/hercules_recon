@@ -1,0 +1,886 @@
+{
+ "schema": 1,
+ "scope": "ENG3.DLL instruction-equal reference-only rows with scalar loader-zero owners; diagnostic only",
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "docs/loader_zero_matching_2026_10_25.md": "7a6b34c91135686eedfea24bf3c89aa52acf2fb308e0509a51fe36c2adbfa700",
+  "docs/matching.md": "32e13a6ca19dd313ad8323734d8bdc2088eba86a9c6e4c84a0ef006f06d73aad",
+  "evidence/context_9d3222369d7d_cbf2b6df6980.json": "db8254cb5fcd564e35a200f3a3ff7d5dbcd795e8aff5ece16e58ad54d360787a",
+  "evidence/eng3_handlers_12190_16240_2026_10_20.json": "1693d3e38ebba6419615f4b7bf9dc8b015bfd574b91744a86c06d0505abe728c",
+  "evidence/eng3_track_unit_2026_10_20.json": "ba8a0bcf2adda96c859caa61b87dee839ba83185df3e8440ee66ba73c848f53e",
+  "evidence/eng3_tracks_bindings_2026_10_26.json": "c202809e82ebe4b022c34bf5bd993f3b028adc74b9bece07dc4a23742a8d0529",
+  "evidence/eng3_tracks_review_2026_10_26.json": "789662548675e963076eb140a6d27573fdd7a1a57e510825eab1059e2e788e61",
+  "evidence/engine_helper_matching_2026_10_24.json": "ef7a5225b7afad18d3cb64b64cbf395351e135837f88df580663e167a7184771",
+  "evidence/engine_interface_binding.json": "14d9953831bf8788a7f44eb170806de745d1275dc0a7bdd1f7e6d4d5714fdc3f",
+  "evidence/engine_interface_storage_adoption_2026_10_11.json": "316fc2107510ad7d9ea47f687ea33714986e1fe81611b349f82aaf5cfb170085",
+  "evidence/iface_data_bindings_2026_10_26.json": "1015c720b91337e22caf8b9ef308fa609253c4c7739d016c35d6cc627bd2e99f",
+  "evidence/interface_transfer_review_2026_10_25.json": "427833ba30f811174b9631bae52250e9f768ee69d5186d54c8047dd911256664",
+  "evidence/source_layout_2026_10_25/review.json": "a168fdfd9be70c236db7ec9e54ad8760f1fb47f7eb45d4bba6f2184455d093d7",
+  "scripts/zero_storage.py": "69fc9c90e6760cd373b7449778f48dc63ea3d0a661550716cf2b18da75dcf923",
+  "src/eng1/actor_unit_282e0.cpp": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+  "src/eng1/frame_data.c": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+  "src/eng1/level_frame_01e50.c": "0499866aec5e068f0b4db3e0b3f559c2b82006680a3aef0a358bb1ab53877d87",
+  "src/eng1/runtime_storage.c": "496e70c4fe23f02c1e2a7b1a4cf4a02e26ff9f2d7ecd8a139e7b9e43d21fc8ae",
+  "src/eng3/eng3_track_storage.c": "fa195f28be6b16daef489fafada76d724dbc70f2d995c3aa090678874e0d270b",
+  "src/eng3/handlers_023a0.c": "081e10eec0e08ab77d9155bd931b9b7f52931c7fd4306904b6c13e652296e8da",
+  "src/eng3/handlers_16240.cpp": "3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e",
+  "src/eng3/loader_zero_cells_4.c": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+  "src/eng3/track_unit_20010.cpp": "629d9271c5771e823424e5918fab502cb511cb742c75932151083f4ef2a50d41",
+  "src/shared/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+  "src/title/title_common.c": "07b69ad6f4fe3c87ae485e592c19cffd1d8982ce851ebb80d3c83298ff19a052",
+  "src/title/u02b70.c": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+  "src/title/u06bb0.cpp": "e5f2779970d47ebef4e1cbb92544a2a54f8acab075f5b0cd8f97bf916ae6ee1b",
+  "evidence/scalar_eng3_4_review_2026_10_26.json": "d5a5df14ce74410275535f14a40ea249295aef961a037815a1d9bef8a5dab5f2",
+  "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+  "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\windows.h": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winresrc.h": "11b7cb81346fdb5868a17e28e6d478a33e63a0e30cab57b9fb0fdf7b77620cdf",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\dlgs.h": "574abaa60ee96ca80c660badf12201a26d705f0aa0d2fd8461b3dfb2f3a64c44",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winver.h": "3300c37a50556184b9350efed0340bd745543c90e5b4eb732b545c0e5ffbd9ab",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\excpt.h": "f55feba8c0b082fd6fcb4b0c4994f45524663268201caacdd6debe7a11c57f40",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdarg.h": "0b757d642e8c3825d898f8856c810c3d5b30709a28b76fb0f832f3c71b9b7a35",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\windef.h": "766cb00a0cfef84ae773f88426b3daf2be078651e3edb7f1e9c37a0ccdc55cd6",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winnt.h": "1dd56925da5382831a1cc2ce3dd35421608f495d5e17600ed49a723a265f6ea2",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ctype.h": "0e78f9365bbefc267bc828eb62a284b9e264242735e1f8d62978a1d41a8aabf6",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack4.h": "e7fe25e42321b87ddac3f409523d363179b9d48841c013924a06df1f7dbfe416",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\poppack.h": "2285f7d4b158ae700dd5c2840fea412613238e7b90384ef8853bd5350e417e67",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack2.h": "e9bab3bee620c8af1adf83c49eb75910bb3cdd2a049123a13e6a60f5296ee921",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winbase.h": "343f4e188107520e0e215bcb074c95924a999d0debf36ecd5a74fbedc43c9e2f",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winerror.h": "c0c74a389028deb19cb407b2159bee4fc1c789f25f8bf212b46ee15083f119ce",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wingdi.h": "23f25eec95cf776f75add1c694f0cb920e8e54dd9bf26320755e864ac76f0554",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack1.h": "28725bcd47f82df5b75ee8e8057cbbb9818386533f12ad538d8fbe0c1bc00953",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winuser.h": "df89c70f2c4392643f25d8b7e70d19b2052041d3bf4e2cb08f671ee6483a20ea",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winnls.h": "7fff71440b5eb8bc49ee2fef8586d815159c4f0632b513d7b3b9ef9d02012249",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wincon.h": "e5f81f33185cade977c962bb25f46255dc71a51352a1cde230025f2cfdb3af8f",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winreg.h": "0737d6be515977cf2e3574e9071b8f2f1d6e7bd835db538ab91d5ee4ca758f1d",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winnetwk.h": "3ec8a55f41ea158638963d32fafdd068688e53083686416c3e106ea82bfe4cea",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\cderr.h": "da0d72c38f6268810b94f721845fb745979f290b2813e40796b7ea8f76fff2b0",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\dde.h": "ef0fa2aa9775651ba62e96ea1ebdad1f038b0c220d5a2faa3fabe2bfd0f99758",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ddeml.h": "87280ef211e489bb59249143d61953843aa7b733a3f524b8face8731d59c0c75",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\lzexpand.h": "a425be116f26a76708161a4ce687ab3cd3d4aa60efae9cb818f5498a60b9c452",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mmsystem.h": "3ba7c98ffc53b070a60d3ea18fb3b0cdb4c0ceb1743fad6239d6dda9cb8c09f0",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\nb30.h": "ea9df4be61e7a50a2aae841d5da8344d45692c5a39bb0b327858509fb762fe72",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpc.h": "3d7e3afb3600d79164e3a63d7192ac70750e40d1cda11b8759d46e27a7cf03b4",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcdce.h": "8c23d02c36ae0e5a91996d8ffc1530ac0fc07c24f638d5349bbd8c7325049775",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcdcep.h": "05de5cf218e56e213ea9658341eaf60e393954309a880b05ac69ed4366ed7ac2",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcnsi.h": "b9fb67d0f6b53dd16a262ded2d5099ef07465c9db8450b9ebfdc6d4a5ea4a8bf",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcnterr.h": "380678ead8758442cc7ad69e99c8b0fb887af547a7e522ee89afa28390cabdfa",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\shellapi.h": "494520fe788d0538cb27158d2dad7f6a5366852ad86f840643a8dc702f146e31",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winperf.h": "cd783635384bc6c59a79c17b1ff3c4045a2103fb827158d809f8a32c6dc3de15",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winsock2.h": "4865b037234d0852380d27f192cbf8cf731fba8b61af81812945e84ff092a2cb",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mswsock.h": "c34752d2456927fb4079f65b7c2268a0664b7fab0f15427cb27a33b2a92403bd",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winsock.h": "4f74706eb39d851b15bfb2d05b473e9ec1f3ca331ac917e686081ad0d2fbbb11",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wincrypt.h": "169cafded4dd1da79b1b86eaee91d73fb8ed3b4a35a83ba75304015bee48c38d",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\commdlg.h": "b7a108e6a73169d950e27f5e6cf66c673f52ec4b22088c8072fa3d88f962ec3d",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winspool.h": "9b94359ceaf4fa70e634e688c19345b5648dff46a9fba26380648a52fa961f71",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\prsht.h": "21989b733a0ea8e0f74e95865239ebb349084608902aabf7bf7b13cd6d060bcd",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ole.h": "a3a8c2c7fe2913fa103b09c6ede7b31dec9443c15e4662ddd2db617c75986071",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ole2.h": "a22c4339e6e64a90e7ef75fcdbacc752c59852e11bc15649cae3cdf5813d55ae",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack8.h": "52d62aa2959c87054194387de0e84f223fa88e8b4092e28f312f7e636dfc8658",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\objbase.h": "17bb4450555c046ad995c8af7d921296b510cf30f916f56f23c232b800b6c418",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcndr.h": "a2af090d449fe24f8218367e79630e803fcbaf992a432c98483cf4bf291a671f",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcnsip.h": "389e9ab616c887452ad891a7efea363a9f15c4bfe37b56c7ffa791bc83455972",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wtypes.h": "b78d73651e374bdb981ce3be29d255b9733165c8ea88234a36d68849357f6b7f",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\unknwn.h": "c8aa825b43be35df38faea40dd4c6eda2874fbd50dd3af62ebf2896ecbe92ca1",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\objidl.h": "dbfb3320d07a3944de5769fd8efba3b31e3e160921c35e2661889dfbff81226f",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\cguid.h": "8febc26d3a317c29a53e1da0a7e9af9bf1e44c6e91b695970c8e860e90e08669",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\oleauto.h": "a34e06ca11208ed48bf83e3631a2901772088687d21bb949c9d41623d5ba5271",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\oaidl.h": "7907293e23cab3f5f6993eb2f206d57692811b2da99eae9d180fe7a367d1ee73",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\oleidl.h": "06d9e9bd79bd50902d56ced82d6dc310f3478e4d98f77cb0a98026e27d998f3d",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winsvc.h": "fef31bda20de40b9f769317ede721d0f3b897ebce4d9c1617d04c6617bd7fd42",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mcx.h": "10e6cd5919883ed49ba3ea3fcf792b8c521cb9b2c9c80e2bcb6d7b04131927ac",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\imm.h": "d024b7cd9fd5db3fd5dbcf1431e0eb3744c1710409a790c40e6c44c4f1d83e5a",
+  "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
+  "src/title/title_screen.h": "18ddb6112c5592b914e64880e1cc8426b2f556d95ef3dcd7c5ef4e1d14f7f3fd",
+  "src/title/title_proc.h": "e47311fdfe6e88084912c8515ce6331498b63b76c8ecdb085bd4a97a391cb3fc",
+  "src/title/title_slots.h": "301aded52d8e071ec0fd4788caeefed6b7528fe1d1fc6459cf27c693dc221a66",
+  "src/title/title_gpu.h": "6533d696eb5d7ae7d7bc63c13dd0c955944355a0b5900f0d6976166f9fc1e860"
+ },
+ "function_identities": {
+  "eng3.select_frame": {
+   "symbol": "_select_frame",
+   "rva": 123616,
+   "size": 48,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "source": "src/shared/frame_state.c",
+   "source_sha256": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+   "native_function_sha256": "917b682e51b774b82e968a1ae690c864e90200f4e5a4476a50708f8ee1ea28af",
+   "fresh_own_shape_equal": true,
+   "origin": "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.select_frame; own native span and independent entry witnesses"
+  },
+  "eng3.advance_frame": {
+   "symbol": "_advance_frame",
+   "rva": 123520,
+   "size": 80,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "source": "src/shared/frame_state.c",
+   "source_sha256": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+   "native_function_sha256": "aa2394869877c323eb23cd4ea09299153ff6261eb4e63b5b195420c0bceefe6d",
+   "fresh_own_shape_equal": true,
+   "origin": "accepted FUNCTION_MATCH; recovery.json#functions[eng3.advance_frame], complete relocation-free own contribution"
+  }
+ },
+ "functions": {
+  "eng3.shared_1c8a0": {
+   "symbols": {
+    "_g_2d320": {
+     "kind": "bss",
+     "rva": 271680,
+     "size": 4,
+     "owner": {
+      "source": "src/title/u02b70.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2d320"
+     },
+     "identity": {
+      "rva": 103888,
+      "size": 5,
+      "operand": 1,
+      "sha256": "a949f0672636a6a3cfc58f5caebcba6ae3d47b183c6cf7b147d4d97ed71e85ce"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2d320"
+     ],
+     "references": [
+      {
+       "offset": 17,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 177,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_2bf28": {
+     "kind": "bss",
+     "rva": 265096,
+     "size": 2,
+     "owner": {
+      "source": "src/title/title_common.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2bf28"
+     },
+     "identity": {
+      "rva": 121362,
+      "size": 7,
+      "operand": 0,
+      "sha256": "15aa79899fde55d8a39dc0c805d9cf9756269f03e7b4bd12886ee09628974f85"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2bf28"
+     ],
+     "references": [
+      {
+       "offset": 26,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 84,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 159,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_2bf6c": {
+     "kind": "bss",
+     "rva": 265164,
+     "size": 2,
+     "owner": {
+      "source": "src/title/title_common.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2bf6c"
+     },
+     "identity": {
+      "rva": 113694,
+      "size": 6,
+      "operand": 1,
+      "sha256": "e15e81ec9385fb1fe48c7e5cea23445381f286ba79b1b5119846eed7a8fa534c"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2bf6c"
+     ],
+     "references": [
+      {
+       "offset": 35,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_2bf60": {
+     "kind": "bss",
+     "rva": 265152,
+     "size": 2,
+     "owner": {
+      "source": "src/title/title_common.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2bf60"
+     },
+     "identity": {
+      "rva": 121348,
+      "size": 7,
+      "operand": 0,
+      "sha256": "1fb30d5e51cd959c519c19813e73765927888992c812bad242d5db5dd573dfa5"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2bf60"
+     ],
+     "references": [
+      {
+       "offset": 104,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 195,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_2bf80": {
+     "kind": "bss",
+     "rva": 265176,
+     "size": 2,
+     "owner": {
+      "source": "src/title/title_common.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2bf80"
+     },
+     "identity": {
+      "rva": 121397,
+      "size": 7,
+      "operand": 0,
+      "sha256": "248e54ab02c84f22073d8d493bae3a6c1bc320bebee3453a506a3bf172ad965e"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2bf80"
+     ],
+     "references": [
+      {
+       "offset": 186,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 244,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 311,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_2bf32": {
+     "kind": "bss",
+     "rva": 265108,
+     "size": 2,
+     "owner": {
+      "source": "src/title/title_common.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2bf32"
+     },
+     "identity": {
+      "rva": 113687,
+      "size": 7,
+      "operand": 1,
+      "sha256": "b1752662464fd6bfb30a3822410f78a5c8767545eebf6d71be662c1c364eabdf"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2bf32"
+     ],
+     "references": [
+      {
+       "offset": 264,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.shared_1ce10": {
+   "symbols": {
+    "_g_2bf6c": {
+     "kind": "bss",
+     "rva": 265164,
+     "size": 2,
+     "owner": {
+      "source": "src/title/title_common.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2bf6c"
+     },
+     "identity": {
+      "rva": 113694,
+      "size": 6,
+      "operand": 1,
+      "sha256": "e15e81ec9385fb1fe48c7e5cea23445381f286ba79b1b5119846eed7a8fa534c"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2bf6c"
+     ],
+     "references": [
+      {
+       "offset": 6,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 36,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_2d320": {
+     "kind": "bss",
+     "rva": 271680,
+     "size": 4,
+     "owner": {
+      "source": "src/title/u02b70.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2d320"
+     },
+     "identity": {
+      "rva": 103888,
+      "size": 5,
+      "operand": 1,
+      "sha256": "a949f0672636a6a3cfc58f5caebcba6ae3d47b183c6cf7b147d4d97ed71e85ce"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2d320"
+     ],
+     "references": [
+      {
+       "offset": 16,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_title_08cd0": {
+     "kind": "function",
+     "rva": 118352,
+     "size": 176,
+     "evidence": [
+      "recovery.json#functions[eng3.shared_1ce50]",
+      "recovery.json#functions[eng3.shared_1ce50].evidence"
+     ],
+     "references": [
+      {
+       "offset": 24,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.22b90": {
+   "symbols": {
+    "_dispatch_local_2a170": {
+     "kind": "function",
+     "rva": 126192,
+     "size": 176,
+     "evidence": [
+      "recovery.json#functions[eng3.shared_1ecf0]",
+      "recovery.json#functions[eng3.shared_1ecf0].evidence"
+     ],
+     "references": [
+      {
+       "offset": 18,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_tiles_40c38": {
+     "kind": "bss",
+     "rva": 265272,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_4.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_tiles_40c38"
+     },
+     "identity": {
+      "rva": 121659,
+      "size": 5,
+      "operand": 0,
+      "sha256": "2d28010f69fbf9e003a80e987e5dabd562464facf35d9a7b889a7532762772b9"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_tiles_40c38"
+     ],
+     "references": [
+      {
+       "offset": 24,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.shared_0a9d0": {
+   "symbols": {
+    "_g_2df44": {
+     "kind": "bss",
+     "rva": 274796,
+     "size": 4,
+     "owner": {
+      "source": "src/title/u02b70.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2df44"
+     },
+     "identity": {
+      "rva": 43641,
+      "size": 5,
+      "operand": 1,
+      "sha256": "f65251af8ce476c805acd97ead9edbbf34d3944bda743e762a2e6d5918010214"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2df44"
+     ],
+     "references": [
+      {
+       "offset": 6,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_2df50": {
+     "kind": "bss",
+     "rva": 274808,
+     "size": 1,
+     "owner": {
+      "source": "src/title/u02b70.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_2df50"
+     },
+     "identity": {
+      "rva": 43632,
+      "size": 5,
+      "operand": 1,
+      "sha256": "acfbd1646ca04b1f53f4440b3455fbe1a1009d10896adf83da29cf1abc3635b4"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_2df50"
+     ],
+     "references": [
+      {
+       "offset": 139,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.03200": {
+   "symbols": {
+    "_advance_frame": {
+     "kind": "function",
+     "rva": 123520,
+     "size": 80,
+     "evidence": [
+      "function_identities:eng3.advance_frame"
+     ],
+     "references": [
+      {
+       "offset": 102,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_actor_3fb0c": {
+     "kind": "bss",
+     "rva": 260876,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_4.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_actor_3fb0c"
+     },
+     "identity": {
+      "rva": 10998,
+      "size": 6,
+      "operand": 1,
+      "sha256": "2bc7e58a244b733a4d6b0f6a57ad69b7646671cdb455c8be8b57068ad49323e8"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_actor_3fb0c"
+     ],
+     "references": [
+      {
+       "offset": 116,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_select_frame": {
+     "kind": "function",
+     "rva": 123616,
+     "size": 48,
+     "evidence": [
+      "function_identities:eng3.select_frame"
+     ],
+     "references": [
+      {
+       "offset": 123,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.16ea0": {
+   "symbols": {
+    "_g_engine_interface": {
+     "kind": "bss",
+     "rva": 264096,
+     "size": 1000,
+     "evidence": [
+      "evidence/engine_interface_storage_adoption_2026_10_11.json#oracles.ENG3.DLL",
+      "evidence/engine_interface_binding.json#destination_table",
+      "evidence/source_layout_2026_10_25/review.json#moves.calibration/engine_interface_storage.c",
+      "evidence/interface_transfer_review_2026_10_25.json#owners"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 16,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 25,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 34,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 48,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 65,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 77,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 87,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 96,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 105,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 115,
+       "type": 6,
+       "addend": 4
+      }
+     ],
+     "owner": {
+      "source": "src/shared/engine_interface_storage.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_engine_interface"
+     },
+     "identity": {
+      "rva": 129098,
+      "size": 5,
+      "operand": 1,
+      "sha256": "9ca36042e6ca86a4ad21c5ddd5d9e3aada822b9e31e52a4a702304376807ee47"
+     },
+     "owner_storage": "zero-section-v1"
+    },
+    "_g_eng3_41d50": {
+     "kind": "bss",
+     "rva": 269648,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_4.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_41d50"
+     },
+     "identity": {
+      "rva": 88857,
+      "size": 6,
+      "operand": 0,
+      "sha256": "98fa8c31ace045e83fdeab9bc2fd0492b67c6ceaa45d7a08d44483bd7c686a4e"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_41d50"
+     ],
+     "references": [
+      {
+       "offset": 124,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_41cb0": {
+     "kind": "bss",
+     "rva": 269488,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_4.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_41cb0"
+     },
+     "identity": {
+      "rva": 88847,
+      "size": 10,
+      "operand": 0,
+      "sha256": "cc36c8f1bf7a65e27226d778e64efc3d5d2d8a663c98df561dc516f4d38d07cb"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_41cb0"
+     ],
+     "references": [
+      {
+       "offset": 130,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.18350": {
+   "symbols": {
+    "_g_eng3_center_y_40620": {
+     "kind": "bss",
+     "rva": 263712,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_4.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_center_y_40620"
+     },
+     "identity": {
+      "rva": 93314,
+      "size": 6,
+      "operand": 1,
+      "sha256": "650d1d0a01a0bb1df788764267306796c722b0a3784d78cf287e310822d7d541"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_center_y_40620"
+     ],
+     "references": [
+      {
+       "offset": 17,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.1a320": {
+   "symbols": {
+    "_g_eng3_vsync_gate_41444": {
+     "kind": "bss",
+     "rva": 267332,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_4.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_vsync_gate_41444"
+     },
+     "identity": {
+      "rva": 109792,
+      "size": 6,
+      "operand": 0,
+      "sha256": "a949bd99381bcf89b558d43af3a286278399ba3382b720ee676fc560dab0db51"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_vsync_gate_41444"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_slot_330": {
+     "kind": "function",
+     "rva": 131216,
+     "size": 16,
+     "evidence": [
+      "recovery.json#functions[eng3.slot_330]",
+      "recovery.json#functions[eng3.slot_330].evidence"
+     ],
+     "references": [
+      {
+       "offset": 10,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.1b890": {
+   "symbols": {
+    "_eng3_1b7f0": {
+     "kind": "function",
+     "rva": 112624,
+     "size": 160,
+     "evidence": [
+      "recovery.json#functions[eng3.1b7f0]",
+      "recovery.json#functions[eng3.1b7f0].evidence"
+     ],
+     "references": [
+      {
+       "offset": 7,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_unknown_3fb88": {
+     "kind": "bss",
+     "rva": 261000,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_4.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_unknown_3fb88"
+     },
+     "identity": {
+      "rva": 93410,
+      "size": 5,
+      "operand": 1,
+      "sha256": "18032c2f36bfff92e746d7e77c026d1602b688b3791362c3291930edc255f140"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_unknown_3fb88"
+     ],
+     "references": [
+      {
+       "offset": 24,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 31,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_unknown_3fb8c": {
+     "kind": "bss",
+     "rva": 261004,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_4.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_unknown_3fb8c"
+     },
+     "identity": {
+      "rva": 93375,
+      "size": 5,
+      "operand": 1,
+      "sha256": "c815d2d59c861ac852a9d75b97f0e722fc7045339d301b3a8e3b6a98596b92a6"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_unknown_3fb8c"
+     ],
+     "references": [
+      {
+       "offset": 37,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}
