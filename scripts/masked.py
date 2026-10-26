@@ -17,7 +17,7 @@ REL32, DIR32, DIR32NB, SECTION = 0x14, 0x06, 0x07, 0x0a
 
 def binding_records(bindings):
     """Share the comparator's cheap document guard with pre-compile readers."""
-    if not isinstance(bindings, dict) or set(bindings) - {'symbols', 'tables', 'indirect_calls'}:
+    if not isinstance(bindings, dict) or set(bindings) - {'symbols', 'tables', 'indirect_calls', 'coff_identity'}:
         raise ValueError('Invalid binding document')
     records = bindings.get('symbols', {})
     if not isinstance(records, dict):
@@ -217,6 +217,10 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
         by_name.setdefault(s['name'], []).append(s)
     referenced_names = {rel['symbol'] for rel in section['relocations']}
     used_names = referenced_names | {symbol}
+    if 'coff_identity' in bindings:
+        from coff_identity import verify_pair
+        canonical = verify_pair(coff, symbol, bindings['coff_identity'])
+        by_name[symbol] = [canonical]
     if any(len(by_name.get(name, [])) != 1 for name in used_names):
         raise ValueError('Missing or ambiguous duplicate COFF symbol')
     if set(records) != referenced_names:
@@ -259,13 +263,20 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 operand_fields[ins.address - rva + field_off] = ins
 
     reviewed, bases, errors, receipts, storage_extents = {}, {}, [], [], []
-    alias_checks = {}
+    alias_checks, data_checks = {}, []
+    payload_identities = {name: (rec.get('kind'), rec.get('rva'), rec.get('size'), rec.get('sha256'),
+                              rec.get('dll'), rec.get('name'), rec.get('ordinal'))
+                          for name, rec in records.items() if isinstance(rec, dict)}
     for name, record in records.items():
         if not isinstance(record, dict):
             raise ValueError('Invalid symbol record')
         evidence(record)
         dest, extent = integer(record['rva'], 'symbol RVA'), integer(record['size'], 'symbol extent', 1)
         kind, sym = record['kind'], by_name[name][0]
+        if 'data_profile' in record and (kind != 'data' or record['data_profile'] != 'relocated-data-v1'):
+            raise ValueError('Unsupported explicit data profile')
+        if 'anchor_profile' in record and (kind != 'bss' or record['anchor_profile'] != 'cmp-test-absolute-v1'):
+            raise ValueError('Unsupported explicit loader-zero anchor profile')
         if sym['section'] < 0 or sym.get('storage', 2) == 105:
             raise ValueError('Absolute, debug and weak/alias symbols need an explicit verifier')
         if kind == 'function':
@@ -286,9 +297,18 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 if sym['section'] == number or sec['flags'] & 0x20 or pos + extent > len(sec['data']):
                     raise ValueError('Defined data storage extent is incomplete or executable')
                 if any(rel['offset'] < pos + extent and rel['offset'] + 4 > pos for rel in sec['relocations']):
-                    raise ValueError('Relocated data payload requires separate verification')
-                if sec['data'][pos:pos + extent] != payload:
+                    from relocated_data import verify_payload
+                    # Payloads can point back to this function even when the
+                    # code has no self-reference binding of its own.
+                    bases.setdefault(number, rva)
+                    data_checks.append(verify_payload(coff, pe, name, record, interval, bases, errors,
+                                                      payload_identities))
+                elif 'data_profile' in record:
+                    raise ValueError('Relocated data profile requires a relocation-bearing defined payload')
+                elif sec['data'][pos:pos + extent] != payload:
                     errors.append('Compiled data payload differs: ' + name)
+            elif 'data_profile' in record:
+                raise ValueError('Relocated data profile requires a caller-defined payload')
         elif kind == 'bss':
             from zero_storage import verify_common, verify_zero_section, verify_native
             if sym['type'] & 0x20 or sym['section'] != 0 or sym['value'] not in (0, extent):
@@ -316,7 +336,11 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 verify_common(owner, owner_name, extent)
             else:
                 raise ValueError('Unsupported loader-zero owner storage representation')
-            verify_native(pe, dest, extent, record.get('identity'), rva, size)
+            if record.get('anchor_profile') == 'cmp-test-absolute-v1':
+                from zero_compare_anchor import verify_native as verify_compare_native
+                verify_compare_native(pe, dest, extent, record.get('identity'), rva, size)
+            else:
+                verify_native(pe, dest, extent, record.get('identity'), rva, size)
         elif kind == 'import':
             if sym['section'] or extent != 4 or bool(record.get('name')) == ('ordinal' in record):
                 raise ValueError('Import must be an undefined exact four-byte IAT identity')
@@ -489,6 +513,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 scope='complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned')
     if alias_checks:
         result['source_alias_checks'] = alias_checks
+    if data_checks:
+        result['data_checks'] = data_checks
     if callback_calls:
         result['indirect_call_checks'] = list(callback_calls.values())
     return result
