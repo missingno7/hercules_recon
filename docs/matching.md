@@ -134,6 +134,20 @@ remain unsupported. This proves the dispatch expression, not dynamic callee
 identities, callback behavior or pointee capacity. See
 [the appender and mode review](action_appender_matching_2026_10_25.md).
 
+The opt-in `profile: fixed-slot-v1` inventory covers only complete argument-
+forwarding FF15 CALL/FF25 tail-JMP wrappers through an accepted 1000-byte
+loader-zero interface root (exact-size COMMON or `zero-section-v1`). It requires exact DIR32 root/slot provenance,
+native and compiled argument order, cleanup and RET, and an agreeing module/slot
+in the hash-pinned [static slot review](../evidence/interface_slot_review_2026_10_26.json).
+`python scripts/interface_slots.py check` reproduces the loader copy, mutation
+audit and provider stack measurements; `bindings` writes opt-in candidates under
+`work/iface_bindings/`. Conflict and unresolved providers remain rejected. This
+proves physical stack compatibility of the statically copied table, not C
+prototypes, types, semantics or dynamic callback behavior; the address audit
+cannot exclude arbitrary computed writes. All existing owner, instruction,
+reference and complete-byte checks still apply. Each module's accepted root
+record is reused verbatim.
+
 ## Keep evidence dimensions separate
 
 Semantic evidence is recorded separately: SEMANTIC_VERIFIED means behavior has

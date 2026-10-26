@@ -453,7 +453,9 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
             valid_table = (record.get('kind') == 'local' and record.get('role') in ('table', 'section') and
                            table_destination in table_starts and
                            ins.group(capstone.CS_GRP_JUMP) and mem.base == 0 and mem.index != 0 and mem.scale == 4)
-            valid_callback = offset in callback_calls and ins.group(capstone.CS_GRP_CALL)
+            proof = callback_calls.get(offset, {})
+            valid_callback = bool(proof) and (ins.group(capstone.CS_GRP_CALL) or
+                             proof.get('profile') == 'fixed-slot-v1' and proof.get('transfer') == 'jmp')
             if not (valid_import or valid_table or valid_callback):
                 raise ValueError('Unsupported indirect control transfer')
         else:

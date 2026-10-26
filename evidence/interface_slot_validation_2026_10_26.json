@@ -1,0 +1,211 @@
+{
+ "schema": 1,
+ "worker": "iface_impl",
+ "base": "957b3a4",
+ "branch": "task/iface-fixed-slot",
+ "status": "partial",
+ "scope": "Verifier/evidence/candidate bindings only. No original host execution, recovery edit, promotion or canonical source changes.",
+ "review_sha256": "dd02d7df4e27385f2b579f61124f5b4025e126309e05272eab5f75c089b2b23e",
+ "counts": {
+  "native_review_total": 339,
+  "native_ABI_agree": 313,
+  "conflict": 3,
+  "unresolved": 23,
+  "source_slot_conflicts": 2,
+  "emitted_candidates": 311,
+  "modules": {
+   "ENG1.DLL": 109,
+   "ENG3.DLL": 94,
+   "TITLE.DLL": 108
+  }
+ },
+ "deviations": [],
+ "source_exclusions": {
+  "eng3.shared_1ffa0": {
+   "source": "src/title/u0c1f0.c",
+   "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+   "symbol": "_title_0c2a0",
+   "compiled_slot": 32,
+   "basis": "Fresh VC5 /O2 COFF DIR32 diagnostic: source forwards a different slot. This exclusion grants no acceptance."
+  },
+  "eng3.shared_20120": {
+   "source": "src/title/u0c1f0.c",
+   "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+   "symbol": "_title_0c8b0",
+   "compiled_slot": 520,
+   "basis": "Fresh VC5 /O2 COFF DIR32 diagnostic: source forwards a different slot. This exclusion grants no acceptance."
+  }
+ },
+ "unresolved_policy": "Retain all missing own extents, unresolved native RET/stack effects, and computed dispatch paths. All measured own argument read sets and independent EXE caller counts agree with the prior static investigation, including the rejected slots.",
+ "tests": [
+  {
+   "command": "python -m unittest discover -s tests -q -k fixed_slot",
+   "result": "PASS",
+   "tests": 12
+  },
+  {
+   "command": "python -m unittest discover -s tests -q -k callback",
+   "result": "PASS",
+   "tests": 21
+  },
+  {
+   "command": "python -m unittest discover -s tests -q -k relocated",
+   "result": "PASS",
+   "tests": 47
+  },
+  {
+   "command": "python -m unittest discover -s tests -q -k zero_storage",
+   "result": "PASS",
+   "tests": 46
+  }
+ ],
+ "reproduction": {
+  "review": "python scripts/interface_slots.py check",
+  "result": "PASS",
+  "bindings": "python scripts/interface_slots.py bindings",
+  "line_endings": "LF"
+ },
+ "compiler_budget": {
+  "limit": 40,
+  "calls": 39,
+  "failed_calls": 0,
+  "metrics_dir": "work/compiler_events",
+  "metrics_environment": "HERCULES_COMPILE_METRICS_DIR=work/compiler_events"
+ },
+ "sample_references": {
+  "individual_command": "python scripts/match.py references <id> --bindings work/iface_bindings/<module>.json --report work/iface_bindings/sample_<id>.json",
+  "individual_runs": 10,
+  "final_current_review_command": "python scripts/match.py references --bindings work/iface_bindings/sample.json --report work/iface_bindings/final_sample.json",
+  "result": "10/10 RELOCATED EXACT",
+  "functions": [
+   {
+    "id": "eng3.slot_020",
+    "exact": true,
+    "compiled_size": 48,
+    "compiled_sha256": "105c4eb4b31d94fa09e67ab3630d0cccf495e2493ea04f095f4d553364092415",
+    "target_sha256": "bc27133fe96d8b7e17a03cf99f5d215f0a90b2c1e3eb6a8ed7ec9e611a796220",
+    "bindings_sha256": "8c4525fcbc6218781a7b3f360e7239cc7222c20cb5ce3a140d2d3c0767c354b2",
+    "source_sha256": "fb0782554e9a8d44d2fa971fdb094ffa9a7f0fcb6fb0213c466c9e5382d93158",
+    "object_sha256": "c572eeb6c99cfe6b0e352570b79656ddd07f2e73d494ddf8385118639d013b20"
+   },
+   {
+    "id": "eng3.slot_024",
+    "exact": true,
+    "compiled_size": 16,
+    "compiled_sha256": "86c2db9c640aa3e0fee77d77fa51368ff9d599f1914c40451c3c5e2c49c57b9c",
+    "target_sha256": "b9f1b5ed8c8995b7d94860f94ef5edf2f65d671227f23d84538d9c181ccbf18b",
+    "bindings_sha256": "5d3dedc0c6ece6083d6c1d64593483f5e175ad511d9b507156ec4e6cb9eecdf6",
+    "source_sha256": "fb0782554e9a8d44d2fa971fdb094ffa9a7f0fcb6fb0213c466c9e5382d93158",
+    "object_sha256": "c572eeb6c99cfe6b0e352570b79656ddd07f2e73d494ddf8385118639d013b20"
+   },
+   {
+    "id": "eng3.slot_034",
+    "exact": true,
+    "compiled_size": 16,
+    "compiled_sha256": "9d8e5b6e42fd7357bce7d5fff7ee6be6f23077512933c2ad181ce0480f16c0aa",
+    "target_sha256": "72951189123fb8a9b11dab53017452ece83ef45e68b04b6509818b55eaf862c8",
+    "bindings_sha256": "3b1acfa497c5841d50de2f8dbc76a2789aea43d376498f31de80fa9be7a7d3f1",
+    "source_sha256": "fb0782554e9a8d44d2fa971fdb094ffa9a7f0fcb6fb0213c466c9e5382d93158",
+    "object_sha256": "c572eeb6c99cfe6b0e352570b79656ddd07f2e73d494ddf8385118639d013b20"
+   },
+   {
+    "id": "eng1.dispatch_engine_2c3b0",
+    "exact": true,
+    "compiled_size": 16,
+    "compiled_sha256": "896c7f1e9d3b711e60bd604710becd8f63fa58fea8df27b9b70e19a5338f6276",
+    "target_sha256": "ed9da2f9df0b0be77ac27ea19bd8764188ee2bc53fcdc7e4084f2e02a6dd57db",
+    "bindings_sha256": "41219c9af3e7f089442cc00b33d3c16516d96fd964e4e0984ebb833106c10e1d",
+    "source_sha256": "473cc81e81b1ac4ff02acda903ca9d1ee181067ee56ec0d6c0250da9602a3831",
+    "object_sha256": "8194ac8a5b8d92c098a709271f003cf77b033e7d87a2e6096233ab4122cf0e4c"
+   },
+   {
+    "id": "eng1.dispatch_engine_2c4e0",
+    "exact": true,
+    "compiled_size": 16,
+    "compiled_sha256": "86e533fdeefeea033077965aa5ff53302a715b24172049e2b56e4e43f97a9dbf",
+    "target_sha256": "b384893b417959cff291a1af7578fb6bee84a6040641cf5dc2d5298427ea6200",
+    "bindings_sha256": "866036b6efa268ab8c557675bce2224f28d47d1f843eaf71a71ced3282769947",
+    "source_sha256": "473cc81e81b1ac4ff02acda903ca9d1ee181067ee56ec0d6c0250da9602a3831",
+    "object_sha256": "8194ac8a5b8d92c098a709271f003cf77b033e7d87a2e6096233ab4122cf0e4c"
+   },
+   {
+    "id": "eng1.dispatch_engine_2c270",
+    "exact": true,
+    "compiled_size": 16,
+    "compiled_sha256": "11cac298d7900817020d99eec8b9e320e797cf5694c057bdcea4e6224d3f3e9a",
+    "target_sha256": "f1c527735d7fb1975442cb1bbddcbfa11e77cbc0b9abb7aa28fd7596824a1f1b",
+    "bindings_sha256": "b02e5be969e2b804e282c7f495b73994db16c0c443e85173c64225a06ed78c51",
+    "source_sha256": "473cc81e81b1ac4ff02acda903ca9d1ee181067ee56ec0d6c0250da9602a3831",
+    "object_sha256": "8194ac8a5b8d92c098a709271f003cf77b033e7d87a2e6096233ab4122cf0e4c"
+   },
+   {
+    "id": "title.0c270",
+    "exact": true,
+    "compiled_size": 16,
+    "compiled_sha256": "ef3084372de460a72739287270438d4ac8c85cc848bafb149ca1325e4811b46d",
+    "target_sha256": "c84e1ef80ee3bf9f4908867dc625d0b379473723a840b593b1fa01506b5d6618",
+    "bindings_sha256": "b3dc2bb230369cd0b5a4e34dc6e8de459f2635b4ba219e7a73b5b46d8996b845",
+    "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+    "object_sha256": "3a21dbd554be34a9331dc43406ec7d29ce7a6c80a9fcc923f39a704d63207bbd"
+   },
+   {
+    "id": "title.0c280",
+    "exact": true,
+    "compiled_size": 32,
+    "compiled_sha256": "6cc202f657ee445c65c407181b0afbcea44631bc748d12cbd784fa2bc2b6cea8",
+    "target_sha256": "66afef389bba504939092aba93ddf25404278ab471df215a5fd123300efef970",
+    "bindings_sha256": "1dc88f13272b27c178f00bb510b7deee352720629934fad1ec4c93589a45246b",
+    "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+    "object_sha256": "3a21dbd554be34a9331dc43406ec7d29ce7a6c80a9fcc923f39a704d63207bbd"
+   },
+   {
+    "id": "title.0c2a0",
+    "exact": true,
+    "compiled_size": 48,
+    "compiled_sha256": "105c4eb4b31d94fa09e67ab3630d0cccf495e2493ea04f095f4d553364092415",
+    "target_sha256": "e5c5e041267ee11789776f09d4ecfab8cd66bea1f2c9eed69e12a45b2934bc7a",
+    "bindings_sha256": "3c166c01b830386578ed90ace188af4286ccce89f0cafeb53a419e4906a49a60",
+    "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+    "object_sha256": "3a21dbd554be34a9331dc43406ec7d29ce7a6c80a9fcc923f39a704d63207bbd"
+   },
+   {
+    "id": "title.0c310",
+    "exact": true,
+    "compiled_size": 16,
+    "compiled_sha256": "9d8e5b6e42fd7357bce7d5fff7ee6be6f23077512933c2ad181ce0480f16c0aa",
+    "target_sha256": "11738db8c60061f7bd189a60ddd559870886fe8fb6df720f361fc94060b1427d",
+    "bindings_sha256": "ff69ccd07014b470380a0e650d078bc6afbe7d4d37fa3e34ebd3e46cd8fc9ced",
+    "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+    "object_sha256": "3a21dbd554be34a9331dc43406ec7d29ce7a6c80a9fcc923f39a704d63207bbd"
+   }
+  ]
+ },
+ "generated_bindings": {
+  "eng1": {
+   "path": "work/iface_bindings/eng1.json",
+   "sha256": "9878e1cc935773341b5f428c3f55d7ca4c77066644e0a432fe3e0a3d38ca86c3"
+  },
+  "eng3": {
+   "path": "work/iface_bindings/eng3.json",
+   "sha256": "a1224e2cf218861ad692eab0434ab6e207d834a8ad27a982a36234d326ffe903"
+  },
+  "title": {
+   "path": "work/iface_bindings/title.json",
+   "sha256": "4a6cbd48857b7c7f66fd2860911c9c195d6979432b8d77d139534c214724a8b7"
+  }
+ },
+ "limits": [
+  "Physical native stack compatibility, not C prototypes/types/semantics or dynamic callback behavior.",
+  "Static alias/write audit excludes arbitrary computed writes, corruption and external intervention.",
+  "311 emitted candidates are not accepted matches; ten samples received final fresh full relocated verification.",
+  "Full regression remains with the integrator."
+ ],
+ "commit_blocker": "git add cannot create D:/Prog/hercules_recon/.git/worktrees/hercules_iface/index.lock: permission denied. Shared Git metadata is outside the writable root; actual task branch cannot be updated.",
+ "delivery": {
+  "bundle": "work/iface-fixed-slot.bundle",
+  "patch": "work/iface-fixed-slot.patch",
+  "repository": "work/iface_commit.git",
+  "note": "Portable commit on task/iface-fixed-slot in workspace-local isolated Git metadata; actual worktree branch remains at base. No main/shared Git metadata writes."
+ },
+ "integrator_note": "TITLE root reuses its accepted exact-size COMMON owner record verbatim; fixed_slot accepts COMMON or zero-section-v1 1000-byte roots."
+}

@@ -355,6 +355,14 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
             if callback_calls:
                 from callback_transfer import identity_span
                 for callback in callback_calls:
+                    if isinstance(callback, dict) and callback.get('profile') == 'fixed-slot-v1':
+                        from fixed_slot import review_inputs
+                        _, _, fixed_inputs = review_inputs(callback, target)
+                        for item, sha in fixed_inputs.items():
+                            if item in observed and observed[item] != sha:
+                                raise ValueError('Conflicting fixed-slot input identity')
+                            observed[item] = sha
+                        continue
                     at, length = identity_span(callback)
                     if any(other['id'] in pending and
                            ((original_root or ROOT) / other['target']).resolve() == target and
