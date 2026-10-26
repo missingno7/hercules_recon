@@ -1,0 +1,307 @@
+{
+ "schema": 1,
+ "description": "Focused reference-only data bindings for ENG1 file-backed initialized tables; diagnostic only and no acceptance claim.",
+ "evidence_files": {
+  "src/eng1/level_actors_083e0.cpp": "0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528",
+  "src/eng1/level_actors_0c730.c": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f",
+  "src/eng1/level_unit_10120.c": "33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180",
+  "src/eng1/pickup_lift_unit_12620.c": "3e0bf7b9dba4e51a0c9d1967874a4ca54c60539087b3a14eeccfcdc1a8c00cb4",
+  "src/eng1/status_panel_32b10.c": "504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca",
+  "src/eng1/player_scene_3a040.c": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+  "src/eng1/descriptor_pointees.inc": "b60899ef5366360e2bf5665130cde0fd28815d52ee52f86e4d2c105f7a6aa8c9",
+  "src/eng1/frame_data.c": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+  "src/eng1/actor_control_tables.c": "5c47227dca8cb2be2768cfda2b8d9554acf6edae3f2cf186725c40a97c2550c8",
+  "src/eng1/boss_unit_24090.c": "92b95d69daca3b7dc46158c0b5d0501adb78add7e42ded1542b4f8fe39c58668",
+  "evidence/eng1_data_evidence_manifest.json": "05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6",
+  "evidence/eng1_actor_position_classifier_41fd0.json": "1ba6b7b82e9f2538aa753d40e28da0cd2463512ba694a4abc5095bba9f749a9d",
+  "evidence/eng1_classifier_child_41000.json": "e8eed9db3b78a913ab19f2883e54b52bb9a39d9cb1ce6d76884680e4b8edcfe3",
+  "evidence/eng1_level_actors_083e0_2026_10_20.json": "d66b864cda30c4a9b3c48076b5b786f93c294d7b589cbb4d7d87284c91d6e64e",
+  "evidence/engine_regions_x12_x13_y12_2026_10_20.json": "fb931cc352eede85304aa354fd88e3f21a2802eebf5d7dfb624850e714036c2e",
+  "src/eng1/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+  "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+  "evidence/actor_pair_animation_bindings_2026_10_25.json": "e2c6c9a2f6105401decabadb510c945153075d6ddd120116ec471d01b6d26afb",
+  "evidence/normal_pool_pointer_2026_10_25.json": "d87cff10b461c18e90bd881ab2d0bef309db13cd9fc7073678fa2c577d387165"
+ },
+ "function_identities": {},
+ "functions": {
+  "eng1.084d0": {
+   "symbols": {
+    "_g_actor_scripts_4f378": {
+     "kind": "data",
+     "rva": 324472,
+     "size": 24,
+     "sha256": "71e11295d087fab7e561b8d57a413a8ead74f8b08832c90783d6c3b35be0d627",
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.actor_scripts_4f378",
+      "src/eng1/descriptor_pointees.inc#Eng1DescriptorPayload_4f350.following_pointer_record (24-byte six-pointer initializer; native HIGHLOW cells reviewed independently)"
+     ],
+     "references": [
+      {
+       "offset": 26,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_normal_actor_pool": {
+     "kind": "bss",
+     "rva": 469088,
+     "size": 4,
+     "owner": {
+      "source": "src/eng1/actor_storage.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_normal_actor_pool"
+     },
+     "identity": {
+      "rva": 127245,
+      "size": 5,
+      "operand": 0,
+      "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+     },
+     "evidence": [
+      "evidence/actor_pair_animation_references_2026_10_25.json#scalar_owners._g_normal_actor_pool",
+      "evidence/actor_pair_animation_bindings_2026_10_25.json#/functions/eng1.native_code_target_01a2b0/symbols/_g_normal_actor_pool",
+      "evidence/eng1_filedata_review_2026_10_26.json#accepted_reused_identities.normal_actor_pool"
+     ],
+     "references": [
+      {
+       "offset": 68,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_select_frame": {
+     "kind": "function",
+     "rva": 168688,
+     "size": 48,
+     "evidence": [
+      "recovery.json#eng1.select_frame (accepted FUNCTION_MATCH; native RVA 0x292f0, complete 48-byte row)",
+      "evidence/eng1_filedata_review_2026_10_26.json#function_references.select_frame"
+     ],
+     "references": [
+      {
+       "offset": 155,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 291,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "$L1202": {
+     "kind": "local",
+     "role": "table",
+     "rva": 34304,
+     "size": 40,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L1202"
+     ],
+     "references": [
+      {
+       "offset": 62,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L454": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34066,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L454"
+     ],
+     "references": [
+      {
+       "offset": 304,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L456": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34089,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L456"
+     ],
+     "references": [
+      {
+       "offset": 308,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L458": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34102,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L458"
+     ],
+     "references": [
+      {
+       "offset": 312,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L460": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34121,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L460"
+     ],
+     "references": [
+      {
+       "offset": 316,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L462": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34138,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L462"
+     ],
+     "references": [
+      {
+       "offset": 320,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L464": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34152,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L464"
+     ],
+     "references": [
+      {
+       "offset": 324,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L465": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34168,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L465"
+     ],
+     "references": [
+      {
+       "offset": 328,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L468": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34217,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L468"
+     ],
+     "references": [
+      {
+       "offset": 332,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L469": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34225,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L469"
+     ],
+     "references": [
+      {
+       "offset": 336,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "$L470": {
+     "kind": "local",
+     "role": "code",
+     "rva": 34233,
+     "size": 1,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_symbols.eng1.084d0.$L470"
+     ],
+     "references": [
+      {
+       "offset": 340,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   },
+   "tables": [
+    {
+     "offset": 304,
+     "size": 40,
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#local_jump_table.eng1.084d0 (ten 4-byte local code destinations; target RVA 0x8600)"
+     ]
+    }
+   ]
+  },
+  "eng1.3eb30": {
+   "symbols": {
+    "_g_eng1_classifier_rows_65678": {
+     "kind": "data",
+     "rva": 415352,
+     "size": 216,
+     "sha256": "cc16de76182437e16196071b24c947b127e4d2e0982cf3fe5fbd3629351c3e62",
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.classifier_rows_65678",
+      "evidence/eng1_actor_position_classifier_41fd0.json#data (measured 18x6 WORD owner; full payload SHA-256)",
+      "src/eng1/actor_control_tables.c#g_eng1_classifier_rows_65678[18][6]"
+     ],
+     "references": [
+      {
+       "offset": 112,
+       "type": 6,
+       "addend": 2
+      }
+     ]
+    }
+   }
+  }
+ }
+}

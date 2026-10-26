@@ -1,0 +1,274 @@
+{
+ "schema": 1,
+ "scope": "Lane proposal: complete references binding for eng3.13c10 and partial _play_sound identity for eng3.11b90; no acceptance claim.",
+ "methodology": "Reuses accepted ENG3 callee identity records for nonblocking calls. _play_sound uses the independent ENG3 LinkedSoundFx native segment and its reviewed ENG1 twin/accepted alias identity. eng3.11b90 remains incomplete because its indexed g_engine_interface field alias is unsupported; eng3.12aa0 has only that unsupported data ref.",
+ "function_identities": {
+  "eng3.1b920": {
+   "symbol": "_eng3_1b920",
+   "rva": 112928,
+   "size": 160,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "source": "calibration/eng3/handlers_16240.cpp",
+   "source_sha256": "3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e",
+   "prior_evidence_sha256": "aadb6a0567e717ce4045f89d9454dd98b237cfd27a9f4b8f262de4bc30a004e0",
+   "prior_proof_scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+   "prior_source_sha256": "3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e",
+   "fresh_own_shape_equal": true,
+   "fresh_own_masked_sha256": "6a053e9d81064fae9de5c38f0ba9d5a0a44bbf1ece4f94a3301c360eea1af5ec",
+   "origin": "Pre-promotion recovery own function record eng3.1b920; no caller implied symbols"
+  },
+  "eng3.remove_actor": {
+   "symbol": "_remove_actor",
+   "rva": 117648,
+   "size": 432,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "source": "calibration/remove_actor.c",
+   "source_sha256": "9ee60475338734cd7f83184eddd5cb24af578f3649c4d46f407407de672f5b22",
+   "prior_evidence_sha256": "a2e3de3649d5104a85bb3b2d268dbccc2ef1e4e606ac08c9f26351f01d663cd7",
+   "prior_proof_scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+   "prior_source_sha256": "9ee60475338734cd7f83184eddd5cb24af578f3649c4d46f407407de672f5b22",
+   "fresh_own_shape_equal": true,
+   "fresh_own_masked_sha256": "98aa0e731f9b09a4346108bb5b36b3b14f4a6a68ed41dd945362b321bfa0a81c",
+   "origin": "Pre-promotion recovery own function record eng3.remove_actor; no caller implied symbols"
+  },
+  "eng1.play_sound": {
+   "accepted_symbol_record": {
+    "kind": "function",
+    "rva": 28064,
+    "size": 2115,
+    "evidence": [
+     "evidence/owner_alias_references_2026_10_25.json#helpers._play_sound"
+    ],
+    "references": [
+     {
+      "offset": 12,
+      "type": 20,
+      "addend": 0
+     }
+    ]
+   },
+   "identity_review": {
+    "rva": 28064,
+    "size": 2115,
+    "source": "calibration/eng1/sound_od.c",
+    "source_sha256": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+    "symbol": "_LinkedSoundFx_6da0",
+    "flags": [
+     "/Od"
+    ],
+    "native_sha256": "e4039cfa38ae27d0850d5bc477fca23b729f4d7f7de687ecf06ef430c2faa1cc",
+    "abi": "Two cdecl slots: lowWORD sound id and owner pointer; void effects. Host/audio chain remains unproved.",
+    "existing_id": "eng1.od_06da0",
+    "existing_status": "CODEGEN_SIMILAR",
+    "own_diagnostic": {
+     "masked_equal": true,
+     "compiled_size": 2115,
+     "target_size": 2115,
+     "differing_bytes": 0,
+     "mismatch_regions": [],
+     "symbols": {
+      "$SG327": "0x4db24",
+      "$SG328": "0x4db40",
+      "_dbg_printf": "0x1000",
+      "_fx_count_6613": "0x6613",
+      "_g_engine_interface": "0x70f20",
+      "_g_fx_bank": "0x6ee90",
+      "_g_fx_channel": "0x6eee0",
+      "_g_fx_focus": "0x721c8",
+      "_g_fx_index": "0x6ee88",
+      "_g_fx_l": "0x721bc",
+      "_g_fx_pending": "0x6eea0",
+      "_g_fx_r": "0x721c0",
+      "_g_fx_rows": "0x721e0",
+      "_g_fx_sample": "0x6ee94",
+      "_g_fx_sql": "0x721cc",
+      "_g_fx_sqr": "0x721d0",
+      "_g_fx_x": "0x721b8",
+      "_g_fx_y": "0x721c4",
+      "_g_slots_5cef0": "0x5cef0",
+      "_snd_lock": "0x2c650",
+      "_snd_play": "0x2cb80",
+      "_snd_unlock": "0x2c660"
+     },
+     "conflicts": [],
+     "unsupported": [],
+     "relocations": 214
+    },
+    "outside_selected_caller_witnesses": [
+     {
+      "rva": "0x2317",
+      "size": 5,
+      "sha256": "b73ffc3231e993ed55376808eb1e44e363fb44b66a826da5374a364425ea50fd"
+     },
+     {
+      "rva": "0x2340",
+      "size": 5,
+      "sha256": "ba5582f84e89e7b949a77a27b783fe40524a5619e5384c20a26cb4d9cad22dfa"
+     }
+    ],
+    "acceptance_transferred": false
+   }
+  },
+  "eng3.od_0bc47": {
+   "symbol": "_play_sound",
+   "rva": 48199,
+   "size": 2115,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "source": "src/eng1/sound_od.c",
+   "source_sha256": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+   "identity_method": "independent native function entry plus reviewed cross-module twin and accepted ENG1 _play_sound identity",
+   "eng3_native_segment": {
+    "rva": "0xbc47",
+    "end": "0xc48a",
+    "size": 2115,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x2120",
+     "0x21c7",
+     "0x2458",
+     "0x2bf9",
+     "0x2cfa",
+     "0x306e"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x6da0",
+    "symbol": "_LinkedSoundFx_6da0",
+    "identity": "LinkedSoundFx(id, owner) with file-scope pending row",
+    "title_optimized_copy": "title_054f0"
+   },
+   "eng1_twin_segment": {
+    "rva": "0x6da0",
+    "end": "0x75e3",
+    "size": 2115,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x2317",
+     "0x2340",
+     "0x236f",
+     "0x2399",
+     "0x8809",
+     "0x8939"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xbc47",
+    "symbol": "_LinkedSoundFx_6da0",
+    "identity": "LinkedSoundFx(id, owner) with file-scope pending row",
+    "title_optimized_copy": "title_054f0"
+   },
+   "accepted_eng1_identity": "evidence/owner_alias_references_2026_10_25.json#helpers._play_sound",
+   "source_entry": "LinkedSoundFx_6da0"
+  }
+ },
+ "evidence_files": {
+  "src/eng1/sound_od.c": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+  "evidence/od_sound_unit_2026_10_20/segments.json": "7dfcec041ac0fb95dc91a6911a887741acc5a334afe6b461746b393bd02851cd",
+  "evidence/owner_alias_references_2026_10_25.json": "d728c9fcb23170ad3ffa21c8e9606e85d261a0bfaf701f64f358763bd1f8b2b0",
+  "evidence/owner_alias_bindings_2026_10_25.json": "dabf432d13403f86a49445ebc98f40404367e2142c632e41dadb98d2bc458787",
+  "evidence/source_layout_2026_10_25/owner_alias_bindings_2026_10_25.json": "9776bbe6a5859f1effe4ffd6a89cadf8843751cd0b6406209b5d37f181745600",
+  "evidence/eng3_01010_bindings_2026_10_26.json": "63b7024a5028e293c5421417480ca56a0cf14192624c5986c05eeaac372336fe",
+  "evidence/eng3_initializer_rng_review_2026_10_26.json": "b011421ed6720f8842a3a9e320c70933e8a6161b9fd10d8ea5fd6a857ee7b2ea",
+  "evidence/eng3_rng_provider_2026_10_25.json": "9065d84486464d690e69aeecf4d670d976ad725f3de02d819e00f38751b5c33c",
+  "evidence/engine_helper_bindings_2026_10_24.json": "b05e32241c45c02c128aeb4bf42e213f16311105cf8c673e0bc44b2881dd0fed",
+  "evidence/engine_helper_matching_2026_10_24.json": "ef7a5225b7afad18d3cb64b64cbf395351e135837f88df580663e167a7184771",
+  "evidence/relocated_reference_bindings.json": "9d3222369d7dcb8a02e842847f611a584e516a432314bcc68e38626133c5be83"
+ },
+ "functions": {
+  "eng3.13c10": {
+   "symbols": {
+    "_play_sound": {
+     "kind": "function",
+     "rva": 48199,
+     "size": 2115,
+     "evidence": [
+      "function_identities:eng3.od_0bc47"
+     ],
+     "references": [
+      {
+       "offset": 44,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_01010": {
+     "kind": "function",
+     "rva": 4112,
+     "size": 64,
+     "evidence": [
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#provider",
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#abi_witness",
+      "evidence/eng3_rng_provider_2026_10_25.json#native_abi_witness"
+     ],
+     "references": [
+      {
+       "offset": 54,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 111,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_1dbc0": {
+     "kind": "function",
+     "rva": 121792,
+     "size": 1088,
+     "evidence": [
+      "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1dbc0"
+     ],
+     "references": [
+      {
+       "offset": 97,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_1b920": {
+     "kind": "function",
+     "rva": 112928,
+     "size": 160,
+     "evidence": [
+      "function_identities:eng3.1b920"
+     ],
+     "references": [
+      {
+       "offset": 132,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_remove_actor": {
+     "kind": "function",
+     "rva": 117648,
+     "size": 432,
+     "evidence": [
+      "function_identities:eng3.remove_actor"
+     ],
+     "references": [
+      {
+       "offset": 145,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,462 @@
+{
+ "schema": 1,
+ "scope": "HERCULES.EXE initialized file-backed data identities for the exe_filedata reference-only batch. No acceptance claim.",
+ "function_identities": {
+  "exe.host_diagnostic": {
+   "id": "exe.host_diagnostic",
+   "symbol": "_host_diagnostic",
+   "rva": 25536,
+   "size": 16,
+   "target": "work/discs/pc_install/HERCULES.EXE",
+   "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+   "source": "src/pc/host_diagnostic.c",
+   "source_sha256": "e711786516b772583c5b2e83fdc581d15bfdd9fe0db1e0c6ef811af5a5355ec1",
+   "own_proof_scope": "complete relocation-free function COFF contribution",
+   "origin": "callee own ledger identity and source/body evidence; not derived from pending caller"
+  },
+  "exe.empty_host_callback": {
+   "id": "exe.empty_host_callback",
+   "symbol": "_empty_host_callback",
+   "rva": 48688,
+   "size": 16,
+   "target": "work/discs/pc_install/HERCULES.EXE",
+   "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+   "source": "src/pc/interface_callbacks.c",
+   "source_sha256": "766399e0014e9209c675437648ec514c1b806d4c953f517fe58b53f27e53a281",
+   "own_proof_scope": "complete relocation-free function COFF contribution",
+   "origin": "callee own ledger identity and source/body evidence; not derived from pending caller"
+  },
+  "exe.host_0a150": {
+   "id": "exe.host_0a150",
+   "symbol": "_host_0a150",
+   "rva": 41296,
+   "size": 64,
+   "target": "work/discs/pc_install/HERCULES.EXE",
+   "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+   "source": "src/pc/host_cd_shim_0a150.c",
+   "source_sha256": "00b2f840f9cd0177a70db8d6ac5f8c9e760f1eef74bd50f2f69899f84bbe2c83",
+   "own_proof_scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+   "origin": "callee own ledger identity and source/body evidence; not derived from pending caller",
+   "own_masked_sha256": "138a1bf359f28b96edcfd39d26765c636c4c8eabf3a597ab905972d7645a1baa"
+  },
+  "exe.virtual_file_close": {
+   "id": "exe.virtual_file_close",
+   "symbol": "_virtual_file_close",
+   "rva": 41808,
+   "size": 80,
+   "target": "work/discs/pc_install/HERCULES.EXE",
+   "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+   "source": "src/pc/virtual_file.c",
+   "source_sha256": "79470d9b41da178ad02bdf701e54e875f6520bbe56c9e0848231ac95c0eb400c",
+   "own_proof_scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+   "origin": "callee own ledger identity and source/body evidence; not derived from pending caller",
+   "own_masked_sha256": "10efff1cda33865008523e7356a10238bfbfba900331fa0a5a8bf1947005ce39",
+   "supporting_native_shape": "evidence/virtual_file.json: complete 80-byte source/native shape (24 instructions, normalized instruction equality); evidence/virtual_file_region.json: own RVA/extent"
+  }
+ },
+ "blocked_functions": {
+  "exe.host_0be10": {
+   "symbol": "_g_exe_439480",
+   "reason": "Two adjacent 2048-byte file-backed arrays at RVA 0x39480 and 0x39c80 have identical payload SHA-256; only the pending host_0be10 direct indexed load distinguishes them. No independent owner initializer or outside native reader.",
+   "candidate_rvas": [
+    "0x39480",
+    "0x39c80"
+   ],
+   "payload_sha256": "76e572f13128348285c4ac4c7fc67583d4bc8dd00e2b20e23330669b06d7661d",
+   "next_evidence": "An original source owner/initializer or an independent native reader/address anchor that selects one copy."
+  }
+ },
+ "evidence_files": {
+  "evidence/engine_interface_binding.json": "14d9953831bf8788a7f44eb170806de745d1275dc0a7bdd1f7e6d4d5714fdc3f",
+  "evidence/exe_region_0a000_2026_10_20.json": "b3a05bcb2227931b975485487c5e72fe668f8b7e958fc856bc3366d1a32fa552",
+  "evidence/host_callback_protocol_region.json": "4ddc991773e29b41739c68123397149705cc96e3751285fdaa95217028d2ea83",
+  "evidence/host_engine_switch_recovery.json": "953455cf9c693ec9eac64745a8c21f0bf19d008915644a9b5aef396cc3daee69",
+  "evidence/host_file_callbacks_recovery.json": "5bb71b5e9c4293ae0a8da0010be6aa194ec751c3b414736d35a90029aa1f7ba2",
+  "evidence/host_file_open_close_recovery.json": "acf5742dacdbbda20ef0487f81e4a03669fdf48e30ebf8ec9ec87a00b5f93f38",
+  "evidence/host_interface_entry_seeds_2026_10_11.json": "ccb1f1cfc6ffb725a30a6d7c78e3a652bd7409cea04cfed5114de5f18e5f401b",
+  "evidence/host_interface_provider_audit_2026_10_11.json": "d8446ddc44263f3d4d4d916dbff20cdcd03767d4dab5b15411c62580c7860d3d",
+  "evidence/host_music_recovery.json": "0aae9947f631ea1d89700b409ba45efe6ca485bd0da156e714fef57dea2aaf83",
+  "evidence/host_prepare_adoption_2026_10_11.json": "2cc5a82a0d2a62c218cff387cc857d7046a276c8814d5905c1279c29415dfe5e",
+  "evidence/host_resource_storage_adoption_2026_10_11.json": "d1c099db3346664b7d346a37dd784f1b5799c553a5a5bf6b55b5ed69040c83e2",
+  "evidence/relocated_reference_bindings.json": "9d3222369d7dcb8a02e842847f611a584e516a432314bcc68e38626133c5be83",
+  "evidence/virtual_file.json": "9be46cc037c3fffa2bb0e23bbee85ecc43d6964cb0bb69baf0913184dd10004f",
+  "evidence/virtual_file_region.json": "17b9e36e7bc8a2f603d9a518c8cf7eaac1a82f814c8011fca64a6cc45e10a077",
+  "src/pc/cleanup_registry.c": "0b3224f0d37a309347b0bc2da7ba93419d35f4e2b58c30c1a00dbdf678a22782",
+  "src/pc/host_callback_protocol.c": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+  "src/pc/host_cd_shim_0a150.c": "00b2f840f9cd0177a70db8d6ac5f8c9e760f1eef74bd50f2f69899f84bbe2c83",
+  "src/pc/host_config_context_setters.c": "c1a94d80e4ca97258205981ca8cffba7e4e8e0de1c2303139695760a438cf970",
+  "src/pc/host_diagnostic.c": "e711786516b772583c5b2e83fdc581d15bfdd9fe0db1e0c6ef811af5a5355ec1",
+  "src/pc/host_file_callback_formats.c": "fadadaf70cea71b6b78e6de3a0bb90ae229ec709d211b82e55d30aaf0d992970",
+  "src/pc/host_file_callbacks.c": "5160e41dc8a7277e401018874d681c0bcfebc26c42b00ef8f71008d735023d2e",
+  "src/pc/host_file_open_close.c": "bbe72d80de324943b3d05e4dfeeb77f9b5a3931c9ae1841afe8350c98223c749",
+  "src/pc/host_file_prepare.c": "91292c1fb9aad01d60110e478a6124ae9890efffaa5b5396d01747e4320a7a07",
+  "src/pc/host_gte_flags_0bd60.c": "e497e40e8b46217890ac26782f7012d30fdd936d0c2f0c6a36ae11fb9a828058",
+  "src/pc/host_libsnd_0bf20.c": "8eac0a4fd5f36bb679f7d891e0a0db48d10522afd8c99a51f67e620757ba9a40",
+  "src/pc/host_music.c": "0497231f93f695f54c6c7a758c88553627512aa970acfee7384e1ef671cef36c",
+  "src/pc/host_music_storage.c": "93c1fb507345383a54c5035aecaf21a9aad1886e048c7fef9ae2ab43f87787ec",
+  "src/pc/host_psx_shim_01bd0.c": "6cba0b43356f23c3b05492167776251a0ccf04555c4612521785552c0392d711",
+  "src/pc/host_psx_shim_041a0.c": "c0247b8c7b9ba283cd056ea68609405a09ca91c7d4514a5990c9a1de1580e351",
+  "src/pc/host_resource_storage.c": "15cec8a80cd5aa26d03f1d78e5263c6d27e3a0256b8d804de45305169a7111a1",
+  "src/pc/host_sector_io.c": "58015138be5dada683de04342cb4970f43c0d14ebd6045af2de61a87a9d11dd7",
+  "src/pc/host_sequence.c": "f49c73b2ea7527f8e6c3c80dc38953ef3406622122bb7ebfd3a4911ad4df4dc6",
+  "src/pc/host_setup.c": "dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c",
+  "src/pc/host_sound_015d0.cpp": "4a6bd91f5daa514c90e6d6ca5f99837d5b69e1cbbb1787093fe59797083e2892",
+  "src/pc/host_source_table_pointer_cell_365a0.c": "3ae1868aa0a7484b10bcb0439bea9a16f924f98efc3683209c8b2d1dfc34b03e",
+  "src/pc/host_zero_callback.c": "d9384da35f8452646f485fd412b7cb09bb87bea5f55ba04ad04c0234e676dbff",
+  "src/pc/interface_callbacks.c": "766399e0014e9209c675437648ec514c1b806d4c953f517fe58b53f27e53a281",
+  "src/pc/virtual_file.c": "79470d9b41da178ad02bdf701e54e875f6520bbe56c9e0848231ac95c0eb400c",
+  "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+  "work/discs/pc_install/HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "evidence/exe_filedata_review_2026_10_26.json": "1de1a5acfa91b404a792c398b2d202052d9a93c0ce7c01287f5344820b8e670e"
+ },
+ "functions": {
+  "exe.host_music_initialize_10e0": {
+   "symbols": {
+    "_g_host_music_init_text": {
+     "kind": "data",
+     "rva": 220100,
+     "size": 20,
+     "sha256": "462858698544b3991a38276f0e8d045c7c3efc8b4ede74675a979f31b7cfd711",
+     "evidence": [
+      "src/pc/host_music_storage.c:4 (complete initialized literal and NUL)",
+      "evidence/host_music_recovery.json:data (recorded native literal identity)",
+      "evidence/exe_filedata_review_2026_10_26.json:data_identities.g_host_music_init_text"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_host_diagnostic": {
+     "kind": "function",
+     "rva": 25536,
+     "size": 16,
+     "evidence": [
+      "recovery.json:exe.host_diagnostic (callee own identity row; independent of the selected callers)"
+     ],
+     "references": [
+      {
+       "offset": 6,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_host_engine_interface": {
+     "kind": "data",
+     "rva": 221624,
+     "size": 1000,
+     "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+     "evidence": [
+      "evidence/engine_interface_binding.json:source_table (complete 1000-byte native payload and static pointer cell at RVA 0x365a0)",
+      "evidence/host_interface_provider_audit_2026_10_11.json:table (file-backed initialized payload; base relocations absent)",
+      "src/shared/engine_interface.h:1000-byte physical EngineInterface view",
+      "evidence/exe_host_interface_review_2026_10_26.json:interface_storage; independent_native_review"
+     ],
+     "references": [
+      {
+       "offset": 12,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 32,
+       "type": 6,
+       "addend": 4
+      }
+     ]
+    }
+   }
+  },
+  "exe.host_01d80": {
+   "symbols": {
+    "_g_resource_prepare_scalar": {
+     "kind": "data",
+     "rva": 217776,
+     "size": 4,
+     "sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+     "evidence": [
+      "src/pc/host_resource_storage.c:7 (4-byte 0xFFFFFFFFUL initializer)",
+      "evidence/exe_filedata_review_2026_10_26.json:independent_native_references (outside readers/writer)",
+      "evidence/exe_filedata_review_2026_10_26.json:data_identities.g_resource_prepare_scalar"
+     ],
+     "references": [
+      {
+       "offset": 2,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 24,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 30,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_host_engine_interface": {
+     "kind": "data",
+     "rva": 221624,
+     "size": 1000,
+     "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+     "evidence": [
+      "evidence/engine_interface_binding.json:source_table (complete 1000-byte native payload and static pointer cell at RVA 0x365a0)",
+      "evidence/host_interface_provider_audit_2026_10_11.json:table (file-backed initialized payload; base relocations absent)",
+      "src/shared/engine_interface.h:1000-byte physical EngineInterface view",
+      "evidence/exe_host_interface_review_2026_10_26.json:interface_storage; independent_native_review"
+     ],
+     "references": [
+      {
+       "offset": 10,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 49,
+       "type": 6,
+       "addend": 4
+      }
+     ]
+    },
+    "_host_0a150": {
+     "kind": "function",
+     "rva": 41296,
+     "size": 64,
+     "evidence": [
+      "recovery.json:exe.host_0a150 (callee own identity row; independent of the selected callers)"
+     ],
+     "references": [
+      {
+       "offset": 43,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_empty_host_callback": {
+     "kind": "function",
+     "rva": 48688,
+     "size": 16,
+     "evidence": [
+      "recovery.json:exe.empty_host_callback (callee own identity row; independent of the selected callers)"
+     ],
+     "references": [
+      {
+       "offset": 67,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "exe.host_file_prepare": {
+   "symbols": {
+    "_empty_host_callback": {
+     "kind": "function",
+     "rva": 48688,
+     "size": 16,
+     "evidence": [
+      "recovery.json:exe.empty_host_callback (callee own identity row; independent of the selected callers)"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_host_engine_interface": {
+     "kind": "data",
+     "rva": 221624,
+     "size": 1000,
+     "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+     "evidence": [
+      "evidence/engine_interface_binding.json:source_table (complete 1000-byte native payload and static pointer cell at RVA 0x365a0)",
+      "evidence/host_interface_provider_audit_2026_10_11.json:table (file-backed initialized payload; base relocations absent)",
+      "src/shared/engine_interface.h:1000-byte physical EngineInterface view",
+      "evidence/exe_host_interface_review_2026_10_26.json:interface_storage; independent_native_review"
+     ],
+     "references": [
+      {
+       "offset": 7,
+       "type": 6,
+       "addend": 4
+      }
+     ]
+    },
+    "_g_resource_prepare_scalar": {
+     "kind": "data",
+     "rva": 217776,
+     "size": 4,
+     "sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+     "evidence": [
+      "src/pc/host_resource_storage.c:7 (4-byte 0xFFFFFFFFUL initializer)",
+      "evidence/exe_filedata_review_2026_10_26.json:independent_native_references (outside readers/writer)",
+      "evidence/exe_filedata_review_2026_10_26.json:data_identities.g_resource_prepare_scalar"
+     ],
+     "references": [
+      {
+       "offset": 20,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "exe.host_frame_close_state_3d30": {
+   "symbols": {
+    "_g_host_engine_interface": {
+     "kind": "data",
+     "rva": 221624,
+     "size": 1000,
+     "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+     "evidence": [
+      "evidence/engine_interface_binding.json:source_table (complete 1000-byte native payload and static pointer cell at RVA 0x365a0)",
+      "evidence/host_interface_provider_audit_2026_10_11.json:table (file-backed initialized payload; base relocations absent)",
+      "src/shared/engine_interface.h:1000-byte physical EngineInterface view",
+      "evidence/exe_host_interface_review_2026_10_26.json:interface_storage; independent_native_review"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 42,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 61,
+       "type": 6,
+       "addend": 4
+      }
+     ]
+    },
+    "_virtual_file_close": {
+     "kind": "function",
+     "rva": 41808,
+     "size": 80,
+     "evidence": [
+      "recovery.json:exe.virtual_file_close (callee own identity row; independent of the selected callers)"
+     ],
+     "references": [
+      {
+       "offset": 13,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_resource_close_failure_format": {
+     "kind": "data",
+     "rva": 221252,
+     "size": 11,
+     "sha256": "ce0934869d56f6b9056cb8670c7595d222cf39fc5b7c9e85e27fd08755507f9e",
+     "evidence": [
+      "src/pc/host_file_callback_formats.c:9 (complete literal and NUL)",
+      "evidence/host_file_callbacks_recovery.json:literal_data (RVA, extent, SHA-256)",
+      "evidence/exe_filedata_review_2026_10_26.json:independent_native_references (outside native reader)",
+      "evidence/exe_filedata_review_2026_10_26.json:data_identities.g_resource_close_failure_format"
+     ],
+     "references": [
+      {
+       "offset": 25,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_host_diagnostic": {
+     "kind": "function",
+     "rva": 25536,
+     "size": 16,
+     "evidence": [
+      "recovery.json:exe.host_diagnostic (callee own identity row; independent of the selected callers)"
+     ],
+     "references": [
+      {
+       "offset": 30,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 73,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_resource_close_success_format": {
+     "kind": "data",
+     "rva": 221240,
+     "size": 11,
+     "sha256": "5126c1860b8847957cf9cd9c7276297f4a9255924fb8115a98c1e08d171ddfb9",
+     "evidence": [
+      "src/pc/host_file_callback_formats.c:11 (complete literal and NUL)",
+      "evidence/host_file_open_close_recovery.json:new_literal_data (RVA, extent, SHA-256)",
+      "evidence/exe_filedata_review_2026_10_26.json:data_identities.g_resource_close_success_format"
+     ],
+     "references": [
+      {
+       "offset": 49,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "exe.host_0c200": {
+   "symbols": {
+    "_g_host_master_left": {
+     "kind": "data",
+     "rva": 238720,
+     "size": 2,
+     "sha256": "9f3a060c00e96dbd2bf5cb77506048f22667fb11cd4d5e3c20993685fc805646",
+     "evidence": [
+      "src/pc/host_libsnd_0bf20.c:24,154 (short declaration and left-channel uses)",
+      "evidence/exe_filedata_review_2026_10_26.json:independent_native_references (outside 16-bit readers/writers)",
+      "evidence/exe_filedata_review_2026_10_26.json:data_identities.g_host_master_left"
+     ],
+     "references": [
+      {
+       "offset": 12,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_host_master_right": {
+     "kind": "data",
+     "rva": 238724,
+     "size": 2,
+     "sha256": "9f3a060c00e96dbd2bf5cb77506048f22667fb11cd4d5e3c20993685fc805646",
+     "evidence": [
+      "src/pc/host_libsnd_0bf20.c:25,155 (short declaration and right-channel uses)",
+      "evidence/exe_filedata_review_2026_10_26.json:independent_native_references (outside 16-bit readers/writers)",
+      "evidence/exe_filedata_review_2026_10_26.json:data_identities.g_host_master_right"
+     ],
+     "references": [
+      {
+       "offset": 19,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}

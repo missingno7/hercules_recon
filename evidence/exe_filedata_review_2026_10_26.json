@@ -1,0 +1,421 @@
+{
+ "schema": 1,
+ "task_id": "exe_filedata",
+ "scope": "Independent identity review for initialized, file-backed HERCULES.EXE data used by six relocation-reference candidates. Not function acceptance.",
+ "target_identity": {
+  "path": "work/discs/pc_install/HERCULES.EXE",
+  "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "format": "PE32 i386",
+  "image_base": "0x400000",
+  "size_of_image": "0x7ad000",
+  "sections": [
+   {
+    "name": ".text",
+    "virtual_address": 4096,
+    "virtual_size": 183742,
+    "raw_offset": 1024,
+    "raw_size": 183808
+   },
+   {
+    "name": ".rdata",
+    "virtual_address": 188416,
+    "virtual_size": 24744,
+    "raw_offset": 184832,
+    "raw_size": 25088
+   },
+   {
+    "name": ".data",
+    "virtual_address": 217088,
+    "virtual_size": 7797544,
+    "raw_offset": 209920,
+    "raw_size": 38400
+   },
+   {
+    "name": ".idata",
+    "virtual_address": 8015872,
+    "virtual_size": 8368,
+    "raw_offset": 248320,
+    "raw_size": 8704
+   },
+   {
+    "name": ".rsrc",
+    "virtual_address": 8028160,
+    "virtual_size": 18548,
+    "raw_offset": 257024,
+    "raw_size": 18944
+   }
+  ],
+  "base_relocation_directory": {
+   "rva": "0x0",
+   "size": 0,
+   "absent": true
+  }
+ },
+ "source_paths_sha256": [
+  {
+   "path": "src/pc/host_music.c",
+   "sha256": "0497231f93f695f54c6c7a758c88553627512aa970acfee7384e1ef671cef36c"
+  },
+  {
+   "path": "src/pc/host_psx_shim_01bd0.c",
+   "sha256": "6cba0b43356f23c3b05492167776251a0ccf04555c4612521785552c0392d711"
+  },
+  {
+   "path": "src/pc/host_file_prepare.c",
+   "sha256": "91292c1fb9aad01d60110e478a6124ae9890efffaa5b5396d01747e4320a7a07"
+  },
+  {
+   "path": "src/pc/host_file_open_close.c",
+   "sha256": "bbe72d80de324943b3d05e4dfeeb77f9b5a3931c9ae1841afe8350c98223c749"
+  },
+  {
+   "path": "src/pc/host_gte_flags_0bd60.c",
+   "sha256": "e497e40e8b46217890ac26782f7012d30fdd936d0c2f0c6a36ae11fb9a828058"
+  },
+  {
+   "path": "src/pc/host_libsnd_0bf20.c",
+   "sha256": "8eac0a4fd5f36bb679f7d891e0a0db48d10522afd8c99a51f67e620757ba9a40"
+  },
+  {
+   "path": "src/pc/host_music_storage.c",
+   "sha256": "93c1fb507345383a54c5035aecaf21a9aad1886e048c7fef9ae2ab43f87787ec"
+  },
+  {
+   "path": "src/pc/host_resource_storage.c",
+   "sha256": "15cec8a80cd5aa26d03f1d78e5263c6d27e3a0256b8d804de45305169a7111a1"
+  },
+  {
+   "path": "src/pc/host_file_callback_formats.c",
+   "sha256": "fadadaf70cea71b6b78e6de3a0bb90ae229ec709d211b82e55d30aaf0d992970"
+  },
+  {
+   "path": "src/pc/virtual_file.c",
+   "sha256": "79470d9b41da178ad02bdf701e54e875f6520bbe56c9e0848231ac95c0eb400c"
+  },
+  {
+   "path": "src/pc/host_cd_shim_0a150.c",
+   "sha256": "00b2f840f9cd0177a70db8d6ac5f8c9e760f1eef74bd50f2f69899f84bbe2c83"
+  },
+  {
+   "path": "src/pc/host_diagnostic.c",
+   "sha256": "e711786516b772583c5b2e83fdc581d15bfdd9fe0db1e0c6ef811af5a5355ec1"
+  },
+  {
+   "path": "src/pc/interface_callbacks.c",
+   "sha256": "766399e0014e9209c675437648ec514c1b806d4c953f517fe58b53f27e53a281"
+  },
+  {
+   "path": "src/shared/engine_interface.h",
+   "sha256": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529"
+  }
+ ],
+ "interface_identity_reused_verbatim": {
+  "source_lane": "work/velocity_b/exe_host_iface/",
+  "source_bindings": "work/velocity_b/exe_host_iface/bindings.json",
+  "source_record": {
+   "kind": "data",
+   "rva": 221624,
+   "size": 1000,
+   "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+   "evidence": [
+    "evidence/engine_interface_binding.json:source_table (complete 1000-byte native payload and static pointer cell at RVA 0x365a0)",
+    "evidence/host_interface_provider_audit_2026_10_11.json:table (file-backed initialized payload; base relocations absent)",
+    "src/shared/engine_interface.h:1000-byte physical EngineInterface view",
+    "evidence/exe_host_interface_review_2026_10_26.json:interface_storage; independent_native_review"
+   ],
+   "references": [
+    {
+     "offset": 2,
+     "type": 6,
+     "addend": 4
+    },
+    {
+     "offset": 19,
+     "type": 6,
+     "addend": 4
+    },
+    {
+     "offset": 30,
+     "type": 6,
+     "addend": 4
+    },
+    {
+     "offset": 46,
+     "type": 6,
+     "addend": 4
+    }
+   ]
+  },
+  "durable_evidence_path": "evidence/exe_host_interface_review_2026_10_26.json"
+ },
+ "data_identities": {
+  "g_host_music_init_text": {
+   "status": "identified",
+   "rva": "0x35bc4",
+   "size": 20,
+   "section": ".data",
+   "file_offset": "0x33fc4",
+   "payload_sha256": "462858698544b3991a38276f0e8d045c7c3efc8b4ede74675a979f31b7cfd711",
+   "payload_hex": "0a20496e6974536f756e64436f6e74726f6c7300",
+   "neighbors_8": {
+    "before": "4f4f4d5c00000000",
+    "after": "0a20556e61626c65"
+   },
+   "literal_utf8": "\\n InitSoundControls",
+   "terminator": "00",
+   "unique_exact_literal_file_offset": "0x33fc4",
+   "source_owner": "src/pc/host_music_storage.c:4"
+  },
+  "g_resource_prepare_scalar": {
+   "status": "identified",
+   "rva": "0x352b0",
+   "size": 4,
+   "section": ".data",
+   "file_offset": "0x336b0",
+   "payload_sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+   "payload_hex": "ffffffff",
+   "neighbors_8": {
+    "before": "605a43008cd40100",
+    "after": "00000000545a4300"
+   },
+   "source_owner": "src/pc/host_resource_storage.c:7",
+   "source_initializer": "0xFFFFFFFFUL; exactly 4 bytes",
+   "outside_native_anchor_note": "exe.host_01dd0 reads at 0x1dd0; exe.host_01e90 clears at 0x1ece. Both functions are outside pending callers."
+  },
+  "g_resource_close_failure_format": {
+   "status": "identified",
+   "rva": "0x36044",
+   "size": 11,
+   "section": ".data",
+   "file_offset": "0x34444",
+   "payload_sha256": "ce0934869d56f6b9056cb8670c7595d222cf39fc5b7c9e85e27fd08755507f9e",
+   "payload_hex": "2d204661696c6564200a00",
+   "neighbors_8": {
+    "before": "6f736564200a0000",
+    "after": "00556e61626c6520"
+   },
+   "literal_utf8": "- Failed \\n",
+   "terminator": "00",
+   "unique_exact_literal_file_offset": "0x34444",
+   "source_owner": "src/pc/host_file_callback_formats.c:9"
+  },
+  "g_resource_close_success_format": {
+   "status": "identified",
+   "rva": "0x36038",
+   "size": 11,
+   "section": ".data",
+   "file_offset": "0x34438",
+   "payload_sha256": "5126c1860b8847957cf9cd9c7276297f4a9255924fb8115a98c1e08d171ddfb9",
+   "payload_hex": "2d20436c6f736564200a00",
+   "neighbors_8": {
+    "before": "696e672025732000",
+    "after": "002d204661696c65"
+   },
+   "literal_utf8": "- Closed \\n",
+   "terminator": "00",
+   "unique_exact_literal_file_offset": "0x34438",
+   "source_owner": "src/pc/host_file_callback_formats.c:11"
+  },
+  "g_host_master_left": {
+   "status": "identified",
+   "rva": "0x3a480",
+   "size": 2,
+   "section": ".data",
+   "file_offset": "0x38880",
+   "payload_sha256": "9f3a060c00e96dbd2bf5cb77506048f22667fb11cd4d5e3c20993685fc805646",
+   "payload_hex": "7f00",
+   "neighbors_8": {
+    "before": "00ff00ff00ff00ff",
+    "after": "00007f0000004001"
+   },
+   "source_owners": [
+    "src/pc/host_libsnd_0bf20.c:24 (extern short)",
+    "src/pc/host_libsnd_0bf20.c:154 (left setter)"
+   ],
+   "extent_basis": "Native 16-bit store/load width in exe.host_0c100/exe.host_0c160 plus the source short declaration."
+  },
+  "g_host_master_right": {
+   "status": "identified",
+   "rva": "0x3a484",
+   "size": 2,
+   "section": ".data",
+   "file_offset": "0x38884",
+   "payload_sha256": "9f3a060c00e96dbd2bf5cb77506048f22667fb11cd4d5e3c20993685fc805646",
+   "payload_hex": "7f00",
+   "neighbors_8": {
+    "before": "00ff00ff7f000000",
+    "after": "000040010000f000"
+   },
+   "source_owners": [
+    "src/pc/host_libsnd_0bf20.c:25 (extern short)",
+    "src/pc/host_libsnd_0bf20.c:155 (right setter)"
+   ],
+   "extent_basis": "Native 16-bit store/load width in exe.host_0c100/exe.host_0c160 plus the source short declaration."
+  },
+  "g_exe_439480": {
+   "status": "ambiguous_identity",
+   "candidates": [
+    {
+     "rva": "0x39480",
+     "file_offset": "0x37880",
+     "size": 2048,
+     "section": ".data",
+     "payload_sha256": "76e572f13128348285c4ac4c7fc67583d4bc8dd00e2b20e23330669b06d7661d",
+     "first_32_bytes": "000000100016001b002000230027002a002d00300032003500370039003b003d",
+     "last_16_bytes": "00ff00ff00ff00ff00ff00ff00ff00ff"
+    },
+    {
+     "rva": "0x39c80",
+     "file_offset": "0x38080",
+     "size": 2048,
+     "section": ".data",
+     "payload_sha256": "76e572f13128348285c4ac4c7fc67583d4bc8dd00e2b20e23330669b06d7661d",
+     "first_32_bytes": "000000100016001b002000230027002a002d00300032003500370039003b003d",
+     "last_16_bytes": "00ff00ff00ff00ff00ff00ff00ff00ff"
+    }
+   ],
+   "source_owner": "src/pc/host_gte_flags_0bd60.c:14 (extern short g_exe_439480[1024]; no initializer/owner selected)",
+   "declared_extent": "1024 * sizeof(short) = 2048 bytes",
+   "shared_payload_sha256": "76e572f13128348285c4ac4c7fc67583d4bc8dd00e2b20e23330669b06d7661d",
+   "payload_description": "1024 little-endian fixed-point lookup shorts; values have zero low bytes, are nondecreasing, and entries 254..1023 equal 0xff00",
+   "independent_signature": {
+    "kind": "first 63 fixed-point sqrt-style words, floor(sqrt(i)*16) in high byte for i=0..62",
+    "hex": "000000100016001b002000230027002a002d00300032003500370039003b003d004000410043004500470049004b004c004e0050005100530054005600570059005a005b005d005e00600061006200630065006600670068006a006b006c006d006e0070007100720073007400750076007700780079007a007b007c007d",
+    "match_file_offsets": [
+     "0x37880",
+     "0x38080"
+    ],
+    "match_rvas": [
+     "0x39480",
+     "0x39c80"
+    ]
+   },
+   "native_reference_scan": {
+    "only_direct_reference_to_first_copy": {
+     "function_id": "exe.host_0be10",
+     "instruction_rva": "0xbe19",
+     "bytes": "0fbf044580944300",
+     "text": "movsx eax, word ptr [eax*2 + 0x439480]",
+     "pending": true
+    },
+    "second_copy_direct_references": []
+   },
+   "blocker": "The complete 2048-byte payload occurs twice at adjacent file-backed .data RVAs 0x39480 and 0x39c80 with identical SHA-256; there is no source initializer or independent native reader distinguishing them. The pending caller operand cannot choose the first copy under the worker contract."
+  }
+ },
+ "independent_native_references": [
+  {
+   "symbol": "g_resource_prepare_scalar",
+   "function_id": "exe.host_01dd0",
+   "rva": "0x1dd0",
+   "bytes": "a1b0524300",
+   "instruction": "mov eax, dword ptr [0x4352b0]"
+  },
+  {
+   "symbol": "g_resource_prepare_scalar",
+   "function_id": "exe.host_01e90",
+   "rva": "0x1ece",
+   "bytes": "c705b052430000000000",
+   "instruction": "mov dword ptr [0x4352b0], 0"
+  },
+  {
+   "symbol": "g_resource_close_failure_format",
+   "function_id": "exe.host_file_cancel_3ea0",
+   "rva": "0x3ec2",
+   "bytes": "6844604300",
+   "instruction": "push 0x436044"
+  },
+  {
+   "symbol": "g_host_master_left",
+   "function_id": "exe.host_0c100",
+   "rva": "0xc122",
+   "bytes": "66a380a44300",
+   "instruction": "mov word ptr [0x43a480], ax"
+  },
+  {
+   "symbol": "g_host_master_right",
+   "function_id": "exe.host_0c100",
+   "rva": "0xc128",
+   "bytes": "66a384a44300",
+   "instruction": "mov word ptr [0x43a484], ax"
+  },
+  {
+   "symbol": "g_host_master_left",
+   "function_id": "exe.host_0c160",
+   "rva": "0xc160",
+   "bytes": "0fbf1580a44300",
+   "instruction": "movsx edx, word ptr [0x43a480]"
+  },
+  {
+   "symbol": "g_host_master_right",
+   "function_id": "exe.host_0c160",
+   "rva": "0xc188",
+   "bytes": "0fbf1584a44300",
+   "instruction": "movsx edx, word ptr [0x43a484]"
+  }
+ ],
+ "function_identities": {
+  "exe.host_diagnostic": {
+   "id": "exe.host_diagnostic",
+   "symbol": "_host_diagnostic",
+   "rva": 25536,
+   "size": 16,
+   "target": "work/discs/pc_install/HERCULES.EXE",
+   "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+   "source": "src/pc/host_diagnostic.c",
+   "source_sha256": "e711786516b772583c5b2e83fdc581d15bfdd9fe0db1e0c6ef811af5a5355ec1",
+   "own_proof_scope": "complete relocation-free function COFF contribution",
+   "origin": "callee own ledger identity and source/body evidence; not derived from pending caller"
+  },
+  "exe.empty_host_callback": {
+   "id": "exe.empty_host_callback",
+   "symbol": "_empty_host_callback",
+   "rva": 48688,
+   "size": 16,
+   "target": "work/discs/pc_install/HERCULES.EXE",
+   "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+   "source": "src/pc/interface_callbacks.c",
+   "source_sha256": "766399e0014e9209c675437648ec514c1b806d4c953f517fe58b53f27e53a281",
+   "own_proof_scope": "complete relocation-free function COFF contribution",
+   "origin": "callee own ledger identity and source/body evidence; not derived from pending caller"
+  },
+  "exe.host_0a150": {
+   "id": "exe.host_0a150",
+   "symbol": "_host_0a150",
+   "rva": 41296,
+   "size": 64,
+   "target": "work/discs/pc_install/HERCULES.EXE",
+   "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+   "source": "src/pc/host_cd_shim_0a150.c",
+   "source_sha256": "00b2f840f9cd0177a70db8d6ac5f8c9e760f1eef74bd50f2f69899f84bbe2c83",
+   "own_proof_scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+   "origin": "callee own ledger identity and source/body evidence; not derived from pending caller",
+   "own_masked_sha256": "138a1bf359f28b96edcfd39d26765c636c4c8eabf3a597ab905972d7645a1baa"
+  },
+  "exe.virtual_file_close": {
+   "id": "exe.virtual_file_close",
+   "symbol": "_virtual_file_close",
+   "rva": 41808,
+   "size": 80,
+   "target": "work/discs/pc_install/HERCULES.EXE",
+   "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+   "source": "src/pc/virtual_file.c",
+   "source_sha256": "79470d9b41da178ad02bdf701e54e875f6520bbe56c9e0848231ac95c0eb400c",
+   "own_proof_scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+   "origin": "callee own ledger identity and source/body evidence; not derived from pending caller",
+   "own_masked_sha256": "10efff1cda33865008523e7356a10238bfbfba900331fa0a5a8bf1947005ce39",
+   "supporting_native_shape": "evidence/virtual_file.json: complete 80-byte source/native shape (24 instructions, normalized instruction equality); evidence/virtual_file_region.json: own RVA/extent"
+  }
+ },
+ "limits": [
+  "RVA/extent/payload identity for each unambiguous data binding is separate from pending caller operands.",
+  "String objects are found by unique complete literal including NUL and checked against current src/pc initializers.",
+  "g_resource_prepare_scalar is anchored by outside native reads/writes in exe.host_01dd0/exe.host_01e90.",
+  "Both resource close formats are uniquely identified by complete literal bytes; the failure format also has an outside native reader in exe.host_file_cancel_3ea0.",
+  "The GTE lookup has two adjacent identical 2048-byte arrays at RVAs 0x39480 and 0x39c80. The symbol identity is blocked because only the pending host_0be10 instruction distinguishes which one it references, and no owner initializer or outside reader is present.",
+  "Master gain identities use outside native 16-bit stores and reads in exe.host_0c100/exe.host_0c160 plus source declarations; they are separate 2-byte objects with a 2-byte field between.",
+  "The original EXE has no base-relocation directory, so DIR32 data bindings have no HIGHLOW counterpart requirement.",
+  "All measurements describe this exact EXE hash only; no claim about original source/TU identity, full application behavior, or whole-image matching."
+ ],
+ "future_durable_path": "evidence/exe_filedata_review_2026_10_26.json"
+}
