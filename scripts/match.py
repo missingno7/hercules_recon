@@ -50,6 +50,26 @@ def unit_inventory(obj, original_root=None):
     return digest(json.dumps(content, sort_keys=True, default=lambda value: value.hex()).encode())
 
 
+def portable_unit_inventory(obj):
+    """The complete unit inventory with COFF FILE records made repository-relative.
+
+    The only checkout-dependent bytes of the inventory are the absolute source
+    paths in FILE auxiliary records; every section, relocation, other symbol and
+    auxiliary record stays in the hash.
+    """
+    coff = COFF(obj)
+    symbols = copy.deepcopy(coff.symbols)
+    for symbol in symbols.values():
+        if symbol['storage'] != 103:
+            continue
+        path = Path(b''.join(symbol['aux']).rstrip(b'\0').decode('ascii'))
+        if not path.is_absolute() or not path.resolve().is_relative_to(ROOT.resolve()):
+            raise ValueError('Unit inventory FILE record is outside the repository: ' + str(path))
+        symbol['aux'] = [path.resolve().relative_to(ROOT.resolve()).as_posix().encode('ascii')]
+    content = dict(sections=coff.sections, symbols=symbols)
+    return digest(json.dumps(content, sort_keys=True, default=lambda value: value.hex()).encode())
+
+
 def context_proof(context):
     return {(p.relative_to(ROOT).as_posix() if p.is_relative_to(ROOT) else str(p)): h
             for p, h in context.items()}
@@ -60,7 +80,14 @@ def validate_unit_proof(row, context, obj=None, original_root=None):
     if 'unit_inventory_sha256' in proof:
         if not proof.get('context_sha256') or context_proof(context) != proof['context_sha256']:
             raise ValueError('Accepted unit source/header context changed: ' + row['id'])
-        if obj is not None and unit_inventory(obj, original_root) != proof['unit_inventory_sha256']:
+        if obj is None:
+            return
+        if 'unit_inventory_portable_sha256' in proof:
+            # Recorded by scripts/portable_inventory.py only after the absolute-path
+            # inventory reproduced exactly; that original hash stays in the proof.
+            if portable_unit_inventory(obj) != proof['unit_inventory_portable_sha256']:
+                raise ValueError('Accepted complete unit inventory changed: ' + row['id'])
+        elif unit_inventory(obj, original_root) != proof['unit_inventory_sha256']:
             raise ValueError('Accepted complete unit inventory changed: ' + row['id'])
 
 

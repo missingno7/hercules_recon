@@ -1,0 +1,62 @@
+# Evidence integrity corrections (2026-10-27)
+
+Owner ruling: STRICT must mean genuinely proven STRICT. Withdrawn claims are
+listed separately from regressions; none of the changes below is a code or proof
+regression.
+
+## Withdrawn acceptances: 14 HERCULES.EXE rows
+
+An individual audit (`evidence/exe_identity_audit_2026_10_27.json`, Sol, reviewed by the
+integrator) found **0 KEEP, 14 DEMOTE**. Every row is still instruction-equal. What each row
+lacks is an independently established callee or storage identity that its
+FUNCTION_MATCH_RELOCATED proof claimed:
+
+- **Operator delete at 0x11b00:** relied on by 9 scalar-deleting destructors. Its own `_free`
+  call is unclosed: `__crtheap` and the lock/SBH storage are missing.
+- **CWinApp and CDialog destructors:** no closed member chain reaches them.
+- **CGamePlayPage and COptionsSheet destructors:** exception-handler labels and vtables are
+  unbound. The earlier twin finding for these two was a census over-masking; their own shapes
+  are unique.
+- **`$E121`:** `theApp` zero storage has no exact-size owner or anchor.
+- **Host callback cells:** used by `host_01d00`, `host_01d30`, `host_0ac40` and
+  `host_frame_notify_zero_ac00`; the cells and their aggregate have no identity.
+
+A link-order argument (re-implemented from mafia-re's crtannotate idea) places operator
+delete in the library region, away from its application-code twins. That is corroboration
+only: the physical member chain breaks at `_strncmp` and `_free`. No other accepted binding
+uses the 14 rows.
+
+`scripts/demote.py` performed the withdrawal as one journaled transaction. Each row goes back
+to its own prior masked proof (CODEGEN_SIMILAR), and the masked co-defined inventories of the 7
+affected units are recomputed. Before the write it required:
+- a fresh, exact verification of every remaining RAW/RELOCATED row (995);
+- the LINKED check (43 rows, 0 failures);
+- masked equality of the affected units.
+
+Each row keeps `withdrawn_acceptance`: the old proof, its binding path and hash, the review and
+its hash, the missing link, and the restore command
+(`promote.py --relocated <id> --bindings <path>`). The review is
+`evidence/exe_identity_withdrawal_review_2026_10_27.json`.
+
+Accepted functions: 1,050 before, **1,036** after (146 RAW, 847 RELOCATED, 43 LINKED).
+
+## Clean-checkout reproducibility
+
+`scripts/checkout_pins.py` (tested by `tests/test_checkout_pins.py`) clones the commit with
+`--shared` under `core.autocrlf=true` and under `false`. In those checked-out bytes it checks
+every accepted proof's source hash, every binding `evidence_files` pin (through
+`reference_snapshots` redirects) and every `evidence/repin_snapshots` address. Uncommitted
+originals (`assets/`, `work/discs`) are left to `match.py --original-root`. At `08ce1f8` it found
+57,956 pins and 0 mismatches under both settings.
+
+A full fresh verification inside a clean clone exposed two path dependencies, now fixed:
+
+1. `scripts/fixed_slot.py` read the reviewed non-target oracles from the checkout. It now reads
+   them from the root that holds the verified target. Every input is still hash-checked
+   against the pinned review.
+2. Eleven existing-unit RAW proofs pinned `unit_inventory_sha256`, which hashes the absolute
+   checkout path in COFF FILE records. `scripts/portable_inventory.py` freshly compiled each
+   unit in the recording checkout and required the original hash to reproduce exactly. Only
+   then did it add `unit_inventory_portable_sha256`, the same complete inventory with FILE paths
+   repository-relative. `match.py` checks the portable hash when it is present. The original
+   hash stays in each proof.

@@ -82,8 +82,13 @@ are the evidence oracle; PSX builds are secondary.
   the verified file bytes; use the existing exact-byte attributes where needed.
 - Default to GPT-6 Luna xhigh for bounded reconstruction and compiler work. Use
   GPT-6.1 Sol high when the explanation is uncertain or one shared question can
-  unlock several regions. Prefer deterministic verification over extra model
-  review; do not add a retry ladder, routing ledger, or automatic difficulty score.
+  unlock several regions (ABI/identity, MSVC5 behaviour, data ownership and
+  capacity, relocation evidence, structural blockers). Send difficult problems to
+  Sol directly; hand repetitive application of a Sol finding back to Luna lanes.
+  Terra is optional, only for a specific bounded task where it has shown adequate
+  depth; it is never a first stage before Sol. Prefer deterministic verification
+  over extra model review; do not add a retry ladder, routing ledger, or
+  automatic difficulty score.
 - Use tools under C:\tools. Inspect existing dependencies before adding any.
   External tools need documented origin, version, and SHA-256; do not patch them.
 - Begin with a falsifiable question and the smallest useful original-backed

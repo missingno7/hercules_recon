@@ -1,0 +1,288 @@
+{
+ "scope": "Reviewed withdrawal of 14 HERCULES.EXE FUNCTION_MATCH_RELOCATED acceptances whose mandatory callee/storage identities are not independently established under the existing rules (owner ruling 2026-10-26: STRICT must be genuinely proven). Function instruction equality is unaffected; only the reference-identity claim is withdrawn.",
+ "auditor": "audit_sol (gpt-6.1-sol high), integrator-reviewed",
+ "base_commit": "08ce1f8fdb1f5c082d6ef15ac16e72ac9ad53e81",
+ "evidence_files": {
+  "evidence/exe_identity_audit_2026_10_27.json": "e61722977bace5a23e5926523add536e18c96a646d254b4dfd4211b107c2b891",
+  "evidence/exe_identity_link_order_2026_10_27.json": "9487cd10127626e635e2d2fce437214fb4d3faab1efbc7dfe662cf2ccbf165b9"
+ },
+ "verdict_counts": {
+  "KEEP-STRICT": 0,
+  "DEMOTE": 14
+ },
+ "outside_dependencies": {
+  "accepted_relocated_rows_examined": 847,
+  "hits": [],
+  "snapshot_read_errors": [],
+  "scope": "All consumed per-function nested function records, target module plus native RVA; global manifest metadata excluded. No compiler/full regression.",
+  "current_accepted_relocated_rows_examined": 847,
+  "current_hits": [],
+  "legacy_linked_records_scanned": 43,
+  "legacy_record_id_hits": [],
+  "raw_records_note": "RAW proofs contain no external relocation fields by contract. No full regression or native caller census was run."
+ },
+ "rows": {
+  "exe.$E124": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "_$E121",
+     "reason": "The shared ?theApp@@3VCHerculesApp@@A operand at +1 points to loader-zero RVA 0x56e428 without a reviewed exact-size owner/native anchor. The distinguishing constructor operand +6 names 0x75e0 but lacks a complete independent identity chain."
+    }
+   ],
+   "restore_strict_later": [
+    "Establish the exact native theApp storage/owner under a supported existing proof form, and independently bind the CHerculesApp constructor/base/vtable identity so the +6 operand excludes 0x7660; close the other E124 reference as well."
+   ],
+   "bindings_path": "evidence/source_layout_2026_10_25/context_9d3222369d7d_cbf2b6df6980.json",
+   "bindings_sha256": "6fddd0b4428105eed29dd1e89ac082a2ab876eac71071700d5c38fffeb643489",
+   "weak_identities_used": [
+    "_$E121"
+   ]
+  },
+  "exe.??_GCHerculesApp": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "??1CHerculesApp@@UAE@XZ",
+     "reason": "Own tail JMP +1 names CWinApp::~CWinApp at 0x2bc0f, whose independent member proof remains open: NAFXCW member87 section104 -> $L69068 in section105 (26 masked locations), vtable/thread-state and FS exception-chain references."
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "reason": "Pinned LIBCMT member141 .text (16 bytes) has an unbound REL32 _free at +6. Its four complete fixed-byte candidates are 0xb9a0,0xb9b0,0xc0f0,0x11b00. The 0x11b00 call observes _free candidate 0x10ab0; LIBCMT member126 uniquely shapes there but lacks __crtheap at +84 and recursively closed lock/SBH storage. No independent closed extraction-order chain supplies an alternative entry identity."
+    }
+   ],
+   "restore_strict_later": [
+    "Independently identify the CWinApp destructor entry through a complete pinned member with closed references, a fully reviewed native identity, or a fully closed selected-member order chain; then bind the JMP. Its implementation need not be STRICT.",
+    "Either close _free identity and the member141 operand using independently bound storage/library dependencies, or provide a complete independently proven selected/extracted member order from closed neighbours, with extents, padding, selection/folding and every target identity closed. Region filtering alone and outside caller votes do not restore STRICT."
+   ],
+   "bindings_path": "evidence/msvc_pair_deleter_bindings_2026_10_26.json",
+   "bindings_sha256": "15edea337508489297908041eaa8a28070a1205ac767bf2882dabb51d450f781",
+   "weak_identities_used": [
+    "??1CHerculesApp@@UAE@XZ",
+    "??3@YAXPAX@Z"
+   ]
+  },
+  "exe.comdat_63b0": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "reason": "Pinned LIBCMT member141 .text (16 bytes) has an unbound REL32 _free at +6. Its four complete fixed-byte candidates are 0xb9a0,0xb9b0,0xc0f0,0x11b00. The 0x11b00 call observes _free candidate 0x10ab0; LIBCMT member126 uniquely shapes there but lacks __crtheap at +84 and recursively closed lock/SBH storage. No independent closed extraction-order chain supplies an alternative entry identity."
+    }
+   ],
+   "restore_strict_later": [
+    "Either close _free identity and the member141 operand using independently bound storage/library dependencies, or provide a complete independently proven selected/extracted member order from closed neighbours, with extents, padding, selection/folding and every target identity closed. Region filtering alone and outside caller votes do not restore STRICT."
+   ],
+   "bindings_path": "evidence/exe_delete_bindings_2026_10_26.json",
+   "bindings_sha256": "049157c9f4d2808c337c32931536e6e05a6c28c660cc11e27a1b6916dad628ea",
+   "weak_identities_used": [
+    "??3@YAXPAX@Z"
+   ]
+  },
+  "exe.comdat_ef80": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "??1CHostRestartDialog@@UAE@XZ",
+     "reason": "Own tail JMP +1 names CDialog::~CDialog at 0x21b15; NAFXCW member124 section35 lacks an independent complete reference proof ($L70216/section36, vtable and FS exception-chain obligations)."
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "reason": "Pinned LIBCMT member141 .text (16 bytes) has an unbound REL32 _free at +6. Its four complete fixed-byte candidates are 0xb9a0,0xb9b0,0xc0f0,0x11b00. The 0x11b00 call observes _free candidate 0x10ab0; LIBCMT member126 uniquely shapes there but lacks __crtheap at +84 and recursively closed lock/SBH storage. No independent closed extraction-order chain supplies an alternative entry identity."
+    }
+   ],
+   "restore_strict_later": [
+    "Close the CDialog member identity or an independent manual native-entry review, or establish the complete selected-member order/reference chain from a closed anchor; then bind this JMP.",
+    "Either close _free identity and the member141 operand using independently bound storage/library dependencies, or provide a complete independently proven selected/extracted member order from closed neighbours, with extents, padding, selection/folding and every target identity closed. Region filtering alone and outside caller votes do not restore STRICT."
+   ],
+   "bindings_path": "evidence/msvc_pair_deleter_bindings_2026_10_26.json",
+   "bindings_sha256": "15edea337508489297908041eaa8a28070a1205ac767bf2882dabb51d450f781",
+   "weak_identities_used": [
+    "??1CHostRestartDialog@@UAE@XZ",
+    "??3@YAXPAX@Z"
+   ]
+  },
+  "exe.host_01d00": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "_host_set_callback_one",
+     "reason": "Both DIR32 operands +5/+11 require _g_host_callback_prefix+4 at RVA 0x68e784. The base/12-byte declared view has no independent exact storage-owner/extent proof; same-zero neighbouring cells cannot identify it."
+    }
+   ],
+   "restore_strict_later": [
+    "Independently establish callback-one storage identity and complete native extent under a supported rule or a complete manual native-entry review, then verify both bound operands. The EXE absence of HIGHLOW must be addressed without inventing fixups."
+   ],
+   "bindings_path": "evidence/exe_host_iface_bindings_2026_10_26.json",
+   "bindings_sha256": "8ddcb416efcabb7416b65f34f55d985060bfd9dc3d438d5bfd752a8953110fa5",
+   "weak_identities_used": [
+    "_host_set_callback_one"
+   ]
+  },
+  "exe.host_01d30": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "_host_set_callback_one",
+     "reason": "Both DIR32 operands +5/+11 require _g_host_callback_prefix+4 at RVA 0x68e784. The base/12-byte declared view has no independent exact storage-owner/extent proof; same-zero neighbouring cells cannot identify it."
+    }
+   ],
+   "restore_strict_later": [
+    "Independently establish callback-one storage identity and complete native extent under a supported rule or a complete manual native-entry review, then verify both bound operands. The EXE absence of HIGHLOW must be addressed without inventing fixups."
+   ],
+   "bindings_path": "evidence/exe_host_iface_bindings_2026_10_26.json",
+   "bindings_sha256": "8ddcb416efcabb7416b65f34f55d985060bfd9dc3d438d5bfd752a8953110fa5",
+   "weak_identities_used": [
+    "_host_set_callback_one"
+   ]
+  },
+  "exe.host_0ac40": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "_host_invoke_callback_zero",
+     "reason": "The distinguishing +1 DIR32 operand needs the independently owned callback_zero cell in _g_host_callback_prefix at RVA 0x68e780; +11 uses the same proposed base+8 gate. No exact native owner/storage identity closes that aggregate."
+    }
+   ],
+   "restore_strict_later": [
+    "Supply a reviewed existing-form independent native identity for the complete callback storage and bound cells/addends, plus the observed indirect-call identity/semantics review, or a complete manual entry review. Any broader BSS support would require a separately authorized rule change."
+   ],
+   "bindings_path": "evidence/source_layout_2026_10_25/context_9d3222369d7d_cbf2b6df6980.json",
+   "bindings_sha256": "6fddd0b4428105eed29dd1e89ac082a2ab876eac71071700d5c38fffeb643489",
+   "weak_identities_used": [
+    "_host_invoke_callback_zero"
+   ]
+  },
+  "exe.host_frame_notify_zero_ac00": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "_host_invoke_callback_zero",
+     "reason": "The distinguishing +1 DIR32 operand needs the independently owned callback_zero cell in _g_host_callback_prefix at RVA 0x68e780; +11 uses the same proposed base+8 gate. No exact native owner/storage identity closes that aggregate."
+    }
+   ],
+   "restore_strict_later": [
+    "Supply a reviewed existing-form independent native identity for the complete callback storage and bound cells/addends, plus the observed indirect-call identity/semantics review, or a complete manual entry review. Any broader BSS support would require a separately authorized rule change."
+   ],
+   "bindings_path": "evidence/source_layout_2026_10_25/context_9d3222369d7d_cbf2b6df6980.json",
+   "bindings_sha256": "6fddd0b4428105eed29dd1e89ac082a2ab876eac71071700d5c38fffeb643489",
+   "weak_identities_used": [
+    "_host_invoke_callback_zero"
+   ]
+  },
+  "exe.host_frame_scalar_deleting_destructor_94c0": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "reason": "Pinned LIBCMT member141 .text (16 bytes) has an unbound REL32 _free at +6. Its four complete fixed-byte candidates are 0xb9a0,0xb9b0,0xc0f0,0x11b00. The 0x11b00 call observes _free candidate 0x10ab0; LIBCMT member126 uniquely shapes there but lacks __crtheap at +84 and recursively closed lock/SBH storage. No independent closed extraction-order chain supplies an alternative entry identity."
+    }
+   ],
+   "restore_strict_later": [
+    "Either close _free identity and the member141 operand using independently bound storage/library dependencies, or provide a complete independently proven selected/extracted member order from closed neighbours, with extents, padding, selection/folding and every target identity closed. Region filtering alone and outside caller votes do not restore STRICT."
+   ],
+   "bindings_path": "evidence/msvc_pair_deleter_bindings_2026_10_26.json",
+   "bindings_sha256": "15edea337508489297908041eaa8a28070a1205ac767bf2882dabb51d450f781",
+   "weak_identities_used": [
+    "??3@YAXPAX@Z"
+   ]
+  },
+  "exe.options_CGamePlayPage_deleter_60f0": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "??1CGamePlayPage@@UAE@XZ",
+     "reason": "No complete independent identity chain for the own EH label $L32013 (.text$x+0x32), initialized vtable at 0x2e070 and base/control destructor references. Own unique masked placement is insufficient under the reference-closure rule."
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "reason": "Pinned LIBCMT member141 .text (16 bytes) has an unbound REL32 _free at +6. Its four complete fixed-byte candidates are 0xb9a0,0xb9b0,0xc0f0,0x11b00. The 0x11b00 call observes _free candidate 0x10ab0; LIBCMT member126 uniquely shapes there but lacks __crtheap at +84 and recursively closed lock/SBH storage. No independent closed extraction-order chain supplies an alternative entry identity."
+    }
+   ],
+   "restore_strict_later": [
+    "Pin the full EH/supporting contributions and vtable payload with every nested target independently bound, and identify CButton/CStatic/CPropertyPage entries independently; alternatively supply a complete individually reviewed native identity proof. No requirement that the callee itself have a STRICT ledger row.",
+    "Either close _free identity and the member141 operand using independently bound storage/library dependencies, or provide a complete independently proven selected/extracted member order from closed neighbours, with extents, padding, selection/folding and every target identity closed. Region filtering alone and outside caller votes do not restore STRICT."
+   ],
+   "bindings_path": "evidence/msvc_pair_deleter_bindings_2026_10_26.json",
+   "bindings_sha256": "15edea337508489297908041eaa8a28070a1205ac767bf2882dabb51d450f781",
+   "weak_identities_used": [
+    "??1CGamePlayPage@@UAE@XZ",
+    "??3@YAXPAX@Z"
+   ]
+  },
+  "exe.options_CJoystickPage_deleter_81f0": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "reason": "Pinned LIBCMT member141 .text (16 bytes) has an unbound REL32 _free at +6. Its four complete fixed-byte candidates are 0xb9a0,0xb9b0,0xc0f0,0x11b00. The 0x11b00 call observes _free candidate 0x10ab0; LIBCMT member126 uniquely shapes there but lacks __crtheap at +84 and recursively closed lock/SBH storage. No independent closed extraction-order chain supplies an alternative entry identity."
+    }
+   ],
+   "restore_strict_later": [
+    "Either close _free identity and the member141 operand using independently bound storage/library dependencies, or provide a complete independently proven selected/extracted member order from closed neighbours, with extents, padding, selection/folding and every target identity closed. Region filtering alone and outside caller votes do not restore STRICT."
+   ],
+   "bindings_path": "evidence/msvc_pair_deleter_bindings_2026_10_26.json",
+   "bindings_sha256": "15edea337508489297908041eaa8a28070a1205ac767bf2882dabb51d450f781",
+   "weak_identities_used": [
+    "??3@YAXPAX@Z"
+   ]
+  },
+  "exe.options_CKeyboardPage_deleter_8be0": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "reason": "Pinned LIBCMT member141 .text (16 bytes) has an unbound REL32 _free at +6. Its four complete fixed-byte candidates are 0xb9a0,0xb9b0,0xc0f0,0x11b00. The 0x11b00 call observes _free candidate 0x10ab0; LIBCMT member126 uniquely shapes there but lacks __crtheap at +84 and recursively closed lock/SBH storage. No independent closed extraction-order chain supplies an alternative entry identity."
+    }
+   ],
+   "restore_strict_later": [
+    "Either close _free identity and the member141 operand using independently bound storage/library dependencies, or provide a complete independently proven selected/extracted member order from closed neighbours, with extents, padding, selection/folding and every target identity closed. Region filtering alone and outside caller votes do not restore STRICT."
+   ],
+   "bindings_path": "evidence/msvc_pair_deleter_bindings_2026_10_26.json",
+   "bindings_sha256": "15edea337508489297908041eaa8a28070a1205ac767bf2882dabb51d450f781",
+   "weak_identities_used": [
+    "??3@YAXPAX@Z"
+   ]
+  },
+  "exe.options_COptionsSheet_deleter_107d0": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "??1COptionsSheet@@UAE@XZ",
+     "reason": "No complete independent identity chain for $L32045 (.text$x+0x32), initialized vtable at 0x2ed20, embedded page destructor identities and CPropertySheet destructor."
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "reason": "Pinned LIBCMT member141 .text (16 bytes) has an unbound REL32 _free at +6. Its four complete fixed-byte candidates are 0xb9a0,0xb9b0,0xc0f0,0x11b00. The 0x11b00 call observes _free candidate 0x10ab0; LIBCMT member126 uniquely shapes there but lacks __crtheap at +84 and recursively closed lock/SBH storage. No independent closed extraction-order chain supplies an alternative entry identity."
+    }
+   ],
+   "restore_strict_later": [
+    "Bind complete EH/supporting sections, initialized vtable and nested page/base entries under existing rules, or supply a complete independently authored native identity review; do not use mutual page/sheet caller votes.",
+    "Either close _free identity and the member141 operand using independently bound storage/library dependencies, or provide a complete independently proven selected/extracted member order from closed neighbours, with extents, padding, selection/folding and every target identity closed. Region filtering alone and outside caller votes do not restore STRICT."
+   ],
+   "bindings_path": "evidence/msvc_pair_deleter_bindings_2026_10_26.json",
+   "bindings_sha256": "15edea337508489297908041eaa8a28070a1205ac767bf2882dabb51d450f781",
+   "weak_identities_used": [
+    "??1COptionsSheet@@UAE@XZ",
+    "??3@YAXPAX@Z"
+   ]
+  },
+  "exe.options_CSoundPage_deleter_101d0": {
+   "verdict": "DEMOTE",
+   "missing_link": [
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "reason": "Pinned LIBCMT member141 .text (16 bytes) has an unbound REL32 _free at +6. Its four complete fixed-byte candidates are 0xb9a0,0xb9b0,0xc0f0,0x11b00. The 0x11b00 call observes _free candidate 0x10ab0; LIBCMT member126 uniquely shapes there but lacks __crtheap at +84 and recursively closed lock/SBH storage. No independent closed extraction-order chain supplies an alternative entry identity."
+    }
+   ],
+   "restore_strict_later": [
+    "Either close _free identity and the member141 operand using independently bound storage/library dependencies, or provide a complete independently proven selected/extracted member order from closed neighbours, with extents, padding, selection/folding and every target identity closed. Region filtering alone and outside caller votes do not restore STRICT."
+   ],
+   "bindings_path": "evidence/msvc_pair_deleter_bindings_2026_10_26.json",
+   "bindings_sha256": "15edea337508489297908041eaa8a28070a1205ac767bf2882dabb51d450f781",
+   "weak_identities_used": [
+    "??3@YAXPAX@Z"
+   ]
+  }
+ }
+}

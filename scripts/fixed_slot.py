@@ -89,8 +89,18 @@ def review_inputs(record, target):
     review = json.loads(raw)
     observed = {path.resolve(): REVIEW_SHA256}
     module = None
+    # The target may come from --original-root; the other reviewed originals
+    # (uncommitted assets/ and work/discs files) live under that same root.
+    originals = ROOT
     for name, row in review['inputs'].items():
-        item = (ROOT / row['path']).resolve()
+        if name == Path(target).name.upper():
+            parts = Path(row['path']).parts
+            resolved = Path(target).resolve()
+            if resolved.parts[-len(parts):] == parts:
+                originals = Path(*resolved.parts[:-len(parts)])
+    for name, row in review['inputs'].items():
+        original = Path(row['path']).parts[:1] == ('assets',) or Path(row['path']).parts[:2] == ('work', 'discs')
+        item = ((originals if original else ROOT) / row['path']).resolve()
         # Compare the actual target image, including --original-root copies.
         source = Path(target).resolve() if name == Path(target).name.upper() else item
         actual = hashlib.sha256(source.read_bytes()).hexdigest()
