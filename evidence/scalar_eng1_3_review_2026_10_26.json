@@ -1,0 +1,4044 @@
+{
+ "schema": 1,
+ "task_id": "scalar_eng1_3",
+ "review_date": "2026-10-26",
+ "durable_path_when_promoted": "evidence/scalar_eng1_3_review_2026_10_26.json",
+ "scope": "Static native audit of the 12 assigned loader-zero ENG1 cells; no original executable/module was run.",
+ "native_module": {
+  "path": "assets/pc/HERCULES/ENG1.DLL",
+  "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "image_base": 268435456,
+  "image_size": 516096
+ },
+ "survey_method": {
+  "relocation_source": "all IMAGE_REL_BASED_HIGHLOW entries in the complete PE image; target values converted to RVAs and filtered to each cell and its +/-0x20 neighbourhood",
+  "instruction_recovery": "Capstone x86-32 5.0.7; all recorded ENG1 function entries plus a linear pass over executable sections; a fixup is accepted only where its exact four-byte field is a complete decoded instruction immediate/displacement",
+  "cell_extent_review": "All decoded direct-memory accesses whose byte ranges overlap the candidate cell were recorded; any unresolved exact-target HIGHLOW fixup is listed and prevents acceptance. No guessed instruction boundaries were used.",
+  "blockers_source": "work/velocity_b/blockers.json; 1489 rows total, 520 ENG1 ranges considered",
+  "assigned_caller_ids": [
+   "eng1.30d00",
+   "eng1.310e0",
+   "eng1.39ff0",
+   "eng1.3ca50",
+   "eng1.native_code_target_00266a0",
+   "eng1.native_code_target_02d1f0",
+   "eng1.shared_31a70"
+  ],
+  "source_semantics_source": "current declarations, macro aliases, and definitions under src/; no owner was inferred from caller relocation destinations"
+ },
+ "cells": {
+  "_g_2bb28": {
+   "rva": 461892,
+   "size_candidate": 4,
+   "caller_declared_type": "int *",
+   "decision": "scalar_owner_supported",
+   "extent_owner": {
+    "source": "src/title/title_common.c",
+    "symbol": "_g_2bb28",
+    "existing_definition_or_alias": "All 5 HIGHLOW references to the exact base decode as direct absolute DWORD memory operands; all overlapping accesses are DWORD at offset zero; no unresolved exact-target fixups. Existing definition is present in src/title/title_common.c."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 202070,
+     "target_rva": 461892,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 202068,
+       "size": 10,
+       "bytes": "c705440c071000000000",
+       "mnemonic": "mov",
+       "op_str": "dword ptr [0x10070c44], 0",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 6,
+       "imm_size": 4,
+       "decoded_from": [
+        "row:eng1.eng1_31540"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 203417,
+     "target_rva": 461892,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 203415,
+       "size": 6,
+       "bytes": "8b0d440c0710",
+       "mnemonic": "mov",
+       "op_str": "ecx, dword ptr [0x10070c44]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.shared_31a70"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 203699,
+     "target_rva": 461892,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 203698,
+       "size": 5,
+       "bytes": "a3440c0710",
+       "mnemonic": "mov",
+       "op_str": "dword ptr [0x10070c44], eax",
+       "disp_offset": 1,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.shared_31a70"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 203725,
+     "target_rva": 461892,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 203723,
+       "size": 6,
+       "bytes": "8b3d440c0710",
+       "mnemonic": "mov",
+       "op_str": "edi, dword ptr [0x10070c44]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.shared_31bc0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 204065,
+     "target_rva": 461892,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 204063,
+       "size": 6,
+       "bytes": "893d440c0710",
+       "mnemonic": "mov",
+       "op_str": "dword ptr [0x10070c44], edi",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.shared_31bc0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 202070,
+     "address_rva": 461892,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 202068,
+      "size": 10,
+      "bytes": "c705440c071000000000",
+      "mnemonic": "mov",
+      "op_str": "dword ptr [0x10070c44], 0",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 6,
+      "imm_size": 4,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897348,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 4,
+        "immediate": 0
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.eng1_31540"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 203417,
+     "address_rva": 461892,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 203415,
+      "size": 6,
+      "bytes": "8b0d440c0710",
+      "mnemonic": "mov",
+      "op_str": "ecx, dword ptr [0x10070c44]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897348,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.shared_31a70"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.shared_31a70"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 203699,
+     "address_rva": 461892,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 203698,
+      "size": 5,
+      "bytes": "a3440c0710",
+      "mnemonic": "mov",
+      "op_str": "dword ptr [0x10070c44], eax",
+      "disp_offset": 1,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897348,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 4
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.shared_31a70"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.shared_31a70"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 203725,
+     "address_rva": 461892,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 203723,
+      "size": 6,
+      "bytes": "8b3d440c0710",
+      "mnemonic": "mov",
+      "op_str": "edi, dword ptr [0x10070c44]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897348,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.shared_31bc0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.shared_31bc0"
+     ]
+    },
+    {
+     "fixup_rva": 204065,
+     "address_rva": 461892,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 204063,
+      "size": 6,
+      "bytes": "893d440c0710",
+      "mnemonic": "mov",
+      "op_str": "dword ptr [0x10070c44], edi",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897348,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 4
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.shared_31bc0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.shared_31bc0"
+     ]
+    }
+   ],
+   "independent_anchor": {
+    "rva": 202068,
+    "size": 10,
+    "bytes": "c705440c071000000000",
+    "sha256": "a947aaff1a6718312e52663d5beec3ae29bc426dbea2b873fdc4e0cb044d11b3",
+    "mnemonic": "mov",
+    "op_str": "dword ptr [0x10070c44], 0",
+    "operand": 0,
+    "highlow_fixup_rva": 202070,
+    "section": ".text",
+    "decoded_from": [
+     "row:eng1.eng1_31540"
+    ],
+    "outside_assigned_callers": true,
+    "selected_row_overlap": [],
+    "pending_blocker_overlap": []
+   },
+   "review_reason": "All 5 HIGHLOW references to the exact base decode as direct absolute DWORD memory operands; all overlapping accesses are DWORD at offset zero; no unresolved exact-target fixups. Existing definition is present in src/title/title_common.c."
+  },
+  "_g_2cbf0": {
+   "rva": 462124,
+   "size_candidate": 4,
+   "caller_declared_type": "char *",
+   "decision": "skip",
+   "extent_owner": {
+    "source": "src/title/title_common.c",
+    "symbol": null,
+    "existing_definition_or_alias": "One exact-target HIGHLOW fixup at 0x207a7 has no unambiguous complete instruction boundary; alternative decodes disagree between a direct memory operand and an immediate. Cannot certify every access as a direct scalar."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 133031,
+     "target_rva": 462124,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 201737,
+     "target_rva": 462124,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 201735,
+       "size": 6,
+       "bytes": "8b0d2c0d0710",
+       "mnemonic": "mov",
+       "op_str": "ecx, dword ptr [0x10070d2c]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.313e0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 201889,
+     "target_rva": 462124,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 201887,
+       "size": 6,
+       "bytes": "8b0d2c0d0710",
+       "mnemonic": "mov",
+       "op_str": "ecx, dword ptr [0x10070d2c]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.shared_31470"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 201982,
+     "target_rva": 462124,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 201980,
+       "size": 6,
+       "bytes": "8b0d2c0d0710",
+       "mnemonic": "mov",
+       "op_str": "ecx, dword ptr [0x10070d2c]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.shared_31470"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 203444,
+     "target_rva": 462124,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 203442,
+       "size": 6,
+       "bytes": "8b0d2c0d0710",
+       "mnemonic": "mov",
+       "op_str": "ecx, dword ptr [0x10070d2c]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.shared_31a70"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 203735,
+     "target_rva": 462124,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 203733,
+       "size": 6,
+       "bytes": "8b152c0d0710",
+       "mnemonic": "mov",
+       "op_str": "edx, dword ptr [0x10070d2c]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.shared_31bc0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 204497,
+     "target_rva": 462124,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 204495,
+       "size": 6,
+       "bytes": "8b0d2c0d0710",
+       "mnemonic": "mov",
+       "op_str": "ecx, dword ptr [0x10070d2c]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.profile_extent_31ec0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 201737,
+     "address_rva": 462124,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 201735,
+      "size": 6,
+      "bytes": "8b0d2c0d0710",
+      "mnemonic": "mov",
+      "op_str": "ecx, dword ptr [0x10070d2c]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897580,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.313e0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.313e0"
+     ]
+    },
+    {
+     "fixup_rva": 201889,
+     "address_rva": 462124,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 201887,
+      "size": 6,
+      "bytes": "8b0d2c0d0710",
+      "mnemonic": "mov",
+      "op_str": "ecx, dword ptr [0x10070d2c]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897580,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.shared_31470"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.shared_31470"
+     ]
+    },
+    {
+     "fixup_rva": 201982,
+     "address_rva": 462124,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 201980,
+      "size": 6,
+      "bytes": "8b0d2c0d0710",
+      "mnemonic": "mov",
+      "op_str": "ecx, dword ptr [0x10070d2c]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897580,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.shared_31470"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.shared_31470"
+     ]
+    },
+    {
+     "fixup_rva": 203444,
+     "address_rva": 462124,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 203442,
+      "size": 6,
+      "bytes": "8b0d2c0d0710",
+      "mnemonic": "mov",
+      "op_str": "ecx, dword ptr [0x10070d2c]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897580,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.shared_31a70"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.shared_31a70"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 203735,
+     "address_rva": 462124,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 203733,
+      "size": 6,
+      "bytes": "8b152c0d0710",
+      "mnemonic": "mov",
+      "op_str": "edx, dword ptr [0x10070d2c]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897580,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.shared_31bc0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.shared_31bc0"
+     ]
+    },
+    {
+     "fixup_rva": 204497,
+     "address_rva": 462124,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 204495,
+      "size": 6,
+      "bytes": "8b0d2c0d0710",
+      "mnemonic": "mov",
+      "op_str": "ecx, dword ptr [0x10070d2c]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897580,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.profile_extent_31ec0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": []
+    }
+   ],
+   "independent_anchor": null,
+   "review_reason": "One exact-target HIGHLOW fixup at 0x207a7 has no unambiguous complete instruction boundary; alternative decodes disagree between a direct memory operand and an immediate. Cannot certify every access as a direct scalar."
+  },
+  "_g_camera_focal_70ce4": {
+   "rva": 462052,
+   "size_candidate": 4,
+   "caller_declared_type": "long / int declarations",
+   "decision": "skip",
+   "extent_owner": {
+    "source": "src/eng1/camera_storage.c",
+    "symbol": null,
+    "existing_definition_or_alias": "Four exact-target HIGHLOW fixups at 0x154d1, 0x2fb49, 0x2fd20, and 0x2fd96 have no uniquely established instruction boundary. Candidate decodes include an indexed memory form. Extent cannot be closed."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 16246,
+     "target_rva": 462052,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 16244,
+       "size": 6,
+       "bytes": "8b35e40c0710",
+       "mnemonic": "mov",
+       "op_str": "esi, dword ptr [0x10070ce4]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "linear:.text",
+        "row:eng1.03f60"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 87249,
+     "target_rva": 462052,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 195401,
+     "target_rva": 462052,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 195872,
+     "target_rva": 462052,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 195990,
+     "target_rva": 462052,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 200031,
+     "target_rva": 462052,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 200029,
+       "size": 6,
+       "bytes": "8b0de40c0710",
+       "mnemonic": "mov",
+       "op_str": "ecx, dword ptr [0x10070ce4]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.30d00"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 204889,
+     "target_rva": 462052,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 204887,
+       "size": 6,
+       "bytes": "8b3de40c0710",
+       "mnemonic": "mov",
+       "op_str": "edi, dword ptr [0x10070ce4]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.shared_32050"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 215750,
+     "target_rva": 462052,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 215748,
+       "size": 6,
+       "bytes": "8b0de40c0710",
+       "mnemonic": "mov",
+       "op_str": "ecx, dword ptr [0x10070ce4]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.34a30"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 226872,
+     "target_rva": 462052,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 226870,
+       "size": 10,
+       "bytes": "c705e40c071040010000",
+       "mnemonic": "mov",
+       "op_str": "dword ptr [0x10070ce4], 0x140",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 6,
+       "imm_size": 4,
+       "decoded_from": [
+        "row:eng1.374c0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 16246,
+     "address_rva": 462052,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 16244,
+      "size": 6,
+      "bytes": "8b35e40c0710",
+      "mnemonic": "mov",
+      "op_str": "esi, dword ptr [0x10070ce4]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897508,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "linear:.text",
+       "row:eng1.03f60"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.03f60"
+     ]
+    },
+    {
+     "fixup_rva": 200031,
+     "address_rva": 462052,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 200029,
+      "size": 6,
+      "bytes": "8b0de40c0710",
+      "mnemonic": "mov",
+      "op_str": "ecx, dword ptr [0x10070ce4]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897508,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.30d00"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.30d00"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 204889,
+     "address_rva": 462052,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 204887,
+      "size": 6,
+      "bytes": "8b3de40c0710",
+      "mnemonic": "mov",
+      "op_str": "edi, dword ptr [0x10070ce4]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897508,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.shared_32050"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.shared_32050"
+     ]
+    },
+    {
+     "fixup_rva": 215750,
+     "address_rva": 462052,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 215748,
+      "size": 6,
+      "bytes": "8b0de40c0710",
+      "mnemonic": "mov",
+      "op_str": "ecx, dword ptr [0x10070ce4]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897508,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.34a30"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.34a30"
+     ]
+    },
+    {
+     "fixup_rva": 226872,
+     "address_rva": 462052,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 226870,
+      "size": 10,
+      "bytes": "c705e40c071040010000",
+      "mnemonic": "mov",
+      "op_str": "dword ptr [0x10070ce4], 0x140",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 6,
+      "imm_size": 4,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268897508,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 4,
+        "immediate": 320
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.374c0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.374c0"
+     ]
+    }
+   ],
+   "independent_anchor": null,
+   "review_reason": "Four exact-target HIGHLOW fixups at 0x154d1, 0x2fb49, 0x2fd20, and 0x2fd96 have no uniquely established instruction boundary. Candidate decodes include an indexed memory form. Extent cannot be closed."
+  },
+  "_g_eng1_control_70efe": {
+   "rva": 462590,
+   "size_candidate": 2,
+   "caller_declared_type": "unsigned short",
+   "decision": "scalar_owner_supported",
+   "extent_owner": {
+    "source": "src/eng1/loader_zero_cells_3.c",
+    "symbol": "_g_eng1_control_70efe",
+    "existing_definition_or_alias": "All 17 exact-target HIGHLOW references decode as direct absolute WORD memory operands at offset zero; no overlapping, indexed, interior-offset, or wider access. No existing definition was found in src/."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 183405,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 183402,
+       "size": 7,
+       "bytes": "66891dfe0e0710",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], bx",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.native_code_target_02cc50"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 184695,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 184692,
+       "size": 7,
+       "bytes": "66390dfe0e0710",
+       "mnemonic": "cmp",
+       "op_str": "word ptr [0x10070efe], cx",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.eng1_native_code_target_02cd30"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 184766,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 184763,
+       "size": 7,
+       "bytes": "66891dfe0e0710",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], bx",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.eng1_native_code_target_02cd30"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 184834,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 184831,
+       "size": 8,
+       "bytes": "66833dfe0e071002",
+       "mnemonic": "cmp",
+       "op_str": "word ptr [0x10070efe], 2",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 1,
+       "decoded_from": [
+        "row:eng1.native_code_target_02d1f0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 184855,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 184852,
+       "size": 8,
+       "bytes": "66833dfe0e071000",
+       "mnemonic": "cmp",
+       "op_str": "word ptr [0x10070efe], 0",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 1,
+       "decoded_from": [
+        "row:eng1.native_code_target_02d1f0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 184882,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 184879,
+       "size": 7,
+       "bytes": "668b0dfe0e0710",
+       "mnemonic": "mov",
+       "op_str": "cx, word ptr [0x10070efe]",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.native_code_target_02d1f0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 248925,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 248922,
+       "size": 9,
+       "bytes": "66c705fe0e07100200",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 2",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3cb90"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 249082,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 249079,
+       "size": 9,
+       "bytes": "66c705fe0e07100100",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 1",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3cb90"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 249917,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 249914,
+       "size": 9,
+       "bytes": "66c705fe0e07100100",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 1",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3cf90"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 250219,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 250216,
+       "size": 9,
+       "bytes": "66c705fe0e07100200",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 2",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3cf90"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 250392,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 250389,
+       "size": 9,
+       "bytes": "66c705fe0e07100100",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 1",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3cf90"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 251196,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 251193,
+       "size": 9,
+       "bytes": "66c705fe0e07100200",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 2",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3d440"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 251359,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 251356,
+       "size": 9,
+       "bytes": "66c705fe0e07100100",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 1",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3d440"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 252417,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 252414,
+       "size": 9,
+       "bytes": "66c705fe0e07100200",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 2",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3d930"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 252574,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 252571,
+       "size": 9,
+       "bytes": "66c705fe0e07100100",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 1",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3d930"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 253739,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 253736,
+       "size": 9,
+       "bytes": "66c705fe0e07100200",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 2",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3dcd0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 253902,
+     "target_rva": 462590,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 253899,
+       "size": 9,
+       "bytes": "66c705fe0e07100100",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070efe], 1",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3dcd0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 183405,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 183402,
+      "size": 7,
+      "bytes": "66891dfe0e0710",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], bx",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_02cc50"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.native_code_target_02cc50"
+     ]
+    },
+    {
+     "fixup_rva": 184695,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 184692,
+      "size": 7,
+      "bytes": "66390dfe0e0710",
+      "mnemonic": "cmp",
+      "op_str": "word ptr [0x10070efe], cx",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.eng1_native_code_target_02cd30"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 184766,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 184763,
+      "size": 7,
+      "bytes": "66891dfe0e0710",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], bx",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.eng1_native_code_target_02cd30"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 184834,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 184831,
+      "size": 8,
+      "bytes": "66833dfe0e071002",
+      "mnemonic": "cmp",
+      "op_str": "word ptr [0x10070efe], 2",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 1,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_02d1f0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.native_code_target_02d1f0"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 184855,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 184852,
+      "size": 8,
+      "bytes": "66833dfe0e071000",
+      "mnemonic": "cmp",
+      "op_str": "word ptr [0x10070efe], 0",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 1,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 0
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_02d1f0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.native_code_target_02d1f0"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 184882,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 184879,
+      "size": 7,
+      "bytes": "668b0dfe0e0710",
+      "mnemonic": "mov",
+      "op_str": "cx, word ptr [0x10070efe]",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 2
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_02d1f0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.native_code_target_02d1f0"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 248925,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 248922,
+      "size": 9,
+      "bytes": "66c705fe0e07100200",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 2",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3cb90"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3cb90"
+     ]
+    },
+    {
+     "fixup_rva": 249082,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 249079,
+      "size": 9,
+      "bytes": "66c705fe0e07100100",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 1",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 1
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3cb90"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3cb90"
+     ]
+    },
+    {
+     "fixup_rva": 249917,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 249914,
+      "size": 9,
+      "bytes": "66c705fe0e07100100",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 1",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 1
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3cf90"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3cf90"
+     ]
+    },
+    {
+     "fixup_rva": 250219,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 250216,
+      "size": 9,
+      "bytes": "66c705fe0e07100200",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 2",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3cf90"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3cf90"
+     ]
+    },
+    {
+     "fixup_rva": 250392,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 250389,
+      "size": 9,
+      "bytes": "66c705fe0e07100100",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 1",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 1
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3cf90"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3cf90"
+     ]
+    },
+    {
+     "fixup_rva": 251196,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 251193,
+      "size": 9,
+      "bytes": "66c705fe0e07100200",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 2",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3d440"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3d440"
+     ]
+    },
+    {
+     "fixup_rva": 251359,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 251356,
+      "size": 9,
+      "bytes": "66c705fe0e07100100",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 1",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 1
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3d440"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3d440"
+     ]
+    },
+    {
+     "fixup_rva": 252417,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 252414,
+      "size": 9,
+      "bytes": "66c705fe0e07100200",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 2",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3d930"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3d930"
+     ]
+    },
+    {
+     "fixup_rva": 252574,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 252571,
+      "size": 9,
+      "bytes": "66c705fe0e07100100",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 1",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 1
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3d930"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3d930"
+     ]
+    },
+    {
+     "fixup_rva": 253739,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 253736,
+      "size": 9,
+      "bytes": "66c705fe0e07100200",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 2",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3dcd0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3dcd0"
+     ]
+    },
+    {
+     "fixup_rva": 253902,
+     "address_rva": 462590,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 253899,
+      "size": 9,
+      "bytes": "66c705fe0e07100100",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070efe], 1",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898046,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 1
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3dcd0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3dcd0"
+     ]
+    }
+   ],
+   "independent_anchor": {
+    "rva": 184763,
+    "size": 7,
+    "bytes": "66891dfe0e0710",
+    "sha256": "a09e0c707d20c243ffe8ae0e194c4da034cf2f2d4ef2e16ea832e0a30f302012",
+    "mnemonic": "mov",
+    "op_str": "word ptr [0x10070efe], bx",
+    "operand": 0,
+    "highlow_fixup_rva": 184766,
+    "section": ".text",
+    "decoded_from": [
+     "row:eng1.eng1_native_code_target_02cd30"
+    ],
+    "outside_assigned_callers": true,
+    "selected_row_overlap": [],
+    "pending_blocker_overlap": []
+   },
+   "review_reason": "All 17 exact-target HIGHLOW references decode as direct absolute WORD memory operands at offset zero; no overlapping, indexed, interior-offset, or wider access. No existing definition was found in src/."
+  },
+  "_g_eng1_control_70f0c": {
+   "rva": 462604,
+   "size_candidate": 2,
+   "caller_declared_type": "unsigned short",
+   "decision": "scalar_owner_supported",
+   "extent_owner": {
+    "source": "src/eng1/loader_zero_cells_3.c",
+    "symbol": "_g_eng1_control_70f0c",
+    "existing_definition_or_alias": "All 5 exact-target HIGHLOW references decode as direct absolute WORD memory operands at offset zero; no overlapping, indexed, interior-offset, or wider access. No existing definition was found in src/."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 183873,
+     "target_rva": 462604,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 183871,
+       "size": 6,
+       "bytes": "66a10c0f0710",
+       "mnemonic": "mov",
+       "op_str": "ax, word ptr [0x10070f0c]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.eng1_native_code_target_02cd30"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 184482,
+     "target_rva": 462604,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 184479,
+       "size": 7,
+       "bytes": "6689150c0f0710",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x10070f0c], dx",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.eng1_native_code_target_02cd30"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 184533,
+     "target_rva": 462604,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 184531,
+       "size": 6,
+       "bytes": "66a10c0f0710",
+       "mnemonic": "mov",
+       "op_str": "ax, word ptr [0x10070f0c]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.eng1_native_code_target_02cd30"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 248404,
+     "target_rva": 462604,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 248402,
+       "size": 6,
+       "bytes": "66a10c0f0710",
+       "mnemonic": "mov",
+       "op_str": "ax, word ptr [0x10070f0c]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.3ca50"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 257494,
+     "target_rva": 462604,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 257491,
+       "size": 7,
+       "bytes": "663b0d0c0f0710",
+       "mnemonic": "cmp",
+       "op_str": "cx, word ptr [0x10070f0c]",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.3ecb0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 183873,
+     "address_rva": 462604,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 183871,
+      "size": 6,
+      "bytes": "66a10c0f0710",
+      "mnemonic": "mov",
+      "op_str": "ax, word ptr [0x10070f0c]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 2
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898060,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.eng1_native_code_target_02cd30"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 184482,
+     "address_rva": 462604,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 184479,
+      "size": 7,
+      "bytes": "6689150c0f0710",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x10070f0c], dx",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898060,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.eng1_native_code_target_02cd30"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 184533,
+     "address_rva": 462604,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 184531,
+      "size": 6,
+      "bytes": "66a10c0f0710",
+      "mnemonic": "mov",
+      "op_str": "ax, word ptr [0x10070f0c]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 2
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898060,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.eng1_native_code_target_02cd30"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 248404,
+     "address_rva": 462604,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 248402,
+      "size": 6,
+      "bytes": "66a10c0f0710",
+      "mnemonic": "mov",
+      "op_str": "ax, word ptr [0x10070f0c]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 2
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898060,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3ca50"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.3ca50"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 257494,
+     "address_rva": 462604,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 257491,
+      "size": 7,
+      "bytes": "663b0d0c0f0710",
+      "mnemonic": "cmp",
+      "op_str": "cx, word ptr [0x10070f0c]",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 2
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268898060,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3ecb0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.3ecb0"
+     ]
+    }
+   ],
+   "independent_anchor": {
+    "rva": 183871,
+    "size": 6,
+    "bytes": "66a10c0f0710",
+    "sha256": "de55ce9f5180610cf44cae1aa4235ddaf9aae102a1cd635e6e40847a8118c4d3",
+    "mnemonic": "mov",
+    "op_str": "ax, word ptr [0x10070f0c]",
+    "operand": 1,
+    "highlow_fixup_rva": 183873,
+    "section": ".text",
+    "decoded_from": [
+     "row:eng1.eng1_native_code_target_02cd30"
+    ],
+    "outside_assigned_callers": true,
+    "selected_row_overlap": [],
+    "pending_blocker_overlap": []
+   },
+   "review_reason": "All 5 exact-target HIGHLOW references decode as direct absolute WORD memory operands at offset zero; no overlapping, indexed, interior-offset, or wider access. No existing definition was found in src/."
+  },
+  "_g_eng1_setup_word_7183c": {
+   "rva": 464956,
+   "size_candidate": 2,
+   "caller_declared_type": "short",
+   "decision": "skip",
+   "extent_owner": {
+    "source": "src/eng1/setup_shared_state.h",
+    "symbol": null,
+    "existing_definition_or_alias": "Current macro maps this name to g_actor_pipeline_storage_71440.word_cells[0x3fc / 2], an interior cell of a larger aggregate. Do not assign an invented scalar extent."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 87446,
+     "target_rva": 464956,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 90064,
+     "target_rva": 464956,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 158098,
+     "target_rva": 464956,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 226696,
+     "target_rva": 464956,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 226693,
+       "size": 7,
+       "bytes": "66891d3c180710",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x1007183c], bx",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.374c0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 248385,
+     "target_rva": 464956,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 248383,
+       "size": 6,
+       "bytes": "66a33c180710",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x1007183c], ax",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.native_code_target_003ca10"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 248426,
+     "target_rva": 464956,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 248423,
+       "size": 9,
+       "bytes": "66c7053c180710feff",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x1007183c], 0xfffe",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3ca50"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 248436,
+     "target_rva": 464956,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 248433,
+       "size": 9,
+       "bytes": "66c7053c180710c0ff",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x1007183c], 0xffc0",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.3ca50"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 226696,
+     "address_rva": 464956,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 226693,
+      "size": 7,
+      "bytes": "66891d3c180710",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x1007183c], bx",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268900412,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.374c0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.374c0"
+     ]
+    },
+    {
+     "fixup_rva": 248385,
+     "address_rva": 464956,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 248383,
+      "size": 6,
+      "bytes": "66a33c180710",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x1007183c], ax",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268900412,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_003ca10"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.native_code_target_003ca10"
+     ]
+    },
+    {
+     "fixup_rva": 248426,
+     "address_rva": 464956,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 248423,
+      "size": 9,
+      "bytes": "66c7053c180710feff",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x1007183c], 0xfffe",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268900412,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 65534
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3ca50"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.3ca50"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 248436,
+     "address_rva": 464956,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 248433,
+      "size": 9,
+      "bytes": "66c7053c180710c0ff",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x1007183c], 0xffc0",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268900412,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 65472
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.3ca50"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.3ca50"
+     ],
+     "pending_blocker_overlap": []
+    }
+   ],
+   "independent_anchor": null,
+   "review_reason": "Current macro maps this name to g_actor_pipeline_storage_71440.word_cells[0x3fc / 2], an interior cell of a larger aggregate. Do not assign an invented scalar extent."
+  },
+  "_g_eng1_sim_state_6feb4": {
+   "rva": 458420,
+   "size_candidate": 2,
+   "caller_declared_type": "unsigned short",
+   "decision": "skip",
+   "extent_owner": {
+    "source": "src/eng1/actor_region.h",
+    "symbol": null,
+    "existing_definition_or_alias": "Seven exact-target HIGHLOW fixups at 0x15311, 0x15734, 0x15879, 0x18c53, 0x18c8e, 0x18dee, and 0x18e2d have no complete instruction boundary. Scalar extent and width cannot be closed."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 86801,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 87860,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 88185,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 101459,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 101518,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 101870,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 101933,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 102217,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 102214,
+       "size": 9,
+       "bytes": "66c705b4fe06100000",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x1006feb4], 0",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.native_code_target_0018ed0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 102728,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 102725,
+       "size": 9,
+       "bytes": "66c705b4fe06100000",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x1006feb4], 0",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 7,
+       "imm_size": 2,
+       "decoded_from": [
+        "row:eng1.native_code_target_0019140"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 157353,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 157350,
+       "size": 7,
+       "bytes": "668b0db4fe0610",
+       "mnemonic": "mov",
+       "op_str": "cx, word ptr [0x1006feb4]",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.native_code_target_00266a0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 157371,
+     "target_rva": 458420,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 157369,
+       "size": 6,
+       "bytes": "66a3b4fe0610",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x1006feb4], ax",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.native_code_target_00266a0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 102217,
+     "address_rva": 458420,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 102214,
+      "size": 9,
+      "bytes": "66c705b4fe06100000",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x1006feb4], 0",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268893876,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 0
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_0018ed0"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.native_code_target_0018ed0"
+     ]
+    },
+    {
+     "fixup_rva": 102728,
+     "address_rva": 458420,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 102725,
+      "size": 9,
+      "bytes": "66c705b4fe06100000",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x1006feb4], 0",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 7,
+      "imm_size": 2,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268893876,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 2,
+        "size": 2,
+        "immediate": 0
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_0019140"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.native_code_target_0019140"
+     ]
+    },
+    {
+     "fixup_rva": 157353,
+     "address_rva": 458420,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 157350,
+      "size": 7,
+      "bytes": "668b0db4fe0610",
+      "mnemonic": "mov",
+      "op_str": "cx, word ptr [0x1006feb4]",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 2
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268893876,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_00266a0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.native_code_target_00266a0"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 157371,
+     "address_rva": 458420,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 157369,
+      "size": 6,
+      "bytes": "66a3b4fe0610",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x1006feb4], ax",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268893876,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_00266a0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.native_code_target_00266a0"
+     ],
+     "pending_blocker_overlap": []
+    }
+   ],
+   "independent_anchor": null,
+   "review_reason": "Seven exact-target HIGHLOW fixups at 0x15311, 0x15734, 0x15879, 0x18c53, 0x18c8e, 0x18dee, and 0x18e2d have no complete instruction boundary. Scalar extent and width cannot be closed."
+  },
+  "_g_frame_setup_result_734ec": {
+   "rva": 472300,
+   "size_candidate": 1,
+   "caller_declared_type": "unsigned char",
+   "decision": "scalar_owner_supported",
+   "extent_owner": {
+    "source": "src/eng1/frame_token_storage.c",
+    "symbol": "_g_frame_setup_result_734ec",
+    "existing_definition_or_alias": "Both exact-target HIGHLOW references decode as direct absolute BYTE memory operands at offset zero; no overlapping, indexed, interior-offset, or wider access. Existing exact byte definition is present. The only independent anchor is in pending blocker row eng1.shared_05710; no alternate outside-blocker reference exists."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 22341,
+     "target_rva": 472300,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 22340,
+       "size": 5,
+       "bytes": "a2ec340710",
+       "mnemonic": "mov",
+       "op_str": "byte ptr [0x100734ec], al",
+       "disp_offset": 1,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "linear:.text",
+        "row:eng1.shared_05710"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 201046,
+     "target_rva": 472300,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 201044,
+       "size": 6,
+       "bytes": "8a15ec340710",
+       "mnemonic": "mov",
+       "op_str": "dl, byte ptr [0x100734ec]",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.310e0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 22341,
+     "address_rva": 472300,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 1,
+     "instruction": {
+      "rva": 22340,
+      "size": 5,
+      "bytes": "a2ec340710",
+      "mnemonic": "mov",
+      "op_str": "byte ptr [0x100734ec], al",
+      "disp_offset": 1,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 1,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268907756,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 1
+       }
+      ],
+      "decoded_from": [
+       "linear:.text",
+       "row:eng1.shared_05710"
+      ]
+     },
+     "selected_overlap": [],
+     "pending_blocker_overlap": [
+      "eng1.shared_05710"
+     ]
+    },
+    {
+     "fixup_rva": 201046,
+     "address_rva": 472300,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 1,
+     "instruction": {
+      "rva": 201044,
+      "size": 6,
+      "bytes": "8a15ec340710",
+      "mnemonic": "mov",
+      "op_str": "dl, byte ptr [0x100734ec]",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 1
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 1,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268907756,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.310e0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.310e0"
+     ],
+     "pending_blocker_overlap": []
+    }
+   ],
+   "independent_anchor": {
+    "rva": 22340,
+    "size": 5,
+    "bytes": "a2ec340710",
+    "sha256": "1a125519534a0d43a3505ed822e0bc5635f03ee9f768572ae3e82a84a404ade3",
+    "mnemonic": "mov",
+    "op_str": "byte ptr [0x100734ec], al",
+    "operand": 0,
+    "highlow_fixup_rva": 22341,
+    "section": ".text",
+    "decoded_from": [
+     "linear:.text",
+     "row:eng1.shared_05710"
+    ],
+    "outside_assigned_callers": true,
+    "selected_row_overlap": [],
+    "pending_blocker_overlap": [
+     "eng1.shared_05710"
+    ]
+   },
+   "review_reason": "Both exact-target HIGHLOW references decode as direct absolute BYTE memory operands at offset zero; no overlapping, indexed, interior-offset, or wider access. Existing exact byte definition is present. The only independent anchor is in pending blocker row eng1.shared_05710; no alternate outside-blocker reference exists."
+  },
+  "_g_hit_direction_6feb8": {
+   "rva": 458424,
+   "size_candidate": 2,
+   "caller_declared_type": "unsigned short",
+   "decision": "skip",
+   "extent_owner": {
+    "source": "src/eng1/actor_region.h",
+    "symbol": null,
+    "existing_definition_or_alias": "The exact-target fixup at 0x18d15 has no complete instruction boundary and candidate decodes include a byte access or immediate, which conflicts with the selected caller WORD store."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 101653,
+     "target_rva": 458424,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 157408,
+     "target_rva": 458424,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 157405,
+       "size": 7,
+       "bytes": "668915b8fe0610",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x1006feb8], dx",
+       "disp_offset": 3,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.native_code_target_00266a0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 157408,
+     "address_rva": 458424,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 157405,
+      "size": 7,
+      "bytes": "668915b8fe0610",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x1006feb8], dx",
+      "disp_offset": 3,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268893880,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_00266a0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.native_code_target_00266a0"
+     ],
+     "pending_blocker_overlap": []
+    }
+   ],
+   "independent_anchor": null,
+   "review_reason": "The exact-target fixup at 0x18d15 has no complete instruction boundary and candidate decodes include a byte access or immediate, which conflicts with the selected caller WORD store."
+  },
+  "_g_hit_result_72008": {
+   "rva": 466952,
+   "size_candidate": 4,
+   "caller_declared_type": "long",
+   "decision": "skip",
+   "extent_owner": {
+    "source": "src/eng1/actor_region.h",
+    "symbol": null,
+    "existing_definition_or_alias": "Four exact-target HIGHLOW fixups at 0x153df, 0x15919, 0x1592a, and 0x15c43 have no complete instruction boundary; only the selected caller provides a decoded DWORD reference, so the full extent is not independently established."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 87007,
+     "target_rva": 466952,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 88345,
+     "target_rva": 466952,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 88362,
+     "target_rva": 466952,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 89155,
+     "target_rva": 466952,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 157419,
+     "target_rva": 466952,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 157418,
+       "size": 5,
+       "bytes": "a108200710",
+       "mnemonic": "mov",
+       "op_str": "eax, dword ptr [0x10072008]",
+       "disp_offset": 1,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.native_code_target_00266a0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 157419,
+     "address_rva": 466952,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 157418,
+      "size": 5,
+      "bytes": "a108200710",
+      "mnemonic": "mov",
+      "op_str": "eax, dword ptr [0x10072008]",
+      "disp_offset": 1,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268902408,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_00266a0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.native_code_target_00266a0"
+     ],
+     "pending_blocker_overlap": []
+    }
+   ],
+   "independent_anchor": null,
+   "review_reason": "Four exact-target HIGHLOW fixups at 0x153df, 0x15919, 0x1592a, and 0x15c43 have no complete instruction boundary; only the selected caller provides a decoded DWORD reference, so the full extent is not independently established."
+  },
+  "_g_hit_value_6febc": {
+   "rva": 458428,
+   "size_candidate": 2,
+   "caller_declared_type": "short",
+   "decision": "skip",
+   "extent_owner": {
+    "source": "src/eng1/actor_region.h",
+    "symbol": null,
+    "existing_definition_or_alias": "The exact-target fixup at 0x18c65 has no complete instruction boundary; candidate decodes include conflicting WORD, DWORD, and immediate interpretations."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 101477,
+     "target_rva": 458428,
+     "section": ".text",
+     "complete_instructions": [],
+     "instruction_boundary_status": "unresolved"
+    },
+    {
+     "field_rva": 157414,
+     "target_rva": 458428,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 157412,
+       "size": 6,
+       "bytes": "66a3bcfe0610",
+       "mnemonic": "mov",
+       "op_str": "word ptr [0x1006febc], ax",
+       "disp_offset": 2,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.native_code_target_00266a0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 157414,
+     "address_rva": 458428,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 2,
+     "instruction": {
+      "rva": 157412,
+      "size": 6,
+      "bytes": "66a3bcfe0610",
+      "mnemonic": "mov",
+      "op_str": "word ptr [0x1006febc], ax",
+      "disp_offset": 2,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 2,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268893884,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 2
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.native_code_target_00266a0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.native_code_target_00266a0"
+     ],
+     "pending_blocker_overlap": []
+    }
+   ],
+   "independent_anchor": null,
+   "review_reason": "The exact-target fixup at 0x18c65 has no complete instruction boundary; candidate decodes include conflicting WORD, DWORD, and immediate interpretations."
+  },
+  "_g_player_wave_6ffe8": {
+   "rva": 458728,
+   "size_candidate": 4,
+   "caller_declared_type": "long",
+   "decision": "skip",
+   "extent_owner": {
+    "source": "src/eng1/player_unit_36030.c",
+    "symbol": null,
+    "existing_definition_or_alias": "All three exact-target HIGHLOW references are direct absolute DWORD accesses at offset zero, but all occur inside assigned pending caller eng1.39ff0. No independent native anchor exists outside pending callers."
+   },
+   "absolute_highlow_fixups_to_exact_base": [
+    {
+     "field_rva": 237553,
+     "target_rva": 458728,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 237552,
+       "size": 5,
+       "bytes": "a1e8ff0610",
+       "mnemonic": "mov",
+       "op_str": "eax, dword ptr [0x1006ffe8]",
+       "disp_offset": 1,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.39ff0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 237563,
+     "target_rva": 458728,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 237562,
+       "size": 5,
+       "bytes": "a3e8ff0610",
+       "mnemonic": "mov",
+       "op_str": "dword ptr [0x1006ffe8], eax",
+       "disp_offset": 1,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.39ff0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    },
+    {
+     "field_rva": 237599,
+     "target_rva": 458728,
+     "section": ".text",
+     "complete_instructions": [
+      {
+       "rva": 237598,
+       "size": 5,
+       "bytes": "a1e8ff0610",
+       "mnemonic": "mov",
+       "op_str": "eax, dword ptr [0x1006ffe8]",
+       "disp_offset": 1,
+       "disp_size": 4,
+       "imm_offset": 0,
+       "imm_size": 0,
+       "decoded_from": [
+        "row:eng1.39ff0"
+       ]
+      }
+     ],
+     "instruction_boundary_status": "verified_exact_operand"
+    }
+   ],
+   "direct_accesses_overlapping_candidate_extent": [
+    {
+     "fixup_rva": 237553,
+     "address_rva": 458728,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 237552,
+      "size": 5,
+      "bytes": "a1e8ff0610",
+      "mnemonic": "mov",
+      "op_str": "eax, dword ptr [0x1006ffe8]",
+      "disp_offset": 1,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268894184,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.39ff0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.39ff0"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 237563,
+     "address_rva": 458728,
+     "kind": "direct_memory",
+     "operand_index": 0,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 237562,
+      "size": 5,
+      "bytes": "a3e8ff0610",
+      "mnemonic": "mov",
+      "op_str": "dword ptr [0x1006ffe8], eax",
+      "disp_offset": 1,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268894184,
+         "segment": 0
+        }
+       },
+       {
+        "index": 1,
+        "type": 1,
+        "size": 4
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.39ff0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.39ff0"
+     ],
+     "pending_blocker_overlap": []
+    },
+    {
+     "fixup_rva": 237599,
+     "address_rva": 458728,
+     "kind": "direct_memory",
+     "operand_index": 1,
+     "operand_width": 4,
+     "instruction": {
+      "rva": 237598,
+      "size": 5,
+      "bytes": "a1e8ff0610",
+      "mnemonic": "mov",
+      "op_str": "eax, dword ptr [0x1006ffe8]",
+      "disp_offset": 1,
+      "disp_size": 4,
+      "imm_offset": 0,
+      "imm_size": 0,
+      "operands": [
+       {
+        "index": 0,
+        "type": 1,
+        "size": 4
+       },
+       {
+        "index": 1,
+        "type": 3,
+        "size": 4,
+        "memory": {
+         "base": 0,
+         "index": 0,
+         "scale": 1,
+         "disp": 268894184,
+         "segment": 0
+        }
+       }
+      ],
+      "decoded_from": [
+       "row:eng1.39ff0"
+      ]
+     },
+     "selected_overlap": [
+      "eng1.39ff0"
+     ],
+     "pending_blocker_overlap": []
+    }
+   ],
+   "independent_anchor": null,
+   "review_reason": "All three exact-target HIGHLOW references are direct absolute DWORD accesses at offset zero, but all occur inside assigned pending caller eng1.39ff0. No independent native anchor exists outside pending callers."
+  }
+ },
+ "callee_probe": {
+  "function_id": "eng1.03f60",
+  "source": "src/eng1/sprite_unit_03cd0.c",
+  "source_sha256": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "command": "python scripts/match.py candidate eng1.03f60 --source src/eng1/sprite_unit_03cd0.c",
+  "compiler_event_file": "work/velocity_b/compiler_events/c8fd21980f19495e9aa6f67d5c7d5a51.json",
+  "compiler_event_sha256": "63cad47b0dcdf26a9bf9a839613c00cd9d74e2aaec1c906de76081a0297aeb3b",
+  "result": "176/176 bytes; raw mismatch at 11 bytes in intervals [22,26), [94,96), [117,118), [149,151), [161,163); 5 object relocations, 1 target HIGHLOW. All differences coincide with the five relocation fields identified in its own row; this is a shape receipt only, not evidence for its separate callees or _g_camera_focal_70ce4 owner."
+ },
+ "limits": [
+  "A supported scalar cell does not establish semantic completeness or source identity.",
+  "Unresolved fixups are not decoded by guessing alternate instruction starts.",
+  "The frame-result anchor at 0x5744 overlaps pending blocker eng1.shared_05710; this is the only outside-lane direct anchor."
+ ],
+ "supplemental_static_disassembly": {
+  "path": "work/velocity_b/scalar_eng1_3/gap_candidates.json",
+  "sha256": "13516a0a9905dee7292c18f7f64f081b339ce11559969018605fcc7a58f7a9bc",
+  "unresolved_fixups": 21,
+  "note": "Capstone start-position exploration only; each candidate list is ambiguous and none was accepted as an instruction boundary."
+ }
+}
