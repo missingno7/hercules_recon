@@ -67,13 +67,6 @@ def verify_calls(pe,bindings,records,reviewed,instructions,rva,size,relocation_r
     if not isinstance(calls,list):raise ValueError('Invalid explicit callback inventory')
     verified={};windows=[];starts={i.address-rva:n for n,i in enumerate(instructions)}
     for record in calls:
-        if isinstance(record,dict) and record.get('profile')=='fixed-slot-v1':
-            from fixed_slot import verify_call
-            receipt=verify_call(pe,record,records,reviewed,instructions,rva,size)
-            off=record['offset']
-            if off in verified:raise ValueError('Invalid/duplicate fixed-slot offset')
-            verified[off]=receipt
-            continue
         if not isinstance(record,dict) or set(record)!={'kind','offset','root_offset','root','mask','stride','identity','evidence'} or record['kind']!='rooted-callback-v1':raise ValueError('Invalid explicit rooted callback proof')
         refs=record['evidence']
         if not isinstance(refs,list) or not refs or any(not isinstance(s,str) or not s.strip() for s in refs):raise ValueError('Callback proof needs independent evidence')

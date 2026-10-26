@@ -433,7 +433,21 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
     if set(reviewed) != actual_offsets or not table_starts <= actual_offsets:
         raise ValueError('Reviewed relocation/table entry inventory differs from COFF')
     from callback_transfer import verify_calls
-    callback_calls = verify_calls(pe, bindings, records, reviewed, instructions, rva, size, receipts)
+    # callback_transfer.py is pinned by accepted proofs; dispatch the separate
+    # fixed-slot profile here and pass only the other records to it.
+    calls = bindings.get('indirect_calls', [])
+    if not isinstance(calls, list):
+        raise ValueError('Invalid explicit callback inventory')
+    fixed = [c for c in calls if isinstance(c, dict) and c.get('profile') == 'fixed-slot-v1']
+    rooted = [c for c in calls if c not in fixed]
+    callback_calls = verify_calls(pe, dict(bindings, indirect_calls=rooted), records, reviewed,
+                                  instructions, rva, size, receipts)
+    if fixed:
+        from fixed_slot import verify_call
+        for record in fixed:
+            if record['offset'] in callback_calls:
+                raise ValueError('Invalid/duplicate fixed-slot offset')
+            callback_calls[record['offset']] = verify_call(pe, record, records, reviewed, instructions, rva, size)
     for ins in instructions:
         if not (ins.group(capstone.CS_GRP_CALL) or ins.group(capstone.CS_GRP_JUMP)):
             continue
