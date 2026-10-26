@@ -5,7 +5,17 @@ and the focused source/evidence for the function or dependency family. Work from
 a falsifiable question; keep experiments under ignored candidates/ or work/.
 Generated packets and reports are disposable and never grant acceptance.
 
-For the current blocker frontier and measured integration results, see
+To choose lanes, rank the reference blockers of all pending instruction-equal rows
+against the current ledger and accepted binding documents (about 180 fresh compiles,
+planning only; implied destinations never establish identity):
+
+    python scripts/blocker_queue.py --census work/realignment/census/recorded.json --output work/blockers/queue.json
+
+Cut lanes by blocking symbol and lane type (identity reuse, file-backed data, scalar
+loader-zero owner, callee identity); see [velocity_b](matching_velocity_2026_10_26b.md),
+which accepted 406 functions this way, including the `fixed-slot-v1` interface profile.
+
+For the earlier blocker frontier and measured integration results, see
 [the velocity pilot](matching_velocity_2026_10_25.md). Build a planning view from
 the recorded census and small, reviewed handoffs; do not rebuild the census:
 
