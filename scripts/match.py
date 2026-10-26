@@ -55,11 +55,13 @@ def portable_unit_inventory(obj):
 
     The only checkout-dependent bytes of the inventory are the absolute source
     paths in FILE auxiliary records; every section, relocation, other symbol and
-    auxiliary record stays in the hash.
+    auxiliary record stays in the hash. Symbols are hashed as an ordered list,
+    not by table index: a longer FILE path takes more auxiliary records and
+    shifts every later index (relocations already name their symbols).
     """
     coff = COFF(obj)
-    symbols = copy.deepcopy(coff.symbols)
-    for symbol in symbols.values():
+    symbols = [copy.deepcopy(coff.symbols[index]) for index in sorted(coff.symbols)]
+    for symbol in symbols:
         if symbol['storage'] != 103:
             continue
         path = Path(b''.join(symbol['aux']).rstrip(b'\0').decode('ascii'))

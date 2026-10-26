@@ -14,30 +14,34 @@ def aux(text):
 
 
 class FakeCoff:
+    """Symbol table keyed by raw index, as coff.COFF builds it: aux records advance the index."""
+
     def __init__(self, path, payload=b'\x90'):
-        self.sections = [dict(name='.text', data=payload)]
-        self.symbols = {0: dict(name='.file', storage=103, aux=aux(path)),
-                        2: dict(name='_f', storage=2, aux=[])}
+        records = aux(path)
+        self.sections = [dict(name='.text', data=payload, relocations=[dict(offset=1, symbol='_f', type=20)])]
+        self.symbols = {0: dict(name='.file', storage=103, aux=records),
+                        1 + len(records): dict(name='_f', storage=2, aux=[])}
+
+
+def portable(root, coff):
+    with mock.patch.object(match, 'ROOT', Path(root)), mock.patch.object(match, 'COFF', lambda obj: coff):
+        return match.portable_unit_inventory(None)
 
 
 class PortableInventory(unittest.TestCase):
-    def portable(self, root, coff):
-        with mock.patch.object(match, 'ROOT', Path(root)), mock.patch.object(match, 'COFF', lambda obj: coff):
-            return match.portable_unit_inventory(None)
-
-    def test_checkout_location_does_not_change_the_hash(self):
-        short = self.portable('C:/r', FakeCoff('C:\\r\\src\\a.c'))
-        long = self.portable('D:/some/much/longer/clone', FakeCoff('D:\\some\\much\\longer\\clone\\src\\a.c'))
+    def test_checkout_location_and_index_shift_do_not_change_the_hash(self):
+        short = portable('C:/r', FakeCoff('C:\\r\\src\\a.c'))
+        long = portable('D:/a/very/long/clone/path/here', FakeCoff('D:\\a\\very\\long\\clone\\path\\here\\src\\a.c'))
         self.assertEqual(short, long)
 
     def test_content_and_relative_path_still_count(self):
-        base = self.portable('C:/r', FakeCoff('C:\\r\\src\\a.c'))
-        self.assertNotEqual(base, self.portable('C:/r', FakeCoff('C:\\r\\src\\a.c', payload=b'\xc3')))
-        self.assertNotEqual(base, self.portable('C:/r', FakeCoff('C:\\r\\src\\b.c')))
+        base = portable('C:/r', FakeCoff('C:\\r\\src\\a.c'))
+        self.assertNotEqual(base, portable('C:/r', FakeCoff('C:\\r\\src\\a.c', payload=b'\xc3')))
+        self.assertNotEqual(base, portable('C:/r', FakeCoff('C:\\r\\src\\b.c')))
 
     def test_file_record_outside_repository_refuses(self):
         with self.assertRaises(ValueError):
-            self.portable('C:/r', FakeCoff('C:\\elsewhere\\a.c'))
+            portable('C:/r', FakeCoff('C:\\elsewhere\\a.c'))
 
     def test_recorded_portable_hash_is_what_validation_checks(self):
         row = dict(id='m.a', proof=dict(unit_inventory_sha256='0' * 64, context_sha256={'x': 'y'},
