@@ -60,3 +60,15 @@ A full fresh verification inside a clean clone exposed two path dependencies, no
    then did it add `unit_inventory_portable_sha256`, the same complete inventory with FILE paths
    repository-relative. `match.py` checks the portable hash when it is present. The original
    hash stays in each proof.
+
+Two follow-ups, both found only by verifying a fresh clone at a different path:
+- The portable hash must list symbols in table order. A longer FILE path adds auxiliary
+  records, which shifts every later symbol index.
+- Two legacy LINKED rows, title.01dd0 and title.016e0, are verified through retained
+  `prior_raw_proof` records that also pinned the absolute inventory. Both now carry the
+  portable hash, recorded after the original reproduced.
+
+Result at `6fcd741`, in a fresh `autocrlf=true` clone outside the developer checkout:
+- pins: 57,533 checked, 0 problems, under both EOL settings;
+- `match.py verify --original-root`: 995 of 995 RAW/RELOCATED rows exact, 183 compiles;
+- LINKED: 43 rows verified, 0 failures.
