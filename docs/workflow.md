@@ -14,6 +14,11 @@ planning only; implied destinations never establish identity):
 Cut lanes by blocking symbol and lane type (identity reuse, file-backed data, scalar
 loader-zero owner, callee identity); see [velocity_b](matching_velocity_2026_10_26b.md),
 which accepted 466 functions this way, including the `fixed-slot-v1` interface profile.
+Further opt-in forms (relocated same-unit data, the VC5 UNDEF/COMDAT pair, CMP/TEST
+anchors) are in [verifier forms](verifier_forms_2026_10_26.md). Accepted proofs pin some
+docs and scripts byte-for-byte (for example `docs/matching.md` and
+`scripts/callback_transfer.py`): check binding `evidence_files` before editing either,
+and don't cite living docs as binding evidence.
 
 For the earlier blocker frontier and measured integration results, see
 [the velocity pilot](matching_velocity_2026_10_25.md). Build a planning view from
