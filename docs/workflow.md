@@ -13,7 +13,7 @@ planning only; implied destinations never establish identity):
 
 Cut lanes by blocking symbol and lane type (identity reuse, file-backed data, scalar
 loader-zero owner, callee identity); see [velocity_b](matching_velocity_2026_10_26b.md),
-which accepted 406 functions this way, including the `fixed-slot-v1` interface profile.
+which accepted 466 functions this way, including the `fixed-slot-v1` interface profile.
 
 For the earlier blocker frontier and measured integration results, see
 [the velocity pilot](matching_velocity_2026_10_25.md). Build a planning view from

@@ -1,8 +1,8 @@
 # Matching campaign velocity_b — 26 October 2026 (afternoon)
 
-**Published: 406 STRICT functions / 20,160 bytes**, all FUNCTION_MATCH_RELOCATED.
+**Published: 466 STRICT functions / 30,104 bytes**, all FUNCTION_MATCH_RELOCATED.
 Baseline `0a22ddead43d97a87c87e98ee4a7d864ca2ce9af` (554 accepted); result
-`3726d29` (960 accepted: 145 RAW, 772 RELOCATED, 43 legacy LINKED).
+1,020 accepted: 145 RAW, 832 RELOCATED, 43 legacy LINKED.
 Every batch went through the journaled promotion gate with fresh full peer
 protection and the 43-row LINKED check (its 86 provenance drifts unchanged).
 Zero rejected integrations after the one caught protection failure below.
@@ -14,6 +14,8 @@ Zero rejected integrations after the one caught protection failure below.
 | 3 | `154afc4` | 22 | 3,424 | interface-root data users; EXE literals; `_g_configuration_dword_713bc` |
 | 4 | `07d8df7` | 32 | 4,176 | dispatcher/resource identities; strings; ENG1 scalar cells; ENG3 helpers |
 | 5 | `3726d29` | 311 | 6,672 | new `fixed-slot-v1` profile (`8ece9b5`, `ddb6cfb`) |
+| 6 | `44c9711` | 48 | 6,312 | ENG3 `_g_focus` 4-byte cell; ENG1/ENG3 scalar cells |
+| 7 | this commit | 12 | 3,632 | reuse of identities accepted earlier in the campaign |
 
 ## What changed the velocity
 
@@ -41,15 +43,13 @@ Zero rejected integrations after the one caught protection failure below.
 
 ## Measured cost
 
-About 1,817 compiler invocations in the opt-in collectors: 1,762 under
-`work/velocity_b/compiler_events*` (119 s of compiler time) and 55 in the
-interface worktree. They split into worker focused checks and the
-classifier/queue (718), five promotion protections including one failed attempt
-(918), the interface sample check (21) and test runs (105). Eighteen nonzero
-exits were private probe or fixture errors. That is **22.3 accepted functions
-per 100 calls end to end**, against 1.20 in the previous campaign, on a
-different task mix. Wall time from the first lane result to the last accepted
-commit was about 62 minutes. Token and cost telemetry are not exposed.
+About 2,323 compiler invocations in the opt-in collectors: 2,268 under
+`work/velocity_b/compiler_events*` and 55 in the interface worktree. They cover
+worker focused checks, the classifier/queue, seven promotion protections plus
+two refused attempts, the interface sample check and test runs. That is **20.1
+accepted functions / 1,296 bytes per 100 calls end to end**, against 1.20 / 91 in
+the previous campaign, on a different task mix. The batch commits span
+13:30–14:30 local time (about one hour). Token and cost telemetry are not exposed.
 
 ## Protection finding
 
