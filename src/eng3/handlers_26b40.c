@@ -66,7 +66,8 @@ struct Eng3Game {
 extern KindInfo g_kind_info[];
 extern Actor *g_focus;
 extern Eng3Game *g_eng3_game_40b8c;
-extern short *g_eng3_table_407b4;
+extern unsigned char g_engine_interface[];
+#define g_eng3_table_407b4 (*(short **)((char *)&g_engine_interface + 0x14))
 extern Actor *g_eng3_actor_42540;
 extern Actor *g_eng3_actor_431d4;
 extern short g_eng3_mode_41cb4;

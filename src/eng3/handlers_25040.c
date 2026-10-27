@@ -100,7 +100,7 @@ typedef struct LevelContext {
 typedef struct EngineInterfaceHead {
     unsigned long signature;
     LevelContext *context;
-    unsigned long unknown_08[2];
+    unsigned long unknown_08[3];
     short *sine;
 } EngineInterfaceHead;
 
