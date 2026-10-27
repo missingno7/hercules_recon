@@ -1,0 +1,175 @@
+{
+ "address_search": {
+  "matches_by_symbol": {
+   "_g_exe_92c488": {
+    "absolute_occurrences": 5,
+    "base_rva": "0x52c488",
+    "nonpending_nonqualifying": "0x71f2 CMP immediate",
+    "qualifying_independent_occurrences": 0
+   },
+   "_g_exe_96e3f4": {
+    "absolute_occurrences": 16,
+    "base_rva": "0x56e3f4",
+    "qualifying_independent_occurrences": 0
+   },
+   "_g_exe_96e3f8": {
+    "absolute_occurrences": 17,
+    "base_rva": "0x56e3f8",
+    "qualifying_independent_occurrences": 0
+   },
+   "_g_exe_ba024c": {
+    "absolute_occurrences": 26,
+    "base_rva": "0x7a024c",
+    "boundary_id": "exe.host_027f0",
+    "selected_anchor_rva": "0x28a7"
+   },
+   "_g_exe_ba2d80": {
+    "absolute_occurrences": 5,
+    "base_rva": "0x7a2d80",
+    "boundary_id": "exe.host_027f0",
+    "selected_anchor_rva": "0x284d"
+   },
+   "_g_registry_config": {
+    "absolute_occurrences": 6,
+    "base_rva": "0x79e858",
+    "boundary_id": "exe.host_registry_read_config",
+    "selected_anchor_rva": "0x4d4f"
+   }
+  },
+  "method": "Bounded bytes.find over the 183808-byte .text raw section of the target-hash-verified EXE; matches were mapped to current CODEGEN_SIMILAR intervals before instruction review."
+ },
+ "boundary_basis": [
+  {
+   "basis": "Copied existing reviewed boundary from evidence/fixed_disp32_review_2026_10_27.json. Recovery identifies the native entry at 0x27f0 and the complete span ends at the next native entry 0x2b50. No current CODEGEN_SIMILAR EXE row overlaps this extent.",
+   "id": "exe.host_027f0",
+   "rva": 10224,
+   "sha256": "471d01febcc419275f77ed6f15a2c1ddf69cc0676f48938875b5443c09acdea7",
+   "size": 864,
+   "status": "RECONSTRUCTED"
+  },
+  {
+   "basis": "Uses the existing recovery boundary 0x4ce0..0x4da0. Continuous original decode has RET at 0x4d94 and eleven NOP bytes through 0x4d9f; the following recovery entry starts at 0x4da0. Full 192-byte extent is hashed; no current CODEGEN_SIMILAR EXE row overlaps it.",
+   "id": "exe.host_registry_read_config",
+   "rva": 19680,
+   "sha256": "b456cfe23fdf0c1297674d92b065c3ac1404d020aef73f03b5bee224c41f3d8d",
+   "size": 192,
+   "status": "RECONSTRUCTED"
+  }
+ ],
+ "current_pending_exe_rows": 272,
+ "ledger_sha256": "aa579f5f522ab53ac818044b4d79c11780766a6745bf6cdb7d9c8990071158ca",
+ "native_functions": [
+  {
+   "anchor_offset": 183,
+   "rva": 10224,
+   "sha256": "471d01febcc419275f77ed6f15a2c1ddf69cc0676f48938875b5443c09acdea7",
+   "size": 864
+  },
+  {
+   "anchor_offset": 93,
+   "rva": 10224,
+   "sha256": "471d01febcc419275f77ed6f15a2c1ddf69cc0676f48938875b5443c09acdea7",
+   "size": 864
+  },
+  {
+   "anchor_offset": 111,
+   "rva": 19680,
+   "sha256": "b456cfe23fdf0c1297674d92b065c3ac1404d020aef73f03b5bee224c41f3d8d",
+   "size": 192
+  }
+ ],
+ "owner_audit": {
+  "existing_definitions": {
+   "_g_exe_92c488": "src/pc/host_system_key_storage.c",
+   "_g_exe_96e3f4": "src/pc/graphics_storage.cpp",
+   "_g_exe_96e3f8": "src/pc/graphics_storage.cpp",
+   "_g_exe_ba0240": "src/pc/loader_zero_cells_disp32.c",
+   "_g_exe_ba0244": "src/pc/loader_zero_cells_disp32.c",
+   "_g_exe_ba0248": "src/pc/loader_zero_cells_disp32.c",
+   "_g_registry_config": "src/shared/registry_storage.c"
+  },
+  "extent_basis": "Both new cells use the existing caller declarations unsigned char *; 32-bit pointer cells are exactly four bytes. No neighboring-symbol spacing is used.",
+  "new_definitions": [
+   "g_exe_ba024c",
+   "g_exe_ba2d80"
+  ],
+  "searched_canonical_source": "src/**/*.c,*.cc,*.cpp,*.h,*.hpp"
+ },
+ "rejected_candidates": [
+  {
+   "candidate_instruction": {
+    "mnemonic": "mov",
+    "operand": 0,
+    "rva": 29809,
+    "sha256": "42c145b80e8733e4e077cf39ffb43681533b24514f86728afbe60c4a34fcf097",
+    "size": 6,
+    "width": 1
+   },
+   "containing_function": {
+    "id": "exe.host_graphics_startup_72a0",
+    "rva": 29344,
+    "sha256": "4e60a1d196553cf66a9eb29494b10a0353dfbd779e0793971ca31e5ba6e42db9",
+    "size": 544
+   },
+   "reason": "Containing native function is a current CODEGEN_SIMILAR row; it cannot anchor this binding.",
+   "symbol": "_g_exe_92c488"
+  },
+  {
+   "candidate_instruction": {
+    "mnemonic": "mov",
+    "operand": 0,
+    "rva": 29515,
+    "sha256": "3b2413986588c7842d57c76de5a64bdc44e4b5226827fd7bb8211ceecc38ef5f",
+    "size": 6,
+    "width": 4
+   },
+   "containing_function": {
+    "id": "exe.host_graphics_startup_72a0",
+    "rva": 29344,
+    "sha256": "4e60a1d196553cf66a9eb29494b10a0353dfbd779e0793971ca31e5ba6e42db9",
+    "size": 544
+   },
+   "reason": "Containing native function is a current CODEGEN_SIMILAR row; no independent qualifying hit exists outside the pending union.",
+   "symbol": "_g_exe_96e3f4"
+  },
+  {
+   "candidate_instruction": {
+    "mnemonic": "mov",
+    "operand": 0,
+    "rva": 29439,
+    "sha256": "7534f7fdc5e5921979074b7ab8b6786955082f8b4226fc45d4524e9a446c0d47",
+    "size": 6,
+    "width": 4
+   },
+   "containing_function": {
+    "id": "exe.host_graphics_startup_72a0",
+    "rva": 29344,
+    "sha256": "4e60a1d196553cf66a9eb29494b10a0353dfbd779e0793971ca31e5ba6e42db9",
+    "size": 544
+   },
+   "reason": "Containing native function is a current CODEGEN_SIMILAR row; exhaustive .text absolute-address search found no qualifying occurrence outside current pending intervals.",
+   "symbol": "_g_exe_96e3f8"
+  },
+  {
+   "candidate_instruction": {
+    "mnemonic": "cmp",
+    "operand": 1,
+    "rva": 29170,
+    "sha256": "0f98e4799c4950ffe76583114abdb08a51b1f0ddab30e0c2cb3e0097c58dd695",
+    "size": 6,
+    "width": 4
+   },
+   "containing_function": {
+    "id": "exe.graphics_tables_initialize_71a0",
+    "rva": 29088,
+    "sha256": "b58cd0d20ad2e5df602c224ad40d8ef92e25e5f029ec0396d7e50246d0a248e4",
+    "size": 256
+   },
+   "reason": "The only raw absolute-address hit outside pending rows is an immediate operand to CMP, not a memory dereference.",
+   "symbol": "_g_exe_92c488"
+  }
+ ],
+ "schema": 1,
+ "scope": "Preferred-base EXE direct-address use and boundary review only. Native source identity, rebasing and runtime closure are not claimed.",
+ "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+}
