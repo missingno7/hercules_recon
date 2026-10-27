@@ -18,11 +18,14 @@ BYTE __cdecl graphics_native_06850(int red,int green,int blue)
     unsigned int distance,best,index;
     int difference;
     BYTE result;
-    PALETTEENTRY *entry=g_exe_96e3f8->palPalEntry;
-    for (index=0;index<256;++index,++entry) {
-        difference=red-entry->peRed;
-        distance=(green-entry->peGreen)*(green-entry->peGreen)+difference*difference;
-        difference=blue-entry->peBlue;
+    BYTE *entry=(BYTE *)g_exe_96e3f8->palPalEntry;
+    for (index=0;index<256;++index) {
+        difference=red-*entry++;
+        distance=(green-*entry)*(green-*entry);
+        ++entry;
+        distance+=difference*difference;
+        difference=blue-*entry;
+        entry+=2;
         distance+=difference*difference;
         if (index==0 || distance<best) {
             best=distance;

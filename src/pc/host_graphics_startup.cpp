@@ -39,6 +39,7 @@ HRESULT WINAPI host_graphics_mode_callback_7170(LPDDSURFACEDESC mode, LPVOID ign
 void __cdecl host_service_72a0(void)
 {
     int index;
+    HRESULT status;
     g_host_graphics_reciprocal_68e918[0] = 0;
     for (index = 1; index < 2048; ++index)
         g_host_graphics_reciprocal_68e918[index] = 0x40000000 / index;
@@ -70,14 +71,18 @@ void __cdecl host_service_72a0(void)
     g_exe_96e3dc = SelectPalette(g_exe_96e400, g_exe_96e3fc, FALSE);
     graphics_native_06ff0();
     graphics_native_071a0();
-    if (DirectDrawCreate(0, &g_exe_96e3e4, 0) != DD_OK)
+    status = DirectDrawCreate(0, &g_exe_96e3e4, 0);
+    if (status != DD_OK)
         archive_fatal("DirectDrawCreate()");
-    if (g_exe_96e3e4->SetCooperativeLevel(g_fatal_owner_window, 0x55) != DD_OK)
+    status = g_exe_96e3e4->SetCooperativeLevel(g_fatal_owner_window, 0x55);
+    if (status != DD_OK)
         archive_fatal("SetCooperativeLevel()");
     g_exe_92c488 = 0;
-    if (g_exe_96e3e4->EnumDisplayModes(0, 0, 0, host_graphics_mode_callback_7170) != DD_OK)
+    status = g_exe_96e3e4->EnumDisplayModes(0, 0, 0, host_graphics_mode_callback_7170);
+    if (status != DD_OK)
         archive_fatal("EnumDisplayModes()");
-    if (g_exe_96e3e4->SetCooperativeLevel(g_fatal_owner_window, 0x0c) != DD_OK)
+    status = g_exe_96e3e4->SetCooperativeLevel(g_fatal_owner_window, 0x0c);
+    if (status != DD_OK)
         archive_fatal("SetCooperativeLevel()");
 }
 }

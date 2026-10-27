@@ -4,6 +4,7 @@
 extern void __cdecl host_diagnostic(const char *,...);
 /* Historical C callsite views; common original ignored-argument declarations unproved. */
 extern void __cdecl empty_host_callback();
+typedef void (__cdecl *HostThreeWordCallback)(unsigned short, unsigned short, unsigned short);
 extern int __cdecl host_zero_callback();
 extern short __cdecl return_true(int);
 extern void *__cdecl host_allocate(void **,MusicU32,MusicU32);
@@ -18,11 +19,11 @@ extern void __cdecl host_sound_bank_initialize_f3d0(unsigned int);
 
 void __cdecl host_music_apply_1000(void)
 {
-    MUSIC_DWORD(0x1b14)=(MUSIC_DWORD(0x1b0c)*MUSIC_DWORD(0x1b04))>>8;
+    MUSIC_DWORD(0x1b14)=((*(volatile MusicU32 *)(MUSIC_CONTEXT+0x1b0c))*MUSIC_DWORD(0x1b04))>>8;
     MUSIC_DWORD(0x1b18)=(MUSIC_DWORD(0x1b10)*MUSIC_DWORD(0x1b08))>>8;
     if (MUSIC_DWORD(0x1afc)!=0xffffffffUL &&
         (MusicU32)MUSIC_WORD(0x1b1c)!=MUSIC_DWORD(0x1b14)) {
-        empty_host_callback((short)MUSIC_WORD(0x1afc),MUSIC_WORD(0x1b14),MUSIC_WORD(0x1b14));
+        ((HostThreeWordCallback)empty_host_callback)(MUSIC_WORD(0x1afc),MUSIC_WORD(0x1b14),MUSIC_WORD(0x1b14));
         MUSIC_WORD(0x1b1c)=MUSIC_WORD(0x1b14);
     }
 }

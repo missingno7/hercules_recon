@@ -13,8 +13,7 @@ typedef void (__cdecl *HostEngineMainCandidate)(void *, int);
 
 void __cdecl host_engine_dispatch_5ec0(void)
 {
-    void *source_table;
-    int call_flag;
+    HostEngineMainCandidate entry;
 
     g_host_engine_selector_91c464 = 1;
     (void)setjmp(g_host_engine_jump_buffer_91bfd8);
@@ -22,12 +21,10 @@ void __cdecl host_engine_dispatch_5ec0(void)
     if (g_host_engine_gate_91c460 != 0)
         host_engine_resolve();
 
-    if (g_host_engine_entry_91c45c != 0) {
-        source_table = g_host_engine_source_table_cell_365a0;
-        call_flag = g_host_engine_call_flag_7a01fc;
-        ((HostEngineMainCandidate)g_host_engine_entry_91c45c)(
-            source_table, call_flag);
-    }
+    entry = (HostEngineMainCandidate)g_host_engine_entry_91c45c;
+    if (entry != 0)
+        entry(g_host_engine_source_table_cell_365a0,
+              g_host_engine_call_flag_7a01fc);
 
     g_host_engine_selector_91c464 = 0;
 }

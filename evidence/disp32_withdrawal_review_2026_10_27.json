@@ -1,0 +1,23 @@
+{
+ "scope": "Reviewed withdrawal of two fixed-i386-disp32-v1 acceptances for a binding-construction defect, not a code or identity regression; instruction equality and the anchor itself are unaffected.",
+ "auditor": "integrator",
+ "evidence_files": {
+  "evidence/disp32_bindings_2026_10_27.json": "5c24e7d2f1c3169e46777d6f075316d34416fd95d838e2acf33116aa94aac3db"
+ },
+ "rows": {
+  "exe.host_02dd0": {
+   "verdict": "DEMOTE",
+   "missing_link": "The accepted binding (evidence/disp32_bindings_2026_10_27.json) pins core verifier code as reference evidence (scripts/match.py, scripts/fixed_disp32.py, scripts/masked.py, scripts/zero_storage.py), which would freeze the verifier, and its fixed-i386-disp32-v1 record pins a pending-interval snapshot that any newly staged EXE row invalidates (observed after re-pin batch 3, although no new pending row overlaps the anchor function 0x27f0-0x2b50). Withdrawn so the profile can check independence against the live ledger and the rows can be re-bound without verifier pins.",
+   "bindings_path": "evidence/disp32_bindings_2026_10_27.json",
+   "bindings_sha256": "5c24e7d2f1c3169e46777d6f075316d34416fd95d838e2acf33116aa94aac3db",
+   "restore_strict_later": "Re-promote with a corrected binding under the live-ledger profile check."
+  },
+  "exe.host_02ea0": {
+   "verdict": "DEMOTE",
+   "missing_link": "The accepted binding (evidence/disp32_bindings_2026_10_27.json) pins core verifier code as reference evidence (scripts/match.py, scripts/fixed_disp32.py, scripts/masked.py, scripts/zero_storage.py), which would freeze the verifier, and its fixed-i386-disp32-v1 record pins a pending-interval snapshot that any newly staged EXE row invalidates (observed after re-pin batch 3, although no new pending row overlaps the anchor function 0x27f0-0x2b50). Withdrawn so the profile can check independence against the live ledger and the rows can be re-bound without verifier pins.",
+   "bindings_path": "evidence/disp32_bindings_2026_10_27.json",
+   "bindings_sha256": "5c24e7d2f1c3169e46777d6f075316d34416fd95d838e2acf33116aa94aac3db",
+   "restore_strict_later": "Re-promote with a corrected binding under the live-ledger profile check."
+  }
+ }
+}

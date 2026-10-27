@@ -27,10 +27,11 @@ void __cdecl host_sound_bank_restore_f760(void)
     }
 }
 
-void __cdecl audio_native_fa10(int value, int slot_index)
+void __cdecl audio_native_fa10(int value, short slot_index)
 {
     DWORD id;
-    unsigned int bank, lane;
+    unsigned int bank;
+    int lane;
     short slot;
     if (value == -1) {
         slot = (short)slot_index;

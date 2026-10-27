@@ -114,13 +114,13 @@ DWORD host_input_joystick_7e90(void)
     SHORT device;
     DWORD buttons;
     DWORD result;
-    DWORD index;
+    int index;
 
     device = INPUT_JOYSTICK_ID;
-    if (device == (SHORT)0xffff)
-        return 0;
-    buttons = host_input_sample_7c50((int)device);
     result = 0;
+    if (device == (SHORT)0xffff)
+        return result;
+    buttons = host_input_sample_7c50((int)device);
     if (buttons & 0x10000000UL)
         result = 0x80;
     if (buttons & 0x20000000UL)

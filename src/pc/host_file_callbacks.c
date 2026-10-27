@@ -95,10 +95,8 @@ int __cdecl host_cancel_load(void)
         return 0;
     }
 
-    context = g_host_engine_interface.context_004;
-    context->mode_09c = 0;
-    context = g_host_engine_interface.context_004;
-    context->unknown_0ac = 0;
+    g_host_engine_interface.context_004->mode_09c = 0;
+    g_host_engine_interface.context_004->unknown_0ac = 0;
     return 0;
 }
 
@@ -186,8 +184,10 @@ unsigned long __cdecl resource_file_length(const char *prefix, const char *suffi
     while (g_host_engine_interface.context_004->virtual_handle_0b8 != -1) {
         length = (unsigned long)virtual_file_seek(g_host_engine_interface.context_004->virtual_handle_0b8, 0L, 2);
         if (virtual_file_close(g_host_engine_interface.context_004->virtual_handle_0b8) == 0)
-            return length;
+            goto done;
         g_host_engine_interface.context_004->virtual_handle_0b8 = virtual_file_open(g_resource_filename, 0, 0);
     }
     return 0;
+done:
+    return length;
 }

@@ -855,7 +855,7 @@ unsigned int dispatch_engine_2c470(void);
 void RemoveFxLinks_7ef6(Actor *p);
 void apply_frame_motion_3d(Actor *p);
 int eng1_2a710(Bounds *b, Actor *p);
-int eng1_2aab0(Actor *p, int a, int b);
+int eng1_native_code_target_002aab0(Actor *p, int a, int b);
 int remove_actor_variant(Actor *p);
 void hide_and_unlink(Actor *p);
 unsigned long eng1_26de0(Actor *p);
@@ -1187,7 +1187,7 @@ void eng1_34910(Actor *p)
         }
     }
     p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
-    if (eng1_2aab0(p, 0x40, 0x40) || eng1_2a9e0(p, 0x400)) {
+    if (eng1_native_code_target_002aab0(p, 0x40, 0x40) || eng1_2a9e0(p, 0x400)) {
         remove_actor(p);
     }
 }
