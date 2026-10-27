@@ -141,7 +141,7 @@ extern void eng3_19200(void);
 extern unsigned short eng3_1b4a0(short, short, short, int);
 extern int eng3_1b920(Actor *, int);
 extern int eng3_1dbc0(Actor *);
-extern int eng3_1eff0(Actor *, Actor *);
+extern int eng1_2a660(Actor *, Actor *);
 extern Actor *eng3_1cb00(long, long, long, int);
 extern void remove_actor(Actor *);
 extern Actor *create_eng3_middle_actor(long, long, long, unsigned long);
@@ -227,7 +227,7 @@ void eng3_02440(Actor *o)
         o->state = 4;
     if (o->state & 4)
         remove_actor(o);
-    if (eng3_1eff0(o, g_focus)) {
+    if (eng1_2a660(o, g_focus)) {
         g_focus->unknown_110 = o;
         g_focus->unknown_116 = 0x400;
         if (g_eng3_mode_41cb4 != 5)
@@ -586,7 +586,7 @@ void eng3_03020(Actor *o)
             }
             eng3_1dbc0(c);
             vec_diff_fixed_1420((const int *)c, (const int *)g_focus, d);
-            if (i == 1 && eng3_1eff0(c, g_focus)) {
+            if (i == 1 && eng1_2a660(c, g_focus)) {
                 g_focus->unknown_110 = c;
                 g_focus->unknown_116 = 0x400;
                 if (g_eng3_mode_41cb4 != 5)
@@ -1386,7 +1386,7 @@ void eng3_04ca0(Actor *o)
     o->x -= 0x60000;
     o->unknown_11e += 0x4a;
     eng3_1dbc0(o);
-    if (eng3_1eff0(o, g_focus)) {
+    if (eng1_2a660(o, g_focus)) {
         g_focus->unknown_110 = o;
         g_focus->unknown_116 = 0x800;
         if (g_eng3_mode_41cb4 != 5)
@@ -1500,7 +1500,7 @@ void eng3_05070(Actor *o)
                 c->z += 0x50000;
             c->y -= 0x120000;
         }
-        if (eng3_1eff0(c, g_focus)) {
+        if (eng1_2a660(c, g_focus)) {
             g_focus->unknown_110 = c;
             g_focus->unknown_116 = 4;
             if (g_eng3_mode_41cb4 != 5)
@@ -1797,7 +1797,7 @@ void eng3_05b40(Actor *o)
     }
     if (o->state & 0x20) {
         o->unknown_cc = random_limit(0x10000) + 0x10000;
-        if (eng3_1eff0(o, g_focus)) {
+        if (eng1_2a660(o, g_focus)) {
             g_focus->unknown_110 = o;
             g_focus->unknown_116 = 4;
             if (g_eng3_mode_41cb4 != 5)

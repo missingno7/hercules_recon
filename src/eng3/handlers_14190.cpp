@@ -150,7 +150,7 @@ extern int eng3_1e000(Actor *);
 extern void reset_frame_state(Actor *);
 extern void select_frame(Actor *, int);
 extern void eng3_1eeb0(Actor *);
-extern int eng3_1eff0(Actor *, Actor *);
+extern int eng1_2a660(Actor *, Actor *);
 extern int eng3_1f1a0(Actor *, Bounds3D *, unsigned short);
 extern unsigned int random_limit(int);
 
@@ -172,7 +172,7 @@ void eng3_14190(Actor *o)
 void eng3_14200(Actor *o)
 {
     if (o->image == g_eng3_image_37b28) {
-        if (eng3_1eff0(o, g_focus)) {
+        if (eng1_2a660(o, g_focus)) {
             o->image = g_eng3_image_37b24;
             g_engine_interface.context_004->unknown_02 = (o->kind + 5) & 0xf;
             reset_frame_state(o);
@@ -785,25 +785,25 @@ void eng3_15680(Actor *o)
 {
     Sidecar *s = (Sidecar *)(o->owner_context + g_kind_info[o->profile].sidecar_offset);
 
-    if (o->unknown_dc == 0 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 0 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_eng3_3fae4 = 1;
         play_sound(0x603e, g_focus);
         g_focus->unknown_ec = 0xc8;
         o->state = 2;
     }
-    if (o->unknown_dc == 1 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 1 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_engine_interface.context_004->bar_value_target += 0x20;
         if (g_engine_interface.context_004->bar_value_target > g_engine_interface.context_004->bar_length_target)
             g_engine_interface.context_004->bar_value_target = g_engine_interface.context_004->bar_length_target;
         play_sound(0x603b, g_focus);
         o->state = 2;
     }
-    if (o->unknown_dc == 2 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 2 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         play_sound(0x603f, g_focus);
         g_engine_interface.context_004->unknown_18++;
         o->state = 2;
     }
-    if (o->unknown_dc == 3 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 3 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_focus->unknown_ee = 0x56;
         g_eng3_3fb20 = 1;
         g_eng3_3fae8 = 1;
@@ -811,12 +811,12 @@ void eng3_15680(Actor *o)
         o->render_flags = 0x84000005;
         o->state = 2;
     }
-    if (o->unknown_dc == 4 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 4 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         play_sound(0x603f, g_focus);
         g_engine_interface.context_004->unknown_14++;
         o->state = 2;
     }
-    if (o->unknown_dc == 5 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 5 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         o->state = 2;
         play_sound(0x603e, g_focus);
         g_eng3_3faec++;
@@ -857,69 +857,69 @@ void eng3_15680(Actor *o)
                 g_engine_interface.context_004->flags_11 |= 8;
         }
     }
-    if (o->unknown_dc == 6 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 6 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_engine_interface.context_004->unknown_0c++;
         g_eng3_41c72 = 1;
         play_sound(0x603d, g_focus);
         o->state = 2;
     }
-    if (o->unknown_dc == 7 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 7 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_engine_interface.context_004->bar_length_target += 0x20;
         if (g_engine_interface.context_004->bar_length_target >= 0xff)
             g_engine_interface.context_004->bar_length_target = 0xff;
         play_sound(0x603d, g_focus);
         o->state = 2;
     }
-    if (o->unknown_dc == 8 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 8 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_eng3_41cb0 = 0;
         g_eng3_41d50 = 1;
         g_engine_interface.context_004->unknown_1c |= 1;
         play_sound(0x603c, g_focus);
         o->state = 2;
     }
-    if (o->unknown_dc == 9 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 9 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_eng3_41cb0 = 1;
         g_eng3_41d50 = 1;
         g_engine_interface.context_004->unknown_1c |= 2;
         play_sound(0x603c, g_focus);
         o->state = 2;
     }
-    if (o->unknown_dc == 10 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 10 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_eng3_41cb0 = 2;
         g_eng3_41d50 = 1;
         g_engine_interface.context_004->unknown_1c |= 4;
         play_sound(0x603c, g_focus);
         o->state = 2;
     }
-    if (o->unknown_dc == 11 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 11 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_eng3_41cb0 = 3;
         play_sound(0x603c, g_focus);
         g_eng3_41d50 = 1;
         g_engine_interface.context_004->unknown_1c |= 8;
         o->state = 2;
     }
-    if (o->unknown_dc == 12 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 12 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_eng3_41cb0 = 4;
         play_sound(0x603c, g_focus);
         g_eng3_41d50 = 1;
         g_engine_interface.context_004->unknown_1c |= 0x10;
         o->state = 2;
     }
-    if (o->unknown_dc == 13 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 13 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_eng3_41cb0 = 5;
         play_sound(0x603c, g_focus);
         g_eng3_41d50 = 1;
         g_engine_interface.context_004->unknown_1c |= 0x20;
         o->state = 2;
     }
-    if (o->unknown_dc == 14 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 14 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_eng3_41cb0 = 6;
         g_eng3_41d50 = 1;
         g_engine_interface.context_004->unknown_1c |= 0x40;
         play_sound(0x603c, g_focus);
         o->state = 2;
     }
-    if (o->unknown_dc == 15 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+    if (o->unknown_dc == 15 && (o->state & 8) && eng1_2a660(o, g_focus)) {
         g_eng3_41cb0 = 7;
         g_eng3_41d50 = 1;
         g_engine_interface.context_004->unknown_1c |= 0x80;
@@ -986,7 +986,7 @@ void eng3_15e90(Actor *o)
 void eng3_15f30(Actor *o)
 {
     if (o->state & 8) {
-        if (eng3_01460(o) && eng3_1eff0(o, g_focus)) {
+        if (eng3_01460(o) && eng1_2a660(o, g_focus)) {
             if (o->image == g_eng3_image_375f0) {
                 o->state = 2;
                 play_sound(0x603c, g_focus);
@@ -1025,7 +1025,7 @@ void eng3_15f30(Actor *o)
                 play_sound(0x603d, g_focus);
                 o->state = 2;
             }
-            if (o->image == g_eng3_image_37678 && (o->state & 8) && eng3_1eff0(o, g_focus)) {
+            if (o->image == g_eng3_image_37678 && (o->state & 8) && eng1_2a660(o, g_focus)) {
                 g_engine_interface.context_004->bar_value_target += 0x20;
                 if (g_engine_interface.context_004->bar_value_target > g_engine_interface.context_004->bar_length_target)
                     g_engine_interface.context_004->bar_value_target = g_engine_interface.context_004->bar_length_target;

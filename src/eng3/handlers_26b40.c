@@ -87,7 +87,7 @@ extern int eng3_1dbc0(Actor *);
 extern int eng3_01460(Actor *);
 extern int eng3_1b920(Actor *, int);
 extern int eng3_1eaf0(Actor *);
-extern int eng3_1eff0(Actor *, Actor *);
+extern int eng1_2a660(Actor *, Actor *);
 extern int eng3_1f0a0(void *, Actor *);
 extern void eng3_19200(void);
 extern void eng3_19a30(void);
@@ -149,7 +149,7 @@ void eng3_26c60(Actor *o)
         o->state = 0x80;
     }
     eng3_1dbc0(o);
-    if (eng3_1eff0(o, g_focus)) {
+    if (eng1_2a660(o, g_focus)) {
         g_focus->unknown_110 = o;
         g_focus->unknown_116 = 4;
         if (g_eng3_mode_41cb4 != 5)
@@ -190,7 +190,7 @@ void eng3_26de0(Actor *o)
         o->state = 4;
     if (o->state & 4 && o->phase == 5)
         o->state = 0x80;
-    if (eng3_1eff0(o, g_focus)) {
+    if (eng1_2a660(o, g_focus)) {
         g_focus->unknown_110 = o;
         g_focus->unknown_116 = 4;
         if (g_eng3_mode_41cb4 != 5)
@@ -269,7 +269,7 @@ void eng3_26fe0(Actor *o)
         o->phase = 0;
         o->state = 0x20;
     }
-    if (eng3_1eff0(o, g_focus)) {
+    if (eng1_2a660(o, g_focus)) {
         g_focus->unknown_110 = o;
         g_focus->unknown_116 = 0x2f;
         if (g_eng3_mode_41cb4 != 5)

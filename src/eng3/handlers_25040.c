@@ -168,7 +168,7 @@ extern int eng3_1dbc0(Actor *);
 extern int eng3_1b920(Actor *, int);
 extern int eng3_1ec20(Actor *);
 extern int eng3_1ecf0(long, long, long, int);
-extern int eng3_1eff0(Actor *, Actor *);
+extern int eng1_2a660(Actor *, Actor *);
 extern void eng3_19200(void);
 extern ActorGroup *acquire_pending_action_group(void);
 extern Actor *eng3_1f410(ActorGroup *, long, long, long, int, int);
@@ -542,7 +542,7 @@ void eng3_25d80(Actor *o)
         o->phase = 0;
         o->unknown_e0 = 1;
     }
-    if (eng3_1eff0(o, g_focus)) {
+    if (eng1_2a660(o, g_focus)) {
         g_focus->unknown_110 = o;
         g_focus->unknown_116 = 0x30;
         if (g_eng3_mode_41cb4 != 5)
