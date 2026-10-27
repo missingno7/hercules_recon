@@ -73,6 +73,28 @@ def snapshot(name, data):
     return relative
 
 
+def context_additions(item):
+    """Reviewed, explicitly declared include-context additions of one changed source.
+
+    Only regular files inside the manifest-pinned toolchain tree may be added (for a
+    documented TU-context header such as <windows.h>); each must match its declared
+    hash now. Nothing is removed or replaced here: the full after verification still
+    recomputes the closure and every accepted contribution, relocation and reference.
+    """
+    from match import DEFAULT_TOOLCHAIN
+    declared = item.get('context_additions', {})
+    if not isinstance(declared, dict):
+        raise ValueError('context_additions must map paths to sha256')
+    toolchain = DEFAULT_TOOLCHAIN.resolve()
+    for name, expected in declared.items():
+        path = Path(name)
+        if not path.is_absolute() or path.resolve() != path or not path.is_relative_to(toolchain) or not path.is_file():
+            raise ValueError('Context additions must be existing files inside the pinned toolchain: ' + name)
+        if sha(path.read_bytes()) != expected:
+            raise ValueError('Context addition hash mismatch: ' + name)
+    return dict(declared)
+
+
 def pin_snapshot(name, expected, current):
     """Content address satisfying one direct pin of a changed source, or refuse."""
     if expected == sha(current):
@@ -179,7 +201,7 @@ def apply(plan_path, before_path, original_root, directory):
         old_results = {r['id']: r for r in before['results']}
         frozen_before(state, before['results'], original_root, baseline)
         changed = set(plan['sources'])
-        source_before, candidates = {}, {}
+        source_before, candidates, additions = {}, {}, {}
         for name, item in plan['sources'].items():
             path = (ROOT / name).resolve()
             if not path.is_relative_to(ROOT / 'src') or path.suffix not in ('.c', '.cpp'):
@@ -192,6 +214,7 @@ def apply(plan_path, before_path, original_root, directory):
             data = candidate.read_bytes()
             require_equal(sha(data), item['candidate_sha256'], 'candidate identity')
             candidates[path] = data
+            additions[name] = context_additions(item)
         docs = documents()
         audit = impact(state, docs, changed)
         snapshots = dict(baseline)
@@ -222,6 +245,13 @@ def apply(plan_path, before_path, original_root, directory):
             if isinstance(proof.get('context_sha256'), dict):
                 for name in changed & set(proof['context_sha256']):
                     proof['context_sha256'][name] = sha(candidates[ROOT/name])
+                # A reviewed context change only ADDS declared toolchain headers; the after
+                # gate recomputes the real closure, so an undeclared or wrong header fails.
+                for name in changed & set(proof['context_sha256']):
+                    if additions.get(name):
+                        if set(additions[name]) & set(proof['context_sha256']):
+                            raise ValueError('Declared context addition is already pinned: ' + row['id'])
+                        proof['context_sha256'].update(additions[name])
             if row['source'] in changed or changed & set(pins) or mapping:
                 affected.append(row['id'])
             # Whole-object accepted inventories cannot be refreshed by this gate.

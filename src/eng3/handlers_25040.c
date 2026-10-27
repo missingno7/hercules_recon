@@ -1,3 +1,5 @@
+#include <windows.h>
+
 /* ENG3.DLL 0x25040..0x26b40: HUD/primitive helpers and actor handlers (lane y3 candidate).
  * Actor offsets are provisional shared names, not recovered original types. */
 typedef struct Actor Actor;

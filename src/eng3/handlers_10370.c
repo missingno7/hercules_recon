@@ -1,3 +1,5 @@
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 /* ENG3.DLL 0x10370..0x12190: actor handler family (lane y8 candidate).
  * Actor offsets are provisional shared names, not recovered original types.
  * Actor.state is unsigned short here: 0x11f90 tests state & 0x100 as a byte test of +0x2b.

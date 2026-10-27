@@ -136,6 +136,37 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(c.symbols,before)
 
 
+class ContextAdditionTests(unittest.TestCase):
+    def setUp(self):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        self.root = Path(directory.name).resolve()
+        self.toolchain = self.root / 'toolchain'
+        (self.toolchain / 'include').mkdir(parents=True)
+        self.header = self.toolchain / 'include' / 'windows.h'
+        self.header.write_bytes(b'/* sdk */\n')
+        self.outside = self.root / 'elsewhere.h'
+        self.outside.write_bytes(b'/* not sdk */\n')
+        patcher = patch.object(match, 'DEFAULT_TOOLCHAIN', self.toolchain)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def test_declared_toolchain_header_is_accepted(self):
+        declared = {str(self.header): repin.sha(self.header.read_bytes())}
+        self.assertEqual(repin.context_additions(dict(context_additions=declared)), declared)
+        self.assertEqual(repin.context_additions({}), {})
+
+    def test_outside_toolchain_wrong_hash_missing_or_malformed_refuses(self):
+        good = repin.sha(self.header.read_bytes())
+        for declared in ({str(self.outside): repin.sha(self.outside.read_bytes())},
+                         {str(self.header): '0' * 64},
+                         {str(self.toolchain / 'include' / 'missing.h'): good},
+                         {'include/windows.h': good},
+                         ['not', 'a', 'map']):
+            with self.assertRaises(ValueError):
+                repin.context_additions(dict(context_additions=declared))
+
+
 class SecondRepinTests(unittest.TestCase):
     def test_before_check_keeps_redirects_recorded_by_an_earlier_repin(self):
         earlier = {'src/eng3/a.cpp': 'evidence/repin_snapshots/' + 'a' * 64 + '.txt'}
