@@ -105,3 +105,27 @@ Compiler use for this work (2026-10-27), about 3,860 invocations in total:
 | Gate runs (full verification and test suite) | about 1,450 |
 | Promotion | 223 |
 | Portable-inventory migration | 40 |
+
+## Wave f (same day)
+
+- `scripts/fixed_disp32.py` implements the reviewed `fixed-i386-disp32-v1` profile for the
+  stripped EXE. The anchor is an exact mod00/rm101 disp32 dereference inside an independently
+  reviewed native function. That function must lie outside every pending row of the current
+  ledger. The first binding pinned core verifier code (`scripts/match.py` among it) and a
+  pending-interval snapshot that the next re-pin batch invalidated. Both acceptances were
+  withdrawn with `demote.py`. The profile now checks independence against the live ledger, and
+  the rows were re-bound without verifier pins. The worker contract and the integration step now
+  forbid core verifier modules as binding evidence.
+- Batch 3 (`7a96970`) landed nine sources; eight EXE rows became masked-equal. `eng1_34910`'s
+  caller now names the accepted callee instead of a second name for it. A stale historical pin
+  was satisfied by restoring its exact bytes from git history.
+- A stale-CRLF evidence pin reached origin (`0e3fc8c`) because a push was gated on a pipe into
+  `tail`. It was fixed forward (`b2420e8`) by redirecting the pin to its preserved snapshot.
+  Both stale working copies now equal their committed bytes, and pushes are gated on the check's
+  own exit code.
+- Deferred for a reviewed include-context re-proof: `handlers_10370.c` and `handlers_25040.c`.
+  Each matches only with a `<windows.h>` TU-context line.
+
+Accepted functions: **1,045** (146 RAW, 856 RELOCATED, 43 LINKED). The new acceptances are
+eng1_34210, eng1_34910, exe.host_02dd0, exe.host_02ea0, host_file_cancel_3ea0 and
+host_music_apply_1000. RECONSTRUCTED rows are down to 162.
