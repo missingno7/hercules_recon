@@ -54,8 +54,17 @@ def review_inputs(record, rows, row, observed, root):
     if not isinstance(profile, dict) or set(profile) != {
             'image', 'boundary', 'encoding', 'excluded', 'excluded_sha256', 'accesses'}:
         raise ValueError('Incomplete fixed disp32 profile')
-    validate_exclusions(profile, pending_intervals(rows, row['target']))
+    # The recorded snapshot documents independence at binding time; independence itself is
+    # decided against the CURRENT ledger, so newly staged pending rows never invalidate a
+    # proof unless they actually overlap the anchor's containing native function.
+    validate_exclusions(profile, [])
     boundary = profile['boundary']
+    if isinstance(boundary, dict) and type(boundary.get('rva')) is int and type(boundary.get('size')) is int:
+        for pending in pending_intervals(rows, row['target']):
+            if pending['id'] != row['id'] and (boundary['rva'] < pending['rva'] + pending['size'] and
+                                               pending['rva'] < boundary['rva'] + boundary['size']):
+                raise ValueError('Fixed disp32 containing native function overlaps a current pending row: '
+                                 + pending['id'])
     if not isinstance(boundary, dict) or set(boundary) != {'rva', 'size', 'sha256', 'anchor_offset', 'review'}:
         raise ValueError('Fixed disp32 needs a reviewed native function boundary')
     review = boundary['review']

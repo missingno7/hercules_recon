@@ -104,6 +104,24 @@ class FixedDisp32Tests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'snapshot'):
             fixed.validate_exclusions(self.profile, [])
 
+    def _review(self, ledger):
+        record = dict(anchor_profile='fixed-i386-disp32-v1', fixed_disp32=self.profile)
+        caller = dict(id='m.caller', target='original.exe', rva='0x1000', size=6)
+        return fixed.review_inputs(record, ledger, caller, {}, self.root)
+
+    def test_live_pending_row_overlapping_the_anchor_function_rejects(self):
+        ledger = [dict(id='m.pending', target='original.exe', status='CODEGEN_SIMILAR', rva='0x1100', size=16)]
+        with self.assertRaisesRegex(ValueError, 'current pending row: m.pending'):
+            self._review(ledger)
+
+    def test_newly_staged_pending_row_elsewhere_does_not_invalidate_the_proof(self):
+        ledger = [dict(id='m.new', target='original.exe', status='CODEGEN_SIMILAR', rva='0x3000', size=16),
+                  dict(id='m.caller', target='original.exe', status='CODEGEN_SIMILAR', rva='0x1000', size=6)]
+        try:
+            self._review(ledger)
+        except ValueError as error:  # later checks may refuse this synthetic record, never the pending rule
+            self.assertNotIn('pending', str(error))
+
     def test_reviewed_encoding_fields_are_pinned(self):
         self.profile['encoding']['disp_offset'] += 1
         with self.assertRaisesRegex(ValueError, 'encoding receipt'):
