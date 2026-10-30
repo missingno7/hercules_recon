@@ -129,3 +129,70 @@ Compiler use for this work (2026-10-27), about 3,860 invocations in total:
 Accepted functions: **1,045** (146 RAW, 856 RELOCATED, 43 LINKED). The new acceptances are
 eng1_34210, eng1_34910, exe.host_02dd0, exe.host_02ea0, host_file_cancel_3ea0 and
 host_music_apply_1000. RECONSTRUCTED rows are down to 162.
+
+## Waves g and h (2026-10-28 to 2026-10-31)
+
+Proof-form and re-pin extensions. Each one is opt-in, and default verification is unchanged:
+
+- **Include-context re-proof** (`93313fc`). A `repin.py` plan can now declare
+  `context_additions`: the exact pinned-toolchain headers that a source fix adds to the include
+  closure. The full after-verification recomputes the real closure, so an undeclared header fails
+  closed. `handlers_10370.c` and `handlers_25040.c` landed with a `<windows.h>` TU-context line.
+  It is recorded as a measured hypothesis, not as original text.
+- **Reviewed unit-inventory refresh** (`d1c5dfb`; `scripts/unit_refresh.py`,
+  `reviewed-unit-delta-v1`). Two conditions apply:
+  - every accepted contribution stays byte-, flag- and ordered-relocation identical;
+  - the inventory delta is exactly the declared set.
+
+  Old inventory hashes are kept in `unit_inventory_history`. It landed the interface-field fix
+  in `handlers_121c0.c`, `handlers_0e020.cpp` and `handlers_28ae0.c`.
+- **EXE anchor forms** (`c02022f`; `scripts/fixed_anchor_forms.py`):
+  - `fixed-i386-moffs32-v1`;
+  - `fixed-i386-regimm-v1`.
+
+  Both sit beside `fixed-i386-disp32-v1`, with the same independence gate against the live
+  ledger. Thirty-nine controls run on original bytes reject the interior, one-past, too-wide,
+  pending-anchor, control-transfer and register-overwrite cases.
+- **Evidence-producing tools that are not wired into the verifier:**
+  - `scripts/data_contribution.py` (`data-contribution-v1`);
+  - `scripts/local_byte_tables.py` (`coff-local-byte-table-v1`, for compiler-owned indexed
+    byte tables).
+
+Source corrections that change no generated code:
+
+- **ENG3 `+0x14` interface field** (`19af7e1`). RVA 0x407b4 was declared as
+  `g_eng3_table_407b4`. It is offset 0x14 inside the accepted `_g_engine_interface`, so it is an
+  interface field, not a separate cell.
+- **Shared callee name** (`b7af9e6`). Five ENG3 callers called the accepted `eng1_2a660` through
+  a second name. They now use its own name.
+
+Every one of these source changes landed through reviewed re-pins. In each, fresh before/after
+verification of every accepted row was identical, and the masked rows were restaged.
+
+Acceptances: 1,045 to **1,083**:
+
+| Change | Count | Rows |
+|---|---:|---|
+| disp32 rows | 1 | `exe.host_02b50` |
+| Freed by the interface-field fix | 4 | — |
+| Freed by the shared-callee rename | 3 | — |
+| Sonnet binding lane | 2 | — |
+| Bound file-backed data payloads | 3 | — |
+| GTE rows anchored in `exe.host_0b320` | 23 | — |
+| `zero-section-v1` owner-form rows | 2 | — |
+
+Before acceptance, a clean clone at a different path (`core.autocrlf=true`) verified all strict
+rows and LINKED rows with 0 failures.
+
+Recorded stops:
+
+- **ENG1/ENG3 file-data symbols.** They have no defining source. Defining them as C initializers
+  needs an owner decision.
+- **Unanchored EXE zero cells:** `_g_host_callback_prefix`, `theApp`, `_g_host_pool` and the
+  music bank headers.
+- **TITLE same-unit `.bss` statics.**
+- **`_g_kind_info` capacity.**
+- **Library closure at `_free`.** It stops at the lock and SBH storage. The candidate profile is
+  kept unlanded until a row can use it.
+- **`eng3.142b0`.** It needs the local byte-table form wired into `match.py`; that work is in
+  progress.
