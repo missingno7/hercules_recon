@@ -536,6 +536,10 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                 if any(record.get('anchor_profile') in ('fixed-i386-disp32-v1', 'fixed-i386-moffs32-v1', 'fixed-i386-regimm-v1')
                        for record in binding.get('symbols', {}).values()):
                     from fixed_disp32 import relocated_compare
+                tables = binding.get('tables', [])
+                if isinstance(tables, list) and any(isinstance(table, dict) and
+                        table.get('profile') == 'coff-local-byte-table-v1' for table in tables):
+                    from local_byte_tables import relocated_compare
                 owners = {name: compiled[key][0] for (row_id, name), key in storage_profiles.items() if row_id == row['id']}
                 aliases = {name: compiled[alias_profiles[(row['id'], name)]][0]
                            for row_id, name in alias_records if row_id == row['id']}

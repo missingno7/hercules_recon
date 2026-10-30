@@ -2,16 +2,19 @@
 import copy
 import hashlib
 import inspect
+import json
 from pathlib import Path
 import struct
 import sys
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import local_byte_tables as local
 import local_table_verify
 import masked
 import match
+import promote
 from test_matching import make_pe, workspace_temporary_directory
 from test_relocated import coff_file, binding
 
@@ -51,7 +54,7 @@ class LocalByteTableTests(unittest.TestCase):
         self.target.write_bytes(pe)
         return comparator(self.obj, '_sample', self.target, 0x1000, len(self.code), self.bindings)
 
-    def test_complete_allocation_and_default_stays_closed(self):
+    def test_complete_allocation_and_base_comparator_stays_closed(self):
         self.assertTrue(self.compare()['relocated_equal'])
         self.assertEqual(self.compare()['byte_table_checks'][0]['size'], 8)
         with self.assertRaises(ValueError):
@@ -120,11 +123,78 @@ class LocalByteTableTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'plain compiler-local'):
             self.compare()
 
-    def test_driver_is_verbatim_except_opt_in_dispatch(self):
-        expected = inspect.getsource(match.verify_rows).replace(
-            '                from masked import relocated_compare',
-            '                from local_byte_tables import relocated_compare')
-        self.assertEqual(inspect.getsource(local_table_verify.verify_rows), expected)
+    def normal_gate(self, publish=False):
+        # Real COFF, PE, source closure and evidence freezing. Only the compiler
+        # and toolchain identity are synthetic; no compiler process is launched.
+        self.compare(lambda *args, **kwargs: None)
+        source = self.obj.with_suffix('.c')
+        source.write_bytes(b'/* synthetic compile input */\n')
+        relative = lambda p: p.resolve().relative_to(match.ROOT).as_posix()
+        row = dict(id='fixture.byte-table', status='CODEGEN_SIMILAR', symbol='_sample',
+                   source=relative(source), target=relative(self.target), flags=['/O2'],
+                   rva='0x1000', size=len(self.code), target_sha256=match.digest(self.target.read_bytes()),
+                   proof=dict(source_sha256=match.digest(source.read_bytes())))
+        document = self.obj.with_suffix('.json')
+        document.write_text(json.dumps(dict(schema=1,
+            evidence_files={relative(self.target): row['target_sha256']},
+            functions={row['id']: self.bindings})))
+        with patch.object(match, 'verify_toolchain', return_value='fixture'), \
+                patch.object(match, 'compile_source', return_value=(self.obj, ['synthetic compiler'])):
+            if publish:
+                # The caller roots this entire transaction in its private
+                # fixture directory; the real recovery ledger is never touched.
+                state = match.ROOT / 'recovery.json'
+                state.write_text(json.dumps(dict(functions=[row])))
+                with patch.object(promote, 'ROOT', match.ROOT), patch.object(promote, 'STATE', state), \
+                        patch.object(promote, 'JOURNAL', match.ROOT / 'work/promotion-journal.json'):
+                    promote.promote_relocated([row['id']], document)
+                    accepted = json.loads(state.read_text())['functions']
+                    self.assertEqual(accepted[0]['status'], match.RELOCATED)
+                    return match.verify_rows(accepted)
+            return match.verify_rows([row], relocation_candidates={row['id']: relative(document)})
+
+    def test_wrapper_uses_normal_driver(self):
+        self.assertIs(local_table_verify.verify_rows, match.verify_rows)
+
+    def test_normal_gate_dispatches_explicit_profile(self):
+        with patch.object(local, 'relocated_compare', wraps=local.relocated_compare) as comparator, \
+                patch.object(masked, 'relocated_compare', side_effect=AssertionError('legacy dispatch')):
+            results, statistics = self.normal_gate()
+        comparator.assert_called_once()
+        self.assertTrue(results[0]['exact'])
+        self.assertEqual(results[0]['byte_table_checks'][0]['size'], 8)
+        self.assertEqual(statistics['rows'], 1)
+
+    def test_relocated_promotion_and_accepted_reverification_use_normal_gate(self):
+        root = Path(self.directory.name).resolve()
+        (root / 'toolchains').mkdir()
+        (root / 'toolchains/manifest.json').write_text('{}')
+        (root / 'work').mkdir()
+        with patch.object(match, 'ROOT', root):
+            results, _ = self.normal_gate(publish=True)
+        self.assertTrue(results[0]['exact'])
+        self.assertEqual(results[0]['byte_table_checks'][0]['size'], 8)
+
+    def test_normal_gate_retains_legacy_dispatch_without_profile(self):
+        original = copy.deepcopy(self.table)
+        for tables in ([], [{k: v for k, v in original.items() if k != 'profile'}],
+                       [dict(original, profile='other-profile')], None, [None]):
+            with self.subTest(tables=tables):
+                self.bindings['tables'] = tables
+                with patch.object(masked, 'relocated_compare', side_effect=StopIteration) as legacy, \
+                        patch.object(local, 'relocated_compare', side_effect=AssertionError('unexpected opt-in')):
+                    with self.assertRaises(StopIteration):
+                        self.normal_gate()
+                legacy.assert_called_once()
+
+    def test_normal_gate_retains_anchor_dispatch_without_table_profile(self):
+        self.bindings['tables'] = []
+        self.bindings['symbols']['$L1']['anchor_profile'] = 'fixed-i386-moffs32-v1'
+        with patch('fixed_disp32.relocated_compare', side_effect=StopIteration) as anchored, \
+                patch.object(local, 'relocated_compare', side_effect=AssertionError('unexpected opt-in')):
+            with self.assertRaises(StopIteration):
+                self.normal_gate()
+        anchored.assert_called_once()
 
     def test_comparator_is_verbatim_except_explicit_table_checks(self):
         expected = inspect.getsource(masked.relocated_compare)
