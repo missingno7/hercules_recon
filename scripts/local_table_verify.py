@@ -55,7 +55,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                             at < int(other['rva'], 0) + other['size'] and int(other['rva'], 0) < at + length
                             for other in rows):
                         raise ValueError('Loader-zero identity anchor overlaps a selected caller')
-                    if record.get('anchor_profile') == 'fixed-i386-disp32-v1':
+                    if record.get('anchor_profile') in ('fixed-i386-disp32-v1', 'fixed-i386-moffs32-v1', 'fixed-i386-regimm-v1'):
                         from fixed_disp32 import review_inputs
                         ledger = json.loads((ROOT / 'recovery.json').read_bytes())['functions']
                         review_inputs(record, ledger, row, observed, ROOT)
@@ -196,7 +196,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
             if row['id'] in references:
                 from local_byte_tables import relocated_compare
                 binding, evidence, path = references[row['id']]
-                if any(record.get('anchor_profile') == 'fixed-i386-disp32-v1'
+                if any(record.get('anchor_profile') in ('fixed-i386-disp32-v1', 'fixed-i386-moffs32-v1', 'fixed-i386-regimm-v1')
                        for record in binding.get('symbols', {}).values()):
                     from fixed_disp32 import relocated_compare
                 owners = {name: compiled[key][0] for (row_id, name), key in storage_profiles.items() if row_id == row['id']}

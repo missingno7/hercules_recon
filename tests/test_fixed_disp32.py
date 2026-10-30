@@ -201,6 +201,17 @@ class FixedDisp32Tests(unittest.TestCase):
             "        if kind == 'bss':\n            if record.get('anchor_profile') == PROFILE:\n                access_surveys[name].append(verify_access(ins, off, addend, record['size'], rva))\n            if typ != DIR32")
         expected = expected.replace('    if set(reviewed) != actual_offsets',
             "    for name, accesses in access_surveys.items():\n        if accesses != records[name]['fixed_disp32'].get('accesses'):\n            raise ValueError('Fixed disp32 reviewed access survey differs from complete COFF uses')\n    if set(reviewed) != actual_offsets")
+        expected = expected.replace("not in ('cmp-test-absolute-v1', PROFILE)", "not in ('cmp-test-absolute-v1', PROFILE) + FORMS")
+        expected = expected.replace(
+            "record['fixed_disp32'])\n            elif record.get('anchor_profile') == 'cmp-test-absolute-v1':",
+            "record['fixed_disp32'])\n            elif record.get('anchor_profile') in FORMS:\n"
+            "                from fixed_anchor_forms import verify_native as verify_native_form\n"
+            "                verify_native_form(pe, dest, extent, record.get('identity'), rva, size, record['fixed_disp32'],\n"
+            "                                   record['anchor_profile'])\n"
+            "            elif record.get('anchor_profile') == 'cmp-test-absolute-v1':")
+        expected = expected.replace("if rec.get('anchor_profile') == PROFILE}", "if rec.get('anchor_profile') in (PROFILE,) + FORMS}")
+        expected = expected.replace("            if record.get('anchor_profile') == PROFILE:\n                access_surveys",
+                                    "            if record.get('anchor_profile') in (PROFILE,) + FORMS:\n                access_surveys")
         self.assertEqual(inspect.getsource(fixed.relocated_compare), expected)
 
 

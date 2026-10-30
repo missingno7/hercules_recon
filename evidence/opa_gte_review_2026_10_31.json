@@ -1,0 +1,42 @@
+{
+ "anchor": {
+  "dereference": {
+   "operand": 1,
+   "rva": 45878,
+   "sha256": "af5809aea5486489cc7e83e139cfc451d1a009d6bf620398c9320637decf8317",
+   "size": 4,
+   "text": "movsx edi, word ptr [ecx - 6]"
+  },
+  "materialize": {
+   "operand": 1,
+   "rva": 45863,
+   "sha256": "7a9ee49003ac334fd569a3cbd9644ab809d51d88a1ee1138ac0a1307e1102338",
+   "size": 5,
+   "text": "mov ecx, 0xa8e70e"
+  },
+  "path": "Straight-line fall-through 0xb327 -> 0xb32c -> 0xb333 -> 0xb336; the intervening movsx eax,[0xa8e75e] and movsx edx,[ecx] write eax/edx only. 0xa8e70e - 6 = 0xa8e708.",
+  "profile": "fixed-i386-regimm-v1"
+ },
+ "boundary_basis": "Existing recovery boundary of exe.host_0b320 (RECONSTRUCTED, not pending): entry 0xb320, 272-byte span 0xb320..0xb430 whose continuous original decode ends RET at 0xb42e plus one NOP; the next recovery entry exe.host_0b430 starts at 0xb430. No current CODEGEN_SIMILAR row overlaps it.",
+ "independent_base_search": "Whole-image search for VAs 0xa8e708..0xa8e77f: the only direct base dereferences (0xb43a, 0xb6fa, 0xb743) lie in pending rows host_0b430/0b6f0/0b740; the only non-pending code is host_0b320, reaching the base solely through this pair.",
+ "native_functions": [
+  {
+   "anchor_offset": 22,
+   "rva": 45856,
+   "sha256": "68bea2cc0afeda0d32716e4860b988c9d655975d99810e1cd6db7801c0c821be",
+   "size": 272
+  }
+ ],
+ "owners": {
+  "_g_host_gte": {
+   "extent_basis": "Working caller aggregate HostGte (host_gte_0b2f0.c). Highest native field access is trans.pad at +0x74 width 4 (host_0bd60/0bd70), so 0x78 bytes. Not neighbour spacing.",
+   "rva": 6874888,
+   "size": 120,
+   "source": "src/pc/loader_zero_cells_opa.c"
+  }
+ },
+ "ownership": "Before adding the definition, searched canonical src/**/*.c,*.cpp,*.h: g_host_gte has only extern declarations (host_gte_0b2f0.c, host_gte_flags_0bd60.c). No provider is duplicated.",
+ "schema": 1,
+ "scope": "Preferred-base address use of the GTE block base and exact reconstructed aggregate owner; no original symbol, type, object start, TU or runtime closure claim.",
+ "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+}

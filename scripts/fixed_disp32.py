@@ -13,6 +13,8 @@ from pe import PE
 from masked import binding_records, REL32, DIR32
 
 PROFILE = 'fixed-i386-disp32-v1'
+# Further explicit anchor forms (scripts/fixed_anchor_forms.py); same record shape.
+FORMS = ('fixed-i386-moffs32-v1', 'fixed-i386-regimm-v1')
 
 
 def fingerprint(value):
@@ -335,7 +337,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
         kind, sym = record['kind'], by_name[name][0]
         if 'data_profile' in record and (kind != 'data' or record['data_profile'] != 'relocated-data-v1'):
             raise ValueError('Unsupported explicit data profile')
-        if 'anchor_profile' in record and (kind != 'bss' or record['anchor_profile'] not in ('cmp-test-absolute-v1', PROFILE)):
+        if 'anchor_profile' in record and (kind != 'bss' or record['anchor_profile'] not in ('cmp-test-absolute-v1', PROFILE) + FORMS):
             raise ValueError('Unsupported explicit loader-zero anchor profile')
         if sym['section'] < 0 or sym.get('storage', 2) == 105:
             raise ValueError('Absolute, debug and weak/alias symbols need an explicit verifier')
@@ -398,6 +400,10 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 raise ValueError('Unsupported loader-zero owner storage representation')
             if record.get('anchor_profile') == PROFILE:
                 verify_native_fixed(pe, dest, extent, record.get('identity'), rva, size, record['fixed_disp32'])
+            elif record.get('anchor_profile') in FORMS:
+                from fixed_anchor_forms import verify_native as verify_native_form
+                verify_native_form(pe, dest, extent, record.get('identity'), rva, size, record['fixed_disp32'],
+                                   record['anchor_profile'])
             elif record.get('anchor_profile') == 'cmp-test-absolute-v1':
                 from zero_compare_anchor import verify_native as verify_compare_native
                 verify_compare_native(pe, dest, extent, record.get('identity'), rva, size)
@@ -462,7 +468,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 raise ValueError('Conflicting or duplicate reviewed relocation')
             reviewed[uoff] = (name, typ, addend, one_past)
 
-    access_surveys = {name: [] for name, rec in records.items() if rec.get('anchor_profile') == PROFILE}
+    access_surveys = {name: [] for name, rec in records.items() if rec.get('anchor_profile') in (PROFILE,) + FORMS}
     fields, actual_offsets = set(), set()
     for rel in section['relocations']:
         off, typ, name = rel['offset'], rel['type'], rel['symbol']
@@ -488,7 +494,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
             raise ValueError('Section-symbol addend does not identify an instruction or table entry')
         ins = operand_fields.get(off)
         if kind == 'bss':
-            if record.get('anchor_profile') == PROFILE:
+            if record.get('anchor_profile') in (PROFILE,) + FORMS:
                 access_surveys[name].append(verify_access(ins, off, addend, record['size'], rva))
             if typ != DIR32 or ins is None:
                 raise ValueError('Loader-zero references require direct absolute instruction operands')
