@@ -100,7 +100,8 @@ extern KindAction *g_eng3_middle_actions_40b98;
 extern Actor *g_focus;
 extern Eng3Game *g_eng3_game_40b8c;
 extern Eng3Host *g_eng3_host_40bb4;
-extern short *g_eng3_table_407b4;
+extern unsigned char g_engine_interface[];
+#define g_eng3_table_407b4 (*(short **)((char *)&g_engine_interface + 0x14))
 extern short g_eng3_mode_41cb4;
 extern unsigned char g_eng3_script_355b0[];
 extern unsigned char g_eng3_script_355d0[];

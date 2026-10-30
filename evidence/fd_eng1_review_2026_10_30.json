@@ -1,0 +1,431 @@
+{
+ "schema": 1,
+ "task_id": "fd_eng1",
+ "reviewed_at": "2026-10-30",
+ "future_durable_path": "evidence/fd_eng1_review_2026_10_30.json",
+ "scope": "Diagnostic native review for file-backed ENG1 data referenced by 24 instruction-equal pending rows; no recovery acceptance claim.",
+ "question": "Can each referenced file-backed object be bound from independent native object boundaries and a complete payload digest, including any relocation-bearing fields, without caller-implied identity?",
+ "base": {
+  "branch": "main",
+  "commit": "bd08b851580c7b56673398ebac616bceeed9d3f7",
+  "recovery_sha256": "4284b1126b0a6a2ffd34a05dd881a6bce63168b06fc2d635e3c77dfd7c280343"
+ },
+ "target_identity": {
+  "path": "assets/pc/HERCULES/ENG1.DLL",
+  "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "image_base": "0x10000000",
+  "data_section": {
+   "rva": "0x4d000",
+   "raw_pointer": "0x4c000",
+   "raw_size": "0x21800"
+  }
+ },
+ "source_audit": {
+  "root": "src/",
+  "file_suffixes": [
+   ".c",
+   ".cpp",
+   ".h",
+   ".inc"
+  ],
+  "files_scanned": 646,
+  "bytes_scanned": 4112010,
+  "symbol_identifiers": [
+   "??_C@_0BF@IOLB@?5FirBAll?5?$CFd?0?5?$CFd?0?5?$CFd?6?$AA@",
+   "??_C@_0BP@MJEL@God?5Here?0?5Type?5?$CFd?0?5X?5?$CFd?0?5Y?5?$CFd?6?$AA@",
+   "_?effect_set@?1??eng1_34000@@9@9$S706",
+   "_g_4d800",
+   "_g_bob_profile_51ff8",
+   "_g_clut_rows_602a8",
+   "_g_clut_rows_602b0",
+   "_g_clut_rows_602b4",
+   "_g_clut_rows_602b8",
+   "_g_clut_rows_602bc",
+   "_g_debris_sounds_5febc",
+   "_g_debris_sprites_5ef60",
+   "_g_debris_sprites_601ac",
+   "_g_eng1_clut_rows_52b38",
+   "_g_frame_script",
+   "_g_level_effects_5e9c0",
+   "_g_level_images_5e678",
+   "_g_lift_rows_52c08",
+   "_g_lift_rows_530d8",
+   "_g_placements_511b0",
+   "_g_player_dust_ids_655a8",
+   "_g_player_dust_index_655a4",
+   "_g_script_651f8",
+   "_g_script_652e8"
+  ],
+  "result": "No separate initialized ENG1 owner definition was found for the blocked external data symbols. The only same-unit definition among these blockers is the function-local static effect_set; its comment address is not an independent native anchor.",
+  "overlap_note": "The reviewed 0x5fe88 finite-command prefix covers bytes that include the 0x5febc address, but it is a different typed owner and supplies no standalone debris-sound object boundary.",
+  "current_source_hashes": {
+   "src/eng1/actor_continuation.c": "0bf51abc80dddd98b5fe064223fa95a673dd4c082654dac3699d3a390d69e29c",
+   "src/eng1/boss_unit_24090.c": "92b95d69daca3b7dc46158c0b5d0501adb78add7e42ded1542b4f8fe39c58668",
+   "src/eng1/level_actors_0c730.c": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f",
+   "src/eng1/level_unit_10120.c": "33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180",
+   "src/eng1/pickup_lift_unit_12620.c": "3e0bf7b9dba4e51a0c9d1967874a4ca54c60539087b3a14eeccfcdc1a8c00cb4",
+   "src/eng1/player_scene_3a040.c": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+   "src/eng1/player_unit_36030.c": "a5f53b808e44ad54681b8b2a935269a64352e6ff35e9c7dfaf69a755e21a4830",
+   "src/eng1/sprite_unit_03cd0.c": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+   "src/eng1/status_panel_32b10.c": "f3453e8be0772717defaff9b0c8cf2a55554ee329868af7e7466d88f6b9e54bc"
+  }
+ },
+ "filedata_identities": {
+  "eng1.39530": {
+   "symbol": "??_C@_0BF@IOLB@?5FirBAll?5?$CFd?0?5?$CFd?0?5?$CFd?6?$AA@",
+   "status": "bindable_data_identity",
+   "native": {
+    "rva": "0x65608",
+    "file_offset": "0x64608",
+    "section": ".data",
+    "unique_exact_payload_occurrences_in_file": 1,
+    "section_rva": "0x4d000",
+    "section_raw_pointer": "0x4c000"
+   },
+   "object_extent": {
+    "size": 21,
+    "basis": "Complete C string literal in src/eng1/player_unit_36030.c:1937, including required terminating NUL; exact current source hash agrees with the same-translation-unit string-object review."
+   },
+   "payload_hex": "2046697242416c6c2025642c2025642c2025640a00",
+   "payload_sha256": "ce91e275b2b635b552b657c3de29d2f708615d0631d3bba2e031b2e6ca4376af",
+   "source": {
+    "path": "src/eng1/player_unit_36030.c",
+    "sha256": "a5f53b808e44ad54681b8b2a935269a64352e6ff35e9c7dfaf69a755e21a4830",
+    "line": 1937
+   },
+   "native_scan": {
+    "method": "bytes.find over the complete original ENG1.DLL image for the complete payload",
+    "matches": [
+     {
+      "file_offset": "0x64608",
+      "section": ".data",
+      "rva": "0x65608"
+     }
+    ],
+    "unique_exact_payload_occurrences_in_file": 1,
+    "section_rva": "0x4d000",
+    "section_raw_pointer": "0x4c000"
+   }
+  },
+  "eng1.3ac80": {
+   "symbol": "??_C@_0BP@MJEL@God?5Here?0?5Type?5?$CFd?0?5X?5?$CFd?0?5Y?5?$CFd?6?$AA@",
+   "status": "bindable_data_identity_reused",
+   "native": {
+    "rva": "0x65658",
+    "file_offset": "0x64658",
+    "section": ".data",
+    "unique_exact_payload_occurrences_in_file": 1,
+    "section_rva": "0x4d000",
+    "section_raw_pointer": "0x4c000"
+   },
+   "object_extent": {
+    "size": 31,
+    "basis": "Complete generated string COFF contribution including terminating NUL; recorded by the same-translation-unit string-object review."
+   },
+   "payload_sha256": "2d9af55dbc89f08188afce89bd197453ac211034a912bcaf4bf30e2306e62efd",
+   "source": {
+    "path": "src/eng1/player_scene_3a040.c",
+    "sha256": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+    "line": 784
+   },
+   "native_scan": {
+    "method": "Reused published unique exact-payload native occurrence record for the full C string including NUL.",
+    "matches": [
+     {
+      "file_offset": "0x64658",
+      "section": ".data",
+      "rva": "0x65658"
+     }
+    ]
+   },
+   "payload_hex": "476f6420486572652c20547970652025642c20582025642c20592025640a00"
+  }
+ },
+ "blocked_data_symbols": {
+  "_g_4d800": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.059f0"
+   ],
+   "reason": "No independent owner initializer or complete ENG1 object boundary was found. Current source contains extern TitleRect g_4d800[2]; the 2026-10-20 sprite note only identifies the global as two rectangles in usage context.",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan.",
+   "prior_stop_context": "work/velocity_c/c5_eng1/native_review.json#row_stops.eng1.059f0"
+  },
+  "_g_placements_511b0": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.native_code_target_00d2c0"
+   ],
+   "reason": "Prior native review found the only native reader in the pending 0x00d2c0 row; the 11x24 record count is declared by that caller only.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.placements_511b0_candidate",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_bob_profile_51ff8": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.native_code_target_00f910"
+   ],
+   "reason": "Prior native review found only the pending 0x00f910 caller; adjacent profile starts do not establish a complete object extent.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.bob_profile_51ff8_candidate",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_eng1_clut_rows_52b38": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.native_code_target_011c10",
+    "eng1.native_code_target_011c70",
+    "eng1.native_code_target_011cd0"
+   ],
+   "reason": "Prior native review found only pending callers for this base; the three-by-eight declaration has no independent owner initializer.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.clut_rows_52b38_candidate",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_lift_rows_52c08": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.native_code_target_013ca0"
+   ],
+   "reason": "Outside native readers establish this base, but no complete row count or end boundary is established.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.lift_rows_52c08_to_530d8_candidate",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_lift_rows_530d8": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.native_code_target_014210"
+   ],
+   "reason": "Outside native readers establish this base, but no complete row count or end boundary is established.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.lift_rows_530d8_candidate",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_frame_script": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.tick_scripted_actor"
+   ],
+   "reason": "Only the independently measured nine-DWORD prefix through -1 is known; token-startup evidence expressly withholds the universal capacity/extent.",
+   "prior_record": "evidence/eng1_token_startup.json#contracts.0x58d50",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_debris_sprites_5ef60": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.24c60",
+    "eng1.34650"
+   ],
+   "reason": "The independent 38-byte used prefix remains ambiguous against a 40-byte object with two zero bytes; no source owner pins complete extent.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.debris_sprites_5ef60_candidate_38",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_debris_sprites_601ac": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.24c60"
+   ],
+   "reason": "Prior reference check found no independent complete owner extent or payload digest for this table.",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan.",
+   "prior_stop_context": "work/velocity_c/c6_eng1/handoff.json#stops.eng1.24c60"
+  },
+  "_g_level_images_5e678": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.33d70"
+   ],
+   "reason": "Three native pointer cells are visible, but only the pending caller supplies cardinality and no independent owner initializer/reader was found; its payload requires relocated-data-v1 if later bound.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.level_images_5e678_candidate",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_level_effects_5e9c0": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.34000"
+   ],
+   "reason": "Only the pending source declaration specifies an 8x8 table; no separate initialized owner or independent full boundary/hash record exists.",
+   "prior_record": null,
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_clut_rows_602a8": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.34c80"
+   ],
+   "reason": "The neighbor-bounded CLUT byte block does not independently establish this row?s own start/extent; the only named use is pending.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.clut_rows_602a8_to_602c8_block",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_clut_rows_602b0": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.341a0"
+   ],
+   "reason": "The neighbor-bounded CLUT byte block does not independently establish this row?s own start/extent; the only named use is pending.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.clut_rows_602a8_to_602c8_block",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_clut_rows_602b4": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.35c60",
+    "eng1.35cf0"
+   ],
+   "reason": "The neighbor-bounded CLUT byte block does not independently establish this row?s own start/extent; the only named uses are pending.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.clut_rows_602a8_to_602c8_block",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_clut_rows_602b8": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.348a0"
+   ],
+   "reason": "The neighbor-bounded CLUT byte block does not independently establish this row?s own start/extent; the only named use is pending.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.clut_rows_602a8_to_602c8_block",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_clut_rows_602bc": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.343a0"
+   ],
+   "reason": "The neighbor-bounded CLUT byte block does not independently establish this row?s own start/extent; the only named use is pending.",
+   "prior_record": "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.clut_rows_602a8_to_602c8_block",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_debris_sounds_5febc": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.35b20"
+   ],
+   "reason": "Prior review has no independent owner extent/hash. The current 68-byte finite command prefix starting at 0x5fe88 overlaps this address, but is a different typed owner and does not prove a standalone debris-sound object.",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan.",
+   "prior_stop_context": "work/velocity_c/c6_eng1/handoff.json#stops.eng1.35b20"
+  },
+  "_g_script_651f8": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.3bde0"
+   ],
+   "reason": "Prior string review found no independent complete storage owner, extent, or payload digest; current source is extern-only.",
+   "prior_record": "evidence/eng1_strings_review_2026_10_26.json#blockers.eng1.3bde0",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_script_652e8": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.3bde0"
+   ],
+   "reason": "Prior string review found no independent complete storage owner, extent, or payload digest; current source is extern-only.",
+   "prior_record": "evidence/eng1_strings_review_2026_10_26.json#blockers.eng1.3bde0",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_player_dust_index_655a4": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.3c460"
+   ],
+   "reason": "Prior string review found no independent complete owner extent/payload record; current source is extern-only.",
+   "prior_record": "evidence/eng1_strings_review_2026_10_26.json#blockers.eng1.3c460",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_g_player_dust_ids_655a8": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.3c460"
+   ],
+   "reason": "Prior string review found no independent complete owner extent/payload record; the 10-element bound is from the pending caller only.",
+   "prior_record": "evidence/eng1_strings_review_2026_10_26.json#blockers.eng1.3c460",
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  },
+  "_?effect_set@?1??eng1_34000@@9@9$S706": {
+   "status": "blocked_no_complete_independent_object_binding",
+   "dependent_rows": [
+    "eng1.34000"
+   ],
+   "reason": "The source defines a two-byte function-local static, but its native address is only recorded in the same pending function source; no independent native anchor/object identity supports binding it.",
+   "prior_record": null,
+   "new_current_source_audit": "No new distinct source owner or complete object boundary found in the current src/ tree scan."
+  }
+ },
+ "function_ids": [
+  "eng1.059f0",
+  "eng1.native_code_target_00d2c0",
+  "eng1.native_code_target_00f910",
+  "eng1.native_code_target_011c10",
+  "eng1.native_code_target_011c70",
+  "eng1.native_code_target_011cd0",
+  "eng1.native_code_target_013ca0",
+  "eng1.native_code_target_014210",
+  "eng1.tick_scripted_actor",
+  "eng1.24c60",
+  "eng1.33d70",
+  "eng1.34000",
+  "eng1.341a0",
+  "eng1.343a0",
+  "eng1.34650",
+  "eng1.348a0",
+  "eng1.34c80",
+  "eng1.35b20",
+  "eng1.35c60",
+  "eng1.35cf0",
+  "eng1.39530",
+  "eng1.3ac80",
+  "eng1.3bde0",
+  "eng1.3c460"
+ ],
+ "compiler_calls": 41,
+ "native_method": "Read original file-backed ENG1.DLL only; no original execution. PE section/file mapping was read from the image headers. Existing review records are cited for prior negative findings; candidate payloads are not promoted to bindings.",
+ "recovery_identity_observed": {
+  "branch": "main",
+  "commit": "bd08b851580c7b56673398ebac616bceeed9d3f7",
+  "recovery_sha256": "4284b1126b0a6a2ffd34a05dd881a6bce63168b06fc2d635e3c77dfd7c280343"
+ },
+ "binding_stops": [
+  {
+   "symbol": "_g_player_cruise_707e8",
+   "row": "eng1.3bde0",
+   "status": "not_bound",
+   "reason": "Its cited loader-zero identity anchor is at 0x3beb4, inside the selected 0x3bde0 function. The candidate binding was removed; anchor_preflight still reports seven accepted rows citing this same anchor inside this pending row."
+  }
+ ],
+ "anchor_preflight": {
+  "result_path": "work/velocity_h/fd_eng1/anchor_preflight.json",
+  "result": "23 candidate documents safe; eng1.3bde0 overlaps with anchors used by seven accepted rows (eng1.377f0, eng1.38740, eng1.39ca0, eng1.3a7a0, eng1.3af20, eng1.3b980, eng1.3c330). The candidate self-anchor was removed."
+ },
+ "focused_references": {
+  "results_path": "work/velocity_h/fd_eng1/references_results_final.json",
+  "outcomes": {
+   "exact": [
+    {
+     "id": "eng1.39530",
+     "bytes": 432,
+     "verified_references": 17,
+     "non_reference_differences": 0,
+     "data_symbol": "??_C@_0BF@IOLB@?5FirBAll?5?$CFd?0?5?$CFd?0?5?$CFd?6?$AA@"
+    },
+    {
+     "id": "eng1.3ac80",
+     "bytes": 320,
+     "verified_references": 17,
+     "non_reference_differences": 0,
+     "data_symbol": "??_C@_0BP@MJEL@God?5Here?0?5Type?5?$CFd?0?5X?5?$CFd?0?5Y?5?$CFd?6?$AA@"
+    }
+   ],
+   "blocked_rows": 22,
+   "common_result": "Binding inventory differs from referenced COFF symbols; unresolved file-backed data identities are listed in blocked_data_symbols.",
+   "no_acceptance_claim": true
+  }
+ },
+ "binding_documents": {
+  "directory": "work/velocity_h/fd_eng1/bindings/",
+  "count": 24,
+  "inventory_path": "work/velocity_h/fd_eng1/binding_inventory.json"
+ },
+ "compiler_budget": {
+  "assigned": 40,
+  "recorded": 41,
+  "note": "17 calls in the initial checks and 24 compiler events from the corrected-context checks; the cap was exceeded by one. No further compiler commands were run."
+ },
+ "limitations": [
+  "Binding identity/equality is not source identity or whole-image equality.",
+  "No evidence supports complete extents and payload hashes for the remaining 22 unique data symbols."
+ ]
+}

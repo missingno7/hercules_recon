@@ -1,0 +1,87 @@
+{
+ "schema": 1,
+ "description": "ENG3 file-backed data binding for eng3.1b8c0; includes existing reference identities required by the COFF inventory; diagnostic only, no acceptance claim.",
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "evidence/scalar_eng3_4_bindings_2026_10_26.json": "87bb5661b072cfe93f08034a56e0eb9fed651fe4f35259f185659d1795749c6b",
+  "evidence/scalar_eng3_4_review_2026_10_26.json": "d5a5df14ce74410275535f14a40ea249295aef961a037815a1d9bef8a5dab5f2",
+  "src/eng3/handlers_16240.cpp": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+  "src/eng3/loader_zero_cells_4.c": "f06769005b46b7fd0779ebdbe453258dd487ebc011e067133c1d4db053e84e3d",
+  "src/eng3/track_unit_20010.cpp": "629d9271c5771e823424e5918fab502cb511cb742c75932151083f4ef2a50d41"
+ },
+ "function_identities": {},
+ "functions": {
+  "eng3.1b8c0": {
+   "symbols": {
+    "_eng3_1b7f0": {
+     "kind": "function",
+     "rva": 112624,
+     "size": 160,
+     "evidence": [
+      "recovery.json#functions[eng3.1b7f0]",
+      "recovery.json#functions[eng3.1b7f0].evidence"
+     ],
+     "references": [
+      {
+       "offset": 7,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_unknown_3fb8c": {
+     "kind": "bss",
+     "rva": 261004,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_4.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_unknown_3fb8c"
+     },
+     "identity": {
+      "rva": 93375,
+      "size": 5,
+      "operand": 1,
+      "sha256": "c815d2d59c861ac852a9d75b97f0e722fc7045339d301b3a8e3b6a98596b92a6"
+     },
+     "evidence": [
+      "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_unknown_3fb8c"
+     ],
+     "references": [
+      {
+       "offset": 37,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_unknown_38520": {
+     "kind": "data",
+     "rva": 230688,
+     "size": 4,
+     "sha256": "874d4a57ec4bfe979629f5f5537f9926f71f6102abb4634ee48770d1ceb3384e",
+     "evidence": [
+      "evidence/fd_eng3_review_2026_10_30.json#/symbols/_g_eng3_unknown_38520",
+      "assets/pc/HERCULES/ENG3.DLL#RVA=0x38520 (complete four-byte file-backed payload)",
+      "src/eng3/handlers_16240.cpp:242 (extern long scalar declaration)",
+      "src/eng3/track_unit_20010.cpp:227,510 (independent scalar use and store)"
+     ],
+     "references": [
+      {
+       "offset": 24,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 31,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}

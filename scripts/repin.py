@@ -193,6 +193,9 @@ def apply(plan_path, before_path, original_root, directory):
         old_state = copy.deepcopy(state)
         plan_bytes = plan_path.read_bytes()
         plan = json.loads(plan_bytes)
+        inventory_refresh = plan.get('inventory_refresh', {})
+        if not isinstance(inventory_refresh, dict) or set(inventory_refresh) - set(plan['sources']):
+            raise ValueError('Inventory refresh must name changed sources explicitly')
         require_equal(sha(state_bytes), plan['state_sha256'], 'plan state')
         before_bytes = before_path.read_bytes()
         before = json.loads(before_bytes)
@@ -254,9 +257,11 @@ def apply(plan_path, before_path, original_root, directory):
                         proof['context_sha256'].update(additions[name])
             if row['source'] in changed or changed & set(pins) or mapping:
                 affected.append(row['id'])
-            # Whole-object accepted inventories cannot be refreshed by this gate.
+            # Legacy default still refuses whole-unit changes. The opt-in gate
+            # checks complete old/new inventories and all accepted contributions.
             if proof.get('unit_inventory_sha256') and changed & set(proof.get('context_sha256', {})):
-                raise ValueError('Whole-unit change needs a separately reviewed inventory proof')
+                if row['source'] not in inventory_refresh or changed & set(proof['context_sha256']) != {row['source']}:
+                    raise ValueError('Whole-unit change needs a separately reviewed inventory proof')
         # Retained raw proof dictionaries are references to their canonical fields.
         for row in state['functions']:
             if row['status'] == 'LINKED_MATCH' and row['source'] in changed:
@@ -290,6 +295,11 @@ def apply(plan_path, before_path, original_root, directory):
                  plan_path: plan_bytes, before_path: before_bytes}
         for p in docs:
             guard[ROOT/p] = (ROOT/p).read_bytes()
+        for declaration in inventory_refresh.values():
+            review = (ROOT / declaration['review']).resolve()
+            if not review.is_relative_to(ROOT / 'evidence'):
+                raise ValueError('Inventory reviews belong under evidence/')
+            guard[review] = review.read_bytes()
         for result in before['results']:
             for p in result['compile_inputs']:
                 path = Path(p)
@@ -299,6 +309,11 @@ def apply(plan_path, before_path, original_root, directory):
             for path, data in guard.items():
                 require_equal(path.read_bytes(), data, 'frozen input '+str(path))
         def finish():
+            inventory_receipts = []
+            if inventory_refresh:
+                from unit_refresh import refresh
+                inventory_receipts = refresh(accepted_rows(state['functions']), old_results,
+                                            inventory_refresh, original_root)
             rows = accepted_rows(state['functions'])
             # RELOCATED requests retain their pending status until the gate passes.
             rows += [r for r in selected if r['id'] in pending]
@@ -331,7 +346,8 @@ def apply(plan_path, before_path, original_root, directory):
                            state_before_sha256=sha(state_bytes), state_after_sha256=sha(after),
                            accepted_before=sorted(old_results), promoted=sorted(r['id'] for r in selected),
                            affected=sorted(affected), statistics=statistics, pins=audit['direct_pins'],
-                           snapshots=snapshots, preserved=preserved, results=results)
+                           snapshots=snapshots, preserved=preserved, results=results,
+                           inventory_refresh=inventory_receipts)
             atomic_bytes(directory/'after.json', (json.dumps(receipt,indent=2)+'\n').encode())
             # Keep journal recovery valid across the final ledger replacement.
             records=json.loads(journal.read_bytes())

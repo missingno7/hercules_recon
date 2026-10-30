@@ -111,7 +111,7 @@ extern Actor *g_focus;
 extern Eng3Game *g_eng3_game_40b8c;
 extern Eng3Host *g_eng3_host_40bb4;
 extern EngineInterfaceView g_engine_interface;
-extern short *g_eng3_table_407b4;
+#define g_eng3_table_407b4 (*(short **)((char *)&g_engine_interface + 0x14))
 extern short g_eng3_mode_41cb4;
 extern int g_eng3_3fb20;
 extern unsigned char g_eng3_script_35be8[];

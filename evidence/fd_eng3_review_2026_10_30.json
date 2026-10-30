@@ -1,0 +1,1086 @@
+{
+ "schema": 1,
+ "task_id": "fd_eng3",
+ "durable_path": "evidence/fd_eng3_review_2026_10_30.json",
+ "scope": "Independent native review of file-backed ENG3 data symbols needed by 19 instruction-equal rows; no recovery acceptance claim.",
+ "question": "Can an independent native RVA, complete object boundary, and complete payload hash be established for each data symbol without deriving identity from pending caller operands or adjacency?",
+ "result": "partial",
+ "base_revision": "57a77055c1531ed6705fd546f179a232a1a935e4",
+ "observed_recovery_sha256": "4284b1126b0a6a2ffd34a05dd881a6bce63168b06fc2d635e3c77dfd7c280343",
+ "target": {
+  "path": "assets/pc/HERCULES/ENG3.DLL",
+  "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "image_base": "0x10000000",
+  "sections": {
+   ".data": {
+    "rva_start": "0x33000",
+    "virtual_size": "0x11334",
+    "raw_file_offset": "0x31e00",
+    "raw_size": "0xc400",
+    "file_backed_end_rva": "0x3f400"
+   }
+  }
+ },
+ "planning_inputs_not_identity": {
+  "queue": "work/blockers/queue_h.json",
+  "sha256": "eb153cd16b02f5b0c9a2f4dccfdbc63ede247c1f540873d86c68fa71c6e873d1",
+  "note": "Used only to enumerate assigned rows, blocker symbol names, and reference relocation offsets; implied destinations were not used as identity."
+ },
+ "source_owner_search": {
+  "scope": "Current src/**/*.c, *.cpp, *.h, *.hpp, and *.inc files; all requested identifiers checked after removing the leading COFF underscore.",
+  "result": "No initialized data definitions for the requested symbols were found. File-backed arrays appear as extern declarations; scalar variables appear as extern declarations and ordinary uses. The searched source files are pinned below."
+ },
+ "source_hashes": {
+  "src/eng3/handlers_023a0.c": "47d70e8b8096968de93428e39111ee264fccee6269ae66ddd2f13c3615f7f228",
+  "src/eng3/handlers_14190.cpp": "ee3c1c44858c2b35959f1bda06236d658213e05318ee4f407ef5893e3218097c",
+  "src/eng3/handlers_16240.cpp": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+  "src/eng3/handlers_26b40.c": "4da041bd801267c18d202b125664b99af83384c0dc02de5a6332c0754b6be9d5",
+  "src/eng3/handlers_28ae0.c": "315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64",
+  "src/eng3/render_unit_22f00.cpp": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+  "src/eng3/track_unit_20010.cpp": "629d9271c5771e823424e5918fab502cb511cb742c75932151083f4ef2a50d41"
+ },
+ "prior_diagnostic_context_not_binding_evidence": [
+  {
+   "path": "work/velocity_b/eng3_filedata/native_review.json",
+   "sha256": "2b9d87e90ffe3394ab4d36fcc0c170075d412c2117f8d8128921f1035e0c7746",
+   "note": "Earlier stop for seven symbols; not cited as binding evidence."
+  },
+  {
+   "path": "work/velocity_c/c9_eng3/handoff.json",
+   "sha256": "a21a6a1c90aadc98993ce4a2eea39a979121d7f840a61e5fd88b95fe433485a4",
+   "note": "Earlier stop includes image_37b24/37b28; not cited as binding evidence."
+  }
+ ],
+ "durable_native_inputs": {
+  "evidence/c7_eng3_review_2026_10_26.json": "4c7f28d0a9f8487bdfda7b2bdc4bb995729a4fc8c6f72220e3d8a53c9b03fd65",
+  "evidence/eng3_focus_review_2026_10_26.json": "64750b15ca6107a24e911002188a4033cc9bd4c67695a864a1f6ed325cf8fc6b"
+ },
+ "bound_symbol_count": 2,
+ "unbound_symbol_count": 26,
+ "symbols": {
+  "_g_eng3_37b8c": {
+   "symbol": "_g_eng3_37b8c",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_37b8c"
+   ]
+  },
+  "_g_eng3_37b90": {
+   "symbol": "_g_eng3_37b90",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_37b90"
+   ]
+  },
+  "_g_eng3_37b94": {
+   "symbol": "_g_eng3_37b94",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_37b94"
+   ]
+  },
+  "_g_eng3_37b98": {
+   "symbol": "_g_eng3_37b98",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_37b98"
+   ]
+  },
+  "_g_eng3_37b9c": {
+   "symbol": "_g_eng3_37b9c",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_37b9c"
+   ]
+  },
+  "_g_eng3_37ba0": {
+   "symbol": "_g_eng3_37ba0",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_37ba0"
+   ]
+  },
+  "_g_eng3_3803c": {
+   "symbol": "_g_eng3_3803c",
+   "status": "bound_scalar",
+   "rva": 229436,
+   "size": 4,
+   "payload_sha256": "874d4a57ec4bfe979629f5f5537f9926f71f6102abb4634ee48770d1ceb3384e",
+   "payload_hex": "40010000",
+   "section": ".data",
+   "file_offset": 224828,
+   "internal_highlow_rvas": [],
+   "profile": "ordinary data (no internal relocation fields)",
+   "identity_basis": {
+    "section": ".data",
+    "file_offset": 224828,
+    "payload_hex": "40010000",
+    "independent_accesses": 6,
+    "access_widths": [
+     4
+    ],
+    "unoverlapped_accesses": true,
+    "independent_anchor": {
+     "rva": 95531,
+     "bytes": "8b0d3c800310",
+     "size": 6,
+     "fixup_rva": 95533,
+     "fixup_type": 3,
+     "asm": "mov ecx, dword ptr [0x1003803c]"
+    },
+    "internal_highlow_rvas": [],
+    "profile": "ordinary data (no internal relocation fields)",
+    "extent_reason": "The reviewed native object is a single long scalar: the source declares long and every independently decoded native access is exactly four bytes, with no overlapping wider access. Its address comes from the independent native access inventory, not the pending row relocation or a neighbor."
+   },
+   "durable_evidence": [
+    "evidence/fd_eng3_review_2026_10_30.json#/symbols/_g_eng3_3803c",
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_3803c",
+    "src/eng3/handlers_16240.cpp:245 (extern long scalar declaration)"
+   ]
+  },
+  "_g_eng3_image_37658": {
+   "symbol": "_g_eng3_image_37658",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_image_37b24": {
+   "symbol": "_g_eng3_image_37b24",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_image_37b28": {
+   "symbol": "_g_eng3_image_37b28",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_image_37ba8": {
+   "symbol": "_g_eng3_image_37ba8",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_image_37c00": {
+   "symbol": "_g_eng3_image_37c00",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_image_37c30": {
+   "symbol": "_g_eng3_image_37c30",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_image_37c38": {
+   "symbol": "_g_eng3_image_37c38",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_image_37c38"
+   ]
+  },
+  "_g_eng3_image_37ca0": {
+   "symbol": "_g_eng3_image_37ca0",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_image_37ca0"
+   ]
+  },
+  "_g_eng3_image_37cd8": {
+   "symbol": "_g_eng3_image_37cd8",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_image_37cd8"
+   ]
+  },
+  "_g_eng3_image_37df0": {
+   "symbol": "_g_eng3_image_37df0",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_image_37df0"
+   ]
+  },
+  "_g_eng3_image_37fe8": {
+   "symbol": "_g_eng3_image_37fe8",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": "stop: no complete independent scalar data identity",
+   "prior_durable_reviews": [
+    "evidence/c7_eng3_review_2026_10_26.json#/file_data_symbols/_g_eng3_image_37fe8"
+   ]
+  },
+  "_g_eng3_scale_39518": {
+   "symbol": "_g_eng3_scale_39518",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_script_33710": {
+   "symbol": "_g_eng3_script_33710",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_script_381d8": {
+   "symbol": "_g_eng3_script_381d8",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_script_38210": {
+   "symbol": "_g_eng3_script_38210",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_script_39f98": {
+   "symbol": "_g_eng3_script_39f98",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_script_39fc0": {
+   "symbol": "_g_eng3_script_39fc0",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_sprites_34f98": {
+   "symbol": "_g_eng3_sprites_34f98",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_sprites_38120": {
+   "symbol": "_g_eng3_sprites_38120",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  },
+  "_g_eng3_unknown_38520": {
+   "symbol": "_g_eng3_unknown_38520",
+   "status": "bound_scalar",
+   "rva": 230688,
+   "size": 4,
+   "payload_sha256": "874d4a57ec4bfe979629f5f5537f9926f71f6102abb4634ee48770d1ceb3384e",
+   "payload_hex": "40010000",
+   "section": ".data",
+   "file_offset": 226080,
+   "internal_highlow_rvas": [],
+   "profile": "ordinary data (no internal relocation fields)",
+   "identity_basis": {
+    "section": ".data",
+    "file_offset": 226080,
+    "payload_hex": "40010000",
+    "independent_accesses": 4,
+    "access_widths": [
+     4
+    ],
+    "unoverlapped_accesses": true,
+    "independent_anchor": {
+     "rva": 132229,
+     "bytes": "c70520850310e0010000",
+     "size": 10,
+     "fixup_rva": 132231,
+     "fixup_type": 3,
+     "asm": "mov dword ptr [0x10038520], 0x1e0"
+    },
+    "internal_highlow_rvas": [],
+    "profile": "ordinary data (no internal relocation fields)",
+    "extent_reason": "The source declares this as one long scalar. Six original absolute accesses all operate on four bytes; an independent original DWORD writer outside the assigned row identifies RVA 0x38520, and the relocation field in that instruction is HIGHLOW. The scalar boundary does not use neighboring storage.",
+    "native_access_scan": {
+     "method": "Enumerated all PE HIGHLOW relocation fields in the pinned ENG3.DLL whose stored absolute value is 0x10038520, then decoded each field-local instruction window as x86-32.",
+     "executable_section": {
+      "name": ".text",
+      "rva": "0x1000",
+      "raw_size": "0x30e00"
+     },
+     "matching_highlow_fields": 6,
+     "decoded_native_accesses": [
+      {
+       "rva": 93388,
+       "bytes": "8b0d20850310",
+       "size": 6,
+       "mnemonic": "mov",
+       "operands": "ecx, dword ptr [0x10038520]",
+       "access": "read",
+       "memory_operand_width": 4,
+       "fixup_rva": 93390,
+       "fixup_type": "HIGHLOW",
+       "pending_row": null,
+       "instruction_sha256": "e12a99c82375c918f95d51b9c413927d19fb90f0906c9431976ced6eebb3ac3f"
+      },
+      {
+       "rva": 93404,
+       "bytes": "890d20850310",
+       "size": 6,
+       "mnemonic": "mov",
+       "operands": "dword ptr [0x10038520], ecx",
+       "access": "write",
+       "memory_operand_width": 4,
+       "fixup_rva": 93406,
+       "fixup_type": "HIGHLOW",
+       "pending_row": null,
+       "instruction_sha256": "4943cb76473120777a60b62f64f510b361beebc9ced677693041abe9a98305ec"
+      },
+      {
+       "rva": 93587,
+       "bytes": "a120850310",
+       "size": 5,
+       "mnemonic": "mov",
+       "operands": "eax, dword ptr [0x10038520]",
+       "access": "read",
+       "memory_operand_width": 4,
+       "fixup_rva": 93588,
+       "fixup_type": "HIGHLOW",
+       "pending_row": null,
+       "instruction_sha256": "f039d0fabff3ba262098e7f7a117888877a47b91bd3e54a05126cee166cb8c1f"
+      },
+      {
+       "rva": 112854,
+       "bytes": "390520850310",
+       "size": 6,
+       "mnemonic": "cmp",
+       "operands": "dword ptr [0x10038520], eax",
+       "access": "read",
+       "memory_operand_width": 4,
+       "fixup_rva": 112856,
+       "fixup_type": "HIGHLOW",
+       "pending_row": "eng3.1b8c0",
+       "instruction_sha256": "dec49bef81db6e976c2da09a17a2cb39335995192da6dede00e89c6dbb8d4a3a"
+      },
+      {
+       "rva": 112862,
+       "bytes": "a320850310",
+       "size": 5,
+       "mnemonic": "mov",
+       "operands": "dword ptr [0x10038520], eax",
+       "access": "write",
+       "memory_operand_width": 4,
+       "fixup_rva": 112863,
+       "fixup_type": "HIGHLOW",
+       "pending_row": "eng3.1b8c0",
+       "instruction_sha256": "560da089e1e92e8415072a296ed9691b1a5c96d91a34d4b923e0c53d4f2e6127"
+      },
+      {
+       "rva": 132229,
+       "bytes": "c70520850310e0010000",
+       "size": 10,
+       "mnemonic": "mov",
+       "operands": "dword ptr [0x10038520], 0x1e0",
+       "access": "write",
+       "memory_operand_width": 4,
+       "fixup_rva": 132231,
+       "fixup_type": "HIGHLOW",
+       "pending_row": null,
+       "instruction_sha256": "42a004c1d93102816392bbdf0097e4a0fe4623a03f783049f02571f8971964c7"
+      }
+     ],
+     "outside_selected_pending_rows": 4,
+     "selected_pending_row_accesses": 2,
+     "access_widths": [
+      4
+     ],
+     "all_fields_in_executable_section": true,
+     "extent_basis": "The native address has four nonpending, exact four-byte memory accesses including an independent immediate DWORD writer; the two task-row references are excluded from address identity. Source declarations/use also identify a scalar long. The object boundary is four bytes; no neighboring address was used."
+    },
+    "all_exact_accesses_including_pending_rows": 6
+   },
+   "durable_evidence": [
+    "evidence/fd_eng3_review_2026_10_30.json#/symbols/_g_eng3_unknown_38520",
+    "assets/pc/HERCULES/ENG3.DLL#RVA=0x38520 (complete four-byte file-backed payload)",
+    "src/eng3/handlers_16240.cpp:242 (extern long scalar declaration)",
+    "src/eng3/track_unit_20010.cpp:227,510 (independent scalar use and store)"
+   ]
+  },
+  "_g_eng3_x_38100": {
+   "symbol": "_g_eng3_x_38100",
+   "status": "unbound",
+   "rva": null,
+   "size": null,
+   "payload_sha256": null,
+   "profile": null,
+   "reason": "No independently established complete native object boundary and payload identity is available in the reviewed evidence. Current source search found only extern declarations/usages and no data definition. No caller-implied destination or adjacent boundary is promoted to identity.",
+   "prior_native_review_status": null,
+   "prior_durable_reviews": []
+  }
+ },
+ "function_needs": [
+  {
+   "id": "eng3.03020",
+   "source": "src/eng3/handlers_023a0.c",
+   "source_sha256": "47d70e8b8096968de93428e39111ee264fccee6269ae66ddd2f13c3615f7f228",
+   "planning_blocker_symbols": [
+    "_g_eng3_script_33710"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.03ef0",
+   "source": "src/eng3/handlers_023a0.c",
+   "source_sha256": "47d70e8b8096968de93428e39111ee264fccee6269ae66ddd2f13c3615f7f228",
+   "planning_blocker_symbols": [
+    "_g_eng3_sprites_34f98"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.14190",
+   "source": "src/eng3/handlers_14190.cpp",
+   "source_sha256": "ee3c1c44858c2b35959f1bda06236d658213e05318ee4f407ef5893e3218097c",
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37b24",
+    "_g_eng3_image_37b28"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.14200",
+   "source": "src/eng3/handlers_14190.cpp",
+   "source_sha256": "ee3c1c44858c2b35959f1bda06236d658213e05318ee4f407ef5893e3218097c",
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37b24",
+    "_g_eng3_image_37b28"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.14d90",
+   "source": "src/eng3/handlers_14190.cpp",
+   "source_sha256": "ee3c1c44858c2b35959f1bda06236d658213e05318ee4f407ef5893e3218097c",
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37658"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.14fd0",
+   "source": "src/eng3/handlers_14190.cpp",
+   "source_sha256": "ee3c1c44858c2b35959f1bda06236d658213e05318ee4f407ef5893e3218097c",
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37658"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.16320",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_37b8c",
+    "_g_eng3_37b90",
+    "_g_eng3_37b94",
+    "_g_eng3_37b98",
+    "_g_eng3_37b9c",
+    "_g_eng3_37ba0",
+    "_g_eng3_3803c",
+    "_g_eng3_image_37c38",
+    "_g_eng3_image_37ca0",
+    "_g_eng3_image_37cd8"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.165f0",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37ba8",
+    "_g_eng3_image_37c00"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.16670",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37ba8",
+    "_g_eng3_image_37c00"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.168b0",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37c30"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.17130",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_sprites_38120",
+    "_g_eng3_x_38100"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.185c0",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37df0"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.18790",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37fe8"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.1aac0",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_script_381d8"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.1aaf0",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_script_38210"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.1b8c0",
+   "source": "src/eng3/handlers_16240.cpp",
+   "source_sha256": "bc572b1cb24a50a850a52189a4c74419169e3f1b2679dad5d2b480d9a85df84d",
+   "planning_blocker_symbols": [
+    "_g_eng3_unknown_38520"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.24f50",
+   "source": "src/eng3/render_unit_22f00.cpp",
+   "source_sha256": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+   "planning_blocker_symbols": [
+    "_g_eng3_scale_39518"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.28390",
+   "source": "src/eng3/handlers_26b40.c",
+   "source_sha256": "4da041bd801267c18d202b125664b99af83384c0dc02de5a6332c0754b6be9d5",
+   "planning_blocker_symbols": [
+    "_g_eng3_script_39f98",
+    "_g_eng3_script_39fc0"
+   ],
+   "planning_only": true
+  },
+  {
+   "id": "eng3.29040",
+   "source": "src/eng3/handlers_28ae0.c",
+   "source_sha256": "315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64",
+   "planning_blocker_symbols": [
+    "_g_eng3_script_39f98"
+   ],
+   "planning_only": true
+  }
+ ],
+ "binding_documents": [
+  "work/velocity_h/fd_eng3/bindings/eng3.03020.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.03ef0.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.14190.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.14200.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.14d90.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.14fd0.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.16320.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.165f0.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.16670.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.168b0.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.17130.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.185c0.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.18790.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.1aac0.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.1aaf0.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.1b8c0.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.24f50.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.28390.json",
+  "work/velocity_h/fd_eng3/bindings/eng3.29040.json"
+ ],
+ "compiler_calls_before_references": 0,
+ "acceptance_claim": false,
+ "compiler_calls_total": 20,
+ "compiler_budget": 40,
+ "compiler_metrics_dir": "work/velocity_h/compiler_events",
+ "references_check_results": [
+  {
+   "id": "eng3.03020",
+   "command": "python scripts/match.py references eng3.03020 --bindings work/velocity_h/fd_eng3/bindings/eng3.03020.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_script_33710"
+   ]
+  },
+  {
+   "id": "eng3.03ef0",
+   "command": "python scripts/match.py references eng3.03ef0 --bindings work/velocity_h/fd_eng3/bindings/eng3.03ef0.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_sprites_34f98"
+   ]
+  },
+  {
+   "id": "eng3.14190",
+   "command": "python scripts/match.py references eng3.14190 --bindings work/velocity_h/fd_eng3/bindings/eng3.14190.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37b24",
+    "_g_eng3_image_37b28"
+   ]
+  },
+  {
+   "id": "eng3.14200",
+   "command": "python scripts/match.py references eng3.14200 --bindings work/velocity_h/fd_eng3/bindings/eng3.14200.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37b24",
+    "_g_eng3_image_37b28"
+   ]
+  },
+  {
+   "id": "eng3.14d90",
+   "command": "python scripts/match.py references eng3.14d90 --bindings work/velocity_h/fd_eng3/bindings/eng3.14d90.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37658"
+   ]
+  },
+  {
+   "id": "eng3.14fd0",
+   "command": "python scripts/match.py references eng3.14fd0 --bindings work/velocity_h/fd_eng3/bindings/eng3.14fd0.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37658"
+   ]
+  },
+  {
+   "id": "eng3.16320",
+   "command": "python scripts/match.py references eng3.16320 --bindings work/velocity_h/fd_eng3/bindings/eng3.16320.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_37b8c",
+    "_g_eng3_37b90",
+    "_g_eng3_37b94",
+    "_g_eng3_37b98",
+    "_g_eng3_37b9c",
+    "_g_eng3_37ba0",
+    "_g_eng3_3803c",
+    "_g_eng3_image_37c38",
+    "_g_eng3_image_37ca0",
+    "_g_eng3_image_37cd8"
+   ],
+   "bound_task_blockers": [
+    "_g_eng3_3803c"
+   ]
+  },
+  {
+   "id": "eng3.165f0",
+   "command": "python scripts/match.py references eng3.165f0 --bindings work/velocity_h/fd_eng3/bindings/eng3.165f0.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37ba8",
+    "_g_eng3_image_37c00"
+   ]
+  },
+  {
+   "id": "eng3.16670",
+   "command": "python scripts/match.py references eng3.16670 --bindings work/velocity_h/fd_eng3/bindings/eng3.16670.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37ba8",
+    "_g_eng3_image_37c00"
+   ]
+  },
+  {
+   "id": "eng3.168b0",
+   "command": "python scripts/match.py references eng3.168b0 --bindings work/velocity_h/fd_eng3/bindings/eng3.168b0.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37c30"
+   ]
+  },
+  {
+   "id": "eng3.17130",
+   "command": "python scripts/match.py references eng3.17130 --bindings work/velocity_h/fd_eng3/bindings/eng3.17130.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_sprites_38120",
+    "_g_eng3_x_38100"
+   ]
+  },
+  {
+   "id": "eng3.185c0",
+   "command": "python scripts/match.py references eng3.185c0 --bindings work/velocity_h/fd_eng3/bindings/eng3.185c0.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37df0"
+   ]
+  },
+  {
+   "id": "eng3.18790",
+   "command": "python scripts/match.py references eng3.18790 --bindings work/velocity_h/fd_eng3/bindings/eng3.18790.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_image_37fe8"
+   ]
+  },
+  {
+   "id": "eng3.1aac0",
+   "command": "python scripts/match.py references eng3.1aac0 --bindings work/velocity_h/fd_eng3/bindings/eng3.1aac0.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_script_381d8"
+   ]
+  },
+  {
+   "id": "eng3.1aaf0",
+   "command": "python scripts/match.py references eng3.1aaf0 --bindings work/velocity_h/fd_eng3/bindings/eng3.1aaf0.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_script_38210"
+   ]
+  },
+  {
+   "id": "eng3.1b8c0",
+   "command": "python scripts/match.py references eng3.1b8c0 --bindings work/velocity_h/fd_eng3/bindings/eng3.1b8c0.json",
+   "status": "pass_focused_reference_comparison",
+   "output": "RELOCATED EXACT 48 bytes; 4 verified references; 0 non-reference differences.",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_unknown_38520"
+   ],
+   "bound_task_blockers": [
+    "_g_eng3_unknown_38520"
+   ]
+  },
+  {
+   "id": "eng3.24f50",
+   "command": "python scripts/match.py references eng3.24f50 --bindings work/velocity_h/fd_eng3/bindings/eng3.24f50.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_scale_39518"
+   ]
+  },
+  {
+   "id": "eng3.28390",
+   "command": "python scripts/match.py references eng3.28390 --bindings work/velocity_h/fd_eng3/bindings/eng3.28390.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_script_39f98",
+    "_g_eng3_script_39fc0"
+   ]
+  },
+  {
+   "id": "eng3.29040",
+   "command": "python scripts/match.py references eng3.29040 --bindings work/velocity_h/fd_eng3/bindings/eng3.29040.json",
+   "status": "blocked_incomplete_binding_inventory",
+   "output": "ValueError: Binding inventory differs from referenced COFF symbols",
+   "compiler_calls_for_final_check": 1,
+   "planning_blocker_symbols": [
+    "_g_eng3_script_39f98"
+   ]
+  }
+ ],
+ "references_check_summary": {
+  "rows_checked": 19,
+  "focused_passes": [
+   "eng3.1b8c0"
+  ],
+  "incomplete_inventory_rows": [
+   "eng3.03020",
+   "eng3.03ef0",
+   "eng3.14190",
+   "eng3.14200",
+   "eng3.14d90",
+   "eng3.14fd0",
+   "eng3.16320",
+   "eng3.165f0",
+   "eng3.16670",
+   "eng3.168b0",
+   "eng3.17130",
+   "eng3.185c0",
+   "eng3.18790",
+   "eng3.1aac0",
+   "eng3.1aaf0",
+   "eng3.24f50",
+   "eng3.28390",
+   "eng3.29040"
+  ],
+  "pass_scope": "single fresh relocated reference comparison only; no recovery state changed; no acceptance claim",
+  "compiler_calls": 20,
+  "pass_ids": [
+   "eng3.1b8c0"
+  ],
+  "blocked_ids": [
+   "eng3.03020",
+   "eng3.03ef0",
+   "eng3.14190",
+   "eng3.14200",
+   "eng3.14d90",
+   "eng3.14fd0",
+   "eng3.16320",
+   "eng3.165f0",
+   "eng3.16670",
+   "eng3.168b0",
+   "eng3.17130",
+   "eng3.185c0",
+   "eng3.18790",
+   "eng3.1aac0",
+   "eng3.1aaf0",
+   "eng3.24f50",
+   "eng3.28390",
+   "eng3.29040"
+  ]
+ },
+ "anchor_preflight": {
+  "command": "python work/velocity_c/anchor_preflight.py <all 19 lane binding documents>",
+  "result": "safe for all 19 assigned IDs",
+  "ids": [
+   "eng3.03020",
+   "eng3.03ef0",
+   "eng3.14190",
+   "eng3.14200",
+   "eng3.14d90",
+   "eng3.14fd0",
+   "eng3.16320",
+   "eng3.165f0",
+   "eng3.16670",
+   "eng3.168b0",
+   "eng3.17130",
+   "eng3.185c0",
+   "eng3.18790",
+   "eng3.1aac0",
+   "eng3.1aaf0",
+   "eng3.1b8c0",
+   "eng3.24f50",
+   "eng3.28390",
+   "eng3.29040"
+  ]
+ },
+ "native_extent_status": {
+  "bound_symbols": [
+   "_g_eng3_3803c",
+   "_g_eng3_unknown_38520"
+  ],
+  "ordinary_data_profile": "Both are complete 4-byte scalar payloads with no internal HIGHLOW relocations; relocated-data-v1 does not apply.",
+  "unbound_symbols": [
+   "_g_eng3_37b8c",
+   "_g_eng3_37b90",
+   "_g_eng3_37b94",
+   "_g_eng3_37b98",
+   "_g_eng3_37b9c",
+   "_g_eng3_37ba0",
+   "_g_eng3_image_37658",
+   "_g_eng3_image_37b24",
+   "_g_eng3_image_37b28",
+   "_g_eng3_image_37ba8",
+   "_g_eng3_image_37c00",
+   "_g_eng3_image_37c30",
+   "_g_eng3_image_37c38",
+   "_g_eng3_image_37ca0",
+   "_g_eng3_image_37cd8",
+   "_g_eng3_image_37df0",
+   "_g_eng3_image_37fe8",
+   "_g_eng3_scale_39518",
+   "_g_eng3_script_33710",
+   "_g_eng3_script_381d8",
+   "_g_eng3_script_38210",
+   "_g_eng3_script_39f98",
+   "_g_eng3_script_39fc0",
+   "_g_eng3_sprites_34f98",
+   "_g_eng3_sprites_38120",
+   "_g_eng3_x_38100"
+  ],
+  "stop_policy": "Retained recorded stops where existing evidence/work handoffs already establish them; no new address or extent was inferred from a pending caller operand or adjacent storage. No new extent sweep was run for symbols lacking independent object-boundary evidence."
+ },
+ "native_access_method": "For _g_eng3_unknown_38520, a bounded PE HIGHLOW field inventory and x86-32 decode over six address fixups in the executable section. For _g_eng3_3803c, reuse the durable independent access and scalar-extent proof in evidence/c7_eng3_review_2026_10_26.json. No full-image disassembly or per-byte index was built.",
+ "compiler_calls_before_bulk_row_checks": 2,
+ "references_cli_invocations": 22
+}
