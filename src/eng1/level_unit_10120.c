@@ -472,21 +472,21 @@ void eng1_108e0(Actor *p)
 
 void eng1_10900(Actor *p)
 {
-    p->motion_x_unknown = 0xa000;
-    p->motion_y_unknown = 0xa000;
-    p->motion_z_unknown = 0xa000;
     p->counter_021 = 10;
     p->state = 3;
     p->motion_x_velocity = 0;
     p->motion_x_target = 0xf0000;
     p->motion_x_rate = 0xb000;
+    p->motion_x_unknown = 0xa000;
     p->motion_y_velocity = 0;
     p->motion_y_target = 0x80000;
     p->motion_y_rate = 0x6000;
+    p->motion_y_unknown = 0xa000;
     p->direction_y = 0xff;
     p->motion_z_velocity = 0;
     p->motion_z_target = 0xf0000;
     p->motion_z_rate = 0xb000;
+    p->motion_z_unknown = 0xa000;
     p->direction_z = 0xff;
     if (p->direction_x)
         p->home_x = p->x + 0x1800000;

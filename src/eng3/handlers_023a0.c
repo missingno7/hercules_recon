@@ -1,3 +1,4 @@
+#include <windows.h>
 /* ENG3.DLL 0x23a0..0x6150: level actor handler family (lane y15 candidate).
  * Actor offsets are provisional shared names (from calibration/eng3/handlers_10370.c), not recovered types. */
 typedef struct Actor Actor;
