@@ -83,10 +83,13 @@ are the evidence oracle; PSX builds are secondary.
 - Default to GPT-6 Luna xhigh for bounded reconstruction and compiler work. Use
   GPT-6.1 Sol high when the explanation is uncertain or one shared question can
   unlock several regions (ABI/identity, MSVC5 behaviour, data ownership and
-  capacity, relocation evidence, structural blockers). Send difficult problems to
-  Sol directly; hand repetitive application of a Sol finding back to Luna lanes.
-  Terra is optional, only for a specific bounded task where it has shown adequate
-  depth; it is never a first stage before Sol. Prefer deterministic verification
+  capacity, relocation evidence, structural blockers). Native Claude Opus 5.5
+  agents are equal peers to Sol for hard shared blockers; split such blockers
+  between them. Claude Sonnet 5.5 suits bounded native tasks (bindings,
+  integration preparation). Send difficult problems to Sol or Opus directly; hand
+  repetitive application of a finding back to Luna lanes. Do not use Fable or
+  Astra (cost). Terra is used only after it passes a calibration on already-solved
+  rows; it is never a first stage before Sol or Opus. Prefer deterministic verification
   over extra model review; do not add a retry ladder, routing ledger, or
   automatic difficulty score.
 - Use tools under C:\tools. Inspect existing dependencies before adding any.
