@@ -15,27 +15,46 @@ It claims no callee identity, calling convention, argument use or runtime ABI
 compatibility: the target is whatever value the register or cell holds at run
 time. Every record states that (target "unidentified", abi "unclaimed") and pins
 the reviewed operand, so a changed compiler form or a different native operand
-fails. JMP, far, prefixed, segment-overridden, import and relocated
-register-based forms are refused. The comparator still requires every byte of
-the contribution to match; unrecorded indirect transfers stay refused.
+fails. This profile refuses JMP, far, prefixed, segment-overridden, import and
+relocated register-based forms. The comparator still requires every byte of the
+contribution to match; unrecorded indirect transfers stay refused.
+
+Sibling profile ``opaque-tail-jump-v1`` admits one compiled near JMP (FF /4, no
+prefix) through an absolute memory cell only: ``jmp [cell+k]``, the tail form of
+a wrapper that forwards through a stored pointer. Its record has the same schema
+(target "unidentified", abi "unclaimed", durable evidence) with the cell operand
+form alone, and its cell checks are exactly those of the CALL cell form above:
+one DIR32 field bound to a proven loader-zero (BSS) record, 4 bytes read inside
+that record's proven extent, the native displacement equal to that cell, every
+other instruction byte identical, and the same base-relocation and import-slot
+hardening below. It proves instruction identity and the cell, and nothing about
+the jump target, its arguments, stack cleanup or return convention. Register and
+register-based memory JMPs (jump tables and all other dispatch) are not admitted,
+so such a transfer cannot enter through this form; neither are far, prefixed or
+segment-overridden JMPs. Each profile admits only its own mnemonic: a CALL record
+on a JMP, or a JMP record on a CALL, is refused. Every receipt carries the
+profile of the record it proves.
 
 Review hardening (adversarial review, 2026-10-31): the target image must carry a
 base-relocation inventory, because only that inventory distinguishes an
 unrelocated literal from an original address (relocation-stripped HERCULES.EXE
 is out of scope); payload-hash ``data`` records may not cover PE data
 directories or import slots in a row that opts in, so no import can be re-labelled
-as data and called through a cell or a loaded register.
+as data and called through a cell or a loaded register. Both profiles share this
+hardening.
 """
 import struct
 
 PROFILE = 'opaque-indirect-call-v1'
+JUMP_PROFILE = 'opaque-tail-jump-v1'
+PROFILES = (PROFILE, JUMP_PROFILE)
 KEYS = {'profile', 'offset', 'operand', 'target', 'abi', 'evidence'}
 REGISTERS = ('eax', 'ecx', 'edx', 'ebx', 'esp', 'ebp', 'esi', 'edi')
 DIR32 = 6
 
 
 def validate_record(record):
-    if not isinstance(record, dict) or set(record) != KEYS or record['profile'] != PROFILE:
+    if not isinstance(record, dict) or set(record) != KEYS or record['profile'] not in PROFILES:
         raise ValueError('Invalid opaque indirect call record')
     if type(record['offset']) is not int or record['offset'] < 0:
         raise ValueError('Invalid opaque call offset')
@@ -47,6 +66,8 @@ def validate_record(record):
         raise ValueError('Opaque call needs durable review evidence')
     operand = record['operand']
     form = operand.get('form') if isinstance(operand, dict) else None
+    if record['profile'] == JUMP_PROFILE and form != 'cell':
+        raise ValueError('Opaque tail jumps admit only an absolute cell operand')
     if form == 'register':
         valid = set(operand) == {'form', 'register'} and operand['register'] in REGISTERS
     elif form == 'memory':
@@ -87,6 +108,25 @@ def describe(ins):
     return dict(form='memory', base=base, index=index, scale=mem.scale, disp=mem.disp)
 
 
+def describe_jump(ins):
+    """Decode-level shape of one near absolute-memory JMP; claims nothing about its target."""
+    from capstone.x86 import X86_OP_MEM
+    raw = bytes(ins.bytes)
+    # A first byte of FF excludes every prefix (operand size, segment, lock, rep).
+    if (ins.mnemonic != 'jmp' or len(raw) < 2 or raw[0] != 0xff or (raw[1] >> 3) & 7 != 4 or
+            len(ins.operands) != 1 or ins.operands[0].size != 4):
+        raise ValueError('Opaque tail jump must be one unprefixed near FF /4 JMP')
+    operand = ins.operands[0]
+    if operand.type != X86_OP_MEM or operand.mem.segment:
+        raise ValueError('Opaque tail jump operand must be flat memory, never a register')
+    mem = operand.mem
+    if mem.base or mem.index:
+        raise ValueError('Opaque tail jump cannot be register-based: jump tables and dispatch stay refused')
+    if ins.disp_size != 4:
+        raise ValueError('Opaque tail jump needs a disp32 cell')
+    return dict(form='cell', disp=mem.disp & 0xffffffff)
+
+
 def _loader_managed(pe, start, end):
     """Whether [start, end) touches any PE data directory or import thunk slot."""
     slots = [i.address - pe.image_base for m in getattr(pe.pe, 'DIRECTORY_ENTRY_IMPORT', []) for i in m.imports]
@@ -96,7 +136,7 @@ def _loader_managed(pe, start, end):
 
 
 def verify_calls(pe, opaque, records, reviewed, instructions, rva, expected):
-    """Return {offset: receipt} for every opted-in call; raise on any deviation."""
+    """Return {offset: receipt} for every opted-in call or tail jump; raise on any deviation."""
     import capstone
     if not pe.pe.OPTIONAL_HEADER.DATA_DIRECTORY[5].Size:
         raise ValueError('Opaque calls need a base-relocated image: a literal would be indistinguishable from an address')
@@ -110,16 +150,18 @@ def verify_calls(pe, opaque, records, reviewed, instructions, rva, expected):
     receipts = {}
     for record in opaque:
         validate_record(record)
+        # Each profile admits only its own mnemonic: the decode below refuses the other.
+        what, shape_of = ('tail jump', describe_jump) if record['profile'] == JUMP_PROFILE else ('call', describe)
         offset = record['offset']
         ins = starts.get(offset)
         if offset in receipts or ins is None:
-            raise ValueError('Opaque call offset is duplicated or not a compiled instruction boundary')
+            raise ValueError('Opaque %s offset is duplicated or not a compiled instruction boundary' % what)
         end = offset + ins.size
-        shape = describe(ins)
+        shape = shape_of(ins)
         native = list(decoder.disasm(bytes(expected[offset:end]), ins.address))
         if len(native) != 1 or native[0].size != ins.size:
-            raise ValueError('Native opaque call instruction boundary differs')
-        native_shape = describe(native[0])
+            raise ValueError('Native opaque %s instruction boundary differs' % what)
+        native_shape = shape_of(native[0])
         fields = sorted(field for field in reviewed if offset - 3 <= field < end)
         if shape['form'] != 'cell':
             if fields:
@@ -131,20 +173,20 @@ def verify_calls(pe, opaque, records, reviewed, instructions, rva, expected):
         else:
             field = offset + ins.disp_offset
             if fields != [field] or native_shape['form'] != 'cell':
-                raise ValueError('Opaque cell call needs exactly its own disp32 relocation')
+                raise ValueError('Opaque cell %s needs exactly its own disp32 relocation' % what)
             name, kind, addend, one_past = reviewed[field]
             cell = records.get(name, {})
             if kind != DIR32 or one_past or cell.get('kind') != 'bss':
-                raise ValueError('Opaque cell call needs an independently proven loader-zero (BSS) cell')
+                raise ValueError('Opaque cell %s needs an independently proven loader-zero (BSS) cell' % what)
             if not (0 <= addend and addend + 4 <= cell['size']):
-                raise ValueError('Opaque cell call reads outside its proven cell')
+                raise ValueError('Opaque cell %s reads outside its proven cell' % what)
             if record['operand'] != dict(form='cell', symbol=name, addend=addend):
-                raise ValueError('Reviewed opaque call operand differs')
+                raise ValueError('Reviewed opaque %s operand differs' % what)
             raw, disp = bytes(ins.bytes), ins.disp_offset
             if (bytes(expected[offset:field]) != raw[:disp] or bytes(expected[field + 4:end]) != raw[disp + 4:] or
                     native_shape['disp'] != struct.unpack_from('<I', expected, field)[0] or
                     native_shape['disp'] != pe.image_base + cell['rva'] + addend):
-                raise ValueError('Native opaque call differs from its proven cell')
-        receipts[offset] = dict(profile=PROFILE, offset=offset, size=ins.size, operand=record['operand'],
+                raise ValueError('Native opaque %s differs from its proven cell' % what)
+        receipts[offset] = dict(profile=record['profile'], offset=offset, size=ins.size, operand=record['operand'],
                                 target='unidentified', abi='unclaimed', evidence=record['evidence'])
     return receipts

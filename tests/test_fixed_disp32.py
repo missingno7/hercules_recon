@@ -335,6 +335,22 @@ class FixedDisp32Tests(unittest.TestCase):
           '    coff-local-byte-table-v1 additionally declares a complete relocation-free\n'
           '    byte allocation with its symbol and SHA-256. Each local table record must\n'
           '    equal exactly one declared table, never a subrange or a union of tables.\n')]
+        # opaque-tail-jump-v1 (scripts/opaque_call.py): the sibling of the opaque CALL profile.
+        changes += [
+            ("    opaque = [c for c in calls if isinstance(c, dict) and c.get('profile') == 'opaque-indirect-call-v1']\n",
+             "    opaque = [c for c in calls if isinstance(c, dict) and\n"
+             "              c.get('profile') in ('opaque-indirect-call-v1', 'opaque-tail-jump-v1')]\n"),
+            ("        # Explicitly unidentified call targets (opaque_call.py): instruction identity only.\n",
+             "        # Explicitly unidentified call and tail-jump targets (opaque_call.py): instruction identity only.\n"),
+            ("                             proof.get('profile') == 'fixed-slot-v1' and proof.get('transfer') == 'jmp')\n",
+             "                             proof.get('profile') == 'fixed-slot-v1' and proof.get('transfer') == 'jmp' or\n"
+             "                             proof.get('profile') == 'opaque-tail-jump-v1' and ins.mnemonic == 'jmp')\n"),
+            ("        result['scope'] += '; %d opaque indirect CALL(s): targets unidentified, ABI unclaimed' % opaque_count\n",
+             "        result['scope'] += '; %d opaque indirect CALL(s): targets unidentified, ABI unclaimed' % opaque_count\n"
+             "    tail_count = sum(1 for proof in callback_calls.values() if proof.get('profile') == 'opaque-tail-jump-v1')\n"
+             "    if tail_count:\n"
+             "        result['scope'] += '; %d opaque tail JMP(s): targets unidentified, ABI unclaimed' % tail_count\n"),
+        ]
         for old, new in changes:
             self.assertEqual(expected.count(old), 1, old)
             expected = expected.replace(old, new, 1)

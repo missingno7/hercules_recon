@@ -425,7 +425,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                                 raise ValueError('Conflicting fixed-slot input identity')
                             observed[item] = sha
                         continue
-                    if isinstance(callback, dict) and callback.get('profile') == 'opaque-indirect-call-v1':
+                    if isinstance(callback, dict) and callback.get('profile') in ('opaque-indirect-call-v1', 'opaque-tail-jump-v1'):
                         from opaque_call import validate_record
                         validate_record(callback)
                         continue
@@ -561,7 +561,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                           or 'access_profile' in record or 'alias_profile' in record
                           or record.get('data_profile') == 'file-data-owner-v1'
                           for record in binding.get('symbols', {}).values())
-                hub = hub or any(isinstance(call, dict) and call.get('profile') == 'opaque-indirect-call-v1'
+                hub = hub or any(isinstance(call, dict) and call.get('profile') in ('opaque-indirect-call-v1', 'opaque-tail-jump-v1')
                                  for call in binding.get('indirect_calls', []))
                 if hub:
                     from fixed_disp32 import relocated_compare

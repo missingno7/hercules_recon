@@ -595,7 +595,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
     if not isinstance(calls, list):
         raise ValueError('Invalid explicit callback inventory')
     fixed = [c for c in calls if isinstance(c, dict) and c.get('profile') == 'fixed-slot-v1']
-    opaque = [c for c in calls if isinstance(c, dict) and c.get('profile') == 'opaque-indirect-call-v1']
+    opaque = [c for c in calls if isinstance(c, dict) and
+              c.get('profile') in ('opaque-indirect-call-v1', 'opaque-tail-jump-v1')]
     rooted = [c for c in calls if c not in fixed and c not in opaque]
     callback_calls = verify_calls(pe, dict(bindings, indirect_calls=rooted), records, reviewed,
                                   instructions, rva, size, receipts)
@@ -606,7 +607,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 raise ValueError('Invalid/duplicate fixed-slot offset')
             callback_calls[record['offset']] = verify_call(pe, record, records, reviewed, instructions, rva, size)
     if opaque:
-        # Explicitly unidentified call targets (opaque_call.py): instruction identity only.
+        # Explicitly unidentified call and tail-jump targets (opaque_call.py): instruction identity only.
         from opaque_call import verify_calls as verify_opaque_calls
         for offset, proof in verify_opaque_calls(pe, opaque, records, reviewed, instructions, rva, expected).items():
             if offset in callback_calls:
@@ -633,7 +634,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                            ins.group(capstone.CS_GRP_JUMP) and mem.base == 0 and mem.index != 0 and mem.scale == 4)
             proof = callback_calls.get(offset, {})
             valid_callback = bool(proof) and (ins.group(capstone.CS_GRP_CALL) or
-                             proof.get('profile') == 'fixed-slot-v1' and proof.get('transfer') == 'jmp')
+                             proof.get('profile') == 'fixed-slot-v1' and proof.get('transfer') == 'jmp' or
+                             proof.get('profile') == 'opaque-tail-jump-v1' and ins.mnemonic == 'jmp')
             if not (valid_import or valid_table or valid_callback):
                 raise ValueError('Unsupported indirect control transfer')
         elif callback_calls.get(offset, {}).get('profile') == 'opaque-indirect-call-v1':
@@ -664,4 +666,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
     opaque_count = sum(1 for proof in callback_calls.values() if proof.get('profile') == 'opaque-indirect-call-v1')
     if opaque_count:
         result['scope'] += '; %d opaque indirect CALL(s): targets unidentified, ABI unclaimed' % opaque_count
+    tail_count = sum(1 for proof in callback_calls.values() if proof.get('profile') == 'opaque-tail-jump-v1')
+    if tail_count:
+        result['scope'] += '; %d opaque tail JMP(s): targets unidentified, ABI unclaimed' % tail_count
     return result
