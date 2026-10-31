@@ -27,6 +27,24 @@ MODULES = {'eng1': 'ENG1.DLL', 'eng3': 'ENG3.DLL', 'title': 'TITLE.DLL', 'exe': 
 EASY = {'function_accepted', 'function_shape_equal', 'local', 'import', 'known'}
 
 
+def transfer_admissible(ins):
+    """Planning only: whether an existing proof form can admit this transfer.
+
+    Direct transfers, absolute memory calls/jumps (imports, proven cells, local tables)
+    and FF /2 CALLs through a register or register-based memory (opaque-indirect-call-v1)
+    are admissible; register or register-based JMPs and other forms are counted.
+    """
+    from capstone.x86 import X86_OP_IMM, X86_OP_MEM, X86_OP_REG
+    if ins.mnemonic not in ('call', 'jmp') or not ins.operands:
+        return True
+    op = ins.operands[0]
+    if op.type == X86_OP_IMM:
+        return True
+    if op.type == X86_OP_MEM and not op.mem.base:
+        return True
+    return (ins.mnemonic == 'call' and ins.bytes[0] == 0xff and (ins.bytes[1] >> 3) & 7 == 2 and
+            op.type in (X86_OP_REG, X86_OP_MEM) and op.size == 4 and not (op.type == X86_OP_MEM and op.mem.segment))
+
 def known_identities(ledger):
     """(module, COFF name) pairs already bound in a binding document of an accepted row."""
     status = {r['id']: r['status'] for r in ledger}
@@ -56,6 +74,7 @@ def zone(pe, rva):
 def classify_group(rows, ledger_rows, by_symbol, category, known, images):
     import capstone
     decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    decoder.detail = True
     source, flags = rows[0]['source'], rows[0]['flags']
     try:
         coff = COFF(compile_source(ROOT / source, list(flags))[0])
@@ -73,8 +92,7 @@ def classify_group(rows, ledger_rows, by_symbol, category, known, images):
             continue
         number = coff.sections.index(section) + 1
         native = pe.read_rva(rva, size)
-        indirect = sum(1 for i in decoder.disasm(native, rva) if i.mnemonic in ('call', 'jmp')
-                       and not i.op_str.startswith('0x') and '*4' not in i.op_str)
+        indirect = sum(1 for i in decoder.disasm(native, rva) if not transfer_admissible(i))
         refs = []
         for rel in section['relocations']:
             name, off, typ = rel['symbol'], rel['offset'], rel['type']

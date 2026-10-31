@@ -248,6 +248,36 @@ class FixedDisp32Tests(unittest.TestCase):
              "                verify_paired_native(pe, dest, extent, record.get('identity'), rva, size)\n"
              "            elif record.get('anchor_profile') == 'cmp-test-absolute-v1':"),
         ]
+        changes += [
+            ("    rooted = [c for c in calls if c not in fixed]\n",
+             "    opaque = [c for c in calls if isinstance(c, dict) and c.get('profile') == 'opaque-indirect-call-v1']\n"
+             "    rooted = [c for c in calls if c not in fixed and c not in opaque]\n"),
+            ("            callback_calls[record['offset']] = verify_call(pe, record, records, reviewed, instructions, rva, size)\n",
+             "            callback_calls[record['offset']] = verify_call(pe, record, records, reviewed, instructions, rva, size)\n"
+             "    if opaque:\n"
+             "        # Explicitly unidentified call targets (opaque_call.py): instruction identity only.\n"
+             "        from opaque_call import verify_calls as verify_opaque_calls\n"
+             "        for offset, proof in verify_opaque_calls(pe, opaque, records, reviewed, instructions, rva, expected).items():\n"
+             "            if offset in callback_calls:\n"
+             "                raise ValueError('Invalid/duplicate opaque call offset')\n"
+             "            callback_calls[offset] = proof\n"),
+            ("        else:\n            raise ValueError('Register indirect control transfer needs separate verification')\n",
+             "        elif callback_calls.get(offset, {}).get('profile') == 'opaque-indirect-call-v1':\n"
+             "            continue\n"
+             "        else:\n            raise ValueError('Register indirect control transfer needs separate verification')\n"),
+        ]
+        changes += [
+            ("            raise ValueError('Unsupported explicit loader-zero anchor profile')\n",
+             "            raise ValueError('Unsupported explicit loader-zero anchor profile')\n        if 'alias_profile' in record and kind != 'bss':\n            raise ValueError('Unsupported explicit alias profile')\n"),
+            ('            if owner_name != name:\n                from storage_alias import alias_names, verify_alias_object, verify_owner_alias_object\n',
+             "            if 'alias_profile' in record:\n                from storage_alias_byte import verify_record\n                alias_checks[name] = verify_record(obj, (storage_aliases or {}).get(name), symbol, name, record)\n            elif owner_name != name:\n                from storage_alias import alias_names, verify_alias_object, verify_owner_alias_object\n"),
+        ]
+        changes.append(("        result['indirect_call_checks'] = list(callback_calls.values())\n    return result\n",
+                        "        result['indirect_call_checks'] = list(callback_calls.values())\n"
+                        "    opaque_count = sum(1 for proof in callback_calls.values() if proof.get('profile') == 'opaque-indirect-call-v1')\n"
+                        "    if opaque_count:\n"
+                        "        result['scope'] += '; %d opaque indirect CALL(s): targets unidentified, ABI unclaimed' % opaque_count\n"
+                        "    return result\n"))
         for old, new in changes:
             self.assertEqual(expected.count(old), 1, old)
             expected = expected.replace(old, new, 1)

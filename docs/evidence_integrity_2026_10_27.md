@@ -294,3 +294,50 @@ Open:
     identities.
   - `archive_open_5130` needs `_archive_normalize_name` and archive cells.
   - `host_setup_slots_reset_a1a0` needs the public file-handle cells.
+
+## Wave j (2026-10-31): autonomous campaign, first integration
+
+The owner delegated routine technical decisions to the integrator. Two opt-in proof forms were added. Each is
+dispatched only from the `fixed_disp32.py` comparator copy, and the comparator-preservation test pins the new
+hook lines. The pinned modules (`masked.py`, `storage_alias.py`, `zero_storage.py`, `callback_transfer.py`,
+`relocated_data.py`) are unchanged, and the legacy comparators still refuse both record types.
+
+- **`opaque-indirect-call-v1`** (`scripts/opaque_call.py`)
+  - **What it admits:** one unprefixed near `FF /2` CALL through:
+    - a register;
+    - register-based memory, with no relocation in the instruction;
+    - a loader-zero (BSS) cell whose identity is proven independently.
+  - **What it proves:** instruction identity only. Every record states target `unidentified` and abi `unclaimed`.
+    The ledger proof scope appends the number of opaque calls.
+  - **What stays refused:**
+    - JMP, far, prefixed and segment forms;
+    - relocated register-based forms;
+    - unrecorded register calls.
+  - **Independent adversarial review** (`work/velocity_j/opreview/`) found two holes. Neither was used by any row,
+    and both are fixed:
+    - **D1:** on the relocation-stripped HERCULES.EXE, a literal address cannot be told apart from an original
+      address. The form now requires a base-relocation inventory, so it applies to DLLs only.
+    - **D2:** a payload-hash `data` record laid over an import slot could authorise a call to the wrong import.
+      Cell calls now need BSS records, and rows that opt in refuse `data` records over PE directories or import
+      slots.
+  - **Bug caught on the way:** the cell check found two masked-equal ENG3 wrappers whose source calls interface
+    slot 0x20 where the native code calls slot 0x2ac (`eng3.shared_1ffa0`, `eng3.shared_20120`). They are not
+    accepted.
+- **`compile-renaming-byte-v1`** (`scripts/storage_alias_byte.py`)
+  - Extends the reviewed word alias proof to one-byte scalars.
+  - It adds a `/WX` caller-type check, because MSVC5 reports a char-signedness redeclaration only as warning C4142.
+  - New headers: `src/eng1/special_kind_alias.h` and `src/eng3/special_kind_alias.h`.
+
+**Accepted:**
+
+- **37 rows through opaque calls** (`evidence/bindQ_*`):
+  - the four ENG3 pilots: 03290, 11d80, 25770, 26eb0;
+  - the four `create_*_actor` callers: 05ee0, 0e7b0, 0f980, 0fec0;
+  - 29 interface-slot wrappers and callers whose slots the fixed-slot review rates conflict or unresolved.
+- **2 rows through the byte alias** (`evidence/byteA_*`): `eng1.release_actor`, `eng1.remove_actor_variant`.
+
+Total: **1,179**.
+
+**Planning fix:** `scripts/blocker_queue.py` used to count every absolute-memory call (imports included) as an
+unsupported indirect transfer, which hid ready rows. It now counts only transfers that no existing proof form can
+admit: 46 rows have no identity blocker, compared with 11 under the old count.

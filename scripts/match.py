@@ -380,11 +380,17 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                     from fixed_disp32 import access_form
                     access_form(record)
                 if record.get('kind') == 'bss':
-                    from zero_storage import owner_profile
+                    if 'alias_profile' in record:
+                        from storage_alias_byte import owner_profile
+                    else:
+                        from zero_storage import owner_profile
                     storage_profiles[(row['id'], name)] = owner_profile(record, name, ROOT)
                     storage_evidence[row['id']] = observed
                     if record['owner']['symbol'] != name:
-                        from storage_alias import alias_profile
+                        if 'alias_profile' in record:
+                            from storage_alias_byte import alias_profile
+                        else:
+                            from storage_alias import alias_profile
                         alias_records[(row['id'], name)] = alias_profile(record, name, ROOT)
                     identity = record.get('identity', {})
                     if not isinstance(identity, dict):
@@ -412,6 +418,10 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                             if item in observed and observed[item] != sha:
                                 raise ValueError('Conflicting fixed-slot input identity')
                             observed[item] = sha
+                        continue
+                    if isinstance(callback, dict) and callback.get('profile') == 'opaque-indirect-call-v1':
+                        from opaque_call import validate_record
+                        validate_record(callback)
                         continue
                     at, length = identity_span(callback)
                     if any(other['id'] in pending and
@@ -442,7 +452,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
         source, flags = storage_profiles[(row_id, name)] if owner_alias else ((ROOT / row['source']).resolve(), tuple(row['flags']))
         alias_origins[(row_id, name)] = (source, flags)
         # /WX makes incompatible pointer declarations/qualifiers hard failures.
-        compile_flags = (*flags, '/WX') if owner_alias else flags
+        compile_flags = (*flags, '/WX') if owner_alias or 'alias_profile' in record else flags
         types = alias['pointer_types'] if owner_alias else None
         identity = (source, compile_flags, header, tuple(sorted(names.items())), tuple(sorted((types or {}).items())))
         if identity not in alias_wrappers:
@@ -543,10 +553,17 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                 if isinstance(tables, list) and any(isinstance(table, dict) and
                         table.get('profile') == 'coff-local-byte-table-v1' for table in tables):
                     from local_byte_tables import relocated_compare
-                if any('access_profile' in record for record in binding.get('symbols', {}).values()):
+                if any('access_profile' in record or 'alias_profile' in record
+                       for record in binding.get('symbols', {}).values()):
                     if any(isinstance(table, dict) and table.get('profile') == 'coff-local-byte-table-v1'
                            for table in tables):
                         raise ValueError('Indexed access and local byte table profiles cannot be combined')
+                    from fixed_disp32 import relocated_compare
+                if any(isinstance(call, dict) and call.get('profile') == 'opaque-indirect-call-v1'
+                       for call in binding.get('indirect_calls', [])):
+                    if any(isinstance(table, dict) and table.get('profile') == 'coff-local-byte-table-v1'
+                           for table in tables):
+                        raise ValueError('Opaque indirect calls and local byte table profiles cannot be combined')
                     from fixed_disp32 import relocated_compare
                 owners = {name: compiled[key][0] for (row_id, name), key in storage_profiles.items() if row_id == row['id']}
                 aliases = {name: compiled[alias_profiles[(row['id'], name)]][0]

@@ -352,6 +352,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
             raise ValueError('Unsupported explicit data profile')
         if 'anchor_profile' in record and (kind != 'bss' or record['anchor_profile'] not in ('cmp-test-absolute-v1', 'loader-zero-paired-v1', PROFILE) + FORMS):
             raise ValueError('Unsupported explicit loader-zero anchor profile')
+        if 'alias_profile' in record and kind != 'bss':
+            raise ValueError('Unsupported explicit alias profile')
         if sym['section'] < 0 or sym.get('storage', 2) == 105:
             raise ValueError('Absolute, debug and weak/alias symbols need an explicit verifier')
         if kind == 'function':
@@ -392,7 +394,10 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
             owner_name = record.get('owner', {}).get('symbol')
             if owner is None or not isinstance(owner_name, str):
                 raise ValueError('Loader-zero binding needs its independently compiled owner object')
-            if owner_name != name:
+            if 'alias_profile' in record:
+                from storage_alias_byte import verify_record
+                alias_checks[name] = verify_record(obj, (storage_aliases or {}).get(name), symbol, name, record)
+            elif owner_name != name:
                 from storage_alias import alias_names, verify_alias_object, verify_owner_alias_object
                 names = alias_names(record, name)
                 adapted = (storage_aliases or {}).get(name)
@@ -561,7 +566,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
     if not isinstance(calls, list):
         raise ValueError('Invalid explicit callback inventory')
     fixed = [c for c in calls if isinstance(c, dict) and c.get('profile') == 'fixed-slot-v1']
-    rooted = [c for c in calls if c not in fixed]
+    opaque = [c for c in calls if isinstance(c, dict) and c.get('profile') == 'opaque-indirect-call-v1']
+    rooted = [c for c in calls if c not in fixed and c not in opaque]
     callback_calls = verify_calls(pe, dict(bindings, indirect_calls=rooted), records, reviewed,
                                   instructions, rva, size, receipts)
     if fixed:
@@ -570,6 +576,13 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
             if record['offset'] in callback_calls:
                 raise ValueError('Invalid/duplicate fixed-slot offset')
             callback_calls[record['offset']] = verify_call(pe, record, records, reviewed, instructions, rva, size)
+    if opaque:
+        # Explicitly unidentified call targets (opaque_call.py): instruction identity only.
+        from opaque_call import verify_calls as verify_opaque_calls
+        for offset, proof in verify_opaque_calls(pe, opaque, records, reviewed, instructions, rva, expected).items():
+            if offset in callback_calls:
+                raise ValueError('Invalid/duplicate opaque call offset')
+            callback_calls[offset] = proof
     for ins in instructions:
         if not (ins.group(capstone.CS_GRP_CALL) or ins.group(capstone.CS_GRP_JUMP)):
             continue
@@ -594,6 +607,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                              proof.get('profile') == 'fixed-slot-v1' and proof.get('transfer') == 'jmp')
             if not (valid_import or valid_table or valid_callback):
                 raise ValueError('Unsupported indirect control transfer')
+        elif callback_calls.get(offset, {}).get('profile') == 'opaque-indirect-call-v1':
+            continue
         else:
             raise ValueError('Register indirect control transfer needs separate verification')
 
@@ -615,4 +630,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
         result['data_checks'] = data_checks
     if callback_calls:
         result['indirect_call_checks'] = list(callback_calls.values())
+    opaque_count = sum(1 for proof in callback_calls.values() if proof.get('profile') == 'opaque-indirect-call-v1')
+    if opaque_count:
+        result['scope'] += '; %d opaque indirect CALL(s): targets unidentified, ABI unclaimed' % opaque_count
     return result
