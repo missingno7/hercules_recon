@@ -82,3 +82,19 @@ void eng1_native_code_target_01a390(PairActor *p)
     p->w72=g_eng1_config_word_pool_55478[48+index];
     if(eng1_interpret_word_stream(p)==1)eng1_native_code_target_001a280();
 }
+
+/* Native ENG1 0x1a410: conditionally unlink the setup actor and its sound id. */
+extern PairActor *g_eng1_setup_pointer_72020;
+extern PairActor *g_native_pointer_7217c;
+extern int remove_actor_variant(PairActor *actor);
+extern void RemoveFxIdLinks_7f8e(unsigned short id, void *owner);
+
+void eng1_native_code_target_001a410(void)
+{
+    PairActor *actor = g_eng1_setup_pointer_72020;
+
+    if (actor->w2e != 0) {
+        remove_actor_variant(actor);
+        RemoveFxIdLinks_7f8e(0x26, g_native_pointer_7217c);
+    }
+}

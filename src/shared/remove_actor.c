@@ -182,3 +182,29 @@ int remove_actor_variant(Actor *p)
     }
     return release_actor(p);
 }
+
+/* These two resource-bit helpers share their instruction bodies across ENG1 and ENG3. */
+int __cdecl remove_actor_preserving_resource(Actor *actor)
+{
+    Sidecar *sidecar;
+
+    if (actor->kind != 0 && actor->owner_context != 0) {
+        sidecar = (Sidecar *)((unsigned char *)actor->owner_context +
+                  g_kind_info[actor->profile].sidecar_offset);
+        sidecar->flags &= 0xdfff;
+        sidecar->flags |= 0x4000;
+    }
+    return remove_actor(actor);
+}
+
+void __cdecl mark_actor_resource_for_release(Actor *actor)
+{
+    Sidecar *sidecar;
+
+    if (actor->kind != 0 && actor->owner_context != 0) {
+        sidecar = (Sidecar *)((unsigned char *)actor->owner_context +
+                  g_kind_info[actor->profile].sidecar_offset);
+        sidecar->flags &= 0xdfff;
+        sidecar->flags |= 0x4000;
+    }
+}

@@ -341,3 +341,35 @@ Total: **1,179**.
 **Planning fix:** `scripts/blocker_queue.py` used to count every absolute-memory call (imports included) as an
 unsupported indirect transfer, which hid ready rows. It now counts only transfers that no existing proof form can
 admit: 46 rows have no identity blocker, compared with 11 under the old count.
+
+## Re-pin b11 (2026-10-31): wave-j callee reconstructions
+
+Seven units changed through the reviewed re-pin. All 1,140 strict rows were re-verified with identical
+findings, and the old sources are preserved as `evidence/repin_snapshots`.
+
+| Unit | Change |
+| --- | --- |
+| `src/shared/remove_actor.c` | `remove_actor_preserving_resource` and `mark_actor_resource_for_release` added (ENG1 and ENG3) |
+| `src/eng1/mode_handlers_16840.cpp` | `eng1_17ff0`; `eng1_17290` (per-read `held_5c` casts, same evidence class as 0x171b0) |
+| `src/eng1/actor_handlers_mid.c` | `eng1_26cd0`, `eng1_26de0` and `eng1_26e90` (indexed pre-increment loops) |
+| `src/eng1/actor_pair_animation.c` | ENG1 0x1a410 |
+| `src/eng1/actor_links.c` | `action_spawn_27d40` |
+| `src/eng3/actor_services_1e000.c` | `eng3_1f0a0` and `eng3_1f130` (comparison chains ordered by the C2 node key) |
+| `src/shared/bounds.c` | `point_in_box_2a810` |
+
+- **Ledger:** 11 new masked rows were staged in place, and 3 RECONSTRUCTED rows became masked-equal. Every
+  masked row in a changed unit was re-staged.
+- **Tool:** `repin.py` accepts an `added_functions` list per changed source. A whole-unit alias receipt
+  (`functions` count) may then grow by exactly those declared definitions, which must exist in the fresh
+  object; every other finding must still be identical.
+- **Config:** `config/eng1/sources.json` now selects the matching units for four functions:
+  - `_remove_actor_preserving_resource`;
+  - `_mark_actor_resource_for_release`;
+  - `_action_spawn_27d40`;
+  - `_point_in_box_2a810`.
+
+  The earlier behavioural files (`actor_resource_helpers.c`, `action_spawn_27d40.c`, `point_in_box_2a810.c`)
+  are no longer selected. They stay in the tree only for the two differential scripts, until the
+  duplicate-body retirement.
+- **Deferred:** ENG1 0x19b40 is masked-equal in work/velocity_j/solN2, but its unit gains a project header,
+  and the re-pin admits only toolchain-header context additions.

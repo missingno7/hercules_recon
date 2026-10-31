@@ -92,3 +92,31 @@ void remove_fx_links(ActorLinkView *owner)
     }
     dispatch_local_2c660();
 }
+
+/* Native ENG1 0x27d40 creates and links an actor as the parent's child. */
+extern void detach_child(ActorLinkView *actor);
+
+ActorLinkView *action_spawn_27d40(ActorLinkView *actor, unsigned long action)
+{
+    ActorLinkView *child;
+    unsigned long render_flags;
+
+    if (actor->flags_050 & 0x40000000UL)
+        return 0;
+
+    if (actor->child_060)
+        detach_child(actor);
+
+    child = spawn_kind(actor->x_000, actor->y_004, actor->z_008, (unsigned short)action);
+    if (child) {
+        child->flags_050 = 0x10000000UL;
+        render_flags = actor->render_flags_054;
+        render_flags |= 0x00800000UL;
+        actor->child_060 = child;
+        actor->render_flags_054 = render_flags;
+        child->word_038 = actor->word_038;
+        child->category_022 = actor->category_022;
+    }
+
+    return child;
+}

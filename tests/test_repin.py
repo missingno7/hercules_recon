@@ -204,4 +204,18 @@ class SecondRepinTests(unittest.TestCase):
                     repin.pin_snapshot('src/a.c', repin.sha(old), current)
 
 
+
+class DeclaredAdditionTests(unittest.TestCase):
+    def test_added_functions_validation(self):
+        self.assertEqual(repin.declared_additions({'added_functions': ['_a', '_b']}), ['_a', '_b'])
+        self.assertEqual(repin.declared_additions({}), [])
+        for bad in (['_a', '_a'], ['a'], '_a', [1]):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                repin.declared_additions({'added_functions': bad})
+
+    def test_without_alias_receipts_or_additions_findings_are_unchanged(self):
+        result = dict(exact=True, source_alias_checks={'_x': dict(functions=2, uses=[1]), '_y': dict(functions=0)})
+        self.assertEqual(repin.expected_after(result, [], None), repin.invariant(result))
+        self.assertEqual(repin.expected_after(dict(exact=True), ['_a'], None), {'exact': True})
+
 if __name__=='__main__':unittest.main()

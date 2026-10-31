@@ -1005,13 +1005,6 @@
       "evidence": "evidence/eng1_query_2a170.json"
     },
     {
-      "source": "src/eng1/point_in_box_2a810.c",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "evidence/eng1_query_2a170.json"
-    },
-    {
       "source": "src/eng1/grid_query_20d30.c",
       "flags": [
         "/O2"
@@ -1052,13 +1045,6 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_query_20990.json"
-    },
-    {
-      "source": "src/eng1/action_spawn_27d40.c",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "evidence/eng1_action_spawn_27d40.json"
     },
     {
       "source": "src/eng1/spawn_services.c",
@@ -1388,13 +1374,6 @@
         "/O2"
       ],
       "evidence": "evidence/collision_query_2026_10_25.json"
-    },
-    {
-      "source": "src/eng1/actor_resource_helpers.c",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "evidence/eng1_actor_resource_helpers_2026_10_25.json"
     },
     {
       "source": "src/eng1/spatial_query_family_1a9b0.c",
@@ -3814,10 +3793,11 @@
     {
       "rva": "0x2a810",
       "symbol": "_point_in_box_2a810",
-      "source": "src/eng1/point_in_box_2a810.c",
-      "implementation_status": "behaviorally_validated_limited",
+      "source": "src/shared/bounds.c",
+      "implementation_status": "original_backed_complete_instructions",
       "evidence": "evidence/eng1_query_2a170.json",
-      "contract": "Signed highWORD inclusive3D-box predicate, seven native controls; historicalMISMATCH unchanged."
+      "contract": "Signed highWORD inclusive3D-box predicate, seven native controls; historicalMISMATCH unchanged.",
+      "note": "Matching reconstruction (re-pin b11, 2026-10-31): masked-equal to the original contribution; it supersedes the earlier behavioural provider, whose contract and evidence are retained here."
     },
     {
       "rva": "0x20d30",
@@ -3870,10 +3850,11 @@
     {
       "rva": "0x27d40",
       "symbol": "_action_spawn_27d40",
-      "source": "src/eng1/action_spawn_27d40.c",
-      "implementation_status": "behaviorally_validated_limited",
+      "source": "src/eng1/actor_links.c",
+      "implementation_status": "original_backed_complete_instructions",
       "evidence": "evidence/eng1_action_spawn_27d40.json",
-      "contract": "Blocked parent returnsNULL; detach old child before livecoords/factorycall. Ordered childflag/parentlink/renderflag stores, late WORD/BYTE parent copies, nullablefactoryreturn. Actual existing source providers reused."
+      "contract": "Blocked parent returnsNULL; detach old child before livecoords/factorycall. Ordered childflag/parentlink/renderflag stores, late WORD/BYTE parent copies, nullablefactoryreturn. Actual existing source providers reused.",
+      "note": "Matching reconstruction (re-pin b11, 2026-10-31): masked-equal to the original contribution; it supersedes the earlier behavioural provider, whose contract and evidence are retained here."
     },
     {
       "rva": "0x300c0",
@@ -4468,18 +4449,20 @@
     {
       "rva": "0x27410",
       "symbol": "_remove_actor_preserving_resource",
-      "source": "src/eng1/actor_resource_helpers.c",
-      "implementation_status": "plausible_unverified",
+      "source": "src/shared/remove_actor.c",
+      "implementation_status": "original_backed_complete_instructions",
       "contract": "Conditional owner WORD update then unconditional remove_actor; only profile row 0 currently supported.",
-      "uncertainty": "Native profile index is unchecked; source reports incomplete beyond row 0."
+      "uncertainty": "Native profile index is unchecked; source reports incomplete beyond row 0.",
+      "note": "Matching reconstruction (re-pin b11, 2026-10-31): masked-equal to the original contribution; it supersedes the earlier behavioural provider, whose contract and evidence are retained here."
     },
     {
       "rva": "0x27450",
       "symbol": "_mark_actor_resource_for_release",
-      "source": "src/eng1/actor_resource_helpers.c",
-      "implementation_status": "plausible_unverified",
+      "source": "src/shared/remove_actor.c",
+      "implementation_status": "original_backed_complete_instructions",
       "contract": "Conditional owner WORD update; only profile row 0 currently supported.",
-      "uncertainty": "Native profile index is unchecked; source reports incomplete beyond row 0."
+      "uncertainty": "Native profile index is unchecked; source reports incomplete beyond row 0.",
+      "note": "Matching reconstruction (re-pin b11, 2026-10-31): masked-equal to the original contribution; it supersedes the earlier behavioural provider, whose contract and evidence are retained here."
     },
     {
       "rva": "0x1aba0",

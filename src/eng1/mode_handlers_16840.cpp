@@ -1,7 +1,11 @@
 extern "C" {
 /* ENG1.DLL 0x16840..0x188a0: player mode handlers, mode-entry helpers and input probes (lane x22).
- * One C++ unit (functions in extern "C"): C++ 40/43 masked equal, C 37/43 (0x16fa0/0x16fd0
- * pressed/enabled operand order and 0x17eb0's z/prev_z load order are equal only in C++).
+ * Original x22 baseline: one C++ unit (functions in extern "C"), C++ 40/43 masked equal,
+ * C 37/43; 0x16fa0/0x16fd0 pressed/enabled order and 0x17eb0 z/prev_z order match only in C++.
+ * Candidate-only per-access steering (lane nf6): 0x17290 casts each of its two held-word
+ * expressions; 0x17ff0 casts its single expression. Pinned VC5 output retains the native
+ * access count/order and matches both complete contributions after masking relocations.
+ * The held_5c field remains volatile; other handlers keep their existing reload behavior.
  * Declaration order is the incremental authoring order; it was not searched, but the results
  * are phase-sensitive (a reordered extern block moved 0x16fa0, 0x16fd0, 0x174e0).  Types follow calibration/eng3/handlers_16240.cpp, whose ENG3
  * 0x180e0..0x19fd0 player handlers are diverged variants of this code, and
@@ -14,12 +18,10 @@ extern "C" {
  * translation unit (extern gives xor/mov ax); 0x182c0 and 0x18550 are equal only with it.
  * g_camera_flags_70d10 is short here: `|= 8` and `&= ~8` both become byte RMW ops only for a
  * signed 16-bit object (unsigned short gives `and word ptr, 0xfff7`).
- * Open residues (allocation/context): 0x17290, 0x17ff0 `held_5c & x` keeps the other
- * operand as a memory test in the original; here the volatile operand prevents the fold
- * (mov/and/test).  The fold appears with more prior declarations (e.g. <string.h> in front),
- * which then shifts other functions; real unit context is unknown.  0x171b0 reads held_5c
+ * A <string.h> context probe was also measured for these residues, but is not selected here
+ * because it changes declaration context for the complete unit. 0x171b0 reads held_5c
  * once through a non-volatile lvalue (owner-approved per-access steering, 2026-10-31): the
- * original's single `mov cx,[+0x5c]` / `test [+0x6e],cx` needs exactly that one access. */
+ * original's single mov cx,[+0x5c] / test [+0x6e],cx needs exactly that one access. */
 typedef struct Actor Actor;
 
 typedef struct Bounds3D {
@@ -613,7 +615,8 @@ void eng1_171b0(void)
 
 int eng1_17290(void)
 {
-    if (g_eng1_setup_word_6ef7c && (g_engine_interface.context_004->held_5c & g_engine_interface.context_004->unknown_6c)
+    /* Two conditional input reads stay at their original sites; each casts one access. */
+    if (g_eng1_setup_word_6ef7c && (*((unsigned short *)&g_engine_interface.context_004->held_5c) & g_engine_interface.context_004->unknown_6c)
         && !g_eng1_setup_dword_7211c) {
         g_frame_owner_72860->image = g_eng1_image_541f8;
         g_frame_owner_72860->ticks = -1;
@@ -622,7 +625,7 @@ int eng1_17290(void)
         g_eng1_setup_word_6ef7c = 0;
         return 1;
     }
-    if (g_eng1_setup_word_6ef7c && (g_engine_interface.context_004->held_5c & g_engine_interface.context_004->unknown_70)) {
+    if (g_eng1_setup_word_6ef7c && (*((unsigned short *)&g_engine_interface.context_004->held_5c) & g_engine_interface.context_004->unknown_70)) {
         g_frame_owner_72860->image = g_eng1_image_540c0;
         g_frame_owner_72860->ticks = -1;
         g_frame_owner_72860->phase = -1;
@@ -1042,7 +1045,8 @@ void eng1_17eb0(void)
 
 int eng1_17ff0(void)
 {
-    if (g_engine_interface.context_004->held_5c & g_engine_interface.context_004->unknown_6c) {
+    /* This input test has one explicit held-word read, matching the native entry. */
+    if (*((unsigned short *)&g_engine_interface.context_004->held_5c) & g_engine_interface.context_004->unknown_6c) {
     g_eng1_setup_word_6ef78 = 0;
     g_eng1_setup_word_72024 = 0;
     g_eng1_setup_word_7215a = 0;

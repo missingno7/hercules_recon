@@ -95,6 +95,35 @@ def context_additions(item):
     return dict(declared)
 
 
+def declared_additions(item):
+    """Reviewed new function definitions of one changed source.
+
+    Whole-unit alias receipts count the caller object's functions; a reviewed
+    addition may raise that count by exactly the declared symbols, which must be
+    defined functions of the fresh after object. Everything else stays identical.
+    """
+    added = item.get('added_functions', [])
+    if (not isinstance(added, list) or len(set(added)) != len(added) or
+            any(not isinstance(s, str) or not s.startswith('_') for s in added)):
+        raise ValueError('added_functions must list distinct COFF function symbols')
+    return added
+
+
+def expected_after(result, added, after_object):
+    """The before findings as they must read after the declared additions."""
+    if not added or not result.get('source_alias_checks'):
+        return invariant(result)
+    from coff import COFF
+    defined = {s['name'] for s in COFF(after_object).symbols.values() if s['type'] & 0x20 and s['section'] > 0}
+    if not set(added) <= defined:
+        raise ValueError('Declared added functions are not defined after the change')
+    expected = copy.deepcopy(invariant(result))
+    for check in expected['source_alias_checks'].values():
+        if check.get('functions'):
+            check['functions'] += len(added)
+    return expected
+
+
 def pin_snapshot(name, expected, current):
     """Content address satisfying one direct pin of a changed source, or refuse."""
     if expected == sha(current):
@@ -204,6 +233,7 @@ def apply(plan_path, before_path, original_root, directory):
         old_results = {r['id']: r for r in before['results']}
         frozen_before(state, before['results'], original_root, baseline)
         changed = set(plan['sources'])
+        added_functions = {name: declared_additions(item) for name, item in plan['sources'].items()}
         source_before, candidates, additions = {}, {}, {}
         for name, item in plan['sources'].items():
             path = (ROOT / name).resolve()
@@ -325,7 +355,8 @@ def apply(plan_path, before_path, original_root, directory):
             preserved = []
             for old in accepted_rows(old_state['functions']):
                 a, b = old_results[old['id']], by_id[old['id']]
-                require_equal(invariant(a), invariant(b), 'all verified findings '+old['id'])
+                require_equal(expected_after(a, added_functions.get(old.get('source'), []), b['object']),
+                              invariant(b), 'all verified findings '+old['id'])
                 old_part = contribution(a['object'], old['symbol'])
                 new_part = contribution(b['object'], old['symbol'])
                 require_equal(old_part, new_part, 'complete contribution/ordered relocations '+old['id'])

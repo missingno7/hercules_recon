@@ -229,6 +229,14 @@ int eng3_1eda0(Actor *p, Bounds3D *b);
 long eng3_1ef50(Actor *p, long x, long z);
 unsigned long eng3_1e6d0(Actor *p);
 int eng3_1f1a0(Actor *p, Bounds3D *b, unsigned short mode);
+/* Measured declaration-context hypothesis: the actor query entrypoints had
+ * forward declarations alongside the existing query prototypes. Parameter-name
+ * presence below and the named query result affect VC5 symbol identities; see
+ * the solCMP findings. This does not establish original header/source text. */
+int eng3_1eaf0(Actor *p);
+int eng3_1ec20(Actor *p);
+int eng3_1f0a0(Bounds3D *box, Actor *q);
+int eng3_1f130(unsigned long, unsigned long, unsigned long, Bounds3D *);
 
 #define WORD(p) (((short *)(p)->image)[(p)->frame_state])
 
@@ -574,8 +582,10 @@ long eng3_1ef50(Actor *p, long x, long z)
 int eng3_1f0a0(Bounds3D *box, Actor *q)
 {
     Bounds3D a;
+    int valid;
 
-    if (eng3_1f1a0(q, &a, 0))
+    valid = eng3_1f1a0(q, &a, 0);
+    if (valid)
         return !((a.max_y < box->min_y) | (a.max_z < box->min_z) |
                  (box->max_x < a.min_x) | (box->max_z < a.min_z) |
                  (box->max_y < a.min_y) | (a.max_x < box->min_x));
