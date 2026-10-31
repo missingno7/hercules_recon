@@ -1,0 +1,273 @@
+{
+ "call_sites": {
+  "eng1.interpret_signed_pairs@0x100": {
+   "abi": "unclaimed",
+   "bytes": "ff1481",
+   "disassembly": "call dword ptr [ecx + eax*4]",
+   "offset": 256,
+   "operand": {
+    "base": "ecx",
+    "disp": 0,
+    "form": "memory",
+    "index": "eax",
+    "scale": 4
+   },
+   "row": "eng1.interpret_signed_pairs",
+   "rva": "0x284e0",
+   "target": "unidentified"
+  },
+  "eng1.interpret_signed_pairs@0x115": {
+   "abi": "unclaimed",
+   "bytes": "ff1490",
+   "disassembly": "call dword ptr [eax + edx*4]",
+   "offset": 277,
+   "operand": {
+    "base": "eax",
+    "disp": 0,
+    "form": "memory",
+    "index": "edx",
+    "scale": 4
+   },
+   "row": "eng1.interpret_signed_pairs",
+   "rva": "0x284f5",
+   "target": "unidentified"
+  },
+  "eng1.interpret_word_stream@0x100": {
+   "abi": "unclaimed",
+   "bytes": "ff148a",
+   "disassembly": "call dword ptr [edx + ecx*4]",
+   "offset": 256,
+   "operand": {
+    "base": "edx",
+    "disp": 0,
+    "form": "memory",
+    "index": "ecx",
+    "scale": 4
+   },
+   "row": "eng1.interpret_word_stream",
+   "rva": "0x28920",
+   "target": "unidentified"
+  }
+ },
+ "deviations_from_verbatim_records": [],
+ "excluded_rows": {
+  "eng1.02d80": "hosts the accepted anchor 0x2de0 of eng1.dispatch_local_02f30 (_g_resource_leaf_buffer_70c58, evidence/anchor_0ec10c44ab30_614b278d5bc3.json); every other witness of that cell lies inside 02f30 itself, so no re-anchor target exists (two-host deadlock). Its own cell _g_header_pointer_70d3c is bindable (owner src/eng1/resource_data.c, anchor 0x207c2 outside every row)."
+ },
+ "owner_files": {},
+ "policy": "work/velocity_j/anchors2/anchor_plan.py (strict for RECONSTRUCTED hosts)",
+ "rows_requiring_reanchor_of_accepted_proofs": [],
+ "schema": 1,
+ "scope": "Native review of loader-zero identity anchors for the zbatch rows. Each anchor is one complete original instruction whose absolute operand is the cell start with exactly one original HIGHLOW fixup; it lies outside the compared caller and outside every row of this batch. Hosts are ledger rows covering the anchor (integrator policy 2026-10-31: a stable witness, or >= 3 consistently naming host rows; RECONSTRUCTED hosts must positively confirm). Static bytes only; no original execution; no capacity, type or translation-unit claim.",
+ "skipped_rows": {
+  "eng1.16f40": [
+   "_dispatch_local_15d00 (refused: stale identity source hash)"
+  ],
+  "eng1.177a0": [
+   "_dispatch_local_15d00 (refused: stale identity source hash)"
+  ],
+  "eng1.18830": [
+   "_dispatch_local_15d00 (refused: stale identity source hash)"
+  ],
+  "title.08c90": [
+   "_title_08cd0"
+  ],
+  "title.09480": [
+   "_title_094c0"
+  ]
+ },
+ "symbols": {
+  "ENG1.DLL:_g_configuration_dword_71384": {
+   "anchors": {
+    "0x2824d": {
+     "bytes": "890d84130710",
+     "disassembly": "mov dword ptr [0x10071384], ecx",
+     "fixup": [
+      {
+       "rva": 164431,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 164429,
+     "sha256": "87a1bee721375fcdc79ef477619cf94e83df0b9f0cad6600381cc4ba6ef2bfbe",
+     "size": 6
+    }
+   },
+   "callers": [
+    "eng1.interpret_signed_pairs",
+    "eng1.interpret_word_stream"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by the canonical declaration (scalar/pointer)",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/frame_data.c",
+    "symbol": "_g_configuration_dword_71384"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+   "rva": "0x71384",
+   "symbol": "_g_configuration_dword_71384"
+  },
+  "ENG1.DLL:_g_eng1_setup_pointer_72020": {
+   "anchors": {
+    "0x152bd": {
+     "bytes": "a320200710",
+     "disassembly": "mov dword ptr [0x10072020], eax",
+     "fixup": [
+      {
+       "rva": 86718,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 86717,
+     "sha256": "d74ce3fa4daf352f26baa5dc4d9c5a56fb810879b61973288a1dbaf3f12a1cf0",
+     "size": 5
+    }
+   },
+   "callers": [
+    "eng1.native_code_target_001a410"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by the canonical declaration (scalar/pointer)",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/setup_shared_state.c",
+    "symbol": "_g_eng1_setup_pointer_72020"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "d9691a22411610a35bd4d1db4611679b4eaae6fd6ca3113cb685d3e22d3d6c06",
+   "rva": "0x72020",
+   "symbol": "_g_eng1_setup_pointer_72020"
+  },
+  "ENG1.DLL:_g_eng1_setup_word_6ef90": {
+   "anchors": {
+    "0x15384": {
+     "bytes": "66891d90ef0610",
+     "disassembly": "mov word ptr [0x1006ef90], bx",
+     "fixup": [
+      {
+       "rva": 86919,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 86916,
+     "sha256": "7aa071a63bbe6ac2d7f2a9776e92b802834050e9941eccfe226a5d59d7756904",
+     "size": 7
+    }
+   },
+   "callers": [
+    "eng1.native_code_target_009890"
+   ],
+   "extent": 2,
+   "extent_claim": "exact by the canonical declaration (scalar/pointer)",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/setup_shared_state.c",
+    "symbol": "_g_eng1_setup_word_6ef90"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "d9691a22411610a35bd4d1db4611679b4eaae6fd6ca3113cb685d3e22d3d6c06",
+   "rva": "0x6ef90",
+   "symbol": "_g_eng1_setup_word_6ef90"
+  },
+  "ENG1.DLL:_g_native_word_72168": {
+   "anchors": {
+    "0x116f": {
+     "bytes": "66a168210710",
+     "disassembly": "mov ax, word ptr [0x10072168]",
+     "fixup": [
+      {
+       "rva": 4465,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 4463,
+     "sha256": "79f4b5963e396ac5abb4e3bcef051307a3f1d1797a01bf16489d2c1246404495",
+     "size": 6
+    }
+   },
+   "callers": [
+    "eng1.26e90",
+    "eng1.352f0"
+   ],
+   "extent": 2,
+   "extent_claim": "exact by the canonical declaration (scalar/pointer)",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/default_storage.c",
+    "symbol": "_g_native_word_72168"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "18b61e088233c7eba90e18c39f1c172d87be63e55506b71b14b278f7c3807973",
+   "rva": "0x72168",
+   "symbol": "_g_native_word_72168"
+  }
+ },
+ "tables": {
+  "eng1.interpret_signed_pairs@table_0x374": {
+   "basis": "Embedded DIR32 jump table.",
+   "offset": 884,
+   "row": "eng1.interpret_signed_pairs",
+   "size": 192
+  },
+  "eng1.interpret_word_stream@bytes_0x244": {
+   "basis": "Relocation-free compiler-local byte table; complete COFF allocation equals the native bytes.",
+   "bytes": "0013131313010203131313131313130413131313131313131313131305060708090a13130b0c0d0e0f13131011129090909090909090909090909090",
+   "offset": 580,
+   "row": "eng1.interpret_word_stream",
+   "size": 60
+  },
+  "eng1.interpret_word_stream@table_0x1f4": {
+   "basis": "Embedded DIR32 jump table.",
+   "offset": 500,
+   "row": "eng1.interpret_word_stream",
+   "size": 80
+  },
+  "eng1.native_code_target_009890@bytes_0x110": {
+   "basis": "Relocation-free compiler-local byte table; complete COFF allocation equals the native bytes.",
+   "bytes": "00010505050505050505050502050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050304909090",
+   "offset": 272,
+   "row": "eng1.native_code_target_009890",
+   "size": 64
+  },
+  "eng1.native_code_target_009890@table_0xf8": {
+   "basis": "Embedded DIR32 jump table.",
+   "offset": 248,
+   "row": "eng1.native_code_target_009890",
+   "size": 24
+  }
+ },
+ "targets": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "assets/pc/HERCULES/TITLE.DLL": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+ },
+ "task_id": "velocity_j/zbatch3"
+}
