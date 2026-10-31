@@ -172,10 +172,10 @@ extern int eng1_2a660(Actor *, Actor *);
 extern void eng3_19200(void);
 extern ActorGroup *acquire_pending_action_group(void);
 extern Actor *eng3_1f410(ActorGroup *, long, long, long, int, int);
-extern void eng3_slot_040(void *value);
-extern unsigned long eng3_slot_068(const char *a, const char *b, void *c, unsigned long d);
-extern void *eng3_slot_078(void **a, unsigned long b, unsigned long c);
-extern void eng3_slot_16c(unsigned long value);
+extern void title_0c330(void *value);
+extern unsigned long title_0c3f0(const char *a, const char *b, void *c, unsigned long d);
+extern void *title_0c450(void **a, unsigned long b, unsigned long c);
+extern void title_0c6d0(unsigned long value);
 extern unsigned short eng3_slot_1e8(int x, int y);
 extern void eng3_slot_204(Rect16 *rect, void *pixels);
 extern void eng3_slot_2ac(void *p, unsigned long a, unsigned long b, unsigned long c, unsigned long d);
@@ -196,11 +196,11 @@ void eng3_25060(void)
     pixels = 0;
     g_eng3_hud_40110.cell[0] = 0;
     g_eng3_hud_40110.cell[1] = 0;
-    eng3_slot_078(&pixels, 0x21000, 0);
-    eng3_slot_068(g_eng3_data_path_3fc80, g_eng3_panel_file_3529c, pixels, 0x21000);
+    title_0c450(&pixels, 0x21000, 0);
+    title_0c3f0(g_eng3_data_path_3fc80, g_eng3_panel_file_3529c, pixels, 0x21000);
     eng3_slot_204(&g_eng3_rect_39868, pixels);
-    eng3_slot_16c(0);
-    eng3_slot_040(pixels);
+    title_0c6d0(0);
+    title_0c330(pixels);
 }
 
 void eng3_250f0(void)

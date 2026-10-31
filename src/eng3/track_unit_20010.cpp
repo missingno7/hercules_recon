@@ -324,8 +324,8 @@ extern int eng3_1b650(short *bounds, int id, int mode, long x);
 
 /* track rebuild: layer count byte, allocator wrappers */
 extern signed char g_eng3_layer_count_40786;
-extern void eng3_slot_040(void *block);
-extern void *eng3_slot_078(void **block, unsigned long size, unsigned long flags);
+extern void title_0c330(void *block);
+extern void *title_0c450(void **block, unsigned long size, unsigned long flags);
 
 /* 0x22de0 (TITLE 0x17b90 / ENG1 0x303d0 twin) callees, by their recorded symbols */
 extern void title_02dc0(Actor *actor);
@@ -333,72 +333,72 @@ extern void title_04410(Actor *actor);
 extern int eng3_24a80(Actor *actor);
 
 
-void eng3_slot_2bc(unsigned long a)
+void dispatch_engine_2c9f0(unsigned long a)
 {
     g_engine_interface.slot_2bc(a);
 }
 
-void eng3_slot_2cc(void *a)
+void dispatch_engine_2ca00(void *a)
 {
     g_engine_interface.slot_2cc(a);
 }
 
-void eng3_slot_2ec(void *a)
+void dispatch_engine_2ca40(void *a)
 {
     g_engine_interface.slot_2ec(a);
 }
 
-void eng3_slot_2f0(void *a)
+void eng1_2ca50(void *a)
 {
     g_engine_interface.slot_2f0(a);
 }
 
-void eng3_slot_300(void *a)
+void dispatch_engine_2ca60(void *a)
 {
     g_engine_interface.slot_300(a);
 }
 
-void eng3_slot_310(void *a, void *b)
+void dispatch_engine_2ca70(void *a, void *b)
 {
     g_engine_interface.slot_310(a, b);
 }
 
-void eng3_slot_324(void)
+void dispatch_local_2ca90(void)
 {
     g_engine_interface.slot_324();
 }
 
-void eng3_slot_330(void)
+void dispatch_engine_2caa0(void)
 {
     g_engine_interface.slot_330();
 }
 
-void eng3_slot_35c(void *a, void *b)
+void dispatch_engine_2cab0(void *a, void *b)
 {
     g_engine_interface.slot_35c(a, b);
 }
 
-void eng3_slot_368(void *a)
+void dispatch_local_2cad0(void *a)
 {
     g_engine_interface.slot_368(a);
 }
 
-void eng3_slot_36c(void)
+void dispatch_local_2cae0(void)
 {
     g_engine_interface.slot_36c();
 }
 
-void eng3_slot_370(void)
+void dispatch_engine_2caf0(void)
 {
     g_engine_interface.slot_370();
 }
 
-void eng3_slot_374(void *a, void *b, void *c)
+void dispatch_engine_2cb00(void *a, void *b, void *c)
 {
     g_engine_interface.slot_374(a, b, c);
 }
 
-void eng3_slot_384(void *a)
+void dispatch_engine_2cb70(void *a)
 {
     g_engine_interface.slot_384(a);
 }
@@ -410,17 +410,17 @@ int snd_play(int a, int b, int c, int d, int e, int f, int g)
     return g_engine_interface.slot_388(a, b, c, d, e, f, g);
 }
 
-void eng3_slot_390(void *a, void *b, void *c)
+void dispatch_engine_2cbb0(void *a, void *b, void *c)
 {
     g_engine_interface.slot_390(a, b, c);
 }
 
-void eng3_slot_3e0(unsigned long a)
+void dispatch_engine_2cc30(unsigned long a)
 {
     g_engine_interface.slot_3e0(a);
 }
 
-void eng3_slot_3e4(void *a)
+void dispatch_engine_2cc40(void *a)
 {
     g_engine_interface.slot_3e4(a);
 }
@@ -1415,7 +1415,7 @@ void eng3_22070(void)
     g_eng3_view_405a0.unknown_1c = grid_y;
     g_eng3_view_405a0.column = ((g_eng3_camera_z_405e8 + 0x40) >> 7) + 6;
     eng3_slot_2b8(g_eng3_center_x_4061c, g_eng3_center_y_40620 - 0x8a);
-    eng3_slot_2bc(g_eng3_focal_40624);
+    dispatch_engine_2c9f0(g_eng3_focal_40624);
 }
 
 void eng3_222c0(void)
@@ -1578,16 +1578,16 @@ void eng3_22790(void)
     Eng3Cell *cell;
 
     if (g_eng3_ranges_4078c != 0) {
-        eng3_slot_040(g_eng3_ranges_4078c);
+        title_0c330(g_eng3_ranges_4078c);
     }
-    eng3_slot_078((void **)&g_eng3_ranges_4078c, g_eng3_layer_count_40786 * sizeof(Eng3Range), 0);
+    title_0c450((void **)&g_eng3_ranges_4078c, g_eng3_layer_count_40786 * sizeof(Eng3Range), 0);
     for (layer = 0; layer < g_eng3_layer_count_40786; layer++) {
         ep = &g_eng3_layers_40674[layer].entries;
         rows = g_eng3_lane_rows_40704[((unsigned char *)ep + *ep)[1]];
         if (g_eng3_cells_40540[layer] != 0) {
-            eng3_slot_040(g_eng3_cells_40540[layer]);
+            title_0c330(g_eng3_cells_40540[layer]);
         }
-        g_eng3_track_40794 = (Eng3Cell *)eng3_slot_078((void **)&g_eng3_cells_40540[layer], rows * 16, 0);
+        g_eng3_track_40794 = (Eng3Cell *)title_0c450((void **)&g_eng3_cells_40540[layer], rows * 16, 0);
         g_eng3_ranges_4078c[layer].tick = -1;
         ep = &g_eng3_layers_40674[layer].shape;
         shape = (signed char *)ep + *ep;

@@ -2713,31 +2713,31 @@ extern void title_09480(void);
 extern void title_095d0(void);
 extern void eng3_1f1a0(Actor *, Bounds3D *, int);
 extern void initialize_pending_action_groups(void);
-extern void eng3_slot_024(void);
-extern void eng3_slot_02c(void);
-extern void eng3_slot_030(void);
-extern int eng3_slot_034(int);
-extern void eng3_slot_040(void *);
-extern void eng3_slot_044(unsigned long);
-extern unsigned long eng3_slot_048(const char *, const char *);
-extern void eng3_slot_05c(void);
-extern void eng3_slot_060(void);
-extern unsigned long eng3_slot_068(const char *, const char *, void *, unsigned long);
-extern void eng3_slot_06c(unsigned long);
-extern void *eng3_slot_078(void **, unsigned long, unsigned long);
-extern void eng3_slot_084(void);
-extern void eng3_slot_08c(void);
+extern void title_0c2d0(void);
+extern void title_0c2f0(void);
+extern void title_0c300(void);
+extern int title_0c310(int);
+extern void title_0c330(void *);
+extern void title_0c340(unsigned long);
+extern unsigned long title_0c350(const char *, const char *);
+extern void title_0c3b0(void);
+extern void title_0c3c0(void);
+extern unsigned long title_0c3f0(const char *, const char *, void *, unsigned long);
+extern void dispatch_engine_2c3b0(unsigned long);
+extern void *title_0c450(void **, unsigned long, unsigned long);
+extern void title_0c470(void);
+extern void title_0c490(void);
 extern int eng3_1fad0(unsigned char *, long, int, int);
 extern int eng3_1fb20(Eng3Buffer *, Eng3Buffer *);
 extern int eng3_1fb40(int);
 extern int eng3_1fb60(int, int);
 extern int eng3_1fb80(Eng3Buffer *);
 extern int eng3_1fbb0(int);
-extern void eng3_slot_140(Rect16 *, int, int, int);
-extern void eng3_slot_144(unsigned long *, unsigned long);
-extern void eng3_slot_164(unsigned long *);
-extern void eng3_slot_16c(unsigned long);
-extern void eng3_slot_170(unsigned long);
+extern void title_0c670(Rect16 *, int, int, int);
+extern void title_0c690(unsigned long *, unsigned long);
+extern void title_0c6b0(unsigned long *);
+extern void title_0c6d0(unsigned long);
+extern void title_0c6e0(unsigned long);
 extern void eng3_1fc60(void);
 extern void eng3_1fc70(void);
 extern unsigned short eng3_1fe00(int, int, int, int);
@@ -2748,10 +2748,10 @@ extern int eng3_1fea0(int, int);
 extern int eng3_1ff20(unsigned char *);
 extern int eng3_1ff30(Eng3Buffer *);
 extern void eng3_1ffa0(unsigned long *, int, int, int, int);
-extern long eng3_slot_2ec(unsigned long);
-extern void eng3_slot_330(void);
-extern long eng3_slot_3e0(unsigned long);
-extern void eng3_slot_3e4(void (*)(void));
+extern long dispatch_engine_2ca40(unsigned long);
+extern void dispatch_engine_2caa0(void);
+extern long dispatch_engine_2cc30(unsigned long);
+extern void dispatch_engine_2cc40(void (*)(void));
 extern void eng3_20190(void);
 extern void eng3_22070(void);
 extern void eng3_222c0(void);
@@ -2849,22 +2849,22 @@ void eng3_1a290(void)
 void eng3_1a320(void)
 {
     if (g_eng3_vsync_gate_41444)
-        eng3_slot_330();
+        dispatch_engine_2caa0();
 }
 
 void eng3_1a330(void)
 {
     title_095d0();
-    eng3_slot_078((void **)&g_eng3_actor_42540, 0x134 * g_eng3_40bcc, 16);
-    eng3_slot_078((void **)&g_eng3_43174, 0xec * g_eng3_40c32 + 0x134, 16);
-    eng3_slot_078((void **)&g_eng3_actor_431c0, 0x94 * g_eng3_40bd2 + 0x134, 16);
+    title_0c450((void **)&g_eng3_actor_42540, 0x134 * g_eng3_40bcc, 16);
+    title_0c450((void **)&g_eng3_43174, 0xec * g_eng3_40c32 + 0x134, 16);
+    title_0c450((void **)&g_eng3_actor_431c0, 0x94 * g_eng3_40bd2 + 0x134, 16);
     eng3_1fe20();
-    eng3_slot_078((void **)&g_eng3_frame_4144c, 0x4110, 16);
-    eng3_slot_078((void **)&g_eng3_prims_405c4,
+    title_0c450((void **)&g_eng3_frame_4144c, 0x4110, 16);
+    title_0c450((void **)&g_eng3_prims_405c4,
                   80 * g_eng3_levels_39870[g_engine_interface.context_004->level].prim_count_08, 16);
-    eng3_slot_078((void **)&g_eng3_4316c, 0x4000, 0);
-    eng3_slot_078((void **)&g_eng3_42550, 0x8000, 0);
-    eng3_slot_078((void **)&g_eng3_431c8, 0x300, 0);
+    title_0c450((void **)&g_eng3_4316c, 0x4000, 0);
+    title_0c450((void **)&g_eng3_42550, 0x8000, 0);
+    title_0c450((void **)&g_eng3_431c8, 0x300, 0);
     memset(g_eng3_42550, 0, 0x8000);
     memset(g_eng3_431c8, 0, 0x300);
     title_04760();
@@ -2875,28 +2875,28 @@ void eng3_1a330(void)
 void eng3_1a460(void)
 {
     g_eng3_vsync_gate_41444 = 0;
-    eng3_slot_170(0);
-    eng3_slot_3e4(0);
+    title_0c6e0(0);
+    dispatch_engine_2cc40(0);
     if (g_engine_interface.context_004->unknown_9c == 1) {
-        eng3_slot_024();
+        title_0c2d0();
         if (g_engine_interface.context_004->unknown_b4)
             g_engine_interface.context_004->unknown_b4(0);
     } else if (g_engine_interface.context_004->unknown_9c) {
-        eng3_slot_030();
+        title_0c300();
     }
-    eng3_slot_16c(0);
-    eng3_slot_3e0(0);
+    title_0c6d0(0);
+    dispatch_engine_2cc30(0);
     if (g_eng3_actor_42540)
-        eng3_slot_040(g_eng3_actor_42540);
+        title_0c330(g_eng3_actor_42540);
     if (g_eng3_43174)
-        eng3_slot_040((void *)g_eng3_43174);
+        title_0c330((void *)g_eng3_43174);
     if (g_eng3_actor_431c0)
-        eng3_slot_040(g_eng3_actor_431c0);
+        title_0c330(g_eng3_actor_431c0);
     if (g_eng3_prims_405c4)
-        eng3_slot_040(g_eng3_prims_405c4);
+        title_0c330(g_eng3_prims_405c4);
     if (g_eng3_frame_4144c)
-        eng3_slot_040(g_eng3_frame_4144c);
-    eng3_slot_044(0);
+        title_0c330(g_eng3_frame_4144c);
+    title_0c340(0);
     memcpy(&g_engine_interface.context_004->unknown_6c, g_engine_interface.context_004->saved_7c, 16);
     g_engine_interface.context_004->difficulty = g_engine_interface.context_004->unknown_0f;
 }
@@ -2914,7 +2914,7 @@ void eng3_1a560(void)
     g_engine_interface.context_004->unknown_03 = 0;
     g_engine_interface.context_004->tick = 0;
     g_eng3_frame_41448 = g_eng3_frame_4144c;
-    eng3_slot_140(&g_eng3_clear_rect_381c0, 0, 0, 0);
+    title_0c670(&g_eng3_clear_rect_381c0, 0, 0, 0);
     g_eng3_after_draw_4064c = g_eng3_levels_39870[g_engine_interface.context_004->level].after_draw_10;
     g_eng3_actor_431d4 = g_eng3_actor_42540;
     eng3_08340(g_eng3_files_38528[g_engine_interface.context_004->level].arg_10,
@@ -2934,8 +2934,8 @@ void eng3_1a560(void)
     eng3_178a0();
     eng3_1c720();
     eng3_1b9c0();
-    eng3_slot_144(g_eng3_frame_4144c[0].ot, 0x800);
-    eng3_slot_144(g_eng3_frame_4144c[1].ot, 0x800);
+    title_0c690(g_eng3_frame_4144c[0].ot, 0x800);
+    title_0c690(g_eng3_frame_4144c[1].ot, 0x800);
     if (g_eng3_frame_41448 == g_eng3_frame_4144c)
         g_eng3_prim_43164 = g_eng3_prims_405c4
             + g_eng3_levels_39870[g_engine_interface.context_004->level].prim_count_08 * 40;
@@ -2972,10 +2972,10 @@ void eng3_1a560(void)
 void eng3_1a8f0(int wait)
 {
     if (wait)
-        while (!eng3_slot_034(0))
+        while (!title_0c310(0))
             ;
     else
-        eng3_slot_034(0);
+        title_0c310(0);
     eng3_1af10();
 }
 
@@ -2983,13 +2983,13 @@ int eng3_1a930(void)
 {
     unsigned long size;
 
-    eng3_slot_16c(0);
-    eng3_slot_034(0);
-    size = eng3_slot_048(g_eng3_files_38528[g_engine_interface.context_004->level].map_00, "MAP_PSX.BIN");
-    if (!eng3_slot_078((void **)&g_eng3_map_40790, (size & 0xfffff800) + 0x1000, 0))
+    title_0c6d0(0);
+    title_0c310(0);
+    size = title_0c350(g_eng3_files_38528[g_engine_interface.context_004->level].map_00, "MAP_PSX.BIN");
+    if (!title_0c450((void **)&g_eng3_map_40790, (size & 0xfffff800) + 0x1000, 0))
         return -1;
     g_engine_interface.context_004->unknown_128 |= 2;
-    eng3_slot_068(g_eng3_files_38528[g_engine_interface.context_004->level].map_00, "MAP_PSX.BIN",
+    title_0c3f0(g_eng3_files_38528[g_engine_interface.context_004->level].map_00, "MAP_PSX.BIN",
                   g_eng3_map_40790, size);
     g_engine_interface.context_004->unknown_90 = *(unsigned long *)g_eng3_map_40790;
     if (g_engine_interface.context_004->unknown_90 != g_engine_interface.context_004->unknown_8c)
@@ -2997,7 +2997,7 @@ int eng3_1a930(void)
             ;
     eng3_1fbb0(2);
     size = eng3_1aa30(size);
-    eng3_slot_16c(0);
+    title_0c6d0(0);
     eng3_1fad0(g_eng3_map_40790, size, 0, 0);
     return 0;
 }
@@ -3068,11 +3068,11 @@ void eng3_1abb0(void)
         g_engine_interface.context_004->unknown_94 = g_eng3_version_38510;
         g_engine_interface.context_004->unknown_48 = 0x13546547;
         g_engine_interface.context_004->unknown_4c = 0xecab9ab8;
-        eng3_slot_05c();
+        title_0c3b0();
         fx_nop_83d3();
         fx_init_82b7(0);
-        eng3_slot_06c(g_eng3_files_38528[g_engine_interface.context_004->level].arg_14);
-        eng3_slot_3e0(1);
+        dispatch_engine_2c3b0(g_eng3_files_38528[g_engine_interface.context_004->level].arg_14);
+        dispatch_engine_2cc30(1);
         fx_mode_827f(1);
         g_eng3_3fb80 = 0;
         eng3_1a330();
@@ -3084,12 +3084,12 @@ void eng3_1abb0(void)
     restart:
         eng3_1a560();
         eng3_1fbb0(4);
-        eng3_slot_060();
+        title_0c3c0();
         if (!g_eng3_3fb80)
             eng3_1fb60(0, 0);
         g_eng3_3fb80 = 1;
         g_eng3_vsync_gate_41444 = 0;
-        eng3_slot_3e4(eng3_1a320);
+        dispatch_engine_2cc40(eng3_1a320);
         g_eng3_4254c = 8;
         g_eng3_35168 = 0x80;
         g_eng3_3fa40 = 0;
@@ -3101,7 +3101,7 @@ void eng3_1abb0(void)
         g_engine_interface.context_004->unknown_04 = 0;
         g_engine_interface.context_004->unknown_05 = 1;
         g_engine_interface.context_004->unknown_03 = 5;
-        g_engine_interface.context_004->unknown_54 = eng3_slot_3e0(1);
+        g_engine_interface.context_004->unknown_54 = dispatch_engine_2cc30(1);
         eng3_empty_1000("-------------------------------------------\n");
         g_eng3_3fb84 = 1;
         break;
@@ -3110,13 +3110,13 @@ void eng3_1abb0(void)
     default:
         return;
     }
-    g_engine_interface.context_004->unknown_34 = eng3_slot_2ec(g_engine_interface.unknown_010 + 0x400);
-    eng3_slot_084();
+    g_engine_interface.context_004->unknown_34 = dispatch_engine_2ca40(g_engine_interface.unknown_010 + 0x400);
+    title_0c470();
     demo_step_6005();
     dispatch_local_02180();
-    eng3_slot_02c();
-    eng3_slot_08c();
-    eng3_slot_3e4(eng3_1a320);
+    title_0c2f0();
+    title_0c490();
+    dispatch_engine_2cc40(eng3_1a320);
     eng1_color_fade_step_5d50();
     eng3_0a700();
     eng3_08540();
@@ -3136,22 +3136,22 @@ void eng3_1abb0(void)
         eng3_085a0();
     }
     eng3_250f0();
-    eng3_slot_16c(0);
+    title_0c6d0(0);
     if (g_eng3_3fc70 < g_engine_interface.context_004->unknown_3c + 1)
-        eng3_slot_3e0(0);
+        dispatch_engine_2cc30(0);
     g_eng3_vsync_gate_41444 = 0;
-    eng3_slot_3e0(0);
+    dispatch_engine_2cc30(0);
     g_eng3_vsync_gate_41444 = 1;
     g_engine_interface.context_004->unknown_3c = g_eng3_3fc70;
-    g_engine_interface.context_004->unknown_54 = eng3_slot_3e0(1);
+    g_engine_interface.context_004->unknown_54 = dispatch_engine_2cc30(1);
     eng3_1fb80(g_eng3_frame_41448);
     if (!g_engine_interface.context_004->unknown_04)
         eng3_08050();
     title_041d0();
     title_04870();
-    eng3_slot_164(g_eng3_frame_41448->ot);
+    title_0c6b0(g_eng3_frame_41448->ot);
     fx_update_666b();
-    eng3_slot_2ec(g_engine_interface.context_004->unknown_34);
+    dispatch_engine_2ca40(g_engine_interface.context_004->unknown_34);
     g_eng3_frame_41448 = g_eng3_frame_41448 == g_eng3_frame_4144c ? &g_eng3_frame_4144c[1] : g_eng3_frame_4144c;
     g_engine_interface.context_004->tick++;
     if (game_state_60f9())
