@@ -129,7 +129,7 @@ extern unsigned short eng3_1b4a0(short, short, short, int);
 extern int eng3_1b920(Actor *, int);
 extern int eng3_1dbc0(Actor *);
 extern int eng3_1eff0(Actor *, Actor *);
-extern Actor *eng3_1cb00(long, long, long, int);
+extern Actor *title_08a50(long, long, long, int);
 extern void remove_actor(Actor *);
 extern Actor *create_eng3_middle_actor(long, long, long, unsigned long);
 extern void remove_actor_variant(Actor *);
@@ -573,10 +573,10 @@ void eng3_0eeb0(Actor *o)
         eng3_1dbc0(o);
         if (o->unknown_dc) {
             play_sound(0x28a6, o);
-            o->unknown_118 = eng3_1cb00(o->x, o->y, o->z - 0x100000, 0x4a);
+            o->unknown_118 = title_08a50(o->x, o->y, o->z - 0x100000, 0x4a);
             g_eng3_game_40b8c->method_378(o->unknown_118);
             o->unknown_118->render_flags |= 0x10;
-            o->unknown_120 = (PendingActionGroup *)eng3_1cb00(o->x, o->y, o->z + 0x100000, 0x4a);
+            o->unknown_120 = (PendingActionGroup *)title_08a50(o->x, o->y, o->z + 0x100000, 0x4a);
             g_eng3_game_40b8c->method_378((Actor *)o->unknown_120);
             o->unknown_118->profile = o->profile;
             ((Actor *)o->unknown_120)->profile = o->profile;
@@ -899,13 +899,13 @@ void eng3_0fab0(Actor *o)
     vec_diff_fixed_1420((const int *)o, (const int *)g_focus, d);
     home = (long *)(o->owner_context + g_kind_info[o->profile].sidecar_offset);
     if (o->unknown_126 == -1) {
-        o->unknown_120 = (PendingActionGroup *)eng3_1cb00(home[0] - 0x400000, home[1], home[2] - 0x1000000, 0x3f);
+        o->unknown_120 = (PendingActionGroup *)title_08a50(home[0] - 0x400000, home[1], home[2] - 0x1000000, 0x3f);
         if (o->unknown_120) {
             g_eng3_game_40b8c->method_2f4((Actor *)o->unknown_120);
             ((Actor *)o->unknown_120)->profile = o->profile;
             ((Actor *)o->unknown_120)->unknown_11e = 1;
         }
-        o->unknown_d8 = (long)eng3_1cb00(home[0] - 0xc40000, home[1], home[2] - 0x1600000, 0x3f);
+        o->unknown_d8 = (long)title_08a50(home[0] - 0xc40000, home[1], home[2] - 0x1600000, 0x3f);
         if (o->unknown_d8) {
             g_eng3_game_40b8c->method_2f4((Actor *)o->unknown_d8);
             ((Actor *)o->unknown_d8)->profile = o->profile;
@@ -1025,13 +1025,13 @@ void eng3_0ffd0(Actor *o)
     vec_diff_fixed_1420((const int *)o, (const int *)g_focus, d);
     home = (long *)(o->owner_context + g_kind_info[o->profile].sidecar_offset);
     if (o->unknown_126 == -1) {
-        o->unknown_120 = (PendingActionGroup *)eng3_1cb00(home[0] - 0x400000, home[1], home[2] + 0x1000000, 0x3f);
+        o->unknown_120 = (PendingActionGroup *)title_08a50(home[0] - 0x400000, home[1], home[2] + 0x1000000, 0x3f);
         if (o->unknown_120) {
             g_eng3_game_40b8c->method_2f4((Actor *)o->unknown_120);
             ((Actor *)o->unknown_120)->profile = o->profile;
             ((Actor *)o->unknown_120)->unknown_11e = 1;
         }
-        o->unknown_d8 = (long)eng3_1cb00(home[0] - 0xc40000, home[1], home[2] + 0x1600000, 0x3f);
+        o->unknown_d8 = (long)title_08a50(home[0] - 0xc40000, home[1], home[2] + 0x1600000, 0x3f);
         if (o->unknown_d8) {
             g_eng3_game_40b8c->method_2f4((Actor *)o->unknown_d8);
             ((Actor *)o->unknown_d8)->profile = o->profile;

@@ -120,8 +120,8 @@ CHECK_OFFSET(SpatialTaskView, word_124, 0x124);
 extern long __cdecl eng1_native_dep_020b50(long, long, long, int);
 extern unsigned long __cdecl eng1_native_dep_0299d0(void *);
 extern unsigned int __cdecl dispatch_engine_2c460(int);
-extern unsigned long __cdecl eng1_native_dep_02c470(void);
-extern void __cdecl eng1_native_dep_02a290(void *);
+extern unsigned long __cdecl dispatch_engine_2c470(void);
+extern void __cdecl eng1_native_code_target_002a290(void *);
 extern void __cdecl eng1_native_dep_0283e0(void *);
 extern unsigned long __cdecl eng1_native_dep_02a170(long, long, long, int);
 extern int __cdecl eng1_native_dep_029c20(void *);
@@ -349,12 +349,12 @@ void __cdecl eng1_native_code_target_00f430(SpatialTaskView *p)
     p->byte_01c = eng1_native_data_051fd4[value];
     advance_frame(p);
     restart_steps(p);
-    eng1_native_dep_02a290(p);
+    eng1_native_code_target_002a290(p);
     value = dispatch_engine_2c460(2);
     p->byte_094 = (unsigned char)(0 - (unsigned char)value);
     p->word_04a = (unsigned short)(dispatch_engine_2c460(0x80) + 0x60);
     p->byte_095 = 0xff;
-    value = eng1_native_dep_02c470() & 0x1ffUL;
+    value = dispatch_engine_2c470() & 0x1ffUL;
     p->dword_0bc = (value + 0xc00UL) << 8;
     p->dword_0b8 = 0;
     p->dword_0c0 = 0;
@@ -391,7 +391,7 @@ void __cdecl eng1_native_code_target_00f4f0(SpatialTaskView *p)
     p->byte_097 = 0;
     p->word_028 = 0;
     if (p->byte_025 & 1) {
-        eng1_native_dep_02a290(p);
+        eng1_native_code_target_002a290(p);
     } else {
         eng1_native_dep_0283e0(p);
         eng1_guarded_apply_frame_motion_3d(p);
@@ -485,7 +485,7 @@ void __cdecl eng1_native_code_target_00fd00(SpatialTaskView *p)
     p->byte_095 = 0;
 
     if (selector == 0) {
-        value = eng1_native_dep_02c470() & 0x1ffUL;
+        value = dispatch_engine_2c470() & 0x1ffUL;
         p->dword_0bc = (value + 0x480UL) << 8;
         p->dword_0b8 = p->dword_0bc >> 2;
         p->dword_0c0 = dispatch_engine_2c460(0x1000) + 0x2000UL;
@@ -495,14 +495,14 @@ void __cdecl eng1_native_code_target_00fd00(SpatialTaskView *p)
         p->dword_0e0 = 8;
         p->dword_0d8 = 2;
     } else if (selector == 1) {
-        value = eng1_native_dep_02c470() & 0x1ffUL;
+        value = dispatch_engine_2c470() & 0x1ffUL;
         p->dword_0bc = (value + 0x600UL) << 8;
         p->dword_0b8 = p->dword_0bc >> 2;
         p->dword_0c0 = dispatch_engine_2c460(0x2000) + 0x2000UL;
         p->dword_0e0 = 0;
         p->dword_0d8 = 6;
     } else if (selector == 2) {
-        value = eng1_native_dep_02c470() & 0x1ffUL;
+        value = dispatch_engine_2c470() & 0x1ffUL;
         p->dword_0bc = (value + 0x400UL) << 8;
         p->dword_0b8 = p->dword_0bc >> 2;
         p->dword_0c0 = dispatch_engine_2c460(0x1000) + 0x1000UL;

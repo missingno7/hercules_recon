@@ -145,10 +145,10 @@ unsigned int __cdecl dispatch_engine_2c460(int value)
     return random_results[random_index++];
 }
 
-unsigned long __cdecl eng1_native_dep_02c470(void)
+unsigned long __cdecl dispatch_engine_2c470(void)
 { record_call(4, 0); ++raw_random_calls; return raw_random_result; }
 
-void __cdecl eng1_native_dep_02a290(void *p)
+void __cdecl eng1_native_code_target_002a290(void *p)
 { record_call(7, (unsigned long)p); }
 
 void __cdecl eng1_native_dep_0283e0(void *p)

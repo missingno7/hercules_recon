@@ -157,7 +157,7 @@ extern unsigned char g_eng1_image_53ac8[];
 extern unsigned char g_eng1_image_54da0[];
 typedef struct ShortPair { short first, second; } ShortPair;
 extern ShortPair g_eng1_pairs_55240[];
-extern void eng1_291d0(Actor *);
+extern void apply_frame_motion_3d(Actor *);
 extern int eng1_19cf0(void);
 void eng1_16cf0(void);
 void eng1_17d60(void);
@@ -187,7 +187,7 @@ extern unsigned char g_eng1_image_54380[];
 extern unsigned char g_eng1_image_543d0[];
 extern unsigned char g_eng1_image_54470[];
 extern void eng1_1a410(void);
-extern void eng1_1a280(void);
+extern void eng1_native_code_target_001a280(void);
 extern void eng1_18900(void);
 extern int dispatch_local_15d00(void);          /* player script runner (ENG3 eng3_18370) */
 extern void dispatch_local_16790(void);
@@ -1011,7 +1011,7 @@ void eng1_17eb0(void)
         g_frame_owner_72860->image = g_eng1_image_53a90;
         g_frame_owner_72860->unknown_96 = 0xff;
     }
-    eng1_291d0(g_native_pointer_7217c);
+    apply_frame_motion_3d(g_native_pointer_7217c);
     if (eng1_19cf0()) {
         if (!eng1_29c20(g_frame_owner_72860)) {
             eng1_17340();
@@ -1284,7 +1284,7 @@ void eng1_18770(void)
         if (g_engine_interface.context_004->energy_24[g_eng1_setup_byte_6efb4] <= 0) {
             g_engine_interface.context_004->energy_24[g_eng1_setup_byte_6efb4] = 0;
             g_eng1_setup_byte_6efb4 = 0;
-            eng1_1a280();
+            eng1_native_code_target_001a280();
             eng1_sim_state_72108 = 0x2e;
             g_frame_owner_72860->image = g_eng1_image_54470;
             g_frame_owner_72860->ticks = -1;

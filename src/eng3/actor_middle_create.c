@@ -40,7 +40,7 @@ typedef char eng3_middle_actor_size[(sizeof(Eng3MiddleActor) == 0xec) ? 1 : -1];
 typedef char eng3_kind_entry_size[(sizeof(Eng3KindEntry) == 8) ? 1 : -1];
 typedef char eng3_middle_copy_x_offset[(offsetof(Eng3MiddleActor, position_copy_x) == 0x9c) ? 1 : -1];
 
-extern Eng3MiddleActor *allocate_eng3_middle_actor(unsigned long kind);
+extern Eng3MiddleActor *title_08d80(unsigned long kind);
 extern void reset_eng3_middle_actor(Eng3MiddleActor *actor);
 extern const Eng3KindEntry *g_eng3_middle_kind_entries;
 
@@ -48,7 +48,7 @@ Eng3MiddleActor *create_eng3_middle_actor(long x, long y, long z, unsigned long 
 {
     Eng3MiddleActor *actor;
 
-    actor = allocate_eng3_middle_actor(kind);
+    actor = title_08d80(kind);
     if (actor != 0) {
         reset_eng3_middle_actor(actor);
         actor->base.kind = (unsigned short)(kind | 0x4000);

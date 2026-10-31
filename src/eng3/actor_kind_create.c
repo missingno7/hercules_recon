@@ -31,17 +31,17 @@ typedef char eng3_category_offset_is_0x22[(offsetof(Eng3Actor, table_category) =
 typedef char eng3_table_value_offset_is_0x64[(offsetof(Eng3Actor, table_value) == 0x64) ? 1 : -1];
 typedef char eng3_kind_entry_stride_is_8[(sizeof(Eng3KindEntry) == 8) ? 1 : -1];
 
-extern Eng3Actor *allocate_eng3_actor(unsigned long kind);
-extern void reset_eng3_actor(Eng3Actor *actor);
+extern Eng3Actor *title_091a0(unsigned long kind);
+extern void initialize_alternate_actor(Eng3Actor *actor);
 extern const Eng3KindEntry *g_eng3_kind_entries;
 
 Eng3Actor *create_eng3_kind_actor(long x, long y, long z, unsigned long kind)
 {
     Eng3Actor *actor;
 
-    actor = allocate_eng3_actor(kind);
+    actor = title_091a0(kind);
     if (actor != 0) {
-        reset_eng3_actor(actor);
+        initialize_alternate_actor(actor);
         actor->kind = (unsigned short)(kind | 0x2000);
         actor->x = x;
         actor->y = y;

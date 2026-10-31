@@ -113,7 +113,7 @@ extern void eng3_15340(Actor *);
 extern void eng3_16550(Actor *);
 extern void eng3_19200(void);
 extern int eng3_1b920(Actor *, int);
-extern Actor *eng3_1cb00(long, long, long, int);
+extern Actor *title_08a50(long, long, long, int);
 extern void remove_actor(Actor *);
 extern Actor *create_eng3_middle_actor(long, long, long, unsigned long);
 extern Actor *attach_actor(Actor *, int);
@@ -179,12 +179,12 @@ void eng3_12250(Actor *o)
     }
     home = (long *)(o->owner_context + g_kind_info[o->profile].sidecar_offset);
     if (o->state & 8) {
-        o->unknown_118 = eng3_1cb00(o->x, o->y, o->z, 0x38);
+        o->unknown_118 = title_08a50(o->x, o->y, o->z, 0x38);
         if (o->unknown_118) {
             g_eng3_game_40b8c->method_2a0(o->unknown_118);
             o->unknown_118->profile = o->profile;
         }
-        o->unknown_120 = eng3_1cb00(o->x, o->y - 0x12e0000, o->z, 0x41);
+        o->unknown_120 = title_08a50(o->x, o->y - 0x12e0000, o->z, 0x41);
         if (o->unknown_120) {
             g_eng3_game_40b8c->method_30c(o->unknown_120);
             o->unknown_120->profile = o->profile;
@@ -671,13 +671,13 @@ void eng3_133b0(Actor *o)
 
     if (o->unknown_98) {
         play_sound(0x28a6, o);
-        o->unknown_118 = eng3_1cb00(o->x, o->y, o->z - 0x100000, 0x4a);
+        o->unknown_118 = title_08a50(o->x, o->y, o->z - 0x100000, 0x4a);
         if (o->unknown_118) {
             g_eng3_game_40b8c->method_378(o->unknown_118);
             o->unknown_118->profile = o->profile;
             o->unknown_118->render_flags |= 0x10;
         }
-        o->unknown_120 = eng3_1cb00(o->x, o->y, o->z + 0x100000, 0x4a);
+        o->unknown_120 = title_08a50(o->x, o->y, o->z + 0x100000, 0x4a);
         if (o->unknown_120) {
             g_eng3_game_40b8c->method_378(o->unknown_120);
             o->unknown_120->profile = o->profile;
@@ -794,35 +794,35 @@ void eng3_13860(Actor *o)
 
     eng3_08120(1, 0, 1);
     if (o->state & 8) {
-        c = eng3_1cb00(o->x, o->y, o->z, 0x45);
+        c = title_08a50(o->x, o->y, o->z, 0x45);
         if (c) {
             g_eng3_game_40b8c->method_33c(c);
             c->unknown_118 = o;
             c->script = g_eng3_script_355d0;
             c->phase = 0;
         }
-        c = eng3_1cb00(o->x, o->y, o->z, 0x45);
+        c = title_08a50(o->x, o->y, o->z, 0x45);
         if (c) {
             g_eng3_game_40b8c->method_33c(c);
             c->unknown_118 = o;
             c->z -= 0x800000;
             c->y -= 0x400000;
         }
-        c = eng3_1cb00(o->x, o->y, o->z, 0x45);
+        c = title_08a50(o->x, o->y, o->z, 0x45);
         if (c) {
             g_eng3_game_40b8c->method_33c(c);
             c->unknown_118 = o;
             c->z -= 0x1000000;
             c->y -= 0x800000;
         }
-        c = eng3_1cb00(o->x, o->y, o->z, 0x45);
+        c = title_08a50(o->x, o->y, o->z, 0x45);
         if (c) {
             g_eng3_game_40b8c->method_33c(c);
             c->unknown_118 = o;
             c->z -= 0x1800000;
             c->y -= 0xc40000;
         }
-        c = eng3_1cb00(o->x, o->y, o->z, 0x45);
+        c = title_08a50(o->x, o->y, o->z, 0x45);
         if (c) {
             g_eng3_game_40b8c->method_33c(c);
             c->unknown_118 = o;
@@ -832,7 +832,7 @@ void eng3_13860(Actor *o)
         o->state = 2;
     }
     if (o->state & 4) {
-        c = eng3_1cb00(o->x, o->y, o->z, 0x45);
+        c = title_08a50(o->x, o->y, o->z, 0x45);
         if (c) {
             g_eng3_game_40b8c->method_33c(c);
             c->unknown_118 = o;
@@ -985,10 +985,10 @@ void eng3_13ea0(Actor *o)
 
     vec_diff_fixed_1420((const int *)o, (const int *)g_focus, d);
     if (o->unknown_98) {
-        o->unknown_118 = eng3_1cb00(o->x, o->y, o->z, 0x38);
+        o->unknown_118 = title_08a50(o->x, o->y, o->z, 0x38);
         g_eng3_game_40b8c->method_2a0(o->unknown_118);
         o->unknown_118->profile = o->profile;
-        o->unknown_120 = eng3_1cb00(o->x, o->y + 0x340000, o->z + 0x80000, 0x41);
+        o->unknown_120 = title_08a50(o->x, o->y + 0x340000, o->z + 0x80000, 0x41);
         g_eng3_game_40b8c->method_30c(o->unknown_120);
         o->unknown_120->profile = o->profile;
         o->unknown_120->sprite = 0x27c;

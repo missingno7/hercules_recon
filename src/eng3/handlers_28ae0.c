@@ -124,7 +124,7 @@ extern void play_sound(unsigned short, Actor *);
 extern void eng3_19200(void);
 extern unsigned short eng3_1b4a0(short, short, short, int);
 extern int eng3_1b920(Actor *, int);
-extern Actor *eng3_1cb00(long, long, long, int);
+extern Actor *title_08a50(long, long, long, int);
 extern void remove_actor(Actor *);
 extern Actor *create_eng3_middle_actor(long, long, long, unsigned long);
 extern void remove_actor_variant(Actor *);
@@ -167,7 +167,7 @@ void eng3_28ae0(Actor *o)
     if (o->state & 2) {
         play_sound(0xe286, o);
         for (i = 0; i < 8; i++) {
-            child = eng3_1cb00(o->x, o->y - (eng3_01010(0x40) << 16), o->z, 0x41);
+            child = title_08a50(o->x, o->y - (eng3_01010(0x40) << 16), o->z, 0x41);
             if (!child)
                 continue;
             g_eng3_game_40b8c->method_30c(child);
@@ -208,7 +208,7 @@ void eng3_28ae0(Actor *o)
             }
         }
         for (i = 0; i < 0xc; i++) {
-            child = eng3_1cb00(o->x, o->y - (random_limit(0x60) << 16),
+            child = title_08a50(o->x, o->y - (random_limit(0x60) << 16),
                                (random_limit(0x40) << 16) - (random_limit(0x40) << 16) + o->z, 0x3b);
             if (!child)
                 continue;
@@ -408,7 +408,7 @@ void eng3_292f0(Actor *o)
                     if (child)
                         g_eng3_host_40bb4->method_b0(child);
                     if (o->unknown_dc && o->profile == 0 && !(g_engine_interface.context_004->flags_11 & 2)) {
-                        child = eng3_1cb00(g_focus->x, g_focus->y, g_focus->z, 8);
+                        child = title_08a50(g_focus->x, g_focus->y, g_focus->z, 8);
                         if (child) {
                             g_eng3_game_40b8c->method_60(child);
                             child->profile = o->profile;
