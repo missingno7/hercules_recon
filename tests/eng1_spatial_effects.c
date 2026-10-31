@@ -135,7 +135,7 @@ long __cdecl eng1_native_dep_020b50(long x, long y, long z, int step)
 unsigned long __cdecl eng1_native_dep_0299d0(void *p)
 { record_call(2, (unsigned long)p); return cap_result; }
 
-unsigned int __cdecl dispatch_engine_2c460(int value)
+unsigned int __cdecl random_limit(int value)
 {
     record_call(3, (unsigned long)value);
     if (random_index >= random_count)

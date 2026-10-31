@@ -107,7 +107,7 @@ extern void __cdecl select_frame(Actor *, int);
 extern int __cdecl remove_actor(Actor *);
 extern int __cdecl wrapped_ratio(int, int, int);
 extern void __cdecl play_sound(unsigned short, Actor *);
-extern unsigned int __cdecl dispatch_engine_2c460(int);
+extern unsigned int __cdecl random_limit(int);
 extern unsigned long g_configuration_dword_71384;
 
 /* Native entries 0x27410 and 0x27450 remain separate semantic dependencies:

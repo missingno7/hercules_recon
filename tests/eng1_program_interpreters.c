@@ -61,7 +61,7 @@ int __cdecl wrapped_ratio(int a, int b, int divisor)
     return 8;
 }
 
-unsigned int __cdecl dispatch_engine_2c460(int limit)
+unsigned int __cdecl random_limit(int limit)
 {
     (void)limit;
     return 2;

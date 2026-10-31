@@ -1672,7 +1672,6 @@ extern unsigned short g_eng1_control_70f0c;
 extern unsigned short g_eng1_control_70f0e, g_eng1_control_70ef0, g_eng1_control_70f04;
 extern short g_platform_sound_70004;
 
-int dispatch_engine_2c460(int index);
 void dispatch_engine_2c980(void *p, int dfe, int dtd, int tpage, int tw);
 void eng1_2ca50(void *p);
 int initialize_command_table(unsigned long bytes, unsigned int opcode, unsigned long count);
@@ -1715,7 +1714,7 @@ void eng1_3c490(Actor *p)
 {
     int n;
 
-    n = dispatch_engine_2c460(0x8000);
+    n = random_limit(0x8000);
     if (n < 0x3000) {
         if (n < 0x800)
             n = 3;
@@ -2069,7 +2068,7 @@ void eng1_3cf90(Actor *p)
         for (a = p->next_scene; a; a = a->next_scene) {
             if (a == g_native_pointer_7217c && (~g_native_word_72168 & g_eng1_setup_word_72012 & 0x20)) {
                 g_native_word_72168 |= 0x20;
-                n = dispatch_engine_2c460(3) + 2;
+                n = random_limit(3) + 2;
             }
         }
         for (i = 0; i < g->count;) {
@@ -2490,7 +2489,7 @@ void eng1_3dcd0(Actor *p)
         for (a = p->next_scene; a; a = a->next_scene) {
             if (a == g_native_pointer_7217c && (~g_native_word_72168 & g_eng1_setup_word_72012 & 0x20)) {
                 g_native_word_72168 |= 0x20;
-                n = dispatch_engine_2c460(3) + 2;
+                n = random_limit(3) + 2;
             }
         }
         for (i = 0; i < g->count;) {
@@ -2826,7 +2825,7 @@ void eng1_3e6d0(Actor *p)
     p->motion_y_target = ((dispatch_engine_2c470() & 0x1ff) + 0xe00) << 8;
     p->motion_y_velocity = p->motion_y_target >> 4;
     p->motion_y_rate = 0;
-    p->motion_y_unknown = dispatch_engine_2c460(0x2000) + 0x8000;
+    p->motion_y_unknown = random_limit(0x2000) + 0x8000;
     p->state = 0;
     attach_actor(p, 0x2022);
     spawn_actor_with_owner(p, 0, 0, 0, 0x34);
@@ -3153,10 +3152,10 @@ void eng1_3f140(Actor *p)
     p->sprite = 0x41;
     eng1_native_code_target_002a290(p);
     p->state = 0;
-    p->angle_72 = dispatch_engine_2c460(0x100) - 0x80;
+    p->angle_72 = random_limit(0x100) - 0x80;
     p->hits = 3;
     p->angle_70 = -0x100;
-    p->unknown_0dc = dispatch_engine_2c460(4) * 4 + 4;
+    p->unknown_0dc = random_limit(4) * 4 + 4;
 }
 
 void eng1_3f1c0(Actor *p)
@@ -3474,7 +3473,7 @@ void eng1_3fa50(Actor *p)
     p->motion_z_rate = 0x4000;
     p->motion_z_unknown = 0;
     p->motion_x_velocity = p->motion_x_target = ((dispatch_engine_2c470() & 0x1ff) + 0xa80) << 8;
-    p->motion_x_rate = dispatch_engine_2c460(0x2000) + 0x3000;
+    p->motion_x_rate = random_limit(0x2000) + 0x3000;
     p->motion_x_unknown = 0;
     p->scale = 0x80;
     p->render_flags |= 5;
@@ -3488,7 +3487,7 @@ void eng1_3fb00(Actor *p)
 
     eng1_interpret_word_stream(p);
     if ((p->status_01f & 2) && !p->sound_06c)
-        LinkedSoundFx_6da0((dispatch_engine_2c460(3) + 0x57) | 0x5800, p);
+        LinkedSoundFx_6da0((random_limit(3) + 0x57) | 0x5800, p);
     advance_object_motion(p);
     if (point_in_box_2a810(p->x, p->y, p->z, &g_native_pointer_7217c->bounds)) {
         eng1_native_code_target_00266a0(p, 1, 0);
@@ -3537,19 +3536,19 @@ void eng1_3fcf0(Actor *p)
 {
     p->render_flags |= 0x10000000;
     p->flags |= 0x800000;
-    p->direction_x = -dispatch_engine_2c460(2);
-    p->direction_z = -dispatch_engine_2c460(2);
+    p->direction_x = -random_limit(2);
+    p->direction_z = -random_limit(2);
     p->direction_y = 0xff;
     p->motion_y_velocity = p->motion_y_target = ((dispatch_engine_2c470() & 0x3ff) + 0x300) << 8;
     p->motion_y_rate = 0;
-    p->motion_y_unknown = dispatch_engine_2c460(0x2000) + 0x4000;
+    p->motion_y_unknown = random_limit(0x2000) + 0x4000;
     p->motion_z_target = ((dispatch_engine_2c470() & 0xff) + 0x200) << 8;
     p->motion_z_velocity = p->motion_z_target >> 1;
-    p->motion_z_rate = dispatch_engine_2c460(0x1000) + 0x2000;
+    p->motion_z_rate = random_limit(0x1000) + 0x2000;
     p->motion_z_unknown = 0;
     p->motion_x_target = ((dispatch_engine_2c470() & 0x3ff) + 0x300) << 8;
     p->motion_x_velocity = p->motion_x_target >> 1;
-    p->motion_x_rate = dispatch_engine_2c460(0x1000) + 0x6000;
+    p->motion_x_rate = random_limit(0x1000) + 0x6000;
     p->motion_x_unknown = 0;
     p->state = 0;
 }
@@ -3568,8 +3567,8 @@ void eng1_3fe40(Actor *p)
     p->y = 0x3880000;
     p->motion_x_velocity = 0;
     p->motion_x_target = 0x80000;
-    p->motion_x_rate = dispatch_engine_2c460(0x4000) + 0x6000;
-    p->motion_x_unknown = dispatch_engine_2c460(0x4000) + 0x4000;
+    p->motion_x_rate = random_limit(0x4000) + 0x6000;
+    p->motion_x_unknown = random_limit(0x4000) + 0x4000;
     p->direction_x = 0xff;
     p->direction_z = 0xff;
     p->motion_z_velocity = 0;
@@ -3658,8 +3657,8 @@ void eng1_3ff30(Actor *p)
                 p->motion_y_target = 0;
                 p->motion_y_unknown = 0;
                 p->motion_z_target = 0x60000;
-                p->motion_z_rate = dispatch_engine_2c460(0x4000) + 0x7000;
-                p->motion_z_unknown = dispatch_engine_2c460(0x4000) + 0x4000;
+                p->motion_z_rate = random_limit(0x4000) + 0x7000;
+                p->motion_z_unknown = random_limit(0x4000) + 0x4000;
                 p->direction_z = 0xff;
                 p->state = 4;
                 LinkedSoundFx_6da0(0x4854, p);
@@ -3681,14 +3680,14 @@ void eng1_3ff30(Actor *p)
                 p->direction_z = ~p->direction_z;
                 a->direction_x = ~a->direction_x;
                 a->direction_z = ~a->direction_z;
-                p->lifetime = dispatch_engine_2c460(10) + 10;
-                a->lifetime = dispatch_engine_2c460(10) + 10;
+                p->lifetime = random_limit(10) + 10;
+                a->lifetime = random_limit(10) + 10;
                 flags = 0;
             }
         }
         hit = eng1_26de0(p);
         if (hit) {
-            p->lifetime = dispatch_engine_2c460(10) + 10;
+            p->lifetime = random_limit(10) + 10;
             if (hit == 0x80) {
                 n = eng1_19b40(~g_native_word_72168 & 0x5f);
                 if (n) {
@@ -3729,7 +3728,7 @@ void eng1_3ff30(Actor *p)
                     }
                 }
                 for (i = 0; i < 4; i++)
-                    eng1_131c0(p->x, p->y - 0x200000, p->z, g_burst_sound_rows_66738[dispatch_engine_2c460(4)][i]);
+                    eng1_131c0(p->x, p->y - 0x200000, p->z, g_burst_sound_rows_66738[random_limit(4)][i]);
             }
         }
         if (!p->lifetime) {
@@ -3782,10 +3781,10 @@ void eng1_405e0(Actor *p)
     case 0:
         if ((n == 0 && (abs(p->x - g_native_pointer_7217c->x) & ~0xffff) < 0x1000000) ||
             (n == 1 && (abs(p->x - g_native_pointer_7217c->x) & ~0xffff) < 0x1000000 &&
-             !dispatch_engine_2c460(2))) {
+             !random_limit(2))) {
             p->motion_y_velocity = p->motion_y_target = 0xe0000;
             p->motion_y_rate = 0;
-            p->motion_y_unknown = dispatch_engine_2c460(0x2000) + 0x8000;
+            p->motion_y_unknown = random_limit(0x2000) + 0x8000;
             p->direction_y = 0xff;
             p->state = 2;
             LinkedSoundFx_6da0(0x4853, p);
@@ -3794,7 +3793,7 @@ void eng1_405e0(Actor *p)
         } else {
             p->motion_y_velocity = p->motion_y_target = 0xa0000;
             p->motion_y_rate = 0;
-            p->motion_y_unknown = dispatch_engine_2c460(0x2000) + 0x6000;
+            p->motion_y_unknown = random_limit(0x2000) + 0x6000;
             p->direction_y = 0xff;
             p->state = 1;
             LinkedSoundFx_6da0(0x4852, p);

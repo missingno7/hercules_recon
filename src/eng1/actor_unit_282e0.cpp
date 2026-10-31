@@ -138,7 +138,7 @@ extern void title_17ad0(long x, long y, long z, short kind, int group);
 extern void play_sound(short sound, Actor *p);
 extern void stop_actor_sounds(Actor *p);
 extern int wrapped_ratio(int from, int to, int steps);
-extern int dispatch_engine_2c460(int index);
+extern int random_limit(int index);
 extern long grid_scan_20b50(long x, long y, long z, int group);
 extern long grid_query_20d30(long x, long y, long z, int step);
 extern int extent_producer_30e40(Actor *p, Bounds3D *b, int mode);
@@ -644,7 +644,7 @@ int eng1_interpret_animation_triples(Actor *p)
         p->active_command = op;
         ticks = TRIPLE(p).operand_004;
         if (ticks & 0x4000)
-            ticks = (ticks & 0x3fff) + dispatch_engine_2c460(6);
+            ticks = (ticks & 0x3fff) + random_limit(6);
         p->frame_ticks = ticks;
         dest = c->x_target;
         target = TRIPLE(p).operand_002;

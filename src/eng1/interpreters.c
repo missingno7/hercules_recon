@@ -591,7 +591,7 @@ unsigned long __cdecl eng1_interpret_animation_triples(Actor *actor)
         duration = record->operand_004;
         if (((unsigned short)duration & 0x4000) != 0) {
             duration = (short)(((unsigned short)duration & 0x3fff) +
-                               dispatch_engine_2c460(6));
+                               random_limit(6));
         }
         actor->frame_ticks = duration;
 

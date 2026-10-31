@@ -116,7 +116,7 @@ void __cdecl eng1_native_code_target_001a410(void)
 void __cdecl eng1_native_code_target_0007f8e(int id, void *p)
 { (void)id; (void)p; unexpected_fixture_service("0x7f8e event"); }
 
-unsigned int __cdecl dispatch_engine_2c460(int limit)
+unsigned int __cdecl random_limit(int limit)
 {
     if (!allow_query_rng_spy)
         unexpected_fixture_service("2c460 RNG");

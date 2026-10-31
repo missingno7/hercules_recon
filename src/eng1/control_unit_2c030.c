@@ -391,7 +391,7 @@ extern void eng1_native_code_target_002a290(Actor *actor);
 extern int eng1_interpret_signed_pairs(Actor *actor);
 extern void apply_frame_motion_2d(Actor *actor);
 extern void select_frame(Actor *actor, int index);
-extern unsigned int dispatch_engine_2c460(int range);
+extern unsigned int random_limit(int range);
 extern void LinkedSoundFx_6da0(unsigned short id, Actor *owner);
 int eng1_native_dep_002d3f0(Actor *actor, int selector);
 void eng1_native_dep_002d440(Actor *actor);
@@ -575,7 +575,7 @@ void eng1_native_code_target_02d1f0(Actor *actor)
             select_frame(actor, 3);
             return;
         }
-        switch (dispatch_engine_2c460(6)) {
+        switch (random_limit(6)) {
         case 0: select_frame(actor, 0x16); return;
         case 1: select_frame(actor, 0x19); return;
         case 2: select_frame(actor, 0x1c); return;
@@ -599,7 +599,7 @@ void eng1_native_code_target_02d320(Actor *actor)
         select_frame(actor, 3);
         return;
     }
-    switch (dispatch_engine_2c460(4)) {
+    switch (random_limit(4)) {
     case 0: select_frame(actor, 0x16); return;
     case 1: select_frame(actor, 0x19); return;
     case 2: select_frame(actor, 0x1c); return;

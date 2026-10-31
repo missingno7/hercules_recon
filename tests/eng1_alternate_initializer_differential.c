@@ -116,10 +116,10 @@ int __cdecl wrapped_ratio(int current, int target, int duration)
     return 0;
 }
 
-unsigned int __cdecl dispatch_engine_2c460(int opcode)
+unsigned int __cdecl random_limit(int opcode)
 {
     (void)opcode;
-    forbidden("dispatch_engine_2c460");
+    forbidden("random_limit");
     return 0;
 }
 

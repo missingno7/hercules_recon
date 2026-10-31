@@ -226,7 +226,7 @@ extern void title_0c760(SVector *v);
 extern void title_0c7b0(void);
 extern void title_0c810(short *xy);
 extern void title_0c840(long *z);
-extern int dispatch_engine_2c460(int range);
+extern int random_limit(int range);
 
 /* VRAM moves. */
 extern FrameRecord *g_frame_global_73484;
@@ -688,8 +688,8 @@ void eng1_02ac0(Effect *e, int i)
     int z;
 
     v = e->verts;
-    angle = dispatch_engine_2c460(0x1000);
-    radius = dispatch_engine_2c460(0x60) + 0xc0;
+    angle = random_limit(0x1000);
+    radius = random_limit(0x60) + 0xc0;
     x = g_sine_table_70f34[angle & 0xfff] * radius >> 12;
     z = g_sine_table_70f34[(angle - 0x400) & 0xfff] * radius >> 12;
     v[i].vx = x;

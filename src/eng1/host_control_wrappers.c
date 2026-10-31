@@ -49,7 +49,7 @@ void __cdecl title_0c5c0(void)
 /* ENG1:2c460 -> copied offset 0x94/slot 37, host EXE RVA 0x4260.
  * Callers consume the full 32-bit result; the original host body performs an
  * unsigned remainder with the argument's 32-bit bit pattern as divisor. */
-unsigned int __cdecl dispatch_engine_2c460(int limit)
+unsigned int __cdecl random_limit(int limit)
 {
     return ((Eng1HostRandomLimit)g_engine_interface.opaque_090[1])(limit);
 }

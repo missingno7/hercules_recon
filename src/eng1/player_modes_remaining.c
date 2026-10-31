@@ -413,7 +413,7 @@ extern unsigned char g_eng1_image_549f0[], g_eng1_image_54aa0[], g_eng1_image_54
 extern unsigned char g_eng1_setup_program_54558[];
 extern void __cdecl resource_reset(int);
 extern void __cdecl dispatch_engine_2c4d0(void);
-extern unsigned int __cdecl dispatch_engine_2c460(int);
+extern unsigned int __cdecl random_limit(int);
 extern long __cdecl eng1_2a010(long, long, long, int);
 
 int __cdecl eng1_18b10(void)

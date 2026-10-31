@@ -95,8 +95,8 @@ int __cdecl wrapped_ratio(int left, int right, int divisor)
 { (void)left; (void)right; (void)divisor; ++forbidden_service_calls; fail_fixture("unexpected wrapped_ratio"); return 0; }
 void __cdecl play_sound(unsigned short effect_id, Actor *actor)
 { (void)effect_id; (void)actor; ++forbidden_service_calls; fail_fixture("unexpected play_sound"); }
-unsigned int __cdecl dispatch_engine_2c460(int selector)
-{ (void)selector; ++forbidden_service_calls; fail_fixture("unexpected dispatch_engine_2c460"); return 0; }
+unsigned int __cdecl random_limit(int selector)
+{ (void)selector; ++forbidden_service_calls; fail_fixture("unexpected random_limit"); return 0; }
 unsigned long g_configuration_dword_71384;
 void __cdecl remove_actor_preserving_resource(Actor *actor)
 { (void)actor; ++forbidden_service_calls; fail_fixture("unexpected remove_actor_preserving_resource"); }

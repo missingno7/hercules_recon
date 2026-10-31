@@ -89,7 +89,7 @@ struct Eng1Bounds3D {
 
 /* Unrecovered nested code stays a real link dependency, identified by RVA. */
 extern Eng1CallbackActor *__cdecl eng1_native_code_target_0029670(eng1_u32);
-extern unsigned int __cdecl dispatch_engine_2c460(int);
+extern unsigned int __cdecl random_limit(int);
 extern void __cdecl eng1_native_code_target_002a290(Eng1CallbackActor *);
 extern eng1_u32 __cdecl eng1_native_code_target_002a9e0(Eng1CallbackActor *, eng1_u32);
 extern void __cdecl eng1_native_code_target_00283e0(Eng1CallbackActor *);
@@ -146,7 +146,7 @@ void __cdecl eng1_native_code_target_001040(Eng1CallbackActor *actor)
     if (resource != 0)
         append_chain(resource, actor);
 
-    actor->byte_094 = (eng1_u8)(0 - (eng1_u8)dispatch_engine_2c460(2));
+    actor->byte_094 = (eng1_u8)(0 - (eng1_u8)random_limit(2));
     actor->flags_050 |= 0x200;
     actor->render_flags_054 |= 0x08;
     advance_frame(actor);
@@ -161,7 +161,7 @@ void __cdecl eng1_native_code_target_001040(Eng1CallbackActor *actor)
         eng1_native_code_target_002a290(actor);
         return;
     }
-    state_index = dispatch_engine_2c460(4);
+    state_index = random_limit(4);
     actor->byte_01c = g_actor_state_map_004d6ec[state_index];
     eng1_native_code_target_002a290(actor);
 }
@@ -177,7 +177,7 @@ void __cdecl eng1_native_code_target_001310(Eng1CallbackActor *actor)
     if (resource != 0)
         append_chain(resource, actor);
 
-    actor->byte_094 = (eng1_u8)(0 - (eng1_u8)dispatch_engine_2c460(2));
+    actor->byte_094 = (eng1_u8)(0 - (eng1_u8)random_limit(2));
     actor->flags_050 |= 0x200;
     actor->render_flags_054 |= 0x08;
     advance_frame(actor);
@@ -192,7 +192,7 @@ void __cdecl eng1_native_code_target_001310(Eng1CallbackActor *actor)
         eng1_native_code_target_002a290(actor);
         return;
     }
-    state_index = dispatch_engine_2c460(4);
+    state_index = random_limit(4);
     actor->byte_01c = g_actor_state_map_004d6ec[state_index + 4];
     eng1_native_code_target_002a290(actor);
 }

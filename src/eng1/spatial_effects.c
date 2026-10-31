@@ -119,7 +119,7 @@ CHECK_OFFSET(SpatialTaskView, word_124, 0x124);
 /* Direct target calls with no source provider are intentionally unresolved. */
 extern long __cdecl eng1_native_dep_020b50(long, long, long, int);
 extern unsigned long __cdecl eng1_native_dep_0299d0(void *);
-extern unsigned int __cdecl dispatch_engine_2c460(int);
+extern unsigned int __cdecl random_limit(int);
 extern unsigned long __cdecl dispatch_engine_2c470(void);
 extern void __cdecl eng1_native_code_target_002a290(void *);
 extern void __cdecl eng1_native_dep_0283e0(void *);
@@ -345,20 +345,20 @@ void __cdecl eng1_native_code_target_00f430(SpatialTaskView *p)
     p->word_124 = 3;
     p->word_126 = 4;
     p->byte_096 = 0xff;
-    value = dispatch_engine_2c460(4);
+    value = random_limit(4);
     p->byte_01c = eng1_native_data_051fd4[value];
     advance_frame(p);
     restart_steps(p);
     eng1_native_code_target_002a290(p);
-    value = dispatch_engine_2c460(2);
+    value = random_limit(2);
     p->byte_094 = (unsigned char)(0 - (unsigned char)value);
-    p->word_04a = (unsigned short)(dispatch_engine_2c460(0x80) + 0x60);
+    p->word_04a = (unsigned short)(random_limit(0x80) + 0x60);
     p->byte_095 = 0xff;
     value = dispatch_engine_2c470() & 0x1ffUL;
     p->dword_0bc = (value + 0xc00UL) << 8;
     p->dword_0b8 = 0;
     p->dword_0c0 = 0;
-    p->dword_0c4 = dispatch_engine_2c460(0x2000) + 0x8000UL;
+    p->dword_0c4 = random_limit(0x2000) + 0x8000UL;
 }
 
 static unsigned short *tile_words(void)
@@ -488,7 +488,7 @@ void __cdecl eng1_native_code_target_00fd00(SpatialTaskView *p)
         value = dispatch_engine_2c470() & 0x1ffUL;
         p->dword_0bc = (value + 0x480UL) << 8;
         p->dword_0b8 = p->dword_0bc >> 2;
-        p->dword_0c0 = dispatch_engine_2c460(0x1000) + 0x2000UL;
+        p->dword_0c0 = random_limit(0x1000) + 0x2000UL;
         p->dword_0ac = 0x20000;
         p->dword_0b0 = 0x1000;
         p->byte_094 = 0xff;
@@ -498,14 +498,14 @@ void __cdecl eng1_native_code_target_00fd00(SpatialTaskView *p)
         value = dispatch_engine_2c470() & 0x1ffUL;
         p->dword_0bc = (value + 0x600UL) << 8;
         p->dword_0b8 = p->dword_0bc >> 2;
-        p->dword_0c0 = dispatch_engine_2c460(0x2000) + 0x2000UL;
+        p->dword_0c0 = random_limit(0x2000) + 0x2000UL;
         p->dword_0e0 = 0;
         p->dword_0d8 = 6;
     } else if (selector == 2) {
         value = dispatch_engine_2c470() & 0x1ffUL;
         p->dword_0bc = (value + 0x400UL) << 8;
         p->dword_0b8 = p->dword_0bc >> 2;
-        p->dword_0c0 = dispatch_engine_2c460(0x1000) + 0x1000UL;
+        p->dword_0c0 = random_limit(0x1000) + 0x1000UL;
         p->dword_0ac = 0x20000;
         p->dword_0b0 = 0x1000;
         p->byte_094 = 0;
@@ -543,14 +543,14 @@ void __cdecl eng1_native_code_target_00fe60(SpatialTaskView *p)
         (void)eng1_native_dep_0300c0(x, y, (long)z, 0x2027, 0);
 
         z = (unsigned long)p->z - 0x200000UL;
-        value = dispatch_engine_2c460(0x20);
+        value = random_limit(0x20);
         y = sub_bits(p->y, (unsigned long)value << 16);
         y = sub_bits(y, 0x100000UL);
-        value = dispatch_engine_2c460(0x20);
+        value = random_limit(0x20);
         x = add_bits(p->x, ((unsigned long)(value - 0x10UL)) << 16);
         spawned = eng1_native_dep_0300c0(x, y, (long)z, 0x2027, 0);
         if (spawned != 0) {
-            value = dispatch_engine_2c460(10);
+            value = random_limit(10);
             *(unsigned long *)((unsigned char *)spawned + 0x4c) = value + 10;
         }
         remove_actor_variant(p);
@@ -576,10 +576,10 @@ void __cdecl eng1_native_code_target_0102c0(SpatialTaskView *p)
         return;
     }
 
-    value = dispatch_engine_2c460(2);
+    value = random_limit(2);
     gate = value + 1;
     if ((unsigned long)p->word_02a < gate && (collision & 1) != 0) {
-        value = dispatch_engine_2c460(2);
+        value = random_limit(2);
         table = eng1_native_ptr_071714;
         eng1_guard_initial_read(table, value + 1UL, 2UL, 2UL, "spatial sound random WORD");
         event = table[value + 1];

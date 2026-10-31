@@ -480,7 +480,7 @@ int __cdecl wrapped_ratio(int numerator, int denominator, int divisor)
     return 0;
 }
 
-unsigned int __cdecl dispatch_engine_2c460(int value)
+unsigned int __cdecl random_limit(int value)
 {
     (void)value;
     ++unexpected_interpreter_helpers;

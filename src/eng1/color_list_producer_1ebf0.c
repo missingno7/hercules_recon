@@ -3,7 +3,7 @@
 #include "../shared/engine_interface.h"
 #include "incomplete.h"
 
-extern unsigned int __cdecl dispatch_engine_2c460(int limit);
+extern unsigned int __cdecl random_limit(int limit);
 extern void __cdecl play_sound(unsigned short effect, void *actor);
 
 /* ENG1:1ebf0. Services may change the actor, transition state and context.
@@ -17,24 +17,24 @@ void __cdecl eng1_native_code_target_01ebf0(void *object)
     unsigned char *row;
     ResourceCallbackContext *context;
     if (g_eng1_color_transition_state_6f4a8.previous_selection == 0xffffffffUL) {
-        if (dispatch_engine_2c460((int)g_eng1_color_transition_state_6f4a8.current_value) == 10)
+        if (random_limit((int)g_eng1_color_transition_state_6f4a8.current_value) == 10)
             play_sound(0x19c, 0);
         return;
     }
     selection = (short *)((unsigned char *)object + 0x32);
     if (*selection == -69) {
         *selection = 9;
-        value = dispatch_engine_2c460(2);
+        value = random_limit(2);
         if (value == 0) play_sound(0x18b, 0);
         else if (value == 1) play_sound(0x190, 0);
     } else {
-        if (dispatch_engine_2c460((int)g_eng1_color_transition_state_6f4a8.current_value) == 0) {
+        if (random_limit((int)g_eng1_color_transition_state_6f4a8.current_value) == 0) {
             *selection = 4;
-            value = dispatch_engine_2c460(2);
+            value = random_limit(2);
             if (value == 0) play_sound(0x18b, 0);
             else if (value == 1) play_sound(0x190, 0);
         }
-        if (dispatch_engine_2c460((int)(g_eng1_color_transition_state_6f4a8.current_value * 2UL)) == 10)
+        if (random_limit((int)(g_eng1_color_transition_state_6f4a8.current_value * 2UL)) == 10)
             play_sound(0x19c, 0);
     }
     if (*selection < 0) return;

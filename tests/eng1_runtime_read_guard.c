@@ -87,7 +87,7 @@ void __cdecl eng1_incomplete_behavior(unsigned long original_rva,
 int __cdecl remove_actor(Actor *actor) { (void)actor; return 0; }
 int __cdecl wrapped_ratio(int a, int b, int c) { (void)a; (void)b; (void)c; return 8; }
 void __cdecl play_sound(unsigned short id, Actor *actor) { (void)id; (void)actor; }
-unsigned int __cdecl dispatch_engine_2c460(int value) { (void)value; return 0; }
+unsigned int __cdecl random_limit(int value) { (void)value; return 0; }
 unsigned long g_configuration_dword_71384;
 void __cdecl remove_actor_preserving_resource(Actor *actor) { (void)actor; }
 void __cdecl mark_actor_resource_for_release(Actor *actor) { (void)actor; }

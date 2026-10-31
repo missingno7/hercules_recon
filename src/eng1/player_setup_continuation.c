@@ -31,7 +31,7 @@ extern setup_u16 g_dispatch_setting_4d858;
 extern setup_u16 g_dispatch_word_6ee80;
 extern setup_u16 g_eng1_setup_word_72194;
 extern void __cdecl title_0c4f0(unsigned long value);
-extern unsigned int __cdecl dispatch_engine_2c460(int limit);
+extern unsigned int __cdecl random_limit(int limit);
 extern void __cdecl play_sound(unsigned short effect_id, void *actor);
 extern void __cdecl dispatch_local_16790(void);
 
@@ -630,7 +630,7 @@ setup_u32 __cdecl dispatch_local_15d00(void)
                 value = actor[0x94] ? (x - 0x380000UL) : (x + 0x380000UL);
                 flags = y - 0x10000UL;
                 selector = eng1_native_code_target_0030010(value, flags, z, 1UL) ? 2UL : 0UL;
-                selector += dispatch_engine_2c460(0x14);
+                selector += random_limit(0x14);
             }
             selector &= 0xffffUL;
             if ((short)selector == 0) {

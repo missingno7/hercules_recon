@@ -97,7 +97,7 @@ static int expect_calls(const int *expected, int count)
 
 void *__cdecl eng1_native_code_target_0029670(u32 kind)
 { record_call(1, kind, 0, 0); return resource_value; }
-unsigned int __cdecl dispatch_engine_2c460(int bound)
+unsigned int __cdecl random_limit(int bound)
 {
     record_call(3, (u32)bound, 0, 0);
     if (random_index >= random_count)

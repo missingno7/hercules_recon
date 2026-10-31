@@ -27,7 +27,7 @@ unsigned long __cdecl title_0c280(void *, unsigned long);
 void __cdecl title_0c3d0(void *, unsigned long);
 void __cdecl title_0c480(void);
 void __cdecl title_0c5c0(void);
-unsigned int __cdecl dispatch_engine_2c460(int);
+unsigned int __cdecl random_limit(int);
 
 static unsigned int g_calls;
 static unsigned int g_kind;
@@ -139,7 +139,7 @@ int main(void)
 
     reset();
     g_result_uint = 0xf1234567UL;
-    returned_uint = dispatch_engine_2c460(73);
+    returned_uint = random_limit(73);
     CHECK(g_calls == 1 && g_kind == 6 && g_limit == 73 &&
           returned_uint == 0xf1234567UL);
 
