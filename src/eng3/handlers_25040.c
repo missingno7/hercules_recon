@@ -176,9 +176,9 @@ extern void title_0c330(void *value);
 extern unsigned long title_0c3f0(const char *a, const char *b, void *c, unsigned long d);
 extern void *title_0c450(void **a, unsigned long b, unsigned long c);
 extern void title_0c6d0(unsigned long value);
-extern unsigned short eng3_slot_1e8(int x, int y);
-extern void eng3_slot_204(Rect16 *rect, void *pixels);
-extern void eng3_slot_2ac(void *p, unsigned long a, unsigned long b, unsigned long c, unsigned long d);
+extern unsigned short dispatch_engine_2c7c0(int x, int y);
+extern void title_0c890(Rect16 *rect, void *pixels);
+extern void dispatch_engine_2c980(void *p, unsigned long a, unsigned long b, unsigned long c, unsigned long d);
 
 void eng3_25620(int x, int y, int u, int v, int w, int h, int mode);
 
@@ -198,7 +198,7 @@ void eng3_25060(void)
     g_eng3_hud_40110.cell[1] = 0;
     title_0c450(&pixels, 0x21000, 0);
     title_0c3f0(g_eng3_data_path_3fc80, g_eng3_panel_file_3529c, pixels, 0x21000);
-    eng3_slot_204(&g_eng3_rect_39868, pixels);
+    title_0c890(&g_eng3_rect_39868, pixels);
     title_0c6d0(0);
     title_0c330(pixels);
 }
@@ -296,7 +296,7 @@ void eng3_250f0(void)
             eng3_25620(0x52 + base + i * 24, 0xcd, 0, 0x30, length, 6, 1);
     }
     dispatch_local_1f40();
-    eng3_slot_2ac(g_eng3_prim_43164, 0, 0, 0x180, 0);
+    dispatch_engine_2c980(g_eng3_prim_43164, 0, 0, 0x180, 0);
     ((PrimTag *)g_eng3_prim_43164)->next = g_eng3_frame_41448->list;
     g_eng3_frame_41448->list = g_eng3_prim_43164;
     g_eng3_prim_43164 += 0xc;
@@ -307,7 +307,7 @@ void eng3_25620(int x, int y, int u, int v, int w, int h, int mode)
     Sprite *p;
 
     p = (Sprite *)g_eng3_prim_43164;
-    p->clut = eng3_slot_1e8(0x160, mode + 0x20);
+    p->clut = dispatch_engine_2c7c0(0x160, mode + 0x20);
     p->x0 = x;
     p->y0 = y;
     p->u0 = u;
@@ -322,7 +322,7 @@ void eng3_25620(int x, int y, int u, int v, int w, int h, int mode)
     g_eng3_frame_41448->list = p;
     g_eng3_prim_43164 = (unsigned char *)(p + 1);
     if (mode == 4) {
-        eng3_slot_2ac(g_eng3_prim_43164, 0, 0, 0x180, 0);
+        dispatch_engine_2c980(g_eng3_prim_43164, 0, 0, 0x180, 0);
         ((PrimTag *)g_eng3_prim_43164)->next = g_eng3_frame_41448->list;
         g_eng3_frame_41448->list = g_eng3_prim_43164;
         g_eng3_prim_43164 += 0xc;

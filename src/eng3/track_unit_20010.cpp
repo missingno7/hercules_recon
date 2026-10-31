@@ -403,9 +403,9 @@ void dispatch_engine_2cb70(void *a)
     g_engine_interface.slot_384(a);
 }
 
-/* 0x20120: interface slot 0x388 (recorded twin TITLE 0xc8b0; ENG3 link name _snd_play in the
+/* 0x20120: interface slot 0x388 (recorded twin TITLE 0xc8b0; ENG3 link name _dispatch_engine_2cb80 in the
  * /Od sound unit calibration/eng1/sound_od.c). */
-int snd_play(int a, int b, int c, int d, int e, int f, int g)
+int dispatch_engine_2cb80(int a, int b, int c, int d, int e, int f, int g)
 {
     return g_engine_interface.slot_388(a, b, c, d, e, f, g);
 }
