@@ -1,0 +1,86 @@
+{
+ "schema": 1,
+ "task_id": "velocity_j/bindWS",
+ "profile": "opaque-indirect-call-v1",
+ "scope": "Native review of near indirect CALL sites admitted as opaque-indirect-call-v1: instruction identity only. Every target is explicitly unidentified and no calling convention, argument use or runtime ABI compatibility is claimed. Static bytes only; no original execution.",
+ "targets": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+ },
+ "call_sites": {
+  "eng1.interpret_word_stream@0x100": {
+   "row": "eng1.interpret_word_stream",
+   "offset": 256,
+   "rva": "0x28920",
+   "bytes": "ff148a",
+   "disassembly": "call dword ptr [edx + ecx*4]",
+   "operand": {
+    "form": "memory",
+    "base": "edx",
+    "index": "ecx",
+    "scale": 4,
+    "disp": 0
+   },
+   "target": "unidentified",
+   "abi": "unclaimed"
+  }
+ },
+ "tables": {
+  "eng1.interpret_word_stream@table_0x1f4": {
+   "row": "eng1.interpret_word_stream",
+   "offset": 500,
+   "size": 80,
+   "native_entry_offsets_in_function": [
+    414,
+    425,
+    390,
+    382,
+    114,
+    444,
+    360,
+    340,
+    314,
+    281,
+    267,
+    242,
+    221,
+    190,
+    174,
+    158,
+    105,
+    86,
+    204,
+    458
+   ],
+   "compiled_entry_labels": [
+    "$L1079",
+    "$L1080",
+    "$L1077",
+    "$L1075",
+    "$L1056",
+    "$L1083",
+    "$L1072",
+    "$L1070",
+    "$L1069",
+    "$L1067",
+    "$L1065",
+    "$L1064",
+    "$L1062",
+    "$L1060",
+    "$L1059",
+    "$L1058",
+    "$L1055",
+    "$L1054",
+    "$L1061",
+    "$L1046"
+   ],
+   "basis": "Embedded jump table: every entry is a DIR32 to a local code label; the comparator checks each native entry against its own decoded instruction boundary and the original HIGHLOW inventory."
+  },
+  "eng1.interpret_word_stream@bytes_0x244": {
+   "row": "eng1.interpret_word_stream",
+   "offset": 580,
+   "size": 60,
+   "bytes": "0013131313010203131313131313130413131313131313131313131305060708090a13130b0c0d0e0f13131011129090909090909090909090909090",
+   "basis": "Relocation-free compiler-local byte table; complete COFF allocation equals the native bytes."
+  }
+ }
+}
