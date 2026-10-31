@@ -64,9 +64,9 @@ void dispatch_local_256e0(void)
             flags = (unsigned short)alt->flags;
             if (flags & 4) {
                 if (flags & 1)
-                    g_alt_callbacks[kind & 0xfff].update((Actor *)alt);
+                    g_configuration_dword_7139c[kind & 0xfff].update((Actor *)alt);
                 if (flags & 2)
-                    g_alt_callbacks[kind & 0xfff].update((Actor *)alt);
+                    g_configuration_dword_7139c[kind & 0xfff].update((Actor *)alt);
             }
         }
     }
@@ -98,9 +98,9 @@ void dispatch_local_256e0(void)
                     actor->saved_z = actor->z;
                 }
                 if (flags & 1)
-                    g_callbacks[actor->kind].update(actor);
+                    g_configuration_dword_71370[actor->kind].update(actor);
                 if (flags & 2)
-                    g_callbacks[actor->kind].draw(actor);
+                    g_configuration_dword_71370[actor->kind].draw(actor);
             }
         }
     }
@@ -149,7 +149,7 @@ void dispatch_local_258e0(void)
                 if (flags & 0x200)
                     g_actor_worklist_71580[++g_actor_worklist_71580[0]] = (long)alt;
                 if (flags & 1)
-                    g_alt_callbacks[kind & 0x1ff].update((Actor *)alt);
+                    g_configuration_dword_7139c[kind & 0x1ff].update((Actor *)alt);
             }
         }
     }
@@ -210,7 +210,7 @@ void dispatch_local_258e0(void)
                 if (flags & 0x240000)
                     g_actor_worklist_714c0[++g_actor_worklist_714c0[0]] = (long)actor;
                 if (flags & 1)
-                    g_callbacks[actor->kind & 0x1ff].update(actor);
+                    g_configuration_dword_71370[actor->kind & 0x1ff].update(actor);
             }
         }
     }
@@ -243,7 +243,7 @@ void dispatch_local_25d00(void)
         actor = &g_normal_actor_pool[i];
         kind = actor->kind;
         if (kind && ((unsigned char)actor->flags & 2))
-            g_callbacks[kind].draw(actor);
+            g_configuration_dword_71370[kind].draw(actor);
     }
     for (i = 0; i < g_configuration_word_713a0; i++) {
         mid = &g_middle_actor_pool[i];
@@ -258,18 +258,18 @@ void dispatch_local_25d00(void)
             if (alt->flags & 0x10000)
                 g_actor_worklist_71ce0[++g_actor_worklist_71ce0[0]] = (long)alt;
             if ((unsigned char)alt->flags & 2)
-                g_alt_callbacks[kind & 0x1ff].update((Actor *)alt);
+                g_configuration_dword_7139c[kind & 0x1ff].update((Actor *)alt);
         }
     }
     i = 0;
     while (i < g_actor_worklist_71ce0[0]) {
         alt = (AltActor *)g_actor_worklist_71ce0[++i];
-        g_alt_callbacks[alt->kind & 0x1ff].update((Actor *)alt);
+        g_configuration_dword_7139c[alt->kind & 0x1ff].update((Actor *)alt);
     }
     actor = g_pipeline_actor_7200c;
     kind = actor->kind;
     if (kind)
-        g_callbacks[kind].draw(actor);
+        g_configuration_dword_71370[kind].draw(actor);
     if (g_engine_interface.context_004->unknown_000[0] != 9)
         eng1_call_26730();
     g_pipeline_dword_71ae0 = 0;
@@ -494,8 +494,8 @@ long eng1_native_code_target_00266a0(Actor *p, int priority, int value)
 {
     RelativeMeasure m;
     priority++;
-    if (priority >= g_eng1_sim_state_6feb4) {
-        g_eng1_sim_state_6feb4 = priority;
+    if (priority >= eng1_sim_state_6feb4) {
+        eng1_sim_state_6feb4 = priority;
         measure_relative_vector((FixedPosition *)p, (FixedPosition *)g_collision_context, &m);
         g_hit_direction_6feb8 = m.direction;
         g_hit_value_6febc = value;

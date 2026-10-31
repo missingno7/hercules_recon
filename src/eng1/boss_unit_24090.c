@@ -44,7 +44,7 @@ void eng1_241f0(Actor *p, int dx, int dy, int sprite)
 {
     Actor *child = spawn_kind(p->x - (dx << 16), p->y + (dy << 16), p->z, 0x2030);
     if (child)
-        g_alt_callbacks[48].initialize(child);
+        g_configuration_dword_7139c[48].initialize(child);
     if (child) {
         child->sprite = sprite + 0x56;
         if (sprite != 5) {
