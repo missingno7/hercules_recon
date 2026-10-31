@@ -17,8 +17,8 @@ extern ActorResource g_actor_resources[81];
 extern void *__cdecl title_0c450(void **, unsigned long,
                                           unsigned long);
 extern void __cdecl title_0c330(void *);
-extern void __cdecl dispatch_local_2c650(void);
-extern void __cdecl dispatch_local_2c660(void);
+extern void __cdecl title_0c6f0(void);
+extern void __cdecl title_0c700(void);
 extern void __cdecl resource_destroy(int);
 extern int __cdecl resource_provider(int, int);
 
@@ -249,10 +249,10 @@ void __cdecl dispatch_local_03270(void *descriptor_item,
         record_cursor += 20;
     }
 
-    dispatch_local_2c650();
+    title_0c6f0();
     dispatch_local_050d0();
     title_0c6d0(0UL);
-    dispatch_local_2c660();
+    title_0c700();
 }
 
 void __cdecl dispatch_local_03470(void)

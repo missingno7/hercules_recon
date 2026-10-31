@@ -19,7 +19,7 @@ extern u8 g_root_count_70ed1;
 /* This wrapper is a separate ENG1 callable (RVA 0x2c7f0): it forwards the
  * rectangle/data pair to copied interface slot +0x204. Its provider remains
  * an explicit dependency of this candidate. */
-extern void __cdecl dispatch_engine_2c7f0(const void *, const void *);
+extern void __cdecl title_0c890(const void *, const void *);
 
 #include "data_views.h"
 
@@ -55,7 +55,7 @@ static const u16 g_palette_upload_rectangle[4] = {
 void __cdecl dispatch_local_058b0(void)
 {
     if (g_frame_global_73498 != 0) {
-        dispatch_engine_2c7f0(g_palette_upload_rectangle,
+        title_0c890(g_palette_upload_rectangle,
                               g_frame_owner_7348c);
         g_frame_global_73498 = 0;
     }
@@ -109,7 +109,7 @@ void __cdecl dispatch_local_02cb0(void)
                 frame_number = (tick / period) % frame_count;
                 byte_offset = frame_number * width * height * 2;
                 pixels = descriptor + 12 + byte_offset;
-                dispatch_engine_2c7f0(rectangle, pixels);
+                title_0c890(rectangle, pixels);
             }
         }
 
@@ -172,7 +172,7 @@ void __cdecl dispatch_local_050d0(void)
         }
 
         rectangle[3] = (u16)rectangle_height;
-        dispatch_engine_2c7f0(rectangle, pixels);
+        title_0c890(rectangle, pixels);
         pixels += rectangle_height * 32UL;
 
         if (g_frame_upload_pending_6ee7c == 0)

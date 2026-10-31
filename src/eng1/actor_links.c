@@ -39,8 +39,8 @@ extern long g_countdown;
 extern ActorLinkView *spawn_kind(long x, long y, long z, unsigned short kind);
 extern void detach_attachment(ActorLinkView *actor);
 extern AlternateCallbackView *g_configuration_dword_7139c;
-extern void __cdecl dispatch_local_2c650(void);
-extern void __cdecl dispatch_local_2c660(void);
+extern void __cdecl title_0c6f0(void);
+extern void __cdecl title_0c700(void);
 
 void finish_actor(ActorLinkView *actor)
 {
@@ -79,7 +79,7 @@ void remove_fx_links(ActorLinkView *owner)
     if (!owner)
         return;
 
-    dispatch_local_2c650();
+    title_0c6f0();
     for (i = 0; i < 24; ++i) {
         FxSoundRecordView *row = &g_engine_fx_records[i];
 
@@ -90,7 +90,7 @@ void remove_fx_links(ActorLinkView *owner)
             row->unknown_030 = 0;
         }
     }
-    dispatch_local_2c660();
+    title_0c700();
 }
 
 /* Native ENG1 0x27d40 creates and links an actor as the parent's child. */

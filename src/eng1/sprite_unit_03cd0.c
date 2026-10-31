@@ -213,7 +213,7 @@ TitleTabEntry *release_actor_token(TitleObject *c);
 static int g_6ee7c;
 extern int g_frame_owner_72870;
 extern unsigned short g_frame_upload_coordinates_734a0[0x20];
-void dispatch_engine_2c7f0(void *p, int n);
+void title_0c890(void *p, int n);
 
 extern TitleRect g_4d800[2];
 static int g_6ee78;
@@ -1096,7 +1096,7 @@ void dispatch_local_050d0(void)
             cnt += 0x20;
         }
         rect.h = cnt;
-        dispatch_engine_2c7f0(&rect, a);
+        title_0c890(&rect, a);
         a += cnt << 5;
     } while (g_6ee7c != 0);
 }
@@ -1179,7 +1179,7 @@ void clear_actor(TitleObject *p);
 int eng1_03540(int idx, int flag);
 void eng1_038d0(int i);
 void title_0c690(void *p, int n);
-void dispatch_engine_2c7f0(void *p, int n);
+void title_0c890(void *p, int n);
 
 /* 0x5370 (TITLE 0x4470, plus the ENG1 streaming branch): link the live objects of one pool (count records of stride bytes, walked from the
    last) into the per-frame lists: 0x800 objects onto g_frame_actor_list_734f8, 0x10000000 objects onto g_frame_owner_list_73490,
@@ -1410,7 +1410,7 @@ void eng1_05820(unsigned short *src, int row, int n)
 void dispatch_local_058b0(void)
 {
     if (g_frame_global_73498) {
-        dispatch_engine_2c7f0(&g_4d810, g_frame_owner_7348c);
+        title_0c890(&g_4d810, g_frame_owner_7348c);
         g_frame_global_73498 = 0;
     }
 }
@@ -1421,8 +1421,8 @@ void dispatch_local_058b0(void)
 extern int g_70c64;
 extern TitleRect g_4d800[2];
 void title_0c650(unsigned long *ot, TitlePrim *prim);
-void dispatch_engine_2c690(TitleRect *r);
-void dispatch_engine_2c6e0(void);
+void title_0c760(TitleRect *r);
+void title_0c7b0(void);
 void title_0c810(TitleRect *r);
 void dispatch_engine_2c960(TitlePrim *prim, TitleRect *r);
 
@@ -1434,8 +1434,8 @@ void eng1_058e0(TitleObject *p, unsigned long *ot)
 
     area = (TitleRect *)g_engine_interface.data_010;
     area->y = (short)(p->unknown_004 >> 16) - p->unknown_026 - g_70c64;
-    dispatch_engine_2c690(area);
-    dispatch_engine_2c6e0();
+    title_0c760(area);
+    title_0c7b0();
     y = p->unknown_00e;
     title_0c650(ot, g_frame_global_73484);
     title_0c810(&r);

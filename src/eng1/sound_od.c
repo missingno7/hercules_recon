@@ -164,20 +164,20 @@ void resource_destroy(int a);
 void dispatch_local_1f220(void);
 void resource_reclaim(int a);
 void engine_shutdown(void);
-void dispatch_engine_2c200(void);
-int dispatch_engine_2c210(const char *prefix, const char *name);
+void title_0c270(void);
+int title_0c280(const char *prefix, const char *name);
 void title_0c2d0(void);
 void title_0c2f0(void);
 void f_2c2c0(void);
 void title_0c330(void *handle);
 void f_2c310(int a, int b, int c, int d, int e);
-void dispatch_engine_2c370(const char *prefix, const char *name);
+void title_0c3d0(const char *prefix, const char *name);
 void title_0c470(void);
-void dispatch_engine_2c430(void);
+void title_0c480(void);
 void title_0c4f0(int a);
-void dispatch_local_2c530(void (*callback)(void));
-void dispatch_engine_2c580(void);
-void dispatch_local_2c5b0(void);
+void title_0c550(void (*callback)(void));
+void title_0c5c0(void);
+void title_0c5e0(void);
 void title_0c6d0(int a);
 void title_0c6e0(int a);
 void snd_lock(void);
@@ -360,7 +360,7 @@ int game_state_60f9(void)
                 CTX->load_failed_0b4(0);
         }
         resource_reclaim(1);
-        dispatch_engine_2c210(g_control_argument_6eef8, g_engine_paths[0]);
+        title_0c280(g_control_argument_6eef8, g_engine_paths[0]);
         CTX->unknown_005 = 1;
         CTX->blocked_0df = 1;
         CTX->mode_003 = 0;
@@ -378,9 +378,9 @@ int game_state_60f9(void)
             title_0c330(CTX->handle_0e4);
         dispatch_local_1f220();
         demo_title_646c();
-        dispatch_engine_2c580();
+        title_0c5c0();
         CTX->state_000 = 0xff;
-        dispatch_engine_2c370(g_control_argument_6eefc, g_engine_paths[0]);
+        title_0c3d0(g_control_argument_6eefc, g_engine_paths[0]);
     case 33:
         if (CTX->mode_09c == 1) {
             title_0c2d0();
@@ -402,7 +402,7 @@ int game_state_60f9(void)
                 title_0c2f0();
                 dispatch_engine_2cc30(0);
                 fx_update_666b();
-                dispatch_engine_2c430();
+                title_0c480();
                 if (!CTX->suppress_0e0 || !CTX->handle_0e4)
                     break;
             } while (1);
@@ -410,15 +410,15 @@ int game_state_60f9(void)
         if (CTX->demo_006 == 3)
             CTX->mode_003 = 0x13;
         dispatch_local_1f220();
-        dispatch_engine_2c580();
+        title_0c5c0();
         dispatch_engine_2cc30(0);
         CTX->unknown_12c = 0;
         if (CTX->handle_0e4)
-            dispatch_engine_2c200();
+            title_0c270();
         else
-            dispatch_engine_2c370(g_control_argument_6ef00, g_engine_paths[0]);
+            title_0c3d0(g_control_argument_6ef00, g_engine_paths[0]);
         while (1)
-            dispatch_engine_2c430();
+            title_0c480();
     }
     return 0;
 }
@@ -441,7 +441,7 @@ int demo_title_646c(void)
     CTX->rgb_134[0] = g_dispatch_frame_current_71ec4->rgb_19[0];
     CTX->rgb_134[1] = g_dispatch_frame_current_71ec4->rgb_19[1];
     CTX->rgb_134[2] = g_dispatch_frame_current_71ec4->rgb_19[2];
-    if (dispatch_engine_2c210(g_prefix_6ef04, g_engine_paths[0]) == 0)
+    if (title_0c280(g_prefix_6ef04, g_engine_paths[0]) == 0)
         return 0;
     CTX->tick_038 = 0;
     CTX->unknown_03c = g_dispatch_global_6ff88;
@@ -457,11 +457,11 @@ int demo_title_646c(void)
         if (!CTX->suppress_0e0 || !CTX->handle_0e4)
             break;
     } while (1);
-    dispatch_engine_2c580();
+    title_0c5c0();
     if (CTX->handle_0e4)
-        dispatch_engine_2c200();
+        title_0c270();
     else
-        dispatch_engine_2c370(g_prefix_6ef08, g_engine_paths[0]);
+        title_0c3d0(g_prefix_6ef08, g_engine_paths[0]);
 }
 
 /* 0x6613 */
@@ -892,13 +892,13 @@ void fx_init_82b7(int a)
 {
     int i;
 
-    dispatch_local_2c5b0();
+    title_0c5e0();
     g_fx_restore = 0;
     g_fx_muted = 0;
     if (a == 0)
-        dispatch_local_2c530(fx_update_666b);
+        title_0c550(fx_update_666b);
     else
-        dispatch_local_2c530(0);
+        title_0c550(0);
     for (i = 0; i < 24; i++) {
         g_fx_rows[i].bank_0c = 0xff;
         g_fx_rows[i].owner_30 = 0;

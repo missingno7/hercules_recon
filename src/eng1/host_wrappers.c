@@ -18,25 +18,25 @@ typedef void (__cdecl *Eng1SlotPointerPair)(void *, const void *);
 
 /* ENG1:2c530 -> copied-table offset 0xd0, slot 52, host EXE:1a00.
  * The only argument is a no-argument callback pointer. */
-void __cdecl dispatch_local_2c530(EngineNoArgCallback callback)
+void __cdecl title_0c550(EngineNoArgCallback callback)
 {
     ((Eng1SlotCallback)g_engine_interface.opaque_0d0[0])(callback);
 }
 
 /* ENG1:2c5b0 -> copied-table offset 0xf0, slot 60, host EXE:1f50. */
-void __cdecl dispatch_local_2c5b0(void)
+void __cdecl title_0c5e0(void)
 {
     ((Eng1Slot0)g_engine_interface.opaque_0f0[0])();
 }
 
 /* ENG1:2c650 -> copied-table offset 0x178, slot 94, host EXE:be30. */
-void __cdecl dispatch_local_2c650(void)
+void __cdecl title_0c6f0(void)
 {
     ((Eng1Slot0)g_engine_interface.opaque_174[1])();
 }
 
 /* ENG1:2c660 -> copied-table offset 0x180, slot 96, host EXE:be30. */
-void __cdecl dispatch_local_2c660(void)
+void __cdecl title_0c700(void)
 {
     ((Eng1Slot0)g_engine_interface.opaque_174[3])();
 }
@@ -61,7 +61,7 @@ void __cdecl dispatch_local_2cae0(void)
 
 /* Geometry and packet helpers. Pointer mutability is kept opaque where the
  * observed caller proves only a 32-bit address, not a source-level type. */
-void __cdecl dispatch_engine_2c670(unsigned long first,
+void __cdecl title_0c740(unsigned long first,
                                    unsigned long second,
                                    unsigned long third)
 {
@@ -69,22 +69,22 @@ void __cdecl dispatch_engine_2c670(unsigned long first,
         first, second, third);
 }
 
-void __cdecl dispatch_engine_2c690(const void *vector)
+void __cdecl title_0c760(const void *vector)
 {
     ((Eng1SlotConstPointer)g_engine_interface.opaque_174[8])(vector);
 }
 
-void __cdecl dispatch_engine_2c6d0(void)
+void __cdecl title_0c7a0(void)
 {
     ((Eng1Slot0)g_engine_interface.opaque_174[11])();
 }
 
-void __cdecl dispatch_engine_2c6e0(void)
+void __cdecl title_0c7b0(void)
 {
     ((Eng1Slot0)g_engine_interface.opaque_174[13])();
 }
 
-void __cdecl dispatch_engine_2c700(const void *matrix)
+void __cdecl title_0c7d0(const void *matrix)
 {
     ((Eng1SlotConstPointer)g_engine_interface.opaque_174[15])(matrix);
 }
@@ -94,12 +94,12 @@ void __cdecl dispatch_engine_2c710(const void *translation)
     ((Eng1SlotConstPointer)g_engine_interface.opaque_174[16])(translation);
 }
 
-void __cdecl dispatch_engine_2c740(void *result)
+void __cdecl title_0c800(void *result)
 {
     ((Eng1SlotPointer)g_engine_interface.opaque_174[19])(result);
 }
 
-void __cdecl dispatch_engine_2c770(void *packet_vertex)
+void __cdecl title_0c820(void *packet_vertex)
 {
     ((Eng1SlotPointer)g_engine_interface.opaque_174[24])(packet_vertex);
 }
@@ -109,19 +109,19 @@ void __cdecl dispatch_engine_2c790(void *packet_vertex)
     ((Eng1SlotPointer)g_engine_interface.opaque_174[26])(packet_vertex);
 }
 
-void __cdecl dispatch_engine_2c7f0(void *rectangle, const void *texels)
+void __cdecl title_0c890(void *rectangle, const void *texels)
 {
     ((Eng1SlotPointerPair)g_engine_interface.opaque_1fc[2])(
         rectangle, texels);
 }
 
-void __cdecl dispatch_engine_2c920(void *matrix, const void *angles)
+void __cdecl title_0ca40(void *matrix, const void *angles)
 {
     ((Eng1SlotPointerPair)g_engine_interface.opaque_284[3])(
         matrix, angles);
 }
 
-void __cdecl dispatch_engine_2c940(void *matrix, const void *vector)
+void __cdecl title_0ca60(void *matrix, const void *vector)
 {
     ((Eng1SlotPointerPair)g_engine_interface.opaque_284[4])(
         matrix, vector);

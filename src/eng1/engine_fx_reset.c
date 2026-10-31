@@ -3,8 +3,8 @@
 #include "../shared/engine_fx_record.h"
 
 extern FxSoundRecordView g_engine_fx_records[24];
-extern void __cdecl dispatch_local_2c650(void);
-extern void __cdecl dispatch_local_2c660(void);
+extern void __cdecl title_0c6f0(void);
+extern void __cdecl title_0c700(void);
 extern void __cdecl dispatch_engine_2cb70(unsigned long channel);
 extern void __cdecl dispatch_local_01000(const void *message);
 
@@ -12,7 +12,7 @@ void __cdecl engine_init(void)
 {
     int index;
 
-    dispatch_local_2c650();
+    title_0c6f0();
     dispatch_local_01000("\n ClearAllSoundFx()");
 
     for (index = 0; index < 24; ++index) {
@@ -26,5 +26,5 @@ void __cdecl engine_init(void)
         g_engine_fx_records[index].unknown_030 = 0;
     }
 
-    dispatch_local_2c660();
+    title_0c700();
 }

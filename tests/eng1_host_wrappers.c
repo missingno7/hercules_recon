@@ -27,26 +27,26 @@ typedef char spy_requires_x86_words[(sizeof(unsigned long) == 4 &&
 
 EngineInterface g_engine_interface;
 
-void __cdecl dispatch_local_2c530(EngineNoArgCallback);
-void __cdecl dispatch_local_2c5b0(void);
-void __cdecl dispatch_local_2c650(void);
-void __cdecl dispatch_local_2c660(void);
+void __cdecl title_0c550(EngineNoArgCallback);
+void __cdecl title_0c5e0(void);
+void __cdecl title_0c6f0(void);
+void __cdecl title_0c700(void);
 void __cdecl dispatch_local_2ca90(void);
 void __cdecl dispatch_local_2cad0(unsigned long);
 void __cdecl dispatch_local_2cae0(void);
-void __cdecl dispatch_engine_2c670(unsigned long, unsigned long,
+void __cdecl title_0c740(unsigned long, unsigned long,
                                    unsigned long);
-void __cdecl dispatch_engine_2c690(const void *);
-void __cdecl dispatch_engine_2c6d0(void);
-void __cdecl dispatch_engine_2c6e0(void);
-void __cdecl dispatch_engine_2c700(const void *);
+void __cdecl title_0c760(const void *);
+void __cdecl title_0c7a0(void);
+void __cdecl title_0c7b0(void);
+void __cdecl title_0c7d0(const void *);
 void __cdecl dispatch_engine_2c710(const void *);
-void __cdecl dispatch_engine_2c740(void *);
-void __cdecl dispatch_engine_2c770(void *);
+void __cdecl title_0c800(void *);
+void __cdecl title_0c820(void *);
 void __cdecl dispatch_engine_2c790(void *);
-void __cdecl dispatch_engine_2c7f0(void *, const void *);
-void __cdecl dispatch_engine_2c920(void *, const void *);
-void __cdecl dispatch_engine_2c940(void *, const void *);
+void __cdecl title_0c890(void *, const void *);
+void __cdecl title_0ca40(void *, const void *);
+void __cdecl title_0ca60(void *, const void *);
 void __cdecl dispatch_engine_2c9d0(unsigned long, unsigned long);
 void __cdecl dispatch_engine_2c9f0(unsigned long);
 
@@ -139,7 +139,7 @@ int main(void)
 
     INSTALL(opaque_0d0, 0, fcallback, spy_callback);
     reset(1);
-    dispatch_local_2c530(marker_callback);
+    title_0c550(marker_callback);
     CHECK(called(1) && g_callback == marker_callback);
 
     INSTALL(opaque_0f0, 0, f0, spy0);
@@ -147,9 +147,9 @@ int main(void)
     INSTALL(opaque_174, 3, f0, spy0);
     INSTALL(opaque_2f0, 13, f0, spy0);
     INSTALL(opaque_334, 14, f0, spy0);
-    reset(2); dispatch_local_2c5b0(); CHECK(called(2));
-    reset(3); dispatch_local_2c650(); CHECK(called(3));
-    reset(4); dispatch_local_2c660(); CHECK(called(4));
+    reset(2); title_0c5e0(); CHECK(called(2));
+    reset(3); title_0c6f0(); CHECK(called(3));
+    reset(4); title_0c700(); CHECK(called(4));
     reset(5); dispatch_local_2ca90(); CHECK(called(5));
     reset(6); dispatch_local_2cae0(); CHECK(called(6));
 
@@ -158,22 +158,22 @@ int main(void)
     CHECK(called(7) && g_words[0] == 0x1000UL);
 
     INSTALL(opaque_174, 7, fwords3, spy_words3);
-    reset(8); dispatch_engine_2c670(0x11UL, 0x22UL, 0x33UL);
+    reset(8); title_0c740(0x11UL, 0x22UL, 0x33UL);
     CHECK(called(8) && g_words[0] == 0x11UL &&
           g_words[1] == 0x22UL && g_words[2] == 0x33UL);
 
     INSTALL(opaque_174, 8, fconst_pointer, spy_const_pointer);
-    reset(9); dispatch_engine_2c690(p1);
+    reset(9); title_0c760(p1);
     CHECK(called(9) && g_first_pointer == p1);
 
     INSTALL(opaque_174, 11, f0, spy0);
     INSTALL(opaque_174, 13, f0, spy0);
-    reset(10); dispatch_engine_2c6d0(); CHECK(called(10));
-    reset(11); dispatch_engine_2c6e0(); CHECK(called(11));
+    reset(10); title_0c7a0(); CHECK(called(10));
+    reset(11); title_0c7b0(); CHECK(called(11));
 
     INSTALL(opaque_174, 15, fconst_pointer, spy_const_pointer);
     INSTALL(opaque_174, 16, fconst_pointer, spy_const_pointer);
-    reset(12); dispatch_engine_2c700(p1);
+    reset(12); title_0c7d0(p1);
     CHECK(called(12) && g_first_pointer == p1);
     reset(13); dispatch_engine_2c710(p2);
     CHECK(called(13) && g_first_pointer == p2);
@@ -181,9 +181,9 @@ int main(void)
     INSTALL(opaque_174, 19, fpointer, spy_pointer);
     INSTALL(opaque_174, 24, fpointer, spy_pointer);
     INSTALL(opaque_174, 26, fpointer, spy_pointer);
-    reset(14); dispatch_engine_2c740((void *)p1);
+    reset(14); title_0c800((void *)p1);
     CHECK(called(14) && g_first_pointer == p1);
-    reset(15); dispatch_engine_2c770((void *)p1);
+    reset(15); title_0c820((void *)p1);
     CHECK(called(15) && g_first_pointer == p1);
     reset(16); dispatch_engine_2c790((void *)p2);
     CHECK(called(16) && g_first_pointer == p2);
@@ -191,11 +191,11 @@ int main(void)
     INSTALL(opaque_1fc, 2, fpointer_pair, spy_pointer_pair);
     INSTALL(opaque_284, 3, fpointer_pair, spy_pointer_pair);
     INSTALL(opaque_284, 4, fpointer_pair, spy_pointer_pair);
-    reset(17); dispatch_engine_2c7f0((void *)p1, p2);
+    reset(17); title_0c890((void *)p1, p2);
     CHECK(called(17) && g_first_pointer == p1 && g_second_pointer == p2);
-    reset(18); dispatch_engine_2c920((void *)p1, p2);
+    reset(18); title_0ca40((void *)p1, p2);
     CHECK(called(18) && g_first_pointer == p1 && g_second_pointer == p2);
-    reset(19); dispatch_engine_2c940((void *)p2, p1);
+    reset(19); title_0ca60((void *)p2, p1);
     CHECK(called(19) && g_first_pointer == p2 && g_second_pointer == p1);
 
     INSTALL(opaque_2b0, 2, fwords2, spy_words2);

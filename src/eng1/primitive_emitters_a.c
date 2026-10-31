@@ -3,8 +3,8 @@
  * This file owns no storage and supplies no host callback replacements. */
 #include "mesh_visit.h"
 
-extern void __cdecl dispatch_engine_2c690(const void *vector);
-extern void __cdecl dispatch_engine_2c6e0(void);
+extern void __cdecl title_0c760(const void *vector);
+extern void __cdecl title_0c7b0(void);
 extern void __cdecl title_0c810(void *projected_xy);
 
 static long emit_add32(long a, long b)
@@ -63,8 +63,8 @@ void __cdecl dispatch_local_2e600(const u32 *stream,
         *(short *)(vector + 0) = emit_short(x);
         *(short *)(vector + 2) = emit_short(y);
         *(short *)(vector + 4) = emit_short(z);
-        dispatch_engine_2c690(vector);
-        dispatch_engine_2c6e0();
+        title_0c760(vector);
+        title_0c7b0();
 
         packed = *stream++;
         *(u32 *)(vector + 4) = 0;
@@ -100,8 +100,8 @@ void __cdecl dispatch_local_2e6c0(const u32 *stream,
         *(short *)(vector + 0) = emit_short(x);
         *(short *)(vector + 2) = emit_short(y);
         *(short *)(vector + 4) = emit_short(z);
-        dispatch_engine_2c690(vector);
-        dispatch_engine_2c6e0();
+        title_0c760(vector);
+        title_0c7b0();
 
         packed = *stream++;
         title_0c810(vector);
@@ -158,8 +158,8 @@ void __cdecl dispatch_local_2ea50(const u32 *stream,
             *(short *)(vector + 0) = emit_short(x);
             *(short *)(vector + 2) = emit_short(y);
             *(short *)(vector + 4) = emit_short(z);
-            dispatch_engine_2c690(vector);
-            dispatch_engine_2c6e0();
+            title_0c760(vector);
+            title_0c7b0();
             packed = *stream++;
             title_0c810(vector);
             vector += 8;
@@ -194,8 +194,8 @@ void __cdecl dispatch_local_2ea50(const u32 *stream,
             *(short *)(vector + 0) = emit_short(x);
             *(short *)(vector + 2) = emit_short(y);
             *(short *)(vector + 4) = emit_short(z);
-            dispatch_engine_2c690(vector);
-            dispatch_engine_2c6e0();
+            title_0c760(vector);
+            title_0c7b0();
             packed = *stream++;
             title_0c810(vector);
             vector += 8;

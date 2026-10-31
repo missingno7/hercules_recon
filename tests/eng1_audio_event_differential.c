@@ -33,8 +33,8 @@ typedef short (__cdecl *StartCallback)(unsigned short, unsigned short,
                                        int, int, int, short, short);
 
 extern void __cdecl play_sound(unsigned short, FxActorView *);
-extern void __cdecl dispatch_local_2c650(void);
-extern void __cdecl dispatch_local_2c660(void);
+extern void __cdecl title_0c6f0(void);
+extern void __cdecl title_0c700(void);
 extern short __cdecl dispatch_engine_2cb80(unsigned short, unsigned short,
                                           int, int, int, short, short);
 extern FxActorView *g_fx_owner_6eed0;

@@ -19,7 +19,7 @@ extern void *__cdecl title_0c450(void **output_slot, u32 bytes,
 extern u32 __cdecl title_0c3f0(const char *prefix,
                                           const char *suffix,
                                           void *destination, u32 bytes);
-extern void __cdecl dispatch_engine_2c7f0(void *rectangle,
+extern void __cdecl title_0c890(void *rectangle,
                                            const void *texels);
 extern void __cdecl title_0c6d0(u32 value);
 extern void __cdecl title_0c330(void *allocation);
@@ -47,7 +47,7 @@ void __cdecl dispatch_local_32b10(void)
     (void)title_0c450(&allocation, 0x21000UL, 0UL);
     (void)title_0c3f0("", "m:\\language\\srclang\\stpanel1.dat",
                                 allocation, 0x21000UL);
-    dispatch_engine_2c7f0((void *)g_stpanel1_upload_rectangle_words,
+    title_0c890((void *)g_stpanel1_upload_rectangle_words,
                           allocation);
     title_0c6d0(0UL);
     title_0c330(allocation);

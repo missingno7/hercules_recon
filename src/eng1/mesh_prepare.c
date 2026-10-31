@@ -3,12 +3,12 @@
 extern long g_camera_angle_x_70cd0;
 extern long g_mesh_scale_5ceb0[3];
 extern long g_mesh_cached_column_6ffb8;
-extern void __cdecl dispatch_engine_2c920(const void *,void *);
-extern void __cdecl dispatch_engine_2c940(void *,const void *);
-extern void __cdecl dispatch_engine_2c700(const void *);
+extern void __cdecl title_0ca40(const void *,void *);
+extern void __cdecl title_0ca60(void *,const void *);
+extern void __cdecl title_0c7d0(const void *);
 extern void __cdecl dispatch_engine_2c710(const void *);
-extern void __cdecl dispatch_engine_2c690(const void *);
-extern void __cdecl dispatch_engine_2c6e0(void);
+extern void __cdecl title_0c760(const void *);
+extern void __cdecl title_0c7b0(void);
 extern void __cdecl title_0c790(void);
 extern void __cdecl dispatch_engine_2c750(void *);
 extern void __cdecl title_0c810(void *);
@@ -44,9 +44,9 @@ int __cdecl dispatch_local_2e3b0(Eng1MeshVisit *visit)
         angles[1]=(short)turn;
         angles[2]=0;
         if((turn|g_camera_angle_x_70cd0)!=0) angles[1]=(short)prep_sub(turn,1);
-        dispatch_engine_2c920(angles,matrix);
-        dispatch_engine_2c940(matrix,g_mesh_scale_5ceb0);
-        dispatch_engine_2c700(matrix);
+        title_0ca40(angles,matrix);
+        title_0ca60(matrix,g_mesh_scale_5ceb0);
+        title_0c7d0(matrix);
         visit->cached_044=turn;
     } else turn=visit->cached_044;
     dispatch_engine_2c710(matrix);
@@ -56,8 +56,8 @@ int __cdecl dispatch_local_2e3b0(Eng1MeshVisit *visit)
     *(short *)(scratch+4)=(short)visit->layer_y_038;
     if((turn|g_camera_angle_x_70cd0)==0) {
         *(short *)scratch=(short)row;
-        dispatch_engine_2c690(scratch);
-        dispatch_engine_2c6e0();
+        title_0c760(scratch);
+        title_0c7b0();
         title_0c790();
         title_0c810(scratch);
         if(*(u16 *)(scratch+2)>240) visit->column_stop_016=1;
@@ -68,8 +68,8 @@ int __cdecl dispatch_local_2e3b0(Eng1MeshVisit *visit)
         return 0;
     }
     *(short *)scratch=(short)prep_add(row,0x20);
-    dispatch_engine_2c690(scratch);
-    dispatch_engine_2c6e0();
+    title_0c760(scratch);
+    title_0c7b0();
     title_0c810(scratch);
     if(visit->side_029==0) {
         if(*(short *)scratch>320) visit->row_stop_017=1;
@@ -123,10 +123,10 @@ static long prepare_cylinder(Eng1MeshVisit *visit,int update_cached_y)
     *(long *)(matrix+0x1c)=prep_shift(prep_add(visit->layer_z_03c,tz>>12),1);
     *(long *)(matrix+0x18)=prep_shift(prep_sub(prep_shift(visit->column_01c,6),visit->transform_054[1]),1);
     angles[0]=(short)visit->transform_054[3];angles[1]=angles[2]=0;
-    dispatch_engine_2c920(angles,matrix);
-    dispatch_engine_2c940(matrix,g_mesh_scale_5ceb0);
+    title_0ca40(angles,matrix);
+    title_0ca60(matrix,g_mesh_scale_5ceb0);
     dispatch_engine_2c710(matrix);
-    dispatch_engine_2c700(matrix);
+    title_0c7d0(matrix);
     visit->cached_044=key;
     visit->cached_040=(long)visit->cell_02a;
     visit->anchor_row_050=*(u16 *)(child+0xe)&0x3fff;
@@ -156,8 +156,8 @@ int __cdecl dispatch_local_2e7a0(Eng1MeshVisit *visit)
     *(long *)scratch=prep_mul((long)trig[prep_add(angle,0x40)&0xfff],radius)>>12;
     trig=(short *)g_engine_interface.opaque_010[1];
     *(long *)(scratch+4)=prep_mul((long)trig[prep_sub(angle,0x3c0)&0xfff],radius)>>12;
-    dispatch_engine_2c690(scratch);
-    dispatch_engine_2c6e0();
+    title_0c760(scratch);
+    title_0c7b0();
     title_0c810(scratch);
     if(*(u16 *)(scratch+2)>240) visit->column_stop_016=1;
     if(*(u16 *)scratch>320) visit->row_stop_017=1;

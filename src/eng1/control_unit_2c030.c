@@ -1049,10 +1049,10 @@ extern void dispatch_local_2ea50(unsigned char *stream, MeshVisit *visit, int co
 extern void dispatch_local_2ed10(unsigned char *stream, MeshVisit *visit, int count, int prep);
 extern void dispatch_local_2f120(unsigned char *stream, MeshVisit *visit, int count);
 extern void dispatch_local_2f340(unsigned char *stream, MeshVisit *visit, int count);
-extern void dispatch_engine_2c670(unsigned long xy0, unsigned long xy1, unsigned long xy2);
-extern void dispatch_engine_2c6d0(void);
-extern void dispatch_engine_2c740(long *normal);
-extern void dispatch_engine_2c770(void *packet);
+extern void title_0c740(unsigned long xy0, unsigned long xy1, unsigned long xy2);
+extern void title_0c7a0(void);
+extern void title_0c800(long *normal);
+extern void title_0c820(void *packet);
 extern void dispatch_engine_2c790(void *packet);
 
 int dispatch_local_2df20(MeshVisit *visit, int layer)
@@ -1140,11 +1140,11 @@ int dispatch_local_2df20(MeshVisit *visit, int layer)
             face >>= 6;
             v2 = (MeshVertex *)((unsigned char *)vertices + (face & 0x1f8));
             face >>= 6;
-            dispatch_engine_2c670(v0->xy, v1->xy, v2->xy);
-            dispatch_engine_2c6d0();
+            title_0c740(v0->xy, v1->xy, v2->xy);
+            title_0c7a0();
             v3 = (MeshVertex *)((unsigned char *)vertices + (face & 0x1f8));
             face >>= 9;
-            dispatch_engine_2c740(&normal);
+            title_0c800(&normal);
             if (visit->winding_024 == 0) {
                 if (normal < 0)
                     continue;
@@ -1194,11 +1194,11 @@ int dispatch_local_2df20(MeshVisit *visit, int layer)
             face >>= 6;
             xy2 = *(unsigned long *)((unsigned char *)vertices + (face & 0x1f8));
             face >>= 6;
-            dispatch_engine_2c670(xy0, xy1, xy2);
-            dispatch_engine_2c6d0();
+            title_0c740(xy0, xy1, xy2);
+            title_0c7a0();
             xy3 = *(unsigned long *)((unsigned char *)vertices + (face & 0x1f8));
             face >>= 9;
-            dispatch_engine_2c740(&normal);
+            title_0c800(&normal);
             if (visit->winding_024 == 0) {
                 if (normal < 0)
                     continue;
@@ -1206,7 +1206,7 @@ int dispatch_local_2df20(MeshVisit *visit, int layer)
                 continue;
             }
             {
-                dispatch_engine_2c770(packet);
+                title_0c820(packet);
                 *(unsigned long *)(packet + 0x20) = xy3;
                 *(unsigned long *)(packet + 4) = ((face & 0x20) << 20) | color;
                 uv_word = faces[1];

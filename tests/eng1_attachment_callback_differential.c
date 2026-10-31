@@ -114,13 +114,13 @@ void __cdecl detach_attachment(ActorLinkProbe *actor)
     ExitProcess(0xe1);
 }
 
-void __cdecl dispatch_local_2c650(void)
+void __cdecl title_0c6f0(void)
 {
     printf("unexpected FX dispatch in 0x3e220 fixture\n");
     ExitProcess(0xe2);
 }
 
-void __cdecl dispatch_local_2c660(void)
+void __cdecl title_0c700(void)
 {
     printf("unexpected FX dispatch in 0x3e220 fixture\n");
     ExitProcess(0xe3);

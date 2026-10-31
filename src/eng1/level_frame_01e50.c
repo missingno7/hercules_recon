@@ -219,11 +219,11 @@ extern void dispatch_engine_2ca00(PolyFT3 *p);
 extern u8 dispatch_local_056c0(void *palette, int key, int c, int d);
 extern u16 dispatch_engine_2c7c0(int x, int y);
 extern void title_0c790(void);
-extern void dispatch_engine_2c7f0(Rect16 *rect, void *pixels);
+extern void title_0c890(Rect16 *rect, void *pixels);
 extern int eng1_320d0(Effect *e);
 extern void eng1_32810(Effect *e, int n);
-extern void dispatch_engine_2c690(SVector *v);
-extern void dispatch_engine_2c6e0(void);
+extern void title_0c760(SVector *v);
+extern void title_0c7b0(void);
 extern void title_0c810(short *xy);
 extern void title_0c840(long *z);
 extern int dispatch_engine_2c460(int range);
@@ -580,12 +580,12 @@ void eng1_027a0(Effect *e)
     g_effect_rect_4d7f0.h = h;
     g_effect_rect_4d7f0.x = 0x7f;
     g_effect_rect_4d7f0.y += 0x100;
-    dispatch_engine_2c7f0(&g_effect_rect_4d7f0, e->image);
+    title_0c890(&g_effect_rect_4d7f0, e->image);
     g_effect_rect_4d7f0.y = 0x100;
     g_effect_rect_4d7f0.h = e->offset;
     g_effect_rect_4d7f0.x = 0x7f;
     g_effect_rect_4d7f0.y += 0x100;
-    dispatch_engine_2c7f0(&g_effect_rect_4d7f0, e->image + h / 2);
+    title_0c890(&g_effect_rect_4d7f0, e->image + h / 2);
     e->offset = (e->scroll + e->offset) & 0xff;
     for (i = 0; i < 4; i++)
         e->place(e, (i + g_engine_interface.context->tick * 8) % e->prims);
@@ -612,8 +612,8 @@ void eng1_02920(Effect *e, int width)
     n = e->count + 1;
     e = (Effect *)(void *)
         ((FrameBuffer *)(void *)g_dispatch_frame_current_71ec4)->ot;
-    dispatch_engine_2c690(v);
-    dispatch_engine_2c6e0();
+    title_0c760(v);
+    title_0c7b0();
     v++;
     while (--n) {
         title_0c810(&p->x0);
@@ -629,8 +629,8 @@ void eng1_02920(Effect *e, int width)
         p->tag = *(void **)((u8 *)e - d);
         *(void **)((u8 *)e - d) = p;
         p++;
-        dispatch_engine_2c690(v);
-        dispatch_engine_2c6e0();
+        title_0c760(v);
+        title_0c7b0();
         v++;
     }
 }
@@ -768,7 +768,7 @@ void dispatch_local_02cb0(void)
             r.y = *p++;
             r.w = *p++;
             r.h = *p++;
-            dispatch_engine_2c7f0(&r, p + g_engine_interface.context->tick / period % frames * r.w * r.h);
+            title_0c890(&r, p + g_engine_interface.context->tick / period % frames * r.w * r.h);
         }
     }
 }

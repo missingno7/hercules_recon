@@ -13,10 +13,10 @@ extern void __cdecl dispatch_local_2ea50(const u32 *,Eng1MeshVisit *,int);
 extern void __cdecl dispatch_local_2ed10(const u32 *,Eng1MeshVisit *,int,int);
 extern void __cdecl dispatch_local_2f120(const u32 *,Eng1MeshVisit *,int);
 extern void __cdecl dispatch_local_2f340(const u32 *,Eng1MeshVisit *,int);
-extern void __cdecl dispatch_engine_2c670(u32,u32,u32);
-extern void __cdecl dispatch_engine_2c6d0(void);
-extern void __cdecl dispatch_engine_2c740(void *);
-extern void __cdecl dispatch_engine_2c770(void *);
+extern void __cdecl title_0c740(u32,u32,u32);
+extern void __cdecl title_0c7a0(void);
+extern void __cdecl title_0c800(void *);
+extern void __cdecl title_0c820(void *);
 extern void __cdecl dispatch_engine_2c790(void *);
 
 int __cdecl dispatch_local_2df20(Eng1MeshVisit *visit,int layer)
@@ -100,11 +100,11 @@ int __cdecl dispatch_local_2df20(Eng1MeshVisit *visit,int layer)
         xy[0]=*(u32 *)(vertices+(face&0x3f)*8);
         xy[1]=*(u32 *)(vertices+((face>>6)&0x3f)*8);
         xy[2]=*(u32 *)(vertices+((face>>12)&0x3f)*8);
-        dispatch_engine_2c670(xy[0],xy[1],xy[2]);
-        dispatch_engine_2c6d0();
+        title_0c740(xy[0],xy[1],xy[2]);
+        title_0c7a0();
         flags=(int)((long)face>>24);
         if(!mode) xy[3]=*(u32 *)(vertices+((face>>18)&0x3f)*8);
-        dispatch_engine_2c740(&normal);
+        title_0c800(&normal);
         if(visit->winding_024 ? normal>0 : normal<0) goto next_face;
         if(mode) {
             dispatch_engine_2c790(packet);
@@ -119,7 +119,7 @@ int __cdecl dispatch_local_2df20(Eng1MeshVisit *visit,int layer)
             *(u32 *)(packet+0x1c)=rgb[2];
             *(u32 *)(packet+0x28)=rgb[3];
         } else {
-            dispatch_engine_2c770(packet);
+            title_0c820(packet);
             *(u32 *)(packet+0x20)=xy[3];
             *(u32 *)(packet+4)=color|((u32)(flags&0x20)<<20);
         }

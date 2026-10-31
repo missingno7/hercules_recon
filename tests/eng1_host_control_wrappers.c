@@ -22,11 +22,11 @@ typedef char spy_requires_x86_words[(sizeof(unsigned long) == 4 &&
 
 EngineInterface g_engine_interface;
 
-void __cdecl dispatch_engine_2c200(void);
-unsigned long __cdecl dispatch_engine_2c210(void *, unsigned long);
-void __cdecl dispatch_engine_2c370(void *, unsigned long);
-void __cdecl dispatch_engine_2c430(void);
-void __cdecl dispatch_engine_2c580(void);
+void __cdecl title_0c270(void);
+unsigned long __cdecl title_0c280(void *, unsigned long);
+void __cdecl title_0c3d0(void *, unsigned long);
+void __cdecl title_0c480(void);
+void __cdecl title_0c5c0(void);
 unsigned int __cdecl dispatch_engine_2c460(int);
 
 static unsigned int g_calls;
@@ -115,26 +115,26 @@ int main(void)
     g_engine_interface.opaque_090[1] = bits.word;
 
     reset();
-    dispatch_engine_2c200();
+    title_0c270();
     CHECK(g_calls == 1 && g_kind == 1);
 
     reset();
     g_result_word = 0x89abcdefUL;
-    returned_word = dispatch_engine_2c210(p1, 0x10293847UL);
+    returned_word = title_0c280(p1, 0x10293847UL);
     CHECK(g_calls == 1 && g_kind == 2 && g_pointer == p1 &&
           g_word == 0x10293847UL && returned_word == 0x89abcdefUL);
 
     reset();
-    dispatch_engine_2c370(p2, 0xfedcba98UL);
+    title_0c3d0(p2, 0xfedcba98UL);
     CHECK(g_calls == 1 && g_kind == 3 && g_pointer == p2 &&
           g_word == 0xfedcba98UL);
 
     reset();
-    dispatch_engine_2c430();
+    title_0c480();
     CHECK(g_calls == 1 && g_kind == 4);
 
     reset();
-    dispatch_engine_2c580();
+    title_0c5c0();
     CHECK(g_calls == 1 && g_kind == 5);
 
     reset();

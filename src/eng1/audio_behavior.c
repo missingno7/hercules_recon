@@ -49,8 +49,8 @@ typedef char fx_ulong_is_4[(sizeof(unsigned long) == 4) ? 1 : -1];
 typedef char fx_pointer_is_4[(sizeof(void *) == 4) ? 1 : -1];
 
 #define g_fx_rows_view ((FxRowView *)(void *)g_engine_fx_records)
-extern void __cdecl dispatch_local_2c650(void);
-extern void __cdecl dispatch_local_2c660(void);
+extern void __cdecl title_0c6f0(void);
+extern void __cdecl title_0c700(void);
 extern int __cdecl count_active_fx_id(int effect_id);
 extern short __cdecl dispatch_engine_2cb80(unsigned short bank, unsigned short sample,
                                             int zero_a, int frequency, int zero_b,
@@ -190,7 +190,7 @@ void __cdecl play_sound(unsigned short effect_id, FxActorView *actor)
 {
     unsigned long default_volume;
 
-    dispatch_local_2c650();
+    title_0c6f0();
     g_fx_effect_index_6ee88 = effect_id & 0x07ff;
     g_fx_bank_value_6ee90 = g_engine_interface.context_004->sound_2f0[g_fx_effect_index_6ee88][0];
     g_fx_sample_value_6ee94 = g_engine_interface.context_004->sound_2f0[g_fx_effect_index_6ee88][1];
@@ -272,7 +272,7 @@ void __cdecl play_sound(unsigned short effect_id, FxActorView *actor)
     }
 
 done:
-    dispatch_local_2c660();
+    title_0c700();
 }
 
 void __cdecl play_actor_sound(unsigned short effect_id, FxActorView *owner,
@@ -290,7 +290,7 @@ void __cdecl play_actor_sound(unsigned short effect_id, FxActorView *owner,
     long right_volume;
     long default_volume;
 
-    dispatch_local_2c650();
+    title_0c6f0();
     context = g_engine_interface.context_004;
     effect_index = effect_id & 0x07ff;
     bank = context->sound_2f0[effect_index][0];
@@ -358,7 +358,7 @@ void __cdecl play_actor_sound(unsigned short effect_id, FxActorView *owner,
     }
     if (owner != 0) owner->linked_06c = 1;
 done:
-    dispatch_local_2c660();
+    title_0c700();
 }
 
 /* 0x6613: count matching effect IDs among the active 24-row prefix. */

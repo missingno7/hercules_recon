@@ -32,7 +32,7 @@ extern int __cdecl title_0c2a0(
     void *destination, unsigned long bytes);
 extern void __cdecl title_0c330(void *pointer);
 extern void __cdecl title_0c300(void);
-extern void __cdecl dispatch_engine_2c7f0(void *rectangle,
+extern void __cdecl title_0c890(void *rectangle,
                                            const void *texels);
 extern void __cdecl resource_rebuild_blob(void);
 extern void __cdecl resource_rebuild_group_rows(void);
@@ -229,7 +229,7 @@ unsigned long __cdecl dispatch_local_1fc90(unsigned long byte_count)
     rectangle[3] = 0x200;
     relative = *(u32 *)field;
     texels = field + ((relative >> 2) * 4UL);
-    dispatch_engine_2c7f0(rectangle, texels);
+    title_0c890(rectangle, texels);
 
     field += 4;
     rectangle[0] = 0x300;
@@ -238,7 +238,7 @@ unsigned long __cdecl dispatch_local_1fc90(unsigned long byte_count)
     rectangle[3] = 0x100;
     relative = *(u32 *)field;
     texels = field + ((relative >> 2) * 4UL);
-    dispatch_engine_2c7f0(rectangle, texels);
+    title_0c890(rectangle, texels);
 
     field += 4;
     relative = *(u32 *)(field + 4);

@@ -7,8 +7,8 @@ extern u8 *g_header_pointer_70d50;
 extern long g_mesh_cached_column_6ffb8;
 extern u32 g_mesh_colors_6f4e8[512];
 
-extern void __cdecl dispatch_engine_2c690(const void *vector);
-extern void __cdecl dispatch_engine_2c6e0(void);
+extern void __cdecl title_0c760(const void *vector);
+extern void __cdecl title_0c7b0(void);
 extern void __cdecl title_0c810(void *projected_xy);
 extern void __cdecl title_0c850(void *depth_word);
 
@@ -84,8 +84,8 @@ static long emit_b_sine(short *sine, long angle)
 
 static void emit_b_project(const void *vector, void *projected)
 {
-    dispatch_engine_2c690(vector);
-    dispatch_engine_2c6e0();
+    title_0c760(vector);
+    title_0c7b0();
     title_0c810(projected);
 }
 
@@ -133,8 +133,8 @@ void __cdecl dispatch_local_2ed10(const u32 *stream,
         *(short *)(vector + 0) = emit_b_short(x);
         *(short *)(vector + 2) = emit_b_short(y);
         *(short *)(vector + 4) = emit_b_short(z);
-        dispatch_engine_2c690(vector);
-        dispatch_engine_2c6e0();
+        title_0c760(vector);
+        title_0c7b0();
 
         color_index = emit_b_color_index(colors,
             emit_b_s8(packed, 0), emit_b_s16(packed, 8),
@@ -191,8 +191,8 @@ void __cdecl dispatch_local_2f120(const u32 *stream,
         vector[0] = emit_b_short(x);
         vector[1] = emit_b_short(y);
         vector[2] = emit_b_short(z);
-        dispatch_engine_2c690(vector);
-        dispatch_engine_2c6e0();
+        title_0c760(vector);
+        title_0c7b0();
 
         /* 2F120 reads the next packed word before its current 2C760 call. */
         next = *stream++;
@@ -213,8 +213,8 @@ void __cdecl dispatch_local_2f120(const u32 *stream,
     vector[0] = emit_b_short(x);
     vector[1] = emit_b_short(y);
     vector[2] = emit_b_short(z);
-    dispatch_engine_2c690(vector);
-    dispatch_engine_2c6e0();
+    title_0c760(vector);
+    title_0c7b0();
     title_0c850(&visit->depth_010);
 }
 
@@ -275,8 +275,8 @@ void __cdecl dispatch_local_2f340(const u32 *stream,
         vector[1] = emit_b_short(y);
         vector[2] = emit_b_short(emit_b_mul_shift(
             emit_b_sine(sine, angle - 0x400L), depth, 12));
-        dispatch_engine_2c690(vector);
-        dispatch_engine_2c6e0();
+        title_0c760(vector);
+        title_0c7b0();
 
         color_index = emit_b_color_index(colors, x, y,
                                          visit->winding_024 != 0, 0);

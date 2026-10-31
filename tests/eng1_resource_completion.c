@@ -177,7 +177,7 @@ void __cdecl title_0c300(void)
     ++host_finish_count;
 }
 
-void __cdecl dispatch_engine_2c7f0(void *rectangle, const void *texels)
+void __cdecl title_0c890(void *rectangle, const void *texels)
 {
     int i;
     if (upload_count < 2) {

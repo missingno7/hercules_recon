@@ -22,20 +22,20 @@ static short projected_depth;
 static int checks,failures,project_calls,matrix_calls,normal_calls;
 #define CHECK(c) do {++checks;if(!(c)){++failures;printf("FAIL %d\n",__LINE__);}}while(0)
 
-void __cdecl dispatch_engine_2c920(const void *angles,void *matrix)
+void __cdecl title_0ca40(const void *angles,void *matrix)
 {
     CHECK(matrix==(void *)scratch || matrix==(void *)((u8 *)scratch+0x20));
     CHECK(((const short *)angles)[2]==0);++matrix_calls;
 }
-void __cdecl dispatch_engine_2c940(void *matrix,const void *scale)
+void __cdecl title_0ca60(void *matrix,const void *scale)
 {
     CHECK(((const long *)scale)[0]==0x2000 && ((const long *)scale)[1]==0x2000 && ((const long *)scale)[2]==0x2000);
 }
-void __cdecl dispatch_engine_2c700(const void *matrix) {(void)matrix;}
+void __cdecl title_0c7d0(const void *matrix) {(void)matrix;}
 void __cdecl dispatch_engine_2c710(const void *matrix) {(void)matrix;}
-void __cdecl dispatch_engine_2c690(const void *vector)
+void __cdecl title_0c760(const void *vector)
 {memcpy(input,vector,6);}
-void __cdecl dispatch_engine_2c6e0(void)
+void __cdecl title_0c7b0(void)
 {
     screen[0]=(short)(input[0]+10);screen[1]=(short)(input[1]+20);++project_calls;
 }
@@ -46,13 +46,13 @@ void __cdecl dispatch_engine_2c750(void *result)
 }
 void __cdecl title_0c810(void *result) {memcpy(result,screen,4);}
 void __cdecl title_0c850(void *result) {*(short *)result=(short)(projected_depth>>2);}
-void __cdecl dispatch_engine_2c670(u32 a,u32 b,u32 c)
+void __cdecl title_0c740(u32 a,u32 b,u32 c)
 {
     memcpy(screen_history[0],&a,4);memcpy(screen_history[1],&b,4);memcpy(screen_history[2],&c,4);
 }
-void __cdecl dispatch_engine_2c6d0(void) {++normal_calls;}
-void __cdecl dispatch_engine_2c740(void *out) {*(long *)out=determinant;}
-void __cdecl dispatch_engine_2c770(void *out)
+void __cdecl title_0c7a0(void) {++normal_calls;}
+void __cdecl title_0c800(void *out) {*(long *)out=determinant;}
+void __cdecl title_0c820(void *out)
 {
     u8 *p=(u8 *)out;memcpy(p+8,screen_history[0],4);memcpy(p+16,screen_history[1],4);memcpy(p+24,screen_history[2],4);
 }
