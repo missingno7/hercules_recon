@@ -21,7 +21,7 @@ Blocker families, by rows touched (a row counts once per family):
 | Register/register-based indirect CALL | 153 rows contain one | 35 | opaque-indirect-call-v1 (2026-10-31) |
 | EXE statically linked library callees | ~60 rows | 19+ | closed library-member identity (not yet proven) |
 
-Accepted after the wave-j integrations so far: **1,229** (commit 26c3e50).
+Accepted after the wave-j integrations so far: **1,248** (commit 4079122).
 
 Highest single gates: ENG1 0x26de0 (16 callers), shared remove_actor_preserving_resource
 (ENG1 0x27410 + ENG3 0x1cd40, 18), TITLE title_054f0 (20) and title_164b0 (14), EXE operator delete
@@ -49,6 +49,14 @@ Highest single gates: ENG1 0x26de0 (16 callers), shared remove_actor_preserving_
   Predict with this key before compiling.
 - Indexed pre-increment loops (`p[++i]` rather than a pointer walk) restore VC5's native loop peeling
   and induction-update order (solN1: _eng1_26de0, _eng1_26cd0).
+- VC5 C2 register allocation (work/velocity_j/solREG/findings.md):
+  * Live ranges are prioritised by signed cost (+0x0c), with ties broken by a reverse active-instruction
+    definition ordinal (+0x40).
+  * Split ranges inherit the parent's +0x40.
+  * The minimum-cost register wins; equal costs keep the first allowed register.
+  * Local scratch allocation rotates.
+  The model replays 45/45 local and 36/36 global choices on held-out rows. The open problem is predicting
+  liveness, priority and coalescing from source.
 - A store/reload chain to a local outranks independent stack cleanup in VC5 scheduling (solTitle:
   title_164b0's last 17 bytes); no source form reproducing the native order has been found yet.
 - The solVC5 classifier (work/velocity_j/solVC5/classify.py) puts the 150 non-equal rows into families:

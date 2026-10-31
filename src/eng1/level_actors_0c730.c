@@ -1405,8 +1405,11 @@ void eng1_native_code_target_00f4f0(Actor *p)
     }
     p->render_flags = (p->direction_x & 0x10) | (p->render_flags & ~0x10);
     if (p->y > 0x4f00000) {
-        if (p->record_offset) {
-            home = (HomeRecord *)(g_kind_info[p->profile].owner + p->record_offset);
+        /* Native 32-bit relative address: retain one carrier through the null
+         * test and owner-base addition so C2 coalesces both definitions. */
+        home = (HomeRecord *)p->record_offset;
+        if (home) {
+            home = (HomeRecord *)(g_kind_info[p->profile].owner + (long)home);
             home->flags &= ~0x100;
         }
         remove_actor(p);
