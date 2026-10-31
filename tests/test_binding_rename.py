@@ -420,6 +420,168 @@ class DeriveTests(unittest.TestCase):
             self.derive()
 
 
+class LocalLabelRenameTests(unittest.TestCase):
+    """VC5 numbers a jump table's own label after the whole unit: reviewed $L renames, nothing else."""
+
+    SOURCE = 'src/table.c'
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name).resolve()
+        (self.root / 'evidence').mkdir()
+        self.scope = patch.object(binding_rename, 'ROOT', self.root)
+        self.scope.start()
+        self.addCleanup(self.scope.stop)
+        self.addCleanup(self.tmp.cleanup)
+        self.table = dict(kind='local', role='table', rva=0x112c, size=16, evidence=['evidence/review.json#tables.m.a'],
+                          references=[dict(offset=87, type=6, addend=0)])
+        self.case = dict(kind='local', role='code', rva=0x10ab, size=1, evidence=['evidence/review.json#cases.m.a'],
+                         references=[dict(offset=220, type=6, addend=0)])
+        self.binding_a = dict(symbols={'$L167': self.table, '$L104': self.case,
+                                       '_callee': function_record(0x1000, [66])},
+                              tables=[dict(offset=220, size=16, evidence=['evidence/review.json#tables.m.a'])])
+        self.binding_b = dict(symbols={'$L167': copy.deepcopy(self.table)})  # another row, the same label number
+        self.document = dict(schema=1, evidence_files={})
+        self.path = 'evidence/parent.json'
+        self.publish()
+
+    def publish(self):
+        self.document['functions'] = {'m.a': self.binding_a, 'm.b': self.binding_b}
+        (self.root / self.path).write_text(json.dumps(self.document, indent=1) + '\n')
+        self.state = dict(functions=[self.row('m.a'), self.row('m.b')])
+
+    def row(self, rid):
+        proof = dict(scope='s', bindings_path=self.path,
+                     bindings_sha256=binding_rename.reference_digest(self.document['functions'][rid]))
+        return dict(id=rid, status=RELOCATED, symbol='_' + rid, source=self.SOURCE, target=T, rva='0x1000', size=16,
+                    flags=['/O2'], proof=proof)
+
+    def derive(self, renames, rows=('m.a',), mutate=None):
+        sha_ = sha((self.root / self.path).read_bytes())
+        items = {rid: dict(bindings_path=self.path, bindings_sha256=sha_,
+                           renames=renames[rid] if isinstance(renames, dict) and rid in renames else renames)
+                 for rid in rows}
+        review = dict(schema=1, profile=binding_rename.PROFILE, reason='Labels renumbered by a larger unit.', bindings=items)
+        if mutate:
+            mutate(review)
+        return binding_rename.derive(self.state, review, binding_rename.parent_documents(review), 'evidence/r.json',
+                                     'c' * 64, {self.SOURCE})
+
+    def test_a_table_label_is_renamed_and_nothing_else_changes(self):
+        plan = self.derive({'$L167': '$L223'})
+        self.assertEqual(plan.rows, {'m.a': {'$L167': ('$L223', 0)}})
+        self.assertEqual(plan.callee_names, {})  # labels are never definitions
+        (path, document), = plan.manifests.values()
+        derived = document['functions']['m.a']
+        self.assertEqual(derived['symbols']['$L223'], self.table)  # kind, role, rva, size, evidence and uses
+        self.assertEqual(derived['tables'], self.binding_a['tables'])  # tables name offsets, never labels
+        self.assertEqual(sorted(derived['symbols']), ['$L104', '$L223', '_callee'])
+        self.assertEqual(document['functions']['m.b'], self.binding_b)  # other rows keep their key
+        self.assertEqual(json.loads((self.root / self.path).read_bytes()), self.document)  # parent is provenance
+
+    def test_labels_are_scoped_to_their_row(self):
+        plan = self.derive({'m.a': {'$L167': '$L223'}, 'm.b': {'$L167': '$L300'}}, rows=('m.a', 'm.b'))
+        self.assertEqual((plan.rows['m.a'], plan.rows['m.b']), ({'$L167': ('$L223', 0)}, {'$L167': ('$L300', 0)}))
+
+    def test_a_renumbering_may_shift_several_labels_in_any_order(self):
+        for renames in ({'$L104': '$L105', '$L167': '$L104'}, {'$L167': '$L104', '$L104': '$L105'},
+                        {'$L167': '$L104', '$L104': '$L167'}):
+            with self.subTest(renames=renames):
+                plan = self.derive(renames)
+                symbols = plan.manifests[self.path][1]['functions']['m.a']['symbols']
+                originals = {'$L104': self.case, '$L167': self.table}
+                for old, (new, delta) in plan.rows['m.a'].items():
+                    self.assertEqual((symbols[new], delta), (originals[old], 0))
+                self.assertEqual(len(symbols), len(self.binding_a['symbols']))
+
+    def test_refusals(self):
+        self.binding_a['symbols']['$L170'] = dict(self.case, role='section', rva=0x1000, size=16)
+        self.binding_a['symbols']['$L171'] = dict(self.case, rva=0x10c0, references=[dict(offset=228, type=6, addend=0)])
+        self.publish()
+        for label, renames in {
+                'new name is not a label': {'$L167': '_table'}, 'unnumbered label': {'$L167': '$Lx'},
+                'lowercase': {'$L167': '$l223'}, 'suffix': {'$L167': '$L223a'}, 'prefix': {'$L167': 'x$L223'},
+                'same name': {'$L167': '$L167'}, 'old record absent': {'$L999': '$L223'},
+                'section role': {'$L170': '$L223'}, 'a function takes a label name': {'_callee': '$L223'},
+                'collision with another record': {'$L167': '$L104'}, 'collision with an untouched record': {'$L167': '$L171'},
+                'non-injective': {'$L167': '$L223', '$L104': '$L223'}, 'to a local': {'$L167': '_callee'}}.items():
+            with self.subTest(label), self.assertRaises(ValueError):
+                self.derive(renames)
+
+    def test_a_local_record_renamed_to_a_non_label_name_or_a_non_label_local_is_refused(self):
+        self.binding_a['symbols']['_odd'] = dict(self.case, rva=0x10c0, references=[dict(offset=228, type=6, addend=0)])
+        self.publish()
+        with self.assertRaisesRegex(ValueError, 'compiler labels'):
+            self.derive({'_odd': '$L223'})
+
+    def test_a_label_named_by_a_declaration_or_another_record_is_refused(self):
+        for mutate in (lambda: self.binding_a['tables'][0].update(symbol='$L167'),
+                       lambda: self.binding_a['symbols']['_callee']['evidence'].append('$L167'),
+                       lambda: self.binding_a.update(coff_identity=dict(symbol='$L167'))):
+            self.setUp()
+            mutate()
+            self.publish()
+            with self.assertRaisesRegex(ValueError, 'referenced by name'):
+                self.derive({'$L167': '$L223'})
+
+    def test_local_renames_need_an_accepted_unchanged_binding(self):
+        with self.assertRaisesRegex(ValueError, 'differs from its proof'):
+            self.state['functions'][0]['proof']['bindings_sha256'] = '0' * 64
+            self.derive({'$L167': '$L223'})
+
+    def test_repin_findings_accept_exactly_the_renamed_local_symbol(self):
+        use = dict(offset=87, type=6, symbol='$L167', addend=0, kind='local', destination_rva=0x112c,
+                   target_destination_rva=0x112c, evidence=['evidence/review.json#tables.m.a'], one_past=False)
+        other = dict(use, offset=66, symbol='$L104', destination_rva=0x10ab, target_destination_rva=0x10ab)
+        before = dict(exact=True, scope='s', references=[use, other])
+        changes = {'$L167': ('$L223', 0)}
+        after = dict(before, references=[dict(use, symbol='$L223'), other])
+        expected = binding_rename.expected_findings(before, changes)
+        self.assertEqual(expected, binding_rename.observed_findings(after, changes))
+        for wrong in (dict(before, references=[use, other]),  # not renamed
+                      dict(after, references=[dict(use, symbol='$L224'), other]),  # another name
+                      dict(after, references=[dict(use, symbol='$L223', addend=4), other]),
+                      dict(after, references=[dict(use, symbol='$L223', destination_rva=0x1130), other]),
+                      dict(after, references=[dict(use, symbol='$L223'), dict(other, symbol='$L105')])):  # unreviewed
+            with self.subTest(wrong=wrong['references']):
+                self.assertNotEqual(expected, binding_rename.observed_findings(wrong, changes))
+
+    def test_the_gate_needs_the_descendant_key_and_still_checks_role_and_rva(self):
+        import masked
+        from test_matching import make_pe
+        from test_relocated import binding, coff_file
+        code = bytes.fromhex('ff248500000000c300000000')
+        native = bytes.fromhex('ff2485') + struct.pack('<I', 0x401008) + b'\xc3' + struct.pack('<I', 0x401007)
+        parent = dict(symbols={'$L167': binding('local', 0x1008, 4, (3, masked.DIR32, 0), role='table'),
+                               '$L168': binding('local', 0x1007, 1, (8, masked.DIR32, 0), role='code')},
+                      tables=[dict(offset=8, size=4, evidence=['independent switch table bounds'])])
+        self.binding_a = parent
+        self.publish()
+        plan = self.derive({'$L167': '$L223', '$L168': '$L224'})
+        descendant = plan.manifests[self.path][1]['functions']['m.a']
+
+        def compare(bindings, table_value=8, case_value=7):
+            obj, target = self.root / 'f.obj', self.root / 'f.dll'
+            coff_file(obj, code, [(3, 1, masked.DIR32), (8, 2, masked.DIR32)],
+                      [('_sample', 0, 1, 0x20), ('$L223', table_value, 1, 0), ('$L224', case_value, 1, 0)])
+            make_pe(target)
+            image = bytearray(target.read_bytes())
+            image[0x400:0x400 + len(native)] = native
+            target.write_bytes(image)
+            return masked.relocated_compare(obj, '_sample', target, 0x1000, len(native), bindings)
+
+        with self.assertRaisesRegex(ValueError, 'Binding inventory differs'):
+            compare(parent)  # the pre-rename key no longer names the compiled label
+        self.assertTrue(compare(descendant)['relocated_equal'])
+        # The label moving (rva) or the table becoming a case label (role) is still refused by the gate.
+        with self.assertRaises(ValueError):
+            compare(descendant, table_value=9)
+        wrong_role = copy.deepcopy(descendant)
+        wrong_role['symbols']['$L223']['role'] = 'code'
+        with self.assertRaises(ValueError):
+            compare(wrong_role)
+
+
 class ProtectedRenameRefreshTests(unittest.TestCase):
     """unit_refresh admits an accepted definition renamed in place only when it is reviewed."""
 

@@ -8,7 +8,10 @@ hash-pinned review in evidence/, everything that may differ, and nothing else:
   bindings     {row_id: {"bindings_path", "bindings_sha256", "renames", "rebinds"}}: an accepted
                RELOCATED caller in a changed unit names a symbol differently.
       renames  {old: new}: the record is identical; only its key changes (function, import or
-               file-backed data records only; storage owners keep their own names).
+               file-backed data records, and local code/table records between compiler labels
+               $L<digits>; storage owners keep their own names). A label is scoped to its row, a
+               permutation within one row is allowed, and a label named by any table declaration or
+               other record of its binding is refused.
       rebinds  {old: {"symbol": new, "from": {"row", "bindings_path", "bindings_sha256"}}}: the
                new record is the accepted owner record of `from.row` verbatim (without its
                references); the caller's uses keep offset and type, and each addend is re-expressed
@@ -31,6 +34,7 @@ IDENTIFIER = re.compile(r'[_?@$A-Za-z][\w@?$]*')
 ACCEPTED = ('FUNCTION_MATCH', 'FUNCTION_MATCH_RELOCATED')
 RELOCATED = 'FUNCTION_MATCH_RELOCATED'
 RENAMEABLE_KINDS = ('function', 'import', 'data')
+LABEL = re.compile(r'\$L\d+')  # VC5 compiler-local label; 'local' records are renamed between these only
 STORAGE_KINDS = ('bss', 'data')
 
 
@@ -69,6 +73,38 @@ class Plan:
 
 def _identifier(value):
     return isinstance(value, str) and IDENTIFIER.fullmatch(value) is not None
+
+
+def _is_label(value):
+    return isinstance(value, str) and LABEL.fullmatch(value) is not None
+
+
+def _mentions(value, name):
+    if isinstance(value, str):
+        return value == name
+    if isinstance(value, dict):
+        return any(key == name or _mentions(item, name) for key, item in value.items())
+    if isinstance(value, list):
+        return any(_mentions(item, name) for item in value)
+    return False
+
+
+def _check_label_rename(binding, old, new, record):
+    """A local record may change its key between compiler labels and nothing else.
+
+    VC5 numbers a unit's labels after the whole unit, so adding functions renumbers the jump-table
+    and case labels of unrelated accepted rows. The record (kind, role, rva, size, evidence, uses)
+    is copied verbatim by the caller; here the names and every other mention are checked.
+    """
+    if not (_is_label(old) and _is_label(new)):
+        raise ValueError('Local records are renamed between compiler labels ($L<digits>) only: %s -> %s' % (old, new))
+    if record.get('role') not in ('code', 'table'):
+        raise ValueError('Only code and table label records are renamed: ' + old)
+    rest = {key: value for key, value in binding.items() if key != 'symbols'}
+    others = [value for name, value in binding.get('symbols', {}).items() if name != old]
+    # Declarations (tables and their byte-table receipts) that name the label would need their own review.
+    if _mentions(rest, old) or _mentions(others, old) or _mentions(record, old):
+        raise ValueError('A renamed label is also referenced by name elsewhere in its binding: ' + old)
 
 
 def _accepted_binding(row, documents, path, sha):
@@ -162,12 +198,18 @@ def derive(state, review, documents, review_path, review_sha, changed_sources):
         derived = copy.deepcopy(binding)
         changes, renamed = {}, {}
         names = targets.setdefault(row['target'], dict(plan.callee_names.get(row['target'], {})))
+        labels = set()  # compiler-local labels: scoped to this row, never part of the module-wide name map
         for old, new in item.get('renames', {}).items():
             record = symbols.get(old)
             if record is None or not _identifier(new) or new == old:
                 raise ValueError('Invalid reviewed rename %s -> %s in %s' % (old, new, row_id))
-            if record.get('kind') not in RENAMEABLE_KINDS:
+            if record.get('kind') == 'local':
+                _check_label_rename(binding, old, new, record)
+                labels.add(old)
+            elif record.get('kind') not in RENAMEABLE_KINDS:
                 raise ValueError('Storage owner records are rebound, never renamed: ' + old)
+            elif _is_label(old) or _is_label(new):
+                raise ValueError('Compiler label names belong to local records only: %s -> %s' % (old, new))
             renamed[new] = copy.deepcopy(record)
             changes[old] = (new, 0)
         for old, spec in item.get('rebinds', {}).items():
@@ -185,17 +227,19 @@ def derive(state, review, documents, review_path, review_sha, changed_sources):
             renamed[spec['symbol']], delta = _rebound_record(record, template, row, old)
             changes[old] = (spec['symbol'], delta)
         for old, (new, _) in changes.items():
-            if names.get(old, new) != new:
-                raise ValueError('One old name maps to two new names in one module: ' + old)
-            names[old] = new
+            if old not in labels:
+                if names.get(old, new) != new:
+                    raise ValueError('One old name maps to two new names in one module: ' + old)
+                names[old] = new
             del derived['symbols'][old]
         if set(renamed) & set(derived['symbols']) or len(renamed) != len(changes):
             raise ValueError('A reviewed name collides with another bound symbol in ' + row_id)
         derived['symbols'].update(renamed)
         # Independently undo exactly the reviewed changes: the parent binding must reappear.
         restored = copy.deepcopy(derived)
+        taken = {old: restored['symbols'].pop(new) for old, (new, _) in changes.items()}  # simultaneous: labels may permute
         for old, (new, delta) in changes.items():
-            record = restored['symbols'].pop(new)
+            record = taken[old]
             if delta or old in item.get('rebinds', {}):
                 record = copy.deepcopy(symbols[old]) if _undo_rebind(record, symbols[old], delta) else None
             restored['symbols'][old] = record
