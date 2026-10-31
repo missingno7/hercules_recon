@@ -271,6 +271,14 @@ owner decisions.
 Accepted: `eng1.native_code_target_011450`, `eng1.3d780` (evidence/bindR_*). Total: **1,139**.
 `eng1.3fe00` is held: its `_remove_actor_variant` identity record pins the pre-rename source hash.
 
+New data-only owner `src/eng3/engine_pointer_cells.c` defines four ENG3 loader-zero pointer cells that were
+previously only declared extern: `_g_eng3_ranges_4078c`, `_g_eng3_game_40b8c`,
+`_g_eng3_middle_actions_40b98` and `_g_eng3_host_40bb4`. Each compiles to an exact 4-byte COMMON, and each has a
+legacy anchor outside every row (see evidence/bindP_review_2026_10_31.json). Accepted: `eng3.1b920`. Total:
+**1,140**. Four more rows (eng3.03290, 11d80, 25770, 26eb0) are relocation-exact except for
+`call [reg+disp]` method calls through those objects. The verifier rejects register-indirect transfers by
+design, and changing that needs an owner ruling.
+
 Open:
 
 - **`host_file_open_only_3c50`.** Kept blocked by owner ruling; the historical experiment is recorded in
