@@ -109,7 +109,10 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
     code/table/section and identify symbols in this same compiler contribution.
     Section records delimit this whole contribution; reviewed addends identify
     its code/table destinations (including ordinary COFF section-symbol uses). TABLE
-    has offset, size and evidence and delimits an embedded DIR32 jump table.
+    has offset, size and evidence and delimits an embedded DIR32 jump table;
+    coff-local-byte-table-v1 additionally declares a complete relocation-free
+    byte allocation with its symbol and SHA-256. Each local table record must
+    equal exactly one declared table, never a subrange or a union of tables.
 
     This routine never obtains identity from masked_compare's implied symbols.
     The caller owns review of evidence, target identity, and fresh pinned builds;
@@ -314,6 +317,9 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
             elif role == 'table':
                 if not positions <= table_bytes:
                     raise ValueError('Local table binding exceeds declared jump table')
+                if sum(table['offset'] == dest - rva and table['size'] == extent
+                       for table in tables) != 1:
+                    raise ValueError('Local table binding must equal exactly one declared table')
             elif role == 'section':
                 if sym['value'] != 0 or dest != rva or extent != size:
                     raise ValueError('Section binding must cover this complete contribution')

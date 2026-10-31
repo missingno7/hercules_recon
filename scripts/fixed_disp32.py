@@ -10,6 +10,8 @@ import struct
 from coff import COFF
 from pe import PE
 from masked import binding_records, REL32, DIR32
+from local_byte_tables import (PROFILE as BYTE_TABLE_PROFILE, verify_table as verify_byte_table,
+                               verify_accesses as verify_byte_table_accesses)
 
 PROFILE = 'fixed-i386-disp32-v1'
 # Further explicit anchor forms (scripts/fixed_anchor_forms.py); same record shape.
@@ -242,7 +244,10 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
     code/table/section and identify symbols in this same compiler contribution.
     Section records delimit this whole contribution; reviewed addends identify
     its code/table destinations (including ordinary COFF section-symbol uses). TABLE
-    has offset, size and evidence and delimits an embedded DIR32 jump table.
+    has offset, size and evidence and delimits an embedded DIR32 jump table;
+    coff-local-byte-table-v1 additionally declares a complete relocation-free
+    byte allocation with its symbol and SHA-256. Each local table record must
+    equal exactly one declared table, never a subrange or a union of tables.
 
     This routine never obtains identity from masked_compare's implied symbols.
     The caller owns review of evidence, target identity, and fresh pinned builds;
@@ -300,13 +305,26 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
         raise ValueError('Binding inventory differs from referenced COFF symbols')
 
     table_bytes, table_starts = set(), set()
+    byte_tables = []
     tables = bindings.get('tables', [])
     if not isinstance(tables, list):
         raise ValueError('Invalid table inventory')
+    byte_table_mode = any(isinstance(table, dict) and table.get('profile') == BYTE_TABLE_PROFILE
+                          for table in tables)
     for table in tables:
         evidence(table)
         off, length = integer(table['offset'], 'table offset'), integer(table['size'], 'table size', 1)
+        if table.get('profile') == BYTE_TABLE_PROFILE and (off + length > size or length > 65536):
+            raise ValueError('Invalid bounded byte table extent')
         cells = set(range(off, off + length))
+        if table.get('profile') == BYTE_TABLE_PROFILE:
+            byte_tables.append(verify_byte_table(coff, section, number, pe, rva, table, records))
+            if table_bytes & cells:
+                raise ValueError('Overlapping byte table')
+            table_bytes |= cells
+            continue
+        if byte_table_mode and 'profile' in table:
+            raise ValueError('Unsupported explicit table profile')
         if length % 4 or off + length > size or table_bytes & cells:
             raise ValueError('Invalid or overlapping jump table bounds')
         table_bytes |= cells
@@ -459,6 +477,9 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
             elif role == 'table':
                 if not positions <= table_bytes:
                     raise ValueError('Local table binding exceeds declared jump table')
+                if sum(table['offset'] == dest - rva and table['size'] == extent
+                       for table in tables) != 1:
+                    raise ValueError('Local table binding must equal exactly one declared table')
             elif role == 'section':
                 if sym['value'] != 0 or dest != rva or extent != size:
                     raise ValueError('Section binding must cover this complete contribution')
@@ -498,6 +519,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
 
     access_surveys = {name: [] for name, rec in records.items()
                       if rec.get('anchor_profile') in (PROFILE,) + FORMS or access_forms[name] is not None}
+    verify_byte_table_accesses(byte_tables, records, operand_fields, rva)
     fields, actual_offsets = set(), set()
     for rel in section['relocations']:
         off, typ, name = rel['offset'], rel['type'], rel['symbol']
@@ -631,6 +653,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 compiled_sha256=hashlib.sha256(actual).hexdigest(), target_sha256=hashlib.sha256(expected).hexdigest(),
                 bindings_sha256=hashlib.sha256(json.dumps(bindings, sort_keys=True, separators=(',', ':')).encode()).hexdigest(),
                 scope='complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned')
+    if byte_tables:
+        result['byte_table_checks'] = byte_tables
     if alias_checks:
         result['source_alias_checks'] = alias_checks
     if data_checks:

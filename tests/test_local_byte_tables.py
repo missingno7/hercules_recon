@@ -175,14 +175,14 @@ class LocalByteTableTests(unittest.TestCase):
         self.assertTrue(results[0]['exact'])
         self.assertEqual(results[0]['byte_table_checks'][0]['size'], 8)
 
-    def test_normal_gate_retains_legacy_dispatch_without_profile(self):
+    def test_normal_gate_routes_table_records_without_byte_profile(self):
         original = copy.deepcopy(self.table)
         for tables in ([], [{k: v for k, v in original.items() if k != 'profile'}],
                        [dict(original, profile='other-profile')], None, [None]):
             with self.subTest(tables=tables):
                 self.bindings['tables'] = tables
-                with patch.object(masked, 'relocated_compare', side_effect=StopIteration) as legacy, \
-                        patch.object(local, 'relocated_compare', side_effect=AssertionError('unexpected opt-in')):
+                with patch.object(local, 'relocated_compare', side_effect=StopIteration) as legacy, \
+                        patch.object(masked, 'relocated_compare', side_effect=AssertionError('unhardened table route')):
                     with self.assertRaises(StopIteration):
                         self.normal_gate()
                 legacy.assert_called_once()
@@ -214,6 +214,10 @@ class LocalByteTableTests(unittest.TestCase):
             '    verify_accesses(byte_tables, records, operand_fields, rva)\n    fields, actual_offsets = set(), set()')
         expected = expected.replace('    if alias_checks:\n',
             "    if byte_tables:\n        result['byte_table_checks'] = byte_tables\n    if alias_checks:\n")
+        self.assertEqual(expected.count("                if not positions <= table_bytes:\n                    raise ValueError('Local table binding exceeds declared jump table')\n"), 1)
+        expected = expected.replace("                if not positions <= table_bytes:\n                    raise ValueError('Local table binding exceeds declared jump table')\n", "                if not positions <= table_bytes:\n                    raise ValueError('Local table binding exceeds declared jump table')\n                if sum(table['offset'] == dest - rva and table['size'] == extent\n                       for table in tables) != 1:\n                    raise ValueError('Local table binding must equal exactly one declared table')\n", 1)
+        self.assertEqual(expected.count('    has offset, size and evidence and delimits an embedded DIR32 jump table.\n'), 1)
+        expected = expected.replace('    has offset, size and evidence and delimits an embedded DIR32 jump table.\n', '    has offset, size and evidence and delimits an embedded DIR32 jump table;\n    coff-local-byte-table-v1 additionally declares a complete relocation-free\n    byte allocation with its symbol and SHA-256. Each local table record must\n    equal exactly one declared table, never a subrange or a union of tables.\n', 1)
         self.assertEqual(inspect.getsource(local.relocated_compare), expected)
 
 

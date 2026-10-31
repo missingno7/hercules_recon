@@ -191,6 +191,15 @@ class FixedDisp32Tests(unittest.TestCase):
 
 
     def test_pinned_comparator_preservation(self):
+        import local_byte_tables
+        self.assertIn('from local_byte_tables import (PROFILE as BYTE_TABLE_PROFILE, verify_table as verify_byte_table,\n                               verify_accesses as verify_byte_table_accesses)\n', inspect.getsource(fixed))
+        self.assertIs(fixed.verify_byte_table, local_byte_tables.verify_table)
+        self.assertIs(fixed.verify_byte_table_accesses, local_byte_tables.verify_accesses)
+        self.assertEqual(fixed.BYTE_TABLE_PROFILE, local_byte_tables.PROFILE)
+        self.assertEqual(hashlib.sha256(inspect.getsource(local_byte_tables.verify_table).encode()).hexdigest(),
+                         '179513736a7b56968be37bd1efab089919ca8b3d6841f1ba51bce82d5f2f60ff')
+        self.assertEqual(hashlib.sha256(inspect.getsource(local_byte_tables.verify_accesses).encode()).hexdigest(),
+                         'fa404f535688e723aefb97f4ee50f4eb6d3fcf562b648d2a1dcc0f5c6ccf66e3')
         original = inspect.getsource(masked.relocated_compare)
         expected = original.replace("record['anchor_profile'] != 'cmp-test-absolute-v1'",
                                     "record['anchor_profile'] not in ('cmp-test-absolute-v1', PROFILE)")
@@ -284,6 +293,48 @@ class FixedDisp32Tests(unittest.TestCase):
             ("        elif kind == 'data':\n            payload = interval(dest, extent, False)\n",
              "        elif kind == 'data' and record.get('data_profile') == 'file-data-owner-v1':\n            from file_data_owner import verify_record as verify_file_data\n            payload_identities.setdefault(symbol, ('function', rva, size, None, None, None, None))\n            data_checks.append(verify_file_data(pe, sym, name, record, (storage_owners or {}).get(name),\n                                                rva, size, interval, errors, operand_fields,\n                                                payload_identities))\n        elif kind == 'data':\n            payload = interval(dest, extent, False)\n"),
         ]
+        changes += [('    table_bytes, table_starts = set(), set()',
+          '    table_bytes, table_starts = set(), set()\n    byte_tables = []'),
+         ("        raise ValueError('Invalid table inventory')\n    for table in tables:",
+          "        raise ValueError('Invalid table inventory')\n"
+          "    byte_table_mode = any(isinstance(table, dict) and table.get('profile') == "
+          'BYTE_TABLE_PROFILE\n'
+          '                          for table in tables)\n'
+          '    for table in tables:'),
+         ('        cells = set(range(off, off + length))\n',
+          "        if table.get('profile') == BYTE_TABLE_PROFILE and (off + length > size or length > "
+          '65536):\n'
+          "            raise ValueError('Invalid bounded byte table extent')\n"
+          '        cells = set(range(off, off + length))\n'),
+         ('        if length % 4 or off + length > size or table_bytes & cells:',
+          "        if table.get('profile') == BYTE_TABLE_PROFILE:\n"
+          '            byte_tables.append(verify_byte_table(coff, section, number, pe, rva, table, '
+          'records))\n'
+          '            if table_bytes & cells:\n'
+          "                raise ValueError('Overlapping byte table')\n"
+          '            table_bytes |= cells\n'
+          '            continue\n'
+          "        if byte_table_mode and 'profile' in table:\n"
+          "            raise ValueError('Unsupported explicit table profile')\n"
+          '        if length % 4 or off + length > size or table_bytes & cells:'),
+         ('    fields, actual_offsets = set(), set()',
+          '    verify_byte_table_accesses(byte_tables, records, operand_fields, rva)\n'
+          '    fields, actual_offsets = set(), set()'),
+         ('    if alias_checks:\n',
+          "    if byte_tables:\n        result['byte_table_checks'] = byte_tables\n    if alias_checks:\n")]
+        changes += [('                if not positions <= table_bytes:\n'
+          "                    raise ValueError('Local table binding exceeds declared jump table')\n",
+          '                if not positions <= table_bytes:\n'
+          "                    raise ValueError('Local table binding exceeds declared jump table')\n"
+          "                if sum(table['offset'] == dest - rva and table['size'] == extent\n"
+          '                       for table in tables) != 1:\n'
+          "                    raise ValueError('Local table binding must equal exactly one declared "
+          "table')\n"),
+         ('    has offset, size and evidence and delimits an embedded DIR32 jump table.\n',
+          '    has offset, size and evidence and delimits an embedded DIR32 jump table;\n'
+          '    coff-local-byte-table-v1 additionally declares a complete relocation-free\n'
+          '    byte allocation with its symbol and SHA-256. Each local table record must\n'
+          '    equal exactly one declared table, never a subrange or a union of tables.\n')]
         for old, new in changes:
             self.assertEqual(expected.count(old), 1, old)
             expected = expected.replace(old, new, 1)

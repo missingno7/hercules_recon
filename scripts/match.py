@@ -554,31 +554,20 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
             if row['id'] in references:
                 from masked import relocated_compare
                 binding, evidence, path = references[row['id']]
-                if any(record.get('anchor_profile') in ('fixed-i386-disp32-v1', 'fixed-i386-moffs32-v1', 'fixed-i386-regimm-v1')
-                       for record in binding.get('symbols', {}).values()):
-                    from fixed_disp32 import relocated_compare
                 tables = binding.get('tables', [])
-                if isinstance(tables, list) and any(isinstance(table, dict) and
-                        table.get('profile') == 'coff-local-byte-table-v1' for table in tables):
+                byte_tables = isinstance(tables, list) and any(isinstance(table, dict) and
+                    table.get('profile') == 'coff-local-byte-table-v1' for table in tables)
+                hub = any(record.get('anchor_profile') in ('fixed-i386-disp32-v1', 'fixed-i386-moffs32-v1', 'fixed-i386-regimm-v1')
+                          or 'access_profile' in record or 'alias_profile' in record
+                          or record.get('data_profile') == 'file-data-owner-v1'
+                          for record in binding.get('symbols', {}).values())
+                hub = hub or any(isinstance(call, dict) and call.get('profile') == 'opaque-indirect-call-v1'
+                                 for call in binding.get('indirect_calls', []))
+                if hub:
+                    from fixed_disp32 import relocated_compare
+                elif byte_tables or any(record.get('kind') == 'local' and record.get('role') == 'table'
+                                        for record in binding.get('symbols', {}).values()):
                     from local_byte_tables import relocated_compare
-                if any('access_profile' in record or 'alias_profile' in record
-                       for record in binding.get('symbols', {}).values()):
-                    if any(isinstance(table, dict) and table.get('profile') == 'coff-local-byte-table-v1'
-                           for table in tables):
-                        raise ValueError('Indexed access and local byte table profiles cannot be combined')
-                    from fixed_disp32 import relocated_compare
-                if any(isinstance(call, dict) and call.get('profile') == 'opaque-indirect-call-v1'
-                       for call in binding.get('indirect_calls', [])):
-                    if any(isinstance(table, dict) and table.get('profile') == 'coff-local-byte-table-v1'
-                           for table in tables):
-                        raise ValueError('Opaque indirect calls and local byte table profiles cannot be combined')
-                    from fixed_disp32 import relocated_compare
-                if any(isinstance(record, dict) and record.get('data_profile') == 'file-data-owner-v1'
-                       for record in binding.get('symbols', {}).values()):
-                    if any(isinstance(table, dict) and table.get('profile') == 'coff-local-byte-table-v1'
-                           for table in tables):
-                        raise ValueError('File data owners and local byte table profiles cannot be combined')
-                    from fixed_disp32 import relocated_compare
                 owners = {name: compiled[key][0] for (row_id, name), key in storage_profiles.items() if row_id == row['id']}
                 aliases = {name: compiled[alias_profiles[(row['id'], name)]][0]
                            for row_id, name in alias_records if row_id == row['id']}
