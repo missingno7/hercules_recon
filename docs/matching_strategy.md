@@ -21,7 +21,7 @@ Blocker families, by rows touched (a row counts once per family):
 | Register/register-based indirect CALL | 153 rows contain one | 35 | opaque-indirect-call-v1 (2026-10-31) |
 | EXE statically linked library callees | ~60 rows | 19+ | closed library-member identity (not yet proven) |
 
-Accepted after the wave-j integrations so far: **1,248** (commit 4079122).
+Accepted after the wave-j integrations so far: **1,249** (commit 8edebd9).
 
 Highest single gates: ENG1 0x26de0 (16 callers), shared remove_actor_preserving_resource
 (ENG1 0x27410 + ENG3 0x1cd40, 18), TITLE title_054f0 (20) and title_164b0 (14), EXE operator delete
@@ -142,5 +142,13 @@ Independent anchors, not owners or content, now limit storage identities:
   * Initialized objects are identified by a unique placement of the complete allocation in the image, the
     established byte-table and string-review evidence. 6 rows accepted so far.
   * Re-staged units often fail the same-section layout check, so their `.bss` ownership needs review.
-- file-data-owner-v1 (dataform): sound, but its anchor rule and the missing re-anchor support must follow the
-  adopted planning rule before integration.
+- file-data-owner-v1 landed (7df80b5) after a second adversarial review fixed two holes:
+  * payload pointer children must see the caller's identities;
+  * the owner must be the last object in its section, so padding never counts as extent.
+  It claims the owner object's storage only; first acceptance is eng3.24f50, with owner
+  src/eng3/render_scale_39518.c. Typed initializers are for metadata tables only, never asset payloads.
+- Comparator routing: rows that need a local byte table together with another opt-in form are refused
+  (eng1.eng1_native_code_target_00f4f0, eng1.interpret_word_stream). Unifying them in the fixed_disp32 hub is
+  in progress (work/velocity_j/solCMP is unrelated; see work/velocity_j/solCOMB).
+- Rows whose new masked boundary covers an accepted proof's anchor cannot be promoted (eng1.02d80,
+  eng1.02920); their callers are unaffected. Re-anchor before promoting such hosts when a witness exists.
