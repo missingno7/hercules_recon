@@ -21,7 +21,7 @@ Blocker families, by rows touched (a row counts once per family):
 | Register/register-based indirect CALL | 153 rows contain one | 35 | opaque-indirect-call-v1 (2026-10-31) |
 | EXE statically linked library callees | ~60 rows | 19+ | closed library-member identity (not yet proven) |
 
-Accepted after the wave-j integrations so far: **1,249** (commit 8edebd9).
+Accepted after the wave-j integrations so far: **1,255** (commit d5e48a6).
 
 Highest single gates: ENG1 0x26de0 (16 callers), shared remove_actor_preserving_resource
 (ENG1 0x27410 + ENG3 0x1cd40, 18), TITLE title_054f0 (20) and title_164b0 (14), EXE operator delete
@@ -147,8 +147,46 @@ Independent anchors, not owners or content, now limit storage identities:
   * the owner must be the last object in its section, so padding never counts as extent.
   It claims the owner object's storage only; first acceptance is eng3.24f50, with owner
   src/eng3/render_scale_39518.c. Typed initializers are for metadata tables only, never asset payloads.
-- Comparator routing: rows that need a local byte table together with another opt-in form are refused
-  (eng1.eng1_native_code_target_00f4f0, eng1.interpret_word_stream). Unifying them in the fixed_disp32 hub is
-  in progress (work/velocity_j/solCMP is unrelated; see work/velocity_j/solCOMB).
+- Comparator routing (a9abd48):
+  * The fixed_disp32 hub also accepts coff-local-byte-table-v1, so byte tables combine with the other opt-in
+    forms (eng1.interpret_word_stream accepted).
+  * A pre-existing gap in every comparator is closed: a local table record must equal exactly one declared
+    table. Rows with table records route to a hardened comparator; the pinned masked.py keeps the old rule
+    and no longer receives them.
+  * eng1_native_code_target_00f4f0 stays refused because its byte table has two native placements.
+- EXE library members: 8 closures pass the draft library-member verifier, but no EXE row frees until an EXE
+  storage cell is proven, and 11 rows are one scalar cell away (work/velocity_j/solEXE/). The EXE bottleneck is
+  storage identity on a relocation-stripped image; the library form waits for it.
+- Wrapper unification (one name per interface slot in all modules) is packaged in
+  work/velocity_j/aliasplan/wrappers as W1-W6 plus W3. Fix M (the two misattributed ENG3 wrappers) and storage S2
+  have landed. W1 landed as 6786a36. Its first refusal exposed a binding_rename gap: re-issued rows were compared with
+  the parent manifest's provenance. Since 2cb6e73 they are compared with their descendant manifest, and the binding
+  digest is now compared too. The batches free only 4 rows directly; their value is fewer alias blockers and one name
+  per slot.
+
+## Wave k (2026-10-31, census queue_v)
+
+- Pending-row blockers (rows touched / rows blocked by that kind alone):
+  | Kind | Rows touched | Blocked by it alone |
+  | --- | ---: | ---: |
+  | data_zero | 507 | 212 |
+  | data_file | 267 | 58 |
+  | function_unknown | 254 | 73 |
+  | data_same_unit | 196 | 57 |
+  | function_near | 88 | 14 |
+  Of the function_unknown callee destinations, 132 already have a row under another name (the wrapper and alias
+  migrations remove them); the rest are missing functions. Most of those are EXE library members; about 60 are
+  ENG1/ENG3 game functions in unrecorded gaps.
+- EXE: 234 pending rows, 110 blocked only by data identities and 77 only by zero storage. An EXE storage identity
+  form is the largest single lever. Lane solXS (Sol) is testing a relocation-free anchor: a decoded absolute memory
+  operand at a verified instruction boundary, never an immediate.
+- Ten Luna lanes (k01-k10) reconstruct missing ENG1/ENG3 callees and the TITLE u02b70 near rows. They work only in
+  units outside the wrapper batches, or deliver fragments.
+- Tail jumps through proven cells: the three slot-0x258 wrappers (eng1.engine_host_update, eng3.1fec0, title.0ca00)
+  fail fixed-slot-v1 because the EXE provider's stack effect is unresolved. A sibling opaque form,
+  opaque-tail-jump-v1, admits only the absolute proven-cell JMP and claims no target or ABI. It is in implementation
+  and will get an adversarial review before use.
+- Storage migration S3 (solZ2 classes a and b, with T2 renames and rebinds for accepted callers) is being packaged by
+  the naming agent on top of the wrapper chain.
 - Rows whose new masked boundary covers an accepted proof's anchor cannot be promoted (eng1.02d80,
   eng1.02920); their callers are unaffected. Re-anchor before promoting such hosts when a witness exists.
