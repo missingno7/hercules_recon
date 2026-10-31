@@ -34,20 +34,20 @@ extern const u8 g_frame_setup_callback_58a60[];
 
 /* Recovered providers share these PC addresses; names remain diagnostic. */
 extern void __cdecl frame_configuration_280f0(void);
-extern void *__cdecl engine_pool_allocate(void **, u32, u32);
-extern void __cdecl dispatch_engine_2c7e0(void);
+extern void *__cdecl title_0c450(void **, u32, u32);
+extern void __cdecl title_0c880(void);
 extern void __cdecl dispatch_local_05710(void);
 extern void __cdecl frame_context_defaults_15600(void);
-extern EngineNoArgCallback __cdecl dispatch_engine_2c640(EngineNoArgCallback);
-extern int __cdecl engine_file_cancel(void);
-extern void __cdecl dispatch_engine_2c280(void);
-extern void __cdecl dispatch_engine_2c2d0(void *);
-extern void __cdecl dispatch_engine_2c2e0(u32);
-extern void __cdecl dispatch_engine_2c5e0(const void *, u32, u32, u32);
-extern void __cdecl dispatch_engine_2c500(void *, void *);
+extern EngineNoArgCallback __cdecl title_0c6e0(EngineNoArgCallback);
+extern int __cdecl title_0c2d0(void);
+extern void __cdecl title_0c300(void);
+extern void __cdecl title_0c330(void *);
+extern void __cdecl title_0c340(u32);
+extern void __cdecl title_0c670(const void *, u32, u32, u32);
+extern void __cdecl title_0c520(void *, void *);
 extern void __cdecl dispatch_engine_2c980(void *, u32, u32, u32, u32);
-extern void __cdecl dispatch_engine_2c8f0(void *);
-extern void __cdecl dispatch_engine_2c8e0(void *);
+extern void __cdecl title_0ca20(void *);
+extern void __cdecl title_0ca10(void *);
 extern void __cdecl dispatch_local_02f30(void);
 extern void __cdecl dispatch_local_03270(void *, void *);
 extern void __cdecl dispatch_local_15090(void);
@@ -71,26 +71,26 @@ void __cdecl dispatch_local_1f0f0(void)
     frame_configuration_280f0();
 
     bytes = 0x134UL * (unsigned long)g_configuration_word_713b4;
-    engine_pool_allocate(&g_frame_owner_72860, bytes, 16UL);
+    title_0c450(&g_frame_owner_72860, bytes, 16UL);
 
     bytes = 0xecUL * (unsigned long)g_configuration_word_71432 + 0x134UL;
-    engine_pool_allocate(&g_frame_owner_73494, bytes, 16UL);
+    title_0c450(&g_frame_owner_73494, bytes, 16UL);
 
     bytes = 0x94UL * (unsigned long)g_configuration_word_713ba + 0x134UL;
-    engine_pool_allocate(&g_frame_owner_734e0, bytes, 16UL);
+    title_0c450(&g_frame_owner_734e0, bytes, 16UL);
 
-    dispatch_engine_2c7e0();
-    engine_pool_allocate((void **)&g_dispatch_frame_base_71ec8,
+    title_0c880();
+    title_0c450((void **)&g_dispatch_frame_base_71ec8,
                           0x2910UL, 16UL);
 
     level = (int)(s8)g_engine_interface.context_004->unknown_000[0];
     bytes = 80UL * (unsigned long)*(u16 *)(g_frame_config_5df08 +
                                            level * 28 + 6);
-    engine_pool_allocate(&g_frame_owner_70c80, bytes, 16UL);
+    title_0c450(&g_frame_owner_70c80, bytes, 16UL);
 
-    engine_pool_allocate(&g_frame_owner_7348c, 0x4000UL, 0UL);
-    engine_pool_allocate(&g_frame_owner_72870, 0x8000UL, 0UL);
-    engine_pool_allocate(&g_frame_owner_734e8, 0x300UL, 0UL);
+    title_0c450(&g_frame_owner_7348c, 0x4000UL, 0UL);
+    title_0c450(&g_frame_owner_72870, 0x8000UL, 0UL);
+    title_0c450(&g_frame_owner_734e8, 0x300UL, 0UL);
 
     memset(g_frame_owner_72870, 0, 0x8000UL);
     memset(g_frame_owner_734e8, 0, 0x300UL);
@@ -104,34 +104,34 @@ void __cdecl dispatch_local_1f220(void)
     ResourceCallbackContext *context;
 
     g_dispatch_callback_flag_71ec0 = 0;
-    dispatch_engine_2c640((EngineNoArgCallback)0);
+    title_0c6e0((EngineNoArgCallback)0);
     dispatch_engine_2cc40((EngineNoArgCallback)0);
 
     context = g_engine_interface.context_004;
     if (context->mode_09c == 1) {
-        engine_file_cancel();
+        title_0c2d0();
         context = g_engine_interface.context_004;
         if (context->load_failed != 0)
             context->load_failed(0);
     } else if (context->mode_09c != 0) {
-        dispatch_engine_2c280();
+        title_0c300();
     }
 
-    dispatch_engine_2c630(0);
+    title_0c6d0(0);
     dispatch_engine_2cc30(0);
 
     if (g_frame_owner_72860 != 0)
-        dispatch_engine_2c2d0(g_frame_owner_72860);
+        title_0c330(g_frame_owner_72860);
     if (g_frame_owner_73494 != 0)
-        dispatch_engine_2c2d0(g_frame_owner_73494);
+        title_0c330(g_frame_owner_73494);
     if (g_frame_owner_734e0 != 0)
-        dispatch_engine_2c2d0(g_frame_owner_734e0);
+        title_0c330(g_frame_owner_734e0);
     if (g_frame_owner_70c80 != 0)
-        dispatch_engine_2c2d0(g_frame_owner_70c80);
+        title_0c330(g_frame_owner_70c80);
     if (g_dispatch_frame_base_71ec8 != 0)
-        dispatch_engine_2c2d0(g_dispatch_frame_base_71ec8);
+        title_0c330(g_dispatch_frame_base_71ec8);
 
-    dispatch_engine_2c2e0(0);
+    title_0c340(0);
 
     context = g_engine_interface.context_004;
     *(u32 *)((u8 *)context + 0x6c) = *(u32 *)((u8 *)context + 0x7c);
@@ -171,7 +171,7 @@ void __cdecl dispatch_local_1f320(void)
     g_frame_byte_70d01 = 0xff;
 
     g_dispatch_frame_current_71ec4 = g_dispatch_frame_base_71ec8;
-    dispatch_engine_2c5e0(g_frame_setup_callback_58a60, 0, 0, 0);
+    title_0c670(g_frame_setup_callback_58a60, 0, 0, 0);
 
     context = g_engine_interface.context_004;
     level = (int)(s8)context->unknown_000[0];
@@ -224,7 +224,7 @@ void __cdecl dispatch_local_1f320(void)
     }
 
     frame = g_dispatch_frame_base_71ec8;
-    dispatch_engine_2c500(frame, frame + 0x1488);
+    title_0c520(frame, frame + 0x1488);
 
     context = g_engine_interface.context_004;
     level = (int)(s8)context->unknown_000[0];
@@ -259,15 +259,15 @@ void __cdecl dispatch_local_1f320(void)
     g_frame_global_73498 = 1;
     dispatch_local_058b0();
 
-    dispatch_engine_2c570(g_dispatch_frame_current_71ec4);
-    dispatch_engine_2c570(g_dispatch_frame_current_71ec4);
+    title_0c5b0(g_dispatch_frame_current_71ec4);
+    title_0c5b0(g_dispatch_frame_current_71ec4);
     dispatch_local_2f840();
     dispatch_local_2fb70();
     dispatch_local_2da90();
     dispatch_local_262a0();
     dispatch_local_050d0();
-    dispatch_engine_2c8f0(g_dispatch_frame_current_71ec4);
-    dispatch_engine_2c8e0(g_dispatch_frame_current_71ec4 + 0x5c);
+    title_0ca20(g_dispatch_frame_current_71ec4);
+    title_0ca10(g_dispatch_frame_current_71ec4 + 0x5c);
 
     frame = g_dispatch_frame_base_71ec8;
     if (g_dispatch_frame_current_71ec4 == frame)

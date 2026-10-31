@@ -13,17 +13,17 @@ extern ActorResource g_actor_resources[81];
 ResourceCallbackContext *g_resource_context;
 extern void __cdecl eng1_target_03910(const unsigned char *,
                                                 const unsigned char *);
-extern int __cdecl engine_file_cancel(void);
-extern void __cdecl dispatch_engine_2c2d0(void *);
+extern int __cdecl title_0c2d0(void);
+extern void __cdecl title_0c330(void *);
 
 void __cdecl host_cancel_load(void)
 {
-    (void)engine_file_cancel();
+    (void)title_0c2d0();
 }
 
 void __cdecl release_resource_buffer(void *buffer)
 {
-    dispatch_engine_2c2d0(buffer);
+    title_0c330(buffer);
 }
 
 static unsigned long checks;

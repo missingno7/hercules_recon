@@ -121,7 +121,7 @@ static void reset_spies(void)
     change_root_on_second_upload = 0;
 }
 
-unsigned long __cdecl engine_pool_compact(int pool_id)
+unsigned long __cdecl title_0c310(int pool_id)
 {
     unsigned long result;
     (void)pool_id;
@@ -133,7 +133,7 @@ unsigned long __cdecl engine_pool_compact(int pool_id)
     return result;
 }
 
-void *__cdecl engine_pool_allocate(void **output_slot,
+void *__cdecl title_0c450(void **output_slot,
                                   unsigned long bytes,
                                   unsigned long flags)
 {
@@ -152,7 +152,7 @@ void *__cdecl engine_pool_allocate(void **output_slot,
     return allocation_result;
 }
 
-int __cdecl engine_file_load_async(const char *prefix, const char *suffix,
+int __cdecl title_0c2a0(const char *prefix, const char *suffix,
                                    int sector_offset, void *destination,
                                    unsigned long bytes)
 {
@@ -165,14 +165,14 @@ int __cdecl engine_file_load_async(const char *prefix, const char *suffix,
     return 0;
 }
 
-void __cdecl dispatch_engine_2c2d0(void *pointer)
+void __cdecl title_0c330(void *pointer)
 {
     if (free_count < 64)
         freed_values[free_count] = pointer;
     ++free_count;
 }
 
-void __cdecl dispatch_engine_2c280(void)
+void __cdecl title_0c300(void)
 {
     ++host_finish_count;
 }

@@ -31,17 +31,17 @@ extern u8 *g_resource_root;
 extern u32 g_frame_file_size_70d20;
 extern u8 g_frame_transition_flag_5ce48;
 
-extern unsigned long __cdecl engine_pool_compact(int pool_id);
-extern unsigned long __cdecl engine_file_load_sync(
+extern unsigned long __cdecl title_0c310(int pool_id);
+extern unsigned long __cdecl title_0c3f0(
     const char *prefix, const char *suffix, void *destination,
     unsigned long bytes);
-extern void *__cdecl engine_pool_allocate(
+extern void *__cdecl title_0c450(
     void **output_slot, unsigned long bytes, unsigned long flags);
 
 extern unsigned long __cdecl dispatch_engine_2cc30(unsigned long value);
-extern void __cdecl dispatch_engine_2c630(unsigned long value);
-extern void __cdecl dispatch_engine_2c5a0(unsigned long value);
-extern void __cdecl dispatch_engine_2c2d0(void *pointer);
+extern void __cdecl title_0c6d0(unsigned long value);
+extern void __cdecl title_0c5d0(unsigned long value);
+extern void __cdecl title_0c330(void *pointer);
 extern unsigned long __cdecl eng1_target_02c2a0(
     unsigned long first, unsigned long second);             /* RVA 0x2c2a0 */
 extern void __cdecl eng1_target_02c4a0(
@@ -94,19 +94,19 @@ unsigned long __cdecl dispatch_local_1f750(void)
     unsigned long loaded_bytes;
     int level;
 
-    dispatch_engine_2c630(0UL);
-    engine_pool_compact(0);
+    title_0c6d0(0UL);
+    title_0c310(0);
 
     context = g_engine_interface.context_004;
     level = (int)(s8)context->unknown_000[0];
     prefix = (const char *)eng1_descriptor_rows_5a690[level].pointer_000;
     suffix = (const char *)(g_frame_setup_callback_58a60 + 8);
-    engine_file_load_sync(prefix, suffix, file_header, 8UL);
+    title_0c3f0(prefix, suffix, file_header, 8UL);
 
     file_bytes = file_header[1];
     g_frame_file_size_70d20 = file_bytes;
     rounded_bytes = (file_bytes & 0xfffff800UL) + 0x1000UL;
-    if (engine_pool_allocate((void **)&g_resource_root,
+    if (title_0c450((void **)&g_resource_root,
                              rounded_bytes, 0UL) == 0)
         return 0xffffffffUL;
 
@@ -115,7 +115,7 @@ unsigned long __cdecl dispatch_local_1f750(void)
 
     level = (int)(s8)context->unknown_000[0];
     prefix = (const char *)eng1_descriptor_rows_5a690[level].pointer_000;
-    engine_file_load_sync(prefix, suffix, g_resource_root, file_bytes);
+    title_0c3f0(prefix, suffix, g_resource_root, file_bytes);
 
     context = g_engine_interface.context_004;
     *(u32 *)((u8 *)context + 0x90) = *(u32 *)g_resource_root;
@@ -126,9 +126,9 @@ unsigned long __cdecl dispatch_local_1f750(void)
             break;
     }
 
-    dispatch_engine_2c5a0(2UL);
+    title_0c5d0(2UL);
     loaded_bytes = eng1_target_01fc90(file_bytes);
-    dispatch_engine_2c630(0UL);
+    title_0c6d0(0UL);
     eng1_target_02c4a0(g_resource_root, loaded_bytes, 0UL, 0UL);
     return 0UL;
 }
@@ -177,7 +177,7 @@ void __cdecl dispatch_local_1f870(int force_update)
                 slot_index = row_index + category * 8;
                 slot = g_allocated_row_slots_71e40[slot_index];
                 if (slot != 0)
-                    dispatch_engine_2c2d0(slot);
+                    title_0c330(slot);
             }
         }
     }

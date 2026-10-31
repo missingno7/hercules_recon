@@ -10,7 +10,7 @@ void __cdecl engine_dispatch(void)
 
     entry_state = g_dispatch_entry_state_6fcec;
     if (entry_state == 0) {
-        dispatch_engine_2c860(8, 8);
+        title_0c9c0(8, 8);
         g_engine_interface.context_004->unknown_000[1] = 0;
         g_engine_interface.context_004->unknown_000[2] = 0;
         g_engine_interface.context_004->unknown_000[0x0a] = 1;
@@ -18,7 +18,7 @@ void __cdecl engine_dispatch(void)
         g_engine_interface.context_004->unknown_094 = g_dispatch_global_58af8;
         g_engine_interface.context_004->unknown_048 = 0x13546547UL;
         g_engine_interface.context_004->unknown_04c = 0xecab9ab8UL;
-        dispatch_engine_2c350();
+        title_0c3b0();
         dispatch_local_083d3();
         dispatch_local_082b7(0);
         descriptor = g_dispatch_descriptors_5a6a4[
@@ -32,7 +32,7 @@ void __cdecl engine_dispatch(void)
         dispatch_local_32b10();
         dispatch_local_255f0();
         dispatch_local_05ea0();
-        dispatch_engine_2c840(
+        title_0c990(
             (int)(s8)g_engine_interface.context_004->unknown_000[0], 0);
     } else if (entry_state == 1) {
         goto iteration;
@@ -42,19 +42,19 @@ void __cdecl engine_dispatch(void)
 
 restart:
     dispatch_local_1f320();
-    dispatch_engine_2c5a0(4);
-    dispatch_engine_2c360();
+    title_0c5d0(4);
+    title_0c3c0();
     if (g_dispatch_startup_gate_6fce8 == 0)
-        dispatch_engine_2c540(0, 0);
+        title_0c560(0, 0);
     g_dispatch_startup_gate_6fce8 = 1;
     g_dispatch_callback_flag_71ec0 = 0;
     dispatch_engine_2cc40(dispatch_completion_gate);
     g_dispatch_key_7286c = 8;
     g_dispatch_setting_4d858 = 128;
     g_dispatch_word_6ee80 = 0;
-    dispatch_engine_2c4e0(0);
+    title_0c4f0(0);
     g_engine_interface.context_004->unknown_1b30 = 256;
-    dispatch_engine_2c520(1);
+    title_0c540(1);
     g_engine_interface.context_004->unknown_03c = g_dispatch_global_6ff88;
     g_engine_interface.context_004->unknown_000[4] = 0;
     g_engine_interface.context_004->unknown_000[5] = 1;
@@ -65,17 +65,17 @@ restart:
     g_dispatch_entry_state_6fcec = 1;
 
 iteration:
-    dispatch_engine_2c270();
+    title_0c2f0();
     if (g_engine_interface.context_004->unknown_000[0] == 3)
         dispatch_local_0e670();
     interface_argument = g_engine_interface.opaque_010[0] + 0x400UL;
     g_engine_interface.context_004->unknown_034 =
         dispatch_engine_2ca40(interface_argument);
-    dispatch_engine_2c420();
+    title_0c470();
     dispatch_local_06005();
     dispatch_local_02180();
     dispatch_local_1f870(1);
-    dispatch_engine_2c440();
+    title_0c490();
     dispatch_local_05600();
     if (g_engine_interface.context_004->unknown_000[4] == 0) {
         dispatch_local_2fb70();
@@ -97,7 +97,7 @@ iteration:
     if (g_engine_interface.context_004->unknown_040 == 0)
         dispatch_local_2da90();
     dispatch_local_1f6f0();
-    dispatch_engine_2c630(0);
+    title_0c6d0(0);
     if (g_dispatch_global_6ff88 <
         g_engine_interface.context_004->unknown_03c + 1UL)
         dispatch_engine_2cc30(0);
@@ -105,12 +105,12 @@ iteration:
     g_engine_interface.context_004->unknown_054 = dispatch_engine_2cc30(0);
     g_dispatch_callback_flag_71ec0 = 1;
     g_engine_interface.context_004->unknown_03c = g_dispatch_global_6ff88;
-    dispatch_engine_2c570(g_dispatch_frame_current_71ec4);
+    title_0c5b0(g_dispatch_frame_current_71ec4);
     if (g_engine_interface.context_004->unknown_000[4] == 0)
         dispatch_local_02cb0();
     dispatch_local_050d0();
     dispatch_local_058b0();
-    dispatch_engine_2c620(g_dispatch_frame_current_71ec4 + 0x88);
+    title_0c6b0(g_dispatch_frame_current_71ec4 + 0x88);
     dispatch_local_0666b();
     dispatch_engine_2ca40(g_engine_interface.context_004->unknown_034);
     frame_base = g_dispatch_frame_base_71ec8;

@@ -555,10 +555,10 @@ PROFILES = {
                  'src/eng1/frame_lifecycle_bridges.c'],
         spans=[(0x33e0, 0x30), (0x3410, 0x60)], cases=3,
         flags={'src/shared/resource_provider.c': [
-            '/Dresource_allocate=engine_pool_allocate',
-            '/Dresource_file_length=engine_file_length',
-            '/Dresource_load_async=engine_file_load_async',
-            '/Dresource_load_sync=engine_file_load_sync']},
+            '/Dresource_allocate=title_0c450',
+            '/Dresource_file_length=title_0c350',
+            '/Dresource_load_async=title_0c2a0',
+            '/Dresource_load_sync=title_0c3f0']},
         scope='Three finite synchronous reload scenarios versus unpatched33e0/3410: all81 rows, provider globals, context, buffer contents and host callback order/arguments. Real source resource_provider and resource_load_complete; only host endpoints and valid-list guard counting are spies. Failure/reclaim/async paths and gameplay unverified.'),
 }
 

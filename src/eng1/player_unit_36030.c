@@ -290,7 +290,7 @@ void eng1_tile_draw_2ff0(FixedPosition *xy);
 void eng1_05c70(void *a, void *b, void *c, int d, unsigned char e);
 void dispatch_local_15d00(void);
 int dispatch_local_20ea0(short *bounds, int id, int mode, long x);
-void dispatch_engine_2c4e0(unsigned long value);
+void title_0c4f0(unsigned long value);
 void fx_clear_all_8117(void);
 void resource_cancel(int id);
 void resource_reset(int id);
@@ -1089,7 +1089,7 @@ void eng1_379e0(void)
                 g_dispatch_key_7286c = 0xf8;
                 g_dispatch_setting_4d858 = 0x80;
                 g_dispatch_word_6ee80 = 0;
-                dispatch_engine_2c4e0(1);
+                title_0c4f0(1);
                 g_engine_interface.context_004->unknown_1b30 = 4;
                 fx_clear_all_8117();
             }

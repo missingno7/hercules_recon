@@ -28,7 +28,7 @@ extern Eng1Dword g_frame_upload_pending_6ee7c;
 extern Eng1Dword g_frame_upload_cursor_6ee78;
 extern Eng1Byte g_frame_decode_scratch_6e660[0x400];
 extern void __cdecl eng1_incomplete_behavior(Eng1Dword, const char *);
-extern void __cdecl dispatch_engine_2c630(Eng1Dword);
+extern void __cdecl title_0c6d0(Eng1Dword);
 extern void __cdecl dispatch_local_050d0(void);
 
 static void __cdecl payload_unsupported(const char *reason)
@@ -293,10 +293,10 @@ Eng1Word __cdecl eng1_target_04ca0(const Eng1Byte *records,
             /* The real consumer drains the shared queue. Native resumes at
              * coordinate zero while retaining the first link key and chain;
              * both a full input queue and a two-record crossing are tested. */
-            dispatch_engine_2c630(0);
+            title_0c6d0(0);
             g_frame_upload_pending_6ee7c = pending;
             dispatch_local_050d0();
-            dispatch_engine_2c630(0);
+            title_0c6d0(0);
             pending = g_frame_upload_pending_6ee7c;
             if (pending != 0) {
                 payload_unsupported("0x4ca0 flush consumer left a nonempty queue beyond the measured 32-WORD prefix");

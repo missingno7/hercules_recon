@@ -247,7 +247,7 @@ extern void eng1_call_26730(void);
 extern SpatialType *g_configuration_dword_71398;
 extern unsigned char *g_root_group_rows_70d5c[];
 extern signed char g_root_count_70ed0;
-extern void *engine_pool_allocate(void **, unsigned long, unsigned long);
+extern void *title_0c450(void **, unsigned long, unsigned long);
 extern long g_camera_x_70ca0;
 extern long g_camera_center_x_70cdc;
 extern Actor *g_frame_global_734f4;

@@ -114,7 +114,7 @@ int main(void)
     EngineNoArgCallback previous;
 
     g_engine_interface.dispatch_2c860_24c = callback_signed_two;
-    dispatch_engine_2c860(0x11223344, -7);
+    title_0c9c0(0x11223344, -7);
     verify(calls_two == 1 && last_signed_first == 0x11223344 &&
            last_signed_second == -7);
 
@@ -123,11 +123,11 @@ int main(void)
     g_engine_interface.dispatch_2c420_084 = callback_noarg;
     g_engine_interface.dispatch_2c440_08c = callback_noarg;
     g_engine_interface.dispatch_2c270_02c = callback_noarg;
-    dispatch_engine_2c350();
-    dispatch_engine_2c360();
-    dispatch_engine_2c420();
-    dispatch_engine_2c440();
-    dispatch_engine_2c270();
+    title_0c3b0();
+    title_0c3c0();
+    title_0c470();
+    title_0c490();
+    title_0c2f0();
     verify(calls_noarg == 5);
 
     g_engine_interface.dispatch_2c3b0_06c = callback_one;
@@ -144,16 +144,16 @@ int main(void)
     verify(ret_b_calls == 1 && ret_b_argument == 0xfedcba98UL);
 
     g_engine_interface.dispatch_2c840_244 = callback_signed_two;
-    dispatch_engine_2c840(-2, 0x55667788);
+    title_0c990(-2, 0x55667788);
     verify(calls_two == 2 && last_signed_first == -2 &&
            last_signed_second == 0x55667788);
 
     g_engine_interface.dispatch_2c5a0_0ec = callback_one;
-    dispatch_engine_2c5a0(4);
+    title_0c5d0(4);
     verify(calls_one == 2 && last_first == 4);
 
     g_engine_interface.dispatch_2c540_0d4 = callback_two;
-    dispatch_engine_2c540(0x12345678UL, 0xabcdef01UL);
+    title_0c560(0x12345678UL, 0xabcdef01UL);
     verify(calls_two == 3 && last_first == 0x12345678UL &&
            last_second == 0xabcdef01UL);
 
@@ -165,10 +165,10 @@ int main(void)
     verify(previous == callback_gate_b && installed_callback == callback_gate_a);
 
     g_engine_interface.dispatch_2c4e0_0b8 = callback_one;
-    dispatch_engine_2c4e0(0x76543210UL);
+    title_0c4f0(0x76543210UL);
     verify(calls_one == 3 && last_first == 0x76543210UL);
     g_engine_interface.dispatch_2c520_0cc = callback_one;
-    dispatch_engine_2c520(1);
+    title_0c540(1);
     verify(calls_one == 4 && last_first == 1);
 
     g_engine_interface.dispatch_2ca40_2ec = callback_return_host_zero;
@@ -177,13 +177,13 @@ int main(void)
     verify(last_first == 0x0badc0deUL);
 
     g_engine_interface.dispatch_2c630_16c = callback_one;
-    dispatch_engine_2c630(0xa1b2c3d4UL);
+    title_0c6d0(0xa1b2c3d4UL);
     verify(calls_one == 5 && last_first == 0xa1b2c3d4UL);
     g_engine_interface.dispatch_2c570_0e0 = callback_pointer;
-    dispatch_engine_2c570(pointer_a);
+    title_0c5b0(pointer_a);
     verify(last_pointer == pointer_a);
     g_engine_interface.dispatch_2c620_164 = callback_pointer;
-    dispatch_engine_2c620(pointer_b);
+    title_0c6b0(pointer_b);
     verify(last_pointer == pointer_b);
 
     g_engine_interface.dispatch_2caa0_330 = callback_gate_a;

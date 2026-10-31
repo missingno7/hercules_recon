@@ -23,7 +23,7 @@ extern unsigned long g_reported_total_bytes;
 extern unsigned long g_resource_start_tick;
 extern void __cdecl eng1_target_033e0(const unsigned char *,
                                       const unsigned char *);
-extern void __cdecl dispatch_engine_2c2d0(void *);
+extern void __cdecl title_0c330(void *);
 
 ResourceCallbackContext *g_resource_context;
 
@@ -293,7 +293,7 @@ void __cdecl host_cancel_load(void)
 
 void __cdecl release_resource_buffer(void *buffer)
 {
-    dispatch_engine_2c2d0(buffer);
+    title_0c330(buffer);
 }
 
 typedef void (__cdecl *NativeEntry)(const unsigned char *,

@@ -97,7 +97,7 @@ extern void dispatch_local_24d0(int x, int y, int u, int v, int w, int h, int mo
 extern long g_eng1_setup_dword_6efac;
 extern long g_resource_transition_ticks_6efb0;
 extern long g_eng1_setup_dword_72114;
-extern void dispatch_engine_2c420(void);
+extern void title_0c470(void);
 extern void dispatch_engine_2c450(void);
 extern void title_0c4e0(void);
 extern void dispatch_engine_2c590(void);
@@ -214,7 +214,7 @@ extern long g_effect_sequence_6ee68;
 extern short g_frame_word_6ee84;
 extern short *g_sine_table_70f34;
 extern Rect16 g_effect_rect_4d7f0;
-extern void *engine_pool_allocate(void *slot, unsigned long size, unsigned long flags);
+extern void *title_0c450(void *slot, unsigned long size, unsigned long flags);
 extern void dispatch_engine_2ca00(PolyFT3 *p);
 extern u8 dispatch_local_056c0(void *palette, int key, int c, int d);
 extern u16 dispatch_engine_2c7c0(int x, int y);
@@ -360,7 +360,7 @@ void dispatch_local_02180(void)
             return;
         if (g_engine_interface.context->pressed & 0x4008) {
             eng1_02430();
-            dispatch_engine_2c420();
+            title_0c470();
             return;
         }
     }
@@ -502,7 +502,7 @@ int eng1_02500(Effect *e, EffectDescriptor *d)
     q = 0x100 / d->divisor;
     e->step = q;
     verts_size = n * sizeof(SVector);
-    if (!engine_pool_allocate(&e->polys, verts_size + n * 2 * sizeof(PolyFT3) + 0x400, 0))
+    if (!title_0c450(&e->polys, verts_size + n * 2 * sizeof(PolyFT3) + 0x400, 0))
         return 0;
     p0 = e->polys;
     e->verts = (SVector *)((u8 *)p0 + n * 2 * sizeof(PolyFT3));

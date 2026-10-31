@@ -166,20 +166,20 @@ void resource_reclaim(int a);
 void engine_shutdown(void);
 void dispatch_engine_2c200(void);
 int dispatch_engine_2c210(const char *prefix, const char *name);
-void engine_file_cancel(void);
-void dispatch_engine_2c270(void);
+void title_0c2d0(void);
+void title_0c2f0(void);
 void f_2c2c0(void);
-void dispatch_engine_2c2d0(void *handle);
+void title_0c330(void *handle);
 void f_2c310(int a, int b, int c, int d, int e);
 void dispatch_engine_2c370(const char *prefix, const char *name);
-void dispatch_engine_2c420(void);
+void title_0c470(void);
 void dispatch_engine_2c430(void);
-void dispatch_engine_2c4e0(int a);
+void title_0c4f0(int a);
 void dispatch_local_2c530(void (*callback)(void));
 void dispatch_engine_2c580(void);
 void dispatch_local_2c5b0(void);
-void dispatch_engine_2c630(int a);
-void dispatch_engine_2c640(int a);
+void title_0c6d0(int a);
+void title_0c6e0(int a);
 void snd_lock(void);
 void snd_unlock(void);
 void f_2c810(ClipRect *rect, int a, int b);
@@ -355,7 +355,7 @@ int game_state_60f9(void)
         resource_destroy(slot);
         g_slots_5cef0[slot].state_00 = 6;
         if (CTX->mode_09c == 1) {
-            engine_file_cancel();
+            title_0c2d0();
             if (CTX->load_failed_0b4)
                 CTX->load_failed_0b4(0);
         }
@@ -370,12 +370,12 @@ int game_state_60f9(void)
     case 18:
     case 19:
         if (CTX->mode_09c == 1) {
-            engine_file_cancel();
+            title_0c2d0();
             if (CTX->load_failed_0b4)
                 CTX->load_failed_0b4(0);
         }
         if (CTX->handle_0e4)
-            dispatch_engine_2c2d0(CTX->handle_0e4);
+            title_0c330(CTX->handle_0e4);
         dispatch_local_1f220();
         demo_title_646c();
         dispatch_engine_2c580();
@@ -383,15 +383,15 @@ int game_state_60f9(void)
         dispatch_engine_2c370(g_control_argument_6eefc, g_engine_paths[0]);
     case 33:
         if (CTX->mode_09c == 1) {
-            engine_file_cancel();
+            title_0c2d0();
             if (CTX->load_failed_0b4)
                 CTX->load_failed_0b4(0);
         }
         CTX->unknown_128 = 0;
         g_71ec0 = 0;
-        dispatch_engine_2c640(0);
+        title_0c6e0(0);
         dispatch_engine_2cc40(0);
-        dispatch_engine_2c630(0);
+        title_0c6d0(0);
         dispatch_engine_2cc30(0);
         fx_clear_all_8117();
         engine_shutdown();
@@ -399,7 +399,7 @@ int game_state_60f9(void)
     default:
         if (CTX->handle_0e4) {
             do {
-                dispatch_engine_2c270();
+                title_0c2f0();
                 dispatch_engine_2cc30(0);
                 fx_update_666b();
                 dispatch_engine_2c430();
@@ -447,11 +447,11 @@ int demo_title_646c(void)
     CTX->unknown_03c = g_dispatch_global_6ff88;
     CTX->unknown_128 = 10;
     dispatch_engine_2cc40(f_2c2c0);
-    dispatch_engine_2c4e0(1);
+    title_0c4f0(1);
     CTX->music_step_1b30 = 4;
     do {
-        dispatch_engine_2c420();
-        dispatch_engine_2c270();
+        title_0c470();
+        title_0c2f0();
         dispatch_engine_2cc30(0);
         fx_update_666b();
         if (!CTX->suppress_0e0 || !CTX->handle_0e4)

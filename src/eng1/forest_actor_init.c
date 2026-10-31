@@ -14,7 +14,7 @@ extern unsigned short g_pipeline_word_713ae;
 extern long g_camera_x_70ca0, g_camera_center_x_70cdc;
 extern unsigned long g_frame_global_734f4;
 extern void *g_pipeline_actor_7200c;
-extern void *__cdecl engine_pool_allocate(void **,unsigned long,unsigned long);
+extern void *__cdecl title_0c450(void **,unsigned long,unsigned long);
 extern void __cdecl eng1_native_code_target_028290(unsigned long);
 
 static ResourceKindInfo *kind_row(unsigned int index)
@@ -74,7 +74,7 @@ void __cdecl eng1_call_26040(void)
             row->owner=0;
             row->count=*(const unsigned short *)(block+8);
             if(row->count==0)continue;
-            allocated=engine_pool_allocate(&row->owner,(row->count+1)*20UL,0);
+            allocated=title_0c450(&row->owner,(row->count+1)*20UL,0);
             if(allocated==0) {
                 groups=g_pipeline_word_713ae;
                 if(groups>1) {kind_row(groups-1);return;}

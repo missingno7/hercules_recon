@@ -211,13 +211,13 @@ extern int eng1_29c20(Actor *);
 extern void eng1_native_code_target_002ae50(Actor *);
 extern void damped_contact_motion(Actor *);
 extern unsigned long eng1_2bd20(Actor *);
-extern int engine_file_load_async(const char *, const char *, int, void *, unsigned long);
-extern void dispatch_engine_2c2d0(void *);
-extern unsigned long engine_file_length(const char *, const char *);
-extern void *engine_pool_allocate(void **, unsigned long, unsigned long);
+extern int title_0c2a0(const char *, const char *, int, void *, unsigned long);
+extern void title_0c330(void *);
+extern unsigned long title_0c350(const char *, const char *);
+extern void *title_0c450(void **, unsigned long, unsigned long);
 extern int eng1_2c3e0(void *, void *, unsigned long);
 extern unsigned int dispatch_engine_2c470(void);
-extern void dispatch_engine_2c540(unsigned long, unsigned long);
+extern void title_0c560(unsigned long, unsigned long);
 extern void title_0c5a0(void);
 extern void dispatch_engine_2caf0(void);
 extern short eng1_2cb20(short, int, ProgramAttributes *);
@@ -1088,9 +1088,9 @@ void dispatch_local_0e670(void)
     case 5:
         if (g_eng1_dword_6ef3c) {
             if (g_sfx_buffer_6ef34)
-                dispatch_engine_2c2d0(g_sfx_buffer_6ef34);
+                title_0c330(g_sfx_buffer_6ef34);
             if (g_engine_interface.context->music_buffers[g_music_slot_6ef24])
-                dispatch_engine_2c2d0(g_engine_interface.context->music_buffers[g_music_slot_6ef24]);
+                title_0c330(g_engine_interface.context->music_buffers[g_music_slot_6ef24]);
             g_eng1_dword_6ef3c = 0;
             g_eng1_dword_6ef38 = 0;
         }
@@ -1121,18 +1121,18 @@ int eng1_0e720(void)
     if (g_sfx_replace_slot_6ef28 == -1)
         return -1;
     g_sfx_file_size_6ef20 = g_level_files_516a0[(unsigned char)g_sfx_file_51698].size;
-    g_sfx_file_size_6ef20 = engine_file_length(g_level_files_516a0[(unsigned char)g_sfx_file_51698].directory, "SFX.SFX");
+    g_sfx_file_size_6ef20 = title_0c350(g_level_files_516a0[(unsigned char)g_sfx_file_51698].directory, "SFX.SFX");
     if (g_sfx_buffer_6ef34)
-        dispatch_engine_2c2d0(g_sfx_buffer_6ef34);
-    if (!engine_pool_allocate(&g_sfx_buffer_6ef34, (g_sfx_file_size_6ef20 & ~0x7ff) + 0x1000, 0)) {
+        title_0c330(g_sfx_buffer_6ef34);
+    if (!title_0c450(&g_sfx_buffer_6ef34, (g_sfx_file_size_6ef20 & ~0x7ff) + 0x1000, 0)) {
         resource_reclaim(1);
-        if (!engine_pool_allocate(&g_sfx_buffer_6ef34, (g_sfx_file_size_6ef20 & ~0x7ff) + 0x1000, 0))
+        if (!title_0c450(&g_sfx_buffer_6ef34, (g_sfx_file_size_6ef20 & ~0x7ff) + 0x1000, 0))
             return -1;
     }
     g_sfx_bank_slot_6ef2c = g_sfx_replace_slot_6ef28;
     g_engine_interface.context->load_complete_0b0 = eng1_0eba0;
     g_engine_interface.context->load_failed_0b4 = eng1_0eb60;
-    engine_file_load_async(g_level_files_516a0[(unsigned char)g_sfx_file_51698].directory, "SFX.SFX", 0,
+    title_0c2a0(g_level_files_516a0[(unsigned char)g_sfx_file_51698].directory, "SFX.SFX", 0,
                            g_sfx_buffer_6ef34, g_sfx_file_size_6ef20);
     g_eng1_dword_6ef38 = 2;
     return 0;
@@ -1191,13 +1191,13 @@ void eng1_0e8d0(void)
             g_engine_interface.context->sfx_slots[program.attribute].volume = tone.volume;
         }
     }
-    dispatch_engine_2c2d0(g_sfx_buffer_6ef34);
+    title_0c330(g_sfx_buffer_6ef34);
 }
 
 void eng1_0eb60(void)
 {
     if (g_sfx_buffer_6ef34)
-        dispatch_engine_2c2d0(g_sfx_buffer_6ef34);
+        title_0c330(g_sfx_buffer_6ef34);
     g_engine_interface.context->load_complete_0b0 = 0;
     g_engine_interface.context->load_failed_0b4 = 0;
     g_eng1_dword_6ef38 = 1;
@@ -1222,18 +1222,18 @@ int eng1_0ebd0(void)
     g_music_file_size_6ef30 = g_level_files_516a0[music].size;
     engine_diagnostic("LoadMusicSeqData %d %d\n", music, g_music_slot_6ef24);
     g_engine_interface.context->sfx_banks[g_music_slot_6ef24] = (unsigned short)music;
-    g_music_file_size_6ef30 = engine_file_length(g_level_files_516a0[music].directory, "MUSIC.MUS");
+    g_music_file_size_6ef30 = title_0c350(g_level_files_516a0[music].directory, "MUSIC.MUS");
     g_engine_interface.context->music_buffers[g_music_slot_6ef24] = 0;
-    if (!engine_pool_allocate((void **)&g_engine_interface.context->music_buffers[g_music_slot_6ef24],
+    if (!title_0c450((void **)&g_engine_interface.context->music_buffers[g_music_slot_6ef24],
                               (g_music_file_size_6ef30 & ~0x7ff) + 0x1000, 0)) {
         resource_reclaim(1);
-        if (!engine_pool_allocate((void **)&g_engine_interface.context->music_buffers[g_music_slot_6ef24],
+        if (!title_0c450((void **)&g_engine_interface.context->music_buffers[g_music_slot_6ef24],
                                   (g_music_file_size_6ef30 & ~0x7ff) + 0x1000, 0))
             return -1;
     }
     g_engine_interface.context->load_complete_0b0 = eng1_0ee40;
     g_engine_interface.context->load_failed_0b4 = eng1_0edf0;
-    engine_file_load_async(g_level_files_516a0[music].directory, "MUSIC.MUS", 0,
+    title_0c2a0(g_level_files_516a0[music].directory, "MUSIC.MUS", 0,
                            g_engine_interface.context->music_buffers[0], g_music_file_size_6ef30);
     g_eng1_dword_6ef38 = 4;
     return 0;
@@ -1249,14 +1249,14 @@ void eng1_0ed40(void)
     title_0c5a0();
     eng1_2c3e0(g_engine_interface.context->sequences[1], g_engine_interface.context->sequences[g_music_slot_6ef24],
                g_music_file_size_6ef30);
-    dispatch_engine_2c2d0(g_engine_interface.context->music_buffers[g_music_slot_6ef24]);
-    dispatch_engine_2c540(0, 0);
+    title_0c330(g_engine_interface.context->music_buffers[g_music_slot_6ef24]);
+    title_0c560(0, 0);
 }
 
 void eng1_0edf0(void)
 {
     if (g_engine_interface.context->music_buffers[g_music_slot_6ef24])
-        dispatch_engine_2c2d0(g_engine_interface.context->music_buffers[g_music_slot_6ef24]);
+        title_0c330(g_engine_interface.context->music_buffers[g_music_slot_6ef24]);
     g_eng1_dword_6ef38 = 3;
     g_engine_interface.context->load_complete_0b0 = 0;
     g_engine_interface.context->load_failed_0b4 = 0;

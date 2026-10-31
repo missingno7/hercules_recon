@@ -6,10 +6,10 @@ extern int g_context_sequence_phase;
 extern int g_context_sequence_index;
 extern unsigned short *g_context_sequence_words;
 
-extern void *__cdecl engine_pool_allocate(void **output_slot,
+extern void *__cdecl title_0c450(void **output_slot,
                                           unsigned long bytes,
                                           unsigned long flags);
-extern unsigned long __cdecl engine_file_load_sync(const char *prefix,
+extern unsigned long __cdecl title_0c3f0(const char *prefix,
                                                     const char *suffix,
                                                     void *destination,
                                                     unsigned long bytes);
@@ -70,9 +70,9 @@ void __cdecl dispatch_local_05ea0(void)
     if ((CONTEXT_FLAGS(context) & 0x02000000UL) != 0)
         path_index = 0;
 
-    (void)engine_pool_allocate((void **)&g_context_sequence_words,
+    (void)title_0c450((void **)&g_context_sequence_words,
                                bytes, 0);
-    (void)engine_file_load_sync(&g_cold_file_prefix_byte_6eef4,
+    (void)title_0c3f0(&g_cold_file_prefix_byte_6eef4,
                                 g_cold_sequence_paths[path_index],
                                 g_context_sequence_words, bytes);
 

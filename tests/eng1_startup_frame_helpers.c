@@ -121,19 +121,19 @@ unsigned long __cdecl dispatch_engine_2cc30(unsigned long value)
     return g_mock_clock;
 }
 
-void __cdecl dispatch_engine_2c630(unsigned long value)
+void __cdecl title_0c6d0(unsigned long value)
 {
     ++g_2c630_calls;
     g_last_2c630_arg = value;
 }
 
-void __cdecl dispatch_engine_2c5a0(unsigned long value)
+void __cdecl title_0c5d0(unsigned long value)
 {
     ++g_2c5a0_calls;
     g_last_2c5a0_arg = value;
 }
 
-void __cdecl dispatch_engine_2c2d0(void *pointer)
+void __cdecl title_0c330(void *pointer)
 {
     ++g_free_calls;
     g_last_freed = pointer;
@@ -189,14 +189,14 @@ unsigned long __cdecl eng1_target_01f9e0(int row, int load_mode)
     return 1UL;
 }
 
-unsigned long __cdecl engine_pool_compact(int pool_id)
+unsigned long __cdecl title_0c310(int pool_id)
 {
     (void)pool_id;
     ++g_pool_compact_calls;
     return 1UL;
 }
 
-unsigned long __cdecl engine_file_load_sync(
+unsigned long __cdecl title_0c3f0(
     const char *prefix, const char *suffix, void *destination,
     unsigned long bytes)
 {
@@ -217,7 +217,7 @@ unsigned long __cdecl engine_file_load_sync(
     return bytes;
 }
 
-void *__cdecl engine_pool_allocate(
+void *__cdecl title_0c450(
     void **output_slot, unsigned long bytes, unsigned long flags)
 {
     g_mock_pool_bytes = bytes;

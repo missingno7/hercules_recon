@@ -8,7 +8,7 @@
 
 extern unsigned short *g_command_slot_storage_71320[ENG1_COMMAND_SLOT_COUNT];
 
-extern void *__cdecl engine_pool_allocate(void **output_slot,
+extern void *__cdecl title_0c450(void **output_slot,
                                            unsigned long bytes,
                                            unsigned long flags);
 
@@ -41,7 +41,7 @@ int __cdecl initialize_command_table(unsigned long bytes,
         if (index == ENG1_COMMAND_SLOT_COUNT)
             return 0;
 
-        command = (unsigned short *)engine_pool_allocate(
+        command = (unsigned short *)title_0c450(
             (void **)&g_command_slot_storage_71320[index], bytes, 0);
         if (!command)
             return 0;

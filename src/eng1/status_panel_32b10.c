@@ -99,11 +99,11 @@ extern char g_panel_prefix_6ffc0[];
 extern char *g_panel_file_4da18;
 extern Rect16 g_stpanel1_upload_rectangle_words;
 
-void *engine_pool_allocate(void **output, unsigned long bytes, unsigned long flags);
-unsigned long engine_file_load_sync(char *prefix, char *name, void *destination, unsigned long bytes);
+void *title_0c450(void **output, unsigned long bytes, unsigned long flags);
+unsigned long title_0c3f0(char *prefix, char *name, void *destination, unsigned long bytes);
 void dispatch_engine_2c7f0(Rect16 *rect, void *texels);
-void dispatch_engine_2c630(unsigned long value);
-void dispatch_engine_2c2d0(void *allocation);
+void title_0c6d0(unsigned long value);
+void title_0c330(void *allocation);
 void dispatch_local_2c60(Rect16 *rect, int x, int y);
 void dispatch_local_1f40(void);
 void dispatch_engine_2c980(void *p, int dfe, int dtd, int tpage, int tw);
@@ -130,11 +130,11 @@ void dispatch_local_32b10(void)
     g_panel_70820.target_12 = 0;
     g_panel_70820.mode_14 = 0;
     g_panel_70820.rate_09 = 3;
-    engine_pool_allocate(&buffer, 0x21000, 0);
-    engine_file_load_sync(g_panel_prefix_6ffc0, g_panel_file_4da18, buffer, 0x21000);
+    title_0c450(&buffer, 0x21000, 0);
+    title_0c3f0(g_panel_prefix_6ffc0, g_panel_file_4da18, buffer, 0x21000);
     dispatch_engine_2c7f0(&g_stpanel1_upload_rectangle_words, buffer);
-    dispatch_engine_2c630(0);
-    dispatch_engine_2c2d0(buffer);
+    title_0c6d0(0);
+    title_0c330(buffer);
 }
 
 void dispatch_local_32bd0(void)

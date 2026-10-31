@@ -24,14 +24,14 @@ extern u8 g_frame_setup_callback_58a60[64];
 
 /* Existing genuine providers: keep each allocation, file, callback and
  * resource-rebind implementation at its measured source owner. */
-extern unsigned long __cdecl engine_pool_compact(int pool_id);
-extern void *__cdecl engine_pool_allocate(
+extern unsigned long __cdecl title_0c310(int pool_id);
+extern void *__cdecl title_0c450(
     void **output_slot, unsigned long bytes, unsigned long flags);
-extern int __cdecl engine_file_load_async(
+extern int __cdecl title_0c2a0(
     const char *prefix, const char *suffix, int sector_offset,
     void *destination, unsigned long bytes);
-extern void __cdecl dispatch_engine_2c2d0(void *pointer);
-extern void __cdecl dispatch_engine_2c280(void);
+extern void __cdecl title_0c330(void *pointer);
+extern void __cdecl title_0c300(void);
 extern void __cdecl dispatch_engine_2c7f0(void *rectangle,
                                            const void *texels);
 extern void __cdecl resource_rebuild_blob(void);
@@ -84,12 +84,12 @@ int __cdecl dispatch_local_1f9e0(int row, int load_mode)
     slot_index = row + category * 8;
     slot = g_allocated_row_slots_71e40[slot_index];
     if (slot != 0)
-        dispatch_engine_2c2d0(slot);
+        title_0c330(slot);
 
     /* The allocator owns this pointer cell and writes its result through it. */
     category = (int)(signed char)g_active_category_70cfe;
     slot_index = row + category * 8;
-    engine_pool_allocate((void **)&g_allocated_row_slots_71e40[slot_index],
+    title_0c450((void **)&g_allocated_row_slots_71e40[slot_index],
                          allocation_bytes, 0x20UL);
 
     category = (int)(signed char)g_active_category_70cfe;
@@ -100,7 +100,7 @@ int __cdecl dispatch_local_1f9e0(int row, int load_mode)
 
         category = (int)(signed char)g_active_category_70cfe;
         slot_index = row + category * 8;
-        engine_pool_allocate(
+        title_0c450(
             (void **)&g_allocated_row_slots_71e40[slot_index],
             allocation_bytes, 0x20UL);
 
@@ -124,7 +124,7 @@ int __cdecl dispatch_local_1f9e0(int row, int load_mode)
         slot_index = row + category * 8;
         slot = g_allocated_row_slots_71e40[slot_index];
         eng1_target_02c480(slot, load_mode);
-        dispatch_engine_2c280();
+        title_0c300();
         dispatch_local_1fb90();
         return 1;
     }
@@ -141,7 +141,7 @@ int __cdecl dispatch_local_1f9e0(int row, int load_mode)
     level = (int)(signed char)context->unknown_000[0];
     prefix = (const char *)eng1_descriptor_rows_5a690[level].pointer_000;
     suffix = (const char *)(g_frame_setup_callback_58a60 + 8);
-    engine_file_load_async(prefix, suffix, (int)sector_offset, slot,
+    title_0c2a0(prefix, suffix, (int)sector_offset, slot,
                            (unsigned long)(long)signed_byte_count);
     return 1;
 }
@@ -184,7 +184,7 @@ void __cdecl dispatch_local_1fb90(void)
                 slot_index = row_index + category * 8;
                 slot = g_allocated_row_slots_71e40[slot_index];
                 if (slot != 0)
-                    dispatch_engine_2c2d0(slot);
+                    title_0c330(slot);
             }
         }
     }
@@ -204,7 +204,7 @@ void __cdecl dispatch_local_1fc60(void)
     category = (int)(signed char)g_active_category_70cfe;
     row = (int)g_pending_resource_row_70c50;
     slot_index = row + category * 8;
-    dispatch_engine_2c2d0(g_allocated_row_slots_71e40[slot_index]);
+    title_0c330(g_allocated_row_slots_71e40[slot_index]);
 }
 
 /* Native RVA 0x1fc90 ignores byte_count. It sends two root-relative spans

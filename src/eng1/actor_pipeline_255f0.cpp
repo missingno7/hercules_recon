@@ -312,7 +312,7 @@ void eng1_call_26040(void)
             g_kind_info[group].count = *(unsigned short *)(block + 8);
             if (!g_kind_info[group].count)
                 continue;
-            allocated = (unsigned char *)engine_pool_allocate((void **)&g_kind_info[group].owner, (g_kind_info[group].count + 1) * 20, 0);
+            allocated = (unsigned char *)title_0c450((void **)&g_kind_info[group].owner, (g_kind_info[group].count + 1) * 20, 0);
             if (!allocated)
                 continue;
             record = (ForestRecord *)(allocated + 20);

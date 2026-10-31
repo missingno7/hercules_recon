@@ -77,7 +77,7 @@ static void check(int condition, const char *name)
     }
 }
 
-void __cdecl dispatch_engine_2c860(int a, int b)
+void __cdecl title_0c9c0(int a, int b)
 {
     event(0x2c860);
     two_arg_left = a;
@@ -89,7 +89,7 @@ void __cdecl dispatch_engine_2c860(int a, int b)
 }
 
 #define MOCK0(name, rva) void __cdecl name(void) { event(rva); }
-MOCK0(dispatch_engine_2c350, 0x2c350)
+MOCK0(title_0c3b0, 0x2c350)
 MOCK0(dispatch_local_083d3, 0x083d3)
 
 void __cdecl dispatch_local_082b7(int value)
@@ -128,7 +128,7 @@ MOCK0(dispatch_local_32b10, 0x32b10)
 MOCK0(dispatch_local_255f0, 0x255f0)
 MOCK0(dispatch_local_05ea0, 0x05ea0)
 
-void __cdecl dispatch_engine_2c840(int level, int mode)
+void __cdecl title_0c990(int level, int mode)
 {
     event(0x2c840);
     last_2c840_level = level;
@@ -144,15 +144,15 @@ void __cdecl dispatch_local_1f320(void)
     }
 }
 
-void __cdecl dispatch_engine_2c5a0(u32 value)
+void __cdecl title_0c5d0(u32 value)
 {
     event(0x2c5a0);
     check(value == 4, "restart helper receives four");
 }
 
-MOCK0(dispatch_engine_2c360, 0x2c360)
+MOCK0(title_0c3c0, 0x2c360)
 
-void __cdecl dispatch_engine_2c540(u32 a, u32 b)
+void __cdecl title_0c560(u32 a, u32 b)
 {
     event(0x2c540);
     check(a == 0 && b == 0, "startup-gated helper receives two zeros");
@@ -167,13 +167,13 @@ EngineNoArgCallback __cdecl dispatch_engine_2cc40(EngineNoArgCallback callback)
     return previous;
 }
 
-void __cdecl dispatch_engine_2c4e0(u32 value)
+void __cdecl title_0c4f0(u32 value)
 {
     event(0x2c4e0);
     check(value == 0, "restart helper receives zero");
 }
 
-void __cdecl dispatch_engine_2c520(u32 value)
+void __cdecl title_0c540(u32 value)
 {
     event(0x2c520);
     check(value == 1, "restart helper receives one");
@@ -185,7 +185,7 @@ void __cdecl dispatch_local_01000(const void *value)
     check(value == g_dispatch_diagnostic_58ac8, "diagnostic callee receives data address");
 }
 
-MOCK0(dispatch_engine_2c270, 0x2c270)
+MOCK0(title_0c2f0, 0x2c270)
 MOCK0(dispatch_local_0e670, 0x0e670)
 
 u32 __cdecl dispatch_engine_2ca40(u32 value)
@@ -198,7 +198,7 @@ u32 __cdecl dispatch_engine_2ca40(u32 value)
     return 0x40000000UL + (unsigned long)slot;
 }
 
-MOCK0(dispatch_engine_2c420, 0x2c420)
+MOCK0(title_0c470, 0x2c420)
 MOCK0(dispatch_local_06005, 0x06005)
 MOCK0(dispatch_local_02180, 0x02180)
 
@@ -208,7 +208,7 @@ void __cdecl dispatch_local_1f870(int value)
     check(value == 1, "iteration helper receives one");
 }
 
-MOCK0(dispatch_engine_2c440, 0x2c440)
+MOCK0(title_0c490, 0x2c440)
 MOCK0(dispatch_local_05600, 0x05600)
 MOCK0(dispatch_local_2fb70, 0x2fb70)
 MOCK0(dispatch_local_2f840, 0x2f840)
@@ -231,13 +231,13 @@ void __cdecl dispatch_local_32bd0(void)
 MOCK0(dispatch_local_2da90, 0x2da90)
 MOCK0(dispatch_local_1f6f0, 0x1f6f0)
 
-void __cdecl dispatch_engine_2c630(u32 value)
+void __cdecl title_0c6d0(u32 value)
 {
     event(0x2c630);
     check(value == 0, "per-iteration callback receives zero");
 }
 
-void __cdecl dispatch_engine_2c570(void *value)
+void __cdecl title_0c5b0(void *value)
 {
     event(0x2c570);
     if (frame_arg_count < MAX_CALLS)
@@ -254,7 +254,7 @@ void __cdecl dispatch_local_050d0(void)
 
 MOCK0(dispatch_local_058b0, 0x058b0)
 
-void __cdecl dispatch_engine_2c620(void *value)
+void __cdecl title_0c6b0(void *value)
 {
     event(0x2c620);
     if (frame88_arg_count < MAX_CALLS)

@@ -832,7 +832,7 @@ void eng1_04c10(unsigned char *stream, TitleObject *obj, unsigned long count)
 extern signed char g_5e120[4];
 extern unsigned char g_actor_group_sequence_5e138[0x70];
 extern unsigned char g_frame_decode_scratch_6e660[0x400];
-void dispatch_engine_2c630(int a);
+void title_0c6d0(int a);
 void dispatch_local_050d0(void);
 
 unsigned short eng1_target_04ca0(unsigned char *q, int n, int m)
@@ -963,10 +963,10 @@ unsigned short eng1_target_04ca0(unsigned char *q, int n, int m)
             return 0xffff;
         got:
             if (cnt >= 0x20) {
-                dispatch_engine_2c630(0);
+                title_0c6d0(0);
                 g_6ee7c = cnt;
                 dispatch_local_050d0();
-                dispatch_engine_2c630(0);
+                title_0c6d0(0);
                 cnt = 0;
             }
             k = g_actor_group_sequence_5e138[cur];

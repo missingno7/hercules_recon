@@ -127,7 +127,7 @@ unsigned int __cdecl dispatch_engine_2c460(int limit)
         g_normal_actor_pool = random_actor_replacement;
     return 2U;
 }
-void __cdecl dispatch_engine_2c4e0(unsigned long value)
+void __cdecl title_0c4f0(unsigned long value)
 { (void)value; unexpected_fixture_service("2c4e0 callback"); }
 void __cdecl play_sound(unsigned short id, void *p)
 { (void)id; (void)p; unexpected_fixture_service("play_sound"); }

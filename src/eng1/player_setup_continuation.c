@@ -30,7 +30,7 @@ extern setup_u8 g_dispatch_key_7286c;
 extern setup_u16 g_dispatch_setting_4d858;
 extern setup_u16 g_dispatch_word_6ee80;
 extern setup_u16 g_eng1_setup_word_72194;
-extern void __cdecl dispatch_engine_2c4e0(unsigned long value);
+extern void __cdecl title_0c4f0(unsigned long value);
 extern unsigned int __cdecl dispatch_engine_2c460(int limit);
 extern void __cdecl play_sound(unsigned short effect_id, void *actor);
 extern void __cdecl dispatch_local_16790(void);
@@ -590,7 +590,7 @@ setup_u32 __cdecl dispatch_local_15d00(void)
             g_dispatch_key_7286c = 0xf8;
             g_dispatch_setting_4d858 = 0x80;
             g_dispatch_word_6ee80 = 0;
-            dispatch_engine_2c4e0(1UL);
+            title_0c4f0(1UL);
             context = (setup_u8 *)(void *)SETUP_LIVE_INTERFACE_CONTEXT();
             setup_write_u32(context + 0x1b30, 4UL);
             break;

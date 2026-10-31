@@ -147,7 +147,7 @@ extern int actor_bounds_2a880(Actor *p, Bounds3D *b, int mode);
 
 extern int release_actor(Actor *p);
 extern void remove_fx_links(Actor *p);
-extern void *engine_pool_allocate(void **slot, unsigned long bytes, unsigned long flags);
+extern void *title_0c450(void **slot, unsigned long bytes, unsigned long flags);
 extern unsigned short *g_command_slot_storage_71320[20];
 extern Actor *g_scene_anchor;
 void reset_frame_state(Actor *p);
@@ -183,7 +183,7 @@ int initialize_command_table(unsigned long bytes, unsigned int opcode, unsigned 
         }
         if (index == 20)
             return 0;
-        command = (unsigned short *)engine_pool_allocate((void **)&g_command_slot_storage_71320[index], bytes, 0);
+        command = (unsigned short *)title_0c450((void **)&g_command_slot_storage_71320[index], bytes, 0);
         if (!command)
             return 0;
         *command = (unsigned short)opcode;

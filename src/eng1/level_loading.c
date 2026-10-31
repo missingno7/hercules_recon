@@ -14,9 +14,9 @@ extern EngineInterface g_engine_interface;
 extern ActorResource g_actor_resources[81];
 
 /* Existing providers in the ENG1 source graph. */
-extern void *__cdecl engine_pool_allocate(void **, unsigned long,
+extern void *__cdecl title_0c450(void **, unsigned long,
                                           unsigned long);
-extern void __cdecl dispatch_engine_2c2d0(void *);
+extern void __cdecl title_0c330(void *);
 extern void __cdecl dispatch_local_2c650(void);
 extern void __cdecl dispatch_local_2c660(void);
 extern void __cdecl resource_destroy(int);
@@ -128,7 +128,7 @@ update_gate:
         context = g_engine_interface.context_004;
         if ((context->unknown_05e & 0x4008U) != 0) {
             eng1_target_02430();
-            dispatch_engine_2c420();
+            title_0c470();
             return;
         }
     }
@@ -148,12 +148,12 @@ void __cdecl dispatch_local_02f30(void)
 
     buffer = (unsigned char *)g_resource_leaf_buffer_70c58;
     if (buffer != 0)
-        dispatch_engine_2c2d0(buffer);
+        title_0c330(buffer);
 
     count = (signed char)g_root_count_70ed2;
     if (count != 0) {
         bytes = (unsigned long)((long)count * 2L);
-        engine_pool_allocate(&g_resource_leaf_buffer_70c58,
+        title_0c450(&g_resource_leaf_buffer_70c58,
                              bytes, 0UL);
         count = (signed char)g_root_count_70ed2;
     }
@@ -251,7 +251,7 @@ void __cdecl dispatch_local_03270(void *descriptor_item,
 
     dispatch_local_2c650();
     dispatch_local_050d0();
-    dispatch_engine_2c630(0UL);
+    title_0c6d0(0UL);
     dispatch_local_2c660();
 }
 

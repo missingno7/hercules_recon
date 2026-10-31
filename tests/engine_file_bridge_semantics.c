@@ -109,33 +109,33 @@ int main(void)
           (char *)&g_engine_interface.context_004 - (char *)&g_engine_interface == 4 &&
           g_engine_interface.context_004 == &callback_context);
 
-    result = engine_file_load_async(prefix_text, suffix_text, -7,
+    result = title_0c2a0(prefix_text, suffix_text, -7,
                                     destination, 0x87654321UL);
     check("async forwards five arguments and return EAX", async_calls == 1 &&
           forwarding_ok && result == -1234567);
 
-    result = engine_file_cancel();
+    result = title_0c2d0();
     check("cancel forwards zero arguments and return EAX", cancel_calls == 1 &&
           result == -31);
 
     check("compact forwards signed pool id and return EAX",
-          engine_pool_compact(-0x12345) == 0x89abcdefUL && compact_calls == 1 &&
+          title_0c310(-0x12345) == 0x89abcdefUL && compact_calls == 1 &&
           forwarding_ok);
 
     check("length uses the current table member and returns first result",
-          engine_file_length(prefix_text, suffix_text) == 0x76543210UL &&
+          title_0c350(prefix_text, suffix_text) == 0x76543210UL &&
           length_first_calls == 1);
     check("next length call observes callback's live table mutation",
-          engine_file_length(prefix_text, suffix_text) == 0xfedcba98UL &&
+          title_0c350(prefix_text, suffix_text) == 0xfedcba98UL &&
           length_second_calls == 1 && forwarding_ok);
 
     check("sync forwards four arguments and return EAX",
-          engine_file_load_sync(prefix_text, suffix_text, destination,
+          title_0c3f0(prefix_text, suffix_text, destination,
                                 0xa7654321UL) == 0xdeadbeefUL &&
           sync_calls == 1 && forwarding_ok);
 
     check("allocation forwards output slot, size and flags; returns pointer",
-          engine_pool_allocate(&slot, 0x76543210UL, 0x87654321UL) == payload &&
+          title_0c450(&slot, 0x76543210UL, 0x87654321UL) == payload &&
           slot == payload && seen_output_slot == &slot &&
           seen_bytes == 0x76543210UL && seen_flags == 0x87654321UL &&
           allocate_calls == 1);

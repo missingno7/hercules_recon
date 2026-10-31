@@ -30,7 +30,7 @@ static int g_stopped_count;
 
 #define CHECK(condition) do { if (!(condition)) return __LINE__; } while (0)
 
-void *__cdecl engine_pool_allocate(void **output_slot, unsigned long bytes,
+void *__cdecl title_0c450(void **output_slot, unsigned long bytes,
                                    unsigned long flags)
 {
     ++g_allocate_calls;
@@ -40,7 +40,7 @@ void *__cdecl engine_pool_allocate(void **output_slot, unsigned long bytes,
     return g_allocated_bytes;
 }
 
-unsigned long __cdecl engine_file_load_sync(const char *prefix,
+unsigned long __cdecl title_0c3f0(const char *prefix,
                                              const char *suffix,
                                              void *destination,
                                              unsigned long bytes)

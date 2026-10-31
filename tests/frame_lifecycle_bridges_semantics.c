@@ -116,32 +116,32 @@ int main(void)
     EngineNoArgCallback previous;
 
     g_engine_interface.dispatch_2c280_030 = slot12_a;
-    dispatch_engine_2c280();
+    title_0c300();
     verify(slot12_observed == 1);
     g_engine_interface.dispatch_2c280_030 = slot12_b;
-    dispatch_engine_2c280();
+    title_0c300();
     verify(slot12_observed == 2);
 
     g_engine_interface.free_allocation_040 = slot16_callback;
-    dispatch_engine_2c2d0(first);
+    title_0c330(first);
     verify(slot16_value == first);
 
     g_engine_interface.bulk_release_044 = slot17_callback;
-    dispatch_engine_2c2e0(0x1234abcdUL);
+    title_0c340(0x1234abcdUL);
     verify(slot17_calls == 1 && slot17_value == 0x1234abcdUL);
 
     g_engine_interface.dispatch_2c5e0_140 = slot80_callback;
-    dispatch_engine_2c5e0(first, 0, 1, 0x9cUL);
+    title_0c670(first, 0, 1, 0x9cUL);
     verify(slot80_calls == 1 && slot80_first == first &&
            slot80_values[0] == 0 && slot80_values[1] == 1 &&
            slot80_values[2] == 0x9cUL);
 
     g_engine_interface.dispatch_2c500_0c8 = slot50_a;
-    dispatch_engine_2c500(first, second);
+    title_0c520(first, second);
     verify(slot50_a_calls == 1 && slot50_first == first &&
            slot50_second == second);
     g_engine_interface.dispatch_2c500_0c8 = slot50_b;
-    dispatch_engine_2c500(second, first);
+    title_0c520(second, first);
     verify(slot50_b_calls == 1 && slot50_first == second &&
            slot50_second == first);
 
@@ -152,21 +152,21 @@ int main(void)
            slot171_values[3] == 0);
 
     g_engine_interface.dispatch_2c8f0_280 = slot160_callback;
-    dispatch_engine_2c8f0(first);
+    title_0ca20(first);
     verify(slot160_value == first);
     g_engine_interface.dispatch_2c8e0_27c = slot159_callback;
-    dispatch_engine_2c8e0(second);
+    title_0ca10(second);
     verify(slot159_value == second);
 
     g_engine_interface.dispatch_2c7e0_1f8 = slot126_callback;
-    dispatch_engine_2c7e0();
+    title_0c880();
     verify(slot126_calls == 1);
 
     g_engine_interface.dispatch_2c640_170 = slot92_setter;
     registered_callback = slot12_a;
-    previous = dispatch_engine_2c640(slot12_b);
+    previous = title_0c6e0(slot12_b);
     verify(previous == slot12_a && registered_callback == slot12_b);
-    previous = dispatch_engine_2c640(slot12_a);
+    previous = title_0c6e0(slot12_a);
     verify(previous == slot12_b && registered_callback == slot12_a);
 
     printf("frame lifecycle bridge fixture: %lu checks, %lu failures\n",

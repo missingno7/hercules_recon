@@ -57,7 +57,7 @@ static int interface_cancel_calls;
 static int interface_cancel_violations;
 ResourceCallbackContext *g_resource_context;
 
-extern int __cdecl engine_file_cancel(void);
+extern int __cdecl title_0c2d0(void);
 
 /* resource_callbacks.c's host_cancel_load alias is the existing 0x2c260
  * engine-file bridge, which reaches the copied interface cancel slot. */
@@ -65,7 +65,7 @@ void __cdecl host_cancel_load(void)
 {
     if (!source_cancel_allowed)
         ++unexpected_helpers;
-    (void)engine_file_cancel();
+    (void)title_0c2d0();
 }
 
 void __cdecl resource_destroy(int resource_id)

@@ -1,6 +1,6 @@
 /* Private experiment: bridge dependencies plus resource-pool reclaim. */
 #include "../shared/engine_interface.h"
-extern unsigned long __cdecl engine_pool_compact(int);
+extern unsigned long __cdecl title_0c310(int);
 
 extern unsigned char *g_resource_root;
 extern void __cdecl resource_rebuild_blob(void);
@@ -19,10 +19,10 @@ void __cdecl title_0ca00(void)
 void __cdecl resource_reclaim(int wait_mode)
 {
     if (wait_mode != 0) {
-        while (engine_pool_compact(0) == 0) {
+        while (title_0c310(0) == 0) {
         }
     } else {
-        engine_pool_compact(0);
+        title_0c310(0);
     }
 
     if (g_resource_root != (void *)0) {
