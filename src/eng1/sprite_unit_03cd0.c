@@ -227,6 +227,48 @@ extern void *g_734e0;
 extern TitleObject *g_frame_resource_list_734e4;
 extern TitleObject *g_frame_actor_list_734f8;
 
+/* ENG1 RVA 0x3bd0: TITLE 0x2cc0 twin. It brackets the paired frame draw with
+ * ENG1's ordering-table callbacks while preserving the same state save/reload order. */
+void eng1_03bd0(TitleObject *p)
+{
+    unsigned long flags;
+    unsigned long sel;
+    unsigned long saved34;
+    unsigned long saved46;
+
+    flags = p->unknown_054;
+    sel = flags & 0x10000;
+    if (sel) {
+        eng1_058e0(p, (unsigned long *)((unsigned char *)g_dispatch_frame_current_71ec4 +
+            0x1384 - (p->unknown_010 << 2)));
+    }
+    if ((flags & 0x8000000) && p->unknown_036 != 0) {
+        if (!(flags & 0x4000000)) {
+            eng1_03cd0(p);
+            g_72868 = 0;
+        }
+        saved34 = p->unknown_034;
+        saved46 = p->unknown_046;
+        p->unknown_034 = p->unknown_036;
+        p->unknown_046 = p->unknown_048;
+        eng1_03cd0(p);
+        g_72868 = 0;
+        p->unknown_048 = p->unknown_046;
+        p->unknown_034 = saved34;
+        p->unknown_046 = saved46;
+        if (flags & 0x4000000) {
+            eng1_03cd0(p);
+        }
+        g_72868 = 1;
+    } else {
+        eng1_03cd0(p);
+    }
+    if (sel) {
+        eng1_059f0(p, (unsigned long *)((unsigned char *)g_dispatch_frame_current_71ec4 +
+            0x1384 - (p->unknown_010 << 2)));
+    }
+}
+
 void eng1_03cd0(TitleObject *p)
 {
     unsigned int off;

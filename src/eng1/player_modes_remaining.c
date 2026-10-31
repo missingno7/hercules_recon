@@ -384,3 +384,283 @@ void __cdecl eng1_19d70(void)
 
     return eng1_19d30();
 }
+
+/* Additional native player-mode views and dependencies used only by the
+ * recovered entries below. */
+typedef struct ModeLinkActor {
+    ModeByte pad_000[0x2e];
+    ModeWord kind;
+    ModeByte pad_030[0x9a - 0x30];
+    ModeWord state_09a;
+} ModeLinkActor;
+typedef struct ModeControlContext {
+    ModeByte pad_000[0x5c];
+    volatile ModeWord held_05c;
+    ModeWord pressed_05e;
+    ModeByte pad_060[0x6c - 0x60];
+    ModeWord mask_06c;
+} ModeControlContext;
+typedef char mode_link_kind_2e[(offsetof(ModeLinkActor, kind) == 0x2e) ? 1 : -1];
+typedef char mode_link_state_9a[(offsetof(ModeLinkActor, state_09a) == 0x9a) ? 1 : -1];
+typedef char mode_control_mask_6c[(offsetof(ModeControlContext, mask_06c) == 0x6c) ? 1 : -1];
+
+extern ModeActor *g_frame_owner_72860;
+extern long g_eng1_7210c;
+extern short g_pipeline_word_71bc4, g_pipeline_word_71c5c;
+extern unsigned long g_frame_global_70c54;
+extern unsigned char g_eng1_image_544c0[];
+extern unsigned char g_eng1_image_549f0[], g_eng1_image_54aa0[], g_eng1_image_54930[];
+extern unsigned char g_eng1_setup_program_54558[];
+extern void __cdecl resource_reset(int);
+extern void __cdecl dispatch_engine_2c4d0(void);
+extern unsigned int __cdecl dispatch_engine_2c460(int);
+extern long __cdecl eng1_2a010(long, long, long, int);
+
+int __cdecl eng1_18b10(void)
+{
+    int kind;
+
+    if (g_eng1_7210c == 0)
+        return 0;
+    kind = ((ModeLinkActor *)(void *)g_eng1_7210c)->kind;
+    if (kind != 2 && (kind <= 3 || kind > 5))
+        return 0;
+
+    ((ModeLinkActor *)(void *)g_eng1_7210c)->state_09a = 1;
+    kind = ((ModeLinkActor *)(void *)g_eng1_7210c)->kind;
+    g_eng1_setup_word_6ef98 = 0;
+    g_eng1_setup_word_6ef9c = 0;
+    g_eng1_setup_dword_7201c = kind;
+    eng1_sim_state_72108 = 0x14;
+    g_frame_owner_72860->image = g_eng1_image_544c0;
+    g_frame_owner_72860->ticks = -1;
+    g_frame_owner_72860->phase = -1;
+    dispatch_local_15d00();
+    return 1;
+}
+
+int __cdecl eng1_18bb0(void)
+{
+    ModeControlContext *context;
+    ModeActor *owner;
+
+    context = (ModeControlContext *)(void *)MODE_CONTEXT();
+    if (context->held_05c & context->mask_06c) {
+        if (context->held_05c & 0x10) {
+            if (g_eng1_setup_dword_7201c == 4)
+                return 0;
+            owner = g_frame_owner_72860;
+            eng1_sim_state_72108 = 0x2f;
+            owner->image = g_eng1_setup_program_54558 + 0x90;
+        } else {
+            owner = g_frame_owner_72860;
+            eng1_sim_state_72108 = 0x2f;
+            owner->image = g_eng1_setup_program_54558;
+        }
+        g_frame_owner_72860->ticks = -1;
+        g_frame_owner_72860->phase = -1;
+        dispatch_local_15d00();
+        return 1;
+    }
+    return 0;
+}
+
+void __cdecl eng1_19160(void)
+{
+    ModeByte *context;
+
+    if (g_eng1_word_5cf54 != 3) {
+        resource_reset(5);
+        {
+            ModeActor *owner;
+            owner = g_frame_owner_72860;
+            eng1_sim_state_72108 = 0x19;
+            owner->image = g_eng1_image_54c30;
+        }
+    } else {
+        {
+            ModeActor *owner;
+            owner = g_frame_owner_72860;
+            eng1_sim_state_72108 = 0x19;
+            owner->image = g_eng1_image_54b50;
+        }
+    }
+    g_frame_owner_72860->ticks = -1;
+    g_frame_owner_72860->phase = -1;
+    dispatch_local_15d00();
+    context = (ModeByte *)(void *)MODE_CONTEXT();
+    g_frame_global_70c54 = 1;
+    context[1] = context[2];
+}
+
+void __cdecl eng1_19240(void)
+{
+    if (eng1_sim_state_72170 == 0)
+        eng1_sim_state_72170 = 1;
+}
+
+int __cdecl eng1_19cf0(void)
+{
+    ModeActor *actor;
+    long z;
+
+    actor = g_frame_owner_72860;
+    z = (long)actor->z >> 16;
+    if (z < g_pipeline_word_71c5c) {
+        actor->z = (unsigned long)((long)g_pipeline_word_71c5c << 16);
+        return 1;
+    }
+    if (z > g_pipeline_word_71bc4) {
+        actor->z = (unsigned long)((long)g_pipeline_word_71bc4 << 16);
+        return 1;
+    }
+    return 0;
+}
+
+/* Native ENG1 0x19650 probes three positions on the selected horizontal side.
+ * The direction offset is captured once; actor coordinates are reread from
+ * the live normal-actor pointer between the spatial queries. */
+int __cdecl eng1_19650(void)
+{
+    ModeActor *actor;
+    long horizontal_offset;
+
+    actor = MODE_ACTOR();
+    horizontal_offset = actor->direction_x
+        ? -0x1c0000L : 0x1c0000L;
+    if (dispatch_local_30010(
+            (long)(actor->x + horizontal_offset),
+            (long)(actor->y - 0x200000UL), (long)actor->z, 1))
+        return 0;
+
+    actor = MODE_ACTOR();
+    if (dispatch_local_30010(
+            (long)(actor->x + horizontal_offset),
+            (long)(actor->y - 0x100000UL), (long)actor->z, 1))
+        return 0;
+
+    actor = MODE_ACTOR();
+    return dispatch_local_30010((long)(actor->x + horizontal_offset),
+                                (long)actor->y, (long)actor->z, 1) == 0;
+}
+
+extern volatile unsigned long g_eng1_spatial_match_actor_6fedc;
+extern long g_eng1_7210c;
+
+int __cdecl eng1_197b0(void)
+{
+    if (dispatch_local_30010(
+            (long)(((ModeActor *)g_normal_actor_pool)->x -
+                (g_eng1_setup_dword_7201c
+                    ? 0x380000L : 0x1c0000L)),
+            (long)(((ModeActor *)g_normal_actor_pool)->y - 0x10000UL),
+            (long)g_native_pointer_7217c->z, 1)) {
+        if (g_eng1_setup_dword_7201c == 0) {
+            ModeDword match = g_eng1_spatial_match_actor_6fedc;
+            if (match != 0)
+                g_eng1_7210c = (long)match;
+        }
+        return 0;
+    }
+    return 1;
+}
+
+int __cdecl eng1_19820(void)
+{
+    if (dispatch_local_30010(
+            (long)(((ModeActor *)g_normal_actor_pool)->x -
+                (g_eng1_setup_dword_7201c
+                    ? 0x400000L : 0x240000L)),
+            (long)(((ModeActor *)g_normal_actor_pool)->y - 0x10000UL),
+            (long)g_native_pointer_7217c->z, 1)) {
+        if (g_eng1_setup_dword_7201c == 0) {
+            ModeDword match = g_eng1_spatial_match_actor_6fedc;
+            if (match != 0)
+                g_eng1_7210c = (long)match;
+        }
+        return 0;
+    }
+    return 1;
+}
+
+int __cdecl eng1_19890(void)
+{
+    long horizontal_offset;
+
+    horizontal_offset = g_eng1_setup_dword_7201c
+        ? 0x380000L : 0x1c0000L;
+    horizontal_offset += ((ModeActor *)g_normal_actor_pool)->x;
+    if (dispatch_local_30010(
+            horizontal_offset,
+            (long)(((ModeActor *)g_normal_actor_pool)->y - 0x80000UL),
+            (long)g_native_pointer_7217c->z, 1)) {
+        if (g_eng1_setup_dword_7201c == 0) {
+            ModeDword match = g_eng1_spatial_match_actor_6fedc;
+            if (match != 0)
+                g_eng1_7210c = (long)match;
+        }
+        return 0;
+    }
+    return 1;
+}
+
+int __cdecl eng1_19900(void)
+{
+    long horizontal_offset;
+
+    horizontal_offset = g_eng1_setup_dword_7201c
+        ? 0x400000L : 0x240000L;
+    horizontal_offset += ((ModeActor *)g_normal_actor_pool)->x;
+    if (dispatch_local_30010(
+            horizontal_offset,
+            (long)(((ModeActor *)g_normal_actor_pool)->y - 0x80000UL),
+            (long)g_native_pointer_7217c->z, 1)) {
+        if (g_eng1_setup_dword_7201c == 0) {
+            ModeDword match = g_eng1_spatial_match_actor_6fedc;
+            if (match != 0)
+                g_eng1_7210c = (long)match;
+        }
+        return 0;
+    }
+    return 1;
+}
+
+typedef struct PlayerModeBounds {
+    short min_x, min_y, min_z;
+    short max_x, max_y, max_z;
+} PlayerModeBounds;
+
+extern long g_actor_worklist_71a20[];
+extern int __cdecl actor_bounds_2a880(
+    void *, PlayerModeBounds *, unsigned long);
+extern int __cdecl point_in_box_2a810(
+    long, long, long, PlayerModeBounds *);
+
+int __cdecl eng1_19970(int vertical_offset)
+{
+    PlayerModeBounds bounds;
+    ModeActor *actor;
+    long index;
+    ModeByte level;
+
+    level = ((ModeByte *)(void *)MODE_CONTEXT())[0];
+    if (level != 1 && level != 5 && level != 3)
+        return 0;
+    if (!actor_bounds_2a880(g_native_pointer_7217c, &bounds, 1UL))
+        return 0;
+    index = 0;
+    if (g_actor_worklist_71a20[0] <= 0)
+        return 0;
+
+    while (index < g_actor_worklist_71a20[0]) {
+        actor = (ModeActor *)(unsigned long)
+            g_actor_worklist_71a20[index + 1];
+        if (point_in_box_2a810((long)actor->x,
+                (long)(actor->y +
+                    ((ModeDword)(unsigned long)vertical_offset << 16)),
+                (long)actor->z, &bounds))
+            return index + 1;
+        ++index;
+    }
+    return 0;
+}

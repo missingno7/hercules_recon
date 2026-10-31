@@ -275,3 +275,56 @@ int __cdecl eng1_26e90(void *actor, unsigned short amount, int mode)
     }
     return 0;
 }
+
+/* ENG1 native entries 0x26d50 and 0x26f20.
+ * 0x26d50 reuses the measured 0x71be0 actor-pointer set and the existing
+ * bounds helpers. 0x26f20 scans the count-plus-pointer list at 0x6fe78,
+ * calling 0x29470 for the first record with a null link at +0x12c, then sets
+ * its high flag bit. 0x6fe78 aliases the existing minimum four-byte
+ * g_level_actors_6fe78 cell; later pointer slots are accessed as observed,
+ * but their capacity is not claimed here.
+ */
+Actor *__cdecl eng1_26d50(Actor *query)
+{
+    Query2a170Bounds query_bounds;
+    Query2a170Bounds actor_bounds;
+    unsigned long *set = (unsigned long *)(void *)
+        (g_actor_pipeline_storage_71440.byte_cells + 0x7a0);
+    int index;
+    Actor *record;
+
+    if (set[0] == 0)
+        return 0;
+    if (!actor_bounds_2a880(query, &query_bounds, 0UL))
+        return 0;
+    index = 0;
+    while (index < (long)set[0]) {
+        record = (Actor *)set[++index];
+        if (actor_bounds_2a880(record, &actor_bounds, 0UL) &&
+            bounds_overlap(&query_bounds, &actor_bounds))
+            return record;
+    }
+    return 0;
+}
+
+extern long g_level_actors_6fe78[];
+extern void __cdecl eng1_29470(void *, void *);
+
+Actor *__cdecl eng1_26f20(void *argument)
+{
+    int count;
+    int index;
+    Actor *record;
+
+    count = (int)g_level_actors_6fe78[0];
+    index = 0;
+    while (index < count) {
+        record = (Actor *)g_level_actors_6fe78[++index];
+        if (*(void **)((unsigned char *)record + 0x12c) == 0) {
+            eng1_29470(argument, record);
+            *(unsigned long *)((unsigned char *)record + 0x54) |= 0x80000000UL;
+            return record;
+        }
+    }
+    return 0;
+}

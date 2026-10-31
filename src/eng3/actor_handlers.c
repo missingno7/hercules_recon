@@ -77,6 +77,58 @@ int within_radius_1140(const int *a, const int *b, int r)
     return (unsigned)(dx * dx + dy * dy + dz * dz) < (unsigned)(r * r);
 }
 
+/* These real ENG3 interface declarations are needed by the later 0x1870
+ * handler. Keep them after the 0x1050/0x1140 functions to preserve their unit
+ * context while testing whether the declarations explain 0x1190's tie. */
+typedef struct Eng3EngineInterfacePrefix {
+    unsigned long signature_000;
+    unsigned char *context_004;
+} Eng3EngineInterfacePrefix;
+extern Eng3EngineInterfacePrefix g_engine_interface;
+extern void eng3_03290(void);
+
+typedef union PendingActionGroupView PendingActionGroupView;
+union PendingActionGroupView {
+    long count;
+    Actor *entries[1];
+};
+
+extern void vec_diff_fixed_1420(const int *a, const int *b, short *out);
+
+int eng3_01190(int start, PendingActionGroupView *group, int end, int radius)
+{
+    if (end - start > 0) {
+        Actor **other = &group->entries[start + 1];
+        int remaining = end - start;
+        short difference[6];
+
+        do {
+            Actor *a = group->entries[start];
+            Actor *b = *other;
+            int state;
+
+            vec_diff_fixed_1420((const int *)a, (const int *)b, difference);
+            a->unknown_e0 = 0;
+            if (difference[2] > -radius && difference[2] < radius &&
+                difference[0] > -radius && difference[0] < radius) {
+                a->unknown_e0 = 0x18;
+                state = *((unsigned char *)a + 0x96);
+                if (state == -1) {
+                    *((unsigned char *)b + 0x96) = 0xff;
+                    *((unsigned char *)a + 0x96) = 0;
+                }
+                if (state == 0) {
+                    *((unsigned char *)b + 0x96) = state;
+                    *((unsigned char *)a + 0x96) = 0xff;
+                }
+            }
+            ++other;
+        } while (--remaining != 0);
+    }
+
+    return 0;
+}
+
 void vec_diff_fixed_1420(const int *a, const int *b, short *out)
 {
     out[0] = (short)((a[0] - b[0]) >> 16);
@@ -163,4 +215,79 @@ void init_state_27130(Actor *o)
     o->unknown_4a = 0xfe;
     o->unknown_126 = 0;
     o->unknown_116 = 1;
+}
+
+typedef struct AnimationRecord AnimationRecord;
+struct AnimationRecord {
+    short x, y, z;
+    short rotation_y, rotation_z, rotation_x;
+    short duration;
+};
+
+typedef struct AnimationActorView AnimationActorView;
+struct AnimationActorView {
+    long x, y, z;
+    unsigned char unknown_0c[0x2e - 0x0c];
+    short animation_command_2e;
+    unsigned char unknown_30[0x5c - 0x30];
+    Actor *attachment_5c;
+    unsigned char unknown_60[0x8e - 0x60];
+    short rotation_x_8e, rotation_y_90, rotation_z_92;
+    unsigned char unknown_94[0xf0 - 0x94];
+    const AnimationRecord *animation_frames_f0;
+    long animation_index_f4;
+    long animation_remaining_f8;
+};
+
+void eng3_01870(void)
+{
+    if (*g_engine_interface.context_004 == 8)
+        eng3_03290();
+}
+
+/* Seven-word transform records are advanced only after the current duration
+ * expires. Sentinel X values carry the two actor commands seen in the stream. */
+extern Actor *g_eng3_actor_431d4;
+
+void eng3_01890(AnimationActorView *actor)
+{
+    const AnimationRecord *frame;
+    short delta_x, delta_y, delta_z;
+
+    --actor->animation_remaining_f8;
+    if (actor->animation_remaining_f8 < 0) {
+        do {
+            ++actor->animation_index_f4;
+            frame = actor->animation_frames_f0 + actor->animation_index_f4;
+            delta_x = frame->x;
+            delta_y = frame->y;
+            delta_z = frame->z;
+            if (delta_x == 0x7fff) {
+                int command = delta_y;
+                if (command != -25) {
+                    if (command == -6)
+                        actor->animation_command_2e = 0;
+                } else {
+                    g_eng3_actor_431d4 = actor->attachment_5c;
+                }
+            }
+        } while (delta_x == 0x7fff);
+        actor->animation_remaining_f8 =
+            actor->animation_frames_f0[actor->animation_index_f4].duration;
+        frame = actor->animation_frames_f0 + actor->animation_index_f4;
+    } else {
+        frame = actor->animation_frames_f0 + actor->animation_index_f4;
+        delta_x = frame->x;
+        delta_y = frame->y;
+        delta_z = frame->z;
+    }
+
+    actor->x += (long)delta_x << 16;
+    actor->y += (long)delta_y << 16;
+    actor->z += (long)delta_z << 16;
+    actor->rotation_x_8e += frame->rotation_x;
+    actor->rotation_y_90 += frame->rotation_y;
+    actor->rotation_z_92 += frame->rotation_z;
+    actor->rotation_y_90 &= 0x0fff;
+    actor->rotation_z_92 &= 0x0fff;
 }
