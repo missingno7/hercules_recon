@@ -38,7 +38,7 @@ extern long g_busy;
 extern long g_countdown;
 extern ActorLinkView *spawn_kind(long x, long y, long z, unsigned short kind);
 extern void detach_attachment(ActorLinkView *actor);
-extern AlternateCallbackView *g_alt_callbacks;
+extern AlternateCallbackView *g_configuration_dword_7139c;
 extern void __cdecl dispatch_local_2c650(void);
 extern void __cdecl dispatch_local_2c660(void);
 
@@ -66,7 +66,7 @@ ActorLinkView *attach_actor(ActorLinkView *actor, int kind)
         attached->attachment_05c = actor;
         attached->word_038 = actor->word_038;
         attached->flags_050 = 0x00010000UL;
-        g_alt_callbacks[kind & 0x0fff].initialize(attached);
+        g_configuration_dword_7139c[kind & 0x0fff].initialize(attached);
     }
 
     return attached;

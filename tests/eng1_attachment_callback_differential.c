@@ -51,7 +51,7 @@ unsigned short g_alternate_limit_wrap, g_alternate_cursor_alternate;
 unsigned short g_alternate_limit_wrap_start;
 NormalFactoryAsset *g_normal_factory_assets;
 AlternateFactoryAsset *g_alternate_factory_assets;
-FixtureAltCallbackRecord *g_alt_callbacks;
+FixtureAltCallbackRecord *g_configuration_dword_7139c;
 long g_busy, g_countdown;
 EngineInterface g_engine_interface;
 FxSoundRecordView g_engine_fx_records[24];
@@ -197,7 +197,7 @@ static void seed_source(int allocation_enabled, unsigned short saved_state,
     g_alternate_limit_wrap = allocation_enabled ? 2U : 0U;
     g_alternate_limit_wrap_start = 0;
     g_alternate_factory_assets = assets;
-    g_alt_callbacks = callbacks;
+    g_configuration_dword_7139c = callbacks;
     current_parent = parent;
     current_saved_state = saved_state;
     current_side = 0;

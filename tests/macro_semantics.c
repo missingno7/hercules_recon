@@ -21,8 +21,8 @@ LAYOUT(callback_stride12, sizeof(Callback12)==12);
 
 Asset8 *g_special_assets, *g_alternate_assets;
 Asset16 *g_normal_assets;
-Callback8 *g_special_callbacks, *g_alternate_callbacks;
-Callback12 *g_normal_callbacks;
+Callback8 *g_configuration_dword_7137c, *g_configuration_dword_7139c;
+Callback12 *g_configuration_dword_71370;
 Actor *g_scene_anchor;
 unsigned long g_tag_list[4];
 static unsigned short words[10], *words_pointer=words;
@@ -60,8 +60,8 @@ int main(void)
     p.initial_steps=&b; p.step_index=42; restart_steps(&p);
     CHECK(p.steps==&b && p.step_index==0 && p.active_step==1);
     g_special_assets=special_assets; g_alternate_assets=alternate_assets;
-    g_normal_assets=normal_assets; g_special_callbacks=special_callbacks;
-    g_alternate_callbacks=alternate_callbacks; g_normal_callbacks=normal_callbacks;
+    g_normal_assets=normal_assets; g_configuration_dword_7137c=special_callbacks;
+    g_configuration_dword_7139c=alternate_callbacks; g_configuration_dword_71370=normal_callbacks;
     special_assets[1].image=&a; special_assets[1].category=11; special_callbacks[1].init=special;
     alternate_assets[1].image=&b; alternate_assets[1].category=12; alternate_callbacks[1].init=alternate;
     normal_assets[1].image=&c; normal_assets[1].category=13; normal_callbacks[1].init=normal;

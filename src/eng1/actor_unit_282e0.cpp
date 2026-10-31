@@ -120,8 +120,8 @@ typedef struct EngineInterfaceHead {
 extern EngineInterfaceHead g_engine_interface;
 extern Asset8 *g_special_assets, *g_alternate_assets;
 extern Asset16 *g_normal_assets;
-extern Callback8 *g_special_callbacks, *g_alternate_callbacks;
-extern Callback12 *g_normal_callbacks;
+extern Callback8 *g_configuration_dword_7137c, *g_configuration_dword_7139c;
+extern Callback12 *g_configuration_dword_71370;
 extern ActorCallback *g_configuration_dword_71384;
 extern KindInfo g_kind_info[];
 extern long g_actor_worklist_714c0[];
@@ -767,18 +767,18 @@ void change_kind(Actor *p, unsigned short kind)
             p->kind = kind;
             p->category = g_special_assets[kind & 0xfff].category;
             p->image = g_special_assets[kind & 0xfff].image;
-            g_special_callbacks[kind & 0xfff].init(p);
+            g_configuration_dword_7137c[kind & 0xfff].init(p);
         } else {
             p->kind = kind;
             p->category = g_alternate_assets[kind & 0xfff].category;
             p->image = g_alternate_assets[kind & 0xfff].image;
-            g_alternate_callbacks[kind & 0xfff].init(p);
+            g_configuration_dword_7139c[kind & 0xfff].init(p);
         }
     } else {
         p->kind = kind;
         p->category = g_normal_assets[kind].category;
         p->image = g_normal_assets[kind].image;
-        g_normal_callbacks[kind].init(p);
+        g_configuration_dword_71370[kind].init(p);
     }
     reset_frame_state(p);
     eng1_interpret_word_stream(p);

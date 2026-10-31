@@ -72,7 +72,7 @@ extern Actor *g_normal_actor_pool;
 extern Actor *g_collision_context;
 extern unsigned short *g_configuration_dword_713bc;
 extern Callback12 *g_configuration_dword_71370;
-extern Callback8 *g_special_callbacks;
+extern Callback8 *g_configuration_dword_7137c;
 extern unsigned short g_eng1_setup_word_718e0;
 extern unsigned short g_eng1_setup_word_72012;
 extern unsigned short g_native_word_72168;
@@ -887,7 +887,7 @@ void eng1_09db0(Actor *p)
         q = spawn_middle_277e0((g_debris_4fb50[i].x << 16) + x, (g_debris_4fb50[i].y << 16) + y,
                                (g_debris_4fb50[i].z << 16) + z, g_debris_4fb50[i].kind);
         if (q) {
-            g_special_callbacks[65].initialize(q);
+            g_configuration_dword_7137c[65].initialize(q);
             q->state = 0x3e;
         }
     }
@@ -910,7 +910,7 @@ void eng1_09ec0(Actor *p)
         q = spawn_middle_277e0((g_debris_4fbb8[r].x << 16) + x, (g_debris_4fbb8[r].y << 16) + y,
                                (g_debris_4fbb8[r].z << 16) + z, g_debris_4fbb8[r].kind);
         if (q) {
-            g_special_callbacks[65].initialize(q);
+            g_configuration_dword_7137c[65].initialize(q);
             q->state = 0x3e;
             attach_actor(q, 0x2024);
         }
@@ -992,7 +992,7 @@ void eng1_0a140(Actor *p)
         q = spawn_middle_277e0((g_debris_4fb50[i].x << 16) + x, (g_debris_4fb50[i].y << 16) + y,
                                (g_debris_4fb50[i].z << 16) + z, g_debris_4fb50[i].kind);
         if (q) {
-            g_special_callbacks[40].initialize(q);
+            g_configuration_dword_7137c[40].initialize(q);
             q->state = 1;
             q->direction_x = 0;
             q->motion_x.velocity = (random_limit(0x600) - 0x300) << 8;
@@ -1019,7 +1019,7 @@ void eng1_0a2c0(Actor *p)
         q = spawn_middle_277e0((g_debris_4fbb8[r].x << 16) + x, (g_debris_4fbb8[r].y << 16) + y,
                                (g_debris_4fbb8[r].z << 16) + z, g_debris_4fbb8[r].kind);
         if (q) {
-            g_special_callbacks[40].initialize(q);
+            g_configuration_dword_7137c[40].initialize(q);
             q->state = 1;
             q->direction_x = 0;
             q->motion_x.velocity = (random_limit(0x500) - 0x280) << 8;

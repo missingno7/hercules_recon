@@ -76,9 +76,9 @@ extern unsigned short g_configuration_word_713ba;
 extern unsigned short g_configuration_word_71432;
 
 /* The callback cells are pointer-valued views over the measured DWORD cells. */
-extern ActorPipelineCallback12 *g_callbacks;
+extern ActorPipelineCallback12 *g_configuration_dword_71370;
 extern ActorPipelineCallback8 *g_configuration_dword_7137c;
-extern ActorPipelineCallback8 *g_alt_callbacks;
+extern ActorPipelineCallback8 *g_configuration_dword_7139c;
 
 /* These native count-and-pointer lanes are 1-based: [0] is the current count,
  * and the first appended actor pointer is stored in [1]. Their capacities
@@ -223,9 +223,9 @@ void __cdecl dispatch_local_256e0(void)
             flags = *(unsigned short *)((unsigned char *)actor + 0x50);
             if (flags & 4UL) {
                 if (flags & 1UL)
-                    g_alt_callbacks[kind & 0x0fffU].slot_004(actor);
+                    g_configuration_dword_7139c[kind & 0x0fffU].slot_004(actor);
                 if (flags & 2UL)
-                    g_alt_callbacks[kind & 0x0fffU].slot_004(actor);
+                    g_configuration_dword_7139c[kind & 0x0fffU].slot_004(actor);
             }
         }
         ++index;
@@ -271,9 +271,9 @@ void __cdecl dispatch_local_256e0(void)
                         (unsigned long)actor->z_008;
                 }
                 if (flags & 1UL)
-                    g_callbacks[kind].slot_004(actor);
+                    g_configuration_dword_71370[kind].slot_004(actor);
                 if (flags & 2UL)
-                    g_callbacks[kind].slot_008(actor);
+                    g_configuration_dword_71370[kind].slot_008(actor);
             }
         }
         ++index;
@@ -356,7 +356,7 @@ void __cdecl dispatch_local_258e0(void)
                         (unsigned long)actor;
                 }
                 if (flags & 1UL)
-                    g_alt_callbacks[kind & 0x01ffU].slot_004(actor);
+                    g_configuration_dword_7139c[kind & 0x01ffU].slot_004(actor);
             }
         }
         ++index;
@@ -464,7 +464,7 @@ void __cdecl dispatch_local_258e0(void)
                         (unsigned long)actor;
                 }
                 if (flags & 1UL)
-                    g_callbacks[kind & 0xffffU].slot_004(actor);
+                    g_configuration_dword_71370[kind & 0xffffU].slot_004(actor);
             }
         }
         ++index;
@@ -521,7 +521,7 @@ void __cdecl dispatch_local_25d00(void)
         if (kind != 0) {
             low_flags = *((unsigned char *)actor + 0x50);
             if (low_flags & 2U)
-                g_callbacks[kind].slot_008(actor);
+                g_configuration_dword_71370[kind].slot_008(actor);
         }
         ++index;
     }
@@ -553,7 +553,7 @@ void __cdecl dispatch_local_25d00(void)
             }
             low_flags = *((unsigned char *)actor + 0x50);
             if (low_flags & 2U)
-                g_alt_callbacks[kind & 0x01ffU].slot_004(actor);
+                g_configuration_dword_7139c[kind & 0x01ffU].slot_004(actor);
         }
         ++index;
     }
@@ -562,14 +562,14 @@ void __cdecl dispatch_local_25d00(void)
     while (index < g_actor_worklist_71ce0[0]) {
         actor = (ActorPipelineView *)g_actor_worklist_71ce0[index + 1];
         kind = actor->kind_02e;
-        g_alt_callbacks[kind & 0x01ffU].slot_004(actor);
+        g_configuration_dword_7139c[kind & 0x01ffU].slot_004(actor);
         ++index;
     }
 
     actor = g_pipeline_actor_7200c;
     kind = actor->kind_02e;
     if (kind != 0)
-        g_callbacks[kind].slot_008(actor);
+        g_configuration_dword_71370[kind].slot_008(actor);
 
     level = (signed char)g_engine_interface.context_004->unknown_000[0];
     if (level != 9)

@@ -136,7 +136,7 @@ extern Actor *g_normal_actor_pool;
 extern Actor *g_collision_context;
 extern unsigned short *g_configuration_dword_713bc;
 extern Callback12 *g_configuration_dword_71370;
-extern Callback8 *g_special_callbacks;
+extern Callback8 *g_configuration_dword_7137c;
 extern unsigned short g_eng1_setup_word_718e0;
 extern Debris g_debris_50f60[24];
 extern Debris g_debris_51020[24];
@@ -457,7 +457,7 @@ void eng1_0cdd0(Actor *p)
         q = spawn_middle_277e0((g_debris_50f60[i].x << 16) + x, (g_debris_50f60[i].y << 16) + y,
                                (g_debris_50f60[i].z << 16) + z, g_debris_50f60[i].kind);
         if (q) {
-            g_special_callbacks[40].initialize(q);
+            g_configuration_dword_7137c[40].initialize(q);
             q->direction_x = 0;
             q->motion_x.velocity = (random_limit(0xa00) - 0x500) << 8;
             q->motion_y.velocity = (-random_limit(0x600) - 0x200) << 8;
@@ -479,7 +479,7 @@ void eng1_0ceb0(Actor *p)
         q = spawn_middle_277e0((g_debris_51020[i].x << 16) + x, (g_debris_51020[i].y << 16) + y,
                                (g_debris_51020[i].z << 16) + z, g_debris_51020[i].kind);
         if (q) {
-            g_special_callbacks[40].initialize(q);
+            g_configuration_dword_7137c[40].initialize(q);
             q->state = 0x3e;
             q->direction_x = 0;
             q->motion_x.velocity = (random_limit(0xa00) - 0x500) << 8;
@@ -503,7 +503,7 @@ void eng1_0cfb0(Actor *p)
         q = spawn_middle_277e0((g_debris_510e0[i].x << 16) + x, (g_debris_510e0[i].y << 16) + y,
                                (g_debris_510e0[i].z << 16) + z, g_debris_510e0[i].kind);
         if (q) {
-            g_special_callbacks[40].initialize(q);
+            g_configuration_dword_7137c[40].initialize(q);
             q->state = 0x3e;
             q->direction_x = 0;
             q->motion_x.velocity = (random_limit(0xa00) - 0x500) << 8;
@@ -526,7 +526,7 @@ void eng1_0d0c0(Actor *p)
         q = spawn_middle_277e0((g_debris_51140[i].x << 16) + x, (g_debris_51140[i].y << 16) + y,
                                (g_debris_51140[i].z << 16) + z, g_debris_51140[i].kind);
         if (q) {
-            g_special_callbacks[56].initialize(q);
+            g_configuration_dword_7137c[56].initialize(q);
             q->direction_x = 0;
             q->motion_x.velocity = (random_limit(0x200) - 0x100) << 8;
             q->motion_y.velocity = random_limit(0x200) << 8;
@@ -1566,7 +1566,7 @@ void eng1_native_code_target_00fa00(Actor *p)
                                                        p->z + (p->spawns[i].z << 16), kind);
                                 if (r) {
                                     r->state = p->spawns[i].state;
-                                    g_special_callbacks[kind & 0x1ff].initialize(r);
+                                    g_configuration_dword_7137c[kind & 0x1ff].initialize(r);
                                     r->frame_command = p->spawns[i].frame;
                                 }
                             }

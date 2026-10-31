@@ -180,9 +180,9 @@
     "_g_special_assets": "0x71390",
     "_g_alternate_assets": "0x713a4",
     "_g_normal_assets": "0x71388",
-    "_g_special_callbacks": "0x7137c",
-    "_g_alternate_callbacks": "0x7139c",
-    "_g_normal_callbacks": "0x71370",
+    "_g_configuration_dword_7137c": "0x7137c",
+    "_g_configuration_dword_7139c": "0x7139c",
+    "_g_configuration_dword_71370": "0x71370",
     "_g_scene_anchor": "0x6fed8",
     "_g_tag_list": "0x716c0"
   },
@@ -538,6 +538,66 @@
         "_create_command",
         "_find_tag"
       ],
+      "cfg_regressed": []
+    },
+    {
+      "wave": 5,
+      "label": "Canonical storage names (re-pin S2)",
+      "hypothesis": "Identifier-only rename of three callback cells to their canonical owners; generated code unchanged.",
+      "local_function_interventions": [],
+      "source_sha256": "c772d5934ab30465844d97a00fcb8c050e2e145989e2147862b7c8e3f876332e",
+      "source_bytes": 7321,
+      "source_lines": 271,
+      "summary": {
+        "functions": 18,
+        "exact": 10,
+        "new_exact": 6,
+        "exact_bytes": 688,
+        "diagnostic_equal": 15,
+        "ordered_cfg_equal": 18,
+        "instruction_over_90": 15,
+        "nonexact_instruction_over_90": 5,
+        "categories": {
+          "raw exact": 10,
+          "uncertain allocation/type/source-form": 3,
+          "relocation-only diagnostic equality": 5
+        },
+        "normalized_byte_over_90": 16,
+        "nonexact_normalized_byte_over_90": 6,
+        "normalized_equal_bytes": 1040,
+        "new_exact_bytes": 288,
+        "weighted_raw_byte_percent": 87.429,
+        "weighted_normalized_byte_percent": 92.543
+      },
+      "source_changes": [
+        {
+          "before_line": 56,
+          "after_line": 56,
+          "before": "extern Callback8 *g_special_callbacks, *g_alternate_callbacks;\nextern Callback12 *g_normal_callbacks;\n",
+          "after": "extern Callback8 *g_configuration_dword_7137c, *g_configuration_dword_7139c;\nextern Callback12 *g_configuration_dword_71370;\n"
+        },
+        {
+          "before_line": 137,
+          "after_line": 137,
+          "before": "            g_special_callbacks[kind & 0xfff].init(p);\n",
+          "after": "            g_configuration_dword_7137c[kind & 0xfff].init(p);\n"
+        },
+        {
+          "before_line": 142,
+          "after_line": 142,
+          "before": "            g_alternate_callbacks[kind & 0xfff].init(p);\n",
+          "after": "            g_configuration_dword_7139c[kind & 0xfff].init(p);\n"
+        },
+        {
+          "before_line": 148,
+          "after_line": 148,
+          "before": "        g_normal_callbacks[kind].init(p);\n",
+          "after": "        g_configuration_dword_71370[kind].init(p);\n"
+        }
+      ],
+      "normalized_byte_improved": [],
+      "normalized_byte_regressed": [],
+      "cfg_improved": [],
       "cfg_regressed": []
     }
   ],
