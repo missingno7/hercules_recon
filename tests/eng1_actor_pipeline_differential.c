@@ -55,11 +55,11 @@ int __cdecl release_actor(ActorPipelineView *p){(void)p;++unexpected_calls;retur
  * These explicit test spies must remain uncalled by the selected258e0 path. */
 void __cdecl eng1_call_27fa0(void){++unexpected_calls;}
 void __cdecl eng1_call_279f0(void){++unexpected_calls;}
-void __cdecl eng1_call_2af80(void){++unexpected_calls;}
-void __cdecl eng1_call_282e0(void){++unexpected_calls;}
+void __cdecl initialize_pending_action_groups(void){++unexpected_calls;}
+void __cdecl reset_command_table(void){++unexpected_calls;}
 void __cdecl eng1_call_1fdf0(void){++unexpected_calls;}
 void __cdecl eng1_call_274e0(void){++unexpected_calls;}
-void __cdecl eng1_call_1fd20(void){++unexpected_calls;}
+void __cdecl dispatch_local_1fd20(void){++unexpected_calls;}
 void __cdecl eng1_call_26040(void){++unexpected_calls;}
 void __cdecl eng1_call_12960(void){++unexpected_calls;}
 void __cdecl eng1_call_01e50(void){++unexpected_calls;}

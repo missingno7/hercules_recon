@@ -136,14 +136,14 @@ extern void __cdecl reset_middle_actor_pool(void);
 extern void __cdecl reset_alternate_actor_pool(void);
 extern void __cdecl eng1_call_274e0(void);
 extern void __cdecl eng1_call_1fdf0(void);
-extern void __cdecl eng1_call_282e0(void);
-extern void __cdecl eng1_call_2af80(void);
+extern void __cdecl reset_command_table(void);
+extern void __cdecl initialize_pending_action_groups(void);
 extern void __cdecl eng1_call_279f0(void);
 extern void __cdecl eng1_call_27fa0(void);
 extern void __cdecl eng1_call_01e50(void);
 extern void __cdecl eng1_call_12960(void);
 extern void __cdecl eng1_call_26040(void);
-extern void __cdecl eng1_call_1fd20(void);
+extern void __cdecl dispatch_local_1fd20(void);
 extern void __cdecl eng1_call_26480(void);
 extern void __cdecl eng1_call_26730(void);
 extern unsigned short __cdecl eng1_call_2a880(
@@ -159,8 +159,8 @@ void __cdecl dispatch_local_255f0(void)
     g_pipeline_word_713ae = 0;
     eng1_call_274e0();
     eng1_call_1fdf0();
-    eng1_call_282e0();
-    eng1_call_2af80();
+    reset_command_table();
+    initialize_pending_action_groups();
     eng1_call_279f0();
     eng1_call_27fa0();
 }
@@ -187,7 +187,7 @@ void __cdecl dispatch_local_25620(void)
     eng1_call_01e50();
     eng1_call_12960();
     eng1_call_26040();
-    eng1_call_1fd20();
+    dispatch_local_1fd20();
     dispatch_local_262a0();
     g_pipeline_word_71376 = 5;
 }

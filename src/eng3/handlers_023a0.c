@@ -168,7 +168,7 @@ extern int g_eng3_sprites_34f98[];
 extern int g_eng3_sprites_34fe0[];
 extern int eng3_1fac0(void);
 extern int eng3_01460(Actor *);
-extern int eng3_1ecf0(long, long, long, int);
+extern int dispatch_local_2a170(long, long, long, int);
 extern int eng3_1b650(short *, int, int, long);
 extern void eng3_19a30(void);
 extern Actor *g_eng3_actor_431d4;
@@ -1593,7 +1593,7 @@ void eng3_053f0(Actor *o)
             o->unknown_11e = o->unknown_dc;
         }
     }
-    switch (eng3_1ecf0(g_focus->x, g_focus->y, g_focus->z, g_focus->profile)) {
+    switch (dispatch_local_2a170(g_focus->x, g_focus->y, g_focus->z, g_focus->profile)) {
     case 0x6e:
         o->unknown_dc = o->unknown_11e = 0x40;
         break;

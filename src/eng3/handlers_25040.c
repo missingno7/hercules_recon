@@ -167,7 +167,7 @@ extern void eng3_1eeb0(Actor *);
 extern int eng3_1dbc0(Actor *);
 extern int eng3_1b920(Actor *, int);
 extern int eng3_1ec20(Actor *);
-extern int eng3_1ecf0(long, long, long, int);
+extern int dispatch_local_2a170(long, long, long, int);
 extern int eng1_2a660(Actor *, Actor *);
 extern void eng3_19200(void);
 extern ActorGroup *acquire_pending_action_group(void);
@@ -687,7 +687,7 @@ void eng3_26340(Actor *o)
                 a->x = g_focus->x + 0x9000000;
         }
     }
-    if (eng3_1ecf0(g_focus->x, g_focus->y, g_focus->z, g_focus->profile) == 0xff86)
+    if (dispatch_local_2a170(g_focus->x, g_focus->y, g_focus->z, g_focus->profile) == 0xff86)
         remove_actor(o);
 }
 

@@ -9,9 +9,9 @@ static unsigned char source_context[256],native_context[256];
 static HMODULE oracle;
 static void check(int ok,const char *why){++checks;if(!ok){++failures;printf("FAIL case=%d %s\n",cases,why);}}
 void __cdecl eng1_native_code_target_00c720(void){called_id=1;++called_count;eng1_empty_c720();}
-void __cdecl eng1_native_code_target_0337b0(void){called_id=5;++called_count;}
+void __cdecl eng1_337b0(void){called_id=5;++called_count;}
 void __cdecl eng1_native_code_target_01abf0(void){called_id=6;++called_count;}
-void __cdecl eng1_native_code_target_03c130(void){called_id=9;++called_count;}
+void __cdecl eng1_3c130(void){called_id=9;++called_count;}
 typedef struct Snapshot {unsigned long rva,size;unsigned char *before;} Snapshot;
 static Snapshot snapshots[16];static int snapshot_count;
 static unsigned char *cell(unsigned long rva){return (unsigned char *)oracle+rva;}

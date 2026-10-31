@@ -3,15 +3,15 @@
 #include "../shared/engine_interface.h"
 
 extern void __cdecl eng1_native_code_target_003ca10(void); /* ENG1 0x3ca10 */
-extern void __cdecl eng1_native_code_target_00e3e0(void);  /* ENG1 0x0e3e0 */
-extern void __cdecl eng1_native_code_target_0033700(void); /* ENG1 0x33700 */
+extern void __cdecl dispatch_local_00e3e0(void);  /* ENG1 0x0e3e0 */
+extern void __cdecl eng1_33700(void); /* ENG1 0x33700 */
 extern void __cdecl eng1_native_code_target_001ac10(void); /* ENG1 0x1ac10 */
 extern void __cdecl eng1_native_code_target_0021050(void); /* ENG1 0x21050 */
-extern void __cdecl eng1_native_code_target_003c170(void); /* ENG1 0x3c170 */
+extern void __cdecl eng1_3c170(void); /* ENG1 0x3c170 */
 extern void __cdecl eng1_native_code_target_0044120(void); /* ENG1 0x44120 */
 
-extern void __cdecl eng1_native_code_target_003ca50(void); /* ENG1 0x3ca50 */
-extern void __cdecl eng1_native_code_target_0033720(void); /* ENG1 0x33720 */
+extern void __cdecl eng1_3ca50(void); /* ENG1 0x3ca50 */
+extern void __cdecl eng1_33720(void); /* ENG1 0x33720 */
 extern void __cdecl eng1_native_code_target_001ae00(void); /* ENG1 0x1ae00 */
 extern void __cdecl eng1_native_code_target_0021210(void); /* ENG1 0x21210 */
 extern void __cdecl eng1_native_code_target_0044240(void); /* ENG1 0x44240 */
@@ -29,10 +29,10 @@ void __cdecl dispatch_local_1fd20(void)
         eng1_native_code_target_003ca10();
         return;
     case 3:
-        eng1_native_code_target_00e3e0();
+        dispatch_local_00e3e0();
         return;
     case 5:
-        eng1_native_code_target_0033700();
+        eng1_33700();
         return;
     case 6:
         eng1_native_code_target_001ac10();
@@ -41,7 +41,7 @@ void __cdecl dispatch_local_1fd20(void)
         eng1_native_code_target_0021050();
         return;
     case 9:
-        eng1_native_code_target_003c170();
+        eng1_3c170();
         return;
     case 11:
         eng1_native_code_target_0044120();
@@ -60,10 +60,10 @@ void __cdecl dispatch_local_1fd90(void)
 
     switch (selector) {
     case 1:
-        eng1_native_code_target_003ca50();
+        eng1_3ca50();
         return;
     case 5:
-        eng1_native_code_target_0033720();
+        eng1_33720();
         return;
     case 6:
         eng1_native_code_target_001ae00();
