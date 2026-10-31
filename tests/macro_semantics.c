@@ -19,8 +19,8 @@ LAYOUT(asset_stride16, sizeof(Asset16)==16);
 LAYOUT(callback_stride8, sizeof(Callback8)==8);
 LAYOUT(callback_stride12, sizeof(Callback12)==12);
 
-Asset8 *g_special_assets, *g_alternate_assets;
-Asset16 *g_normal_assets;
+Asset8 *g_configuration_dword_71390, *g_configuration_dword_713a4;
+Asset16 *g_configuration_dword_71388;
 Callback8 *g_configuration_dword_7137c, *g_configuration_dword_7139c;
 Callback12 *g_configuration_dword_71370;
 Actor *g_scene_anchor;
@@ -59,8 +59,8 @@ int main(void)
     CHECK(p.image==&a && p.frame_state==-1 && p.frame_ticks==0);
     p.initial_steps=&b; p.step_index=42; restart_steps(&p);
     CHECK(p.steps==&b && p.step_index==0 && p.active_step==1);
-    g_special_assets=special_assets; g_alternate_assets=alternate_assets;
-    g_normal_assets=normal_assets; g_configuration_dword_7137c=special_callbacks;
+    g_configuration_dword_71390=special_assets; g_configuration_dword_713a4=alternate_assets;
+    g_configuration_dword_71388=normal_assets; g_configuration_dword_7137c=special_callbacks;
     g_configuration_dword_7139c=alternate_callbacks; g_configuration_dword_71370=normal_callbacks;
     special_assets[1].image=&a; special_assets[1].category=11; special_callbacks[1].init=special;
     alternate_assets[1].image=&b; alternate_assets[1].category=12; alternate_callbacks[1].init=alternate;

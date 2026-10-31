@@ -188,5 +188,28 @@ Independent anchors, not owners or content, now limit storage identities:
   and will get an adversarial review before use.
 - Storage migration S3 (solZ2 classes a and b, with T2 renames and rebinds for accepted callers) is being packaged by
   the naming agent on top of the wrapper chain.
+
+### Wave k results (2026-10-31)
+
+- Wrapper batches W1-W6 and W3 landed: one name per interface slot in ENG1/ENG3. Two of their packages went stale and
+  were caught: W5's ENG3 restage of a row that fix M had already made strict was skipped
+  (work/velocity_j/finish_batch.py), and wbatch regenerates every package from HEAD.
+- b20 reconstructed 17 callees (k01, k02, k03, k04, k06, k08), including the new unit scene_state_1abf0.c. Near misses
+  of 10 bytes or fewer (eng3_01190, eng1_19cf0) enter as the real units' functions without ledger rows; far-off
+  reconstructions stay in their lanes.
+- Accepted 1,272 (97049ef): 17 rows through bindK1, among them the three slot-0x258 wrappers under
+  opaque-tail-jump-v1. Its adversarial review found a hole shared with the CALL cell form, a BSS cell over a
+  loader-written import slot; both forms now refuse it. The review also required the JMP to be in tail position.
+- New finding: VC5 numbers a jump table's own label ($L) after the whole unit, so adding a function or a declaration
+  renames table labels of accepted rows. Reviewed $L renames (652e72c, e0f08ca) cover binding keys, table
+  declarations, byte-table receipts and unit inventories; any other mention stays refused.
+- solXS (EXE storage) is negative. Decoded absolute memory operands prove a preferred-base address use, but they
+  free 0 rows, even with 33 new owners. EXE owners sit inside multi-object .bss sections, and boundaries need rooted
+  entries. Next: a section-layout owner proof shared with solSU's same-unit form (caller-section-v1, hardened, 0 new
+  rows yet). ENG3 compiles shared sound_od.c with /DENGINE3, a precedent for ENG3 variants of shared units (k09: ENG3
+  carries its own variant of u02b70).
+- The next owner obligations are the first accepted records of g_actor_pipeline_storage_71440 and
+  g_eng1_actor_control_state_70ed8. Neither has a stable witness, so they need anchors from at least 3 hosts. They
+  gate the rows the S3e, S3f and S3i storage packages free.
 - Rows whose new masked boundary covers an accepted proof's anchor cannot be promoted (eng1.02d80,
   eng1.02920); their callers are unaffected. Re-anchor before promoting such hosts when a witness exists.

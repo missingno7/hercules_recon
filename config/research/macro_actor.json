@@ -177,9 +177,9 @@
     "_release_actor": "0x27e20",
     "_release_buffer": "0x7cde",
     "_refresh_actor": "0x28820",
-    "_g_special_assets": "0x71390",
-    "_g_alternate_assets": "0x713a4",
-    "_g_normal_assets": "0x71388",
+    "_g_configuration_dword_71390": "0x71390",
+    "_g_configuration_dword_713a4": "0x713a4",
+    "_g_configuration_dword_71388": "0x71388",
     "_g_configuration_dword_7137c": "0x7137c",
     "_g_configuration_dword_7139c": "0x7139c",
     "_g_configuration_dword_71370": "0x71370",
@@ -593,6 +593,66 @@
           "after_line": 148,
           "before": "        g_normal_callbacks[kind].init(p);\n",
           "after": "        g_configuration_dword_71370[kind].init(p);\n"
+        }
+      ],
+      "normalized_byte_improved": [],
+      "normalized_byte_regressed": [],
+      "cfg_improved": [],
+      "cfg_regressed": []
+    },
+    {
+      "wave": 6,
+      "label": "Canonical storage names (re-pin S3a)",
+      "hypothesis": "Identifier-only rename of storage cells to their canonical owners; generated code unchanged.",
+      "local_function_interventions": [],
+      "source_sha256": "bcf5ab8e0a62e31a88c0534a2bb8b5624c083248a5c4a17291d04cff01d4cdba",
+      "source_bytes": 7417,
+      "source_lines": 271,
+      "summary": {
+        "functions": 18,
+        "exact": 10,
+        "new_exact": 6,
+        "exact_bytes": 688,
+        "diagnostic_equal": 15,
+        "ordered_cfg_equal": 18,
+        "instruction_over_90": 15,
+        "nonexact_instruction_over_90": 5,
+        "categories": {
+          "raw exact": 10,
+          "uncertain allocation/type/source-form": 3,
+          "relocation-only diagnostic equality": 5
+        },
+        "normalized_byte_over_90": 16,
+        "nonexact_normalized_byte_over_90": 6,
+        "normalized_equal_bytes": 1040,
+        "new_exact_bytes": 288,
+        "weighted_raw_byte_percent": 87.429,
+        "weighted_normalized_byte_percent": 92.543
+      },
+      "source_changes": [
+        {
+          "before_line": 54,
+          "after_line": 54,
+          "before": "extern Asset8 *g_special_assets, *g_alternate_assets;\nextern Asset16 *g_normal_assets;\n",
+          "after": "extern Asset8 *g_configuration_dword_71390, *g_configuration_dword_713a4;\nextern Asset16 *g_configuration_dword_71388;\n"
+        },
+        {
+          "before_line": 135,
+          "after_line": 135,
+          "before": "            p->category = g_special_assets[kind & 0xfff].category;\n            p->image = g_special_assets[kind & 0xfff].image;\n",
+          "after": "            p->category = g_configuration_dword_71390[kind & 0xfff].category;\n            p->image = g_configuration_dword_71390[kind & 0xfff].image;\n"
+        },
+        {
+          "before_line": 140,
+          "after_line": 140,
+          "before": "            p->category = g_alternate_assets[kind & 0xfff].category;\n            p->image = g_alternate_assets[kind & 0xfff].image;\n",
+          "after": "            p->category = g_configuration_dword_713a4[kind & 0xfff].category;\n            p->image = g_configuration_dword_713a4[kind & 0xfff].image;\n"
+        },
+        {
+          "before_line": 146,
+          "after_line": 146,
+          "before": "        p->category = g_normal_assets[kind].category;\n        p->image = g_normal_assets[kind].image;\n",
+          "after": "        p->category = g_configuration_dword_71388[kind].category;\n        p->image = g_configuration_dword_71388[kind].image;\n"
         }
       ],
       "normalized_byte_improved": [],

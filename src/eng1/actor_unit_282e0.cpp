@@ -118,8 +118,8 @@ typedef struct EngineInterfaceHead {
 } EngineInterfaceHead;
 
 extern EngineInterfaceHead g_engine_interface;
-extern Asset8 *g_special_assets, *g_alternate_assets;
-extern Asset16 *g_normal_assets;
+extern Asset8 *g_configuration_dword_71390, *g_configuration_dword_713a4;
+extern Asset16 *g_configuration_dword_71388;
 extern Callback8 *g_configuration_dword_7137c, *g_configuration_dword_7139c;
 extern Callback12 *g_configuration_dword_71370;
 extern ActorCallback *g_configuration_dword_71384;
@@ -765,19 +765,19 @@ void change_kind(Actor *p, unsigned short kind)
     if (p->kind & 0x6000) {
         if (p->kind & 0x4000) {
             p->kind = kind;
-            p->category = g_special_assets[kind & 0xfff].category;
-            p->image = g_special_assets[kind & 0xfff].image;
+            p->category = g_configuration_dword_71390[kind & 0xfff].category;
+            p->image = g_configuration_dword_71390[kind & 0xfff].image;
             g_configuration_dword_7137c[kind & 0xfff].init(p);
         } else {
             p->kind = kind;
-            p->category = g_alternate_assets[kind & 0xfff].category;
-            p->image = g_alternate_assets[kind & 0xfff].image;
+            p->category = g_configuration_dword_713a4[kind & 0xfff].category;
+            p->image = g_configuration_dword_713a4[kind & 0xfff].image;
             g_configuration_dword_7139c[kind & 0xfff].init(p);
         }
     } else {
         p->kind = kind;
-        p->category = g_normal_assets[kind].category;
-        p->image = g_normal_assets[kind].image;
+        p->category = g_configuration_dword_71388[kind].category;
+        p->image = g_configuration_dword_71388[kind].image;
         g_configuration_dword_71370[kind].init(p);
     }
     reset_frame_state(p);
