@@ -11,6 +11,12 @@ A region file must define exactly the functions recorded for it. An existing pro
 staged in place ("in_place": true, no candidate): it is never rewritten, and every other function it
 defines is pinned by name in each row's proof (co_defined_functions); verify requires that exact set. Masked equality is
 never acceptance: match.py and promote.py verify raw bytes or independently bound references.
+
+In-place plans replace planned rows by id, so a reviewed rename of a masked row's symbol restages that row.
+"moves": [row ids] re-sources individual masked rows of the plan's module from another provider; each
+must be listed in the plan with its id and RVA. The rows left in the old provider group are rechecked in
+the same transaction, and their pinned co-defined set then includes the moved symbol. A strict row only
+blocks a planned symbol in its own module: another module may stage a masked row on the same shared source.
 """
 import argparse
 import hashlib
@@ -143,6 +149,7 @@ def stage(plan_path):
     moved = [r for r in state['functions'] if r.get('source') in replaces]
     if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in moved):
         raise ValueError('Only masked rows can be moved')
+    explicit = _explicit_moves(plan, state, source, module, in_place)
     plan_flags = list(plan.get('flags') or ['/O2'])
     existing = [r for r in state['functions'] if r.get('source') == source
                 and list(r.get('flags') or ['/O2']) == plan_flags]
@@ -157,7 +164,8 @@ def stage(plan_path):
         # Strict rows (FUNCTION_MATCH, LINKED_MATCH) keep their own proofs; like RECONSTRUCTED rows their
         # functions are pinned co-defined, and they are never restaged as masked rows.
         strict = [r for r in existing if r['status'] in ('FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', 'LINKED_MATCH')]
-        if {r['symbol'] for r in strict} & planned:
+        # A strict row protects its own module's symbol; a twin module may stage a masked row on shared source.
+        if {r['symbol'] for r in strict if Path(r['target']).name.upper() == module.upper()} & planned:
             raise ValueError('A strict row cannot be staged as a masked row')
         existing = [r for r in existing if r['status'] not in ('RECONSTRUCTED', 'FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', 'LINKED_MATCH')]
         if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in existing):
@@ -167,10 +175,18 @@ def stage(plan_path):
         moved = moved + upgraded
     prior_evidence = {(r['rva'], r['symbol']): r['evidence'] for r in moved}
     rows = []
+    moved_ids = {r['id'] for r in explicit}
     for f in plan['functions']:
         key = (module.upper(), int(f['rva'], 16))
-        if key in taken and taken[key].get('source') not in [source] + replaces:
+        if key in taken and taken[key]['id'] in moved_ids:
+            if f.get('id') != taken[key]['id']:
+                raise ValueError('A moved row keeps its id and RVA: ' + taken[key]['id'])
+        elif key in taken and taken[key].get('source') not in [source] + replaces:
             raise ValueError(f"{f['rva']} already tracked as {taken[key]['id']}")
+    by_id = {r['id']: r for r in existing}
+    for f in plan['functions']:
+        if f.get('id') in by_id and by_id[f['id']]['rva'] != f['rva']:
+            raise ValueError('A restaged row keeps its RVA: ' + f['id'])
     if {(r['rva'], r['symbol']) for r in moved} - {(f['rva'], f['symbol']) for f in plan['functions']}:
         raise ValueError('A replaced source has rows missing from the plan')
     for f in plan['functions']:
@@ -185,7 +201,10 @@ def stage(plan_path):
                          target_sha256=digest((ROOT / target_rel).read_bytes()), rva=f['rva'], size=f['size'],
                          source=source, symbol=f['symbol'], flags=list(plan.get('flags') or ['/O2']), evidence=evidence,
                          boundary=BOUNDARY))
-    keep = [r for r in existing if (r['rva'], r['symbol']) not in {(x['rva'], x['symbol']) for x in rows}]
+    # Planned rows replace existing rows by id too, so a reviewed symbol rename restages its row.
+    planned_ids = {x['id'] for x in rows}
+    keep = [r for r in existing if (r['rva'], r['symbol']) not in {(x['rva'], x['symbol']) for x in rows}
+            and r['id'] not in planned_ids]
     if in_place:
         content = (ROOT / source).read_bytes()
         if b'\r' in content:
@@ -193,11 +212,13 @@ def stage(plan_path):
         obj, _ = compile_source(ROOT / source, list(plan.get('flags') or ['/O2']))
         co_defined = sorted(defined_functions(obj) - {r['symbol'] for r in keep + rows})
         results = check_rows(keep + rows, source, co_defined)
+        old_groups = _remaining_groups(state, explicit)
         if STATE.read_bytes() != state_before or (ROOT / source).read_bytes() != content:
             raise ValueError('recovery.json or source changed during staging')
-        _record(state, existing, moved, keep, rows, results, content, co_defined)
+        _record(state, existing, moved + explicit, keep, rows, results, content, co_defined, old_groups)
         print(f'Staged {len(rows)} CODEGEN_SIMILAR rows ({len(keep)} retained) in place in {source}; '
-              f'{len(co_defined)} pinned co-defined functions')
+              f'{len(co_defined)} pinned co-defined functions'
+              + (f'; moved {sorted(moved_ids)}; rechecked {len(old_groups)} old provider groups' if explicit else ''))
         return
     content =(ROOT / plan['candidate']).read_bytes().replace(b'\r\n', b'\n')
     # Worker lanes include canonical headers from candidates/<lane>/.
@@ -227,7 +248,54 @@ def stage(plan_path):
           + (f'; replaced {len(replaces)} sources' if replaces else ''))
 
 
-def _record(state, existing, moved, keep, rows, results, content, co_defined):
+def _explicit_moves(plan, state, source, module, in_place):
+    """Masked rows of this module re-sourced individually from another provider (plan "moves")."""
+    moves = plan.get('moves', [])
+    if not isinstance(moves, list) or len(set(moves)) != len(moves) or any(not isinstance(m, str) for m in moves):
+        raise ValueError('moves must list distinct row ids')
+    if moves and not in_place:
+        raise ValueError('Explicit masked-row moves need an in-place provider')
+    planned = {f.get('id'): f['rva'] for f in plan['functions']}
+    explicit = []
+    for row_id in moves:
+        row = next((r for r in state['functions'] if r['id'] == row_id), None)
+        if (row is None or row['status'] != 'CODEGEN_SIMILAR' or row.get('proof', {}).get('scope') != SCOPE or
+                Path(row['target']).name.upper() != module.upper() or row.get('source') == source or
+                planned.get(row_id) != row['rva']):
+            raise ValueError('A move names a masked row of this module tracked by another provider and '
+                             'listed in the plan: ' + row_id)
+        explicit.append(row)
+    return explicit
+
+
+def _remaining_groups(state, explicit):
+    """Recheck each old provider group left behind by explicit moves; return (rows, co_defined) pairs.
+
+    The remaining masked rows keep their masked identity, symbol map and source pin; only their pinned
+    co-defined set grows by the moved symbols, exactly as in-place staging would record it.
+    """
+    groups = []
+    moved_ids = {r['id'] for r in explicit}
+    for old_source, flags in sorted({(r['source'], tuple(r.get('flags') or ['/O2'])) for r in explicit}):
+        remaining = [r for r in state['functions'] if r.get('source') == old_source and r['id'] not in moved_ids
+                     and r['status'] == 'CODEGEN_SIMILAR' and r.get('proof', {}).get('scope') == SCOPE
+                     and tuple(r.get('flags') or ['/O2']) == flags]
+        if not remaining:
+            continue
+        content = (ROOT / old_source).read_bytes()
+        obj, _ = compile_source(ROOT / old_source, list(flags))
+        co_defined = sorted(defined_functions(obj) - {r['symbol'] for r in remaining})
+        results = check_rows(remaining, old_source, co_defined)
+        for r in remaining:
+            res = results[r['id']]
+            if (res['masked_sha256'] != r['proof']['masked_sha256'] or res['symbols'] != r['link_symbols'] or
+                    digest(content) != r['proof']['source_sha256']):
+                raise ValueError('A row left in the old provider changed: ' + r['id'])
+        groups.append((remaining, co_defined))
+    return groups
+
+
+def _record(state, existing, moved, keep, rows, results, content, co_defined, old_groups=()):
     toolchain = verify_toolchain(DEFAULT_TOOLCHAIN)
     replaced = {r['id'] for r in existing} | {r['id'] for r in moved}
     state['functions'] = [r for r in state['functions'] if r['id'] not in replaced]
@@ -239,6 +307,12 @@ def _record(state, existing, moved, keep, rows, results, content, co_defined):
         if co_defined:
             r['proof']['co_defined_functions'] = list(co_defined)
         state['functions'].append(r)
+    for remaining, pinned in old_groups:
+        for r in remaining:
+            if pinned:
+                r['proof']['co_defined_functions'] = list(pinned)
+            else:
+                r['proof'].pop('co_defined_functions', None)
     write_state(state)
 
 
