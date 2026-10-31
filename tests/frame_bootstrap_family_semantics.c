@@ -56,8 +56,8 @@ u16 g_configuration_word_713b4;
 u16 g_configuration_word_71432;
 u16 g_configuration_word_713ba;
 void *g_frame_owner_72860;
-void *g_frame_owner_73494;
-void *g_frame_owner_734e0;
+void *g_middle_actor_pool;
+void *g_alternate_actor_pool;
 void *g_frame_owner_70c80;
 void *g_frame_owner_7348c;
 void *g_frame_owner_72870;
@@ -441,8 +441,8 @@ static void clear_bootstrap_state(void)
     context_late[0] = 0;
     *(u16 *)(g_frame_config_5df08 + 6) = 2;
     g_frame_owner_72860 = 0;
-    g_frame_owner_73494 = 0;
-    g_frame_owner_734e0 = 0;
+    g_middle_actor_pool = 0;
+    g_alternate_actor_pool = 0;
     g_frame_owner_70c80 = 0;
     g_frame_owner_7348c = 0;
     g_frame_owner_72870 = 0;
@@ -477,8 +477,8 @@ static void test_bootstrap(void)
     CHECK(context_config[0x1e] == 0x7b);
     CHECK(alloc_count == 8);
     slots[0] = &g_frame_owner_72860;
-    slots[1] = &g_frame_owner_73494;
-    slots[2] = &g_frame_owner_734e0;
+    slots[1] = &g_middle_actor_pool;
+    slots[2] = &g_alternate_actor_pool;
     slots[3] = (void **)&g_dispatch_frame_base_71ec8;
     slots[4] = &g_frame_owner_70c80;
     slots[5] = &g_frame_owner_7348c;
@@ -518,8 +518,8 @@ static void test_cleanup(void)
     g_engine_interface.context_004 =
         (ResourceCallbackContext *)context_cleanup_initial;
     g_frame_owner_72860 = &dummy[0];
-    g_frame_owner_73494 = &dummy[1];
-    g_frame_owner_734e0 = &dummy[2];
+    g_middle_actor_pool = &dummy[1];
+    g_alternate_actor_pool = &dummy[2];
     g_frame_owner_70c80 = &dummy[3];
     g_dispatch_frame_base_71ec8 = &dummy[4];
     free_count = 0;
@@ -547,8 +547,8 @@ static void test_cleanup(void)
     g_engine_interface.context_004 =
         (ResourceCallbackContext *)context_cleanup_initial;
     g_frame_owner_72860 = 0;
-    g_frame_owner_73494 = 0;
-    g_frame_owner_734e0 = 0;
+    g_middle_actor_pool = 0;
+    g_alternate_actor_pool = 0;
     g_frame_owner_70c80 = 0;
     g_dispatch_frame_base_71ec8 = 0;
     free_count = 0;

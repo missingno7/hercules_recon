@@ -118,7 +118,7 @@ struct Actor {
     unsigned char unknown_120[0x134 - 0x120];
 };
 
-/* 0x94-byte alternate-pool row (g_frame_owner_734e0[], rows 2..9 are the bonus row). */
+/* 0x94-byte alternate-pool row (g_alternate_actor_pool[], rows 2..9 are the bonus row). */
 typedef struct AltActor {
     long x, y, z;
     unsigned char unknown_00c[0x21 - 0x0c];
@@ -157,7 +157,7 @@ typedef struct ActorResource {      /* 20-byte resource slot, 0x5cee0 */
 } ActorResource;
 
 extern EngineInterfaceView g_engine_interface;
-extern AltActor *g_frame_owner_734e0;
+extern AltActor *g_alternate_actor_pool;
 extern Actor *g_frame_owner_72860;
 extern Actor *g_native_pointer_7217c;
 extern KindInfo g_kind_info[];
@@ -244,13 +244,13 @@ void dispatch_local_12620(void)
     switch (eng1_sim_state_72174) {
     case 0:
         for (i = 2; i < 10; i++)
-            g_frame_owner_734e0[i].y = 0;
+            g_alternate_actor_pool[i].y = 0;
         return;
     case 1:
         eng1_sim_state_72174++;
         eng1_sim_state_6ef40 = 0x8c;
         for (i = 0; i < 8; i++) {
-            a = &g_frame_owner_734e0[i + 2];
+            a = &g_alternate_actor_pool[i + 2];
             a->y = 0;
             a->state = i * 4;
             a->parameter = 0x460000;
@@ -272,7 +272,7 @@ void dispatch_local_12620(void)
         eng1_sim_state_72174++;
         eng1_sim_state_6ef40 = 0x64;
         for (i = 0; i < 8; i++) {
-            a = &g_frame_owner_734e0[i + 2];
+            a = &g_alternate_actor_pool[i + 2];
             a->state = i * 4;
             a->parameter = 0;
         }
@@ -283,7 +283,7 @@ void dispatch_local_12620(void)
         break;
     }
     for (i = 0; i < 8; i++)
-        dispatch_local_12790(&g_frame_owner_734e0[i + 2], i);
+        dispatch_local_12790(&g_alternate_actor_pool[i + 2], i);
 }
 
 /* ENG3 counterpart 0x17090. */
@@ -360,7 +360,7 @@ void eng1_call_12960(void)
     AltActor *a;
 
     for (i = 0; i < 8; i++) {
-        a = &g_frame_owner_734e0[i + 2];
+        a = &g_alternate_actor_pool[i + 2];
         initialize_alternate_actor(a);
         a->flags = 6;
         a->kind = 0x200c;

@@ -438,7 +438,7 @@ typedef struct TitleTile {         /* 12-byte single-pixel tile primitive (code 
     unsigned long xy_008;
 } TitleTile;
 
-extern TitleObj *g_frame_owner_734e0;
+extern TitleObj *g_alternate_actor_pool;
 extern TitleTile *g_frame_global_73484;
 void eng1_03bd0(TitleObj *o);
 int eng1_31e30(char *obj, int *vec, int k);
@@ -471,15 +471,15 @@ void eng1_304f0(TitleObj *obj)
     title_0c790();
     span = (TitleSpan *)obj->stream_05c - 1;
     count = obj->w_036;
-    g_frame_owner_734e0->byte_023 = 0;
-    g_frame_owner_734e0->w_02c = obj->w_02c;
+    g_alternate_actor_pool->byte_023 = 0;
+    g_alternate_actor_pool->w_02c = obj->w_02c;
     acc = 0;
-    g_frame_owner_734e0->b_022 = obj->b_022;
-    g_frame_owner_734e0->w_04a = obj->w_04a;
+    g_alternate_actor_pool->b_022 = obj->b_022;
+    g_alternate_actor_pool->w_04a = obj->w_04a;
     if (flags & 0x100000) {
-        g_frame_owner_734e0->rot_070 = obj->rot_070;
+        g_alternate_actor_pool->rot_070 = obj->rot_070;
     } else {
-        g_frame_owner_734e0->rot_070.vx = g_frame_owner_734e0->rot_070.vy = g_frame_owner_734e0->rot_070.vz = 0;
+        g_alternate_actor_pool->rot_070.vx = g_alternate_actor_pool->rot_070.vy = g_alternate_actor_pool->rot_070.vz = 0;
     }
     z = obj->rot_070.vz;
     ot = &g_dispatch_frame_current_71ec4->ot[ENG1_OT_SIZE - 0x41 - obj->w_10];
@@ -501,26 +501,26 @@ void eng1_304f0(TitleObj *obj)
                 } else {
                     acc = span->z_008;
                 }
-                g_frame_owner_734e0->rot_070.vz = z - acc;
-                eng1_31e30((char *)&g_frame_owner_734e0->w_0c, (int *)span, acc);
+                g_alternate_actor_pool->rot_070.vz = z - acc;
+                eng1_31e30((char *)&g_alternate_actor_pool->w_0c, (int *)span, acc);
             } else {
                 if (flags & 0x400000) {
                     title_0c790();
                 }
-                eng1_31dc0((char *)&g_frame_owner_734e0->w_0c, (int *)span);
+                eng1_31dc0((char *)&g_alternate_actor_pool->w_0c, (int *)span);
             }
             id = span->id_00c;
-            e = (unsigned short *)g_5cee0[g_frame_owner_734e0->b_022].table_0c + (short)(id * 2);
+            e = (unsigned short *)g_5cee0[g_alternate_actor_pool->b_022].table_0c + (short)(id * 2);
             if (e[0] != 0) {
-                g_frame_owner_734e0->w_034 = id;
-                g_frame_owner_734e0->flags_054 = (obj->flags_054 & 0xffff0000) | span->flags_00e;
-                if ((g_frame_owner_734e0->flags_054 & 0x600) == 0x600) {
-                    g_frame_owner_734e0->pos_000.x = obj->pos_000.x + span->pos_000.x;
-                    g_frame_owner_734e0->pos_000.y = span->pos_000.y + obj->pos_000.y;
+                g_alternate_actor_pool->w_034 = id;
+                g_alternate_actor_pool->flags_054 = (obj->flags_054 & 0xffff0000) | span->flags_00e;
+                if ((g_alternate_actor_pool->flags_054 & 0x600) == 0x600) {
+                    g_alternate_actor_pool->pos_000.x = obj->pos_000.x + span->pos_000.x;
+                    g_alternate_actor_pool->pos_000.y = span->pos_000.y + obj->pos_000.y;
                 }
-                g_frame_owner_734e0->w_046 = e[1];
-                eng1_03bd0(g_frame_owner_734e0);
-                eng1_03cd0(g_frame_owner_734e0);
+                g_alternate_actor_pool->w_046 = e[1];
+                eng1_03bd0(g_alternate_actor_pool);
+                eng1_03cd0(g_alternate_actor_pool);
             }
         }
     }
@@ -626,9 +626,9 @@ void eng1_30790(unsigned char *stream, TitleObj *obj, unsigned char count)
     TitlePrim *p;
 
     title_0c7d0(g_5ce50);
-    title_0c7f0(g_frame_owner_734e0->trans_078);
-    g_frame_owner_734e0->trans_078[1] += obj->w_028 * 2;
-    title_0c7e0(g_frame_owner_734e0->trans_078);
+    title_0c7f0(g_alternate_actor_pool->trans_078);
+    g_alternate_actor_pool->trans_078[1] += obj->w_028 * 2;
+    title_0c7e0(g_alternate_actor_pool->trans_078);
     v0.z = 0;
     v1.z = 0;
     v2.z = 0;

@@ -8,8 +8,8 @@ extern u16 g_configuration_word_713b4;
 extern u16 g_configuration_word_71432;
 extern u16 g_configuration_word_713ba;
 extern void *g_frame_owner_72860;
-extern void *g_frame_owner_73494;
-extern void *g_frame_owner_734e0;
+extern void *g_middle_actor_pool;
+extern void *g_alternate_actor_pool;
 extern void *g_frame_owner_70c80;
 extern void *g_frame_owner_7348c;
 extern void *g_frame_owner_72870;
@@ -74,10 +74,10 @@ void __cdecl dispatch_local_1f0f0(void)
     title_0c450(&g_frame_owner_72860, bytes, 16UL);
 
     bytes = 0xecUL * (unsigned long)g_configuration_word_71432 + 0x134UL;
-    title_0c450(&g_frame_owner_73494, bytes, 16UL);
+    title_0c450(&g_middle_actor_pool, bytes, 16UL);
 
     bytes = 0x94UL * (unsigned long)g_configuration_word_713ba + 0x134UL;
-    title_0c450(&g_frame_owner_734e0, bytes, 16UL);
+    title_0c450(&g_alternate_actor_pool, bytes, 16UL);
 
     title_0c880();
     title_0c450((void **)&g_dispatch_frame_base_71ec8,
@@ -122,10 +122,10 @@ void __cdecl dispatch_local_1f220(void)
 
     if (g_frame_owner_72860 != 0)
         title_0c330(g_frame_owner_72860);
-    if (g_frame_owner_73494 != 0)
-        title_0c330(g_frame_owner_73494);
-    if (g_frame_owner_734e0 != 0)
-        title_0c330(g_frame_owner_734e0);
+    if (g_middle_actor_pool != 0)
+        title_0c330(g_middle_actor_pool);
+    if (g_alternate_actor_pool != 0)
+        title_0c330(g_alternate_actor_pool);
     if (g_frame_owner_70c80 != 0)
         title_0c330(g_frame_owner_70c80);
     if (g_dispatch_frame_base_71ec8 != 0)

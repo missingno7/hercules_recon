@@ -190,7 +190,7 @@ extern PanelState g_panel_70820;
 extern Actor *g_native_pointer_7217c;
 extern Actor *g_frame_global_734f4;
 extern Actor *g_frame_owner_72860;
-extern MiddleSlot *g_frame_owner_73494;
+extern MiddleSlot *g_middle_actor_pool;
 extern Actor *g_eng1_setup_pointer_72020;
 extern ActorKindCallbacks *g_configuration_dword_71370;
 extern DescriptorRow eng1_descriptor_rows_5a690[];
