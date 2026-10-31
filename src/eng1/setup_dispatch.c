@@ -16,3 +16,19 @@ void __cdecl eng1_call_1fdf0(void)
     default:return;
     }
 }
+
+
+extern void __cdecl eng1_25190(void *actor);
+extern void __cdecl eng1_3fc60(void *actor);
+
+void __cdecl eng1_20000(void *actor)
+{
+    switch ((signed char)g_engine_interface.context_004->unknown_000[0]) {
+    case 1:
+        eng1_3fc60(actor);
+        break;
+    case 5:
+        eng1_25190(actor);
+        break;
+    }
+}

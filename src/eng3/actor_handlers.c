@@ -35,6 +35,40 @@ struct Actor {
     const long *unknown_12c;
 };
 
+extern long eng3_1f7b0(unsigned short, unsigned short);
+
+long eng3_01050(long x1, long unused_y1, long z1, long x2, long unused_y2, long z2)
+{
+    long dx, dz, angle;
+    int quadrant;
+
+    quadrant = 0;
+    if (z1 > z2) {
+        dx = (z1 - z2) >> 16;
+        quadrant = 1;
+    } else {
+        dx = (z2 - z1) >> 16;
+    }
+    if (x1 > x2) {
+        dz = (x1 - x2) >> 16;
+    } else {
+        dz = (x2 - x1) >> 16;
+        quadrant += 2;
+    }
+    angle = eng3_1f7b0((unsigned short)dx, (unsigned short)dz);
+    switch (quadrant) {
+    case 0:
+        return 0xff - (angle / 90 >> 8);
+    case 1:
+        return 0x300 + (angle / 90 >> 8);
+    case 2:
+        return 0x100 + (angle / 90 >> 8);
+    case 3:
+        return 0x2ff - (angle / 90 >> 8);
+    }
+    return angle;
+}
+
 int within_radius_1140(const int *a, const int *b, int r)
 {
     int dx = (b[0] - a[0]) >> 16;

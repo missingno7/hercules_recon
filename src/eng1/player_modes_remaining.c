@@ -315,3 +315,72 @@ void __cdecl eng1_native_code_target_0019c20(void)
 {
     MODE_COLLISION()->sprite = 0;
 }
+
+/* 0x19d70..0x19f50: vertical braking, stop transition, and floor clamp. */
+extern ModeActor *g_native_pointer_7217c;
+extern unsigned char g_eng1_image_53e28[];
+extern int __cdecl eng1_29da0(void *);
+extern int __cdecl eng1_19970(int);
+extern void __cdecl eng1_170c0(void);
+extern void __cdecl eng1_19d30(void);
+
+void __cdecl eng1_19d70(void)
+{
+    ModeActor *actor;
+
+    actor = MODE_ACTOR();
+    if (actor->direction_y != 0) {
+        eng1_29da0(g_native_pointer_7217c);
+        actor = MODE_ACTOR();
+        actor->velocity_y -= actor->limit_y;
+        actor = MODE_ACTOR();
+        if ((long)actor->velocity_y < 0) {
+            actor->velocity_y = 0;
+            MODE_ACTOR()->direction_y = 0;
+            MODE_ACTOR()->target_y = 0xd0000;
+            MODE_ACTOR()->rate_y = 0x6000;
+            if (eng1_sim_state_72108 == 0x16)
+                return;
+            if (eng1_sim_state_72108 == 4 &&
+                (MODE_CONTEXT()->held & 0x40)) {
+                actor = MODE_ACTOR();
+                eng1_sim_state_72108 = 0x18;
+                actor->image = g_eng1_image_53e28;
+                MODE_ACTOR()->ticks = -1;
+                MODE_ACTOR()->phase = -1;
+                dispatch_local_15d00();
+                MODE_ACTOR()->rate_y = 0x10000;
+                MODE_ACTOR()->target_y = 0x200000;
+                g_native_pointer_7217c->render_flags &= 0xff7fffffUL;
+                return;
+            }
+            eng1_sim_state_72108 = 7;
+            return;
+        }
+        if (eng1_19970(0x10))
+            return;
+        actor = MODE_ACTOR();
+        actor->y -= actor->velocity_y;
+        return eng1_19d30();
+    }
+
+    actor->velocity_y += actor->rate_y;
+    actor = MODE_ACTOR();
+    if ((long)actor->velocity_y > (long)actor->target_y) {
+        actor->velocity_y = actor->target_y;
+        actor = MODE_ACTOR();
+    }
+    actor->y += actor->velocity_y;
+
+    if ((long)MODE_ACTOR()->y > (long)((unsigned long)*(unsigned short *)
+            (g_root_group_rows_70d5c[(int)(signed char)g_active_category_70cfe] + 6) << 22)) {
+        if (eng1_sim_state_72108 != 0x16)
+            eng1_170c0();
+        MODE_ACTOR()->y = (unsigned long)*(unsigned short *)
+            (g_root_group_rows_70d5c[(int)(signed char)g_active_category_70cfe] + 6) << 22;
+        MODE_ACTOR()->velocity_y = 0x80000;
+        return;
+    }
+
+    return eng1_19d30();
+}
