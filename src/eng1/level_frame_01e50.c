@@ -592,13 +592,17 @@ void eng1_027a0(Effect *e)
 }
 
 /* 0x2920 */
+/* Count-preserving local rewrite: the separate ot/z slots become one two-word
+ * stack view; the bucket address is formed from the real e and d values. */
 void eng1_02920(Effect *e, int width)
 {
-    void **ot;
+    struct {
+        void **ot;
+        long z;
+    } locals;
     SVector *v;
     PolyFT3 *p;
     int n;
-    long z;
     int d;
 
     v = e->verts;
@@ -606,23 +610,24 @@ void eng1_02920(Effect *e, int width)
     if (g_dispatch_frame_current_71ec4 == g_dispatch_frame_base_71ec8)
         p += e->prims;
     n = e->count + 1;
-    ot = g_dispatch_frame_current_71ec4->ot;
+    e = (Effect *)(void *)
+        ((FrameBuffer *)(void *)g_dispatch_frame_current_71ec4)->ot;
     dispatch_engine_2c690(v);
     dispatch_engine_2c6e0();
     v++;
     while (--n) {
         dispatch_engine_2c760(&p->x0);
-        dispatch_engine_2c7a0(&z);
-        p->x1 = p->x0 - (short)z / 0x800 + 2;
+        dispatch_engine_2c7a0(&locals.z);
+        p->x1 = p->x0 - (short)locals.z / 0x800 + 2;
         p->x2 = p->x0 + width;
         p->y1 = p->y0;
-        d = (short)z & ~3;
+        d = (short)locals.z & ~3;
         if (d < 0)
             d = 0;
         else if (d > 0x12f8)
             d = 0x12f8;
-        p->tag = *(void **)((u8 *)ot - d);
-        *(void **)((u8 *)ot - d) = p;
+        p->tag = *(void **)((u8 *)e - d);
+        *(void **)((u8 *)e - d) = p;
         p++;
         dispatch_engine_2c690(v);
         dispatch_engine_2c6e0();

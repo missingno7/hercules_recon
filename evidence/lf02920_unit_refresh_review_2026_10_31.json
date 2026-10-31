@@ -1,0 +1,68 @@
+{
+ "schema": 1,
+ "profile": "reviewed-unit-delta-v3",
+ "base_commit": "6968f162b20436c784d317a9a2836596949f5925",
+ "measured_state_sha256": "09d6c95d1536a903dcd7497453121e6993f3ca0bd6a3fa54e2bc676f2b467148",
+ "scope": "Reviewed inventory delta: the complete contribution groups (code COMDAT, associative .debug$F, section definitions and symbols inside) of the declared unaccepted definitions change to the pinned contents; no function is added or removed; every other section, symbol, auxiliary record and relocation stays identical; every accepted contribution of the unit (all modules built from this object) stays byte-, flag- and ordered-relocation identical. No acceptance of pending functions.",
+ "units": {
+  "src/eng1/level_frame_01e50.c": {
+   "before_sha256": "e3da90438016c04dd4f5060c95c23d00071711e5a701242824b68e611ca6685e",
+   "candidate_sha256": "f049602e0b743e9b011c04b960be970c005c2db135044d460a315bdeb3da1192",
+   "declaration": {
+    "profile": "reviewed-unit-delta-v3",
+    "removed": [],
+    "added": [],
+    "rebases": [],
+    "renames": [],
+    "symbol_renames": [],
+    "added_functions": [],
+    "changed_functions": [
+     "_eng1_02920"
+    ],
+    "contributions": {
+     "_eng1_02920": {
+      "before_sha256": "9a475a3a11a8bd90de2231e469ad7e654f5c710b82e7f2e09bc3eb81cbff983f",
+      "after_sha256": "47818887e5baecf3497886698ed0e79c23ec0166a53db946168310073ab9e586"
+     }
+    }
+   },
+   "rationale": {
+    "_eng1_02920": "Lane t5 source form (only this body changes): the complete fresh contribution becomes relocation-masked equal to ENG1 0x2920 (240 bytes, next entry 0x2a10) and is staged as the new masked row eng1.02920. eng1_02d80 and eng1_02500 are unchanged."
+   },
+   "accepted_peers_identical": [
+    "eng1.02290",
+    "eng1.02400",
+    "eng1.02430",
+    "eng1.02a10",
+    "eng1.02a80",
+    "eng1.02b30",
+    "eng1.dispatch_local_02180",
+    "eng1.dispatch_local_2450",
+    "eng1.dispatch_local_2c60",
+    "eng3.shared_07840",
+    "eng3.shared_07f10",
+    "eng3.shared_08000"
+   ],
+   "inventory_pinned_rows": [
+    "eng1.02b30",
+    "eng3.shared_07f10"
+   ],
+   "masked_peers_unchanged": [
+    "eng1.02ac0",
+    "eng1.02d80",
+    "eng1.call_01e50",
+    "eng1.dispatch_local_1f40",
+    "eng3.shared_019b0",
+    "eng3.shared_07330",
+    "eng3.shared_07570",
+    "eng3.shared_07680",
+    "eng3.shared_077f0",
+    "eng3.shared_07820",
+    "eng3.shared_07e00",
+    "eng3.shared_07e70"
+   ],
+   "source_change_review": "work/velocity_j/t5/handoff.json (lane record; not binding evidence)"
+  }
+ },
+ "method": "Canonical and candidate unit compiled once each with the pinned VC5 toolchain; the declaration lists every defined function whose contribution group digest differs (FILE records compared path-normalized); checked with check_delta of reviewed-unit-delta-v3 with every accepted peer protected, and refused when a change is undeclared, a pin is wrong, one masked or accepted byte is mutated, or v2 is used."
+}
