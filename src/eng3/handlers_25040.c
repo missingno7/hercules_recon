@@ -130,7 +130,7 @@ typedef struct FrameBuffer {
 extern EngineInterfaceHead g_engine_interface;
 extern Actor *g_focus;
 extern Eng3Game *g_eng3_game_40b8c;
-extern Eng3Middle *g_eng3_middle_40b98;
+extern Eng3Middle *g_eng3_middle_actions_40b98;
 extern Eng3Host *g_eng3_host_40bb4;
 extern short g_eng3_mode_41cb4;
 extern FrameBuffer *g_eng3_frame_41448;
@@ -812,7 +812,7 @@ void eng3_26770(Actor *o)
                                                      o->z + random_limit(0x200000), 0x4002);
                     if (!child)
                         continue;
-                    g_eng3_middle_40b98->method_10(child);
+                    g_eng3_middle_actions_40b98->method_10(child);
                     if (i == 0 || i == 4) {
                         child->unknown_94 = 0xff;
                         child->unknown_96 = 0;

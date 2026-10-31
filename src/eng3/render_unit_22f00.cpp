@@ -189,7 +189,7 @@ typedef struct TitleTile {         /* 12-byte single-pixel tile primitive (code 
     unsigned long xy_008;
 } TitleTile;
 
-extern TitleObj *g_eng3_actor_431c0;
+extern TitleObj *g_2dfa0;
 extern TitleTile *g_eng3_prim_43164;
 void eng3_08ca0(TitleObj *o);
 void title_02dc0(TitleObj *o);
@@ -223,15 +223,15 @@ void eng3_22f00(TitleObj *obj)
     title_0c790();
     span = (TitleSpan *)obj->stream_05c - 1;
     count = obj->w_036;
-    g_eng3_actor_431c0->byte_023 = 0;
-    g_eng3_actor_431c0->w_02c = obj->w_02c;
+    g_2dfa0->byte_023 = 0;
+    g_2dfa0->w_02c = obj->w_02c;
     acc = 0;
-    g_eng3_actor_431c0->b_022 = obj->b_022;
-    g_eng3_actor_431c0->w_04a = obj->w_04a;
+    g_2dfa0->b_022 = obj->b_022;
+    g_2dfa0->w_04a = obj->w_04a;
     if (flags & 0x100000) {
-        g_eng3_actor_431c0->rot_070 = obj->rot_070;
+        g_2dfa0->rot_070 = obj->rot_070;
     } else {
-        g_eng3_actor_431c0->rot_070.vx = g_eng3_actor_431c0->rot_070.vy = g_eng3_actor_431c0->rot_070.vz = 0;
+        g_2dfa0->rot_070.vx = g_2dfa0->rot_070.vy = g_2dfa0->rot_070.vz = 0;
     }
     z = obj->rot_070.vz;
     ot = &g_eng3_frame_41448->ot[ENG3_OT_SIZE - 2 - (obj->w_10 & ~3)];
@@ -253,26 +253,26 @@ void eng3_22f00(TitleObj *obj)
                 } else {
                     acc = span->z_008;
                 }
-                g_eng3_actor_431c0->rot_070.vz = z - acc;
-                title_194e0((char *)&g_eng3_actor_431c0->w_0c, (int *)span, acc);
+                g_2dfa0->rot_070.vz = z - acc;
+                title_194e0((char *)&g_2dfa0->w_0c, (int *)span, acc);
             } else {
                 if (flags & 0x400000) {
                     title_0c790();
                 }
-                title_19470((char *)&g_eng3_actor_431c0->w_0c, (int *)span);
+                title_19470((char *)&g_2dfa0->w_0c, (int *)span);
             }
             id = span->id_00c;
-            e = (unsigned short *)g_eng3_records_39548[g_eng3_actor_431c0->b_022].table_0c + (short)(id * 2);
+            e = (unsigned short *)g_eng3_records_39548[g_2dfa0->b_022].table_0c + (short)(id * 2);
             if (e[0] != 0) {
-                g_eng3_actor_431c0->w_034 = id;
-                g_eng3_actor_431c0->flags_054 = (obj->flags_054 & 0xffff0000) | span->flags_00e;
-                if ((g_eng3_actor_431c0->flags_054 & 0x600) == 0x600) {
-                    g_eng3_actor_431c0->pos_000.x = obj->pos_000.x + span->pos_000.x;
-                    g_eng3_actor_431c0->pos_000.y = span->pos_000.y + obj->pos_000.y;
+                g_2dfa0->w_034 = id;
+                g_2dfa0->flags_054 = (obj->flags_054 & 0xffff0000) | span->flags_00e;
+                if ((g_2dfa0->flags_054 & 0x600) == 0x600) {
+                    g_2dfa0->pos_000.x = obj->pos_000.x + span->pos_000.x;
+                    g_2dfa0->pos_000.y = span->pos_000.y + obj->pos_000.y;
                 }
-                g_eng3_actor_431c0->w_046 = e[1];
-                eng3_08ca0(g_eng3_actor_431c0);
-                title_02dc0(g_eng3_actor_431c0);
+                g_2dfa0->w_046 = e[1];
+                eng3_08ca0(g_2dfa0);
+                title_02dc0(g_2dfa0);
             }
         }
     }
@@ -378,9 +378,9 @@ void eng3_231a0(unsigned char *stream, TitleObj *obj, unsigned char count)
     TitlePrim *p;
 
     title_0c7d0(g_eng3_matrix_394b8);
-    title_0c7f0(g_eng3_actor_431c0->trans_078);
-    g_eng3_actor_431c0->trans_078[1] += obj->w_028 * 2;
-    title_0c7e0(g_eng3_actor_431c0->trans_078);
+    title_0c7f0(g_2dfa0->trans_078);
+    g_2dfa0->trans_078[1] += obj->w_028 * 2;
+    title_0c7e0(g_2dfa0->trans_078);
     v0.z = 0;
     v1.z = 0;
     v2.z = 0;

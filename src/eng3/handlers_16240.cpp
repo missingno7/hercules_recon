@@ -286,7 +286,7 @@ extern short g_eng3_41d00;
 extern long g_eng3_41d20[];
 extern short g_eng3_41d48;
 extern int g_eng3_41d50;
-extern long g_eng3_43174;
+extern long g_2df4c;
 
 extern void vec_diff_fixed_1420(const int *, const int *, short *);
 extern void eng3_072a0(int, int, int, int, int, int, int);
@@ -1133,7 +1133,7 @@ void eng3_178a0(void)
     g_eng3_actor_42540->category = 1;
     g_focus->unknown_ee = 0x384;
     g_eng3_mode_handlers_41c80[g_eng3_mode_41cb4 & 0x7fff]();
-    g_eng3_41c74 = g_eng3_43174;
+    g_eng3_41c74 = g_2df4c;
     attach_actor(g_focus, 0x2018);
     g_focus->unknown_dc = 0;
     g_engine_interface.context_004->bar_value_target = 0x80;
@@ -2596,15 +2596,15 @@ extern unsigned short g_eng3_next_key_38060;
 extern signed char g_eng3_selection_431e4;
 extern int g_eng3_vsync_gate_41444;
 extern Eng3Hooks8 *g_eng3_host_40bb4;
-extern Eng3Hooks8 *g_eng3_middle_40b98;
-extern Eng3Host *g_eng3_actor_431c0;
+extern Eng3Hooks8 *g_eng3_middle_actions_40b98;
+extern Eng3Host *g_2dfa0;
 extern unsigned char *g_eng3_prims_405c4;
-extern unsigned char *g_eng3_4316c;
+extern unsigned char *g_2df44;
 extern long *g_eng3_42550;
 extern long *g_eng3_431c8;
 extern unsigned char *g_eng3_map_40790;
-extern unsigned short g_eng3_40b94, g_eng3_40ba8, g_eng3_40bc2;
-extern unsigned short g_eng3_40bcc, g_eng3_40bd2, g_eng3_40c32;
+extern unsigned short g_2bf32, g_2bf44, g_2bf62;
+extern unsigned short g_2bf6c, g_2bf72, g_2bff2;
 extern short g_eng3_40bc6;
 extern int g_eng3_41048;
 extern int g_eng3_41044;
@@ -2616,7 +2616,7 @@ extern short g_eng3_3fba4, g_eng3_3fba8;
 extern long g_eng3_3fb94, g_eng3_3fb98;
 extern long g_eng3_camera_x_405e0;
 extern unsigned char g_eng3_431d0, g_eng3_431d1, g_eng3_431d2;
-extern unsigned char g_eng3_43178;
+extern unsigned char g_2df50;
 extern long g_eng3_colour_40630;
 extern signed char g_eng3_spread_4063b;
 extern signed char g_eng3_spread_4063c;
@@ -2855,14 +2855,14 @@ void eng3_1a320(void)
 void eng3_1a330(void)
 {
     title_095d0();
-    title_0c450((void **)&g_eng3_actor_42540, 0x134 * g_eng3_40bcc, 16);
-    title_0c450((void **)&g_eng3_43174, 0xec * g_eng3_40c32 + 0x134, 16);
-    title_0c450((void **)&g_eng3_actor_431c0, 0x94 * g_eng3_40bd2 + 0x134, 16);
+    title_0c450((void **)&g_eng3_actor_42540, 0x134 * g_2bf6c, 16);
+    title_0c450((void **)&g_2df4c, 0xec * g_2bff2 + 0x134, 16);
+    title_0c450((void **)&g_2dfa0, 0x94 * g_2bf72 + 0x134, 16);
     title_0c880();
     title_0c450((void **)&g_eng3_frame_4144c, 0x4110, 16);
     title_0c450((void **)&g_eng3_prims_405c4,
                   80 * g_eng3_levels_39870[g_engine_interface.context_004->level].prim_count_08, 16);
-    title_0c450((void **)&g_eng3_4316c, 0x4000, 0);
+    title_0c450((void **)&g_2df44, 0x4000, 0);
     title_0c450((void **)&g_eng3_42550, 0x8000, 0);
     title_0c450((void **)&g_eng3_431c8, 0x300, 0);
     memset(g_eng3_42550, 0, 0x8000);
@@ -2888,10 +2888,10 @@ void eng3_1a460(void)
     dispatch_engine_2cc30(0);
     if (g_eng3_actor_42540)
         title_0c330(g_eng3_actor_42540);
-    if (g_eng3_43174)
-        title_0c330((void *)g_eng3_43174);
-    if (g_eng3_actor_431c0)
-        title_0c330(g_eng3_actor_431c0);
+    if (g_2df4c)
+        title_0c330((void *)g_2df4c);
+    if (g_2dfa0)
+        title_0c330(g_2dfa0);
     if (g_eng3_prims_405c4)
         title_0c330(g_eng3_prims_405c4);
     if (g_eng3_frame_4144c)
@@ -2953,7 +2953,7 @@ void eng3_1a560(void)
     dispatch_engine_2c980(g_eng3_frame_4144c[1].prim_70, 1, dtd, title_0c860(1, 0, 0x300, 0x100), 0);
     dispatch_engine_2c980(g_eng3_frame_4144c[0].prim_7c, 1, dtd, title_0c860(1, 0, 0x380, 0x100), 0);
     dispatch_engine_2c980(g_eng3_frame_4144c[1].prim_7c, 1, dtd, title_0c860(1, 0, 0x380, 0x100), 0);
-    g_eng3_43178 = 1;
+    g_2df50 = 1;
     eng1_color_fade_step_5d50();
     title_0c6f0();
     title_04870();
@@ -3524,8 +3524,8 @@ void eng3_1b9f0(void)
     g_eng3_411c0[0] = 0;
     g_eng3_41200[0] = 0;
     g_eng3_40e40[0] = 0;
-    for (i = g_eng3_40ba8; i < g_eng3_40bd2; i++) {
-        h = &g_eng3_actor_431c0[i];
+    for (i = g_2bf44; i < g_2bf72; i++) {
+        h = &g_2dfa0[i];
         kind = h->kind;
         if (kind) {
             if (h->flags & 0x40)
@@ -3534,8 +3534,8 @@ void eng3_1b9f0(void)
                 g_eng3_host_40bb4[kind & 0xfff].update(h);
         }
     }
-    for (i = g_eng3_40bc2; i < g_eng3_40c32; i++) {
-        m = &((Eng3Middle *)g_eng3_43174)[i];
+    for (i = g_2bf62; i < g_2bff2; i++) {
+        m = &((Eng3Middle *)g_2df4c)[i];
         kind = m->kind;
         if (kind) {
             flags = m->flags;
@@ -3548,12 +3548,12 @@ void eng3_1b9f0(void)
             if (flags & 0x100000)
                 g_eng3_41200[++g_eng3_41200[0]] = (long)m;
             if (flags & 1)
-                g_eng3_middle_40b98[kind & 0xfff].update(m);
+                g_eng3_middle_actions_40b98[kind & 0xfff].update(m);
             if (flags & 0x400000)
                 g_eng3_40e40[++g_eng3_40e40[0]] = (long)m;
         }
     }
-    for (i = g_eng3_40b94; i < g_eng3_40bcc; i++) {
+    for (i = g_2bf32; i < g_2bf6c; i++) {
         Actor *base = g_eng3_actor_42540;
         a = base + i;
         if (a->kind) {
@@ -3601,8 +3601,8 @@ void eng3_1bd40(void)
     g_eng3_3fba4 = 0;
     if (g_eng3_40b92)
         g_eng3_40b92--;
-    for (i = g_eng3_40ba8; i < g_eng3_40bd2; i++) {
-        h = &g_eng3_actor_431c0[i];
+    for (i = g_2bf44; i < g_2bf72; i++) {
+        h = &g_2dfa0[i];
         kind = h->kind;
         if (kind) {
             if (h->flags & 0x10000)
@@ -3611,13 +3611,13 @@ void eng3_1bd40(void)
                 g_eng3_host_40bb4[kind & 0xfff].update(h);
         }
     }
-    for (i = g_eng3_40bc2; i < g_eng3_40c32; i++) {
-        m = &((Eng3Middle *)g_eng3_43174)[i];
+    for (i = g_2bf62; i < g_2bff2; i++) {
+        m = &((Eng3Middle *)g_2df4c)[i];
         kind = m->kind;
         if (kind && (m->flags & 2))
-            g_eng3_middle_40b98[kind & 0xfff].update(m);
+            g_eng3_middle_actions_40b98[kind & 0xfff].update(m);
     }
-    for (i = g_eng3_40b94; i < g_eng3_40bcc; i++) {
+    for (i = g_2bf32; i < g_2bf6c; i++) {
         a = &g_eng3_actor_42540[i];
         kind = a->kind;
         if (kind && (a->flags & 2))
@@ -3634,13 +3634,13 @@ void eng3_1bd40(void)
     eng3_1c5c0();
     if (g_eng3_levels_39870[g_engine_interface.context_004->level].unknown_03) {
         a = g_eng3_actor_42540;
-        for (i = 0; i < g_eng3_40bcc; i++, a++)
+        for (i = 0; i < g_2bf6c; i++, a++)
             a->x = ((a->x - 0x800000) & 0x1fffffff) + 0x800000;
-        m = ((Eng3Middle *)g_eng3_43174);
-        for (i = 0; i < g_eng3_40c32; i++, m++)
+        m = ((Eng3Middle *)g_2df4c);
+        for (i = 0; i < g_2bff2; i++, m++)
             m->x = ((m->x - 0x800000) & 0x1fffffff) + 0x800000;
-        h = g_eng3_actor_431c0;
-        for (i = 0; i < g_eng3_40bd2; i++, h++)
+        h = g_2dfa0;
+        for (i = 0; i < g_2bf72; i++, h++)
             h->x = ((h->x - 0x800000) & 0x1fffffff) + 0x800000;
     }
 }
