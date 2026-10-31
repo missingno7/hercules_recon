@@ -114,9 +114,7 @@ extern short g_eng1_setup_word_72012;
 extern Actor *g_eng1_setup_dword_72118;
 extern long g_eng1_setup_dword_7211c;
 extern long g_eng1_setup_dword_72120;
-extern unsigned long g_pipeline_dword_71840;
-extern short g_pipeline_word_71bc4;
-extern short g_pipeline_word_71c5c;
+#include "actor_pipeline_storage.h"
 extern unsigned short g_eng1_6ef70;
 extern short g_eng1_setup_word_6ef7c;
 extern long g_eng1_setup_dword_6efa8;
@@ -274,7 +272,7 @@ void eng1_16840(void)
         if (eng1_18bb0())
             return;
     }
-    if (g_pipeline_dword_71840) {
+    if ((g_actor_pipeline_storage_71440.dword_cells[0x400 / 4])) {
         if (!(g_frame_owner_72860->z & 0x7f0000)) {
             if (eng1_16fa0())
                 return;
@@ -452,7 +450,7 @@ void eng1_16da0(void)
     if (!g_eng1_setup_dword_7201c && !eng1_sim_state_72170 && !eng1_sim_state_72110) {
         if (eng1_17ff0() || eng1_17ba0())
             return;
-        if ((g_frame_owner_72860->z >> 16 == g_pipeline_word_71c5c || g_frame_owner_72860->z >> 16 == g_pipeline_word_71bc4)
+        if ((g_frame_owner_72860->z >> 16 == (*(short *)&g_actor_pipeline_storage_71440.word_cells[0x81c / 2]) || g_frame_owner_72860->z >> 16 == (*(short *)&g_actor_pipeline_storage_71440.word_cells[0x784 / 2]))
             && (eng1_16fa0() || eng1_16990()))
             return;
         if (eng1_17d00() || eng1_17a20())
@@ -951,12 +949,12 @@ void eng1_17cd0(void)
 
 int eng1_17d00(void)
 {
-    if (g_pipeline_dword_71840) {
-        if ((g_engine_interface.context_004->held_5c & 0x10) && g_frame_owner_72860->z >> 16 < g_pipeline_word_71bc4) {
+    if ((g_actor_pipeline_storage_71440.dword_cells[0x400 / 4])) {
+        if ((g_engine_interface.context_004->held_5c & 0x10) && g_frame_owner_72860->z >> 16 < (*(short *)&g_actor_pipeline_storage_71440.word_cells[0x784 / 2])) {
             eng1_17d60();
             return 1;
         }
-        if ((g_engine_interface.context_004->held_5c & 0x40) && g_frame_owner_72860->z >> 16 > g_pipeline_word_71c5c) {
+        if ((g_engine_interface.context_004->held_5c & 0x40) && g_frame_owner_72860->z >> 16 > (*(short *)&g_actor_pipeline_storage_71440.word_cells[0x81c / 2])) {
             eng1_17d60();
             return 1;
         }

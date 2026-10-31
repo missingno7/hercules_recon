@@ -26,7 +26,9 @@ extern void __cdecl eng1_native_code_target_001e00(void *);
 extern void __cdecl eng1_native_code_target_001e30(void *);
 
 EngineInterface g_engine_interface;
-u32 g_actor_worklist_716c0[32];
+#include "../src/eng1/actor_pipeline_storage.h"
+/* The worklist at 0x716c0 is read through its canonical owner, linked from source. */
+#define WORKLIST_716C0 ((u32 *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])
 u32 g_configuration_dword_713bc;
 extern u16 g_native_word_72168;
 /* Oracle bytes at 0x4d6ec..0x4d6f3; callbacks read byte windows [0,3] and [4,7]. */
@@ -172,7 +174,7 @@ int main(void)
     eng1_native_code_target_001010(actor);
     REQUIRE(get32(actor, 0x54) == 0 && get32(actor, 0x50) == 0x81);
     REQUIRE(get8(actor, 0x97) == 0x2a);
-    REQUIRE(g_actor_worklist_716c0[0] == 1 && g_actor_worklist_716c0[1] == (u32)actor);
+    REQUIRE(WORKLIST_716C0[0] == 1 && WORKLIST_716C0[1] == (u32)actor);
     REQUIRE(call_count == 0);
 
     /* 0x1040 uses map bytes 0..3 after the second bounded draw. */

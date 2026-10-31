@@ -75,7 +75,7 @@ typedef char eng1_callback_actor_offsets_are_measured[
      offsetof(Eng1CallbackActor, word_124) == 0x124) ? 1 : -1];
 
 /* Only the observed prefix/count and indexed access widths are established. */
-extern eng1_u32 g_actor_worklist_716c0[];
+#include "actor_pipeline_storage.h"
 extern eng1_u32 g_configuration_dword_713bc;
 extern eng1_u16 g_native_word_72168;
 extern eng1_u8 g_actor_state_map_004d6ec[8];
@@ -122,7 +122,7 @@ extern void __cdecl reset_frame_state(Eng1CallbackActor *);
 extern int __cdecl remove_actor(Eng1CallbackActor *);
 extern int __cdecl remove_actor_variant(Eng1CallbackActor *);
 
-/* RVA 0x1010: initialize the observed tag and append the actor to g_actor_worklist_716c0. */
+/* RVA 0x1010: initialize the observed tag and append the actor to ((eng1_u32 *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4]). */
 void __cdecl eng1_native_code_target_001010(Eng1CallbackActor *actor)
 {
     eng1_u32 count;
@@ -130,9 +130,9 @@ void __cdecl eng1_native_code_target_001010(Eng1CallbackActor *actor)
     actor->render_flags_054 = 0;
     actor->flags_050 = 0x81;
     actor->tag_097 = 0x2a;
-    count = g_actor_worklist_716c0[0] + 1;
-    g_actor_worklist_716c0[0] = count;
-    g_actor_worklist_716c0[count] = (eng1_u32)actor;
+    count = ((eng1_u32 *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])[0] + 1;
+    ((eng1_u32 *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])[0] = count;
+    ((eng1_u32 *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])[count] = (eng1_u32)actor;
 }
 
 /* RVA 0x1040: one of the two measured default-actor initializer variants. */
