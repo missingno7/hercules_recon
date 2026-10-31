@@ -41,6 +41,8 @@ typedef struct LevelContext {
 typedef struct EngineInterfaceHead {
     u32 signature;
     LevelContext *context;
+    u32 unknown_008[3];
+    short *sine_table_014;
 } EngineInterfaceHead;
 
 extern EngineInterfaceHead g_engine_interface;
@@ -212,7 +214,6 @@ extern u8 g_dispatch_key_7286c;
 extern long g_effect_level_6ee64;
 extern long g_effect_sequence_6ee68;
 extern short g_frame_word_6ee84;
-extern short *g_sine_table_70f34;
 extern Rect16 g_effect_rect_4d7f0;
 extern void *title_0c450(void *slot, unsigned long size, unsigned long flags);
 extern void dispatch_engine_2ca00(PolyFT3 *p);
@@ -690,8 +691,8 @@ void eng1_02ac0(Effect *e, int i)
     v = e->verts;
     angle = random_limit(0x1000);
     radius = random_limit(0x60) + 0xc0;
-    x = g_sine_table_70f34[angle & 0xfff] * radius >> 12;
-    z = g_sine_table_70f34[(angle - 0x400) & 0xfff] * radius >> 12;
+    x = g_engine_interface.sine_table_014[angle & 0xfff] * radius >> 12;
+    z = g_engine_interface.sine_table_014[(angle - 0x400) & 0xfff] * radius >> 12;
     v[i].vx = x;
     v[i].vz = z;
     v[i].vy = 0;
