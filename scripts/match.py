@@ -376,6 +376,9 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
             if not isinstance(records, dict) or any(not isinstance(record, dict) for record in records.values()):
                 raise ValueError('Invalid reference symbol records')
             for name, record in records.items():
+                if 'access_profile' in record:
+                    from fixed_disp32 import access_form
+                    access_form(record)
                 if record.get('kind') == 'bss':
                     from zero_storage import owner_profile
                     storage_profiles[(row['id'], name)] = owner_profile(record, name, ROOT)
@@ -540,6 +543,11 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                 if isinstance(tables, list) and any(isinstance(table, dict) and
                         table.get('profile') == 'coff-local-byte-table-v1' for table in tables):
                     from local_byte_tables import relocated_compare
+                if any('access_profile' in record for record in binding.get('symbols', {}).values()):
+                    if any(isinstance(table, dict) and table.get('profile') == 'coff-local-byte-table-v1'
+                           for table in tables):
+                        raise ValueError('Indexed access and local byte table profiles cannot be combined')
+                    from fixed_disp32 import relocated_compare
                 owners = {name: compiled[key][0] for (row_id, name), key in storage_profiles.items() if row_id == row['id']}
                 aliases = {name: compiled[alias_profiles[(row['id'], name)]][0]
                            for row_id, name in alias_records if row_id == row['id']}

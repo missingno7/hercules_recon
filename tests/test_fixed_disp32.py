@@ -189,6 +189,7 @@ class FixedDisp32Tests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'lacks a native review'):
             fixed.review_inputs(self.record, [], row, {path: 'hash'}, self.root)
 
+
     def test_pinned_comparator_preservation(self):
         original = inspect.getsource(masked.relocated_compare)
         expected = original.replace("record['anchor_profile'] != 'cmp-test-absolute-v1'",
@@ -212,6 +213,28 @@ class FixedDisp32Tests(unittest.TestCase):
         expected = expected.replace("if rec.get('anchor_profile') == PROFILE}", "if rec.get('anchor_profile') in (PROFILE,) + FORMS}")
         expected = expected.replace("            if record.get('anchor_profile') == PROFILE:\n                access_surveys",
                                     "            if record.get('anchor_profile') in (PROFILE,) + FORMS:\n                access_surveys")
+        changes = [
+            ('    reviewed, bases, errors, receipts, storage_extents = {}, {}, [], [], []',
+             '    reviewed, bases, errors, receipts, storage_extents = {}, {}, [], [], []\n'
+             '    access_forms = {}'),
+            ("            raise ValueError('Invalid symbol record')\n        evidence(record)",
+             "            raise ValueError('Invalid symbol record')\n"
+             "        access_forms[name] = access_form(record)\n        evidence(record)"),
+            ("        if kind == 'bss':\n            if record.get('anchor_profile') in (PROFILE,) + FORMS:",
+             "        if kind == 'bss':\n            form = access_forms[name]\n"
+             "            if record.get('anchor_profile') in (PROFILE,) + FORMS:"),
+            ("                access_surveys[name].append(verify_access(ins, off, addend, record['size'], rva))",
+             "                access_surveys[name].append(\n"
+             "                    verify_access(ins, off, addend, record['size'], rva) if form is None else\n"
+             "                    form(ins, off, addend, record['size'], rva, record, expected, pe.image_base + record['rva']))"),
+            ('            if ins.disp_size == 4 and ins.address - rva + ins.disp_offset == off:',
+             '            # An explicit form validates its own memory footprint; direct uses\n'
+             '            # inside that form still go through the unchanged verify_access.\n'
+             '            if form is None and ins.disp_size == 4 and ins.address - rva + ins.disp_offset == off:'),
+        ]
+        for old, new in changes:
+            self.assertEqual(expected.count(old), 1, old)
+            expected = expected.replace(old, new, 1)
         self.assertEqual(inspect.getsource(fixed.relocated_compare), expected)
 
 

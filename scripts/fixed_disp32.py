@@ -1,8 +1,7 @@
 """Explicit preferred-base i386 memory anchors; no relocation/provenance claim.
 
-The comparator below preserves the pinned masked.py function, with only the
-profile dispatch and stricter caller access check changed. Its parity test makes
-that duplication reviewable without modifying accepted-proof-pinned code.
+The comparator owns the complete contribution/reference checks. Explicit access
+profiles dispatch only their access validation to separate modules.
 """
 import hashlib
 import json
@@ -210,6 +209,15 @@ def verify_access(ins, off, addend, extent, caller_rva):
 verify_native_fixed = verify_native
 
 
+def access_form(record):
+    """Closed opt-in dispatch; absent access_profile preserves the legacy path."""
+    if 'access_profile' not in record:
+        return None
+    from fixed_indexed import validate_record, verify_record_access
+    validate_record(record)
+    return verify_record_access
+
+
 def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=None, storage_aliases=None):
     """Compare one complete compiler contribution with independently reviewed fixups.
 
@@ -325,6 +333,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 operand_fields[ins.address - rva + field_off] = ins
 
     reviewed, bases, errors, receipts, storage_extents = {}, {}, [], [], []
+    access_forms = {}
     alias_checks, data_checks = {}, []
     payload_identities = {name: (rec.get('kind'), rec.get('rva'), rec.get('size'), rec.get('sha256'),
                               rec.get('dll'), rec.get('name'), rec.get('ordinal'))
@@ -332,6 +341,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
     for name, record in records.items():
         if not isinstance(record, dict):
             raise ValueError('Invalid symbol record')
+        access_forms[name] = access_form(record)
         evidence(record)
         dest, extent = integer(record['rva'], 'symbol RVA'), integer(record['size'], 'symbol extent', 1)
         kind, sym = record['kind'], by_name[name][0]
@@ -494,11 +504,16 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
             raise ValueError('Section-symbol addend does not identify an instruction or table entry')
         ins = operand_fields.get(off)
         if kind == 'bss':
+            form = access_forms[name]
             if record.get('anchor_profile') in (PROFILE,) + FORMS:
-                access_surveys[name].append(verify_access(ins, off, addend, record['size'], rva))
+                access_surveys[name].append(
+                    verify_access(ins, off, addend, record['size'], rva) if form is None else
+                    form(ins, off, addend, record['size'], rva, record, expected, pe.image_base + record['rva']))
             if typ != DIR32 or ins is None:
                 raise ValueError('Loader-zero references require direct absolute instruction operands')
-            if ins.disp_size == 4 and ins.address - rva + ins.disp_offset == off:
+            # An explicit form validates its own memory footprint; direct uses
+            # inside that form still go through the unchanged verify_access.
+            if form is None and ins.disp_size == 4 and ins.address - rva + ins.disp_offset == off:
                 mem = [op for op in ins.operands if op.type == capstone.x86.X86_OP_MEM]
                 if (len(mem) != 1 or mem[0].mem.base or mem[0].mem.index or mem[0].mem.segment or
                         addend + mem[0].size > record['size']):
