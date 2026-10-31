@@ -58,8 +58,8 @@ void clear_command_high_bit(Actor *p) { record_event(EV_CLEAR_COMMAND, p); }
 void detach_child(Actor *p) { record_event(EV_CHILD, p); }
 void detach_attachment(Actor *p) { record_event(EV_ATTACHMENT, p); }
 void detach_buffer(Actor *p) { record_event(EV_BUFFER, p); }
-void actor_cleanup_294b0(Actor *p) { record_event(EV_CLEAN_294B0, p); }
-void actor_cleanup_29620(Actor *p) { record_event(EV_CLEAN_29620, p); }
+void unlink_12c(Actor *p) { record_event(EV_CLEAN_294B0, p); }
+void unlink_0e4(Actor *p) { record_event(EV_CLEAN_29620, p); }
 void actor_refusal_296b0(Actor *p) { record_event(EV_REFUSAL, p); }
 void release_pending_action(void *p)
 {
