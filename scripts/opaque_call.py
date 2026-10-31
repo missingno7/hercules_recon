@@ -27,7 +27,8 @@ form alone, and its cell checks are exactly those of the CALL cell form above:
 one DIR32 field bound to a proven loader-zero (BSS) record, 4 bytes read inside
 that record's proven extent, the native displacement equal to that cell, every
 other instruction byte identical, and the same base-relocation and import-slot
-hardening below. It proves instruction identity and the cell, and nothing about
+hardening below. The JMP must also be in tail position: every byte of the
+contribution after it, compiled and native, is compiler padding (NOP or INT3). It proves instruction identity and the cell, and nothing about
 the jump target, its arguments, stack cleanup or return convention. Register and
 register-based memory JMPs (jump tables and all other dispatch) are not admitted,
 so such a transfer cannot enter through this form; neither are far, prefixed or
@@ -40,7 +41,9 @@ base-relocation inventory, because only that inventory distinguishes an
 unrelocated literal from an original address (relocation-stripped HERCULES.EXE
 is out of scope); payload-hash ``data`` records may not cover PE data
 directories or import slots in a row that opts in, so no import can be re-labelled
-as data and called through a cell or a loaded register. Both profiles share this
+as data and called through a cell or a loaded register; a BSS cell record whose
+extent touches an import slot or PE data directory is refused as well (a thunk
+array in a zero tail is loader-written, not loader-zero). Both profiles share this
 hardening.
 """
 import struct
@@ -51,6 +54,7 @@ PROFILES = (PROFILE, JUMP_PROFILE)
 KEYS = {'profile', 'offset', 'operand', 'target', 'abi', 'evidence'}
 REGISTERS = ('eax', 'ecx', 'edx', 'ebx', 'esp', 'ebp', 'esi', 'edi')
 DIR32 = 6
+PADDING = (b'\x90', b'\xcc')
 
 
 def validate_record(record):
@@ -162,6 +166,13 @@ def verify_calls(pe, opaque, records, reviewed, instructions, rva, expected):
         if len(native) != 1 or native[0].size != ins.size:
             raise ValueError('Native opaque %s instruction boundary differs' % what)
         native_shape = shape_of(native[0])
+        if record['profile'] == JUMP_PROFILE:
+            # Tail position: nothing but compiler padding may follow, in the compiled and the native bytes.
+            following = [i for i in instructions if i.address - rva >= end]
+            if (sum(i.size for i in following) != len(expected) - end or
+                    any(bytes(i.bytes) not in PADDING for i in following) or
+                    any(byte not in (0x90, 0xcc) for byte in expected[end:])):
+                raise ValueError('Opaque tail jump must be the last instruction, followed only by compiler padding')
         fields = sorted(field for field in reviewed if offset - 3 <= field < end)
         if shape['form'] != 'cell':
             if fields:
@@ -178,6 +189,8 @@ def verify_calls(pe, opaque, records, reviewed, instructions, rva, expected):
             cell = records.get(name, {})
             if kind != DIR32 or one_past or cell.get('kind') != 'bss':
                 raise ValueError('Opaque cell %s needs an independently proven loader-zero (BSS) cell' % what)
+            if _loader_managed(pe, cell['rva'], cell['rva'] + cell['size']):
+                raise ValueError('Opaque cell %s refuses a cell over import slots or PE directories' % what)
             if not (0 <= addend and addend + 4 <= cell['size']):
                 raise ValueError('Opaque cell %s reads outside its proven cell' % what)
             if record['operand'] != dict(form='cell', symbol=name, addend=addend):

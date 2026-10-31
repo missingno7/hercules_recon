@@ -475,6 +475,62 @@ class OpaqueCallTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'import slots or PE directories'):
             self.compare()
 
+    def test_tail_jump_must_be_in_tail_position(self):
+        for tail in ('90' * 10, 'cc' * 10, '90cc90cc', '90'):
+            with self.subTest(tail=tail):
+                self.use_cell('ff25', profile=oc.JUMP_PROFILE, tail=tail)
+                self.assertTrue(self.compare()['relocated_equal'])
+        for tail in ('b801000000c3' + '90' * 4, 'c3', '40c3', '9090c3', '90' * 4 + '40'):
+            with self.subTest(tail=tail):  # compiled bytes after the JMP are real code
+                self.use_cell('ff25', profile=oc.JUMP_PROFILE, tail=tail)
+                with self.assertRaisesRegex(ValueError, 'last instruction'):
+                    self.compare()
+        self.use_cell('ff25', profile=oc.JUMP_PROFILE, tail='40c3')  # compiled code where the native bytes are padding
+        self.native = self.native[:6] + bytes([0x90, 0x90])
+        with self.assertRaisesRegex(ValueError, 'last instruction'):
+            self.compare()
+        self.use_jump_cell()  # the native bytes after the JMP must be padding as well
+        self.native = self.native[:6] + b'\x90' * 9 + b'\xc3'
+        with self.assertRaisesRegex(ValueError, 'last instruction'):
+            self.compare()
+        # A JMP in the middle of a function, with code before and after it.
+        self.use('33c0ff250000000040c3', jump_record(2, cell_operand()))
+        self.native = b'\x33\xc0\xff\x25' + struct.pack('<I', 0x402200) + b'\x40\xc3'
+        self.relocations = [(4, 1, masked.DIR32)]
+        self.symbols.append(('_cell', 0, 0, 0))
+        self.fixups = [0x3004, 0x3101]
+        fixture_owner(self.owner, 4)
+        self.owners = {'_cell': self.owner}
+        self.bindings['symbols'] = {'_cell': binding(
+            'bss', 0x2200, 4, (4, masked.DIR32, 0),
+            identity=dict(rva=0x1100, size=5, operand=0, sha256=hashlib.sha256(ANCHOR).hexdigest()),
+            owner=dict(source='src/owner.c', flags=[], symbol='_cell'))}
+        with self.assertRaisesRegex(ValueError, 'last instruction'):
+            self.compare()
+
+    def test_bss_cell_over_an_import_thunk_slot_is_refused(self):
+        # Review hole: a FirstThunk array placed in the .data zero tail without an IAT directory is
+        # loader-written, so a 'bss' record over it must not authorise a call or jump through it.
+        def thunks(image):
+            put(image, 0x2100, struct.pack('<IIIII', 0x2140, 0, 0, 0x2180, 0x2200) + bytes(20))
+            put(image, 0x2140, struct.pack('<II', 0x2190, 0))
+            put(image, 0x2180, b'X.DLL\0')
+            put(image, 0x2190, b'\0\0A\0')
+            struct.pack_into('<II', image, OPTIONAL + 96 + 8 * 1, 0x2100, 40)
+        for use in (self.use_cell, self.use_jump_cell):
+            with self.subTest(use=use.__name__):
+                use()
+                self.assertTrue(self.compare()['relocated_equal'])  # control: no thunks
+                self.patch = thunks
+                with self.assertRaisesRegex(ValueError, 'import slots or PE directories'):
+                    self.compare()
+                self.patch = None
+        # The module rule itself, independent of the hub's own owner checks.
+        self.use_jump_cell(addend=4, size=8)
+        self.assertTrue(self.compare()['relocated_equal'])
+        pe = PE(self.target)
+        self.assertFalse(oc._loader_managed(pe, 0x2200, 0x2208))
+
     def test_tail_jump_on_a_relocation_stripped_image_is_refused(self):
         self.use_jump_cell()
         self.stripped = True
