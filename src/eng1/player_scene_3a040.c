@@ -1664,12 +1664,12 @@ extern unsigned char *g_frame_global_73484;
 extern unsigned short g_frame_global_73480;
 extern unsigned long g_frame_global_73488;
 extern unsigned short g_eng1_control_70ee6;
-extern unsigned short g_eng1_control_70eea;
+#include "actor_control_state.h"
 extern Actor *g_eng1_control_actor_70eec;
 extern unsigned short g_eng1_control_70efc;
 extern unsigned short g_eng1_control_70efe;
 extern unsigned short g_eng1_control_70f0c;
-extern unsigned short g_eng1_control_70f0e, g_eng1_control_70ef0, g_eng1_control_70f04;
+extern unsigned short g_eng1_control_70f04;
 extern short g_platform_sound_70004;
 
 void dispatch_engine_2c980(void *p, int dfe, int dtd, int tpage, int tw);
@@ -1933,7 +1933,7 @@ void eng1_3cb90(Actor *p)
 
     eng1_native_code_target_002ae50(p);
     if (eng1_3eb30(p, 0x30, 9)) {
-        if (g_eng1_control_70eea == p->counter_021)
+        if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
             g_eng1_control_actor_70eec = p;
         g = p->group_120;
         for (i = 0; i < g->count;) {
@@ -1973,7 +1973,7 @@ void eng1_3cb90(Actor *p)
                 if (a)
                     a->unknown_026 = h;
             }
-            if (g_eng1_control_70eea == p->counter_021 && a->kind == 0x4031)
+            if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021 && a->kind == 0x4031)
                 a->unknown_098 = g_eng1_control_70ee6;
         }
         if (g_eng1_control_70ee6) {
@@ -2053,7 +2053,7 @@ void eng1_3cf90(Actor *p)
 
     n = 0;
     if (eng1_3eb30(p, 0x30, 9)) {
-        if (g_eng1_control_70eea == p->counter_021)
+        if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
             g_eng1_control_actor_70eec = p;
         g = p->group_120;
         d = p->unknown_0dc * p->unknown_126 / p->unknown_124;
@@ -2122,7 +2122,7 @@ void eng1_3cf90(Actor *p)
                 if (a)
                     a->unknown_026 = h;
             }
-            if (g_eng1_control_70eea == p->counter_021 && a->kind == 0x4031)
+            if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021 && a->kind == 0x4031)
                 a->unknown_098 = g_eng1_control_70ee6;
         }
         if (g_eng1_control_70ee6) {
@@ -2197,7 +2197,7 @@ void eng1_3d440(Actor *p)
     z = p->z;
     eng1_native_code_target_002ae50(p);
     if (eng1_3eb30(p, 0x3a, 9)) {
-        if (g_eng1_control_70eea == p->counter_021)
+        if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
             g_eng1_control_actor_70eec = p;
         g = p->group_120;
         for (i = 0; i < g->count;) {
@@ -2252,7 +2252,7 @@ void eng1_3d440(Actor *p)
                     }
                 }
                 angle += 0x100;
-            } else if (g_eng1_control_70eea == p->counter_021 && a->kind == 0x4031) {
+            } else if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021 && a->kind == 0x4031) {
                 a->unknown_098 = g_eng1_control_70ee6;
             }
         }
@@ -2338,7 +2338,7 @@ void eng1_3d930(Actor *p)
     int h;
 
     if (eng1_3eb30(p, 0x2a, 9)) {
-        if (g_eng1_control_70eea == p->counter_021)
+        if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
             g_eng1_control_actor_70eec = p;
         g = p->group_120;
         eng1_native_code_target_002ae50(p);
@@ -2379,7 +2379,7 @@ void eng1_3d930(Actor *p)
                 if (a)
                     a->unknown_026 = h;
             }
-            if (g_eng1_control_70eea == p->counter_021 && a->kind == 0x4031)
+            if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021 && a->kind == 0x4031)
                 a->unknown_098 = g_eng1_control_70ee6;
         }
         if (g_eng1_control_70ee6) {
@@ -2483,7 +2483,7 @@ void eng1_3dcd0(Actor *p)
         a->saved_x += p->x - p->saved_z;
     }
     if (eng1_3eb30(p, 0x4d, 9)) {
-        if (g_eng1_control_70eea == p->counter_021)
+        if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
             g_eng1_control_actor_70eec = p;
         g = p->group_120;
         for (a = p->next_scene; a; a = a->next_scene) {
@@ -2550,7 +2550,7 @@ void eng1_3dcd0(Actor *p)
             if (a->kind == 0x4031) {
                 if (a->z > 0x1200000)
                     a->unknown_098 = delta;
-                else if (g_eng1_control_70eea == p->counter_021)
+                else if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
                     a->unknown_098 = g_eng1_control_70ee6;
             }
         }
@@ -2594,7 +2594,7 @@ void eng1_3e160(Actor *p)
             p->flags &= ~0x200;
             select_frame(p, 0xb);
             p->state = 9;
-            g_eng1_control_70f0e++;
+            (g_eng1_actor_control_state_70ed8.words[27])++;
         }
     }
 }
@@ -2637,10 +2637,10 @@ void eng1_3e280(Actor *p)
             p->flags &= ~0x200;
             select_frame(p, 0xb);
             p->state = 9;
-            g_eng1_control_70f0e++;
+            (g_eng1_actor_control_state_70ed8.words[27])++;
         } else if (eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
             eng1_native_code_target_00266a0(p, 1, 0);
-            g_eng1_control_70ef0++;
+            (g_eng1_actor_control_state_70ed8.words[12])++;
         }
     }
 }
@@ -2709,12 +2709,12 @@ void eng1_3e3d0(Actor *p)
             p->flags &= ~0x200;
             select_frame(p, 0xb);
             p->state = 9;
-            g_eng1_control_70f0e++;
+            (g_eng1_actor_control_state_70ed8.words[27])++;
         }
     }
     if (!p->lifetime && eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
         eng1_native_code_target_00266a0(p, 1, 0);
-        g_eng1_control_70ef0 += 3;
+        (g_eng1_actor_control_state_70ed8.words[12]) += 3;
     }
 }
 
@@ -2804,12 +2804,12 @@ void eng1_3e5d0(Actor *p)
                     p->flags &= ~0x200;
                     select_frame(p, 0xb);
                     p->state = 9;
-                    g_eng1_control_70f0e++;
+                    (g_eng1_actor_control_state_70ed8.words[27])++;
                 }
             }
             if (!p->lifetime && eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
                 eng1_native_code_target_00266a0(p, 1, 0);
-                g_eng1_control_70ef0++;
+                (g_eng1_actor_control_state_70ed8.words[12])++;
             }
         }
     }
@@ -2878,7 +2878,7 @@ void eng1_3e770(Actor *p)
         p->saved_y -= d;
         if (bounds_overlap(&g_native_pointer_7217c->bounds, &b)) {
             eng1_native_code_target_00266a0(p, 1, 0);
-            g_eng1_control_70ef0++;
+            (g_eng1_actor_control_state_70ed8.words[12])++;
         }
         break;
     case 9:
@@ -2922,7 +2922,7 @@ void eng1_3ea00(Actor *p)
 
 void eng1_3ea40(Actor *p)
 {
-    if (g_eng1_control_70eea == p->counter_021)
+    if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
         g_eng1_control_70ede = (p->x >> 16) - 0x1a;
 }
 
@@ -3017,7 +3017,7 @@ void eng1_3ecb0(Actor *p)
     int i;
     int dy;
 
-    if (g_eng1_control_70eea == p->counter_021)
+    if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
         g_eng1_control_actor_70ef8 = p;
     g_eng1_classifier_rows_65678[p->counter_021].unknown_0a = p->state;
     if (p->control_025 & 1) {
@@ -3079,7 +3079,7 @@ void eng1_3eec0(Actor *p)
     Actor *a;
     int i;
 
-    if (g_eng1_control_70eea == p->counter_021)
+    if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
         g_eng1_control_actor_70ef8 = p;
     g_eng1_classifier_rows_65678[p->counter_021].unknown_0a = p->state;
     if (p->control_025 & 1) {
@@ -3460,7 +3460,7 @@ void eng1_3f8d0(Actor *p)
                 eng1_41da0(p);
                 p->state = 9;
                 p->hits = 3;
-                g_eng1_control_70f0e += 2;
+                (g_eng1_actor_control_state_70ed8.words[27]) += 2;
             }
         }
     }
@@ -3737,7 +3737,7 @@ void eng1_3ff30(Actor *p)
                 p->direction_x = ~p->direction_x;
                 p->direction_z = ~p->direction_z;
                 p->lifetime = 10;
-                g_eng1_control_70ef0++;
+                (g_eng1_actor_control_state_70ed8.words[12])++;
                 flags = 0;
             }
             left = g_configuration_dword_713bc[dispatch_local_2a170(p->x - 0x180000, p->y - 0x200000,
