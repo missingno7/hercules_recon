@@ -1,3 +1,4 @@
+/* solZ2: canonical owner names replace loader-zero aliases; storage unchanged. */
 /* ENG1 219e0..21f5f: provisional semantic region, not historical TU identity.
  * Source hypotheses follow PC field accesses, including low-word spin updates. */
 typedef struct Actor Actor;
@@ -40,8 +41,8 @@ extern unsigned char g_spawn_gate;
 extern long g_countdown,g_effect_speed,g_effect_phase;
 extern Actor *g_focus;
 extern unsigned char *g_collision_context;
-extern Callback8 *g_alt_callbacks;
-extern Callback12 *g_callbacks;
+extern Callback8 *g_configuration_dword_7139c;
+extern Callback12 *g_configuration_dword_71370;
 extern unsigned int random_limit(int);
 extern Actor *spawn_normal(long,long,long,int);
 extern Actor *spawn_kind(long,long,long,int);
@@ -66,7 +67,7 @@ void tick_scripted_actor(Actor *p)
 void start_spawn_phase(Actor *p)
 {
     Actor *child=spawn_kind(p->x,p->y,p->z,0x2033);
-    if(child) g_alt_callbacks[51].initialize(child);
+    if(child) g_configuration_dword_7139c[51].initialize(child);
     p->state=2;
     g_countdown=180;
     play_sound(461,0);
@@ -87,11 +88,11 @@ void tick_spawn_phase(Actor *p)
             }
             child=spawn_normal(g_focus->x+(offset<<16),g_focus->y-0x1180000,g_focus->z,0x34);
         }
-        if(child) g_callbacks[52].initialize(child);
+        if(child) g_configuration_dword_71370[52].initialize(child);
     }
     child=spawn_kind((long)random_limit(0x1000)<<16,p->y-0x1680000,
         p->z-((long)random_limit(0x15c)<<16)-0xd80000,0x202a);
-    if(child) g_alt_callbacks[42].initialize(child);
+    if(child) g_configuration_dword_7139c[42].initialize(child);
     g_effect_speed=0x40000;
     if(g_countdown<0) {
         g_effect_speed=0;
@@ -137,11 +138,11 @@ void tick_spinning_particle(Actor *p)
         random_limit(4);
         do {
             child=spawn_kind(p->x,p->y,p->z,0x202a);
-            if(child) g_alt_callbacks[42].initialize(child);
+            if(child) g_configuration_dword_7139c[42].initialize(child);
             ++n;
         } while(n<=random_limit(4));
         child=spawn_kind(p->x,p->y+0x100000,p->z,0x202b);
-        if(child) g_alt_callbacks[43].initialize(child);
+        if(child) g_configuration_dword_7139c[43].initialize(child);
         if(!random_limit(2)) switch(random_limit(10)) {
         case 0:case 1:case 2:play_actor_sound(0xd1cf,child,p);break;
         case 3:case 4:case 5:play_actor_sound(0xd1d0,child,p);break;

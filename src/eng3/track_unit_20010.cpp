@@ -1,3 +1,4 @@
+/* solZ2: canonical owner names replace loader-zero aliases; storage unchanged. */
 /* ENG3.DLL 0x20010..0x22e40 (lane y6m merge of lane y6 and its sub-lanes, 2026-10-20).
  * Contents in address order: the tail of the engine-interface wrapper run 0x20010..0x20190 (its head,
  * 0x1f830.., is recorded in calibration/eng3/interface_wrappers.c, actor_services_1e000.c and the TITLE
@@ -245,7 +246,7 @@ extern short g_eng3_lane_columns_40744[];
 extern Eng3Range *g_eng3_ranges_4078c;
 extern Eng3Cell *g_eng3_track_40794;
 extern ActionRecord12 *g_eng3_game_40b8c;
-extern ActionRecord8 *g_eng3_middle_40b98;
+extern ActionRecord8 *g_eng3_middle_actions_40b98;
 extern ActionRecord8 *g_eng3_host_40bb4;
 extern void (**g_eng3_tile_actions_40bd4)(int);
 extern unsigned short *g_eng3_tiles_40c38;
@@ -1687,7 +1688,7 @@ Actor *eng3_22bd0(long x, long y, long z, int kind, int profile)
             actor = create_eng3_middle_actor(x, y, z, kind);
             if (actor != 0) {
                 actor->profile = profile;
-                g_eng3_middle_40b98[kind & 0xfff].fn(actor);
+                g_eng3_middle_actions_40b98[kind & 0xfff].fn(actor);
             }
         } else {
             actor = create_eng3_kind_actor(x, y, z, kind);
@@ -1718,7 +1719,7 @@ void eng3_22cb0(Actor *owner, long x, long y, long z, int kind)
                 actor->unknown_95 = owner->unknown_95;
                 actor->unknown_96 = owner->unknown_96;
                 actor->profile = owner->profile;
-                g_eng3_middle_40b98[kind & 0xfff].fn(actor);
+                g_eng3_middle_actions_40b98[kind & 0xfff].fn(actor);
             }
         } else {
             actor = create_eng3_kind_actor(x, y, z, kind);

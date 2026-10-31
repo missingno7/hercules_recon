@@ -1,3 +1,4 @@
+/* solZ2: canonical owner names replace loader-zero aliases; storage unchanged. */
 /* ENG1.DLL 0xc730..0xe170: level actor handlers continuing calibration/eng1/level_actors_083e0.cpp
    (music trigger, rubble and debris, placement/scroll helpers, two walker enemies).  Lane x13
    scratch, 2026-10-20.  /O2 /Gy; types, names and idioms reused from the 0x83e0 unit.
@@ -134,7 +135,7 @@ extern KindInfo g_kind_info[];
 extern Actor *g_normal_actor_pool;
 extern Actor *g_collision_context;
 extern unsigned short *g_configuration_dword_713bc;
-extern Callback12 *g_normal_callbacks;
+extern Callback12 *g_configuration_dword_71370;
 extern Callback8 *g_special_callbacks;
 extern unsigned short g_eng1_setup_word_718e0;
 extern Debris g_debris_50f60[24];
@@ -176,7 +177,7 @@ extern int eng1_2a9e0(Actor *, int);
 extern int eng1_native_code_target_002aa30(Actor *, int, int);
 extern unsigned int random_limit(int);
 extern Actor *g_frame_global_734f4;
-extern Callback8 *g_alt_callbacks;
+extern Callback8 *g_configuration_dword_7139c;
 extern unsigned short g_eng1_collision_map_04f1e0[];
 extern unsigned short g_eng1_setup_word_72012;
 extern unsigned short g_native_word_72168;
@@ -261,7 +262,7 @@ void eng1_0c730(Actor *p)
     p->counter = 0x3c;
     q = spawn_normal(g_normal_actor_pool->x + 0x1400000, p->y, p->z, 0x2f);
     if (q)
-        g_normal_callbacks[47].initialize(q);
+        g_configuration_dword_71370[47].initialize(q);
 }
 
 void eng1_native_code_target_00c780(Actor *p)
@@ -363,7 +364,7 @@ void eng1_native_code_target_00c940(Actor *p)
             kind = ((signed char)~g_engine_interface.context->tick_038 & 1) | 0x48;
             q = spawn_normal(p->x, g_eng1_setup_word_718e0 << 16, p->z, kind);
             if (q) {
-                g_normal_callbacks[kind & 0x1ff].initialize(q);
+                g_configuration_dword_71370[kind & 0x1ff].initialize(q);
                 q->scale = 0x80;
             }
             remove_actor_variant(p);
@@ -1554,7 +1555,7 @@ void eng1_native_code_target_00fa00(Actor *p)
                                                p->z + (p->spawns[i].z << 16), kind);
                                 if (r) {
                                     r->state = p->spawns[i].state;
-                                    g_alt_callbacks[kind & 0x1ff].initialize(r);
+                                    g_configuration_dword_7139c[kind & 0x1ff].initialize(r);
                                 }
                             }
                             if (kind & 0x4000) {

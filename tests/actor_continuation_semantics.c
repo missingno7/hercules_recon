@@ -8,8 +8,8 @@ unsigned char g_spawn_gate;
 long g_countdown,g_effect_speed,g_effect_phase;
 Actor *g_focus;
 unsigned char *g_collision_context;
-Callback8 *g_alt_callbacks;
-Callback12 *g_callbacks;
+Callback8 *g_configuration_dword_7139c;
+Callback12 *g_configuration_dword_71370;
 static Callback8 alt[60];
 static Callback12 normal[60];
 static Actor subject,owner,focus,children[8],observed;
@@ -58,7 +58,7 @@ int main(void)
     Actor expected;int i,j,k,gate,path,speed,direction,negative,mask,count,hit,selection,sound;
     long s,values[7]={-1000,-21,-1,0,1,21,1000};
     for(i=0;i<60;++i){alt[i].initialize=initialize_child;normal[i].initialize=initialize_child;}
-    g_alt_callbacks=alt;g_callbacks=normal;
+    g_configuration_dword_7139c=alt;g_configuration_dword_71370=normal;
     for(i=-32768;i<=32767;++i)for(j=-1;j<2;++j){
         reset();subject.ticks=(short)i;subject.phase=2;
         g_frame_script[2].value=(short)j;g_frame_script[3].value=-32768;

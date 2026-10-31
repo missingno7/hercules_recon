@@ -1,3 +1,4 @@
+/* solZ2: canonical owner names replace loader-zero aliases; storage unchanged. */
 /* ENG1.DLL 0x83e0..0xa420: level-specific actor handlers following the /Od sound unit
    (rock-throwing walker, leaping fish, centaur, lava rock, breakable rock).  Lane x9 scratch,
    2026-10-20.  /O2 /Gy code (aligned, no frame pointers); no ENG3/TITLE twins (ENG1-only strings).
@@ -70,7 +71,7 @@ extern ScriptStep *g_actor_scripts_4f378[];
 extern Actor *g_normal_actor_pool;
 extern Actor *g_collision_context;
 extern unsigned short *g_configuration_dword_713bc;
-extern Callback12 *g_normal_callbacks;
+extern Callback12 *g_configuration_dword_71370;
 extern Callback8 *g_special_callbacks;
 extern unsigned short g_eng1_setup_word_718e0;
 extern unsigned short g_eng1_setup_word_72012;
@@ -357,7 +358,7 @@ void eng1_native_code_target_0086f0(Actor *p)
             p->frame_ticks = -1;
             q = spawn_normal(p->x, p->y - 0x820000, p->z, 0x4a);
             if (q) {
-                g_normal_callbacks[74].initialize(q);
+                g_configuration_dword_71370[74].initialize(q);
                 q->scale = 0x200;
                 q->direction_x = p->direction_x;
                 q->render_flags = (q->direction_x & 0x10) | (q->render_flags & ~0x10);
@@ -504,7 +505,7 @@ void eng1_native_code_target_008e10(Actor *p)
             eng1_interpret_signed_pairs(p);
             q = spawn_normal(p->x - p->motion_x.velocity, p->y, p->z - p->motion_z.velocity, 0x56);
             if (q) {
-                g_normal_callbacks[86].initialize(q);
+                g_configuration_dword_71370[86].initialize(q);
                 q->direction_x = p->direction_x;
                 q->render_flags = (q->direction_x & 0x10) | (q->render_flags & ~0x10);
                 q->motion_x.velocity = p->motion_x.velocity;
@@ -824,7 +825,7 @@ void eng1_native_code_target_009a20(Actor *p)
     if ((p->y >> 16) > g_eng1_setup_word_718e0) {
         q = spawn_normal(p->x, p->y, p->z, 0x49);
         if (q) {
-            g_normal_callbacks[73].initialize(q);
+            g_configuration_dword_71370[73].initialize(q);
             q->scale = 0x180;
         }
         play_sound(0xcb, 0);
@@ -1257,7 +1258,7 @@ void eng1_native_code_target_00a910(Actor *p)
             eng1_interpret_signed_pairs(p);
             q = spawn_normal(p->x, p->y + 0x60000, p->z, 0x30);
             if (q) {
-                g_normal_callbacks[48].initialize(q);
+                g_configuration_dword_71370[48].initialize(q);
                 q->direction_x = p->direction_x;
                 q->render_flags = (q->direction_x & 0x10) | (q->render_flags & ~0x10);
                 q->motion_x.velocity = 0x200000;
@@ -1967,7 +1968,7 @@ void eng1_native_code_target_00bc50(Actor *p)
                 RemoveFxIdLinks_7f8e(0x10f, p);
                 q = spawn_normal(p->x, p->y, p->z, 0x54);
                 if (q)
-                    g_normal_callbacks[84].initialize(q);
+                    g_configuration_dword_71370[84].initialize(q);
             }
         } else if (p->counter-- < 0) {
             p->counter = random_limit(0x1e) + 0x1e;
