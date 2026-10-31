@@ -196,3 +196,56 @@ Recorded stops:
   kept unlanded until a row can use it.
 - **`eng3.142b0`.** It needs the local byte-table form wired into `match.py`; that work is in
   progress.
+
+## Waves h and i (2026-10-31)
+
+Verifier forms, all opt-in and dispatched from the `fixed_disp32.py` copy of the pinned comparator
+(`masked.py` is unchanged; the comparator-preservation test pins every hook line):
+
+- **`coff-local-byte-table-v1`** is wired into `match.verify_rows` (`eng3.142b0`,
+  `eng1.native_code_target_012d10`).
+- **`fixed-i386-indexed-v1`** (`scripts/fixed_indexed.py`): indexed `[reg+disp32]`/SIB reads of an
+  independently anchored EXE loader-zero owner (`exe.host_04b10`, `exe.cleanup_native_4cc0`).
+- **`loader-zero-indexed-v1`** (`scripts/loader_zero_indexed.py`, owner rulings D1+D2): the same
+  for DLL loader-zero owners. The record keeps the unchanged `zero_storage` owner and native anchor
+  checks and must carry `loader_zero_indexed.extent_claim: "minimum"`. That claim states that the
+  exact compiled owner extent is a **proven lower bound only**. No capacity, upper bound or runtime
+  index range is claimed, and none is inferred from neighbouring symbols or linker layout. An
+  indexed use proves only that its relocated disp32 is `owner + addend` with `0 <= addend <
+  minimum extent`. The compiled and native instructions must decode to the same pinned form, and
+  the native displacement must equal the owner address plus the addend. Direct and immediate uses
+  keep the legacy loader-zero checks. Tests: `tests/test_loader_zero_indexed.py`, which covers wrong
+  anchors, offsets, owner extents and native instruction mismatches, with native controls on
+  ENG1.DLL.
+
+`_g_kind_info` (ENG1 0x6fee8; ENG3 0x3fbd0) is bound with an 8-byte minimum extent (element 0).
+The canonical `g_kind_info[1]` declaration is **not** a proven allocation size. A native runtime
+must size this table from the loader's file-driven count, not from that declaration.
+
+Reviewed re-pins:
+
+- **Batch 7:** `eng1_10900`, `eng3_042a0`.
+- **Batch 8:** `archive_open_5130`, `host_setup_slots_reset_a1a0`, `host_engine_select`.
+- **Batch 9:** `eng1_171b0`. Owner-approved per-access steering: `held_5c` is read once through a
+  non-volatile lvalue, matching the original's single load and folded memory test at 0x17202. The
+  field declaration stays volatile.
+
+Each batch had identical before/after verification of every accepted row.
+
+`exe.host_engine_resolve` is staged masked-equal. It uses localized per-access volatile reads of the
+module handle; the original re-reads it from memory at every use. The global stays non-volatile.
+
+Acceptances: 1,083 to **1,101**:
+
+| Change | Count |
+|---|---:|
+| Local byte tables | 2 |
+| Sonnet binding lane bindS3 | 7 |
+| EXE indexed form | 2 |
+| ENG1 `_g_kind_info` rows (bindK) | 7 |
+
+Open:
+
+- **ENG3 `_g_kind_info` (34 rows).** It needs a paired-anchor proof (D3, approved in principle).
+- **`host_file_open_only_3c50`.** EAX-provenance investigation pending; the missing-return form is
+  not accepted.

@@ -10747,19 +10747,39 @@
     },
     {
       "id": "exe.host_engine_resolve",
-      "status": "RECONSTRUCTED",
-      "name_status": "provisional semantic/address label",
-      "source": "src/pc/host_engine_loader.c",
-      "symbol": "_host_engine_resolve",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
       "target": "work/discs/pc_install/HERCULES.EXE",
       "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
       "rva": "0x5c20",
       "size": 176,
-      "body_size": 170,
+      "source": "src/pc/host_engine_loader.c",
+      "symbol": "_host_engine_resolve",
       "flags": [
         "/O2"
       ],
-      "evidence": "evidence/host_engine_loader_recovery.json:15 named finite original/fresh-source scenarios with separate actual providers and synthetic SDK endpoints. Raw function equality is false; no FUNCTION_MATCH, original source/TU/native layout or playable-game acceptance."
+      "evidence": "Wave i (2026-10-31): the module-handle reads in this function are per-access volatile (owner ruling: localized, the global stays non-volatile); the original re-reads it from memory at 0x405c20, 0x405c34, 0x405c80 and 0x405c89, and no other function reads it. Lane m01 candidate; fresh compile masked-equal. Previously: evidence/host_engine_loader_recovery.json:15 named finite original/fresh-source scenarios with separate actual providers and synthetic SDK endpoints. Raw function equality is false; no FUNCTION_MATCH, original source/TU/native layout or playable-game acceptance.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "??_C@_04JBBA@?$CC?$CFs?$CC?$AA@": "0x36860",
+        "??_C@_0BB@DFNM@PC_DLLEngineMain?$AA@": "0x36868",
+        "__imp__FreeLibrary@4": "0x7a58a4",
+        "__imp__GetProcAddress@8": "0x7a58ac",
+        "__imp__LoadLibraryA@4": "0x7a589c",
+        "_archive_fatal": "0x10460",
+        "_g_host_engine_entry_91c45c": "0x51c45c",
+        "_g_host_engine_error_91c040": "0x51c040",
+        "_g_host_engine_gate_91c460": "0x51c460",
+        "_g_host_engine_module_91c468": "0x51c468",
+        "_g_host_engine_path_91bbd8": "0x51bbd8",
+        "_sprintf": "0x10f40"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "38fdb508af9fd6bf866e9fd44a2c751ac4371306332780b71ddb655d3d44f94d",
+        "masked_sha256": "b669e0d9ca476101469eac33ee8007f311bff97734bf8e77173f412fe3ba1f7f",
+        "toolchain": "msvc5_rtm"
+      }
     },
     {
       "id": "exe.host_engine_select",
@@ -13519,7 +13539,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -15718,7 +15739,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -24414,7 +24436,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -25684,7 +25707,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -27417,7 +27441,8 @@
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
-          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt"
+          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -29425,7 +29450,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -29728,7 +29754,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -31116,7 +31143,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -32954,7 +32982,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -42398,7 +42427,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -42474,7 +42504,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -43062,7 +43093,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -43430,7 +43462,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -51664,6 +51697,9 @@
         "context_sha256": {
           "src/eng1/control_unit_2c030.c": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
+        },
+        "reference_snapshots": {
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -51859,7 +51895,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -52719,7 +52756,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -53088,6 +53126,7 @@
           "_dispatch_local_255f0",
           "_dispatch_local_25620",
           "_dispatch_local_258e0",
+          "_eng1_26640",
           "_eng1_call_26040",
           "_engine_shutdown"
         ]
@@ -53149,6 +53188,7 @@
           "_dispatch_local_255f0",
           "_dispatch_local_25620",
           "_dispatch_local_258e0",
+          "_eng1_26640",
           "_eng1_call_26040",
           "_engine_shutdown"
         ]
@@ -53190,6 +53230,7 @@
           "_dispatch_local_255f0",
           "_dispatch_local_25620",
           "_dispatch_local_258e0",
+          "_eng1_26640",
           "_eng1_call_26040",
           "_engine_shutdown"
         ]
@@ -53232,6 +53273,7 @@
           "_dispatch_local_255f0",
           "_dispatch_local_25620",
           "_dispatch_local_258e0",
+          "_eng1_26640",
           "_eng1_call_26040",
           "_engine_shutdown"
         ]
@@ -53239,7 +53281,7 @@
     },
     {
       "id": "eng1.26640",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -53256,6 +53298,23 @@
         "_g_kind_info": "0x6fee8"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "f6a00f08c02fb46d216f7ee62e9cbac96d354c58148349f21d79f3ced3970ac6",
+        "compiled_sha256": "a1a6022e40adbc9807fe5dd67161b0f875a74fed3dca8650ec85253a19fc03bc",
+        "target_sha256": "753826ef93758318845ddcfd51c8a434d88dba498261fbd4dbfba36a903d2aec",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindK_bindings_2026_10_31.json",
+        "bindings_sha256": "5bd3980723579f1d8c58d79295c9ae9828b311b5ea525fd8f876d94d62fe203a",
+        "reference_evidence_sha256": "f4ab0e0ef75b09d06104286970fe280a8d65d506b5b1a99d84555bd5191d4448",
+        "context_sha256": {
+          "src/eng1/actor_pipeline_255f0.cpp": "f6a00f08c02fb46d216f7ee62e9cbac96d354c58148349f21d79f3ced3970ac6",
+          "src/eng1/actor_region.h": "6effc45a9a7188038ef9474b61071abf84884947bdb37aefdeb67897fb191262",
+          "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "f6a00f08c02fb46d216f7ee62e9cbac96d354c58148349f21d79f3ced3970ac6",
         "masked_sha256": "1b2fe599db92244142600176933dd38f6892d0aa369ba8fbd8e0c782fcee4152",
@@ -53303,6 +53362,7 @@
           "_dispatch_local_255f0",
           "_dispatch_local_25620",
           "_dispatch_local_258e0",
+          "_eng1_26640",
           "_eng1_call_26040",
           "_engine_shutdown"
         ]
@@ -59533,7 +59593,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -59980,7 +60041,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -60044,7 +60106,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -60216,7 +60279,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -60385,7 +60449,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -63081,7 +63146,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -66908,6 +66974,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -66916,6 +66983,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -66960,7 +67028,8 @@
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
-          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt"
+          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -67039,6 +67108,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -67047,6 +67117,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -67099,6 +67170,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -67107,6 +67179,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -67155,6 +67228,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -67163,6 +67237,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -67479,6 +67554,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -67487,6 +67563,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -67544,7 +67621,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -67954,6 +68032,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -67962,6 +68041,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68014,6 +68094,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68022,6 +68103,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68031,7 +68113,7 @@
     },
     {
       "id": "eng1.342f0",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -68052,6 +68134,20 @@
         "_select_frame": "0x292f0"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "f3453e8be0772717defaff9b0c8cf2a55554ee329868af7e7466d88f6b9e54bc",
+        "compiled_sha256": "9c515bd2685a78b8440b85d9235280e412450856dd8335d475b5394d59f66882",
+        "target_sha256": "dadbf31e92ab74da917279079dc04b9e90186b4f90ac3599b78e9f2b06d2467a",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindK_bindings_2026_10_31.json",
+        "bindings_sha256": "09b30fe4ec4a88430c1d16f779a9a05854d2d3e0a611b4e5bdf33a12cfdf5dd2",
+        "reference_evidence_sha256": "f4ab0e0ef75b09d06104286970fe280a8d65d506b5b1a99d84555bd5191d4448",
+        "context_sha256": {
+          "src/eng1/status_panel_32b10.c": "f3453e8be0772717defaff9b0c8cf2a55554ee329868af7e7466d88f6b9e54bc",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "f3453e8be0772717defaff9b0c8cf2a55554ee329868af7e7466d88f6b9e54bc",
         "masked_sha256": "9c515bd2685a78b8440b85d9235280e412450856dd8335d475b5394d59f66882",
@@ -68198,6 +68294,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68206,6 +68303,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68322,6 +68420,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68330,6 +68429,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68392,7 +68492,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -68473,6 +68574,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68481,6 +68583,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68529,6 +68632,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68537,6 +68641,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68590,6 +68695,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68598,6 +68704,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68646,6 +68753,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68654,6 +68762,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68703,6 +68812,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68711,6 +68821,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68758,6 +68869,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68766,6 +68878,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -68884,6 +68997,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -68892,6 +69006,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -69094,6 +69209,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -69102,6 +69218,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -69111,7 +69228,7 @@
     },
     {
       "id": "eng1.350a0",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -69131,6 +69248,20 @@
         "_select_frame": "0x292f0"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "f3453e8be0772717defaff9b0c8cf2a55554ee329868af7e7466d88f6b9e54bc",
+        "compiled_sha256": "e88c8230469cb5e9e72e3887f8ae3da2af5127685566a96125c19151640a8018",
+        "target_sha256": "7df2472e822e99f92e30a9b2190d149f90170bc88e138678e5aa8c1527158287",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindK_bindings_2026_10_31.json",
+        "bindings_sha256": "ebc3125cc9b6028b1a386df59bd9367e23d56b66f6eccbe4c849ad575541b09f",
+        "reference_evidence_sha256": "f4ab0e0ef75b09d06104286970fe280a8d65d506b5b1a99d84555bd5191d4448",
+        "context_sha256": {
+          "src/eng1/status_panel_32b10.c": "f3453e8be0772717defaff9b0c8cf2a55554ee329868af7e7466d88f6b9e54bc",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "f3453e8be0772717defaff9b0c8cf2a55554ee329868af7e7466d88f6b9e54bc",
         "masked_sha256": "e88c8230469cb5e9e72e3887f8ae3da2af5127685566a96125c19151640a8018",
@@ -69215,6 +69346,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -69223,6 +69355,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -69290,6 +69423,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -69298,6 +69432,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -69354,6 +69489,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -69362,6 +69498,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -69478,6 +69615,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -69486,6 +69624,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -69538,6 +69677,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -69546,6 +69686,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -69597,6 +69738,7 @@
           "_eng1_33f30",
           "_eng1_33fc0",
           "_eng1_34210",
+          "_eng1_342f0",
           "_eng1_34350",
           "_eng1_343e0",
           "_eng1_34570",
@@ -69605,6 +69747,7 @@
           "_eng1_34c30",
           "_eng1_34d00",
           "_eng1_34de0",
+          "_eng1_350a0",
           "_eng1_35a30",
           "_eng1_35d70",
           "_eng1_35fb0",
@@ -72857,7 +73000,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -73540,6 +73684,7 @@
         "masked_sha256": "b6b33d8e34ebb9c3fbeff79076bb43a3e0e363ecdc7bef0ff5456ccf22d3bb7d",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -73565,7 +73710,7 @@
     },
     {
       "id": "eng1.08450",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -73582,6 +73727,19 @@
         "_g_kind_info": "0x6fee8"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528",
+        "compiled_sha256": "f0179df9719bcd12ec7ca4e6c40247c7fbe7069fbdb914c7c3489ab28b67a246",
+        "target_sha256": "314187433711e8c25c6eff81b0cb1b92f96cfe476d5a4d91245069093e46a73e",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindK_bindings_2026_10_31.json",
+        "bindings_sha256": "70bb8ee30883fd92bea4cf0f75ccff83d0ec873e29f2994e78abcb164b95eb07",
+        "reference_evidence_sha256": "f4ab0e0ef75b09d06104286970fe280a8d65d506b5b1a99d84555bd5191d4448",
+        "context_sha256": {
+          "src/eng1/level_actors_083e0.cpp": "0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528",
         "masked_sha256": "f0179df9719bcd12ec7ca4e6c40247c7fbe7069fbdb914c7c3489ab28b67a246",
@@ -73826,6 +73984,7 @@
         "masked_sha256": "cce11bd2166e70dab5e3446a917cb2ba0152512c0d352a2d45c917812f7583c9",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -73938,6 +74097,7 @@
         "masked_sha256": "5cd60b8d4e2d6080930584aff3885f46a585c3d5cf3533f96596641ce2404bfe",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74241,6 +74401,7 @@
         "masked_sha256": "92472fffe2f900ea56ea46296d2372a834f62bdd86bb57055616d108663f5505",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74355,6 +74516,7 @@
         "masked_sha256": "7dfbebcf47a40df0afa72de9e8ae47d70301ee6feb9ab0492ae2f872389000b1",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74484,6 +74646,7 @@
         "masked_sha256": "c71ffba44219b517d97a70f3d657813ab5205faaf83db79780505fc23510a75e",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74535,6 +74698,7 @@
         "masked_sha256": "8743097f65fe5f697b0b5b6e6b8bb448c0839e024d527731368adc207d260e85",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74589,6 +74753,7 @@
         "masked_sha256": "efe2df698709a1f947dbc10e48ae203de08a578f541b67f852ba964981ce73ec",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74637,6 +74802,7 @@
         "masked_sha256": "bf04443ed638894c1940d78b85abe4612fb90dc57ad8267a6e4e1391fe562f24",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74698,6 +74864,7 @@
         "masked_sha256": "480746d9dd88af6cf65319d190bf61f8a43a5ffb92dcdc04837166d5ec3390bc",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74750,6 +74917,7 @@
         "masked_sha256": "5dd3ee328c09956aab8e2b74fc86949a232e2e419cc852a1b1fa8b5f78ec225e",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74804,6 +74972,7 @@
         "masked_sha256": "ed21f7daf12f582e04a037da4a983907d48cc230489432089194ef42c0c07532",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -74923,6 +75092,7 @@
         "masked_sha256": "c5b46caa857b12f66c0283873e3191c77d97a389eba82675cb89dd6b2edecb4d",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -75041,6 +75211,7 @@
         "masked_sha256": "9b0c58ba956e9c73cf221896d1be8737799e0bf0393214bc086c963408a5cbb3",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -75220,6 +75391,7 @@
         "masked_sha256": "00b5ac771ca91e64d18b5ae159fa13266504bb1afd50a68180decaec87425645",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -75274,6 +75446,7 @@
         "masked_sha256": "4574bdd427664e0565b71b11b9a8f1e30fcacf6ec517331ffe85e3b519328aec",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -75327,6 +75500,7 @@
         "masked_sha256": "92eacfeab13746452101d4275fd54274f5bb9f741656ba9caf152b70bbb635b8",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -75515,6 +75689,7 @@
         "masked_sha256": "9f51d9f4270b35b9c342d6812a4d9c84c0ca66514cd07f5800639bffe9fbd89a",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -75692,6 +75867,9 @@
         "reference_evidence_sha256": "32f20960f450bf0a5f5d2b43c5ac137ba8144781a573f00d16668295cce506d0",
         "context_sha256": {
           "src/eng1/level_actors_083e0.cpp": "0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528"
+        },
+        "reference_snapshots": {
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -75776,6 +75954,7 @@
         "masked_sha256": "7d4cdc9d045cbe98eaab4223b964f4740251d50b245d9378688f48ce05966306",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
+          "_eng1_08450",
           "_eng1_08480",
           "_eng1_084d0",
           "_eng1_08630",
@@ -78847,7 +79026,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -79402,7 +79582,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -79954,7 +80135,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -80510,7 +80692,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -83350,7 +83533,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -83452,7 +83636,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -83567,7 +83752,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -83670,7 +83856,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -83842,7 +84029,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -84152,7 +84340,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -84885,7 +85074,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -85497,7 +85687,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -85608,7 +85799,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -85810,7 +86002,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -86015,7 +86208,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -86276,7 +86470,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -86448,7 +86643,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -88167,7 +88363,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -88432,7 +88629,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -88701,6 +88899,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -88736,6 +88935,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -88769,6 +88969,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -88804,6 +89005,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -88843,6 +89045,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -88878,6 +89081,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -89234,6 +89438,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -89269,6 +89474,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -89302,6 +89508,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -89337,6 +89544,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -89371,6 +89579,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -89406,6 +89615,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -89438,6 +89648,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -89473,6 +89684,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -89690,6 +89902,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -89725,6 +89938,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -89903,7 +90117,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -89988,7 +90203,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -90054,6 +90270,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -90089,6 +90306,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -90182,6 +90400,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -90217,6 +90436,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -90297,7 +90517,7 @@
     },
     {
       "id": "eng1.0d560",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -90321,6 +90541,19 @@
         "_select_frame": "0x292f0"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f",
+        "compiled_sha256": "76649b04612daea3f4f09b800f907dfab3585b6d7ff4cb9945e36a5a2159423a",
+        "target_sha256": "a609d504dcfdd577e1fa3c512b42f285bfda1709090b27f67fac3c6c25af688c",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindK_bindings_2026_10_31.json",
+        "bindings_sha256": "4d6b93dbe82c7031cab57c2e86256865bf6cfdca20e65c5c7992dd4fea7b8ef4",
+        "reference_evidence_sha256": "f4ab0e0ef75b09d06104286970fe280a8d65d506b5b1a99d84555bd5191d4448",
+        "context_sha256": {
+          "src/eng1/level_actors_0c730.c": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f",
         "masked_sha256": "efc69b0118cef77f01bdc161cf5b68de5dea8eb6cf238312d6b8a829ce1a891a",
@@ -90471,6 +90704,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -90506,6 +90740,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -90633,7 +90868,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -90773,6 +91009,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -90808,6 +91045,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -90842,6 +91080,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -90877,6 +91116,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -90915,6 +91155,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -90950,6 +91191,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -91043,6 +91285,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -91078,6 +91321,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -91305,6 +91549,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -91340,6 +91585,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -91378,6 +91624,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -91413,6 +91660,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -91461,6 +91709,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -91496,6 +91745,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -91528,6 +91778,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -91563,6 +91814,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -92180,7 +92432,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -92283,7 +92536,7 @@
     },
     {
       "id": "eng1.native_code_target_00f770",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -92304,6 +92557,19 @@
         "_select_frame": "0x292f0"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f",
+        "compiled_sha256": "eb84aeaf26a3dd5368af033886dc0cf31e9e5df49543e6e57fb8f6e330e0d701",
+        "target_sha256": "de9ff8b1717de498ca8ad60b360e5de5f3b9de17191526a1fd3bb05d0f1fc817",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindK_bindings_2026_10_31.json",
+        "bindings_sha256": "097c4c83f33f5b452aa4a95e9235dd5c0b7c56fb54c77d9194f6712e7ed2d2bf",
+        "reference_evidence_sha256": "f4ab0e0ef75b09d06104286970fe280a8d65d506b5b1a99d84555bd5191d4448",
+        "context_sha256": {
+          "src/eng1/level_actors_0c730.c": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f",
         "masked_sha256": "eb84aeaf26a3dd5368af033886dc0cf31e9e5df49543e6e57fb8f6e330e0d701",
@@ -92376,6 +92642,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -92411,6 +92678,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -92457,6 +92725,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -92492,6 +92761,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -92586,6 +92856,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -92621,6 +92892,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -92653,6 +92925,7 @@
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
           "_eng1_0d490",
+          "_eng1_0d560",
           "_eng1_0dcb0",
           "_eng1_0dd10",
           "_eng1_0e8d0",
@@ -92688,6 +92961,7 @@
           "_eng1_native_code_target_00efe0",
           "_eng1_native_code_target_00f3b0",
           "_eng1_native_code_target_00f4f0",
+          "_eng1_native_code_target_00f770",
           "_eng1_native_code_target_00fd00"
         ]
       }
@@ -94026,7 +94300,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -97991,6 +98266,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -98050,6 +98326,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -98113,6 +98390,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -98259,6 +98537,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -98721,7 +99000,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -98946,7 +99226,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -99106,7 +99387,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -99265,7 +99547,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -99437,7 +99720,7 @@
     },
     {
       "id": "eng1.11300",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -99455,6 +99738,21 @@
         "_select_frame": "0x292f0"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "3cde522d5cebac6275fa93ed19ae16ba23cb249ffa7a6c56a6c283ee14c9d3c6",
+        "compiled_sha256": "90391d7f92c71fb20acf104b65813bef7c182806db939d01fcb7d848a60b93cf",
+        "target_sha256": "c59be3e2570a43a3c924e9b7329356be1e9540c2ee28b964d52a7995a71d9e6b",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindK_bindings_2026_10_31.json",
+        "bindings_sha256": "56ae38c9d9472fe5be6c12a1b6f75dcc0cf1e3d9849cf1bbd3c2b8251b8b2dc3",
+        "reference_evidence_sha256": "f4ab0e0ef75b09d06104286970fe280a8d65d506b5b1a99d84555bd5191d4448",
+        "context_sha256": {
+          "src/eng1/level_unit_10120.c": "3cde522d5cebac6275fa93ed19ae16ba23cb249ffa7a6c56a6c283ee14c9d3c6",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "3cde522d5cebac6275fa93ed19ae16ba23cb249ffa7a6c56a6c283ee14c9d3c6",
         "masked_sha256": "90391d7f92c71fb20acf104b65813bef7c182806db939d01fcb7d848a60b93cf",
@@ -99543,7 +99841,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -99627,6 +99926,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -99758,6 +100058,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -99885,6 +100186,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -99940,6 +100242,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -99998,6 +100301,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -100053,6 +100357,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -100115,6 +100420,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -100171,6 +100477,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -100227,6 +100534,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -100283,6 +100591,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -100437,6 +100746,7 @@
           "_eng1_111a0",
           "_eng1_11290",
           "_eng1_112d0",
+          "_eng1_11300",
           "_eng1_113c0",
           "_eng1_11d30",
           "_eng1_12040",
@@ -105824,7 +106134,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -106028,7 +106339,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -106142,7 +106454,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -106408,7 +106721,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -106612,7 +106926,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -106891,7 +107206,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -107073,7 +107389,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -107245,7 +107562,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -107582,7 +107900,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -107695,7 +108014,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -107807,7 +108127,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -107919,7 +108240,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -108031,7 +108353,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -108143,7 +108466,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -108255,7 +108579,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -108367,7 +108692,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -108478,7 +108804,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -109420,7 +109747,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -109850,7 +110178,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -110739,7 +111068,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -111369,7 +111699,8 @@
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
-          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt"
+          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -113588,7 +113919,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -113795,7 +114127,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -115587,7 +115920,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -115801,7 +116135,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "3dfbdeec2bca5132c84df4774608b3e849ae28689f19ed0963ee40f40583b21e",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -115809,7 +116143,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -115846,7 +116179,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "20e404ad6aacebba44359902388737d6fe7287df43cbf9bc4bcf0700bc2e4ee1",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -115854,7 +116187,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -115891,7 +116223,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "cf106410769ab4939bcf613815e5c44637ebb207beaef7241d181009be257797",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -115899,7 +116231,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -115946,7 +116277,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "a9b4740e02b20bf041073f61c146b2dd9e85633a30cbbc612de326176546a3b9",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -115954,7 +116285,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -115993,7 +116323,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "3d29713df67a704896fb5b152dd5fb703426f5c83ad335b2aaceec7e47376ada",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116001,7 +116331,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116039,7 +116368,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "ca4a62d100925accd456f67a13208c9923d16f5f56e455e5fec45f28922f29eb",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116047,7 +116376,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116093,7 +116421,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "dd680b26cc33e51781d38921073baf6f5d89bafede39c22bca5d0e6fb85da0e6",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116101,7 +116429,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116135,7 +116462,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "compiled_sha256": "513f4a2e057f54de095065f2a243a81b58ca1f903b0489db737cfbef6c98f386",
         "target_sha256": "a85ed6ad95bfdbaa2dc99bb59a55f5117c9c6ef9a065380cf6fd5927560c2c9a",
         "toolchain": "msvc5_rtm",
@@ -116143,7 +116470,7 @@
         "bindings_sha256": "e0898aa8f7494ee38124ce6396d1fa1749cf733ab32ef353854de7481364cfec",
         "reference_evidence_sha256": "2e12b64d01815e892687654a26d9250473dca23d8acd886fbc37c665030c7cdb",
         "context_sha256": {
-          "src/eng1/mode_handlers_16840.cpp": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+          "src/eng1/mode_handlers_16840.cpp": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929"
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
@@ -116162,7 +116489,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -116212,7 +116540,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "91a7c99aac490d8b0a358544ac518cd994a50474fc60028d7a73ff61ee54443f",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116220,7 +116548,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116261,7 +116588,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "a01efb7a651f00898a057aaab37dd2398ed2465aa1bf5df0a76ca7d27b4c473c",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116269,7 +116596,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116303,7 +116629,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "compiled_sha256": "2f7f39270a1e25f69a4fc3874b874db1f0ce94801f2a7e0aa90ed208a4a0034b",
         "target_sha256": "207c44027245a1c3cf720502fbe186982dfa4c32d8f502fc56e8695ae81f75ee",
         "toolchain": "msvc5_rtm",
@@ -116311,11 +116637,12 @@
         "bindings_sha256": "c2ce9b8532f5751959274378e50b870b3be0743d13890d487b7ecc0599eceed6",
         "reference_evidence_sha256": "333dfe37876b4243b2eb792f65bb981690106f105a1074f32830f42dc0bf8cd7",
         "context_sha256": {
-          "src/eng1/mode_handlers_16840.cpp": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+          "src/eng1/mode_handlers_16840.cpp": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929"
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
-          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt"
+          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -116353,7 +116680,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "compiled_sha256": "2f7f39270a1e25f69a4fc3874b874db1f0ce94801f2a7e0aa90ed208a4a0034b",
         "target_sha256": "85abb2d81c342133d491bccc3e54fcc88e5e8dfe7f2fd2ba8a5b75e50ce07aa3",
         "toolchain": "msvc5_rtm",
@@ -116361,11 +116688,12 @@
         "bindings_sha256": "f3b39428d3d9bc194d06731b6ad321a5744c73554449851225ea933bf2fedd6d",
         "reference_evidence_sha256": "333dfe37876b4243b2eb792f65bb981690106f105a1074f32830f42dc0bf8cd7",
         "context_sha256": {
-          "src/eng1/mode_handlers_16840.cpp": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+          "src/eng1/mode_handlers_16840.cpp": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929"
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
-          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt"
+          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -116406,7 +116734,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "31b255ba82f1bd60eb4bbe2c680dcfef7c6b789690bc6a0e543916be934ad086",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116414,7 +116742,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116452,7 +116779,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "30b42fbc4202a7468579b34862796ab05c1e525aabe08f31919407107b7dcecd",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116460,7 +116787,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116497,7 +116823,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "d9221cdd8043aa8706ede3101a0c49254134083d6bc9a31f9b7c458651863eb0",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116505,7 +116831,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116540,7 +116865,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "compiled_sha256": "4a239fd61fda9a86e139caba0a2147e8e4d46b69215db2b9a39abff3373b3fcf",
         "target_sha256": "ad5eb7fe0b62770a84c8d9738bc723c85eb1376e8a6c4814622f7d3a92fb6695",
         "toolchain": "msvc5_rtm",
@@ -116548,7 +116873,7 @@
         "bindings_sha256": "0b176e728d3148e2d6fab114acaa5fdea87af724ee074f31002e96963e04bc4b",
         "reference_evidence_sha256": "05e38d47da716f3bd6f2a61cd7acd3a7f46ac21ee67c275e8156799c3c77c0e8",
         "context_sha256": {
-          "src/eng1/mode_handlers_16840.cpp": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+          "src/eng1/mode_handlers_16840.cpp": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929"
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
@@ -116566,7 +116891,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -116612,7 +116938,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "917ceb0f315aacb43618a0e8b87b7d24f67d83a079074f245864d9d10f47d168",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116620,7 +116946,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116669,7 +116994,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "dabbe0acfc9b2315ea32ce41a9203fa32a89f581b13eb675a9783523664dc2eb",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116677,7 +117002,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116718,7 +117042,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "642accaf0da4163b62789d73e39d1e94c139714bf7063341cbc03383b3eb771d",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116726,7 +117050,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116766,7 +117089,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "52346b30f122cac50fb950b7d1a12159cb7be5127577e1e93fa4fc5f8c4d9e9e",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116774,7 +117097,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116818,7 +117140,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "0174b0bf4c6f996edb632d6c1a3d9ea46cc5c0b926f406282fd3431480c8237d",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116826,7 +117148,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116865,7 +117186,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "3eb7dbce4b0505072a113e625da132d4365edebfa54c9664c0e00e0ba8c07d80",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116873,7 +117194,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116907,7 +117227,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "2e223b3fc6ab473ac1b1eff981cdd68c62e5bdd9efdd39ac136ccedbaa514127",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116915,7 +117235,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116950,7 +117269,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "da98e83d57d70e778c485d33b9b034b2fe8d1c10549165d84c0183a5ed33b963",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -116958,7 +117277,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -116998,7 +117316,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "compiled_sha256": "869a8f594ae4621492720ae258b5071e4f38fecc58ead3a1c41c7497711ec417",
         "target_sha256": "8d8e8aecd10bb58b58ab917af1923e021d3ed0572854dacc239195fee70e8e24",
         "toolchain": "msvc5_rtm",
@@ -117006,7 +117324,7 @@
         "bindings_sha256": "ba5170b76566e01fc223e3677780ea8cf5cf4ee9d7480078848edb0890bafb3a",
         "reference_evidence_sha256": "831d4beca642a5565c12bd4d7973a1cb9e182485ab8b09219915dd6ea7876f07",
         "context_sha256": {
-          "src/eng1/mode_handlers_16840.cpp": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+          "src/eng1/mode_handlers_16840.cpp": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929"
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
@@ -117024,7 +117342,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -117062,7 +117381,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "compiled_sha256": "b9bd94a5ce233b686e0b24808fc2919be7365b9cdebf9608e50c8044e53b1fbf",
         "target_sha256": "8891caecded7d9ce12c4e86df11d49bb502deaf0d7657abc874218de36655f42",
         "toolchain": "msvc5_rtm",
@@ -117070,7 +117389,7 @@
         "bindings_sha256": "d79d2e36d56d74dfb731db807f96d41233d4f0099a5d746691ecdd6ac8cbb618",
         "reference_evidence_sha256": "2e12b64d01815e892687654a26d9250473dca23d8acd886fbc37c665030c7cdb",
         "context_sha256": {
-          "src/eng1/mode_handlers_16840.cpp": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+          "src/eng1/mode_handlers_16840.cpp": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929"
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
@@ -117089,7 +117408,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -117137,7 +117457,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "565e3171c3ccc518e5dab20d9195a247b372392226b30109da8b0b9bbd79b252",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117145,7 +117465,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117183,7 +117502,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "compiled_sha256": "c55e4e9ae9b94a244da0078ceaf28436a2b5cd7776c649b2f33beb5ad85d12b4",
         "target_sha256": "1019cfa83bac0490be73dd6e95477e8a49e95340440e15fe5de7635866aa2c17",
         "toolchain": "msvc5_rtm",
@@ -117191,7 +117510,7 @@
         "bindings_sha256": "3fc3bf20714a0cab14b779a9df311c6d54fe39ad51596904acebaaa6dfd62b38",
         "reference_evidence_sha256": "831d4beca642a5565c12bd4d7973a1cb9e182485ab8b09219915dd6ea7876f07",
         "context_sha256": {
-          "src/eng1/mode_handlers_16840.cpp": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+          "src/eng1/mode_handlers_16840.cpp": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929"
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
@@ -117209,7 +117528,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -117252,7 +117572,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "compiled_sha256": "1e6df741b96bfe9ac139e0b5fad2e3c26934deeaa9c6379c747e4aed100cc56d",
         "target_sha256": "58961064c5c135bec2d1750c9979cfa512ea94ef3ec7d0c1a1e39c7372a9c2a7",
         "toolchain": "msvc5_rtm",
@@ -117260,7 +117580,7 @@
         "bindings_sha256": "5661b94b767872be0ce5a0713875dd32904c5406fe084a6be8197c3994032da0",
         "reference_evidence_sha256": "831d4beca642a5565c12bd4d7973a1cb9e182485ab8b09219915dd6ea7876f07",
         "context_sha256": {
-          "src/eng1/mode_handlers_16840.cpp": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+          "src/eng1/mode_handlers_16840.cpp": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929"
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
@@ -117278,7 +117598,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -117319,7 +117640,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "compiled_sha256": "80b0d07582872f6a4e493231adbccc67d3cc1bfdc8f96692874a3bb5bc788068",
         "target_sha256": "9c5319e0042f2cdb7a76606634e180ed756ae04af7e2f365a3145ee106791072",
         "toolchain": "msvc5_rtm",
@@ -117327,7 +117648,7 @@
         "bindings_sha256": "c0cfe95ff382fa4521489140cdca17d93a92c486c20fecc920d433ac9ada71a0",
         "reference_evidence_sha256": "831d4beca642a5565c12bd4d7973a1cb9e182485ab8b09219915dd6ea7876f07",
         "context_sha256": {
-          "src/eng1/mode_handlers_16840.cpp": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+          "src/eng1/mode_handlers_16840.cpp": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929"
         },
         "reference_snapshots": {
           "evidence/eng1_data_evidence_manifest.json": "evidence/repin_snapshots/05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6.txt",
@@ -117345,7 +117666,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -117386,7 +117708,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "0a4b4cff898b301ddae53f7188040e45b1ac1457d7709606ebfe99e5af543213",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117394,7 +117716,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117434,7 +117755,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "f696dbf6b78c555b2e44981e9951ba455b568590597f5d9a915f2ebb4576e117",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117442,7 +117763,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117486,7 +117806,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "bdac3d4b0248f375cc96d63bae444cec8e7050fcf452ff484c64626e6d6c5822",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117494,7 +117814,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117538,7 +117857,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "67ed1c1b335fd97bdfe956ea8ba982abc2056016fdf6da82da9e243280eaa8cd",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117546,7 +117865,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117598,7 +117916,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "d9f82d3f81cca770b105227c6ea14054cc968b6092fb521f77e355d1ee18bc46",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117606,7 +117924,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117657,7 +117974,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "512b90754e241c6f3a1b9a327d6e0928f15cada3f1619b6b3bec8453de8c3b85",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117665,7 +117982,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117710,7 +118026,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "2b24874fb842eb9e2179f7cd4905b005b3f552301802a7e2dd72a845f2cd96d6",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117718,7 +118034,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117761,7 +118076,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "6fa2d30b3439a0ef3c4372051d30b088d2336c82cb2818dd9cc425ca4c34e9b4",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117769,7 +118084,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117804,7 +118118,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
         "masked_sha256": "01c2879b1826f7598aa15109ee98ad07190e9c3374c8f05551a5667c585b00c8",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -117812,7 +118126,6 @@
           "_eng1_16fa0",
           "_eng1_16fd0",
           "_eng1_17130",
-          "_eng1_171b0",
           "_eng1_17290",
           "_eng1_17810",
           "_eng1_17a90",
@@ -117826,44 +118139,54 @@
     },
     {
       "id": "eng1.eng1_171b0",
-      "status": "RECONSTRUCTED",
+      "status": "CODEGEN_SIMILAR",
       "name_status": "provisional address label",
-      "source": "src/eng1/mode_handlers_16840.cpp",
-      "symbol": "_eng1_171b0",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
       "rva": "0x171b0",
       "size": 224,
+      "source": "src/eng1/mode_handlers_16840.cpp",
+      "symbol": "_eng1_171b0",
       "flags": [
         "/O2"
       ],
-      "boundary": "Function-map span; compiled /Gy contribution size equals the span.",
-      "evidence": "lane x22 (2026-10-20): ENG1 player mode handlers 0x16840..0x188a0, C++ (C 37/43: pressed & enabled operand order and z/prev_z load order); LevelContext held input word +0x5c volatile (engine-context held field, owner-approved; pressed stays non-volatile here); file-static unsigned shorts 0x6ef74/0x6ef78 (dword load & 0xffff = defined in this TU). 0x17810 written p->x plainly: the original's unused facing test (identical-arm ternary) is not adopted (cf. TITLE 0x54f0 ruling). Size-exact; 134 non-relocation bytes differ.",
-      "proof": {
-        "scope": "fresh size-exact reconstructed contribution; neither raw nor masked equality",
-        "compiled_size": 224,
-        "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
-        "compiled_sha256": "012df0498863cc819612d3ce55d048e132dda6979236c8161c33137758fc649d",
-        "nonrelocation_differences": 134,
-        "raw_differences": 194,
-        "binding_conflicts": 4,
-        "toolchain": "msvc5_rtm"
-      },
+      "evidence": "Wave i (2026-10-31): owner-approved per-access steering; held_5c read once through a non-volatile lvalue at 0x17202, matching the original's single 16-bit load and folded memory test (evidence work/velocity_i/b9/native_171b0.json); the field declaration stays volatile. Fresh compile masked-equal; 9 accepted peers re-pinned unchanged. Previously: lane x22 (2026-10-20): ENG1 player mode handlers 0x16840..0x188a0, C++ (C 37/43: pressed & enabled operand order and z/prev_z load order); LevelContext held input word +0x5c volatile (engine-context held field, owner-approved; pressed stays non-volatile here); file-static unsigned shorts 0x6ef74/0x6ef78 (dword load & 0xffff = defined in this TU). 0x17810 written p->x plainly: the original's unused facing test (identical-arm ternary) is not adopted (cf. TITLE 0x54f0 ruling). Size-exact; 134 non-relocation bytes differ.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
-        "_dispatch_local_15d00": "0x9092031f",
-        "_eng1_17290": "0x703ef34f",
+        "_dispatch_local_15d00": "0x15d00",
+        "_eng1_17290": "0x17290",
         "_eng1_174e0": "0x174e0",
-        "_eng1_17810": "0x85113254",
-        "_eng1_188a0": "0x85113261",
-        "_eng1_19d70": "0x8167827a",
-        "_eng1_29da0": "0xc484825c",
-        "_eng1_sim_state_72108": "0xf0043d66",
+        "_eng1_17810": "0x17810",
+        "_eng1_188a0": "0x188a0",
+        "_eng1_19d70": "0x19d70",
+        "_eng1_29da0": "0x29da0",
+        "_eng1_sim_state_72108": "0x72108",
         "_eng1_sim_state_72110": "0x72110",
-        "_g_eng1_6ef70": "0x41732000",
-        "_g_engine_interface": "0x4c488b62",
-        "_g_frame_owner_72860": "0xf0c28100",
-        "_g_native_pointer_7217c": "0xfd8b0001",
-        "_unlink_0e4": "0x15d00"
+        "_g_eng1_6ef70": "0x6ef70",
+        "_g_engine_interface": "0x70f20",
+        "_g_frame_owner_72860": "0x72860",
+        "_g_native_pointer_7217c": "0x7217c",
+        "_unlink_0e4": "0x29620"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "078efbf497ede20c8c8f1b4c11b9fb5611299f73e495f0478b15ef76124b5929",
+        "masked_sha256": "59c842bd529f8129ec38470fe72fc04e20202529b389ea0136714c46507eaf6e",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_eng1_16e30",
+          "_eng1_16fa0",
+          "_eng1_16fd0",
+          "_eng1_17130",
+          "_eng1_17290",
+          "_eng1_17810",
+          "_eng1_17a90",
+          "_eng1_17ae0",
+          "_eng1_17c30",
+          "_eng1_17c70",
+          "_eng1_17cd0",
+          "_eng1_17ff0"
+        ]
       }
     },
     {
@@ -118030,7 +118353,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -118104,7 +118428,8 @@
           "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
           "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
           "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
-          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt"
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {
@@ -118283,6 +118608,9 @@
           "src/shared/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
           "src/eng1/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
+        },
+        "reference_snapshots": {
+          "src/eng1/mode_handlers_16840.cpp": "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt"
         }
       },
       "prior_masked_proof": {

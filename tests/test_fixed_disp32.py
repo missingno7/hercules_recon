@@ -222,7 +222,14 @@ class FixedDisp32Tests(unittest.TestCase):
              "        access_forms[name] = access_form(record)\n        evidence(record)"),
             ("        if kind == 'bss':\n            if record.get('anchor_profile') in (PROFILE,) + FORMS:",
              "        if kind == 'bss':\n            form = access_forms[name]\n"
-             "            if record.get('anchor_profile') in (PROFILE,) + FORMS:"),
+             "            if name in access_surveys:"),
+            ("    access_surveys = {name: [] for name, rec in records.items() if rec.get('anchor_profile') in (PROFILE,) + FORMS}",
+             "    access_surveys = {name: [] for name, rec in records.items()\n"
+             "                      if rec.get('anchor_profile') in (PROFILE,) + FORMS or access_forms[name] is not None}"),
+            ("        if accesses != records[name]['fixed_disp32'].get('accesses'):",
+             "        survey = ('loader_zero_indexed' if records[name].get('access_profile') == 'loader-zero-indexed-v1'\n"
+             "                  else 'fixed_disp32')\n"
+             "        if accesses != records[name][survey].get('accesses'):"),
             ("                access_surveys[name].append(verify_access(ins, off, addend, record['size'], rva))",
              "                access_surveys[name].append(\n"
              "                    verify_access(ins, off, addend, record['size'], rva) if form is None else\n"

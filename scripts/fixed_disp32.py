@@ -213,7 +213,10 @@ def access_form(record):
     """Closed opt-in dispatch; absent access_profile preserves the legacy path."""
     if 'access_profile' not in record:
         return None
-    from fixed_indexed import validate_record, verify_record_access
+    if record['access_profile'] == 'loader-zero-indexed-v1':
+        from loader_zero_indexed import validate_record, verify_record_access
+    else:
+        from fixed_indexed import validate_record, verify_record_access
     validate_record(record)
     return verify_record_access
 
@@ -478,7 +481,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 raise ValueError('Conflicting or duplicate reviewed relocation')
             reviewed[uoff] = (name, typ, addend, one_past)
 
-    access_surveys = {name: [] for name, rec in records.items() if rec.get('anchor_profile') in (PROFILE,) + FORMS}
+    access_surveys = {name: [] for name, rec in records.items()
+                      if rec.get('anchor_profile') in (PROFILE,) + FORMS or access_forms[name] is not None}
     fields, actual_offsets = set(), set()
     for rel in section['relocations']:
         off, typ, name = rel['offset'], rel['type'], rel['symbol']
@@ -505,7 +509,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
         ins = operand_fields.get(off)
         if kind == 'bss':
             form = access_forms[name]
-            if record.get('anchor_profile') in (PROFILE,) + FORMS:
+            if name in access_surveys:
                 access_surveys[name].append(
                     verify_access(ins, off, addend, record['size'], rva) if form is None else
                     form(ins, off, addend, record['size'], rva, record, expected, pe.image_base + record['rva']))
@@ -541,7 +545,9 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                              kind=kind, destination_rva=destination, target_destination_rva=native,
                              evidence=record['evidence'], one_past=one_past))
     for name, accesses in access_surveys.items():
-        if accesses != records[name]['fixed_disp32'].get('accesses'):
+        survey = ('loader_zero_indexed' if records[name].get('access_profile') == 'loader-zero-indexed-v1'
+                  else 'fixed_disp32')
+        if accesses != records[name][survey].get('accesses'):
             raise ValueError('Fixed disp32 reviewed access survey differs from complete COFF uses')
     if set(reviewed) != actual_offsets or not table_starts <= actual_offsets:
         raise ValueError('Reviewed relocation/table entry inventory differs from COFF')

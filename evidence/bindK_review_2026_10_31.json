@@ -1,0 +1,83 @@
+{
+ "schema": 1,
+ "task_id": "velocity_i/bindK",
+ "scope": "Native-backed review for the ENG1 loader-zero indexed binding documents bindK_*_bindings.json. Future durable path if integrated: evidence/bindK_review_2026_10_31.json. Minimum extent only; no acceptance claim.",
+ "target": {
+  "path": "assets/pc/HERCULES/ENG1.DLL",
+  "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+ },
+ "eng1_kind_info": {
+  "rva": 458472,
+  "rva_hex": "0x6fee8",
+  "stride": 8,
+  "fields": {
+   "0": "owner pointer (dword)",
+   "4": "count (dword, signed compare)"
+  },
+  "anchor": {
+   "rva": 268373,
+   "rva_hex": "0x41855",
+   "size": 5,
+   "operand": 1,
+   "bytes": "a1e8fe0610",
+   "sha256": "6185a93c2947efefec0cc1c8533dafa3e82aef18be8a5597e31c45c8634b27e4",
+   "disassembly": "mov eax, dword ptr [0x1006fee8]",
+   "absolute_operand_address": "0x1006fee8",
+   "outside_every_recovery_row": true,
+   "original_highlow_fixups_on_operand": [
+    {
+     "rva": 268374,
+     "type": 3
+    }
+   ]
+  },
+  "owner": {
+   "source": "src/eng1/resource_data.c",
+   "flags": [
+    "/O2"
+   ],
+   "symbol": "_g_kind_info"
+  },
+  "proven_minimum_extent": 8,
+  "extent_statement": "minimum extent only; no capacity, upper bound or runtime index range is claimed; the canonical declaration g_kind_info[1] is not a proven allocation size for a native runtime",
+  "basis": "The independent anchor mov eax,[0x1006fee8] reads element 0 (owner pointer dword) at 0x41855, outside every recovery.json row; with the 8-byte stride element 0 spans [0x6fee8,0x6fef0). Identity comes solely from the anchor and the unchanged loader-zero owner checks.",
+  "use_form": "Each reviewed use is a scalar mov r32,[idx*scale+disp32] (or equivalent unsegmented ModRM/SIB disp32) whose relocated disp32 equals owner+addend with 0 <= addend < 8 (loader-zero-indexed-v1)."
+ },
+ "eng1_00f770_switch": {
+  "row": "eng1.native_code_target_00f770",
+  "table_offset": 392,
+  "table_size": 16,
+  "table_rva": 63736,
+  "native_entries": [
+   "0x1000f8a1",
+   "0x1000f8af",
+   "0x1000f8bd",
+   "0x1000f8cb"
+  ],
+  "native_entry_destinations_rva": [
+   63649,
+   63663,
+   63677,
+   63691
+  ],
+  "compiled_label_offsets": {
+   "$L725": 305,
+   "$L726": 319,
+   "$L727": 333,
+   "$L728": 347
+  },
+  "native_entry_offsets_in_function": [
+   305,
+   319,
+   333,
+   347
+  ],
+  "native_entry_highlow_fixups_rva": [
+   63736,
+   63740,
+   63744,
+   63748
+  ],
+  "basis": "Native 4-entry jump table at function offset 392 (jmp [eax*4+table] after cmp eax,3); every entry is a base-relocated HIGHLOW pointing at an instruction start inside the function, matching the compiled local labels. 8 trailing 0x90 pad bytes follow the table inside the ledger extent."
+ }
+}

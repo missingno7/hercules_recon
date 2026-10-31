@@ -14,10 +14,12 @@ extern "C" {
  * translation unit (extern gives xor/mov ax); 0x182c0 and 0x18550 are equal only with it.
  * g_camera_flags_70d10 is short here: `|= 8` and `&= ~8` both become byte RMW ops only for a
  * signed 16-bit object (unsigned short gives `and word ptr, 0xfff7`).
- * Open residues (allocation/context): 0x171b0, 0x17290, 0x17ff0 `held_5c & x` keeps the other
+ * Open residues (allocation/context): 0x17290, 0x17ff0 `held_5c & x` keeps the other
  * operand as a memory test in the original; here the volatile operand prevents the fold
  * (mov/and/test).  The fold appears with more prior declarations (e.g. <string.h> in front),
- * which then shifts other functions; real unit context is unknown. */
+ * which then shifts other functions; real unit context is unknown.  0x171b0 reads held_5c
+ * once through a non-volatile lvalue (owner-approved per-access steering, 2026-10-31): the
+ * original's single `mov cx,[+0x5c]` / `test [+0x6e],cx` needs exactly that one access. */
 typedef struct Actor Actor;
 
 typedef struct Bounds3D {
@@ -595,7 +597,7 @@ void eng1_171b0(void)
             return;
         eng1_17290();
         if (g_eng1_6ef70 < 0x2000 && (eng1_sim_state_72108 == 4 || eng1_sim_state_72108 == 2)
-            && !(g_engine_interface.context_004->held_5c & g_engine_interface.context_004->enabled_6e)) {
+            && !(*((unsigned short *)&g_engine_interface.context_004->held_5c) & g_engine_interface.context_004->enabled_6e)) {
             g_frame_owner_72860->unknown_b8 -= 0xc000;
             if (g_frame_owner_72860->unknown_b8 < 0)
                 g_frame_owner_72860->unknown_b8 = 0;
