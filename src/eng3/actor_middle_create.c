@@ -1,4 +1,7 @@
 #include <stddef.h>
+#include <stdlib.h>  /* TU-context hypothesis (measured, not proven original text): VC5 orders the
+                         * table/index SIB operands by symbol identity, and the native order needs the
+                         * CRT declarations ahead of the table pointer (work/velocity_i/solSIB/findings.md). */
 
 typedef struct Eng3ActorBase Eng3ActorBase;
 struct Eng3ActorBase {
