@@ -1,3 +1,11 @@
+/* Native relative-header dataflow hypothesis for ENG1 0x2d80. The loaded
+ * relative offset is read through entry; header_table and header_offset retain
+ * the two source values. Declaring entry after the rectangle/scalar locals puts
+ * its C2 identity above 512, where the memory-reference XOR orders offset first.
+ * Two pure allocation-size aliases in eng1_02500 are expressed directly from
+ * immutable locals. These measured source forms preserve the original unit's
+ * declaration count and all protected instruction/relocation bytes; they do
+ * not establish original source spelling or translation-unit boundaries. */
 /* ENG1.DLL 0x1e50..0x2f30: level start, dialog text, level-state gate and
  * the scrolling particle/texture effect helpers. Region lane x1.
  * Local views only cover offsets observed in these bodies. */
@@ -464,9 +472,7 @@ int eng1_02500(Effect *e, EffectDescriptor *d)
 {
     int n;
     int q;
-    int size;
     int verts_size;
-    int polys_size;
     int i;
     u16 tpage;
     PolyFT3 *p0;
@@ -496,14 +502,12 @@ int eng1_02500(Effect *e, EffectDescriptor *d)
     q = 0x100 / d->divisor;
     e->step = q;
     verts_size = n * sizeof(SVector);
-    polys_size = n * 2 * sizeof(PolyFT3);
-    size = verts_size + polys_size + 0x400;
-    if (!engine_pool_allocate(&e->polys, size, 0))
+    if (!engine_pool_allocate(&e->polys, verts_size + n * 2 * sizeof(PolyFT3) + 0x400, 0))
         return 0;
     p0 = e->polys;
-    e->verts = (SVector *)((u8 *)p0 + polys_size);
+    e->verts = (SVector *)((u8 *)p0 + n * 2 * sizeof(PolyFT3));
     e->image = (long *)((u8 *)e->verts + verts_size);
-    memset(p0, 0, size);
+    memset(p0, 0, verts_size + n * 2 * sizeof(PolyFT3) + 0x400);
     eng1_02b30(e, d->density);
     tpage = ((e->blend & 3) << 5) | 0x195;
     p1 = p0 + n;
@@ -767,7 +771,8 @@ void dispatch_local_02cb0(void)
 /* 0x2d80 */
 void eng1_02d80(int index, unsigned int du, unsigned int dv)
 {
-    long *entry;
+    long *header_table;
+    long header_offset;
     u16 *p;
     int x;
     int y;
@@ -778,11 +783,15 @@ void eng1_02d80(int index, unsigned int du, unsigned int dv)
     unsigned int u;
     unsigned int v;
     Rect16 r;
+    long *entry;
 
     if (index >= g_root_count_70ed2)
         return;
-    entry = &g_header_pointer_70d3c[index];
-    p = (u16 *)((u8 *)entry + *entry + 6);
+    header_table = g_header_pointer_70d3c;
+    entry = header_table + index;
+    header_offset = *entry;
+    p = (u16 *)(unsigned long)((u32)header_offset +
+                                (u32)(unsigned long)(u8 *)entry + 6UL);
     x = *p++;
     y = *p++;
     w = *p++;
