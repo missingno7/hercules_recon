@@ -30,26 +30,26 @@ int __cdecl archive_open(const char *path, const char *ignored_mode)
 
     (void)ignored_mode;
     key = name_hash(archive_normalize_name(path));
+    row = (int)g_archive_directory_count;
+    upper = row;
     lower = 0;
-    upper = (int)g_archive_directory_count;
-    row = upper >> 1;
+    row >>= 1;
 
-    while (key != g_archive_directory[row].key) {
-        if (lower >= upper - 1) {
-            sprintf(message, g_archive_open_error_format, path);
-            archive_fatal(message);
-            break;
-        }
-
+    while (key != g_archive_directory[row].key && lower < upper - 1) {
         row_key = g_archive_directory[row].key;
-        if (key >= row_key) {
+        if (key < row_key) {
+            upper = row;
+            row = ((upper - lower) >> 1) + lower;
+        } else {
             old_row = row;
             row = ((upper - lower) >> 1) + lower;
             lower = old_row;
-        } else {
-            upper = row;
-            row = ((upper - lower) >> 1) + lower;
         }
+    }
+
+    if (key != g_archive_directory[row].key) {
+        sprintf(message, g_archive_open_error_format, path);
+        archive_fatal(message);
     }
 
     g_archive_logical_positions[row] = 0;

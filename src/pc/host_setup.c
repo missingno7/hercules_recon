@@ -32,16 +32,21 @@ void __cdecl host_resource_reset_10760(unsigned long ignored)
 
 int __cdecl host_setup_slots_reset_a1a0(void)
 {
-    unsigned long index;
+    int *slot;
+    int file_number;
     if (g_host_setup_slots_first_3744c != 0) {
         g_host_setup_slots_first_3744c = 0;
         g_public_file_count = 0;
         memset(g_public_file_handles, 0, sizeof(g_public_file_handles));
     }
-    for (index = 0; index < 16; ++index) {
-        if (g_public_file_handles[index] != 0)
-            (void)virtual_file_close((int)index + 1);
-    }
+    file_number = 1;
+    slot = &g_public_file_handles[1];
+    do {
+        if (slot[-1] != 0)
+            (void)virtual_file_close(file_number);
+        ++slot;
+        ++file_number;
+    } while ((long)slot <= (long)&g_public_file_handles[16]);
     g_public_file_count = 0;
     return 0;
 }
