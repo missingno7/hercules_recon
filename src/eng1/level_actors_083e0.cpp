@@ -73,7 +73,6 @@ extern Actor *g_collision_context;
 extern unsigned short *g_configuration_dword_713bc;
 extern Callback12 *g_configuration_dword_71370;
 extern Callback8 *g_configuration_dword_7137c;
-extern unsigned short g_eng1_setup_word_718e0;
 extern unsigned short g_eng1_setup_word_72012;
 extern unsigned short g_native_word_72168;
 extern unsigned short g_eng1_setup_word_7082e;
@@ -299,7 +298,7 @@ void eng1_native_code_target_0086f0(Actor *p)
     switch (p->state) {
     case 10:
         walk_x_blocked(p, &b);
-        if (p->frame_state == 3 && p->frame_ticks == 0 && (p->y >> 16) < g_eng1_setup_word_718e0)
+        if (p->frame_state == 3 && p->frame_ticks == 0 && (p->y >> 16) < (*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0)))
             play_sound(0xe0dd, p);
         eng1_native_code_target_002a290(p);
         if (eng1_interpret_signed_pairs(p)) {
@@ -310,7 +309,7 @@ void eng1_native_code_target_0086f0(Actor *p)
         break;
     case 9:
         walk_x_blocked(p, &b);
-        if (p->frame_state == 3 && p->frame_ticks == 0 && (p->y >> 16) < g_eng1_setup_word_718e0)
+        if (p->frame_state == 3 && p->frame_ticks == 0 && (p->y >> 16) < (*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0)))
             play_sound(0xe0de, p);
         if (eng1_interpret_signed_pairs(p)) {
             p->motion_x.velocity = -0x320000;
@@ -327,7 +326,7 @@ void eng1_native_code_target_0086f0(Actor *p)
         if (eng1_interpret_signed_pairs(p)) {
             d = p->lane - g_normal_actor_pool->lane;
             if (d <= 3 &&
-                ((p->y >> 16) <= g_eng1_setup_word_718e0 || g_normal_actor_pool->y >= g_eng1_setup_word_718e0 << 16) &&
+                ((p->y >> 16) <= (*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0)) || g_normal_actor_pool->y >= (*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0)) << 16) &&
                 d >= 1 && p->x - g_normal_actor_pool->x <= 0xf00000 && p->x - g_normal_actor_pool->x >= -0xf00000) {
                 p->state = 0x0d;
                 select_frame(p, 4);
@@ -362,7 +361,7 @@ void eng1_native_code_target_0086f0(Actor *p)
                 q->scale = 0x200;
                 q->direction_x = p->direction_x;
                 q->render_flags = (q->direction_x & 0x10) | (q->render_flags & ~0x10);
-                if (p->y > g_eng1_setup_word_718e0 << 16)
+                if (p->y > (*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0)) << 16)
                     q->state = 0x3e;
                 else
                     q->state = 2;
@@ -375,7 +374,7 @@ void eng1_native_code_target_0086f0(Actor *p)
                     q->x -= 0x140000;
                     q->motion_x.velocity = (g_normal_actor_pool->x - q->x) / -30;
                 }
-                if (g_normal_actor_pool->y < g_eng1_setup_word_718e0 && p->x - g_normal_actor_pool->x > 0x780000)
+                if (g_normal_actor_pool->y < (*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0)) && p->x - g_normal_actor_pool->x > 0x780000)
                     q->motion_x.velocity /= 2;
             }
             p->state = 0x19;
@@ -402,7 +401,7 @@ void eng1_native_code_target_0086f0(Actor *p)
         }
         break;
     case 37:
-        if (p->y > g_eng1_setup_word_718e0 << 16) {
+        if (p->y > (*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0)) << 16) {
             if (g_engine_interface.context->tick_038 & 0x10) {
                 p->scale_y -= 4;
                 if (p->scale_y < 0x42)
@@ -822,7 +821,7 @@ void eng1_native_code_target_009a20(Actor *p)
     p->y += p->motion_y.velocity;
     walk_x_blocked(p, &b);
     p->motion_y.velocity += 0x10000;
-    if ((p->y >> 16) > g_eng1_setup_word_718e0) {
+    if ((p->y >> 16) > (*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0))) {
         q = spawn_normal(p->x, p->y, p->z, 0x49);
         if (q) {
             g_configuration_dword_71370[73].initialize(q);
@@ -855,7 +854,7 @@ void eng1_native_code_target_009a20(Actor *p)
         play_sound(0xcf, 0);
         eng1_native_code_target_00266a0(p, 3, 0x66);
         g_eng1_setup_word_6ef90 = 1;
-        p->state = (p->y >> 16) > g_eng1_setup_word_718e0 ? 0x3e : 1;
+        p->state = (p->y >> 16) > (*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0)) ? 0x3e : 1;
         eng1_0cfb0(p);
         remove_actor_preserving_resource(p);
         return;
@@ -926,7 +925,7 @@ void eng1_native_code_target_009fb0(Actor *p)
     p->counter = 0;
     p->state = 1;
     reset_frame_state(p);
-    p->y = (g_eng1_setup_word_718e0 - 0x20) << 16;
+    p->y = ((*(unsigned short *)((unsigned char *)&g_actor_pipeline_storage_71440 + 0x4a0)) - 0x20) << 16;
     p->scale = 0x100;
     p->hits = 0x32;
 }
