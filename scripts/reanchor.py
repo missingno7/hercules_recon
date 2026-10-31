@@ -1,4 +1,4 @@
-"""Reprove accepted BSS references with reviewed replacement native anchors.
+"""Reprove accepted BSS and file-data-owner-v1 references with reviewed replacement native anchors.
 
 No function acceptance, source/profile, cell identity/owner, relocation use or
 instruction change is allowed. Original manifests and proofs remain provenance.
@@ -13,6 +13,26 @@ from pathlib import Path
 from env import ROOT
 from match import RELOCATED,accepted_rows,digest,reference_digest,verify_rows
 from promote import JOURNAL,STATE,assert_verified_inputs,atomic_bytes,lock,recover
+
+
+def anchor_container(record,name):
+    """The only mutable native identity field for each supported storage form."""
+    if record.get('kind') == 'bss':
+        return record, 'identity'
+    if record.get('kind') == 'data' and record.get('data_profile') == 'file-data-owner-v1':
+        from file_data_owner import validate_record
+        validate_record(record, name)
+        return record['file_data'], 'anchor'
+    raise ValueError('Only an existing BSS or file-data-owner-v1 anchor may change')
+
+
+def native_anchor(record):
+    # Inventory unsupported forms as absent; selected changes reject them below.
+    if record.get('kind') == 'bss':
+        return record.get('identity')
+    if record.get('kind') == 'data' and record.get('data_profile') == 'file-data-owner-v1':
+        return record.get('file_data', {}).get('anchor')
+    return None
 
 
 def derive(state,review,documents,review_path,review_sha):
@@ -31,7 +51,7 @@ def derive(state,review,documents,review_path,review_sha):
         name=change['symbol'];ids=change['function_ids']
         if not isinstance(ids,list) or not ids or len(set(ids))!=len(ids):raise ValueError('Exact unique accepted row inventory required')
         expected={r['id'] for r in state['functions'] if r['status']==RELOCATED and r['proof']['bindings_path']==path and
-                  document['functions'][r['id']]['symbols'].get(name,{}).get('identity')==change['before']}
+                  native_anchor(document['functions'][r['id']]['symbols'].get(name,{}))==change['before']}
         if set(ids)!=expected:raise ValueError('Review must cover every accepted use of that old anchor in the manifest')
         if path not in derived:derived[path]=copy.deepcopy(document)
         for fid in ids:
@@ -39,8 +59,9 @@ def derive(state,review,documents,review_path,review_sha):
             touched.add((fid,name));row=byid[fid]
             if row['status']!=RELOCATED or row['proof']['bindings_path']!=path:raise ValueError('Accepted relocated rows only')
             rec=derived[path]['functions'][fid]['symbols'][name]
-            if rec.get('kind')!='bss' or rec.get('identity')!=change['before']:raise ValueError('Only an existing BSS anchor may change')
-            rec['identity']=copy.deepcopy(change['after'])
+            container,key=anchor_container(rec,name)
+            if container.get(key)!=change['before']:raise ValueError('Existing native anchor differs from review')
+            container[key]=copy.deepcopy(change['after'])
     manifests={}
     for path,document in derived.items():
         parent_sha=digest(documents[path][0])
@@ -58,7 +79,9 @@ def derive(state,review,documents,review_path,review_sha):
         # Independently enforce that every difference is exactly a reviewed identity.
         restored=copy.deepcopy(new_binding)
         for fid,name in touched:
-            if fid==row['id']:restored['symbols'][name]['identity']=old_binding['symbols'][name]['identity']
+            if fid==row['id']:
+                container,key=anchor_container(restored['symbols'][name],name)
+                container[key]=copy.deepcopy(native_anchor(old_binding['symbols'][name]))
         if restored!=old_binding:raise ValueError('Reference destination/owner/use changed')
         proof['bindings_path']=new_path;proof['bindings_sha256']=reference_digest(new_binding)
         identity={k:v for k,v in document.items() if k not in ('functions','evidence_files')}
@@ -108,7 +131,7 @@ def reanchor(review_path,report,verify_only=False):
         if digest(path.read_bytes())!=sha:raise ValueError('Review or manifest changed during reproof')
     assert_verified_inputs(rows,results)
     after=(json.dumps(proposal,indent=2)+'\n').encode()
-    receipt=dict(scope='Same accepted functions, source/profile, cell identity/owner and reference uses; only reviewed BSS instruction anchors and immutable provenance changed.',strict_proofs=len(results),new_acceptances=0,changed_reference_anchors=touched,reproven_manifest_rows=changed_rows,baseline_statistics=baseline_stats,statistics=stats,before_recovery_sha256=digest(before),after_recovery_sha256=digest(after),review_sha256=digest(content),derived_manifests=[p for p,_ in manifests.values()],results=results,verify_only=verify_only)
+    receipt=dict(scope='Same accepted functions, source/profile, cell identity/owner and reference uses; only reviewed BSS/file-data-owner-v1 instruction anchors and immutable provenance changed.',strict_proofs=len(results),new_acceptances=0,changed_reference_anchors=touched,reproven_manifest_rows=changed_rows,baseline_statistics=baseline_stats,statistics=stats,before_recovery_sha256=digest(before),after_recovery_sha256=digest(after),review_sha256=digest(content),derived_manifests=[p for p,_ in manifests.values()],results=results,verify_only=verify_only)
     report.parent.mkdir(parents=True,exist_ok=True);report.write_text(json.dumps(receipt,indent=2)+'\n')
     if not verify_only:
         journal=[dict(path='recovery.json',before=base64.b64encode(before).decode(),before_sha256=digest(before),after_sha256=digest(after))]

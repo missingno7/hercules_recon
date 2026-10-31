@@ -348,7 +348,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
         evidence(record)
         dest, extent = integer(record['rva'], 'symbol RVA'), integer(record['size'], 'symbol extent', 1)
         kind, sym = record['kind'], by_name[name][0]
-        if 'data_profile' in record and (kind != 'data' or record['data_profile'] != 'relocated-data-v1'):
+        if 'data_profile' in record and (kind != 'data' or
+                                         record['data_profile'] not in ('relocated-data-v1', 'file-data-owner-v1')):
             raise ValueError('Unsupported explicit data profile')
         if 'anchor_profile' in record and (kind != 'bss' or record['anchor_profile'] not in ('cmp-test-absolute-v1', 'loader-zero-paired-v1', PROFILE) + FORMS):
             raise ValueError('Unsupported explicit loader-zero anchor profile')
@@ -362,6 +363,12 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 raise ValueError('Function binding contradicts COFF symbol type')
             if name == symbol and (dest != rva or extent != size):
                 raise ValueError('Recursive function binding differs from complete function')
+        elif kind == 'data' and record.get('data_profile') == 'file-data-owner-v1':
+            from file_data_owner import verify_record as verify_file_data
+            payload_identities.setdefault(symbol, ('function', rva, size, None, None, None, None))
+            data_checks.append(verify_file_data(pe, sym, name, record, (storage_owners or {}).get(name),
+                                                rva, size, interval, errors, operand_fields,
+                                                payload_identities))
         elif kind == 'data':
             payload = interval(dest, extent, False)
             if sym['type'] & 0x20:

@@ -234,6 +234,8 @@ def _complex_binding_reasons(binding):
         for name, record in binding["symbols"].items():
             if not isinstance(record, dict):
                 continue
+            if record.get("data_profile") == "file-data-owner-v1":
+                reasons.append(f"{name}: file data owner semantics require the full relocated verifier")
             if "one_past" in record:
                 reasons.append(f"{name}: specialized one-past semantics require the full verifier")
             if "source_alias" in record:

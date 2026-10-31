@@ -379,6 +379,12 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                 if 'access_profile' in record:
                     from fixed_disp32 import access_form
                     access_form(record)
+                if record.get('data_profile') == 'file-data-owner-v1':
+                    from file_data_owner import owner_profile as file_data_owner, review_inputs as file_data_review
+                    storage_profiles[(row['id'], name)] = file_data_owner(record, name, ROOT)
+                    storage_evidence[row['id']] = observed
+                    file_data_review(record, name, row, rows,
+                                     set(pending))
                 if record.get('kind') == 'bss':
                     if 'alias_profile' in record:
                         from storage_alias_byte import owner_profile
@@ -476,7 +482,9 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                 raise ValueError('Compiler-renaming inputs must be independently pinned: ' + str(path))
     for (row_id, name), key in storage_profiles.items():
         if any(storage_evidence[row_id].get(path) != expected for path, expected in owner_contexts[key].items()):
-            raise ValueError('Loader-zero owner source/include context must be independently pinned: ' + name)
+            label = ('File data owner' if references[row_id][0]['symbols'][name].get('data_profile') ==
+                     'file-data-owner-v1' else 'Loader-zero owner')
+            raise ValueError(label + ' source/include context must be independently pinned: ' + name)
     all_contexts = {**contexts, **owner_contexts, **alias_contexts}
     for key, members in groups.items():
         if any(contexts[key][key[0]] != row['proof']['source_sha256'] for row in members):
@@ -565,12 +573,22 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                            for table in tables):
                         raise ValueError('Opaque indirect calls and local byte table profiles cannot be combined')
                     from fixed_disp32 import relocated_compare
+                if any(isinstance(record, dict) and record.get('data_profile') == 'file-data-owner-v1'
+                       for record in binding.get('symbols', {}).values()):
+                    if any(isinstance(table, dict) and table.get('profile') == 'coff-local-byte-table-v1'
+                           for table in tables):
+                        raise ValueError('File data owners and local byte table profiles cannot be combined')
+                    from fixed_disp32 import relocated_compare
                 owners = {name: compiled[key][0] for (row_id, name), key in storage_profiles.items() if row_id == row['id']}
                 aliases = {name: compiled[alias_profiles[(row['id'], name)]][0]
                            for row_id, name in alias_records if row_id == row['id']}
                 result = relocated_compare(obj, row['symbol'], (original_root or ROOT) / row['target'],
                                            int(row['rva'], 0), row['size'], binding, storage_owners=owners,
                                            storage_aliases=aliases)
+                if any(isinstance(check, dict) and check.get('profile') == 'file-data-owner-v1'
+                       for check in result.get('data_checks', [])):
+                    from file_data_owner import review_host_names
+                    review_host_names(result['data_checks'], row, rows, references)
                 if owners:
                     result['storage_objects'] = {name: dict(object=str(owner.resolve()), object_sha256=objects[owner],
                         command=compiled[storage_profiles[(row['id'], name)]][1],

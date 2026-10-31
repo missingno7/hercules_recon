@@ -278,6 +278,12 @@ class FixedDisp32Tests(unittest.TestCase):
                         "    if opaque_count:\n"
                         "        result['scope'] += '; %d opaque indirect CALL(s): targets unidentified, ABI unclaimed' % opaque_count\n"
                         "    return result\n"))
+        changes += [
+            ("        if 'data_profile' in record and (kind != 'data' or record['data_profile'] != 'relocated-data-v1'):\n",
+             "        if 'data_profile' in record and (kind != 'data' or\n                                         record['data_profile'] not in ('relocated-data-v1', 'file-data-owner-v1')):\n"),
+            ("        elif kind == 'data':\n            payload = interval(dest, extent, False)\n",
+             "        elif kind == 'data' and record.get('data_profile') == 'file-data-owner-v1':\n            from file_data_owner import verify_record as verify_file_data\n            payload_identities.setdefault(symbol, ('function', rva, size, None, None, None, None))\n            data_checks.append(verify_file_data(pe, sym, name, record, (storage_owners or {}).get(name),\n                                                rva, size, interval, errors, operand_fields,\n                                                payload_identities))\n        elif kind == 'data':\n            payload = interval(dest, extent, False)\n"),
+        ]
         for old, new in changes:
             self.assertEqual(expected.count(old), 1, old)
             expected = expected.replace(old, new, 1)
