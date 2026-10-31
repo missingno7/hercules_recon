@@ -239,6 +239,15 @@ class FixedDisp32Tests(unittest.TestCase):
              '            # inside that form still go through the unchanged verify_access.\n'
              '            if form is None and ins.disp_size == 4 and ins.address - rva + ins.disp_offset == off:'),
         ]
+        changes += [
+            ("record['anchor_profile'] not in ('cmp-test-absolute-v1', PROFILE) + FORMS):",
+             "record['anchor_profile'] not in ('cmp-test-absolute-v1', 'loader-zero-paired-v1', PROFILE) + FORMS):"),
+            ("            elif record.get('anchor_profile') == 'cmp-test-absolute-v1':",
+             "            elif record.get('anchor_profile') == 'loader-zero-paired-v1':\n"
+             "                from loader_zero_paired import verify_native as verify_paired_native\n"
+             "                verify_paired_native(pe, dest, extent, record.get('identity'), rva, size)\n"
+             "            elif record.get('anchor_profile') == 'cmp-test-absolute-v1':"),
+        ]
         for old, new in changes:
             self.assertEqual(expected.count(old), 1, old)
             expected = expected.replace(old, new, 1)

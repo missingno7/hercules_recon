@@ -1,8 +1,9 @@
 """Opt-in indexed disp32 uses of independently anchored DLL loader-zero owners.
 
-Identity still comes solely from the unchanged zero_storage owner and native
-anchor checks. The record states that its exact compiled owner extent is a
-proven minimum, not the complete native object: no capacity, upper bound or
+Identity still comes solely from the unchanged zero_storage owner check and
+either the legacy native anchor or a loader-zero-paired-v1 anchor
+(loader_zero_paired.py). The record states that its exact compiled owner extent
+is a proven minimum, not the complete native object: no capacity, upper bound or
 runtime index range is inferred from neighbours, linker layout or this form.
 An indexed use proves only that its relocated disp32 is owner + addend inside
 that minimum. Direct and immediate uses keep the legacy loader-zero checks.
@@ -18,8 +19,9 @@ EXTENT_CLAIMS = ('minimum',)
 
 def validate_record(record):
     if (record.get('access_profile') != ACCESS_PROFILE or record.get('kind') != 'bss' or
-            'anchor_profile' in record or 'fixed_disp32' in record):
-        raise ValueError('Loader-zero indexed profile requires the unchanged loader-zero anchor')
+            record.get('anchor_profile', 'loader-zero-paired-v1') != 'loader-zero-paired-v1' or
+            'fixed_disp32' in record):
+        raise ValueError('Loader-zero indexed profile requires an unchanged loader-zero anchor (legacy or paired)')
     survey = record.get('loader_zero_indexed')
     if (not isinstance(survey, dict) or set(survey) != {'extent_claim', 'accesses'} or
             survey['extent_claim'] not in EXTENT_CLAIMS or not isinstance(survey['accesses'], list) or

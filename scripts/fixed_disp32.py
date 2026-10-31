@@ -350,7 +350,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
         kind, sym = record['kind'], by_name[name][0]
         if 'data_profile' in record and (kind != 'data' or record['data_profile'] != 'relocated-data-v1'):
             raise ValueError('Unsupported explicit data profile')
-        if 'anchor_profile' in record and (kind != 'bss' or record['anchor_profile'] not in ('cmp-test-absolute-v1', PROFILE) + FORMS):
+        if 'anchor_profile' in record and (kind != 'bss' or record['anchor_profile'] not in ('cmp-test-absolute-v1', 'loader-zero-paired-v1', PROFILE) + FORMS):
             raise ValueError('Unsupported explicit loader-zero anchor profile')
         if sym['section'] < 0 or sym.get('storage', 2) == 105:
             raise ValueError('Absolute, debug and weak/alias symbols need an explicit verifier')
@@ -417,6 +417,9 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 from fixed_anchor_forms import verify_native as verify_native_form
                 verify_native_form(pe, dest, extent, record.get('identity'), rva, size, record['fixed_disp32'],
                                    record['anchor_profile'])
+            elif record.get('anchor_profile') == 'loader-zero-paired-v1':
+                from loader_zero_paired import verify_native as verify_paired_native
+                verify_paired_native(pe, dest, extent, record.get('identity'), rva, size)
             elif record.get('anchor_profile') == 'cmp-test-absolute-v1':
                 from zero_compare_anchor import verify_native as verify_compare_native
                 verify_compare_native(pe, dest, extent, record.get('identity'), rva, size)

@@ -243,9 +243,34 @@ Acceptances: 1,083 to **1,101**:
 | Sonnet binding lane bindS3 | 7 |
 | EXE indexed form | 2 |
 | ENG1 `_g_kind_info` rows (bindK) | 7 |
+| ENG3 `_g_kind_info` rows (bindK3, paired anchor) | 34 |
+| Re-pinned masked rows bound (bindB) | 2 |
+
+Total: **1,137**.
+
+**`loader-zero-paired-v1`** (`scripts/loader_zero_paired.py`, owner ruling D3) is an alternative
+anchor for DLL loader-zero owners that have no absolute base reference. It pins a two-instruction span
+outside every compared caller: `mov r32, imm32`, where `imm32 = owner + k`, `k >= 1`, with exactly one
+HIGHLOW at the immediate, immediately followed by a scalar load from `[r32 - k]`. The first
+instruction always falls through, so executing it loads owner+0. Other control edges into the second
+instruction add paths but are not proof inputs.
+
+ENG3 uses 0x1c1b5 `mov edi,0x1003fbd4` with 0x1c1ba `mov eax,[edi-4]`. 0x1c1ba is also a loop head;
+its back edge comes from 0x1c275. The owner is the new data-only `src/eng3/kind_info_storage.c`
+(`g_kind_info[1]`, 8-byte COMMON, minimum extent only). Tests are in
+`tests/test_loader_zero_paired.py`.
 
 Open:
 
-- **ENG3 `_g_kind_info` (34 rows).** It needs a paired-anchor proof (D3, approved in principle).
-- **`host_file_open_only_3c50`.** EAX-provenance investigation pending; the missing-return form is
-  not accepted.
+- **`host_file_open_only_3c50`.** Sol's investigation (`work/velocity_i/sol3c50/findings.md`):
+  - EAX on the success path is the open result; the empty diagnostic never writes it.
+  - The only consumer is the ENG1 wrapper, whose caller discards the value.
+  - No exact form free of undefined behaviour was found.
+  - It stays blocked pending the owner's source-contract decision.
+- **Identities still missing:**
+  - 12 ENG1 and 13 ENG3 `_g_kind_info` readers need other identities.
+  - `eng1_171b0` needs 5 callees and 3 cells.
+  - `host_engine_resolve` and `host_engine_select` need EXE loader-zero cell anchors, imports and CRT
+    identities.
+  - `archive_open_5130` needs `_archive_normalize_name` and archive cells.
+  - `host_setup_slots_reset_a1a0` needs the public file-handle cells.

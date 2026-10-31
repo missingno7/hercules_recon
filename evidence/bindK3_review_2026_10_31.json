@@ -1,0 +1,77 @@
+{
+ "schema": 1,
+ "task_id": "velocity_i/bindK3",
+ "scope": "Native-backed review for the ENG3 loader-zero paired+indexed binding documents bindK3_*_bindings.json. Future durable path if integrated: evidence/bindK3_review_2026_10_31.json. Minimum extent only; no acceptance claim.",
+ "target": {
+  "path": "assets/pc/HERCULES/ENG3.DLL",
+  "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+ },
+ "eng3_kind_info": {
+  "rva": 261072,
+  "rva_hex": "0x3fbd0",
+  "stride": 8,
+  "fields": {
+   "0": "sidecar_offset (dword)",
+   "4": "unknown (dword)"
+  },
+  "pair": {
+   "rva": 115125,
+   "rva_hex": "0x1c1b5",
+   "size": 8,
+   "bytes": "bfd4fb03108b47fc",
+   "sha256": "a5697269686124f4b975ebe571a3a49629792bd53e87a20768912d4a2a6955c4",
+   "instructions": [
+    "0x1c1b5 bf d4fb0310 mov edi,0x1003fbd4",
+    "0x1c1ba 8b 47 fc mov eax,[edi-4]"
+   ],
+   "immediate_minus_owner": 4,
+   "highlow_fixup_rva": 115126,
+   "highlow_fixup_type": 3,
+   "original_highlow_fixups_in_span": [
+    {
+     "rva": 115126,
+     "type": 3
+    }
+   ],
+   "paired_verifier_receipt": {
+    "section": ".data",
+    "zero_start": 259072,
+    "zero_end": 279348,
+    "identity_rva": 115125,
+    "anchor_profile": "loader-zero-paired-v1",
+    "addend": 4,
+    "load_width": 4
+   }
+  },
+  "containing_function": {
+   "start": 114704,
+   "start_hex": "0x1c010",
+   "end_exclusive": 115331,
+   "end_hex": "0x1c283",
+   "overlaps_recovery_rows": false,
+   "loop_back_edge": {
+    "at": "0x1c275",
+    "insn": "jl 0x1c1ba",
+    "preceded_by": "add edi,8",
+    "window_0x1c26a": [
+     "1c26a mov ecx, ebx",
+     "1c26c add edi, 8",
+     "1c26f cmp eax, ecx",
+     "1c271 mov dword ptr [esp + 0x1c], eax",
+     "1c275 jl 0x1c1ba"
+    ]
+   }
+  },
+  "owner": {
+   "source": "src/eng3/kind_info_storage.c",
+   "flags": [
+    "/O2"
+   ],
+   "symbol": "_g_kind_info"
+  },
+  "proven_minimum_extent": 8,
+  "extent_statement": "minimum extent only; no capacity, upper bound or runtime index range is claimed; the declaration g_kind_info[1] is not a proven allocation size for a native runtime",
+  "basis": "mov edi,imm32 at 0x1c1b5 is a plain register move that always falls through to mov eax,[edi-4] at 0x1c1ba with edi = owner+4, so that load reads owner+0 exactly. Address 0x1c1ba is also a loop head (back edge jl 0x1c1ba at 0x1c275 after add edi,8); the proof uses only the fall-through edge from 0x1c1b5 and infers nothing from the back edge. The containing function 0x1c010..0x1c283 overlaps no recovery row, so the anchor is independent of every compared caller. Element 0 spans [0x3fbd0,0x3fbd8).",
+  "use_form": "Each reviewed use is a scalar mov r32,[idx*scale+disp32] (or equivalent unsegmented ModRM/SIB disp32) whose relocated disp32 equals owner+addend with 0 <= addend < 8 (loader-zero-indexed-v1)."
+ }
+}
