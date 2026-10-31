@@ -28,6 +28,8 @@ typedef struct PanelContext {       /* view of g_engine_interface.context_004 */
 typedef struct EngineInterfaceView {
     unsigned long signature_000;
     PanelContext *context_004;
+    unsigned long unknown_008[3];
+    short *sine_table_014;
 } EngineInterfaceView;
 
 typedef struct PanelSprite {        /* PSX SPRT */
@@ -835,7 +837,6 @@ extern Actor *g_frame_global_734f4;
 extern KindInfo g_kind_info[];
 extern long g_pipeline_dword_71680[];
 extern long g_camera_focal_70ce4;
-extern short *g_sine_table_70f34;
 extern short g_sine_table_5a848[];
 extern unsigned short g_native_word_72168;
 extern long g_level_effects_5e9c0[8][8];
@@ -1256,8 +1257,8 @@ void eng1_34b40(Actor *p, int i)
     v = (SVector *)p->entries;
     angle = random_limit(0x1000);
     radius = random_limit(0xc) + 8;
-    x = g_sine_table_70f34[angle & 0xfff] * radius >> 12;
-    z = g_sine_table_70f34[(angle - 0x400) & 0xfff] * radius >> 12;
+    x = g_engine_interface.sine_table_014[angle & 0xfff] * radius >> 12;
+    z = g_engine_interface.sine_table_014[(angle - 0x400) & 0xfff] * radius >> 12;
     v[i].vx = x;
     v[i].vz = z;
     v[i].vy = 0;

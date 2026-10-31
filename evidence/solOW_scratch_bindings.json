@@ -1,0 +1,409 @@
+{
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "evidence/matching_harvest_bindings_2026_10_25.json": "615693ec4a7f2aa54d11356a5eaaadbc859d5f3a2240a75af02d50240bd3fc8b",
+  "evidence/zbatch3_bindings_2026_10_31.json": "1e911e26ef9f4ac77caf111f49f1aa4ab7354d95926fb75995ac56f78d0c7b71",
+  "src/eng1/actor_handlers_mid.c": "c94a4e02ee4d601138175c5917d477c400885ed69f9d0468d661c7173274736a",
+  "src/eng1/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+  "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+  "src/shared/bounds.c": "203ab5ed560c5f96bc75e4eac37203d436ebca49e2024bc013056c4165728533"
+ },
+ "function_identities": {
+  "eng1.bounds_overlap": {
+   "ledger_status": "FUNCTION_MATCH",
+   "origin": "recovery.json#functions.eng1.bounds_overlap; the FUNCTION_MATCH ledger row is the independent identity source, not derived from the pending caller",
+   "rva": 173984,
+   "size": 112,
+   "source": "src/shared/bounds.c",
+   "source_sha256": "203ab5ed560c5f96bc75e4eac37203d436ebca49e2024bc013056c4165728533",
+   "symbol": "_bounds_overlap",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  }
+ },
+ "functions": {
+  "eng1.26d50": {
+   "symbols": {
+    "_actor_bounds_2a880": {
+     "evidence": [
+      "evidence/spatial_predicates_references_2026_10_25.json#function_entries._actor_bounds_2a880",
+      "accepted_relocation:evidence/source_layout_2026_10_25/spatial_predicates_bindings_2026_10_25.json#functions[eng1.native_code_target_002a710].symbols[_actor_bounds_2a880]"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 28,
+       "type": 20
+      },
+      {
+       "addend": 0,
+       "offset": 71,
+       "type": 20
+      }
+     ],
+     "rva": 174208,
+     "size": 208
+    },
+    "_bounds_overlap": {
+     "evidence": [
+      "function_identities:eng1.bounds_overlap"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 93,
+       "type": 20
+      }
+     ],
+     "rva": 173984,
+     "size": 112
+    },
+    "_g_actor_pipeline_storage_71440": {
+     "evidence": [
+      "evidence/solOW_scratch_bindings.json#native_owner_review._g_actor_pipeline_storage_71440"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 159321,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "kind": "bss",
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng1/actor_pipeline_storage.c",
+      "symbol": "_g_actor_pipeline_storage_71440"
+     },
+     "references": [
+      {
+       "addend": 1952,
+       "offset": 1,
+       "type": 6
+      },
+      {
+       "addend": 1952,
+       "offset": 40,
+       "type": 6
+      },
+      {
+       "addend": 1952,
+       "offset": 51,
+       "type": 6
+      },
+      {
+       "addend": 1952,
+       "offset": 106,
+       "type": 6
+      }
+     ],
+     "rva": 463936,
+     "size": 2240
+    }
+   }
+  }
+ },
+ "native_owner_review": {
+  "_g_actor_pipeline_storage_71440": {
+   "common": "Loader-zero owner must be one complete exact-size COMMON definition",
+   "native_sites": [
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [
+      "eng1.native_code_target_009a20"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 39961,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 39961,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [
+      "eng1.native_code_target_00a910"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 44338,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 44338,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [
+      "eng1.native_code_target_00bc50"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 50162,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 50162,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [],
+     "identity": {
+      "operand": 0,
+      "rva": 131785,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 131785,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [
+      "eng1.24780"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 149671,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 149671,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [
+      "eng1.dispatch_local_25d00"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 154939,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 154939,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [
+      "eng1.26de0"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 159321,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 159321,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [
+      "eng1.389c0"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 232053,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 232053,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [
+      "eng1.39d40"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 236880,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 236880,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "push 0x10071440",
+     "bytes": "6840140710",
+     "hosts": [
+      "eng1.3c070"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 245915,
+      "sha256": "a4eb0d421c2b2cede6b4070b518dc9e835f6928578000e435ee888f09398443f",
+      "size": 5
+     },
+     "native_check": {
+      "identity_rva": 245915,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    }
+   ],
+   "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-htn9637z\\candidate.obj",
+   "object_sha256": "f4ae20e5015e188ead26d8420bb53d05544622ec8a3624fce1a1873bf06edecb",
+   "paired_sites": [],
+   "rva": 463936,
+   "size": 2240,
+   "source": "src/eng1/actor_pipeline_storage.c",
+   "source_sha256": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+   "symbol": [
+    {
+     "aux": [],
+     "name": "_g_actor_pipeline_storage_71440",
+     "section": 2,
+     "storage": 2,
+     "type": 0,
+     "value": 0
+    }
+   ],
+   "zero-section-v1": "Zero-section owner must cover one exact uninitialized .bss section"
+  },
+  "_g_eng1_actor_control_state_70ed8": {
+   "common": "pass",
+   "native_sites": [
+    {
+     "asm": "mov word ptr [0x10070ed8], ax",
+     "bytes": "66a3d80e0710",
+     "hosts": [
+      "eng1.native_code_target_02cc50"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 183457,
+      "sha256": "b07d14115d3c8b7cfe73d45f3de6658806eae0c624c6f661f2d3d48d69c6811d",
+      "size": 6
+     },
+     "native_check": {
+      "identity_rva": 183457,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    },
+    {
+     "asm": "dec word ptr [0x10070ed8]",
+     "bytes": "66ff0dd80e0710",
+     "hosts": [
+      "eng1.eng1_native_code_target_02cd30"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 183659,
+      "sha256": "13892c1633953df248818311750783d665187cfd735a894fa70b2bee6cd48aa1",
+      "size": 7
+     },
+     "native_check": "Unsupported loader-zero identity instruction"
+    },
+    {
+     "asm": "mov word ptr [0x10070ed8], ax",
+     "bytes": "66a3d80e0710",
+     "hosts": [
+      "eng1.eng1_native_code_target_02cd30"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 183670,
+      "sha256": "b07d14115d3c8b7cfe73d45f3de6658806eae0c624c6f661f2d3d48d69c6811d",
+      "size": 6
+     },
+     "native_check": {
+      "identity_rva": 183670,
+      "section": ".data",
+      "zero_end": 476760,
+      "zero_start": 452608
+     }
+    }
+   ],
+   "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-l9vef0p3\\candidate.obj",
+   "object_sha256": "210d8078ed3225f5b1bb4235a45875137826463bb5c9031fc5e346ab51b0a413",
+   "paired_sites": [],
+   "rva": 462552,
+   "size": 56,
+   "source": "src/eng1/forest_level_state.c",
+   "source_sha256": "079438de958e017e4a2514c7cd6ff1e1fd79b3c821918c0241eac81018a89bb7",
+   "symbol": [
+    {
+     "aux": [],
+     "name": "_g_eng1_actor_control_state_70ed8",
+     "section": 0,
+     "storage": 2,
+     "type": 0,
+     "value": 56
+    }
+   ],
+   "zero-section-v1": "Zero-section owner requires one strong data object at offset zero"
+  }
+ },
+ "native_review": {
+  "call_sites": {},
+  "profile": "opaque-indirect-call-v1",
+  "schema": 1,
+  "scope": "Native review of near indirect CALL sites admitted as opaque-indirect-call-v1: instruction identity only. Every target is explicitly unidentified and no calling convention, argument use or runtime ABI compatibility is claimed. Static bytes only; no original execution.",
+  "targets": {
+   "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "task_id": "velocity_k/solOW"
+ },
+ "schema": 1,
+ "scope": "Focused references binding for eng1.26d50: symbol records copied verbatim from accepted bindings or issued from unique accepted/masked-equal ledger rows; 0 opaque-indirect-call-v1 site(s) claim instruction identity only (targets unidentified, ABI unclaimed). Native review: evidence/solOW_scratch_bindings.json. No acceptance claim."
+}
