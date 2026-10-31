@@ -10,8 +10,9 @@ hash-pinned review in evidence/, everything that may differ, and nothing else:
       renames  {old: new}: the record is identical; only its key changes (function, import or
                file-backed data records, and local code/table records between compiler labels
                $L<digits>; storage owners keep their own names). A label is scoped to its row, a
-               permutation within one row is allowed, and a label named by any table declaration or
-               other record of its binding is refused.
+               permutation within one row is allowed. The table declaration that names the label
+               (tables[].symbol) follows the rename, and so do byte-table receipts in the gate's
+               findings; a label named anywhere else in its binding is refused.
       rebinds  {old: {"symbol": new, "from": {"row", "bindings_path", "bindings_sha256"}}}: the
                new record is the accepted owner record of `from.row` verbatim (without its
                references); the caller's uses keep offset and type, and each addend is re-expressed
@@ -100,11 +101,34 @@ def _check_label_rename(binding, old, new, record):
         raise ValueError('Local records are renamed between compiler labels ($L<digits>) only: %s -> %s' % (old, new))
     if record.get('role') not in ('code', 'table'):
         raise ValueError('Only code and table label records are renamed: ' + old)
-    rest = {key: value for key, value in binding.items() if key != 'symbols'}
+    # A table declaration may name its label in exactly one place, tables[].symbol; that field follows the
+    # reviewed rename (see _rename_table_labels). Any other mention (another record, an evidence string,
+    # coff_identity, another field of a table) is still refused.
+    rest = {key: value for key, value in binding.items() if key not in ('symbols', 'tables')}
+    tables = [{k: v for k, v in table.items() if not (k == 'symbol' and v == old)} if isinstance(table, dict) else table
+              for table in binding.get('tables', [])]
     others = [value for name, value in binding.get('symbols', {}).items() if name != old]
-    # Declarations (tables and their byte-table receipts) that name the label would need their own review.
-    if _mentions(rest, old) or _mentions(others, old) or _mentions(record, old):
+    if _mentions(rest, old) or _mentions(tables, old) or _mentions(others, old) or _mentions(record, old):
         raise ValueError('A renamed label is also referenced by name elsewhere in its binding: ' + old)
+
+
+def _rename_table_labels(tables, labels):
+    """tables[].symbol follows the reviewed label renames simultaneously; the result must stay unique
+    and may not take a name that an unrenamed declaration still holds."""
+    if not labels:
+        return tables
+    renamed = copy.deepcopy(tables)
+    kept = {t.get('symbol') for t in tables if isinstance(t, dict) and t.get('symbol') not in labels}
+    for table in renamed:
+        if isinstance(table, dict) and table.get('symbol') in labels:
+            new = labels[table['symbol']]
+            if new in kept:
+                raise ValueError('A renamed label collides with another table declaration: ' + new)
+            table['symbol'] = new
+    names = [t.get('symbol') for t in renamed if isinstance(t, dict) and 'symbol' in t]
+    if len(names) != len(set(names)):
+        raise ValueError('Table declarations would name one label twice')
+    return renamed
 
 
 def _accepted_binding(row, documents, path, sha):
@@ -235,8 +259,13 @@ def derive(state, review, documents, review_path, review_sha, changed_sources):
         if set(renamed) & set(derived['symbols']) or len(renamed) != len(changes):
             raise ValueError('A reviewed name collides with another bound symbol in ' + row_id)
         derived['symbols'].update(renamed)
+        label_map = {old: changes[old][0] for old in labels}
+        if 'tables' in derived:
+            derived['tables'] = _rename_table_labels(derived['tables'], label_map)
         # Independently undo exactly the reviewed changes: the parent binding must reappear.
         restored = copy.deepcopy(derived)
+        if 'tables' in restored:
+            restored['tables'] = _rename_table_labels(restored['tables'], {n: o for o, n in label_map.items()})
         taken = {old: restored['symbols'].pop(new) for old, (new, _) in changes.items()}  # simultaneous: labels may permute
         for old, (new, delta) in changes.items():
             record = taken[old]
@@ -324,6 +353,10 @@ def expected_findings(result, changes, compiled_sha256=None, provenance=None):
             new, delta = changes[receipt['symbol']]
             receipt.update(symbol=new, addend=receipt['addend'] + delta)
         receipt.pop('evidence', None)
+    # Byte-table receipts name their table label; a reviewed label rename is the only change they may show.
+    for receipt in result.get('byte_table_checks', []):
+        if isinstance(receipt, dict) and _is_label(receipt.get('symbol')) and receipt['symbol'] in changes:
+            receipt['symbol'] = changes[receipt['symbol']][0]
     checks = result.get('source_alias_checks')
     if isinstance(checks, dict):
         for old in changes:

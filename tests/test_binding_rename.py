@@ -31,12 +31,14 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def write_coff(path, functions, externals):
-    """functions: [(name, code, [(offset, symbol, type)])]; externals: [(name, coff type)]."""
+def write_coff(path, functions, externals, labels=()):
+    """functions: [(name, code, [(offset, symbol, type)])]; externals: [(name, coff type)];
+    labels: [(name, value, section)] as VC5 compiler labels (storage class 6)."""
     symbols = []
     for number, (name, code, relocations) in enumerate(functions, 1):
         symbols.append(('.text', 0, number, 0, 3, [struct.pack('<IHHIHB3x', len(code), len(relocations), 0, 0, 0, 1)]))
         symbols.append((name, 0, number, 0x20, 2, []))
+    symbols += [(name, value, section, 0, 6, []) for name, value, section in labels]
     symbols += [(name, 0, 0, kind, 2, []) for name, kind in externals]
     index, position = {}, 0
     for name, *_rest in symbols:
@@ -514,8 +516,9 @@ class LocalLabelRenameTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'compiler labels'):
             self.derive({'_odd': '$L223'})
 
-    def test_a_label_named_by_a_declaration_or_another_record_is_refused(self):
-        for mutate in (lambda: self.binding_a['tables'][0].update(symbol='$L167'),
+    def test_a_label_named_by_another_record_or_field_is_refused(self):
+        for mutate in (lambda: self.binding_a['tables'][0].update(evidence=['$L167']),
+                       lambda: self.binding_a['tables'][0].update(label='$L167'),
                        lambda: self.binding_a['symbols']['_callee']['evidence'].append('$L167'),
                        lambda: self.binding_a.update(coff_identity=dict(symbol='$L167'))):
             self.setUp()
@@ -523,6 +526,51 @@ class LocalLabelRenameTests(unittest.TestCase):
             self.publish()
             with self.assertRaisesRegex(ValueError, 'referenced by name'):
                 self.derive({'$L167': '$L223'})
+
+    def declare_table(self, symbol='$L167'):
+        self.binding_a['tables'] = [dict(offset=220, size=16, symbol=symbol, profile='coff-local-byte-table-v1',
+                                         sha256='b' * 64, evidence=['evidence/review.json#tables.m.a'])]
+        self.publish()
+
+    def test_a_table_declaration_follows_its_renamed_label(self):
+        self.declare_table()
+        plan = self.derive({'$L167': '$L223'})
+        derived = plan.manifests[self.path][1]['functions']['m.a']
+        self.assertEqual(derived['symbols']['$L223'], self.table)  # the record is copied verbatim
+        expected = copy.deepcopy(self.binding_a['tables'])
+        expected[0]['symbol'] = '$L223'
+        self.assertEqual(derived['tables'], expected)  # only the declared name moves
+        self.assertEqual({k: v for k, v in derived.items() if k not in ('symbols', 'tables')},
+                         {k: v for k, v in self.binding_a.items() if k not in ('symbols', 'tables')})
+
+    def test_a_shifted_renumbering_renames_declarations_simultaneously(self):
+        self.declare_table('$L167')
+        plan = self.derive({'$L104': '$L105', '$L167': '$L104'})
+        derived = plan.manifests[self.path][1]['functions']['m.a']
+        self.assertEqual(derived['tables'][0]['symbol'], '$L104')
+        self.assertEqual(derived['symbols']['$L104'], self.table)
+        self.assertEqual(derived['symbols']['$L105'], self.case)
+
+    def test_a_declaration_rename_may_not_collide(self):
+        self.declare_table('$L167')
+        self.binding_a['tables'].append(dict(offset=240, size=4, symbol='$L223', evidence=['x']))
+        self.publish()
+        with self.assertRaises(ValueError):
+            self.derive({'$L167': '$L223'})
+
+    def test_byte_table_receipts_accept_exactly_the_renamed_label(self):
+        receipt = dict(symbol='$L167', offset=220, size=16, rva=0x112c, sha256='b' * 64, unique=True)
+        use = dict(offset=87, type=6, symbol='$L167', addend=0, kind='local', destination_rva=0x112c,
+                   target_destination_rva=0x112c, evidence=['e'], one_past=False)
+        before = dict(exact=True, references=[use], byte_table_checks=[receipt])
+        changes = {'$L167': ('$L223', 0)}
+        after = dict(before, references=[dict(use, symbol='$L223')], byte_table_checks=[dict(receipt, symbol='$L223')])
+        expected = binding_rename.expected_findings(before, changes)
+        self.assertEqual(expected, binding_rename.observed_findings(after, changes))
+        for wrong in (dict(after, byte_table_checks=[receipt]),  # receipt not renamed
+                      dict(after, byte_table_checks=[dict(receipt, symbol='$L224')]),
+                      dict(after, byte_table_checks=[dict(receipt, symbol='$L223', sha256='c' * 64)])):
+            self.assertNotEqual(expected, binding_rename.observed_findings(wrong, changes))
 
     def test_local_renames_need_an_accepted_unchanged_binding(self):
         with self.assertRaisesRegex(ValueError, 'differs from its proof'):
@@ -580,6 +628,45 @@ class LocalLabelRenameTests(unittest.TestCase):
         wrong_role['symbols']['$L223']['role'] = 'code'
         with self.assertRaises(ValueError):
             compare(wrong_role)
+
+
+class LabelRefreshTests(unittest.TestCase):
+    """unit_refresh admits VC5 label renumbering in place; accepted users still need their reviewed renames."""
+
+    def objects(self, root, after_names):
+        code = bytes.fromhex('ff248500000000c3') + bytes([0x90]) * 8
+        before = COFF(write_coff(root / 'b.obj', [('_user', code, [(3, '$L10', 6)]), ('_other', code, [(3, '$L12', 6)])],
+                                 [], labels=[('$L10', 8, 1), ('$L12', 8, 2)]))
+        renamed = dict(zip(('$L10', '$L12'), after_names))
+        after = COFF(write_coff(root / 'a.obj', [('_user', code, [(3, renamed['$L10'], 6)]),
+                                                 ('_other', code, [(3, renamed['$L12'], 6)])],
+                                [], labels=[(renamed['$L10'], 8, 1), (renamed['$L12'], 8, 2)]))
+        return before, after
+
+    def declaration(self, before, after, pairs):
+        record = lambda coff, name: next(r for r in unit_refresh.symbol_records(coff) if r['name'] == name)
+        return dict(profile='reviewed-unit-delta-v2', removed=[], added=[], rebases=[], renames=[],
+                    symbol_renames=[dict(before=record(before, a), after=record(after, b)) for a, b in pairs],
+                    review='evidence/r.json', review_sha256='0' * 64)
+
+    def test_shifted_labels_are_renamed_in_place(self):
+        with tempfile.TemporaryDirectory() as directory:
+            before, after = self.objects(Path(directory), ('$L8', '$L10'))  # $L10 -> $L8 while $L12 -> $L10
+            declaration = self.declaration(before, after, [('$L10', '$L8'), ('$L12', '$L10')])
+            result = unit_refresh.check_delta(before, after, declaration, {'_user': '_user'},
+                                              allow_protected_renames=True)
+            self.assertEqual(result['symbol_renames'], {'$L10': '$L8', '$L12': '$L10'})
+            self.assertEqual([r['function'] for r in result['protected_renamed_references']], ['_user'])
+            with self.assertRaises(ValueError):  # an accepted user needs its reviewed binding rename
+                unit_refresh.check_delta(before, after, declaration, {'_user': '_user'})
+            with self.assertRaises(ValueError):  # an undeclared renumbering stays an undeclared delta
+                unit_refresh.check_delta(before, after, self.declaration(before, after, [('$L10', '$L8')]), set())
+
+    def test_labels_rename_only_between_label_names(self):
+        with tempfile.TemporaryDirectory() as directory:
+            before, after = self.objects(Path(directory), ('_x', '$L12'))
+            with self.assertRaises(ValueError):
+                unit_refresh.check_delta(before, after, self.declaration(before, after, [('$L10', '_x')]), set())
 
 
 class ProtectedRenameRefreshTests(unittest.TestCase):

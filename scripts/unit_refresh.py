@@ -7,7 +7,9 @@ reviewed-unit-delta-v1 (unchanged): exact plain UNDEF data externals removed/add
 enumerated DIR32 rebases in unaccepted contributions.
 
 reviewed-unit-delta-v2 adds identifier renames that change no generated code:
-  * symbol_renames: in-place renames of one external symbol record. The record keeps its
+  * symbol_renames: in-place renames of one external symbol record, or of a VC5 compiler
+    label (storage class 6) renumbered between $L<digits> names (renames are simultaneous, so a
+    shifted renumbering may reuse a renamed label's old name). The record keeps its
     ordered symbol-table position, value, section, type, storage class and auxiliary
     records; only the name differs, and every relocation naming it follows the rename.
   * renames: enumerated DIR32 or REL32 relocation symbol renames in unaccepted
@@ -50,6 +52,7 @@ PLAIN_UNDEF_TYPES = {'reviewed-unit-delta-v1': {0}, 'reviewed-unit-delta-v2': {0
 REL32, DIR32 = 20, 6
 CODE, COMDAT, ASSOCIATIVE = 0x20, 0x1000, 5
 FUNCTION_NAME = re.compile(r'[_?@$A-Za-z][\w@?$]*')
+LABEL = re.compile(r'\$L\d+')  # VC5 compiler label; renumbered when a unit's declaration count changes
 
 
 def symbol_records(coff):
@@ -124,7 +127,7 @@ def _symbol_renames(declaration, before, after):
         if (not isinstance(old, dict) or not isinstance(new, dict) or set(old) != set(new) or
                 {k: v for k, v in old.items() if k != 'name'} != {k: v for k, v in new.items() if k != 'name'} or
                 not isinstance(old.get('name'), str) or not isinstance(new.get('name'), str) or
-                old['name'] == new['name'] or old.get('storage') != 2):
+                old['name'] == new['name'] or not _renameable(old, new)):
             raise ValueError('Symbol rename must change only the name of one external symbol record')
         if declaration['profile'] == 'reviewed-unit-delta-v3':
             # Positions are compared without the declared added groups and UNDEF deltas.
@@ -135,12 +138,24 @@ def _symbol_renames(declaration, before, after):
             a_check, b_check = a_records, b_records
         if (a_check.count(old) != 1 or b_check.count(new) != 1 or a_check.index(old) != b_check.index(new)):
             raise ValueError('Symbol rename must keep its exact ordered symbol-table position')
-        if any(s['name'] == new['name'] for s in a_records) or any(s['name'] == old['name'] for s in b_records):
-            raise ValueError('Symbol rename collides with an existing name')
         if old['name'] in names or new['name'] in names.values():
             raise ValueError('Duplicate symbol rename')
         names[old['name']] = new['name']
+    # Renames are simultaneous: compiler labels renumber by shifting, so a new label name may be the old name
+    # of another renamed label. Any other collision with an existing name is refused.
+    for old_name, new_name in names.items():
+        if (any(s['name'] == new_name for s in a_records) and new_name not in names or
+                any(s['name'] == old_name for s in b_records) and old_name not in names.values()):
+            raise ValueError('Symbol rename collides with an existing name')
     return names
+
+
+def _renameable(old, new):
+    """External symbols, or VC5 compiler labels (storage 6) renumbered between $L<digits> names."""
+    if old.get('storage') == 2:
+        return True
+    return (old.get('storage') == 6 and LABEL.fullmatch(old.get('name', '')) is not None and
+            LABEL.fullmatch(new.get('name', '')) is not None)
 
 
 def _added_sections(declaration, after):
@@ -296,7 +311,7 @@ def check_delta(before, after, declaration, protected, allow_protected_renames=F
     if old != new:
         raise ValueError('Undeclared section/byte/ordered-relocation delta')
     old_of = {n: o for o, n in new_of.items()}
-    a = [dict(s, name=in_place[s['name']]) if s['name'] in in_place and s.get('storage') == 2 else s
+    a = [dict(s, name=in_place[s['name']]) if s['name'] in in_place and s.get('storage') in (2, 6) else s
          for s in _comparable_symbols(before, changed_old, {})]
     b = _comparable_symbols(after, {new_of[n] for n in changed_old}, old_of, added_sections)
     for symbols, changes in ((a, declaration['removed']), (b, declaration['added'])):
