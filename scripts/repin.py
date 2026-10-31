@@ -150,6 +150,23 @@ def binding_renames(state, plan, changed):
                                  plan['binding_review']['path'], sha(raw), changed)
 
 
+CHANGEABLE_SUFFIXES = ('.c', '.cpp', '.h')
+
+
+def canonical_change(name):
+    """A reviewed re-pin may replace canonical C/C++ units and the canonical headers they include.
+
+    A header has no ledger rows of its own: every accepted row whose context pins it gets the new
+    hash, every evidence pin of it is snapshotted and redirected, and the complete after gate
+    recompiles and protects every accepted row. Masked rows of its includers are restaged.
+    """
+    path = (ROOT / name).resolve()
+    if (not path.is_relative_to((ROOT / 'src').resolve()) or path.suffix not in CHANGEABLE_SUFFIXES or
+            not path.is_file()):
+        raise ValueError('Only canonical C/C++ units and headers may change')
+    return path
+
+
 def pin_snapshot(name, expected, current):
     """Content address satisfying one direct pin of a changed source, or refuse."""
     if expected == sha(current):
@@ -264,9 +281,7 @@ def apply(plan_path, before_path, original_root, directory):
         check_refresh_additions(plan, inventory_refresh)
         source_before, candidates, additions = {}, {}, {}
         for name, item in plan['sources'].items():
-            path = (ROOT / name).resolve()
-            if not path.is_relative_to(ROOT / 'src') or path.suffix not in ('.c', '.cpp'):
-                raise ValueError('Only canonical C/C++ units may change')
+            path = canonical_change(name)
             source_before[name] = path.read_bytes()
             require_equal(sha(source_before[name]), item['before_sha256'], 'source base')
             candidate = (ROOT / item['candidate']).resolve()
