@@ -143,7 +143,7 @@ extern unsigned short eng3_1b4a0(short, short, short, int);
 extern int eng3_1b920(Actor *, int);
 extern int eng3_1dbc0(Actor *);
 extern int eng1_2a660(Actor *, Actor *);
-extern Actor *eng3_1cb00(long, long, long, int);
+extern Actor *title_08a50(long, long, long, int);
 extern void remove_actor(Actor *);
 extern Actor *create_eng3_middle_actor(long, long, long, unsigned long);
 extern void remove_actor_variant(Actor *);
@@ -665,12 +665,12 @@ void eng3_03290(void)
 {
     Actor *a;
 
-    a = eng3_1cb00(0xa20000, 0x1c60000, 0, 0x3c);
+    a = title_08a50(0xa20000, 0x1c60000, 0, 0x3c);
     if (a) {
         g_eng3_game_40b8c->method_2d0(a);
         a->profile = g_focus->profile;
     }
-    g_eng3_actor_3fb0c = eng3_1cb00(0xa20000, 0x1c60000, 0, 0x29);
+    g_eng3_actor_3fb0c = title_08a50(0xa20000, 0x1c60000, 0, 0x29);
     if (g_eng3_actor_3fb0c) {
         g_eng3_game_40b8c->method_1ec(g_eng3_actor_3fb0c);
         g_eng3_actor_3fb0c->profile = g_focus->profile;
@@ -872,7 +872,7 @@ void eng3_03610(void)
             g_eng3_actor_3fb0c->category = 5;
         eng3_1dbc0(g_eng3_actor_3fb0c);
         if (g_eng3_actor_3fb0c->sprite == 0x20 && g_eng3_actor_3fb14 == 0) {
-            g_eng3_actor_3fb14 = eng3_1cb00(g_eng3_actor_3fb0c->x + 0x1000000, g_eng3_actor_3fb0c->y,
+            g_eng3_actor_3fb14 = title_08a50(g_eng3_actor_3fb0c->x + 0x1000000, g_eng3_actor_3fb0c->y,
                                             g_eng3_actor_3fb0c->z - 0x400000, 0x38);
             g_eng3_game_40b8c->method_2a0(g_eng3_actor_3fb14);
         }
@@ -886,7 +886,7 @@ void eng3_03610(void)
             g_eng3_actor_3fb0c->category = 5;
         eng3_1dbc0(g_eng3_actor_3fb0c);
         if (g_eng3_actor_3fb0c->sprite == 0xa1 && g_eng3_actor_3fb0c->unknown_ac) {
-            g_eng3_actor_3fb0c->unknown_118 = eng3_1cb00(g_eng3_actor_3fb0c->x, g_eng3_actor_3fb0c->y - 0x1800000,
+            g_eng3_actor_3fb0c->unknown_118 = title_08a50(g_eng3_actor_3fb0c->x, g_eng3_actor_3fb0c->y - 0x1800000,
                                                          g_eng3_actor_3fb0c->z + 0x800000, 0x30);
             g_eng3_game_40b8c->method_240(g_eng3_actor_3fb0c->unknown_118);
             g_eng3_actor_3fb0c->unknown_118->profile = g_eng3_actor_3fb0c->profile;
@@ -1466,7 +1466,7 @@ void eng3_05070(Actor *o)
             o->unknown_11e = 0x64;
         }
         if (c->state & 8) {
-            o->unknown_118 = eng3_1cb00(c->x, c->y, c->z, 0x43);
+            o->unknown_118 = title_08a50(c->x, c->y, c->z, 0x43);
             if (o->unknown_118) {
                 g_eng3_game_40b8c->method_324(o->unknown_118);
                 o->unknown_118->profile = o->profile;

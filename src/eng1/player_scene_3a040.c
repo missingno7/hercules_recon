@@ -276,7 +276,7 @@ int eng1_native_code_target_002b130(Actor *p);
 int eng1_native_code_target_002aa30(Actor *p, int a, int b);
 int eng1_2a9e0(Actor *p, int range);
 int eng1_2bd20(Actor *p);
-void eng1_2ae50(Actor *p);
+void eng1_native_code_target_002ae50(Actor *p);
 unsigned long eng1_26de0(Actor *p);
 void eng1_24980(Actor *p);
 void eng1_30290(unsigned long hit, int b);
@@ -1932,7 +1932,7 @@ void eng1_3cb90(Actor *p)
     int d, t;
     int h;
 
-    eng1_2ae50(p);
+    eng1_native_code_target_002ae50(p);
     if (eng1_3eb30(p, 0x30, 9)) {
         if (g_eng1_control_70eea == p->counter_021)
             g_eng1_control_actor_70eec = p;
@@ -2196,7 +2196,7 @@ void eng1_3d440(Actor *p)
     angle = 0;
     x = p->x;
     z = p->z;
-    eng1_2ae50(p);
+    eng1_native_code_target_002ae50(p);
     if (eng1_3eb30(p, 0x3a, 9)) {
         if (g_eng1_control_70eea == p->counter_021)
             g_eng1_control_actor_70eec = p;
@@ -2276,7 +2276,7 @@ void eng1_3d780(Actor *p)
     p->sprite = 5;
     p->render_flags |= 0x10000040;
     p->angle_72 = (g_engine_interface.context_004->tick_038 >> 3) & 0x3ff;
-    eng1_2ae50(p);
+    eng1_native_code_target_002ae50(p);
 }
 
 void eng1_3d7c0(Actor *p)
@@ -2342,7 +2342,7 @@ void eng1_3d930(Actor *p)
         if (g_eng1_control_70eea == p->counter_021)
             g_eng1_control_actor_70eec = p;
         g = p->group_120;
-        eng1_2ae50(p);
+        eng1_native_code_target_002ae50(p);
         for (i = 0; i < g->count;) {
             a = g->entries[++i];
             if (a->kind == 0x2f) {
@@ -2748,10 +2748,10 @@ long grid_scan_20b50(long x, long y, long z, int group);
 void measure_xz_vector(FixedPosition *a, FixedPosition *b, RelativeMeasure *m);
 void measure_relative_vector(FixedPosition *a, FixedPosition *b, RelativeMeasure *m);
 void eng1_2ad70(FixedPosition *a, Actor *p, RelativeMeasure *m);
-unsigned short eng1_2bfb0(int x, int y);
+unsigned short lookup_cosine_phase(int x, int y);
 int eng1_26cd0(Actor *p);
 void eng1_41da0(Actor *p);
-unsigned long eng1_2bc50(Actor *p);
+unsigned long damped_contact_motion(Actor *p);
 int actor_bounds_2a880(Actor *p, Bounds *b, int mode);
 int bounds_overlap(Bounds *a, Bounds *b);
 void advance_object_motion(Actor *p);
@@ -2869,7 +2869,7 @@ void eng1_3e770(Actor *p)
             d = 0;
         p->y += d;
         p->saved_y += d;
-        if (eng1_2bc50(p) & 1) {
+        if (damped_contact_motion(p) & 1) {
             LinkedSoundFx_6da0(0x4040, p);
             select_frame(p, 0xb);
             p->state = 9;
@@ -3096,13 +3096,13 @@ void eng1_3eec0(Actor *p)
             }
             break;
         case 2:
-            if (eng1_2bc50(p) & 1) {
+            if (damped_contact_motion(p) & 1) {
                 p->state = 4;
                 LinkedSoundFx_6da0(0x404c, p);
             }
             break;
         case 4:
-            if (eng1_2bc50(p) & 2)
+            if (damped_contact_motion(p) & 2)
                 p->state = 0;
             break;
         }
@@ -3190,7 +3190,7 @@ void eng1_3f1c0(Actor *p)
         case 2:
             p->angle_72 += (short)p->unknown_0dc;
             measure_xz_vector((FixedPosition *)g_native_pointer_7217c, (FixedPosition *)p, &m);
-            angle = eng1_2bfb0(m.x, (unsigned short)m.planar_distance);
+            angle = lookup_cosine_phase(m.x, (unsigned short)m.planar_distance);
             direction = m.direction;
             if (direction == 6)
                 angle += 0x100;
@@ -3364,7 +3364,7 @@ void eng1_3f720(Actor *p)
     int j;
 
     if (g_switch_masks_70008[p->unknown_097] == 0xffff) {
-        eng1_2ae50(p);
+        eng1_native_code_target_002ae50(p);
         if (eng1_2a9e0(p, 0x200))
             remove_actor(p);
         return;
@@ -3391,7 +3391,7 @@ void eng1_3f720(Actor *p)
             g_switch_masks_70008[p->unknown_097] = g_eng1_classifier_rows_65678[p->counter_021].mask_02;
         }
     }
-    eng1_2ae50(p);
+    eng1_native_code_target_002ae50(p);
     if (eng1_2a9e0(p, 0x200))
         remove_actor(p);
 }
@@ -3556,7 +3556,7 @@ void eng1_3fcf0(Actor *p)
 
 void eng1_3fe00(Actor *p)
 {
-    if ((eng1_2bc50(p) & 2) || eng1_native_code_target_002aa30(p, 0x80, 0x80))
+    if ((damped_contact_motion(p) & 2) || eng1_native_code_target_002aa30(p, 0x80, 0x80))
         remove_actor_variant(p);
 }
 

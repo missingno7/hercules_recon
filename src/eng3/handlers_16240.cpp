@@ -312,7 +312,7 @@ extern void eng3_19c20(void);
 extern long eng3_1b2e0(unsigned short, short, unsigned short, int);
 extern int eng3_1b650(short *, int, int, long);
 extern int eng3_1b920(Actor *, int);
-extern Actor *eng3_1cb00(long, long, long, int);
+extern Actor *title_08a50(long, long, long, int);
 extern void title_08cd0(void *);
 extern Actor *attach_actor(Actor *, int);
 extern void release_actor(Actor *);
@@ -1217,13 +1217,13 @@ void eng3_17ae0(int code)
         g_focus->unknown_ac = 0x70000;
         g_focus->unknown_a8 = 0x70000;
         if (g_focus->unknown_dc == 0) {
-            g_eng3_game_40b8c->method_54(eng3_1cb00(g_focus->x, g_focus->y, g_focus->z, 7));
+            g_eng3_game_40b8c->method_54(title_08a50(g_focus->x, g_focus->y, g_focus->z, 7));
             g_focus->unknown_dc = 1;
         }
         break;
     case 0x75:
         if (g_focus->y >= 0x1f40000 && g_focus->unknown_e0 == 0) {
-            g_eng3_game_40b8c->method_30c(eng3_1cb00(g_focus->x, g_focus->y, g_focus->z, 0x41));
+            g_eng3_game_40b8c->method_30c(title_08a50(g_focus->x, g_focus->y, g_focus->z, 0x41));
             g_focus->unknown_e0 = 1;
         }
         break;

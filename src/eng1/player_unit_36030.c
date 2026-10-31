@@ -274,7 +274,7 @@ int eng1_native_code_target_002b130(Actor *p);
 int eng1_native_code_target_002aa30(Actor *p, int a, int b);
 int eng1_2a9e0(Actor *p, int range);
 int eng1_2bd20(Actor *p);
-void eng1_2ae50(Actor *p);
+void eng1_native_code_target_002ae50(Actor *p);
 unsigned long eng1_26de0(Actor *p);
 void eng1_24980(Actor *p);
 void eng1_30290(unsigned long hit, int b);
@@ -646,7 +646,7 @@ void eng1_36b90(Actor *p)
         } else {
             g_camera_adjust_y_70d04 = -0x40;
         }
-        eng1_2ae50(p);
+        eng1_native_code_target_002ae50(p);
         if (eng1_native_code_target_002aa30(p, hi + 0x80, hi + 0x80)) {
             release_actor(p);
         }

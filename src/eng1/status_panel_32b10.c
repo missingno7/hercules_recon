@@ -866,7 +866,7 @@ void eng1_1aba0(void);
 void eng1_24980(Actor *p);
 void eng1_30290(unsigned long hit, int b);
 int eng1_2bd20(Actor *p);
-void eng1_2ae50(Actor *p);
+void eng1_native_code_target_002ae50(Actor *p);
 void measure_absolute_vector(FixedPosition *a, FixedPosition *b, RelativeMeasure *m);
 void measure_relative_vector(FixedPosition *a, FixedPosition *b, RelativeMeasure *m);
 int actor_bounds_2a880(Actor *p, Bounds *b, int mode);
@@ -1224,7 +1224,7 @@ void eng1_34a30(Actor *p)
                 p->counter_021 = random_limit(0x78) + 0x5a;
             }
         }
-        eng1_2ae50(p);
+        eng1_native_code_target_002ae50(p);
         y = p->screen_y - (g_camera_focal_70ce4 >> 1) * 130 / p->screen_z;
         if (y < 0) {
             y = 0;
@@ -1629,7 +1629,7 @@ void eng1_35590(Actor *p)
             if (m.x > 0x100) {
                 break;
             }
-            eng1_2ae50(p);
+            eng1_native_code_target_002ae50(p);
             if (p->status_01f & 2) {
                 select_frame(p, 0x1f);
                 return;
@@ -1640,7 +1640,7 @@ void eng1_35590(Actor *p)
         if (active >= random_limit(3) + 2 || m.x > 0x100) {
             break;
         }
-        eng1_2ae50(p);
+        eng1_native_code_target_002ae50(p);
         if (p->status_01f & 2) {
             select_frame(p, 0x1f);
             return;

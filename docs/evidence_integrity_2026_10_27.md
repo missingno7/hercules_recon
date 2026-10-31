@@ -260,9 +260,21 @@ its back edge comes from 0x1c275. The owner is the new data-only `src/eng3/kind_
 (`g_kind_info[1]`, 8-byte COMMON, minimum extent only). Tests are in
 `tests/test_loader_zero_paired.py`.
 
+**Callee alias renames (reviewed re-pin b10).** 14 units now call accepted callees by their own canonical
+symbols. Each old name was an extern-only address label, called directly at the accepted row's entry; Opus
+alias review in `work/velocity_i/alias/`. There is no codegen change: re-pin preserved 1,096 rows and 258
+masked rows were restaged. Four units whose RAW rows pin unit inventories (handlers_121c0.c,
+handlers_28ae0.c, handlers_0e020.cpp, spatial_effects.c) are deferred to a reviewed inventory refresh.
+Cross-module twin wrappers, the ENG3 `dbg_printf` twin, TITLE-shared callers and duplicate bodies await
+owner decisions.
+
+Accepted: `eng1.native_code_target_011450`, `eng1.3d780` (evidence/bindR_*). Total: **1,139**.
+`eng1.3fe00` is held: its `_remove_actor_variant` identity record pins the pre-rename source hash.
+
 Open:
 
-- **`host_file_open_only_3c50`.** Sol's investigation (`work/velocity_i/sol3c50/findings.md`):
+- **`host_file_open_only_3c50`.** Kept blocked by owner ruling; the historical experiment is recorded in
+  `evidence/host_file_open_3c50_history_2026_10_31.json`. Sol's investigation (`work/velocity_i/sol3c50/findings.md`):
   - EAX on the success path is the open result; the empty diagnostic never writes it.
   - The only consumer is the ENG1 wrapper, whose caller discards the value.
   - No exact form free of undefined behaviour was found.

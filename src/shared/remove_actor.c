@@ -60,8 +60,8 @@ extern void clear_command_high_bit(Actor *);
 extern void detach_child(Actor *);
 extern void detach_attachment(Actor *);
 extern void detach_buffer(Actor *);
-extern void actor_cleanup_294b0(Actor *);
-extern void actor_cleanup_29620(Actor *);
+extern void unlink_12c(Actor *);
+extern void unlink_0e4(Actor *);
 extern void actor_refusal_296b0(Actor *);
 extern void release_pending_action(void *);
 
@@ -79,7 +79,7 @@ int remove_actor(Actor *p)
         return 0;
     }
     if (p->flags & 0x10000000) {
-        actor_cleanup_294b0(p);
+        unlink_12c(p);
         p->kind = 0;
         clear_actor(p);
         return 1;
@@ -91,8 +91,8 @@ int remove_actor(Actor *p)
         detach_attachment(p);
         detach_child(p);
         detach_buffer(p);
-        actor_cleanup_294b0(p);
-        actor_cleanup_29620(p);
+        unlink_12c(p);
+        unlink_0e4(p);
         p->kind = 0;
         clear_actor(p);
         return 1;
@@ -123,8 +123,8 @@ int remove_actor(Actor *p)
     detach_child(p);
     detach_buffer(p);
     detach_attachment(p);
-    actor_cleanup_294b0(p);
-    actor_cleanup_29620(p);
+    unlink_12c(p);
+    unlink_0e4(p);
     p->kind = 0;
     owner->flags &= 0x7fff;
     clear_actor(p);
@@ -151,7 +151,7 @@ int remove_actor_variant(Actor *p)
             detach_child(p);
             detach_attachment(p);
             detach_buffer(p);
-            actor_cleanup_29620(p);
+            unlink_0e4(p);
             p->kind = 0;
             clear_actor(p);
             return 1;
@@ -174,7 +174,7 @@ int remove_actor_variant(Actor *p)
         detach_child(p);
         detach_attachment(p);
         detach_buffer(p);
-        actor_cleanup_29620(p);
+        unlink_0e4(p);
         p->kind = 0;
         owner->flags &= 0x7fff;
         clear_actor(p);

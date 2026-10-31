@@ -196,7 +196,7 @@ int eng1_29e20(Actor *p);
 int eng1_2a9e0(Actor *p, int range);
 unsigned long eng1_2bd20(Actor *p);
 void eng1_2ad70(FixedPosition *a, Actor *p, RelativeMeasure *m);
-void eng1_2ae50(Actor *p);
+void eng1_native_code_target_002ae50(Actor *p);
 unsigned long eng1_26de0(Actor *p);
 void eng1_27410(Actor *p);
 void eng1_30290(unsigned long hit, int b);
@@ -207,7 +207,7 @@ int count_chain(Actor *p);
 int eng1_2a3d0(Actor *p, Actor *q);
 int eng1_2a710(Bounds *b, Actor *p);
 long eng1_native_code_target_00266a0(Actor *p, int priority, int value);
-unsigned long eng1_2bc50(Actor *p);
+unsigned long damped_contact_motion(Actor *p);
 int eng1_31000(Actor *p, Offset2 *pos);
 void eng1_27450(Actor *p);
 
@@ -294,7 +294,7 @@ void eng1_native_code_target_0103c0(Actor *p)
     Actor *a;
 
     g_pipeline_dword_71a18 = p;
-    eng1_2ae50(p);
+    eng1_native_code_target_002ae50(p);
     if (g_engine_interface.context_004->level_000 == 5 && g_boss_state_6ffda == 9 &&
         g_native_pointer_7217c->z > 0x700000) {
         a = p->link_060;
@@ -1005,7 +1005,7 @@ void eng1_native_code_target_011810(Actor *p)
             g_pipeline_word_71740[++g_pipeline_word_71740[0]] = vz - vz * d / outer;
         }
     }
-    eng1_2ae50(p);
+    eng1_native_code_target_002ae50(p);
 }
 
 void eng1_native_code_target_011950(Actor *p)
@@ -1177,7 +1177,7 @@ void eng1_native_code_target_011df0(Actor *p)
         }
         break;
     case 2:
-        if (eng1_2bc50(p) & 1) {
+        if (damped_contact_motion(p) & 1) {
             p->state = 3;
             p->z = (p->z + 0x400000) & 0xff800000;
             select_frame(p, 10);

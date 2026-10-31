@@ -125,7 +125,7 @@ extern unsigned short eng3_1b4a0(short, short, short, int);
 extern int eng3_1b920(Actor *, int);
 extern int eng3_1dbc0(Actor *);
 extern int eng1_2a660(Actor *, Actor *);
-extern Actor *eng3_1cb00(long, long, long, int);
+extern Actor *title_08a50(long, long, long, int);
 extern void remove_actor(Actor *);
 extern Actor *create_eng3_middle_actor(long, long, long, unsigned long);
 extern void remove_actor_variant(Actor *);
@@ -273,7 +273,7 @@ void eng3_10590(Actor *o)
                         if (created)
                             g_eng3_host_40bb4->method_b0(created);
                         if (!(g_engine_interface.context_004->flags_11 & 8) && o->profile) {
-                            created = eng3_1cb00(g_focus->x, g_focus->y, g_focus->z, 8);
+                            created = title_08a50(g_focus->x, g_focus->y, g_focus->z, 8);
                             if (created) {
                                 g_eng3_game_40b8c->method_60(created);
                                 created->profile = o->profile;
@@ -407,13 +407,13 @@ void eng3_10df0(Actor *o)
             c->unknown_cc = random_limit(0x10000) + 0x40000;
             if (c->state) {
                 play_sound(0x28a6, c);
-                c->unknown_dc = (long)eng3_1cb00(c->x, c->y, c->z - 0x100000, 0x4a);
+                c->unknown_dc = (long)title_08a50(c->x, c->y, c->z - 0x100000, 0x4a);
                 if (c->unknown_dc) {
                     g_eng3_game_40b8c->method_378((Actor *)c->unknown_dc);
                     ((Actor *)c->unknown_dc)->render_flags |= 0x10;
                     ((Actor *)c->unknown_dc)->profile = o->profile;
                 }
-                c->unknown_d8 = (long)eng3_1cb00(c->x, c->y, c->z + 0x100000, 0x4a);
+                c->unknown_d8 = (long)title_08a50(c->x, c->y, c->z + 0x100000, 0x4a);
                 if (c->unknown_d8) {
                     g_eng3_game_40b8c->method_378((Actor *)c->unknown_d8);
                     ((Actor *)c->unknown_d8)->profile = o->profile;
@@ -849,7 +849,7 @@ void eng3_11d80(Actor *o)
         o->phase = 0;
         o->render_flags = 0x80000004;
         play_sound(0x603e, g_focus);
-        created = eng3_1cb00(g_focus->x, g_focus->y, g_focus->z, 8);
+        created = title_08a50(g_focus->x, g_focus->y, g_focus->z, 8);
         if (created) {
             g_eng3_game_40b8c->method_60(created);
             created->profile = o->profile;

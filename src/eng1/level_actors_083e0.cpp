@@ -83,7 +83,7 @@ extern Debris g_debris_4fb50[13];
 extern Debris g_debris_4fbb8[12];
 extern long g_bob_steps_4fc18[];
 
-extern void dbg_printf(const char *, ...);
+extern void engine_diagnostic(const char *, ...);
 extern void play_sound(unsigned short, Actor *);
 extern void stop_actor_sounds(Actor *);
 extern void eng1_0ceb0(Actor *);
@@ -112,7 +112,7 @@ extern int eng1_2a710(Bounds *, Actor *);
 extern int bounds_overlap(Bounds *, Bounds *);
 extern int actor_bounds_2a880(Actor *, Bounds *, int);
 extern int eng1_native_code_target_002aa30(Actor *, int, int);
-extern unsigned long eng1_2bc50(Actor *);
+extern unsigned long damped_contact_motion(Actor *);
 extern unsigned int random_limit(int);
 extern Actor *spawn_at_group_300c0(long, long, long, int, int);
 extern void eng1_30290(unsigned long, int);
@@ -653,7 +653,7 @@ void eng1_native_code_target_0092c0(Actor *p)
         }
         break;
     case 10:
-        dbg_printf("WCENTAUR WALKING\n");
+        engine_diagnostic("WCENTAUR WALKING\n");
         walk_x_blocked(p, &b);
         eng1_native_code_target_002a290(p);
         d = p->x - g_normal_actor_pool->x;
@@ -766,7 +766,7 @@ void eng1_native_code_target_009890(Actor *p)
         break;
     case 2:
     case 61:
-        if (eng1_2bc50(p) & 2) {
+        if (damped_contact_motion(p) & 2) {
             p->state = 0x3c;
             p->counter = 0x14;
             break;
@@ -810,10 +810,10 @@ void eng1_native_code_target_009a20(Actor *p)
     long range;
     Actor *q;
 
-    dbg_printf(" LCROCK->NAStatus = %d\n", p->state);
+    engine_diagnostic(" LCROCK->NAStatus = %d\n", p->state);
     p->z -= p->motion_z.velocity;
     range = (g_normal_actor_pool->z - p->z) >> 16;
-    dbg_printf(" Range is %d\n", range);
+    engine_diagnostic(" Range is %d\n", range);
     if (range > 0x100 || range < -0x200) {
         remove_actor(p);
         return;
@@ -1128,7 +1128,7 @@ void eng1_native_code_target_00a670(Actor *p)
     p->lane = (unsigned char)(((p->z >> 16) + 0x40) >> 7);
     switch (p->state) {
     case 0x1c:
-        eng1_2bc50(p);
+        damped_contact_motion(p);
         if (p->direction_y) {
             eng1_native_code_target_002a290(p);
             p->frame_ticks = 0;

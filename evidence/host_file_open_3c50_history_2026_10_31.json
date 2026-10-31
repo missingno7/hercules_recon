@@ -1,0 +1,80 @@
+{
+ "schema": 1,
+ "row": "exe.host_file_open_only_3c50",
+ "status_decision": "Owner ruling 2026-10-31: keep blocked for normal acceptance; retain this historical matching evidence. No matching-only variant enters canonical source; the canonical and native-runtime form keeps the explicit `return opened;`. The question is considered sufficiently investigated; reopen only on new independent evidence.",
+ "target": "work/discs/pc_install/HERCULES.EXE",
+ "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+ "rva": "0x3c50",
+ "size": 144,
+ "canonical_source": "src/pc/host_file_open_close.c",
+ "canonical_source_sha256": "bbe72d80de324943b3d05e4dfeeb77f9b5a3931c9ae1841afe8350c98223c749",
+ "investigators": [
+  "work/velocity_h/op3c50 (Opus, wave h)",
+  "work/velocity_i/sol3c50 (GPT-6.1 Sol high, 12 compiles)"
+ ],
+ "toolchain": {
+  "profile": "msvc5_rtm",
+  "compiler": "CL 11.00.7022",
+  "flags": "/nologo /c /Gy /O2",
+  "language": "C (all probes; no C++ probes were compiled)"
+ },
+ "native_eax_provenance": {
+  "exit_mode_1": "0x3c5f xor eax,eax -> 0",
+  "exit_handle_minus_1": "0x3cc1 xor eax,eax -> 0",
+  "exit_success": "EAX from call 0x3c8c (virtual_file_open, RVA 0xa210), unchanged through the handle store, live reload/compare, the diagnostic call and stack cleanup; 0x3cd1 ret",
+  "diagnostic_0x63c0": "single RET followed by 15 NOPs; reads no arguments, writes no EAX, calls nothing"
+ },
+ "callers": {
+  "exe_direct_calls": 0,
+  "exe_address_occurrences": "one: RVA 0x36238, host interface 0x361b8 + 0x80",
+  "eng1_consumer": "wrapper 0x2c400 calls the copied slot [0x10070fa0] and returns EAX unchanged; its only caller 0x1fadf discards it (next callee 0x2c4f0 overwrites EAX first) and returns 1",
+  "completeness": "static census only; computed addresses, mutated slots or unknown external clients are not excluded"
+ },
+ "experiments": [
+  {
+   "form": "canonical explicit `return opened;`",
+   "real_differences": 15,
+   "nonrelocation_bytes_differing": 76
+  },
+  {
+   "form": "missing return on the success path (delete `return opened;`)",
+   "real_differences": 0,
+   "nonrelocation_bytes_differing": 0,
+   "reference_fields_consistent": 14
+  },
+  {
+   "form": "`int host_diagnostic` and `return host_diagnostic(...)`",
+   "real_differences": 0,
+   "note": "moves the missing return into the empty int diagnostic (an empty int body is RAW-equal to RET+15 NOPs; `return 0;` there differs by 3)"
+  },
+  {
+   "form": "void open, `return;` on every exit",
+   "real_differences": 15,
+   "note": "loses both xor eax,eax"
+  },
+  {
+   "form": "`return (host_diagnostic(...), opened);`",
+   "real_differences": 15
+  },
+  {
+   "form": "return the reloaded context handle",
+   "real_differences": 13
+  },
+  {
+   "form": "explicit success `return 0;`",
+   "real_differences": 3
+  },
+  {
+   "form": "ENG1 wrapper int vs void, int callback discarded in a void wrapper",
+   "real_differences": 0,
+   "note": "identical complete sections and relocations; wrapper type is not distinguished by codegen"
+  }
+ ],
+ "peer_preservation": "Every open variant preserves accepted exe.host_frame_close_state_3d30 (96 bytes, compiled sha256 a23f5924712647666744272c0c8b5339efe792197539f6863c3d78fa32025fe1, 8 ordered relocations).",
+ "language_rules": {
+  "C": "C89/C99 (WG14 N1256 6.9.1p12): falling off the end of a non-void function is undefined only if the caller uses the value. With the evidenced call chain (int callback discarded in a void wrapper) the missing-return form has no return-value UB, but it supplies no defined success value.",
+  "C++": "C++98 6.6.3p2: flowing off the end of a value-returning function is undefined behaviour whether or not the value is used. The missing-return form is therefore never valid C++. This file is compiled as C."
+ },
+ "compiler_dependence": "The 0-difference result relies on VC5 /O2 leaving the virtual_file_open result in EAX across an empty callee; any compiler or diagnostic implementation that clobbers EAX changes the physical result. Native builds must not depend on it.",
+ "claim": "Historical compiler hypothesis only. It proves neither original source identity nor a formal return declaration, and it grants no FUNCTION_MATCH or FUNCTION_MATCH_RELOCATED acceptance."
+}

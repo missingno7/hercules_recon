@@ -216,7 +216,7 @@ void resource_cancel(int id);
 void resource_reset(int id);
 void detach_child(Actor *p);
 int remove_actor_variant(Actor *p);
-unsigned long eng1_2bc50(Actor *p);
+unsigned long damped_contact_motion(Actor *p);
 unsigned int dispatch_local_30010(long x, long y, long z, unsigned short mask);
 int eng1_31000(Actor *p, FramePos *pos);
 int actor_bounds_2a880(Actor *p, Bounds *b, int mode);
@@ -831,7 +831,7 @@ void eng1_native_code_target_013570(Actor *o)
         o->child->sprite = g_flash_sprites_534d0[o->unknown_032];
     if (g_engine_interface.context_004->level_000 == 9)
         o->x += g_player_cruise_707e8;
-    hit = eng1_2bc50(o);
+    hit = damped_contact_motion(o);
     if (hit) {
         if (o->image_064 == eng1_frame_target_053548)
             o->image_064 = eng1_frame_target_053550;
@@ -1112,11 +1112,11 @@ void eng1_native_code_target_013d70(Actor *o)
         }
         o->y += g_lift_rows_52c08[0].angle_y << 16;
         o->saved_x = o->x;
-        if ((eng1_2bc50(o) & 1) && !g_lift_sound_6ef60) {
+        if ((damped_contact_motion(o) & 1) && !g_lift_sound_6ef60) {
             play_sound(0x404c, o);
             g_lift_sound_6ef60 = 1;
         }
-        if (eng1_2bc50(o) & 2) {
+        if (damped_contact_motion(o) & 2) {
             o->delay = 0;
             o->y -= g_lift_rows_52c08[0].angle_y << 16;
         } else {
@@ -1149,7 +1149,7 @@ void eng1_native_code_target_013d70(Actor *o)
     }
     if (o->delay == 5) {
         o->y += g_lift_rows_52c08[0].angle_y << 16;
-        if (eng1_2bc50(o) & 2) {
+        if (damped_contact_motion(o) & 2) {
             eng1_20000(o);
             eng1_27410(o);
             return;
@@ -1267,11 +1267,11 @@ void eng1_native_code_target_0142d0(Actor *o)
         }
         o->y += g_lift_rows_530d8[0].angle_y << 16;
         o->saved_x = o->x;
-        if ((eng1_2bc50(o) & 1) && !g_lift_sound_6ef60) {
+        if ((damped_contact_motion(o) & 1) && !g_lift_sound_6ef60) {
             play_sound(0x4151, o);
             g_lift_sound_6ef60 = 1;
         }
-        if (eng1_2bc50(o) & 2) {
+        if (damped_contact_motion(o) & 2) {
             o->delay = 0;
             o->y -= g_lift_rows_530d8[0].angle_y << 16;
         } else {
@@ -1306,7 +1306,7 @@ void eng1_native_code_target_0142d0(Actor *o)
         o->y += g_lift_rows_530d8[0].angle_y << 16;
         if (o->x < 0x15600000)
             o->x += 0x20000;
-        if (!(eng1_2bc50(o) & 1) && (o->z < 0xc00000 || o->y < 0x4400000)) {
+        if (!(damped_contact_motion(o) & 1) && (o->z < 0xc00000 || o->y < 0x4400000)) {
             o->y -= g_lift_rows_530d8[0].angle_y << 16;
             if (!o->direction_y) {
                 o->motion_y_target = 0xa0000;

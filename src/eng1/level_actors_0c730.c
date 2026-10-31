@@ -148,7 +148,7 @@ extern long g_eng1_dword_6ef14;
 extern long g_eng1_dword_6ef38;
 extern long g_eng1_dword_6ef3c;
 
-extern void dbg_printf(const char *, ...);
+extern void engine_diagnostic(const char *, ...);
 extern void eng1_02d80(int, unsigned int, unsigned int);
 extern void play_sound(unsigned short, Actor *);
 extern void stop_actor_sounds(Actor *);
@@ -207,8 +207,8 @@ extern Actor *spawn_kind(long, long, long, int);
 extern void release_actor(Actor *);
 extern void apply_frame_motion_3d(Actor *);
 extern int eng1_29c20(Actor *);
-extern void eng1_2ae50(Actor *);
-extern void eng1_2bc50(Actor *);
+extern void eng1_native_code_target_002ae50(Actor *);
+extern void damped_contact_motion(Actor *);
 extern unsigned long eng1_2bd20(Actor *);
 extern int engine_file_load_async(const char *, const char *, int, void *, unsigned long);
 extern void dispatch_engine_2c2d0(void *);
@@ -282,7 +282,7 @@ void eng1_native_code_target_00c7e0(Actor *p)
 {
     long dx;
 
-    dbg_printf("BensMusicControl here\n");
+    engine_diagnostic("BensMusicControl here\n");
     dx = p->x - g_normal_actor_pool->x;
     switch (p->state) {
     case 0x37:
@@ -992,7 +992,7 @@ void eng1_native_code_target_00e200(Actor *p)
         }
         break;
     default:
-        dbg_printf("SALMON SHOULDN'T BE HERE\n");
+        engine_diagnostic("SALMON SHOULDN'T BE HERE\n");
         p->state = 1;
         select_frame(p, 0);
         break;
@@ -1065,7 +1065,7 @@ void eng1_native_code_target_00e560(Actor *p)
 
 void eng1_native_code_target_00e620(Actor *p)
 {
-    dbg_printf("FloorRubbleNoise here, delay %d\n", p->spin_x);
+    engine_diagnostic("FloorRubbleNoise here, delay %d\n", p->spin_x);
     if (p->spin_x-- < 0) {
         play_sound(0xd3, 0);
         remove_actor_variant(p);
@@ -1112,7 +1112,7 @@ int eng1_0e720(void)
     for (g_sfx_search_index_6ef1c = 0; g_sfx_search_index_6ef1c < 32; g_sfx_search_index_6ef1c++) {
         if (g_engine_interface.context->sfx_banks[g_sfx_search_index_6ef1c] == (unsigned char)g_sfx_bank_51694) {
             g_sfx_replace_slot_6ef28 = g_sfx_search_index_6ef1c;
-            dbg_printf("ReplaceSfx Found Bank ! UnLoadSfx %d %d :: 0x%x 0x%x \n", (unsigned char)g_sfx_bank_51694,
+            engine_diagnostic("ReplaceSfx Found Bank ! UnLoadSfx %d %d :: 0x%x 0x%x \n", (unsigned char)g_sfx_bank_51694,
                        g_sfx_search_index_6ef1c, g_engine_interface.context->vab_ranges[g_sfx_search_index_6ef1c],
                        g_engine_interface.context->vab_ends[g_sfx_search_index_6ef1c]);
         }
@@ -1163,11 +1163,11 @@ void eng1_0e8d0(void)
     dispatch_engine_2caf0();
     eng1_2c3e0(g_engine_interface.context->vab_heads[g_sfx_bank_slot_6ef2c], body, size);
     if (eng1_2cbe0(g_engine_interface.context->vab_heads[g_sfx_bank_slot_6ef2c], (short)g_sfx_bank_slot_6ef2c) < 0) {
-        dbg_printf("\n Unable to open VAB\n");
+        engine_diagnostic("\n Unable to open VAB\n");
         return;
     }
     if (eng1_2cc00(g_engine_interface.context->vab_bodies[g_sfx_bank_slot_6ef2c], (short)g_sfx_bank_slot_6ef2c) < 0) {
-        dbg_printf("\n Unable to down load VAB\n");
+        engine_diagnostic("\n Unable to down load VAB\n");
         return;
     }
     eng1_2cc20(1);
@@ -1179,10 +1179,10 @@ void eng1_0e8d0(void)
         eng1_2cb20((short)g_sfx_bank_slot_6ef2c, i, &program);
         if (program.attribute) {
             if (g_engine_interface.context->sfx_slots[program.attribute].bank != 0xff) {
-                dbg_printf("\n************************************************************\n");
-                dbg_printf("\n\nTwo or more sound effects have been assigned the same ");
-                dbg_printf("\nattribute number:: FX_ID %d Attribute %d", i, program.attribute);
-                dbg_printf("\n\n************************************************************");
+                engine_diagnostic("\n************************************************************\n");
+                engine_diagnostic("\n\nTwo or more sound effects have been assigned the same ");
+                engine_diagnostic("\nattribute number:: FX_ID %d Attribute %d", i, program.attribute);
+                engine_diagnostic("\n\n************************************************************");
             }
             g_engine_interface.context->sfx_slots[program.attribute].bank = (unsigned char)g_sfx_bank_slot_6ef2c;
             g_engine_interface.context->sfx_slots[program.attribute].program = (unsigned char)i;
@@ -1219,7 +1219,7 @@ int eng1_0ebd0(void)
         return -1;
     g_music_slot_6ef24 = 0;
     g_music_file_size_6ef30 = g_level_files_516a0[music].size;
-    dbg_printf("LoadMusicSeqData %d %d\n", music, g_music_slot_6ef24);
+    engine_diagnostic("LoadMusicSeqData %d %d\n", music, g_music_slot_6ef24);
     g_engine_interface.context->sfx_banks[g_music_slot_6ef24] = (unsigned short)music;
     g_music_file_size_6ef30 = engine_file_length(g_level_files_516a0[music].directory, "MUSIC.MUS");
     g_engine_interface.context->music_buffers[g_music_slot_6ef24] = 0;
@@ -1399,7 +1399,7 @@ void eng1_native_code_target_00f4f0(Actor *p)
         }
     }
     if (!eng1_29c20(p)) {
-        eng1_2bc50(p);
+        damped_contact_motion(p);
         eng1_native_code_target_000ef10(p);
     }
     p->render_flags = (p->direction_x & 0x10) | (p->render_flags & ~0x10);
@@ -1519,7 +1519,7 @@ void eng1_native_code_target_00fa00(Actor *p)
     Actor *r;
     int i, kind;
 
-    eng1_2ae50(p);
+    eng1_native_code_target_002ae50(p);
     switch (p->state) {
     case 1:
         p->bob_profile = g_bob_profile_52050;

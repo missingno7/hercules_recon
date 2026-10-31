@@ -78,7 +78,7 @@ extern unsigned int random_limit(int);
 extern void vec_diff_fixed_1420(const int *, const int *, short *);
 extern void play_sound(unsigned short, Actor *);
 extern Actor *attach_actor(Actor *, int);
-extern Actor *eng3_1cb00(long, long, long, int);
+extern Actor *title_08a50(long, long, long, int);
 extern void advance_frame(Actor *);
 extern void select_frame(Actor *, int);
 extern void remove_actor(Actor *);
@@ -205,7 +205,7 @@ void eng3_26eb0(Actor *o)
 {
     Actor *child;
 
-    child = eng3_1cb00(o->x, o->y, o->z, 0x44);
+    child = title_08a50(o->x, o->y, o->z, 0x44);
     if (child) {
         g_eng3_game_40b8c->method_330(child);
         if (o->unknown_dc)
@@ -396,7 +396,7 @@ void eng3_284f0(Actor *o)
     if (g_eng3_mode_41cb4 == 6)
         return;
     for (i = 0; i < 0x18; i++) {
-        child = eng3_1cb00(g_focus->x + ((eng3_01010(4) - eng3_01010(4)) << 16),
+        child = title_08a50(g_focus->x + ((eng3_01010(4) - eng3_01010(4)) << 16),
                            g_focus->y - 0x100000,
                            g_focus->z + ((eng3_01010(0x10) - eng3_01010(0x10)) << 16), 0x3b);
         if (!child)
@@ -472,13 +472,13 @@ void eng3_28840(Actor *o)
     o->unknown_4a = 0x80;
     if (o->phase == 9) {
         if (!o->unknown_dc) {
-            child = eng3_1cb00(o->x, o->y - 0x200000, o->z - 0x400000, 0x3e);
+            child = title_08a50(o->x, o->y - 0x200000, o->z - 0x400000, 0x3e);
             if (child) {
                 child->profile = o->profile;
                 g_eng3_game_40b8c->method_2e8(child);
             }
         } else {
-            child = eng3_1cb00(o->x, o->y - 0x200000, o->z + 0x400000, 0x3e);
+            child = title_08a50(o->x, o->y - 0x200000, o->z + 0x400000, 0x3e);
             if (child) {
                 g_eng3_game_40b8c->method_2e8(child);
                 child->profile = o->profile;

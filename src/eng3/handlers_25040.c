@@ -158,7 +158,7 @@ extern void vec_diff_fixed_1420(const int *, const int *, short *);
 extern int eng3_01600(Actor *);
 extern void play_sound(unsigned short, Actor *);
 extern Actor *attach_actor(Actor *, int);
-extern Actor *eng3_1cb00(long, long, long, int);
+extern Actor *title_08a50(long, long, long, int);
 extern Actor *create_eng3_middle_actor(long, long, long, int);
 extern Actor *create_eng3_kind_actor(long, long, long, int);
 extern void select_frame(Actor *, int);
@@ -359,7 +359,7 @@ void eng3_25770(Actor *o)
             o->z = 0x100000;
         else
             o->z = -0x100000;
-        o->unknown_118 = eng3_1cb00(o->x - 0x400000, o->y, o->z, 0x3f);
+        o->unknown_118 = title_08a50(o->x - 0x400000, o->y, o->z, 0x3f);
         if (o->unknown_118) {
             g_eng3_game_40b8c->method_2f4(o->unknown_118);
             o->unknown_118->profile = o->profile;
@@ -378,7 +378,7 @@ void eng3_25770(Actor *o)
         if (o->unknown_126-- < 0) {
             o->unknown_11e++;
             if (o->unknown_11e < 6) {
-                child = eng3_1cb00(o->x, o->y, o->z, 0x2a);
+                child = title_08a50(o->x, o->y, o->z, 0x2a);
                 if (child) {
                     g_eng3_game_40b8c->method_1f8(child);
                     play_sound(0x2a84, o);
@@ -439,7 +439,7 @@ void eng3_259e0(Actor *o)
         o->unknown_116 = eng3_1ec20(o);
         if (o->unknown_116) {
             o->unknown_c8 = 0;
-            child = eng3_1cb00(o->x, o->y, o->z, 0x2b);
+            child = title_08a50(o->x, o->y, o->z, 0x2b);
             if (child)
                 g_eng3_game_40b8c->method_204(child);
             play_sound(0xe285, o);
@@ -668,7 +668,7 @@ void eng3_26340(Actor *o)
                     play_sound(0xe291, a);
                 o->unknown_e0 = 100;
             }
-            child = eng3_1cb00(a->x + 0x100000, a->y, a->z, 0x43);
+            child = title_08a50(a->x + 0x100000, a->y, a->z, 0x43);
             if (child) {
                 g_eng3_game_40b8c->method_324(child);
                 child->profile = o->profile;
@@ -764,7 +764,7 @@ void eng3_26770(Actor *o)
     vec_diff_fixed_1420((const int *)o, (const int *)g_focus, d);
     if (d[0] < 0x484 && o->unknown_11e) {
         for (i = 0; i < 5; i++) {
-            child = eng3_1cb00(o->x + ((eng3_01010(0x14) - eng3_01010(0x14)) << 16),
+            child = title_08a50(o->x + ((eng3_01010(0x14) - eng3_01010(0x14)) << 16),
                                o->y - (eng3_01010(0x20) << 16) + (eng3_01010(0x20) << 16),
                                o->z + ((eng3_01010(0xf) - eng3_01010(0xf)) << 16), 0x3b);
             if (child) {

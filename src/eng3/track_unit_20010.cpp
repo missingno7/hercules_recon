@@ -254,17 +254,17 @@ extern unsigned long g_eng3_colors_41460[];
 extern unsigned char *g_eng3_prim_43164;
 extern Actor *g_eng3_actor_431d4;
 
-extern void eng3_slot_190(long a, long b, long c);
-extern void eng3_slot_1a0(void);
+extern void eng3_1fc80(long a, long b, long c);
+extern void eng3_1fce0(void);
 extern void eng3_slot_1b0(void *matrix);
 extern void eng3_slot_1b4(void *matrix);
-extern void eng3_slot_1c0(long *out);
-extern void eng3_slot_1d4(void *prim);
-extern void eng3_slot_1dc(void *prim);
+extern void eng3_1fd60(long *out);
+extern void eng3_1fd90(void *prim);
+extern void eng3_1fdb0(void *prim);
 extern void eng3_slot_290(short *angles, void *matrix);
 extern void eng3_slot_294(void *matrix, long *scale);
 extern int dispatch_local_2a170(long x, long y, long z, int mode);
-extern Actor *eng3_1cb00(long x, long y, long z, int kind);
+extern Actor *title_08a50(long x, long y, long z, int kind);
 extern Actor *create_eng3_middle_actor(long x, long y, long z, int kind);
 extern Actor *create_eng3_kind_actor(long x, long y, long z, int kind);
 extern void append_chain(Actor *owner, Actor *child);
@@ -279,12 +279,12 @@ int eng3_21a10(long *stream, Eng3Visit *visit, int count);
 void eng3_204c0(Eng3Visit *visit, unsigned char *entries, int layer, int start, int count, int force);
 
 /* GTE-style vertex/depth wrappers and the debug hook (projectors 0x20c50..0x21a10). */
-extern void eng3_slot_194(short *vec);
+extern void eng3_1fca0(short *vec);
 extern void eng3_slot_1a4(void);
-extern void eng3_slot_1a8(void);
+extern void eng3_1fd00(void);
 extern void eng3_slot_1c4(short *vec);
-extern void eng3_slot_1c8(void *out);
-extern void eng3_slot_1e4(short *out);
+extern void eng3_1fd80(void *out);
+extern void eng3_1fdd0(short *out);
 extern void eng3_empty_2390(const char *);
 
 /* 0x40678: per-cell corner shade bytes (one byte per quad corner), indexed by visit->flags >> 4
@@ -691,16 +691,16 @@ int eng3_206f0(Eng3Visit *visit, int lane)
             face >>= 6;
             v3 = verts + (face & 0x1f8);
             face >>= 9;
-            eng3_slot_190(*(long *)v0, *(long *)v1, *(long *)v2);
-            eng3_slot_1a0();
-            eng3_slot_1c0(&normal);
+            eng3_1fc80(*(long *)v0, *(long *)v1, *(long *)v2);
+            eng3_1fce0();
+            eng3_1fd60(&normal);
             if (visit->winding == 0) {
                 if (normal < 0)
                     continue;
             } else if (normal > 0) {
                 continue;
             }
-            eng3_slot_1dc(packet);
+            eng3_1fdb0(packet);
             ((Eng3PolyGT4 *)packet)->xy3 = *(long *)v3;
             ((Eng3PolyGT4 *)packet)->c0.rgb = *(unsigned long *)(v0 + 4);
             ((Eng3PolyGT4 *)packet)->rgb1 = *(unsigned long *)(v1 + 4);
@@ -752,18 +752,18 @@ int eng3_206f0(Eng3Visit *visit, int lane)
             face >>= 6;
             xy2 = *(long *)(verts + (face & 0x1f8));
             face >>= 6;
-            eng3_slot_190(xy0, xy1, xy2);
-            eng3_slot_1a0();
+            eng3_1fc80(xy0, xy1, xy2);
+            eng3_1fce0();
             xy3 = *(long *)(verts + (face & 0x1f8));
             face >>= 9;
-            eng3_slot_1c0(&normal);
+            eng3_1fd60(&normal);
             if (visit->winding == 0) {
                 if (normal < 0)
                     continue;
             } else if (normal > 0) {
                 continue;
             }
-            eng3_slot_1d4(packet);
+            eng3_1fd90(packet);
             ((Eng3PolyFT4 *)packet)->color = ((face & 0x20) << 20) | color;
             ((Eng3PolyFT4 *)packet)->xy3 = xy3;
             if (face & 0x80) {
@@ -860,13 +860,13 @@ int eng3_20c50(long *stream, Eng3Visit *visit, int count)
     v[0] = x;
     v[1] = y;
     v[2] = z;
-    eng3_slot_194(v);
-    eng3_slot_1a8();
-    eng3_slot_1e4(&visit->depth);
+    eng3_1fca0(v);
+    eng3_1fd00();
+    eng3_1fdd0(&visit->depth);
     if (visit->depth < 0)
         return -1;
     if (visit->stop == 0) {
-        eng3_slot_1c8(v);
+        eng3_1fd80(v);
         if (visit->side) {
             if (v[0] < 0)
                 visit->stop = 1;
@@ -887,40 +887,40 @@ int eng3_20c50(long *stream, Eng3Visit *visit, int count)
         v[0] = x + (signed char)value * 2;
         v[1] = ((value >> 7) & ~1) + y;
         v[2] = ((value >> 23) & ~1) + z;
-        eng3_slot_1c8(out);
+        eng3_1fd80(out);
         out += 8;
-        eng3_slot_194(v);
+        eng3_1fca0(v);
         while (--count) {
-            eng3_slot_1a8();
+            eng3_1fd00();
             value = *stream++;
             v[0] = x + (signed char)value * 2;
             v[1] = ((value >> 7) & ~1) + y;
             v[2] = ((value >> 23) & ~1) + z;
-            eng3_slot_1c8(out);
+            eng3_1fd80(out);
             out += 8;
-            eng3_slot_194(v);
+            eng3_1fca0(v);
         }
     } else {
         value = *stream++;
         v[0] = x - (signed char)value * 2;
         v[1] = ((value >> 7) & ~1) + y;
         v[2] = ((value >> 23) & ~1) + z;
-        eng3_slot_1c8(out);
+        eng3_1fd80(out);
         out += 8;
-        eng3_slot_194(v);
+        eng3_1fca0(v);
         while (--count) {
-            eng3_slot_1a8();
+            eng3_1fd00();
             value = *stream++;
             v[0] = x - (signed char)value * 2;
             v[1] = ((value >> 7) & ~1) + y;
             v[2] = ((value >> 23) & ~1) + z;
-            eng3_slot_1c8(out);
+            eng3_1fd80(out);
             out += 8;
-            eng3_slot_194(v);
+            eng3_1fca0(v);
         }
     }
-    eng3_slot_1a8();
-    eng3_slot_1c8(out);
+    eng3_1fd00();
+    eng3_1fd80(out);
     return 0;
 }
 
@@ -945,18 +945,18 @@ int eng3_20ed0(long *stream, Eng3Visit *visit, int count)
     v[0] = x;
     v[1] = y;
     v[2] = z;
-    eng3_slot_194(v);
-    eng3_slot_1a8();
+    eng3_1fca0(v);
+    eng3_1fd00();
     corners = g_eng3_shades_40678[visit->flags >> 4];
     colors = &g_eng3_colors_41460[(visit->flags & 7) * 64];
     c[0] = corners & 0xff;
     c[1] = (corners >> 8) & 0xff;
     c[2] = (corners >> 16) & 0xff;
     c[3] = (corners >> 24) & 0xff;
-    eng3_slot_1e4(&visit->depth);
+    eng3_1fdd0(&visit->depth);
     if (visit->depth < 0)
         return -1;
-    eng3_slot_1c8(v);
+    eng3_1fd80(v);
     if (visit->side) {
         if (v[0] < 0)
             visit->stop = 1;
@@ -976,12 +976,12 @@ int eng3_20ed0(long *stream, Eng3Visit *visit, int count)
             v[0] = s + x;
             v[1] = ((value >> 7) & ~1) + y;
             v[2] = w + z;
-            eng3_slot_194(v);
-            eng3_slot_1a8();
+            eng3_1fca0(v);
+            eng3_1fd00();
             s += 0x40;
             left = c[1] + (c[0] - c[1]) * s / 128;
             ((unsigned long *)out)[1] = colors[(left + (c[3] + (c[2] - c[3]) * s / 128 - left) * w / 128) >> 2];
-            eng3_slot_1c8(out);
+            eng3_1fd80(out);
             out += 8;
             value = *stream++;
         } while (--count);
@@ -993,12 +993,12 @@ int eng3_20ed0(long *stream, Eng3Visit *visit, int count)
             v[0] = x - s;
             v[1] = ((value >> 7) & ~1) + y;
             v[2] = w + z;
-            eng3_slot_194(v);
-            eng3_slot_1a8();
+            eng3_1fca0(v);
+            eng3_1fd00();
             s += 0x40;
             left = c[0] + (c[1] - c[0]) * s / 128;
             ((unsigned long *)out)[1] = colors[(left + (c[2] + (c[3] - c[2]) * s / 128 - left) * w / 128) >> 2];
-            eng3_slot_1c8(out);
+            eng3_1fd80(out);
             out += 8;
             value = *stream++;
         } while (--count);
@@ -1090,12 +1090,12 @@ int eng3_21390(long *stream, Eng3Visit *visit, int count)
             v[0] = (g_engine_interface.sine[(a - 0x400) & 0xfff] * r) >> 12;
             v[2] = (g_engine_interface.sine[a & 0xfff] * r) >> 12;
             v[1] = ((value >> 7) & ~1) + y;
-            eng3_slot_1c8(out);
+            eng3_1fd80(out);
             value = *stream++;
-            eng3_slot_194(v);
+            eng3_1fca0(v);
             out += 8;
             while (--count) {
-                eng3_slot_1a8();
+                eng3_1fd00();
                 a = value >> 24;
                 a = a + base;
                 r = (signed char)value * 2;
@@ -1103,9 +1103,9 @@ int eng3_21390(long *stream, Eng3Visit *visit, int count)
                 v[0] = (g_engine_interface.sine[(a - 0x400) & 0xfff] * r) >> 12;
                 v[2] = (g_engine_interface.sine[a & 0xfff] * r) >> 12;
                 v[1] = ((value >> 7) & ~1) + y;
-                eng3_slot_1c8(out);
+                eng3_1fd80(out);
                 value = *stream++;
-                eng3_slot_194(v);
+                eng3_1fca0(v);
                 out += 8;
             }
         } else {
@@ -1117,11 +1117,11 @@ int eng3_21390(long *stream, Eng3Visit *visit, int count)
             v[2] = (g_engine_interface.sine[a & 0xfff] * r) >> 12;
             v[1] = ((value >> 7) & ~1) + y;
             value = *stream++;
-            eng3_slot_1c8(out);
-            eng3_slot_194(v);
+            eng3_1fd80(out);
+            eng3_1fca0(v);
             out += 8;
             while (--count) {
-                eng3_slot_1a8();
+                eng3_1fd00();
                 a = value >> 24;
                 a = a + base;
                 r = (signed char)value * 2;
@@ -1130,8 +1130,8 @@ int eng3_21390(long *stream, Eng3Visit *visit, int count)
                 v[2] = (g_engine_interface.sine[a & 0xfff] * r) >> 12;
                 v[1] = ((value >> 7) & ~1) + y;
                 value = *stream++;
-                eng3_slot_1c8(out);
-                eng3_slot_194(v);
+                eng3_1fd80(out);
+                eng3_1fca0(v);
                 out += 8;
             }
         }
@@ -1149,11 +1149,11 @@ int eng3_21390(long *stream, Eng3Visit *visit, int count)
             v[2] = (g_engine_interface.sine[a & 0xfff] * r) >> 12;
             v[1] = ((value >> 7) & ~1) + y;
             value = *stream++;
-            eng3_slot_1c8(out);
-            eng3_slot_194(v);
+            eng3_1fd80(out);
+            eng3_1fca0(v);
             out += 8;
             while (--count) {
-                eng3_slot_1a8();
+                eng3_1fd00();
                 a = value >> 24;
                 a = base2 - a;
                 r = (signed char)value * 2;
@@ -1162,8 +1162,8 @@ int eng3_21390(long *stream, Eng3Visit *visit, int count)
                 v[2] = (g_engine_interface.sine[a & 0xfff] * r) >> 12;
                 v[1] = ((value >> 7) & ~1) + y;
                 value = *stream++;
-                eng3_slot_1c8(out);
-                eng3_slot_194(v);
+                eng3_1fd80(out);
+                eng3_1fca0(v);
                 out += 8;
             }
         } else {
@@ -1175,11 +1175,11 @@ int eng3_21390(long *stream, Eng3Visit *visit, int count)
             v[2] = (g_engine_interface.sine[a & 0xfff] * r) >> 12;
             v[1] = ((value >> 7) & ~1) + y;
             value = *stream++;
-            eng3_slot_1c8(out);
-            eng3_slot_194(v);
+            eng3_1fd80(out);
+            eng3_1fca0(v);
             out += 8;
             while (--count) {
-                eng3_slot_1a8();
+                eng3_1fd00();
                 a = value >> 24;
                 a = base2 - a;
                 r = (signed char)value * 2;
@@ -1188,17 +1188,17 @@ int eng3_21390(long *stream, Eng3Visit *visit, int count)
                 v[2] = (g_engine_interface.sine[a & 0xfff] * r) >> 12;
                 v[1] = ((value >> 7) & ~1) + y;
                 value = *stream++;
-                eng3_slot_1c8(out);
-                eng3_slot_194(v);
+                eng3_1fd80(out);
+                eng3_1fca0(v);
                 out += 8;
             }
         }
     }
-    eng3_slot_1a8();
-    eng3_slot_1c8(out);
-    eng3_slot_194(c);
-    eng3_slot_1a8();
-    eng3_slot_1e4(&visit->depth);
+    eng3_1fd00();
+    eng3_1fd80(out);
+    eng3_1fca0(c);
+    eng3_1fd00();
+    eng3_1fdd0(&visit->depth);
     return visit->depth < 0 ? -1 : 0;
 }
 
@@ -1248,12 +1248,12 @@ int eng3_21a10(long *stream, Eng3Visit *visit, int count)
                 v[0] = g_engine_interface.sine[(ang - 0x400) & 0xfff] * rad >> 12;
                 v[2] = g_engine_interface.sine[ang & 0xfff] * rad >> 12;
                 v[1] = ((w >> 8) << 1) + ybase;
-                eng3_slot_194(v);
-                eng3_slot_1a8();
+                eng3_1fca0(v);
+                eng3_1fd00();
                 x += 0x40;
                 lo = x * d0 / 128 + b0;
                 *(unsigned long *)(v + 2) = colors[((d1 * x / 128 - lo + b1) * t / 64 + lo) >> 2];
-                eng3_slot_1c8(v);
+                eng3_1fd80(v);
                 w = *stream++;
                 v += 4;
             } while (--count);
@@ -1270,12 +1270,12 @@ int eng3_21a10(long *stream, Eng3Visit *visit, int count)
                 v[0] = g_engine_interface.sine[(ang - 0x400) & 0xfff] * rad >> 12;
                 v[2] = g_engine_interface.sine[ang & 0xfff] * rad >> 12;
                 v[1] = ((w >> 8) << 1) + ybase;
-                eng3_slot_194(v);
-                eng3_slot_1a8();
+                eng3_1fca0(v);
+                eng3_1fd00();
                 x += 0x40;
                 lo = x * d0 / 128 + b0;
                 *(unsigned long *)(v + 2) = colors[((d1 * x / 128 - lo + b1) * t / 64 + lo) >> 2];
-                eng3_slot_1c8(v);
+                eng3_1fd80(v);
                 w = *stream++;
                 v += 4;
             } while (--count);
@@ -1302,12 +1302,12 @@ int eng3_21a10(long *stream, Eng3Visit *visit, int count)
                 v[0] = g_engine_interface.sine[(ang - 0x400) & 0xfff] * rad >> 12;
                 v[2] = g_engine_interface.sine[ang & 0xfff] * rad >> 12;
                 v[1] = ((w >> 8) << 1) + ybase;
-                eng3_slot_194(v);
-                eng3_slot_1a8();
+                eng3_1fca0(v);
+                eng3_1fd00();
                 x += 0x40;
                 lo = x * d0 / 128 + b0;
                 *(unsigned long *)(v + 2) = colors[((d1 * x / 128 - lo + b1) * t / 64 + lo) >> 2];
-                eng3_slot_1c8(v);
+                eng3_1fd80(v);
                 w = *stream++;
                 v += 4;
             } while (--count);
@@ -1324,18 +1324,18 @@ int eng3_21a10(long *stream, Eng3Visit *visit, int count)
                 v[0] = g_engine_interface.sine[(ang - 0x400) & 0xfff] * rad >> 12;
                 v[2] = g_engine_interface.sine[ang & 0xfff] * rad >> 12;
                 v[1] = ((w >> 8) << 1) + ybase;
-                eng3_slot_194(v);
-                eng3_slot_1a8();
+                eng3_1fca0(v);
+                eng3_1fd00();
                 x += 0x40;
                 lo = x * d0 / 128 + b0;
                 *(unsigned long *)(v + 2) = colors[((d1 * x / 128 - lo + b1) * t / 64 + lo) >> 2];
-                eng3_slot_1c8(v);
+                eng3_1fd80(v);
                 w = *stream++;
                 v += 4;
             } while (--count);
         }
     }
-    eng3_slot_194(sv[1]);
+    eng3_1fca0(sv[1]);
     eng3_slot_1a4();
     eng3_slot_1c4(sv[1]);
     if (sv[1][2] < 0x20)
@@ -1697,7 +1697,7 @@ Actor *eng3_22bd0(long x, long y, long z, int kind, int profile)
             }
         }
     } else {
-        actor = eng3_1cb00(x, y, z, kind);
+        actor = title_08a50(x, y, z, kind);
         if (actor != 0) {
             actor->profile = profile;
             g_eng3_game_40b8c[kind & 0xfff].fn(actor);
@@ -1728,7 +1728,7 @@ void eng3_22cb0(Actor *owner, long x, long y, long z, int kind)
             }
         }
     } else {
-        actor = eng3_1cb00(x, y, z, kind);
+        actor = title_08a50(x, y, z, kind);
         if (actor != 0) {
             actor->unknown_94 = owner->unknown_94;
             actor->unknown_95 = owner->unknown_95;
