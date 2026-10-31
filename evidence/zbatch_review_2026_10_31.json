@@ -1,0 +1,1238 @@
+{
+ "call_sites": {
+  "eng1.spawn_actor_with_owner@0x6f": {
+   "abi": "unclaimed",
+   "bytes": "ff14f2",
+   "disassembly": "call dword ptr [edx + esi*8]",
+   "offset": 111,
+   "operand": {
+    "base": "edx",
+    "disp": 0,
+    "form": "memory",
+    "index": "esi",
+    "scale": 8
+   },
+   "row": "eng1.spawn_actor_with_owner",
+   "rva": "0x301ef",
+   "target": "unidentified"
+  },
+  "eng1.spawn_actor_with_owner@0x90": {
+   "abi": "unclaimed",
+   "bytes": "ff14f0",
+   "disassembly": "call dword ptr [eax + esi*8]",
+   "offset": 144,
+   "operand": {
+    "base": "eax",
+    "disp": 0,
+    "form": "memory",
+    "index": "esi",
+    "scale": 8
+   },
+   "row": "eng1.spawn_actor_with_owner",
+   "rva": "0x30210",
+   "target": "unidentified"
+  },
+  "eng1.spawn_actor_with_owner@0xf8": {
+   "abi": "unclaimed",
+   "bytes": "ff1490",
+   "disassembly": "call dword ptr [eax + edx*4]",
+   "offset": 248,
+   "operand": {
+    "base": "eax",
+    "disp": 0,
+    "form": "memory",
+    "index": "edx",
+    "scale": 4
+   },
+   "row": "eng1.spawn_actor_with_owner",
+   "rva": "0x30278",
+   "target": "unidentified"
+  },
+  "eng3.04100@0x123": {
+   "abi": "unclaimed",
+   "bytes": "ff92b0000000",
+   "disassembly": "call dword ptr [edx + 0xb0]",
+   "offset": 291,
+   "operand": {
+    "base": "edx",
+    "disp": 176,
+    "form": "memory",
+    "index": null,
+    "scale": 1
+   },
+   "row": "eng3.04100",
+   "rva": "0x4223",
+   "target": "unidentified"
+  },
+  "title.17ad0@0x40": {
+   "abi": "unclaimed",
+   "bytes": "ff14f0",
+   "disassembly": "call dword ptr [eax + esi*8]",
+   "offset": 64,
+   "operand": {
+    "base": "eax",
+    "disp": 0,
+    "form": "memory",
+    "index": "esi",
+    "scale": 8
+   },
+   "row": "title.17ad0",
+   "rva": "0x17b10",
+   "target": "unidentified"
+  },
+  "title.17ad0@0x75": {
+   "abi": "unclaimed",
+   "bytes": "ff14f1",
+   "disassembly": "call dword ptr [ecx + esi*8]",
+   "offset": 117,
+   "operand": {
+    "base": "ecx",
+    "disp": 0,
+    "form": "memory",
+    "index": "esi",
+    "scale": 8
+   },
+   "row": "title.17ad0",
+   "rva": "0x17b45",
+   "target": "unidentified"
+  },
+  "title.17ad0@0xad": {
+   "abi": "unclaimed",
+   "bytes": "ff1490",
+   "disassembly": "call dword ptr [eax + edx*4]",
+   "offset": 173,
+   "operand": {
+    "base": "eax",
+    "disp": 0,
+    "form": "memory",
+    "index": "edx",
+    "scale": 4
+   },
+   "row": "title.17ad0",
+   "rva": "0x17b7d",
+   "target": "unidentified"
+  }
+ },
+ "deviations_from_verbatim_records": [],
+ "excluded_rows": {
+  "eng1.native_dep_002d3f0": "_g_eng1_control_70eea is words[9] of the canonical union g_eng1_actor_control_state_70ed8 (src/eng1/forest_level_state.c, [0x70ed8,0x70f10)); a separate owner would duplicate storage. Naming migration.",
+  "title.19120": "_g_2bb28 has fewer than 3 consistently naming host rows once RECONSTRUCTED hosts must confirm (policy 2026-10-31); the row also hosts the accepted anchor of title.18a90 (_g_2cbf0) and would need a re-anchor first."
+ },
+ "owner_files": {
+  "src/eng1/boss_cells.c": "255c87db9cc0b5c1aac391f7bbe42af6748fed32fa0b925af0fa265a6653f4ab",
+  "src/eng1/eng1_actor_zero_cells.c": "b4f974a015d2b69f9a71543e0d79b2ced347140bfc0d19f35232cee2fd043e37",
+  "src/eng1/eng1_level_zero_cells.c": "fbb71cae4d96bc2c519e0003ce4249140e4c53ab2183a36675795ca120ce8081",
+  "src/eng1/level_runtime_cells.c": "56782dbb24f895263579e32e462ae066f428500586317f9b25968711ecf1dd9a",
+  "src/eng3/eng3_actor_zero_cells.c": "bdb2cb53307927a39585a20b1eebd48e2281b15c7fa04bda28d04a25cdd689f4",
+  "src/eng3/render_runtime_cells.c": "1a4fedc45c2464ce8db6f6a1942a3b87d699e4155f7e0eb3fd4c1fa20b4d1757"
+ },
+ "policy": "work/velocity_j/anchors2/anchor_plan.py (strict for RECONSTRUCTED hosts)",
+ "rows_requiring_reanchor_of_accepted_proofs": [],
+ "schema": 1,
+ "scope": "Native review of loader-zero identity anchors for the zbatch rows. Each anchor is one complete original instruction whose absolute operand is the cell start with exactly one original HIGHLOW fixup; it lies outside the compared caller and outside every row of this batch. Hosts are ledger rows covering the anchor (integrator policy 2026-10-31: a stable witness, or >= 3 consistently naming host rows; RECONSTRUCTED hosts must positively confirm). Static bytes only; no original execution; no capacity, type or translation-unit claim.",
+ "skipped_rows": {
+  "eng1.16f40": [
+   "_dispatch_local_15d00 (refused: stale identity source hash)"
+  ],
+  "eng1.native_code_target_0019140": [
+   "_dispatch_local_15d00 (refused: stale identity source hash)"
+  ],
+  "title.08c90": [
+   "_title_08cd0"
+  ],
+  "title.09480": [
+   "_title_094c0"
+  ]
+ },
+ "symbols": {
+  "ENG1.DLL:_eng1_native_cell_06ef10": {
+   "anchors": {
+    "0xc892": {
+     "bytes": "c70510ef061000000000",
+     "disassembly": "mov dword ptr [0x1006ef10], 0",
+     "fixup": [
+      {
+       "rva": 51348,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "eng1.native_code_target_00c7e0",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_eng1_native_cell_06ef10"
+     ],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 51346,
+     "sha256": "7803eb72004932d3b617e396abd889b3a0c02b8c7c05ca8bff9c580885fd297b",
+     "size": 10
+    }
+   },
+   "callers": [
+    "eng1.native_code_target_00c780"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/forest_entry_state_data.c",
+    "symbol": "_eng1_native_cell_06ef10"
+   },
+   "owner_origin": "existing canonical definition, checked by this run",
+   "owner_sha256": "f74b34cc082910034ebab9949fa7cda18208d260879f8af8faa070f930878c6b",
+   "rva": "0x6ef10",
+   "symbol": "_eng1_native_cell_06ef10"
+  },
+  "ENG1.DLL:_g_boss_71e28": {
+   "anchors": {
+    "0x2440b": {
+     "bytes": "a1281e0710",
+     "disassembly": "mov eax, dword ptr [0x10071e28]",
+     "fixup": [
+      {
+       "rva": 148492,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "eng1.24320",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_boss_71e28"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 148491,
+     "sha256": "cd7cb49f9b4f8f8e713a808f90256647cdf0c083c8b467f0d2ef2ec104e7d7d2",
+     "size": 5
+    }
+   },
+   "callers": [
+    "eng1.24270"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/boss_cells.c",
+    "symbol": "_g_boss_71e28"
+   },
+   "owner_origin": "new data-only owner (this lane)",
+   "owner_sha256": "255c87db9cc0b5c1aac391f7bbe42af6748fed32fa0b925af0fa265a6653f4ab",
+   "rva": "0x71e28",
+   "symbol": "_g_boss_71e28"
+  },
+  "ENG1.DLL:_g_boss_script_index_71e24": {
+   "anchors": {
+    "0x2461f": {
+     "bytes": "66a1241e0710",
+     "disassembly": "mov ax, word ptr [0x10071e24]",
+     "fixup": [
+      {
+       "rva": 149025,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "eng1.244d0",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_boss_script_index_71e24"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 149023,
+     "sha256": "c1565408b48605e33efbdf05f650aea27c2fa18009ef3c7f212242f6bd12d759",
+     "size": 6
+    }
+   },
+   "callers": [
+    "eng1.24270"
+   ],
+   "extent": 2,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/boss_cells.c",
+    "symbol": "_g_boss_script_index_71e24"
+   },
+   "owner_origin": "new data-only owner (this lane)",
+   "owner_sha256": "255c87db9cc0b5c1aac391f7bbe42af6748fed32fa0b925af0fa265a6653f4ab",
+   "rva": "0x71e24",
+   "symbol": "_g_boss_script_index_71e24"
+  },
+  "ENG1.DLL:_g_configuration_dword_7137c": {
+   "anchors": {
+    "0x277cf": {
+     "bytes": "a17c130710",
+     "disassembly": "mov eax, dword ptr [0x1007137c]",
+     "fixup": [
+      {
+       "rva": 161744,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 161743,
+     "sha256": "832e824b5644632a7efb4688a1e18710322098f9e100c9d1b490439c5223d25e",
+     "size": 5
+    }
+   },
+   "callers": [
+    "eng1.spawn_actor_with_owner"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/frame_data.c",
+    "symbol": "_g_configuration_dword_7137c"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+   "rva": "0x7137c",
+   "symbol": "_g_configuration_dword_7137c"
+  },
+  "ENG1.DLL:_g_dispatch_callback_flag_71ec0": {
+   "anchors": {
+    "0x1f222": {
+     "bytes": "c705c01e071000000000",
+     "disassembly": "mov dword ptr [0x10071ec0], 0",
+     "fixup": [
+      {
+       "rva": 127524,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 127522,
+     "sha256": "0a84f8908b7c38af6b56c6ebe4e456146da94cafb1be0f1850b9dd756e10e1d4",
+     "size": 10
+    }
+   },
+   "callers": [
+    "eng1.dispatch_completion_gate"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/frame_data.c",
+    "symbol": "_g_dispatch_callback_flag_71ec0"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+   "rva": "0x71ec0",
+   "symbol": "_g_dispatch_callback_flag_71ec0"
+  },
+  "ENG1.DLL:_g_dispatch_frame_base_71ec8": {
+   "anchors": {
+    "0x292a": {
+     "bytes": "8b15c81e0710",
+     "disassembly": "mov edx, dword ptr [0x10071ec8]",
+     "fixup": [
+      {
+       "rva": 10540,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 10538,
+     "sha256": "713f6885f0b1bfaa705091d0f551b7e7053f0c286caa1e6ae7e38c42dbc86155",
+     "size": 6
+    }
+   },
+   "callers": [
+    "eng1.02a10",
+    "eng1.02a80"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/frame_data.c",
+    "symbol": "_g_dispatch_frame_base_71ec8"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+   "rva": "0x71ec8",
+   "symbol": "_g_dispatch_frame_base_71ec8"
+  },
+  "ENG1.DLL:_g_effect_level_6ee64": {
+   "anchors": {
+    "0x27af": {
+     "bytes": "813d64ee061080000000",
+     "disassembly": "cmp dword ptr [0x1006ee64], 0x80",
+     "fixup": [
+      {
+       "rva": 10161,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "cmp-test-absolute-v1",
+     "rva": 10159,
+     "sha256": "f2e7a782bc70b22da1c94a0f78058c8b9d901da62da20e32402d420ab59c8e94",
+     "size": 10
+    }
+   },
+   "callers": [
+    "eng1.02a10"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/level_runtime_cells.c",
+    "symbol": "_g_effect_level_6ee64"
+   },
+   "owner_origin": "new data-only owner (this lane)",
+   "owner_sha256": "56782dbb24f895263579e32e462ae066f428500586317f9b25968711ecf1dd9a",
+   "rva": "0x6ee64",
+   "symbol": "_g_effect_level_6ee64"
+  },
+  "ENG1.DLL:_g_eng1_dword_6ef14": {
+   "anchors": {
+    "0x14e3b": {
+     "bytes": "891d14ef0610",
+     "disassembly": "mov dword ptr [0x1006ef14], ebx",
+     "fixup": [
+      {
+       "rva": 85565,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 85563,
+     "sha256": "750160fd4873c8e466087b9fae2f2c97201771cfbe8e10867d418a04b0792f53",
+     "size": 6
+    }
+   },
+   "callers": [
+    "eng1.native_code_target_00c780"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/eng1_actor_zero_cells.c",
+    "symbol": "_g_eng1_dword_6ef14"
+   },
+   "owner_origin": "solZ proposed data-only owner (work/velocity_j/solZ/eng1_actor_zero_cells.c)",
+   "owner_sha256": "b4f974a015d2b69f9a71543e0d79b2ced347140bfc0d19f35232cee2fd043e37",
+   "rva": "0x6ef14",
+   "symbol": "_g_eng1_dword_6ef14"
+  },
+  "ENG1.DLL:_g_eng1_setup_word_6ef80": {
+   "anchors": {
+    "0x1536a": {
+     "bytes": "66891d80ef0610",
+     "disassembly": "mov word ptr [0x1006ef80], bx",
+     "fixup": [
+      {
+       "rva": 86893,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 86890,
+     "sha256": "9104ab23d3b50cca65f7148f33559e08c79a56691c6d7d17d0f0eb73529a7889",
+     "size": 7
+    }
+   },
+   "callers": [
+    "eng1.17a20"
+   ],
+   "extent": 2,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/setup_shared_state.c",
+    "symbol": "_g_eng1_setup_word_6ef80"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "d9691a22411610a35bd4d1db4611679b4eaae6fd6ca3113cb685d3e22d3d6c06",
+   "rva": "0x6ef80",
+   "symbol": "_g_eng1_setup_word_6ef80"
+  },
+  "ENG1.DLL:_g_eng1_setup_word_6ef94": {
+   "anchors": {
+    "0x1538b": {
+     "bytes": "66891d94ef0610",
+     "disassembly": "mov word ptr [0x1006ef94], bx",
+     "fixup": [
+      {
+       "rva": 86926,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 86923,
+     "sha256": "6117d935a2281b57ef315b276c825bfdb4954c59b7f46536f89f167c569f081a",
+     "size": 7
+    }
+   },
+   "callers": [
+    "eng1.dispatch_local_15670"
+   ],
+   "extent": 2,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/setup_shared_state.c",
+    "symbol": "_g_eng1_setup_word_6ef94"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "d9691a22411610a35bd4d1db4611679b4eaae6fd6ca3113cb685d3e22d3d6c06",
+   "rva": "0x6ef94",
+   "symbol": "_g_eng1_setup_word_6ef94"
+  },
+  "ENG1.DLL:_g_frame_global_73498": {
+   "anchors": {
+    "0x1f61d": {
+     "bytes": "c6059834071001",
+     "disassembly": "mov byte ptr [0x10073498], 1",
+     "fixup": [
+      {
+       "rva": 128543,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 128541,
+     "sha256": "125015583bbdbc7b212f61f70157095ac9062b8ecfc8a1b223fc07929ad5d1b2",
+     "size": 7
+    }
+   },
+   "callers": [
+    "eng1.05820",
+    "eng1.05c70"
+   ],
+   "extent": 1,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/frame_data.c",
+    "symbol": "_g_frame_global_73498"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+   "rva": "0x73498",
+   "symbol": "_g_frame_global_73498"
+  },
+  "ENG1.DLL:_g_frame_owner_7348c": {
+   "anchors": {
+    "0x58b9": {
+     "bytes": "a18c340710",
+     "disassembly": "mov eax, dword ptr [0x1007348c]",
+     "fixup": [
+      {
+       "rva": 22714,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "eng1.dispatch_local_058b0",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_frame_owner_7348c"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 22713,
+     "sha256": "cef31b3081fa8d7461b6e9eed73eb30d1c69ee21229c2848901ef5b853174a03",
+     "size": 5
+    }
+   },
+   "callers": [
+    "eng1.05820",
+    "eng1.05c70"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/frame_data.c",
+    "symbol": "_g_frame_owner_7348c"
+   },
+   "owner_origin": "existing canonical definition, fresh exact COMMON in solZ survey",
+   "owner_sha256": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+   "rva": "0x7348c",
+   "symbol": "_g_frame_owner_7348c"
+  },
+  "ENG1.DLL:_g_frame_word_6ee84": {
+   "anchors": {
+    "0x1f37b": {
+     "bytes": "66893584ee0610",
+     "disassembly": "mov word ptr [0x1006ee84], si",
+     "fixup": [
+      {
+       "rva": 127870,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 127867,
+     "sha256": "c90b3bb210b42c62586a0d8488045582ac40e0010355bc5a32af86750d9e7986",
+     "size": 7
+    }
+   },
+   "callers": [
+    "eng1.02a10"
+   ],
+   "extent": 2,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/frame_data.c",
+    "symbol": "_g_frame_word_6ee84"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+   "rva": "0x6ee84",
+   "symbol": "_g_frame_word_6ee84"
+  },
+  "ENG1.DLL:_g_level_actors_6fe78": {
+   "anchors": {
+    "0x26f20": {
+     "bytes": "8b1578fe0610",
+     "disassembly": "mov edx, dword ptr [0x1006fe78]",
+     "fixup": [
+      {
+       "rva": 159522,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 159520,
+     "sha256": "aff555f669b5e18ba8e771e45977608129885e410ffec8b64f65a45ab0e01718",
+     "size": 6
+    }
+   },
+   "callers": [
+    "eng1.337b0",
+    "eng1.3c130"
+   ],
+   "extent": 4,
+   "extent_claim": "minimum",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/eng1_level_zero_cells.c",
+    "symbol": "_g_level_actors_6fe78"
+   },
+   "owner_origin": "solZ proposed data-only owner (work/velocity_j/solZ/eng1_level_zero_cells.c)",
+   "owner_sha256": "fbb71cae4d96bc2c519e0003ce4249140e4c53ab2183a36675795ca120ce8081",
+   "rva": "0x6fe78",
+   "symbol": "_g_level_actors_6fe78"
+  },
+  "ENG1.DLL:_g_resource_leaf_buffer_70c58": {
+   "anchors": {
+    "0x2de0": {
+     "bytes": "a1580c0710",
+     "disassembly": "mov eax, dword ptr [0x10070c58]",
+     "fixup": [
+      {
+       "rva": 11745,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 11744,
+     "sha256": "3f83ee132189ca76827c7bff1f06999cb1334e33eca390e3c34739c34ec39df1",
+     "size": 5
+    }
+   },
+   "callers": [
+    "eng1.dispatch_local_02f30"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/level_storage.c",
+    "symbol": "_g_resource_leaf_buffer_70c58"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "caf18067ee91a136ae6640291170e006e4c01cc7e9d5dc1d03aea8cca1cadb07",
+   "rva": "0x70c58",
+   "symbol": "_g_resource_leaf_buffer_70c58"
+  },
+  "ENG1.DLL:_g_root_count_70ed2": {
+   "anchors": {
+    "0x206d7": {
+     "bytes": "881dd20e0710",
+     "disassembly": "mov byte ptr [0x10070ed2], bl",
+     "fixup": [
+      {
+       "rva": 132825,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 132823,
+     "sha256": "a10b588c0b3b4f5b6de2f3186c96864ee1685e6ea3c56f8ccb0dabc14f1e1003",
+     "size": 6
+    }
+   },
+   "callers": [
+    "eng1.dispatch_local_02f30"
+   ],
+   "extent": 1,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/resource_data.c",
+    "symbol": "_g_root_count_70ed2"
+   },
+   "owner_origin": "existing canonical owner (solZ READY template)",
+   "owner_sha256": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+   "rva": "0x70ed2",
+   "symbol": "_g_root_count_70ed2"
+  },
+  "ENG1.DLL:_g_sfx_buffer_6ef34": {
+   "anchors": {
+    "0xe69f": {
+     "bytes": "a134ef0610",
+     "disassembly": "mov eax, dword ptr [0x1006ef34]",
+     "fixup": [
+      {
+       "rva": 59040,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "eng1.dispatch_local_0e670",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_sfx_buffer_6ef34"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 59039,
+     "sha256": "c58d42ccf77fcc4e500358ea1a79a587001405c25059ec232457aa94a2c247e6",
+     "size": 5
+    }
+   },
+   "callers": [
+    "eng1.0eb60"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG1.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng1/level_runtime_cells.c",
+    "symbol": "_g_sfx_buffer_6ef34"
+   },
+   "owner_origin": "new data-only owner (this lane)",
+   "owner_sha256": "56782dbb24f895263579e32e462ae066f428500586317f9b25968711ecf1dd9a",
+   "rva": "0x6ef34",
+   "symbol": "_g_sfx_buffer_6ef34"
+  },
+  "ENG3.DLL:_g_eng3_3fae8": {
+   "anchors": {
+    "0x17310": {
+     "bytes": "a1e8fa0310",
+     "disassembly": "mov eax, dword ptr [0x1003fae8]",
+     "fixup": [
+      {
+       "rva": 94993,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "eng3.17210",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_eng3_3fae8"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 94992,
+     "sha256": "1a168089b45efc8ff5ea1b9c3dd4ab60a5c0042c9d34ecf1b02282a6e603dfd7",
+     "size": 5
+    }
+   },
+   "callers": [
+    "eng3.18880"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG3.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng3/loader_zero_cells_c8_eng3.c",
+    "symbol": "_g_eng3_3fae8"
+   },
+   "owner_origin": "existing canonical definition, fresh exact COMMON in solZ survey",
+   "owner_sha256": "66aab99f573cc0c3186bdb84764f359e97b1bac563ea8c1245aba66337b3c303",
+   "rva": "0x3fae8",
+   "symbol": "_g_eng3_3fae8"
+  },
+  "ENG3.DLL:_g_eng3_405fc": {
+   "anchors": {
+    "0xd3fc": {
+     "bytes": "8935fc050410",
+     "disassembly": "mov dword ptr [0x100405fc], esi",
+     "fixup": [
+      {
+       "rva": 54270,
+       "type": 3
+      }
+     ],
+     "host": "outside every row",
+     "host_compiled_names": [],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 54268,
+     "sha256": "eac34db2c9ae559014928e03e28eba4b328fc36223ccdfbc191b8f22fdd4f38b",
+     "size": 6
+    }
+   },
+   "callers": [
+    "eng3.04100"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG3.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng3/eng3_actor_zero_cells.c",
+    "symbol": "_g_eng3_405fc"
+   },
+   "owner_origin": "solZ proposed data-only owner (work/velocity_j/solZ/eng3_actor_zero_cells.c)",
+   "owner_sha256": "bdb2cb53307927a39585a20b1eebd48e2281b15c7fa04bda28d04a25cdd689f4",
+   "rva": "0x405fc",
+   "symbol": "_g_eng3_405fc"
+  },
+  "ENG3.DLL:_g_eng3_40b92": {
+   "anchors": {
+    "0x1b9d4": {
+     "bytes": "66c705920b04100300",
+     "disassembly": "mov word ptr [0x10040b92], 3",
+     "fixup": [
+      {
+       "rva": 113111,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "eng3.1b9c0",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_eng3_40b92"
+     ],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 113108,
+     "sha256": "338b484b73445ba9130fcac90ac6ed20826230644d913e5f81c7d78457facb30",
+     "size": 9
+    }
+   },
+   "callers": [
+    "eng3.16550"
+   ],
+   "extent": 2,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG3.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng3/render_runtime_cells.c",
+    "symbol": "_g_eng3_40b92"
+   },
+   "owner_origin": "new data-only owner (this lane)",
+   "owner_sha256": "1a4fedc45c2464ce8db6f6a1942a3b87d699e4155f7e0eb3fd4c1fa20b4d1757",
+   "rva": "0x40b92",
+   "symbol": "_g_eng3_40b92"
+  },
+  "ENG3.DLL:_g_eng3_map_40790": {
+   "anchors": {
+    "0x1a974": {
+     "bytes": "6890070410",
+     "disassembly": "push 0x10040790",
+     "fixup": [
+      {
+       "rva": 108917,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "eng3.1a930",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_eng3_map_40790"
+     ],
+     "operand": 0,
+     "profile": "zero_storage legacy",
+     "rva": 108916,
+     "sha256": "9f09f628d29511f01cc758efc8ee2709d443ce490ab52dfb0747042bd6b45ea6",
+     "size": 5
+    }
+   },
+   "callers": [
+    "eng3.1aa30"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "ENG3.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/eng3/render_runtime_cells.c",
+    "symbol": "_g_eng3_map_40790"
+   },
+   "owner_origin": "new data-only owner (this lane)",
+   "owner_sha256": "1a4fedc45c2464ce8db6f6a1942a3b87d699e4155f7e0eb3fd4c1fa20b4d1757",
+   "rva": "0x40790",
+   "symbol": "_g_eng3_map_40790"
+  },
+  "TITLE.DLL:_g_2bf2c": {
+   "anchors": {
+    "0x8743": {
+     "bytes": "8b0d2cbf0210",
+     "disassembly": "mov ecx, dword ptr [0x1002bf2c]",
+     "fixup": [
+      {
+       "rva": 34629,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "title.085d0",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_2bf2c"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 34627,
+     "sha256": "f9c7e3d756b42d75d70bc8962719d07e19b2718ff1a814802d22dac4f0e0bbd0",
+     "size": 6
+    }
+   },
+   "callers": [
+    "title.17ad0"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "TITLE.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/title/title_common.c",
+    "symbol": "_g_2bf2c"
+   },
+   "owner_origin": "existing canonical definition, fresh exact COMMON in solZ survey",
+   "owner_sha256": "07b69ad6f4fe3c87ae485e592c19cffd1d8982ce851ebb80d3c83298ff19a052",
+   "rva": "0x2bf2c",
+   "symbol": "_g_2bf2c"
+  },
+  "TITLE.DLL:_g_2bf34": {
+   "anchors": {
+    "0x86c9": {
+     "bytes": "8b0d34bf0210",
+     "disassembly": "mov ecx, dword ptr [0x1002bf34]",
+     "fixup": [
+      {
+       "rva": 34507,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "title.085d0",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_2bf34"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 34505,
+     "sha256": "08bf34d678866e9a496b2a4689354026acb99e1bba84cb9473523d10142ef144",
+     "size": 6
+    }
+   },
+   "callers": [
+    "title.17ad0"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "TITLE.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/title/title_common.c",
+    "symbol": "_g_2bf34"
+   },
+   "owner_origin": "existing canonical definition, fresh exact COMMON in solZ survey",
+   "owner_sha256": "07b69ad6f4fe3c87ae485e592c19cffd1d8982ce851ebb80d3c83298ff19a052",
+   "rva": "0x2bf34",
+   "symbol": "_g_2bf34"
+  },
+  "TITLE.DLL:_g_2bf54": {
+   "anchors": {
+    "0x8650": {
+     "bytes": "8b0d54bf0210",
+     "disassembly": "mov ecx, dword ptr [0x1002bf54]",
+     "fixup": [
+      {
+       "rva": 34386,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "title.085d0",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_2bf54"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 34384,
+     "sha256": "99360473785caa74c4d9149b0742bb351a46c131b33a51629b6600aa0b24b310",
+     "size": 6
+    }
+   },
+   "callers": [
+    "title.17ad0"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "TITLE.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/title/title_common.c",
+    "symbol": "_g_2bf54"
+   },
+   "owner_origin": "existing canonical definition, fresh exact COMMON in solZ survey",
+   "owner_sha256": "07b69ad6f4fe3c87ae485e592c19cffd1d8982ce851ebb80d3c83298ff19a052",
+   "rva": "0x2bf54",
+   "symbol": "_g_2bf54"
+  },
+  "TITLE.DLL:_g_2df44": {
+   "anchors": {
+    "0x4879": {
+     "bytes": "a144df0210",
+     "disassembly": "mov eax, dword ptr [0x1002df44]",
+     "fixup": [
+      {
+       "rva": 18554,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "title.04870",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_2df44"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 18553,
+     "sha256": "a46e1e9887d691489729d41329e171dcf9c7b8474c201c990d9d4849306ed9a4",
+     "size": 5
+    }
+   },
+   "callers": [
+    "title.047d0"
+   ],
+   "extent": 4,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "TITLE.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/title/u02b70.c",
+    "symbol": "_g_2df44"
+   },
+   "owner_origin": "existing canonical definition, checked by this run",
+   "owner_sha256": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+   "rva": "0x2df44",
+   "symbol": "_g_2df44"
+  },
+  "TITLE.DLL:_g_2df50": {
+   "anchors": {
+    "0x4870": {
+     "bytes": "a050df0210",
+     "disassembly": "mov al, byte ptr [0x1002df50]",
+     "fixup": [
+      {
+       "rva": 18545,
+       "type": 3
+      }
+     ],
+     "host": [
+      {
+       "row": "title.04870",
+       "status": "CODEGEN_SIMILAR"
+      }
+     ],
+     "host_compiled_names": [
+      "_g_2df50"
+     ],
+     "operand": 1,
+     "profile": "zero_storage legacy",
+     "rva": 18544,
+     "sha256": "09d604024b6cb1ab45234fa4391bae0f29ef8a1451545f7f21077527bfb9c4cc",
+     "size": 5
+    }
+   },
+   "callers": [
+    "title.047d0"
+   ],
+   "extent": 1,
+   "extent_claim": "exact by declared scalar/pointer type",
+   "module": "TITLE.DLL",
+   "owner": {
+    "flags": [
+     "/O2"
+    ],
+    "source": "src/title/u02b70.c",
+    "symbol": "_g_2df50"
+   },
+   "owner_origin": "existing canonical definition, checked by this run",
+   "owner_sha256": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+   "rva": "0x2df50",
+   "symbol": "_g_2df50"
+  }
+ },
+ "targets": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "assets/pc/HERCULES/TITLE.DLL": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+ },
+ "task_id": "velocity_j/zbatch"
+}
