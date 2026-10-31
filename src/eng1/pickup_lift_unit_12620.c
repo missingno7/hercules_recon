@@ -53,6 +53,8 @@ typedef struct PanelContext {       /* view of g_engine_interface.context_004 */
 typedef struct EngineInterfaceView {
     unsigned long signature_000;
     PanelContext *context_004;
+    unsigned long unknown_008[3];
+    short *sine_table_014;
 } EngineInterfaceView;
 
 struct Actor {
@@ -190,7 +192,6 @@ extern short g_eng1_setup_word_6ef9c;
 extern long g_lift_sound_6ef60;
 extern Actor *g_eng1_spatial_match_actor_6fedc;
 extern unsigned long eng1_sim_state_72170;
-extern short *g_sine_table_70f34;
 extern unsigned char eng1_frame_target_053548[];
 extern unsigned char eng1_frame_target_053600[];
 extern unsigned char eng1_frame_target_053370[];
@@ -970,7 +971,7 @@ void eng1_native_code_target_0139f0(Actor *o)
         } else if (g_engine_interface.context_004->level_000 != 9) {
             h = grid_scan_20b50(o->x >> 16, o->y >> 16, o->z >> 16, 0);
             o->parameter += 4;
-            o->y += ((g_sine_table_70f34[(o->parameter & 0xff) * 16] & ~0x1ff) + ((h - 0x10) << 9)) << 7;
+            o->y += ((g_engine_interface.sine_table_014[(o->parameter & 0xff) * 16] & ~0x1ff) + ((h - 0x10) << 9)) << 7;
         }
     } else if (g_engine_interface.context_004->next_002 != ((o->kind + 6) & 0xf)) {
         o->image_064 = eng1_frame_target_0533c8;
