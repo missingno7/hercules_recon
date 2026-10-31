@@ -1136,7 +1136,7 @@ void eng1_05310(TitleObject *p)
 void clear_actor(TitleObject *p);
 int eng1_03540(int idx, int flag);
 void eng1_038d0(int i);
-void engine_frame_chain_write(void *p, int n);
+void title_0c690(void *p, int n);
 void dispatch_engine_2c7f0(void *p, int n);
 
 /* 0x5370 (TITLE 0x4470, plus the ENG1 streaming branch): link the live objects of one pool (count records of stride bytes, walked from the
@@ -1249,7 +1249,7 @@ extern Eng1Level g_frame_config_5df08[];
 
 void dispatch_local_05600(void)
 {
-    engine_frame_chain_write(g_dispatch_frame_current_71ec4->ot, ENG1_OT_SIZE);
+    title_0c690(g_dispatch_frame_current_71ec4->ot, ENG1_OT_SIZE);
     if (g_dispatch_frame_current_71ec4 == g_dispatch_frame_base_71ec8)
         g_frame_global_73484 = (TitlePrim *)g_frame_owner_70c80 + g_frame_config_5df08[(signed char)g_engine_interface.context_004->unknown_000[0]].prim_06;
     else
@@ -1378,10 +1378,10 @@ void dispatch_local_058b0(void)
    area from the second rectangle. */
 extern int g_70c64;
 extern TitleRect g_4d800[2];
-void dispatch_engine_2c5c0(unsigned long *ot, TitlePrim *prim);
+void title_0c650(unsigned long *ot, TitlePrim *prim);
 void dispatch_engine_2c690(TitleRect *r);
 void dispatch_engine_2c6e0(void);
-void dispatch_engine_2c760(TitleRect *r);
+void title_0c810(TitleRect *r);
 void dispatch_engine_2c960(TitlePrim *prim, TitleRect *r);
 
 void eng1_058e0(TitleObject *p, unsigned long *ot)
@@ -1395,8 +1395,8 @@ void eng1_058e0(TitleObject *p, unsigned long *ot)
     dispatch_engine_2c690(area);
     dispatch_engine_2c6e0();
     y = p->unknown_00e;
-    dispatch_engine_2c5c0(ot, g_frame_global_73484);
-    dispatch_engine_2c760(&r);
+    title_0c650(ot, g_frame_global_73484);
+    title_0c810(&r);
     if (p->unknown_054 & 0x20000) {
         if (p->unknown_054 & 0x40000)
             p->unknown_00e += y - r.y;
@@ -1424,7 +1424,7 @@ void eng1_058e0(TitleObject *p, unsigned long *ot)
 void eng1_059f0(TitleObject *p, unsigned long *ot)
 {
     dispatch_engine_2c960(g_frame_global_73484, &g_4d800[1]);
-    dispatch_engine_2c5c0(ot, g_frame_global_73484);
+    title_0c650(ot, g_frame_global_73484);
     g_frame_global_73484 = (TitlePrim *)((char *)g_frame_global_73484 + 12);
 }
 
@@ -1445,7 +1445,7 @@ extern unsigned long g_73488;
 extern unsigned long g_734f0;
 void eng1_frame_color_write_5e00(int level);
 void eng1_color_profile_5dc0(int level);
-void dispatch_engine_2c830(unsigned char level);
+void title_0c960(unsigned char level);
 
 /* 0x5a60: base colour (r0, g0, b0) plus per-channel rates scaled by the fade level; builds the current
    colour and the 8 x 64 table of per-step colours (bank bit 0/1/2 selects the stepped r/g/b). */
@@ -1554,7 +1554,7 @@ void eng1_color_fade_step_5d50(void)
             g_dispatch_key_7286c = 0;
         }
         eng1_color_profile_5dc0(g_frame_word_6ee84);
-        dispatch_engine_2c830(g_frame_word_6ee84);
+        title_0c960(g_frame_word_6ee84);
     }
 }
 

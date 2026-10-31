@@ -30,7 +30,7 @@ static const call_u8 eng1_call_2cd30_selector_handlers[12] = {
 
 /* Native 0x2c4c0 is a one-DWORD cdecl thunk to EngineInterface+0xb0,
  * opaque_090[8]. Keep the actual host owner and live function-pointer read. */
-int __cdecl eng1_native_code_target_002c4c0(call_u32 value)
+int __cdecl title_0c4d0(call_u32 value)
 {
     return ((Eng1Call2cd30HostDispatch)g_engine_interface.opaque_090[8])(value);
 }
@@ -177,7 +177,7 @@ void __cdecl eng1_native_code_target_02cd30(Actor *actor)
         if (selector_class == 0U) {
             if (*eng1_call_2cd30_word(state, 0x36U) >
                 g_eng1_control_lookup_words_5c3b8[selector]) {
-                eng1_native_code_target_002c4c0(
+                title_0c4d0(
                     g_eng1_control_lookup_words_5c3b8[12U + selector]);
                 *eng1_call_2cd30_word(state, 0x36U) = 0U;
                 *eng1_call_2cd30_word(state, 0x30U) = 0x00faU;
@@ -186,7 +186,7 @@ void __cdecl eng1_native_code_target_02cd30(Actor *actor)
             if (*eng1_call_2cd30_word(state, 0x2cU) > 1U) {
                 if (*eng1_call_2cd30_word(state, 0x04U) != 0U)
                     goto actor_callback;
-                eng1_native_code_target_002c4c0(0x1aU);
+                title_0c4d0(0x1aU);
                 *eng1_call_2cd30_word(state, 0x04U) = 0x0320U;
                 *eng1_call_2cd30_word(state, 0x30U) = 0x0064U;
                 *eng1_call_2cd30_word(state, 0x2cU) = 0U;
@@ -196,7 +196,7 @@ void __cdecl eng1_native_code_target_02cd30(Actor *actor)
                 if (*eng1_call_2cd30_word(state, 0x0aU) != 0U)
                     goto actor_callback;
                 table_index = (unsigned int)parameter_f02;
-                eng1_native_code_target_002c4c0(
+                title_0c4d0(
                     g_eng1_control_lookup_words_5c3b8[28U + table_index]);
                 ++*eng1_call_2cd30_word(state, 0x2aU);
                 *eng1_call_2cd30_word(state, 0x0aU) = 0x00f0U;
@@ -214,7 +214,7 @@ void __cdecl eng1_native_code_target_02cd30(Actor *actor)
                 if (*eng1_call_2cd30_word(state, 0x0aU) != 0U)
                     goto actor_callback;
                 table_index = (unsigned int)parameter_f02;
-                eng1_native_code_target_002c4c0(
+                title_0c4d0(
                     g_eng1_control_lookup_words_5c3b8[28U + table_index]);
                 ++*eng1_call_2cd30_word(state, 0x2aU);
                 *eng1_call_2cd30_word(state, 0x0aU) = 0x00f0U;
@@ -229,7 +229,7 @@ void __cdecl eng1_native_code_target_02cd30(Actor *actor)
 
         if (selector_class == 2U) {
             if (*eng1_call_2cd30_word(state, 0x36U) > 6U) {
-                eng1_native_code_target_002c4c0(
+                title_0c4d0(
                     g_eng1_control_lookup_words_5c3b8[12U + selector]);
                 *eng1_call_2cd30_word(state, 0x30U) = 0x00faU;
                 *eng1_call_2cd30_word(state, 0x36U) = 0U;
@@ -239,7 +239,7 @@ void __cdecl eng1_native_code_target_02cd30(Actor *actor)
                 if (*eng1_call_2cd30_word(state, 0x0aU) != 0U)
                     goto actor_callback;
                 table_index = (unsigned int)parameter_f02;
-                eng1_native_code_target_002c4c0(
+                title_0c4d0(
                     g_eng1_control_lookup_words_5c3b8[28U + table_index]);
                 ++*eng1_call_2cd30_word(state, 0x2aU);
                 *eng1_call_2cd30_word(state, 0x0aU) = 0x00f0U;
@@ -259,7 +259,7 @@ selector12_pipeline_transition:
     if (delay_ee0 != 0U)
         goto actor_callback;
     table_index = 36U + (unsigned int)parameter_ee8;
-    eng1_native_code_target_002c4c0(
+    title_0c4d0(
         g_eng1_control_lookup_words_5c3b8[table_index]);
     ++*eng1_call_2cd30_word(state, 0x10U);
     *eng1_call_2cd30_word(state, 0x08U) = 0x015eU;
@@ -275,7 +275,7 @@ pipeline_transition:
     } else {
         table_index = 32U + (unsigned int)parameter_ee8;
     }
-    eng1_native_code_target_002c4c0(
+    title_0c4d0(
         g_eng1_control_lookup_words_5c3b8[table_index]);
     ++*eng1_call_2cd30_word(state, 0x10U);
     *eng1_call_2cd30_word(state, 0x08U) = 0x015eU;

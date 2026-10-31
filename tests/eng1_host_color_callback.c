@@ -11,7 +11,7 @@ typedef char spy_requires_x86_words[(sizeof(unsigned long) == 4 &&
                                      sizeof(SpyColorCallback) == 4) ? 1 : -1];
 
 EngineInterface g_engine_interface;
-void __cdecl dispatch_engine_2c830(unsigned long frame_value);
+void __cdecl title_0c960(unsigned long frame_value);
 
 static unsigned int g_calls;
 static unsigned long g_value;
@@ -38,15 +38,15 @@ int main(void)
     g_engine_interface.opaque_1fc[16] = bits.word;
 
     reset();
-    dispatch_engine_2c830(0x12345680UL);
+    title_0c960(0x12345680UL);
     CHECK(g_calls == 1 && g_value == 0x12345680UL);
 
     reset();
-    dispatch_engine_2c830(0xa1b2c3ffUL);
+    title_0c960(0xa1b2c3ffUL);
     CHECK(g_calls == 1 && g_value == 0xa1b2c3ffUL);
 
     reset();
-    dispatch_engine_2c830(0xdeadbeffUL);
+    title_0c960(0xdeadbeffUL);
     CHECK(g_calls == 1 && g_value == 0xdeadbeffUL);
 
     return 0;

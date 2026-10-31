@@ -99,7 +99,7 @@ extern long g_resource_transition_ticks_6efb0;
 extern long g_eng1_setup_dword_72114;
 extern void dispatch_engine_2c420(void);
 extern void dispatch_engine_2c450(void);
-extern void dispatch_engine_2c4d0(void);
+extern void title_0c4e0(void);
 extern void dispatch_engine_2c590(void);
 extern void play_sound(int id, int arg);
 
@@ -218,14 +218,14 @@ extern void *engine_pool_allocate(void *slot, unsigned long size, unsigned long 
 extern void dispatch_engine_2ca00(PolyFT3 *p);
 extern u8 dispatch_local_056c0(void *palette, int key, int c, int d);
 extern u16 dispatch_engine_2c7c0(int x, int y);
-extern void dispatch_engine_2c6c0(void);
+extern void title_0c790(void);
 extern void dispatch_engine_2c7f0(Rect16 *rect, void *pixels);
 extern int eng1_320d0(Effect *e);
 extern void eng1_32810(Effect *e, int n);
 extern void dispatch_engine_2c690(SVector *v);
 extern void dispatch_engine_2c6e0(void);
-extern void dispatch_engine_2c760(short *xy);
-extern void dispatch_engine_2c7a0(long *z);
+extern void title_0c810(short *xy);
+extern void title_0c840(long *z);
 extern int dispatch_engine_2c460(int range);
 
 /* VRAM moves. */
@@ -433,7 +433,7 @@ int eng1_02290(void)
 void eng1_02400(u8 state)
 {
     dispatch_engine_2c450();
-    dispatch_engine_2c4d0();
+    title_0c4e0();
     g_engine_interface.context->state = state;
     g_eng1_setup_dword_6efac = 0;
 }
@@ -569,7 +569,7 @@ void eng1_027a0(Effect *e)
         return;
     if ((unsigned)(e->sy + 0x80) > 0x1f0)
         return;
-    dispatch_engine_2c6c0();
+    title_0c790();
     eng1_32810(e, depth + g_effect_sequence_6ee68);
     e->update(e, (depth / 2) & 0xfff);
     if (g_engine_interface.context->state != 0)
@@ -616,8 +616,8 @@ void eng1_02920(Effect *e, int width)
     dispatch_engine_2c6e0();
     v++;
     while (--n) {
-        dispatch_engine_2c760(&p->x0);
-        dispatch_engine_2c7a0(&locals.z);
+        title_0c810(&p->x0);
+        title_0c840(&locals.z);
         p->x1 = p->x0 - (short)locals.z / 0x800 + 2;
         p->x2 = p->x0 + width;
         p->y1 = p->y0;

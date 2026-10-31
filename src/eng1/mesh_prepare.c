@@ -9,10 +9,10 @@ extern void __cdecl dispatch_engine_2c700(const void *);
 extern void __cdecl dispatch_engine_2c710(const void *);
 extern void __cdecl dispatch_engine_2c690(const void *);
 extern void __cdecl dispatch_engine_2c6e0(void);
-extern void __cdecl dispatch_engine_2c6c0(void);
+extern void __cdecl title_0c790(void);
 extern void __cdecl dispatch_engine_2c750(void *);
-extern void __cdecl dispatch_engine_2c760(void *);
-extern void __cdecl dispatch_engine_2c7b0(void *);
+extern void __cdecl title_0c810(void *);
+extern void __cdecl title_0c850(void *);
 
 static long prep_add(long a,long b){return (long)((u32)a+(u32)b);}
 static long prep_sub(long a,long b){return (long)((u32)a-(u32)b);}
@@ -58,8 +58,8 @@ int __cdecl dispatch_local_2e3b0(Eng1MeshVisit *visit)
         *(short *)scratch=(short)row;
         dispatch_engine_2c690(scratch);
         dispatch_engine_2c6e0();
-        dispatch_engine_2c6c0();
-        dispatch_engine_2c760(scratch);
+        title_0c790();
+        title_0c810(scratch);
         if(*(u16 *)(scratch+2)>240) visit->column_stop_016=1;
         if(*(u16 *)scratch>320) visit->row_stop_017=1;
         dispatch_engine_2c750(visit->projected_00c);
@@ -70,7 +70,7 @@ int __cdecl dispatch_local_2e3b0(Eng1MeshVisit *visit)
     *(short *)scratch=(short)prep_add(row,0x20);
     dispatch_engine_2c690(scratch);
     dispatch_engine_2c6e0();
-    dispatch_engine_2c760(scratch);
+    title_0c810(scratch);
     if(visit->side_029==0) {
         if(*(short *)scratch>320) visit->row_stop_017=1;
     } else if(*(short *)scratch<0) visit->row_stop_017=1;
@@ -158,10 +158,10 @@ int __cdecl dispatch_local_2e7a0(Eng1MeshVisit *visit)
     *(long *)(scratch+4)=prep_mul((long)trig[prep_sub(angle,0x3c0)&0xfff],radius)>>12;
     dispatch_engine_2c690(scratch);
     dispatch_engine_2c6e0();
-    dispatch_engine_2c760(scratch);
+    title_0c810(scratch);
     if(*(u16 *)(scratch+2)>240) visit->column_stop_016=1;
     if(*(u16 *)scratch>320) visit->row_stop_017=1;
-    dispatch_engine_2c7b0(&depth);
+    title_0c850(&depth);
     if(depth<0x40) return -1;
     visit->depth_010=depth;
     return 0;

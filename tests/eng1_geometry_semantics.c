@@ -39,13 +39,13 @@ void __cdecl dispatch_engine_2c6e0(void)
 {
     screen[0]=(short)(input[0]+10);screen[1]=(short)(input[1]+20);++project_calls;
 }
-void __cdecl dispatch_engine_2c6c0(void) {}
+void __cdecl title_0c790(void) {}
 void __cdecl dispatch_engine_2c750(void *result)
 {
     short *p=(short *)result;p[0]=input[0];p[1]=input[1];p[2]=projected_depth;
 }
-void __cdecl dispatch_engine_2c760(void *result) {memcpy(result,screen,4);}
-void __cdecl dispatch_engine_2c7b0(void *result) {*(short *)result=(short)(projected_depth>>2);}
+void __cdecl title_0c810(void *result) {memcpy(result,screen,4);}
+void __cdecl title_0c850(void *result) {*(short *)result=(short)(projected_depth>>2);}
 void __cdecl dispatch_engine_2c670(u32 a,u32 b,u32 c)
 {
     memcpy(screen_history[0],&a,4);memcpy(screen_history[1],&b,4);memcpy(screen_history[2],&c,4);

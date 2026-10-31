@@ -125,7 +125,7 @@ void eng1_05310(void *p);
 void eng1_03cd0(void *p);
 void dispatch_engine_2c920(unsigned short *a, unsigned char *b);
 void dispatch_engine_2c700(void *a);
-void dispatch_engine_2c6c0(void);
+void title_0c790(void);
 
 unsigned int dispatch_local_30010(long x, long y, long z, unsigned short mask)
 {
@@ -287,7 +287,7 @@ void eng1_30430(TitleObject *obj)
     buf[2] = obj->unknown_074 << 2;
     dispatch_engine_2c920(buf, out);
     dispatch_engine_2c700(out);
-    dispatch_engine_2c6c0();
+    title_0c790();
 
     while (count--) {
         item = (TitleObject *)*list++;
@@ -411,16 +411,16 @@ void eng1_31470(TitleObj *o);
 void eng1_32130(TitleObj *o);
 void eng1_32810(TitleObj *o, int v);
 void dispatch_engine_2c6e0(void);
-void dispatch_engine_2c760(void *e);
-void dispatch_engine_2c7a0(void *b);
-void dispatch_engine_2c720(void *p);
+void title_0c810(void *e);
+void title_0c840(void *b);
+void title_0c7e0(void *p);
 unsigned long eng1_311a0(TitleObj *p);
 int eng1_31540(TitleObj *o, unsigned char *q, unsigned long c);
 int eng1_32050(TitleShape *obj, int k);
 extern int g_camera_focal_70ce4;
 void dispatch_engine_2c690(void *p);
-void dispatch_engine_2c730(void *p);
-void dispatch_engine_2c7b0(void *p);
+void title_0c7f0(void *p);
+void title_0c850(void *p);
 
 typedef struct TitleSpanXY {
     int x;
@@ -468,7 +468,7 @@ void eng1_304f0(TitleObj *obj)
         return;
     }
     eng1_32810(obj, r);
-    dispatch_engine_2c6c0();
+    title_0c790();
     span = (TitleSpan *)obj->stream_05c - 1;
     count = obj->w_036;
     g_frame_owner_734e0->byte_023 = 0;
@@ -496,7 +496,7 @@ void eng1_304f0(TitleObj *obj)
         } else if (span->id_00c != 0) {
             if (flags & 0x200000) {
                 if (flags & 0x400000) {
-                    dispatch_engine_2c6c0();
+                    title_0c790();
                     acc += span->z_008;
                 } else {
                     acc = span->z_008;
@@ -505,7 +505,7 @@ void eng1_304f0(TitleObj *obj)
                 eng1_31e30((char *)&g_frame_owner_734e0->w_0c, (int *)span, acc);
             } else {
                 if (flags & 0x400000) {
-                    dispatch_engine_2c6c0();
+                    title_0c790();
                 }
                 eng1_31dc0((char *)&g_frame_owner_734e0->w_0c, (int *)span);
             }
@@ -586,13 +586,13 @@ extern int g_6ffbc;
 extern int *g_70c44;
 void eng1_31d30(TitleObj *o, int k);
 
-void dispatch_engine_2c6a0(void *a, void *b, void *c);
-void dispatch_engine_2c6f0(void);
+void title_0c770(void *a, void *b, void *c);
+void title_0c7c0(void);
 void dispatch_engine_2c770(TitlePrim *p);
 void dispatch_engine_2c670(unsigned long a, unsigned long b, unsigned long c);
 void dispatch_engine_2c6d0(void);
 void dispatch_engine_2c740(int *p);
-void dispatch_engine_2c780(TitlePrim *p);
+void title_0c830(TitlePrim *p);
 void eng1_058e0(TitleObj *o, unsigned long *ot);
 void eng1_059f0(TitleObj *o, unsigned long *ot);
 
@@ -626,9 +626,9 @@ void eng1_30790(unsigned char *stream, TitleObj *obj, unsigned char count)
     TitlePrim *p;
 
     dispatch_engine_2c700(g_5ce50);
-    dispatch_engine_2c730(g_frame_owner_734e0->trans_078);
+    title_0c7f0(g_frame_owner_734e0->trans_078);
     g_frame_owner_734e0->trans_078[1] += obj->w_028 * 2;
-    dispatch_engine_2c720(g_frame_owner_734e0->trans_078);
+    title_0c7e0(g_frame_owner_734e0->trans_078);
     v0.z = 0;
     v1.z = 0;
     v2.z = 0;
@@ -675,8 +675,8 @@ void eng1_30790(unsigned char *stream, TitleObj *obj, unsigned char count)
         v0.y = y + h;
         v2.y = y;
         v1.x = x2;
-        dispatch_engine_2c6a0(&v2, &v1, &v0);
-        dispatch_engine_2c6f0();
+        title_0c770(&v2, &v1, &v0);
+        title_0c7c0();
         off = row * sizeof(TitleCell);
         p->uv_014.words.tpage = ((TitleCell *)((char *)g_72880 + off))->w_02;
         p->tex_004 = 0x2e000000;
@@ -693,7 +693,7 @@ void eng1_30790(unsigned char *stream, TitleObj *obj, unsigned char count)
         if (!more) {
             w = ((TitleCell *)((char *)g_72880 + off))->next_04[g_5e128[w & 15]];
         }
-        dispatch_engine_2c760(&p->xy_020);
+        title_0c810(&p->xy_020);
         p++;
     } while (--count);
     g_frame_global_73484 = (TitleTile *)p;
@@ -743,7 +743,7 @@ void eng1_30a20(unsigned char *stream, TitleObj *obj, unsigned char count)
     }
     if (g_frame_setup_gate_72868 != 0) {
         eng1_32810(obj, 0);
-        dispatch_engine_2c6c0();
+        title_0c790();
     }
     colour = eng1_311a0(obj);
     zoff = 0;
@@ -795,8 +795,8 @@ void eng1_30a20(unsigned char *stream, TitleObj *obj, unsigned char count)
         v1.y = y;
         v2.y = y;
         v1.x = x2;
-        dispatch_engine_2c6a0(&v2, &v1, &v0);
-        dispatch_engine_2c6f0();
+        title_0c770(&v2, &v1, &v0);
+        title_0c7c0();
         off = row * sizeof(TitleCell);
         p->uv_014.words.tpage = ((TitleCell *)((char *)g_72880 + off))->w_02 | blend;
         p->tex_004 = colour;
@@ -814,7 +814,7 @@ void eng1_30a20(unsigned char *stream, TitleObj *obj, unsigned char count)
         if (!more) {
             w = ((TitleCell *)((char *)g_72880 + off))->next_04[g_5e128[w & 15]];
         }
-        dispatch_engine_2c760(&p->xy_020);
+        title_0c810(&p->xy_020);
         p++;
     } while (--count);
     g_frame_global_73484 = (TitleTile *)p;
@@ -1168,7 +1168,7 @@ void eng1_31470(TitleObj *o)
     int n;
 
     eng1_32810(o, o->rot_070.pad);
-    dispatch_engine_2c720(o->trans_078);
+    title_0c7e0(o->trans_078);
     if (o->w_034 == 0) {
         return;
     }
@@ -1244,7 +1244,7 @@ int eng1_31540(TitleObj *o, unsigned char *q, unsigned long c)
     if (x != 0) {
         eng1_31d30(o, x);
     } else {
-        dispatch_engine_2c720(o->trans_078);
+        title_0c7e0(o->trans_078);
     }
     uvt = g_header_pointer_70d30;
     o->flags_01f |= 2;
@@ -1303,7 +1303,7 @@ int eng1_31540(TitleObj *o, unsigned char *q, unsigned long c)
                     goto next;
                 }
             } else {
-                dispatch_engine_2c780(prim);
+                title_0c830(prim);
             }
         emit:
             prim->xy_020 = v2->xy;
@@ -1384,8 +1384,8 @@ void eng1_318d0(int a1, int *vals, int count)
         goto tail;
     }
     do {
-        dispatch_engine_2c760(dst);
-        dispatch_engine_2c7a0(dst + 4);
+        title_0c810(dst);
+        title_0c840(dst + 4);
         dispatch_engine_2c690(pair);
         dispatch_engine_2c6e0();
         v = *vals;
@@ -1395,9 +1395,9 @@ void eng1_318d0(int a1, int *vals, int count)
         dst += 8;
     } while (--count);
 tail:
-    dispatch_engine_2c760(dst);
+    title_0c810(dst);
     dst += 4;
-    dispatch_engine_2c7a0(dst);
+    title_0c840(dst);
 }
 
 void eng1_31990(TitleStream *s, int *vals, int n)
@@ -1420,8 +1420,8 @@ void eng1_31990(TitleStream *s, int *vals, int n)
         d1->a_00 = d0->a_00;
         p += 2;
         d1->b_04 = d0->b_04;
-        dispatch_engine_2c760(d0);
-        dispatch_engine_2c7a0(&d0->b_04);
+        title_0c810(d0);
+        title_0c840(&d0->b_04);
     } while (--n);
 }
 
@@ -1469,8 +1469,8 @@ void eng1_31a70(TitleObj *o, int *vals, int count)
         a = *vals++;
         b = *src++;
         mid = (a << 8) >> 16;
-        dispatch_engine_2c760(dst);
-        dispatch_engine_2c7a0(dst4);
+        title_0c810(dst);
+        title_0c840(dst4);
         dst4 += 8;
         hi = (((b >> 24) - (a >> 24)) * t >> 8) + (a >> 24);
         pair[0] = ((((b << 8) >> 16) - mid) * t >> 8) + mid + (hi << 16);
@@ -1479,8 +1479,8 @@ void eng1_31a70(TitleObj *o, int *vals, int count)
         dispatch_engine_2c690(pair);
         dispatch_engine_2c6e0();
     } while (--count);
-    dispatch_engine_2c760(dst);
-    dispatch_engine_2c7a0(dst + 4);
+    title_0c810(dst);
+    title_0c840(dst + 4);
     g_70c44 = src + 1;
 }
 
@@ -1531,8 +1531,8 @@ void eng1_31bc0(TitleObj *o, int *vals, int count)
             pair[1] = (((signed char)b - mid) * t >> 8) + mid;
             dispatch_engine_2c690(pair);
             dispatch_engine_2c6e0();
-            dispatch_engine_2c760(dst);
-            dispatch_engine_2c7a0(dst4);
+            title_0c810(dst);
+            title_0c840(dst4);
         }
         dst += 2;
         dst4 += 2;
@@ -1559,7 +1559,7 @@ void eng1_31d30(TitleObj *o, int k)
     v[0] += o->trans_078[0];
     v[1] += o->trans_078[1];
     v[2] += o->trans_078[2];
-    dispatch_engine_2c720(v);
+    title_0c7e0(v);
 }
 
 int eng1_31dc0(char *obj, int *vec)
@@ -1571,9 +1571,9 @@ int eng1_31dc0(char *obj, int *vec)
     v[2] = (short)(vec[2] >> 16);
     dispatch_engine_2c690(v);
     dispatch_engine_2c6e0();
-    dispatch_engine_2c760(obj);
+    title_0c810(obj);
     obj += 4;
-    dispatch_engine_2c7b0(obj);
+    title_0c850(obj);
     return *(short *)obj > 0x40;
 }
 
@@ -1586,9 +1586,9 @@ int eng1_31e30(char *obj, int *vec, int k)
     v[2] = 0;
     dispatch_engine_2c690(v);
     dispatch_engine_2c6e0();
-    dispatch_engine_2c760(obj);
+    title_0c810(obj);
     obj += 4;
-    dispatch_engine_2c7b0(obj);
+    title_0c850(obj);
     return *(short *)obj > 0x40;
 }
 
@@ -1684,8 +1684,8 @@ int eng1_320d0(TitleObj *o)
 
     r = eng1_32300(o);
     o->rot_070.pad = (short)r;
-    dispatch_engine_2c760(&o->w_0c);
-    dispatch_engine_2c730(o->trans_078);
+    title_0c810(&o->w_0c);
+    title_0c7f0(o->trans_078);
     o->w_10 = (short)(o->trans_078[2] / 4);
     if ((unsigned int)(o->w_10 - 1) > 0x47f) {
         return -1;
@@ -1742,7 +1742,7 @@ void eng1_32130(TitleObj *o)
             t[0] = ((x * s1 - z * s0) >> 12) + g_5ce70.t[0];
             t[1] = o->w_016 + g_5ce70.t[1];
             t[2] = ((z * s1 + x * s0) >> 12) + g_5ce70.t[2];
-            dispatch_engine_2c720(t);
+            title_0c7e0(t);
             dispatch_engine_2c6e0();
         } else {
             dispatch_engine_2c710(&g_5ce70);
@@ -1756,8 +1756,8 @@ void eng1_32130(TitleObj *o)
         }
     }
     o->rot_070.pad = (short)r;
-    dispatch_engine_2c760(&o->w_0c);
-    dispatch_engine_2c730(o->trans_078);
+    title_0c810(&o->w_0c);
+    title_0c7f0(o->trans_078);
     o->w_10 = (short)(o->trans_078[2] / 4);
 }
 
@@ -1909,7 +1909,7 @@ int eng1_32300(TitleObj *o)
         t[0] = ((x * s - z * c) >> 12) + g_5ce70.t[0];
         t[1] = o->w_016 + g_5ce70.t[1];
         t[2] = ((z * s + x * c) >> 12) + g_5ce70.t[2];
-        dispatch_engine_2c720(t);
+        title_0c7e0(t);
     } else {
         dispatch_engine_2c710(&g_5ce70);
     }
@@ -1978,15 +1978,15 @@ void eng1_32920(TitleObj *o, int *vals, int count)
             v[0] = (short)((g_sine_table_70f34[ang & 0xfff] * r) >> 12);
             v[2] = (short)((g_sine_table_70f34[(ang - 0x400) & 0xfff] * r) >> 12);
             v[1] = (short)(a >> 24);
-            dispatch_engine_2c760(dst);
-            dispatch_engine_2c7a0(dst4);
+            title_0c810(dst);
+            title_0c840(dst4);
             dispatch_engine_2c690(v);
             dispatch_engine_2c6e0();
             dst += 8;
             dst4 += 8;
         } while (--count);
-        dispatch_engine_2c760(dst);
-        dispatch_engine_2c7a0(dst + 4);
+        title_0c810(dst);
+        title_0c840(dst + 4);
         o->w_10 -= 0x146;
     } else {
         eng1_318d0((int)o, vals, count);
@@ -2007,7 +2007,7 @@ void eng1_32a30(TitleObj *o, int *vals, int count)
         dispatch_engine_2c690(pair);
         dispatch_engine_2c6e0();
         dst++;
-        dispatch_engine_2c760(dst);
+        title_0c810(dst);
         dst->b_04 = 0xc00;
     } while (--count);
 }
@@ -2029,8 +2029,8 @@ void eng1_32aa0(TitleObj *o, int *vals, int count)
         dispatch_engine_2c6e0();
         dst += 8;
         dst4 += 8;
-        dispatch_engine_2c760(dst);
-        dispatch_engine_2c7a0(dst4);
+        title_0c810(dst);
+        title_0c840(dst4);
     } while (--count);
 }
 

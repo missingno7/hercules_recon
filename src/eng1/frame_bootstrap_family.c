@@ -61,7 +61,7 @@ extern void __cdecl dispatch_local_262a0(void);
 extern void __cdecl dispatch_local_050d0(void);
 extern void __cdecl resource_rebuild_blob(void);
 extern void __cdecl resource_rebuild_group_rows(void);
-extern int __cdecl engine_frame_chain_write(void *, unsigned long);
+extern int __cdecl title_0c690(void *, unsigned long);
 
 void __cdecl dispatch_local_1f0f0(void)
 {
@@ -209,9 +209,9 @@ void __cdecl dispatch_local_1f320(void)
     dispatch_local_25620();
 
     frame = g_dispatch_frame_base_71ec8;
-    engine_frame_chain_write(frame + 0x88, 0x500UL);
+    title_0c690(frame + 0x88, 0x500UL);
     frame = g_dispatch_frame_base_71ec8;
-    engine_frame_chain_write(frame + 0x1510, 0x500UL);
+    title_0c690(frame + 0x1510, 0x500UL);
 
     if (g_dispatch_frame_current_71ec4 == g_dispatch_frame_base_71ec8) {
         context = g_engine_interface.context_004;

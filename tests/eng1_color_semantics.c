@@ -20,7 +20,7 @@ unsigned char *g_dispatch_frame_base_71ec8;
 static unsigned long callback_value;
 static int callback_count;
 
-void __cdecl dispatch_engine_2c830(unsigned long frame_value)
+void __cdecl title_0c960(unsigned long frame_value)
 {
     callback_value = frame_value;
     ++callback_count;

@@ -24,7 +24,7 @@ extern void __cdecl eng1_color_grid_update_5a60(int,int,int,int,int,int);
 extern void __cdecl eng1_color_fade_step_5d50(void);
 extern void __cdecl eng1_color_profile_5dc0(int);
 extern void __cdecl eng1_frame_color_write_5e00(int);
-extern void __cdecl dispatch_engine_2c830(eng1_u32);
+extern void __cdecl title_0c960(eng1_u32);
 extern eng1_u32 g_mesh_colors_6f4e8[512],g_frame_global_70cf8,g_frame_global_73488;
 extern eng1_u8 g_frame_global_70cfc;
 
@@ -598,7 +598,7 @@ int main(int argc,char **argv)
     for(i=0;i<(int)(sizeof callback_words/sizeof callback_words[0]);++i){
         case_index=i;initial(&start,i);bind_fixture(&start);
         side=0;((WordCallback)cell(0x2c830))(callback_words[i]);capture(0);
-        side=1;dispatch_engine_2c830(callback_words[i]);capture(1);compare("2c830-full-DWORD-forwarding");
+        side=1;title_0c960(callback_words[i]);capture(1);compare("2c830-full-DWORD-forwarding");
         check(logs[0].callback_count==1 && logs[1].callback_count==1,"2c830-full-DWORD-forwarding","one callback per direct wrapper call");
         check(logs[0].raw_callback[0]==callback_words[i] && logs[1].raw_callback[0]==callback_words[i],"2c830-full-DWORD-forwarding","entire DWORD forwarded unchanged");
     }

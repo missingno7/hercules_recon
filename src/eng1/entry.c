@@ -2,8 +2,8 @@
  * The return value is not part of the observed host contract. */
 #include "../shared/engine_interface.h"
 
-extern void __cdecl engine_pool_save_arena(void *, unsigned long);
-extern void __cdecl engine_host_update(void);
+extern void __cdecl title_0c390(void *, unsigned long);
+extern void __cdecl title_0ca00(void);
 extern void __cdecl engine_dispatch(void);
 
 /* Native initialized DWORD at RVA 0x5b648; ENG1-local ownership. */
@@ -29,11 +29,11 @@ void __cdecl PC_DLLEngineMain(const EngineInterface *source,
          * identical tests need only one semantic test of that value. */
         if (words[0] == 0)
             return;
-        engine_pool_save_arena(g_engine_interface.arena_008,
+        title_0c390(g_engine_interface.arena_008,
                                g_engine_interface.arena_bytes_00c);
         g_eng1_entry_first_use_5b648 = 0;
     }
-    engine_host_update();
+    title_0ca00();
     g_engine_interface.context_004->unknown_040 = flags & 1UL;
     engine_dispatch();
 }

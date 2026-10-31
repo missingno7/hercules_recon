@@ -218,7 +218,7 @@ extern void *engine_pool_allocate(void **, unsigned long, unsigned long);
 extern int eng1_2c3e0(void *, void *, unsigned long);
 extern unsigned int dispatch_engine_2c470(void);
 extern void dispatch_engine_2c540(unsigned long, unsigned long);
-extern void eng1_2c560(void);
+extern void title_0c5a0(void);
 extern void dispatch_engine_2caf0(void);
 extern short eng1_2cb20(short, int, ProgramAttributes *);
 extern short eng1_2cb40(short, int, int, ToneAttributes *);
@@ -1246,7 +1246,7 @@ void eng1_0ed40(void)
     g_engine_interface.context->vab_bodies[g_music_slot_6ef24] = 0;
     g_engine_interface.context->vab_heads[g_music_slot_6ef24] = 0;
     g_engine_interface.context->sequences[g_music_slot_6ef24] = (unsigned char *)buffer + buffer[2];
-    eng1_2c560();
+    title_0c5a0();
     eng1_2c3e0(g_engine_interface.context->sequences[1], g_engine_interface.context->sequences[g_music_slot_6ef24],
                g_music_file_size_6ef30);
     dispatch_engine_2c2d0(g_engine_interface.context->music_buffers[g_music_slot_6ef24]);

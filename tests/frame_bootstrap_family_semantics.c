@@ -24,7 +24,7 @@ extern void __cdecl dispatch_local_05dc0(u32);
 extern void __cdecl dispatch_local_25620(void);
 extern void __cdecl resource_rebuild_blob(void);
 extern void __cdecl resource_rebuild_group_rows(void);
-extern int __cdecl engine_frame_chain_write(void *, unsigned long);
+extern int __cdecl title_0c690(void *, unsigned long);
 extern int __cdecl frame_chain_write(void *, unsigned long);
 
 EngineInterface g_engine_interface;

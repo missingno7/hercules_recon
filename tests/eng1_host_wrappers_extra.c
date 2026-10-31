@@ -15,10 +15,10 @@ typedef char spy_requires_x86_words[(sizeof(unsigned long) == 4 &&
 
 EngineInterface g_engine_interface;
 
-void __cdecl dispatch_engine_2c6c0(void);
+void __cdecl title_0c790(void);
 void __cdecl dispatch_engine_2c750(void *);
-void __cdecl dispatch_engine_2c760(void *);
-void __cdecl dispatch_engine_2c7b0(void *);
+void __cdecl title_0c810(void *);
+void __cdecl title_0c850(void *);
 
 static unsigned int g_calls;
 static unsigned int g_kind;
@@ -77,7 +77,7 @@ int main(void)
     g_engine_interface.opaque_174[28] = bits.word;
 
     reset();
-    dispatch_engine_2c6c0();
+    title_0c790();
     CHECK(g_calls == 1 && g_kind == 1 && g_pointer == (void *)0);
 
     reset();
@@ -85,11 +85,11 @@ int main(void)
     CHECK(g_calls == 1 && g_kind == 2 && g_pointer == p1);
 
     reset();
-    dispatch_engine_2c760(p2);
+    title_0c810(p2);
     CHECK(g_calls == 1 && g_kind == 3 && g_pointer == p2);
 
     reset();
-    dispatch_engine_2c7b0(p3);
+    title_0c850(p3);
     CHECK(g_calls == 1 && g_kind == 4 && g_pointer == p3);
 
     return 0;

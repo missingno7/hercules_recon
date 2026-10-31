@@ -3,7 +3,7 @@
 
 EngineInterface g_engine_interface;
 extern int __cdecl frame_chain_write(void *first, unsigned long raw_count);
-extern int __cdecl engine_frame_chain_write(void *first, unsigned long raw_count);
+extern int __cdecl title_0c690(void *first, unsigned long raw_count);
 
 static int checks;
 static int failures;
@@ -45,48 +45,48 @@ int main(void)
     sentinel = &marker;
 
     fill_links(small, 4, sentinel);
-    CHECK(engine_frame_chain_write(small, 0) == 0);
+    CHECK(title_0c690(small, 0) == 0);
     CHECK(small[0] == 0);
     CHECK(small[1] == sentinel);
 
     fill_links(small, 4, sentinel);
-    CHECK(engine_frame_chain_write(small, 1) == 0);
+    CHECK(title_0c690(small, 1) == 0);
     CHECK(small[0] == 0);
     CHECK(small[1] == sentinel);
 
     fill_links(small, 4, sentinel);
-    CHECK(engine_frame_chain_write(small, 2) == 0);
+    CHECK(title_0c690(small, 2) == 0);
     CHECK(small[0] == &small[1]);
     CHECK(small[1] == 0);
     CHECK(small[2] == sentinel);
 
     fill_links(large, 0x501, sentinel);
-    CHECK(engine_frame_chain_write(large, 0x500) == 0);
+    CHECK(title_0c690(large, 0x500) == 0);
     for (i = 0; i < 0x4ff; ++i)
         CHECK(large[i] == &large[i + 1]);
     CHECK(large[0x4ff] == 0);
     CHECK(large[0x500] == sentinel);
 
     fill_links(small, 4, sentinel);
-    CHECK(engine_frame_chain_write(small, 0x80000001UL) == 0);
+    CHECK(title_0c690(small, 0x80000001UL) == 0);
     CHECK(small[0] == 0);
     CHECK(small[1] == sentinel);
 
     fill_links(small, 4, sentinel);
-    CHECK(engine_frame_chain_write(small, 0xffffffffUL) == 0);
+    CHECK(title_0c690(small, 0xffffffffUL) == 0);
     CHECK(small[0] == 0);
     CHECK(small[1] == sentinel);
 
     g_engine_interface.frame_chain_write_144 = frame_chain_write;
     fill_links(small, 4, sentinel);
-    CHECK(engine_frame_chain_write(small, 2) == 0);
+    CHECK(title_0c690(small, 2) == 0);
     CHECK(small[0] == &small[1]);
     CHECK(small[1] == 0);
     CHECK(small[2] == sentinel);
 
     g_engine_interface.frame_chain_write_144 = replacement_writer;
     small[0] = sentinel;
-    CHECK(engine_frame_chain_write(small, 0xffffffffUL) == 17);
+    CHECK(title_0c690(small, 0xffffffffUL) == 17);
     CHECK(observed_first == small);
     CHECK(observed_count == 0xffffffffUL);
     CHECK(small[0] == sentinel);

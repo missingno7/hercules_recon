@@ -9,8 +9,8 @@ extern u32 g_mesh_colors_6f4e8[512];
 
 extern void __cdecl dispatch_engine_2c690(const void *vector);
 extern void __cdecl dispatch_engine_2c6e0(void);
-extern void __cdecl dispatch_engine_2c760(void *projected_xy);
-extern void __cdecl dispatch_engine_2c7b0(void *depth_word);
+extern void __cdecl title_0c810(void *projected_xy);
+extern void __cdecl title_0c850(void *depth_word);
 
 static long emit_b_add(long a, long b)
 { return (long)((u32)a + (u32)b); }
@@ -86,7 +86,7 @@ static void emit_b_project(const void *vector, void *projected)
 {
     dispatch_engine_2c690(vector);
     dispatch_engine_2c6e0();
-    dispatch_engine_2c760(projected);
+    title_0c810(projected);
 }
 
 /* ENG1:2ED10.  The fourth argument is the actual preparation selector from
@@ -143,7 +143,7 @@ void __cdecl dispatch_local_2ed10(const u32 *stream,
         *(u32 *)(vector + 4) = g_mesh_colors_6f4e8[
             color_offset + color_index];
 
-        dispatch_engine_2c760(vector);
+        title_0c810(vector);
         /* 2ED10 reads the next stream DWORD after its projected callback. */
         next = *stream++;
         vector += 8;
@@ -196,7 +196,7 @@ void __cdecl dispatch_local_2f120(const u32 *stream,
 
         /* 2F120 reads the next packed word before its current 2C760 call. */
         next = *stream++;
-        dispatch_engine_2c760(stage);
+        title_0c810(stage);
         packed = next;
         angle_origin = emit_b_add(angle_origin, 8L);
         --remaining;
@@ -215,7 +215,7 @@ void __cdecl dispatch_local_2f120(const u32 *stream,
     vector[2] = emit_b_short(z);
     dispatch_engine_2c690(vector);
     dispatch_engine_2c6e0();
-    dispatch_engine_2c7b0(&visit->depth_010);
+    title_0c850(&visit->depth_010);
 }
 
 /* ENG1:2F340.  Variant 1 and its alternate use opposite radial origins;
@@ -282,7 +282,7 @@ void __cdecl dispatch_local_2f340(const u32 *stream,
                                          visit->winding_024 != 0, 0);
         *(u32 *)(stage + 4) = g_mesh_colors_6f4e8[
             color_offset + color_index];
-        dispatch_engine_2c760(stage);
+        title_0c810(stage);
         next = *stream++;
         stage += 8;
         packed = next;

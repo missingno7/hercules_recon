@@ -35,10 +35,10 @@ u8 g_dispatch_key_7286c;
 u8 g_packed_byte_70cf0, g_packed_byte_70cf1, g_packed_byte_70cf2;
 u32 g_frame_global_70cf4;
 
-void __cdecl dispatch_engine_2c830(u32 unused_frame_value)
+void __cdecl title_0c960(u32 unused_frame_value)
 {
     (void)unused_frame_value;
-    printf("FAIL uncalled color.c dependency dispatch_engine_2c830\n");
+    printf("FAIL uncalled color.c dependency title_0c960\n");
     ExitProcess(99U);
 }
 

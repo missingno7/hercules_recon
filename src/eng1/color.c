@@ -21,7 +21,7 @@ extern eng1_u8 g_frame_global_734f1;
 extern eng1_u8 g_frame_global_734f2;
 extern eng1_u8 *g_dispatch_frame_base_71ec8;
 extern eng1_u32 g_mesh_colors_6f4e8[512];
-extern void __cdecl dispatch_engine_2c830(eng1_u32 frame_value);
+extern void __cdecl title_0c960(eng1_u32 frame_value);
 void __cdecl eng1_color_profile_5dc0(int level);
 
 static int eng1_clamp_above_255(int component)
@@ -74,7 +74,7 @@ void __cdecl eng1_color_fade_step_5d50(void)
     }
 
     eng1_color_profile_5dc0((int)(short)next_value);
-    dispatch_engine_2c830((eng1_u32)(eng1_u8)next_value);
+    title_0c960((eng1_u32)(eng1_u8)next_value);
 }
 
 void __cdecl eng1_frame_color_write_5e00(int unused_frame_word)

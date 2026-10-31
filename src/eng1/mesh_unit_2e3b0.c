@@ -56,13 +56,13 @@ extern unsigned long *g_shade_corners_70d50;
 extern unsigned long g_shade_table_6f4e8[8][64];
 
 void dispatch_engine_2c690(void *v);
-void dispatch_engine_2c6c0(void);
+void title_0c790(void);
 void dispatch_engine_2c6e0(void);
 void dispatch_engine_2c700(Mat *m);
 void dispatch_engine_2c710(Mat *m);
 void dispatch_engine_2c750(void *p);
-void dispatch_engine_2c760(void *p);
-void dispatch_engine_2c7b0(void *p);
+void title_0c810(void *p);
+void title_0c850(void *p);
 void dispatch_engine_2c920(SVec *r, Mat *m);
 void dispatch_engine_2c940(Mat *m, long *s);
 
@@ -108,8 +108,8 @@ int dispatch_local_2e3b0(MeshVisit *visit)
         sv->vz = (short)visit->layer_y_038;
         dispatch_engine_2c690(sv);
         dispatch_engine_2c6e0();
-        dispatch_engine_2c6c0();
-        dispatch_engine_2c760(sv);
+        title_0c790();
+        title_0c810(sv);
         if ((unsigned short)sv->vy > 240)
             visit->column_stop_016 = 1;
         if ((unsigned short)sv->vx > 320)
@@ -125,7 +125,7 @@ int dispatch_local_2e3b0(MeshVisit *visit)
     sv->vz = (short)visit->layer_y_038;
     dispatch_engine_2c690(sv);
     dispatch_engine_2c6e0();
-    dispatch_engine_2c760(sv);
+    title_0c810(sv);
     if (visit->side_029 == 0) {
         if (sv->vx > 320)
             visit->row_stop_017 = 1;
@@ -157,7 +157,7 @@ void dispatch_local_2e600(unsigned long *stream, MeshVisit *visit, int count)
             dispatch_engine_2c6e0();
             w = *stream++;
             *(long *)&sv->vz = 0;
-            dispatch_engine_2c760(sv);
+            title_0c810(sv);
             sv++;
         } while (--count);
     } else {
@@ -169,7 +169,7 @@ void dispatch_local_2e600(unsigned long *stream, MeshVisit *visit, int count)
             dispatch_engine_2c6e0();
             w = *stream++;
             *(long *)&sv->vz = 0;
-            dispatch_engine_2c760(sv);
+            title_0c810(sv);
             sv++;
         } while (--count);
     }
@@ -193,7 +193,7 @@ void dispatch_local_2e6c0(unsigned long *stream, MeshVisit *visit, int count)
             dispatch_engine_2c690(sv);
             dispatch_engine_2c6e0();
             w = *stream++;
-            dispatch_engine_2c760(sv);
+            title_0c810(sv);
             sv++;
         } while (--count);
     } else {
@@ -205,7 +205,7 @@ void dispatch_local_2e6c0(unsigned long *stream, MeshVisit *visit, int count)
             dispatch_engine_2c690(sv);
             dispatch_engine_2c6e0();
             w = *stream++;
-            dispatch_engine_2c760(sv);
+            title_0c810(sv);
             sv++;
         } while (--count);
     }
@@ -273,12 +273,12 @@ int dispatch_local_2e7a0(MeshVisit *visit)
     lv->y = (g_sine_table_70f34[(angle - 0x3c0) & 0xfff] * radius) >> 12;
     dispatch_engine_2c690(lv);
     dispatch_engine_2c6e0();
-    dispatch_engine_2c760(lv);
+    title_0c810(lv);
     if (((unsigned short *)lv)[1] > 240)
         visit->column_stop_016 = 1;
     if (((unsigned short *)lv)[0] > 320)
         visit->row_stop_017 = 1;
-    dispatch_engine_2c7b0(&depth);
+    title_0c850(&depth);
     if (depth < 0x40)
         return -1;
     visit->depth_010 = depth;
@@ -310,7 +310,7 @@ void dispatch_local_2ea50(unsigned long *stream, MeshVisit *visit, int count)
                 dispatch_engine_2c690(sv);
                 dispatch_engine_2c6e0();
                 w = *stream++;
-                dispatch_engine_2c760(sv);
+                title_0c810(sv);
                 sv++;
             } while (--count);
         } else {
@@ -326,7 +326,7 @@ void dispatch_local_2ea50(unsigned long *stream, MeshVisit *visit, int count)
                 dispatch_engine_2c690(sv);
                 dispatch_engine_2c6e0();
                 w = *stream++;
-                dispatch_engine_2c760(sv);
+                title_0c810(sv);
                 sv++;
             } while (--count);
         }
@@ -343,7 +343,7 @@ void dispatch_local_2ea50(unsigned long *stream, MeshVisit *visit, int count)
                 dispatch_engine_2c690(sv);
                 dispatch_engine_2c6e0();
                 w = *stream++;
-                dispatch_engine_2c760(sv);
+                title_0c810(sv);
                 sv++;
             } while (--count);
         } else {
@@ -357,7 +357,7 @@ void dispatch_local_2ea50(unsigned long *stream, MeshVisit *visit, int count)
                 dispatch_engine_2c690(sv);
                 dispatch_engine_2c6e0();
                 w = *stream++;
-                dispatch_engine_2c760(sv);
+                title_0c810(sv);
                 sv++;
             } while (--count);
         }
@@ -400,7 +400,7 @@ void dispatch_local_2ed10(unsigned long *stream, MeshVisit *visit, int count, in
             dispatch_engine_2c6e0();
             top = c1 + ((x * (c0 - c1)) >> 6);
             *(unsigned long *)&sv->vz = shade[(top + (((c3 + ((x * (c2 - c3)) >> 6)) - top) * (0x20 - y) >> 6)) >> 2];
-            dispatch_engine_2c760(sv);
+            title_0c810(sv);
             sv++;
             w = *stream++;
         } while (--count);
@@ -415,7 +415,7 @@ void dispatch_local_2ed10(unsigned long *stream, MeshVisit *visit, int count, in
             dispatch_engine_2c6e0();
             top = c0 + x * (c1 - c0) / 64;
             *(unsigned long *)&sv->vz = shade[(top + ((c2 + x * (c3 - c2) / 64) - top) * (0x20 - y) / 64) >> 2];
-            dispatch_engine_2c760(sv);
+            title_0c810(sv);
             sv++;
             w = *stream++;
         } while (--count);
@@ -488,7 +488,7 @@ void dispatch_local_2f120(unsigned long *stream, MeshVisit *visit, int count)
     dispatch_engine_2c6e0();
     w = *stream++;
     while (--count) {
-        dispatch_engine_2c760(out);
+        title_0c810(out);
         out++;
         ang = ((0x40 - (char)w) << 1) - a0;
         d = (w >> 24) - r0;
@@ -499,13 +499,13 @@ void dispatch_local_2f120(unsigned long *stream, MeshVisit *visit, int count)
         dispatch_engine_2c6e0();
         w = *stream++;
     }
-    dispatch_engine_2c760(out);
+    title_0c810(out);
     v.vx = (short)(-(g_sine_table_70f34[(0x40 - a0) & 0xfff] * r0) >> 12);
     v.vy = (short)(cy + 0x20);
     v.vz = (short)(-(g_sine_table_70f34[(-0x3c0 - a0) & 0xfff] * r0) >> 12);
     dispatch_engine_2c690(&v);
     dispatch_engine_2c6e0();
-    dispatch_engine_2c7b0(&visit->depth_010);
+    title_0c850(&visit->depth_010);
 }
 
 void dispatch_local_2f340(unsigned long *stream, MeshVisit *visit, int count)
@@ -539,7 +539,7 @@ void dispatch_local_2f340(unsigned long *stream, MeshVisit *visit, int count)
                 dispatch_engine_2c6e0();
                 top = c1 + ((x * (c0 - c1)) >> 6);
                 *(unsigned long *)&sv->vz = g_shade_table_6f4e8[0][(top + (((c3 + ((x * (c2 - c3)) >> 6)) - top) * (0x20 - y) >> 6)) >> 2];
-                dispatch_engine_2c760(sv);
+                title_0c810(sv);
                 w = *stream++;
                 sv++;
             } while (--count);
@@ -556,7 +556,7 @@ void dispatch_local_2f340(unsigned long *stream, MeshVisit *visit, int count)
                 dispatch_engine_2c6e0();
                 top = c0 + ((x * (c1 - c0)) >> 6);
                 *(unsigned long *)&sv->vz = g_shade_table_6f4e8[0][(top + (((c2 + ((x * (c3 - c2)) >> 6)) - top) * (0x20 - y) >> 6)) >> 2];
-                dispatch_engine_2c760(sv);
+                title_0c810(sv);
                 w = *stream++;
                 sv++;
             } while (--count);
@@ -577,7 +577,7 @@ void dispatch_local_2f340(unsigned long *stream, MeshVisit *visit, int count)
                 dispatch_engine_2c6e0();
                 top = c0 + ((x * (c1 - c0)) >> 6);
                 *(unsigned long *)&sv->vz = g_shade_table_6f4e8[0][(top + (((c2 + ((x * (c3 - c2)) >> 6)) - top) * (0x20 - y) >> 6)) >> 2];
-                dispatch_engine_2c760(sv);
+                title_0c810(sv);
                 w = *stream++;
                 sv++;
             } while (--count);
@@ -594,7 +594,7 @@ void dispatch_local_2f340(unsigned long *stream, MeshVisit *visit, int count)
                 dispatch_engine_2c6e0();
                 top = c1 + ((x * (c0 - c1)) >> 6);
                 *(unsigned long *)&sv->vz = g_shade_table_6f4e8[0][(top + (((c3 + ((x * (c2 - c3)) >> 6)) - top) * (0x20 - y) >> 6)) >> 2];
-                dispatch_engine_2c760(sv);
+                title_0c810(sv);
                 w = *stream++;
                 sv++;
             } while (--count);

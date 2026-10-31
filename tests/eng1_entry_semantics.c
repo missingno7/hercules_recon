@@ -12,14 +12,14 @@ static unsigned long expected_flags = 1;
 
 #define CHECK(test) do { if (!(test)) { ++failed; printf("FAIL line %d\n", __LINE__); } } while (0)
 
-void __cdecl engine_pool_save_arena(void *arena, unsigned long bytes)
+void __cdecl title_0c390(void *arena, unsigned long bytes)
 {
     calls[count++] = 1;
     CHECK(arena == (void *)0x12340000UL);
     CHECK(bytes == 0x12345UL);
     CHECK(g_eng1_entry_first_use_5b648 == 1);
 }
-void __cdecl engine_host_update(void)
+void __cdecl title_0ca00(void)
 {
     calls[count++] = 2;
     CHECK(g_eng1_entry_first_use_5b648 == 0);

@@ -5,7 +5,7 @@
 
 extern void __cdecl dispatch_engine_2c690(const void *vector);
 extern void __cdecl dispatch_engine_2c6e0(void);
-extern void __cdecl dispatch_engine_2c760(void *projected_xy);
+extern void __cdecl title_0c810(void *projected_xy);
 
 static long emit_add32(long a, long b)
 { return (long)((u32)a + (u32)b); }
@@ -68,7 +68,7 @@ void __cdecl dispatch_local_2e600(const u32 *stream,
 
         packed = *stream++;
         *(u32 *)(vector + 4) = 0;
-        dispatch_engine_2c760(vector);
+        title_0c810(vector);
         vector += 8;
         --remaining;
     } while (remaining != 0);
@@ -104,7 +104,7 @@ void __cdecl dispatch_local_2e6c0(const u32 *stream,
         dispatch_engine_2c6e0();
 
         packed = *stream++;
-        dispatch_engine_2c760(vector);
+        title_0c810(vector);
         vector += 8;
         --remaining;
     } while (remaining != 0);
@@ -161,7 +161,7 @@ void __cdecl dispatch_local_2ea50(const u32 *stream,
             dispatch_engine_2c690(vector);
             dispatch_engine_2c6e0();
             packed = *stream++;
-            dispatch_engine_2c760(vector);
+            title_0c810(vector);
             vector += 8;
             --remaining;
         } while (remaining != 0);
@@ -197,7 +197,7 @@ void __cdecl dispatch_local_2ea50(const u32 *stream,
             dispatch_engine_2c690(vector);
             dispatch_engine_2c6e0();
             packed = *stream++;
-            dispatch_engine_2c760(vector);
+            title_0c810(vector);
             vector += 8;
             --remaining;
         } while (remaining != 0);

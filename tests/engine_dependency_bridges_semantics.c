@@ -119,13 +119,13 @@ int main(void)
     unsigned long rows_before;
 
     g_engine_interface.save_arena_050 = save_callback;
-    engine_pool_save_arena(arena, 0x87654321UL);
+    title_0c390(arena, 0x87654321UL);
     expect("slot20 forwards arena and full byte count", save_calls == 1 &&
            save_arena_seen == arena && save_bytes_seen == 0x87654321UL);
 
     g_engine_interface.update_host_258 = update_first;
-    engine_host_update();
-    engine_host_update();
+    title_0ca00();
+    title_0ca00();
     expect("slot150 callback is loaded live on each call",
            update_first_calls == 1 && update_second_calls == 1);
 
