@@ -112,6 +112,19 @@ def declared_additions(item):
     return added
 
 
+def check_refresh_additions(plan, inventory_refresh):
+    """A reviewed unit delta and the plan must declare the same added function definitions.
+
+    added_functions in plan.sources drives the alias function-count receipts; the
+    reviewed-unit-delta-v3 added_functions admits the new COMDAT groups in the unit
+    inventory. Both describe one source change, so they must agree exactly.
+    """
+    from unit_refresh import declared_added_functions
+    for name, declaration in inventory_refresh.items():
+        if sorted(declared_added_functions(declaration)) != sorted(declared_additions(plan['sources'][name])):
+            raise ValueError('Inventory refresh and plan disagree about added functions: ' + name)
+
+
 def expected_after(result, added, after_object):
     """The before findings as they must read after the declared additions."""
     if not added or not result.get('source_alias_checks'):
@@ -237,6 +250,7 @@ def apply(plan_path, before_path, original_root, directory):
         frozen_before(state, before['results'], original_root, baseline)
         changed = set(plan['sources'])
         added_functions = {name: declared_additions(item) for name, item in plan['sources'].items()}
+        check_refresh_additions(plan, inventory_refresh)
         source_before, candidates, additions = {}, {}, {}
         for name, item in plan['sources'].items():
             path = (ROOT / name).resolve()
