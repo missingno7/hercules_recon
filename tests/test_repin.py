@@ -156,6 +156,15 @@ class ContextAdditionTests(unittest.TestCase):
         self.assertEqual(repin.context_additions(dict(context_additions=declared)), declared)
         self.assertEqual(repin.context_additions({}), {})
 
+    def test_canonical_src_header_is_accepted_but_not_other_repository_files(self):
+        header = (repin.ROOT / 'src' / 'shared' / 'engine_interface.h').resolve()
+        declared = {str(header): repin.sha(header.read_bytes())}
+        self.assertEqual(repin.context_additions(dict(context_additions=declared)), declared)
+        for path in ((repin.ROOT / 'src' / 'shared' / 'remove_actor.c').resolve(),
+                     (repin.ROOT / 'scripts' / 'repin.py').resolve()):
+            with self.subTest(path=path.name), self.assertRaises(ValueError):
+                repin.context_additions(dict(context_additions={str(path): repin.sha(path.read_bytes())}))
+
     def test_outside_toolchain_wrong_hash_missing_or_malformed_refuses(self):
         good = repin.sha(self.header.read_bytes())
         for declared in ({str(self.outside): repin.sha(self.outside.read_bytes())},

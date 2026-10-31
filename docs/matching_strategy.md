@@ -21,7 +21,7 @@ Blocker families, by rows touched (a row counts once per family):
 | Register/register-based indirect CALL | 153 rows contain one | 35 | opaque-indirect-call-v1 (2026-10-31) |
 | EXE statically linked library callees | ~60 rows | 19+ | closed library-member identity (not yet proven) |
 
-Accepted after the first wave-j integration: **1,179**.
+Accepted after the wave-j integrations so far: **1,196** (commit e16ebf4).
 
 Highest single gates: ENG1 0x26de0 (16 callers), shared remove_actor_preserving_resource
 (ENG1 0x27410 + ENG3 0x1cd40, 18), TITLE title_054f0 (20) and title_164b0 (14), EXE operator delete
@@ -77,8 +77,17 @@ Independent anchors, not owners or content, now limit storage identities:
 - The pinned design (docs/loader_zero_matching_2026_10_25.md) requires anchors outside the compared and
   selected callers. The worker contract also keeps them outside all pending rows, because the per-run
   overlap check would otherwise block the anchor-containing row's own later promotion.
-- A non-weakening alternative (re-anchoring rules or a compiled-layout proof) is under design
-  (work/velocity_j/anchors2).
+- Decision (integrator, 2026-10-31, after the anchors2 review):
+  * The verifier rule is unchanged: an anchor must lie outside the compared caller and the selected batch.
+    81% of the accepted loader-zero anchors already sit inside pending rows.
+  * The worker-contract rule "outside every pending row" is replaced by a planning rule. A symbol is
+    schedulable with a stable witness (outside every row, or inside an accepted row), or with at least 3
+    distinct host rows that name the cell consistently; RECONSTRUCTED hosts need strict mode.
+  * Before a witness host is promoted, the proofs it hosts are re-anchored with scripts/reanchor.py.
+  * No proof uses another row's acceptance status, so location cycles are not circular acceptance.
+  * Compiled-layout proofs were rejected: they fit names to addresses the callers already imply.
+  * Estimated unlock: about +17 rows and 78 of the 230 no-anchor symbols. The 40 accepted bindings whose
+    witness host names the cell differently are reviewed storage aliases; they go to the naming migration.
 - HERCULES.EXE is relocation-stripped, so no HIGHLOW fixups exist. EXE storage needs a different form, and
   the EndDialog library closure (work/velocity_j/solEXE) waits on the 0x215c90 restart cell.
 
@@ -96,7 +105,13 @@ Independent anchors, not owners or content, now limit storage identities:
 
 ## Workstreams (next)
 
-1. Done: opaque-call and byte-alias acceptances (1,179).
+1. Done:
+   * opaque-call and byte-alias acceptances (1,179);
+   * b11 callee reconstructions plus 15 freed rows (1,196);
+   * b12: eng1_19b40 staged.
+   Tools: work/velocity_j/bind_builder.py builds lane binding documents (verbatim accepted records,
+   function identities, opaque calls, jump and byte tables, per-caller access surveys). repin.py accepts
+   declared added functions and canonical src/ header context additions.
 2. Re-pin batch b11 for the wave-j units, adding new rows for the reconstructed callees and retiring the
    behavioural duplicates in config/eng1/sources.json; then bind their callers.
 3. Canonical naming migration (aliases, twin wrappers, duplicate providers in config/eng1/sources.json).

@@ -373,3 +373,18 @@ findings, and the old sources are preserved as `evidence/repin_snapshots`.
   duplicate-body retirement.
 - **Deferred:** ENG1 0x19b40 is masked-equal in work/velocity_j/solN2, but its unit gains a project header,
   and the re-pin admits only toolchain-header context additions.
+
+## Re-pin b12 and tool extensions (2026-10-31)
+
+- **Accepted (commit e16ebf4):** 15 rows freed by the b11 callees. Accepted total: **1,196**.
+- **Binding builder:** the generic builder now issues the established local-table records. It covers
+  embedded DIR32 jump tables with their code labels, and relocation-free `coff-local-byte-table-v1` tables
+  (complete allocation, unique native placement). `eng1.34e20` is refused because its byte table's native
+  placement is ambiguous.
+- **Context additions:** `repin.py` accepts canonical `src/` headers as reviewed context additions, keyed the
+  way `match.context_proof` keys them. Before, only toolchain headers were accepted.
+- **Re-pin b12:** used that extension to add ENG1 0x19b40 (`_eng1_19b40`, 10 pending callers) to
+  `src/eng1/player_axis_motion.c` as a masked row. Its six-entry slice-base table at 0x553e8 remains an
+  unresolved file-backed data dependency, so the row itself is not accepted.
+- **Anchors:** the integrator adopted the anchors2 review's planning rule (see docs/matching_strategy.md). The
+  verifier still refuses only anchors in the compared caller or the selected batch.

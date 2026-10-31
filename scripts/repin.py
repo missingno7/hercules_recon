@@ -76,20 +76,23 @@ def snapshot(name, data):
 def context_additions(item):
     """Reviewed, explicitly declared include-context additions of one changed source.
 
-    Only regular files inside the manifest-pinned toolchain tree may be added (for a
-    documented TU-context header such as <windows.h>); each must match its declared
-    hash now. Nothing is removed or replaced here: the full after verification still
-    recomputes the closure and every accepted contribution, relocation and reference.
+    Only regular files inside the manifest-pinned toolchain tree (a documented
+    TU-context header such as <windows.h>) or existing canonical headers under src/
+    may be added; each must match its declared hash now. Nothing is removed or
+    replaced here: the full after verification still recomputes the closure and every
+    accepted contribution, relocation and reference.
     """
     from match import DEFAULT_TOOLCHAIN
     declared = item.get('context_additions', {})
     if not isinstance(declared, dict):
         raise ValueError('context_additions must map paths to sha256')
     toolchain = DEFAULT_TOOLCHAIN.resolve()
+    canonical = (ROOT / 'src').resolve()
     for name, expected in declared.items():
         path = Path(name)
-        if not path.is_absolute() or path.resolve() != path or not path.is_relative_to(toolchain) or not path.is_file():
-            raise ValueError('Context additions must be existing files inside the pinned toolchain: ' + name)
+        inside = path.is_relative_to(toolchain) or (path.is_relative_to(canonical) and path.suffix == '.h')
+        if not path.is_absolute() or path.resolve() != path or not inside or not path.is_file():
+            raise ValueError('Context additions must be existing toolchain files or canonical src/ headers: ' + name)
         if sha(path.read_bytes()) != expected:
             raise ValueError('Context addition hash mismatch: ' + name)
     return dict(declared)
@@ -282,9 +285,12 @@ def apply(plan_path, before_path, original_root, directory):
                 # gate recomputes the real closure, so an undeclared or wrong header fails.
                 for name in changed & set(proof['context_sha256']):
                     if additions.get(name):
-                        if set(additions[name]) & set(proof['context_sha256']):
+                        # Same keys as match.context_proof: repository files relative, toolchain absolute.
+                        keyed = {(Path(k).relative_to(ROOT).as_posix() if Path(k).is_relative_to(ROOT) else k): v
+                                 for k, v in additions[name].items()}
+                        if set(keyed) & set(proof['context_sha256']):
                             raise ValueError('Declared context addition is already pinned: ' + row['id'])
-                        proof['context_sha256'].update(additions[name])
+                        proof['context_sha256'].update(keyed)
             if row['source'] in changed or changed & set(pins) or mapping:
                 affected.append(row['id'])
             # Legacy default still refuses whole-unit changes. The opt-in gate
