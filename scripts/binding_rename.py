@@ -246,16 +246,33 @@ def proof_fields(document, row_id):
                                                                 identity_sha256=reference_digest(identity))))
 
 
-def expected_findings(result, changes, compiled_sha256=None):
+PROVENANCE = ('bindings_path', 'bindings_sha256', 'reference_evidence_sha256')
+
+
+def reissued_provenance(proof):
+    """The binding provenance a re-issued row must verify with: its descendant manifest's fields."""
+    return {key: proof[key] for key in PROVENANCE}
+
+
+def expected_findings(result, changes, compiled_sha256=None, provenance=None):
     """Old comparator findings as they must read after the reviewed renames (evidence aside).
 
     compiled_sha256 is the expected contribution digest when a rebind re-expresses an addend
     (the only bytes a reviewed rename may change are those relocation fields).
+    provenance ({bindings_path, bindings_sha256, reference_evidence_sha256} of the descendant
+    manifest, as the re-issued proof records them) replaces the parent's binding provenance, so
+    the fresh result must name exactly the re-issued manifest. Without it the binding digest is
+    dropped from the comparison (legacy callers).
     """
     result = copy.deepcopy(result)
     if not changes:
         return result
-    result.pop('bindings_sha256', None)
+    if provenance is None:
+        result.pop('bindings_sha256', None)
+    else:
+        if set(provenance) != set(PROVENANCE):
+            raise ValueError('Re-issued provenance names exactly ' + ', '.join(PROVENANCE))
+        result.update(provenance)
     if compiled_sha256 is not None:
         result['compiled_sha256'] = compiled_sha256
     for receipt in result.get('references', []):
@@ -272,12 +289,13 @@ def expected_findings(result, changes, compiled_sha256=None):
     return result
 
 
-def observed_findings(result, changes):
-    """New comparator findings in the same normalized form."""
+def observed_findings(result, changes, provenance=None):
+    """New comparator findings in the same normalized form (provenance as in expected_findings)."""
     result = copy.deepcopy(result)
     if not changes:
         return result
-    result.pop('bindings_sha256', None)
+    if provenance is None:
+        result.pop('bindings_sha256', None)
     for receipt in result.get('references', []):
         receipt.pop('evidence', None)
     checks = result.get('source_alias_checks')

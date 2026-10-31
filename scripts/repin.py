@@ -436,13 +436,17 @@ def apply(plan_path, before_path, original_root, directory):
             require_equal(set(old_results), {r['id'] for r in old_rows}, 'accepted set')
             preserved = []
             from coff import COFF
+            new_proofs = {row['id']: row['proof'] for row in accepted_rows(state['functions'])}
             for old in accepted_rows(old_state['functions']):
                 a, b = old_results[old['id']], by_id[old['id']]
                 changes = renames.rows.get(old['id'], {})
+                # A re-issued row verifies with its descendant manifest: the fresh result must name exactly
+                # the path, binding digest and evidence inventory its updated proof records.
+                provenance = binding_rename.reissued_provenance(new_proofs[old['id']]) if changes else None
                 require_equal(binding_rename.expected_findings(
                                   expected_after(a, added_functions.get(old.get('source'), []), b['object']), changes,
-                                  rebound.get(old['id'])),
-                              binding_rename.observed_findings(invariant(b), changes),
+                                  rebound.get(old['id']), provenance),
+                              binding_rename.observed_findings(invariant(b), changes, provenance),
                               'all verified findings '+old['id'])
                 callee = renames.callee_names.get(old['target'], {})
                 old_part = binding_rename.expected_contribution(

@@ -174,8 +174,11 @@ class Fixture:
                     receipts.append(dict(offset=rel['offset'], type=rel['type'], symbol=rel['symbol'], addend=addend,
                                          kind=record.get('kind'), destination_rva=record.get('rva', 0) + addend,
                                          target_destination_rva=native, evidence=record.get('evidence')))
+                # Same provenance fields as match.verify_rows: the manifest path read and its evidence inventory.
                 result.update(exact=exact, relocated_equal=exact, references=receipts,
-                              bindings_sha256=binding_rename.reference_digest(binding))
+                              bindings_sha256=binding_rename.reference_digest(binding),
+                              bindings_path=row['proof']['bindings_path'],
+                              reference_evidence_sha256=binding_rename.reference_digest(evidence))
             results.append(result)
         return results, dict(compiler_calls=0, rows=len(rows))
 
@@ -270,6 +273,29 @@ class EndToEndApplyTests(unittest.TestCase):
                          {'_old_callee': ['_new_callee', 0], '_cell': ['_owner', 0x10]})
         caller_section = COFF(self.fx.objects[sha(Fixture.CALLER_AFTER)]).function('_caller')
         self.assertEqual(caller['compiled_sha256'], sha(caller_section['data']))  # only the addend field moved
+        # The fresh gate verified the caller against the descendant manifest named by its new proof.
+        fresh = next(r for r in receipt['results'] if r['id'] == 'm.caller')
+        self.assertEqual({k: fresh[k] for k in binding_rename.PROVENANCE},
+                         {k: caller[k] for k in binding_rename.PROVENANCE})
+
+    def test_fresh_result_must_name_the_reissued_manifest(self):
+        # A comparator that still reads the parent manifest for the re-issued caller fails closed.
+        real = self.fx.verify
+
+        def parent_reader(rows, **kw):
+            results, stats = real(rows, **kw)
+            for result in results:
+                if result['id'] == 'm.caller' and 'bindings_path' in result:
+                    result['bindings_path'] = 'evidence/parent.json'
+            return results, stats
+        before = (self.root / 'recovery.json').read_bytes()
+        plan = self.fx.plan(self.fx.review())
+        before_report = self.before_report()
+        with patch.object(match, 'verify_rows', parent_reader), self.assertRaisesRegex(ValueError, 'all verified findings m.caller'):
+            plan_path = self.root / 'work/plan.json'
+            plan_path.write_text(json.dumps(plan))
+            repin.apply(plan_path, before_report, self.root, self.root / 'work/repin')
+        self.assertEqual((self.root / 'recovery.json').read_bytes(), before)
 
     def test_stale_callee_reference_rolls_back_everything(self):
         stale = b'int caller(void) { old_callee(); return owner[4]; }\n'
@@ -367,6 +393,26 @@ class DeriveTests(unittest.TestCase):
                     continue
                 with self.assertRaises(ValueError):
                     self.derive(mutate)
+
+    def test_reissued_findings_compare_descendant_provenance(self):
+        # Shape of the first real use (W1, eng3.1a320): only the manifest path, binding digest and
+        # evidence inventory move to the descendant; references match after the reviewed rename.
+        use = dict(offset=10, type=20, symbol='_old', addend=0, kind='function', destination_rva=0x1000,
+                   target_destination_rva=0x1000, evidence=['recovery.json#functions[m.callee]'], one_past=False)
+        before = dict(exact=True, scope='s', bindings_path='evidence/parent.json', bindings_sha256='p',
+                      reference_evidence_sha256='pe', references=[use])
+        provenance = dict(bindings_path='evidence/rename_x.json', bindings_sha256='d', reference_evidence_sha256='de')
+        after = dict(before, references=[dict(use, symbol='_new')], **provenance)
+        changes = {'_old': ('_new', 0)}
+        self.assertEqual(binding_rename.expected_findings(before, changes, None, provenance),
+                         binding_rename.observed_findings(after, changes, provenance))
+        self.assertNotEqual(binding_rename.expected_findings(before, changes),  # the W1 failure
+                            binding_rename.observed_findings(after, changes))
+        wrong = dict(provenance, bindings_path='evidence/other.json')
+        self.assertNotEqual(binding_rename.expected_findings(before, changes, None, wrong),
+                            binding_rename.observed_findings(after, changes, wrong))
+        with self.assertRaises(ValueError):
+            binding_rename.expected_findings(before, changes, None, dict(bindings_path='evidence/rename_x.json'))
 
     def test_anchor_inside_the_caller_is_not_independent(self):
         self.set_owner(identity=dict(rva=0x2004, size=6, operand=1, sha256='a' * 64))
