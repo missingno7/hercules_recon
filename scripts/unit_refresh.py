@@ -227,12 +227,15 @@ def check_delta(before, after, declaration, protected, allow_protected_renames=F
         for rel in sec['relocations']:
             rel['symbol'] = in_place.get(rel['symbol'], rel['symbol'])
     references = []
-    for name in protected:
-        if name in in_place:
+    # protected: accepted peer names, or {before name: after name} when a reviewed binding rename
+    # (binding_rename.py) renames an accepted definition in place.
+    peers = dict(protected) if isinstance(protected, dict) else {name: name for name in protected}
+    for name, after_name in peers.items():
+        if (name in in_place) != (after_name != name) or in_place.get(name, name) != after_name:
             raise ValueError('Rename touches an accepted contribution: ' + name)
-        a, b = before.function(name), after.function(name)
+        a, b = before.function(name), after.function(after_name)
         renamed = dict(a, relocations=[dict(r, symbol=in_place.get(r['symbol'], r['symbol'])) for r in a['relocations']])
-        if renamed != b or new_of[_number(before, name)] != _number(after, name):
+        if renamed != b or new_of[_number(before, name)] != _number(after, after_name):
             raise ValueError('Accepted contribution changed: ' + name)
         references += [dict(function=name, offset=r['offset'], before_symbol=r['symbol'], after_symbol=in_place[r['symbol']])
                        for r in a['relocations'] if r['symbol'] in in_place]
@@ -250,7 +253,7 @@ def check_delta(before, after, declaration, protected, allow_protected_renames=F
         if set(change) != {'function', 'offset', 'before_symbol', 'after_symbol', 'before_addend', 'after_addend'}:
             raise ValueError('Invalid declared DIR32 rebase')
         name, off = change['function'], change['offset']
-        if name in protected:
+        if name in peers:
             raise ValueError('Rebase touches an accepted contribution')
         a, ai = located(name)
         if type(off) is not int or off < 0 or off + 4 > a['size'] or (ai, off) in seen:
@@ -271,7 +274,7 @@ def check_delta(before, after, declaration, protected, allow_protected_renames=F
         if set(change) != {'function', 'offset', 'type', 'before_symbol', 'after_symbol'}:
             raise ValueError('Invalid declared relocation rename')
         name, off, typ = change['function'], change['offset'], change['type']
-        if name in protected:
+        if name in peers:
             raise ValueError('Rename touches an accepted contribution')
         if (typ not in (REL32, DIR32) or change['before_symbol'] == change['after_symbol'] or
                 change['before_symbol'] in in_place):
@@ -305,7 +308,7 @@ def check_delta(before, after, declaration, protected, allow_protected_renames=F
             symbols.remove(symbol)
     if a != b:
         raise ValueError('Undeclared ordered symbol/auxiliary delta')
-    result = dict(protected=sorted(protected), rebases=len(declaration['rebases']),
+    result = dict(protected=sorted(peers), rebases=len(declaration['rebases']),
                   removed=declaration['removed'], added=declaration['added'])
     if profile != 'reviewed-unit-delta-v1':
         result.update(renames=len(declaration['renames']), symbol_renames=in_place,
@@ -349,12 +352,17 @@ def _comparable_symbols(coff, masked_sections, old_of, dropped=frozenset()):
     return records
 
 
-def refresh(rows, old_results, declarations, original_root):
+def refresh(rows, old_results, declarations, original_root, renamed=None, changes=None):
     """Called inside repin's rollback transaction, before its fresh full gate.
 
     The prior fresh before report is checked by repin.frozen_before. Each new
     unit is built from its canonical path; old objects never grant acceptance.
+    renamed maps a row id to its own symbol before a reviewed definition rename (rows
+    already carry the new symbol); changes maps a re-issued row id to its reviewed
+    {old name: (new name, addend delta)}. An accepted contribution may reference a renamed
+    symbol only when its own reviewed binding renames exactly that symbol.
     """
+    renamed, changes = renamed or {}, changes or {}
     import match
     from env import ROOT
     groups = {}
@@ -383,7 +391,14 @@ def refresh(rows, old_results, declarations, original_root):
             raise ValueError('Before unit object changed after verification')
         before = COFF(old_path)
         after = COFF(obj)
-        delta = check_delta(before, after, declaration, {r['symbol'] for r in peers})
+        protected = {renamed.get(r['id'], r['symbol']): r['symbol'] for r in peers}
+        delta = check_delta(before, after, declaration, protected,
+                            allow_protected_renames=any(r['id'] in changes for r in peers))
+        owners = {renamed.get(r['id'], r['symbol']): r['id'] for r in peers}
+        for reference in delta.get('protected_renamed_references', []):
+            row_id = owners[reference['function']]
+            if changes.get(row_id, {}).get(reference['before_symbol']) != (reference['after_symbol'], 0):
+                raise ValueError('Accepted relocation renamed without its reviewed binding: ' + row_id)
         raw, portable = match.unit_inventory(obj, original_root), match.portable_unit_inventory(obj)
         for row in peers:
             proof = row['proof']

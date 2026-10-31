@@ -140,6 +140,16 @@ def expected_after(result, added, after_object):
     return expected
 
 
+def binding_renames(state, plan, changed):
+    """Optional reviewed binding renames (binding_rename.py); an absent review changes nothing."""
+    import binding_rename
+    if 'binding_review' not in plan:
+        return binding_rename.Plan()
+    review, raw = binding_rename.load_review(plan['binding_review'])
+    return binding_rename.derive(state, review, binding_rename.parent_documents(review),
+                                 plan['binding_review']['path'], sha(raw), changed)
+
+
 def pin_snapshot(name, expected, current):
     """Content address satisfying one direct pin of a changed source, or refuse."""
     if expected == sha(current):
@@ -208,7 +218,8 @@ def recover_transaction(journal):
     records = json.loads(journal.read_bytes())
     for record in records:
         path = (ROOT / record['path']).resolve()
-        if path != ROOT / 'recovery.json' and not path.is_relative_to(ROOT / 'src'):
+        created_manifest = path.is_relative_to(ROOT / 'evidence') and record['before'] is None
+        if path != ROOT / 'recovery.json' and not path.is_relative_to(ROOT / 'src') and not created_manifest:
             raise ValueError('Unsafe reviewed re-pin journal destination')
         current = sha(path.read_bytes()) if path.exists() else None
         if current not in (record['before_sha256'], record['after_sha256'], record.get('intermediate_sha256')):
@@ -267,6 +278,8 @@ def apply(plan_path, before_path, original_root, directory):
             additions[name] = context_additions(item)
         docs = documents()
         audit = impact(state, docs, changed)
+        import binding_rename
+        renames = binding_renames(state, plan, changed)
         snapshots = dict(baseline)
         for name, data in source_before.items():
             snapshots[name] = snapshot(name, data)
@@ -279,11 +292,32 @@ def apply(plan_path, before_path, original_root, directory):
                        snapshot=address,
                        usage='historical source provenance; live compiler inputs remain canonical')
         old_rows = accepted_rows(state['functions'])
+        before_symbols = {row['id']: row['symbol'] for row in old_rows}
+        rebound = {}
         affected = []
         for row in old_rows:
             proof = row['proof']
+            if row['id'] in renames.definitions:
+                row.setdefault('symbol_history', []).append(dict(review=renames.review[0], before=row['symbol']))
+                row['symbol'] = renames.definitions[row['id']]
+            if row['id'] in renames.rows:
+                # The parent manifest stays provenance; the descendant carries the reviewed names.
+                parent, parent_sha = renames.parents[row['id']]
+                new_path, document = renames.manifests[parent]
+                row.setdefault('reference_rename_history', []).append(dict(
+                    review=renames.review[0], review_sha256=renames.review[1],
+                    parent_bindings_sha256=parent_sha, proof=copy.deepcopy(proof)))
+                proof['bindings_path'] = new_path
+                proof.update(binding_rename.proof_fields(document, row['id']))
+                if any(delta for _, delta in renames.rows[row['id']].values()):
+                    # A rebind re-expresses addend fields; the fresh gate must reproduce exactly these bytes.
+                    from coff import COFF
+                    section = COFF(old_results[row['id']]['object']).function(row['symbol'])
+                    rebound[row['id']] = binding_rename.expected_contribution(
+                        section, renames.rows[row['id']], {})['sha256']
+                    proof['compiled_sha256'] = rebound[row['id']]
             path = proof.get('bindings_path')
-            pins = docs.get(path, {}).get('evidence_files', {})
+            pins = (renames.binding_document(path) or docs.get(path, {})).get('evidence_files', {})
             # Each pin of a changed source reads the snapshot of exactly the hash it pins.
             mapping = {n: ('evidence/repin_snapshots/' + pins[n] + '.txt' if n in source_before else snapshots[n])
                        for n in snapshots if n in pins}
@@ -305,7 +339,7 @@ def apply(plan_path, before_path, original_root, directory):
                         if set(keyed) & set(proof['context_sha256']):
                             raise ValueError('Declared context addition is already pinned: ' + row['id'])
                         proof['context_sha256'].update(keyed)
-            if row['source'] in changed or changed & set(pins) or mapping:
+            if row['source'] in changed or changed & set(pins) or mapping or row['id'] in renames.rows:
                 affected.append(row['id'])
             # Legacy default still refuses whole-unit changes. The opt-in gate
             # checks complete old/new inventories and all accepted contributions.
@@ -345,6 +379,17 @@ def apply(plan_path, before_path, original_root, directory):
                  plan_path: plan_bytes, before_path: before_bytes}
         for p in docs:
             guard[ROOT/p] = (ROOT/p).read_bytes()
+        if 'binding_review' in plan:
+            review_file = (ROOT / plan['binding_review']['path']).resolve()
+            guard[review_file] = review_file.read_bytes()
+        manifests = {}
+        for new_path, document in renames.manifests.values():
+            payload = binding_rename.manifest_payload(document)
+            if (ROOT / new_path).exists():
+                if (ROOT / new_path).read_bytes() != payload:
+                    raise ValueError('Conflicting immutable descendant manifest: ' + new_path)
+                continue
+            manifests[ROOT / new_path] = payload
         for declaration in inventory_refresh.values():
             review = (ROOT / declaration['review']).resolve()
             if not review.is_relative_to(ROOT / 'evidence'):
@@ -363,7 +408,9 @@ def apply(plan_path, before_path, original_root, directory):
             if inventory_refresh:
                 from unit_refresh import refresh
                 inventory_receipts = refresh(accepted_rows(state['functions']), old_results,
-                                            inventory_refresh, original_root)
+                                            inventory_refresh, original_root,
+                                            renamed={i: before_symbols[i] for i in renames.definitions},
+                                            changes=renames.rows)
             rows = accepted_rows(state['functions'])
             # RELOCATED requests retain their pending status until the gate passes.
             rows += [r for r in selected if r['id'] in pending]
@@ -373,13 +420,23 @@ def apply(plan_path, before_path, original_root, directory):
             by_id = {r['id']: r for r in results}
             require_equal(set(old_results), {r['id'] for r in old_rows}, 'accepted set')
             preserved = []
+            from coff import COFF
             for old in accepted_rows(old_state['functions']):
                 a, b = old_results[old['id']], by_id[old['id']]
-                require_equal(expected_after(a, added_functions.get(old.get('source'), []), b['object']),
-                              invariant(b), 'all verified findings '+old['id'])
-                old_part = contribution(a['object'], old['symbol'])
-                new_part = contribution(b['object'], old['symbol'])
+                changes = renames.rows.get(old['id'], {})
+                require_equal(binding_rename.expected_findings(
+                                  expected_after(a, added_functions.get(old.get('source'), []), b['object']), changes,
+                                  rebound.get(old['id'])),
+                              binding_rename.observed_findings(invariant(b), changes),
+                              'all verified findings '+old['id'])
+                callee = renames.callee_names.get(old['target'], {})
+                old_part = binding_rename.expected_contribution(
+                    COFF(a['object']).function(old['symbol']), changes,
+                    callee if old['source'] in changed or old['id'] in renames.rows else {})
+                new_part = contribution(b['object'], renames.definitions.get(old['id'], old['symbol']))
                 require_equal(old_part, new_part, 'complete contribution/ordered relocations '+old['id'])
+                if {r['symbol'] for r in new_part['relocations']} & set(callee):
+                    raise ValueError('Renamed definition still referenced by accepted ' + old['id'])
                 preserved.append(dict(id=old['id'], **new_part))
             assert_verified_inputs(rows, results, original_root)
             check_guard()
@@ -398,7 +455,11 @@ def apply(plan_path, before_path, original_root, directory):
                            accepted_before=sorted(old_results), promoted=sorted(r['id'] for r in selected),
                            affected=sorted(affected), statistics=statistics, pins=audit['direct_pins'],
                            snapshots=snapshots, preserved=preserved, results=results,
-                           inventory_refresh=inventory_receipts)
+                           inventory_refresh=inventory_receipts,
+                           binding_renames=dict(
+                               review=list(renames.review), definitions=renames.definitions,
+                               rows={k: {o: list(v) for o, v in c.items()} for k, c in renames.rows.items()},
+                               manifests={p: m[0] for p, m in renames.manifests.items()}) if renames else None)
             atomic_bytes(directory/'after.json', (json.dumps(receipt,indent=2)+'\n').encode())
             # Keep journal recovery valid across the final ledger replacement.
             records=json.loads(journal.read_bytes())
@@ -410,6 +471,7 @@ def apply(plan_path, before_path, original_root, directory):
             return receipt
         staged_state = (json.dumps(state,indent=2)+'\n').encode()
         entries = dict(candidates)
+        entries.update(manifests)
         entries[ROOT/'recovery.json'] = staged_state
         check_guard()
         receipt = transaction(entries,journal,finish)
