@@ -670,152 +670,152 @@ long eng3_1f7b0(unsigned short a, unsigned short b)
     return mid << 14;
 }
 
-void eng3_1f8b0(void)
+void title_0c270(void)
 {
     g_engine_interface.slot_018();
 }
 
-int eng3_1f8c0(int a, int b)
+int title_0c280(int a, int b)
 {
     return g_engine_interface.slot_01c(a, b);
 }
 
-void eng3_1f950(void)
+void title_0c320(void)
 {
     g_engine_interface.slot_03c();
 }
 
-int eng3_1f9a0(int a, int b)
+int title_0c370(int a, int b)
 {
     return g_engine_interface.slot_04c(a, b);
 }
 
-int eng3_1fa00(int a, int b)
+int title_0c3d0(int a, int b)
 {
     return g_engine_interface.slot_064(a, b);
 }
 
-void eng3_1fa80(void)
+void title_0c480(void)
 {
     g_engine_interface.slot_088();
 }
 
-void eng3_1faa0(void)
+void dispatch_engine_2c450(void)
 {
     g_engine_interface.slot_090();
 }
 
-int eng3_1fab0(int a)
+int random_limit(int a)
 {
     return g_engine_interface.slot_094(a);
 }
 
-void eng3_1fac0(void)
+void dispatch_engine_2c470(void)
 {
     g_engine_interface.slot_098();
 }
 
-int eng3_1fad0(int a, int b, int c, int d)
+int eng1_target_02c4a0(int a, int b, int c, int d)
 {
     return g_engine_interface.slot_0a0(a, b, c, d);
 }
 
-int eng3_1faf0(int a)
+int title_0c4d0(int a)
 {
     return g_engine_interface.slot_0b0(a);
 }
 
-void eng3_1fb00(void)
+void title_0c4e0(void)
 {
     g_engine_interface.slot_0b4();
 }
 
-int eng3_1fb10(int a)
+int title_0c4f0(int a)
 {
     return g_engine_interface.slot_0b8(a);
 }
 
-int eng3_1fb20(int a, int b)
+int title_0c520(int a, int b)
 {
     return g_engine_interface.slot_0c8(a, b);
 }
 
-int eng3_1fb40(int a)
+int title_0c540(int a)
 {
     return g_engine_interface.slot_0cc(a);
 }
 
-int eng3_1fb50(int a)
+int title_0c550(int a)
 {
     return g_engine_interface.slot_0d0(a);
 }
 
-int eng3_1fb60(int a, int b)
+int title_0c560(int a, int b)
 {
     return g_engine_interface.slot_0d4(a, b);
 }
 
-int eng3_1fb80(int a)
+int title_0c5b0(int a)
 {
     return g_engine_interface.slot_0e0(a);
 }
 
-void eng3_1fb90(void)
+void title_0c5c0(void)
 {
     g_engine_interface.slot_0e4();
 }
 
-void eng3_1fba0(void)
+void dispatch_engine_2c590(void)
 {
     g_engine_interface.slot_0e8();
 }
 
-int eng3_1fbb0(int a)
+int title_0c5d0(int a)
 {
     return g_engine_interface.slot_0ec(a);
 }
 
-void eng3_1fbc0(void)
+void title_0c5e0(void)
 {
     g_engine_interface.slot_0f0();
 }
 
-int eng3_1fbd0(int a, int b)
+int title_0c650(int a, int b)
 {
     return g_engine_interface.slot_108(a, b);
 }
 
-void eng3_1fc60(void)
+void title_0c6f0(void)
 {
     g_engine_interface.slot_178();
 }
 
-void eng3_1fc70(void)
+void title_0c700(void)
 {
     g_engine_interface.slot_180();
 }
 
-int eng3_1fc80(int a, int b, int c)
+int title_0c740(int a, int b, int c)
 {
     return g_engine_interface.slot_190(a, b, c);
 }
 
-int eng3_1fca0(int a)
+int title_0c760(int a)
 {
     return g_engine_interface.slot_194(a);
 }
 
-int eng3_1fcb0(int a, int b, int c)
+int title_0c770(int a, int b, int c)
 {
     return g_engine_interface.slot_198(a, b, c);
 }
 
-void eng3_1fcd0(void)
+void title_0c790(void)
 {
     g_engine_interface.slot_19c();
 }
 
-void eng3_1fce0(void)
+void title_0c7a0(void)
 {
     g_engine_interface.slot_1a0();
 }
@@ -825,167 +825,167 @@ void eng3_1fcf0(void)
     g_engine_interface.slot_1a4();
 }
 
-void eng3_1fd00(void)
+void title_0c7b0(void)
 {
     g_engine_interface.slot_1a8();
 }
 
-void eng3_1fd10(void)
+void title_0c7c0(void)
 {
     g_engine_interface.slot_1ac();
 }
 
-int eng3_1fd20(int a)
+int title_0c7d0(int a)
 {
     return g_engine_interface.slot_1b0(a);
 }
 
-int eng3_1fd30(int a)
+int dispatch_engine_2c710(int a)
 {
     return g_engine_interface.slot_1b4(a);
 }
 
-int eng3_1fd40(int a)
+int title_0c7e0(int a)
 {
     return g_engine_interface.slot_1b8(a);
 }
 
-int eng3_1fd50(int a)
+int title_0c7f0(int a)
 {
     return g_engine_interface.slot_1bc(a);
 }
 
-int eng3_1fd60(int a)
+int title_0c800(int a)
 {
     return g_engine_interface.slot_1c0(a);
 }
 
-int eng3_1fd70(int a)
+int dispatch_engine_2c750(int a)
 {
     return g_engine_interface.slot_1c4(a);
 }
 
-int eng3_1fd80(int a)
+int title_0c810(int a)
 {
     return g_engine_interface.slot_1c8(a);
 }
 
-int eng3_1fd90(int a)
+int title_0c820(int a)
 {
     return g_engine_interface.slot_1d4(a);
 }
 
-int eng3_1fda0(int a)
+int title_0c830(int a)
 {
     return g_engine_interface.slot_1d8(a);
 }
 
-int eng3_1fdb0(int a)
+int dispatch_engine_2c790(int a)
 {
     return g_engine_interface.slot_1dc(a);
 }
 
-int eng3_1fdc0(int a)
+int title_0c840(int a)
 {
     return g_engine_interface.slot_1e0(a);
 }
 
-int eng3_1fdd0(int a)
+int title_0c850(int a)
 {
     return g_engine_interface.slot_1e4(a);
 }
 
-int eng3_1fde0(int a, int b)
+int dispatch_engine_2c7c0(int a, int b)
 {
     return g_engine_interface.slot_1e8(a, b);
 }
 
-int eng3_1fe00(int a, int b, int c, int d)
+int title_0c860(int a, int b, int c, int d)
 {
     return g_engine_interface.slot_1f4(a, b, c, d);
 }
 
-void eng3_1fe20(void)
+void title_0c880(void)
 {
     g_engine_interface.slot_1f8();
 }
 
-int eng3_1fe30(int a, int b)
+int title_0c890(int a, int b)
 {
     return g_engine_interface.slot_204(a, b);
 }
 
-int eng3_1fe50(int a, int b, int c)
+int title_0c8e0(int a, int b, int c)
 {
     return g_engine_interface.slot_20c(a, b, c);
 }
 
-int eng3_1fe70(int a)
+int title_0c960(int a)
 {
     return g_engine_interface.slot_23c(a);
 }
 
-int eng3_1fe80(int a, int b)
+int title_0c990(int a, int b)
 {
     return g_engine_interface.slot_244(a, b);
 }
 
-int eng3_1fea0(int a, int b)
+int title_0c9c0(int a, int b)
 {
     return g_engine_interface.slot_24c(a, b);
 }
 
-void eng3_1fec0(void)
+void title_0ca00(void)
 {
     g_engine_interface.slot_258();
 }
 
-int eng3_1fed0(int a)
+int eng1_2c890(int a)
 {
     return g_engine_interface.slot_260(a);
 }
 
-int eng3_1fee0(int a, int b, int c)
+int eng1_2c8a0(int a, int b, int c)
 {
     return g_engine_interface.slot_270(a, b, c);
 }
 
-int eng3_1ff00(int a, int b, int c)
+int eng1_2c8c0(int a, int b, int c)
 {
     return g_engine_interface.slot_274(a, b, c);
 }
 
-int eng3_1ff20(int a)
+int title_0ca10(int a)
 {
     return g_engine_interface.slot_27c(a);
 }
 
-int eng3_1ff30(int a)
+int title_0ca20(int a)
 {
     return g_engine_interface.slot_280(a);
 }
 
-int eng3_1ff40(int a, int b)
+int title_0ca40(int a, int b)
 {
     return g_engine_interface.slot_290(a, b);
 }
 
-int eng3_1ff60(int a, int b)
+int title_0ca60(int a, int b)
 {
     return g_engine_interface.slot_294(a, b);
 }
 
-int eng3_1ff80(int a, int b)
+int dispatch_engine_2c960(int a, int b)
 {
     return g_engine_interface.slot_2a4(a, b);
 }
 
-int eng3_1ffd0(int a, int b, int c, int d)
+int dispatch_local_2c9b0(int a, int b, int c, int d)
 {
     return g_engine_interface.slot_2b0(a, b, c, d);
 }
 
-int eng3_1fff0(int a, int b)
+int dispatch_engine_2c9d0(int a, int b)
 {
     return g_engine_interface.slot_2b8(a, b);
 }

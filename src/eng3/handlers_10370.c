@@ -133,7 +133,7 @@ extern Actor *attach_actor(Actor *, int);
 extern Actor *create_eng3_kind_actor(long, long, long, int);
 extern void select_frame(Actor *, int);
 extern void eng3_1eeb0(Actor *);
-extern int eng3_1faf0(int);
+extern int title_0c4d0(int);
 extern PendingActionGroup *acquire_pending_action_group(void);
 extern Actor *eng3_1f410(PendingActionGroup *, long, long, long, int, int);
 extern void remove_counted_value(PendingActionGroup *, Actor *);
@@ -920,31 +920,31 @@ void eng3_11f90(Actor *o)
     vec_diff_fixed_1420((const int *)o, (const int *)g_focus, d);
     if (d[0] < 0x280 && o->unknown_e0) {
         if (o->profile > 6) {
-            eng3_1faf0(0x1b);
+            title_0c4d0(0x1b);
             o->state = 0x100;
         }
         if (o->profile == 0) {
-            eng3_1faf0(0x19);
+            title_0c4d0(0x19);
             o->state = 0x10;
         }
         if (o->profile > 0 && o->profile <= 6) {
             if (g_engine_interface.context_004->unknown_24 == g_engine_interface.context_004->unknown_1e) {
-                eng3_1faf0(0x1b);
+                title_0c4d0(0x1b);
                 o->state = 0x10;
             }
             if (g_engine_interface.context_004->unknown_24 < g_engine_interface.context_004->unknown_1e
                 && g_engine_interface.context_004->unknown_24 > g_engine_interface.context_004->unknown_1e >> 1) {
-                eng3_1faf0(0x1a);
+                title_0c4d0(0x1a);
                 o->state = 8;
             }
             if (g_engine_interface.context_004->unknown_24 <= g_engine_interface.context_004->unknown_1e >> 1
                 && g_engine_interface.context_004->unknown_24 > g_engine_interface.context_004->unknown_1e >> 2) {
-                eng3_1faf0(0x16);
+                title_0c4d0(0x16);
                 o->state = 8;
             }
             if (g_engine_interface.context_004->unknown_24 <= g_engine_interface.context_004->unknown_1e >> 2
                 && g_engine_interface.context_004->unknown_24 > 0) {
-                eng3_1faf0(0x1c);
+                title_0c4d0(0x1c);
                 o->state = 4;
             }
         }

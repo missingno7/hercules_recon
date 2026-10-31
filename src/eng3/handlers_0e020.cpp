@@ -137,7 +137,7 @@ extern Actor *attach_actor(Actor *, int);
 extern Actor *create_eng3_kind_actor(long, long, long, int);
 extern void select_frame(Actor *, int);
 extern void eng3_1eeb0(Actor *);
-extern int eng3_1faf0(int);
+extern int title_0c4d0(int);
 extern PendingActionGroup *acquire_pending_action_group(void);
 extern Actor *eng3_1f410(PendingActionGroup *, long, long, long, int, int);
 extern void remove_counted_value(PendingActionGroup *, Actor *);
@@ -149,7 +149,7 @@ extern int eng3_0dae0(Actor *, Actor *);
 extern int eng3_01050(long, long, long, long, long, long);
 extern int eng3_01600(Actor *);
 extern void eng3_1cd40(Actor *);
-extern int eng3_1fac0(void);
+extern int dispatch_engine_2c470(void);
 
 void eng3_0e020(Actor *o)
 {
@@ -776,11 +776,11 @@ void eng3_0f650(Actor *o)
     o->unknown_b8 = o->unknown_bc = random_limit(0x200000) + 0x200000;
     o->unknown_c0 = random_limit(0x6000) + 0x8fff;
     o->unknown_c4 = random_limit(0x6000) + 0xffff;
-    o->unknown_ac = ((eng3_1fac0() & 0xbcf) * 2 + (eng3_1fac0() & 0xbcf)) << 7;
+    o->unknown_ac = ((dispatch_engine_2c470() & 0xbcf) * 2 + (dispatch_engine_2c470() & 0xbcf)) << 7;
     o->unknown_a8 = o->unknown_ac << 5;
     o->unknown_b4 = random_limit(0x1000) + 0x1000;
     o->unknown_b0 = random_limit(0x1000) + 0x1000;
-    o->unknown_cc = ((eng3_1fac0() & 0xfff) << 8) - ((eng3_1fac0() & 0xfff) << 7);
+    o->unknown_cc = ((dispatch_engine_2c470() & 0xfff) << 8) - ((dispatch_engine_2c470() & 0xfff) << 7);
     o->unknown_c8 = o->unknown_cc << 5;
     o->unknown_d0 = random_limit(0x140) - 0x500;
     o->unknown_d4 = random_limit(0x1000) - 0x1000;

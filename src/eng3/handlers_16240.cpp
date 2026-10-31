@@ -323,8 +323,8 @@ extern void select_frame(Actor *, int);
 extern int dispatch_local_2a170(long, long, long, int);
 extern void advance_planar_motion(Actor *);
 extern unsigned int random_limit(int);
-extern void eng3_1fbd0(unsigned long, unsigned char *);
-extern void eng3_1ff80(unsigned char *, Rect16 *);
+extern void title_0c650(unsigned long, unsigned char *);
+extern void dispatch_engine_2c960(unsigned char *, Rect16 *);
 extern void eng3_22b30(int, Actor *);
 extern Actor *eng3_22bd0(long, long, long, int, int);
 extern int title_18600(Actor *, FramePos *);
@@ -388,8 +388,8 @@ extern int eng1_29c20(Actor *);
 extern int eng3_1ea60(Actor *);
 extern int eng3_1eaf0(Actor *);
 extern void eng3_1eeb0(Actor *);
-extern void eng3_1fb00(void);
-extern int eng3_1fb10(int);
+extern void title_0c4e0(void);
+extern int title_0c4f0(int);
 
 /* Functions in address order. */
 void eng3_16240(Actor *o)
@@ -735,8 +735,8 @@ void eng3_16c40(void)
         if (g_eng3_unknown_3fb88 > 0xf0)
             g_eng3_unknown_3fb88 = 0xf0;
         g_eng3_rect_35110.y = (g_eng3_frame_41448 != g_eng3_frame_4144c) * 0x100;
-        eng3_1ff80(g_eng3_prim_43164, &g_eng3_rect_35110);
-        eng3_1fbd0(g_eng3_frame_41448->ot[3], g_eng3_prim_43164);
+        dispatch_engine_2c960(g_eng3_prim_43164, &g_eng3_rect_35110);
+        title_0c650(g_eng3_frame_41448->ot[3], g_eng3_prim_43164);
         g_eng3_prim_43164 += 0xc;
         eng3_072a0(0, y + 0x100, w, 0x100, x, 0, 1);
         eng3_072a0(w, y + 0x100, 0x100, 0x100, 0, 0, 1);
@@ -744,8 +744,8 @@ void eng3_16c40(void)
         g_eng3_rect_35118.w = 0x140;
         g_eng3_rect_35118.y = (short)g_eng3_unknown_38520 + g_eng3_rect_35110.y;
         g_eng3_rect_35118.h = g_eng3_unknown_3fb88 - g_eng3_unknown_38520;
-        eng3_1ff80(g_eng3_prim_43164, &g_eng3_rect_35118);
-        eng3_1fbd0(g_eng3_frame_41448->ot[2], g_eng3_prim_43164);
+        dispatch_engine_2c960(g_eng3_prim_43164, &g_eng3_rect_35118);
+        title_0c650(g_eng3_frame_41448->ot[2], g_eng3_prim_43164);
         g_eng3_prim_43164 += 0xc;
     }
     eng3_072a0(0, y, w, 0x100, x, 0, 0);
@@ -1444,7 +1444,7 @@ int eng3_18370(void)
             g_eng3_4254c = 0xf8;
             g_eng3_35168 = 0x80;
             g_eng3_3fa40 = 0;
-            eng3_1fb10(1);
+            title_0c4f0(1);
             g_engine_interface.context_004->unknown_1b30 = 4;
             break;
         case -8:
@@ -2295,7 +2295,7 @@ void eng3_19a30(void)
     g_focus->unknown_ec = 0;
     g_focus->unknown_ee = 0;
     g_eng3_41d50 = 0;
-    eng3_1fb00();
+    title_0c4e0();
     if (g_engine_interface.context_004->unknown_0c && !(g_engine_interface.context_004->buttons_30 & 8)) {
         g_engine_interface.context_004->unknown_0c--;
         g_engine_interface.context_004->unknown_0d++;
@@ -2331,7 +2331,7 @@ void eng3_19b70(void)
         g_eng3_4254c = 0xf8;
         g_eng3_35168 = 0x80;
         g_eng3_3fa40 = 0;
-        eng3_1fb10(1);
+        title_0c4f0(1);
         g_engine_interface.context_004->unknown_1b30 = 4;
     }
     if (!g_focus->unknown_e0 && !g_focus->unknown_dc) {
@@ -2375,7 +2375,7 @@ void eng3_19cd0(void)
         g_eng3_4254c = 0xf8;
         g_eng3_35168 = 0x80;
         g_eng3_3fa40 = 0;
-        eng3_1fb10(1);
+        title_0c4f0(1);
         g_engine_interface.context_004->unknown_1b30 = 4;
     }
     if (eng3_18370()) {
@@ -2727,26 +2727,26 @@ extern void dispatch_engine_2c3b0(unsigned long);
 extern void *title_0c450(void **, unsigned long, unsigned long);
 extern void title_0c470(void);
 extern void title_0c490(void);
-extern int eng3_1fad0(unsigned char *, long, int, int);
-extern int eng3_1fb20(Eng3Buffer *, Eng3Buffer *);
-extern int eng3_1fb40(int);
-extern int eng3_1fb60(int, int);
-extern int eng3_1fb80(Eng3Buffer *);
-extern int eng3_1fbb0(int);
+extern int eng1_target_02c4a0(unsigned char *, long, int, int);
+extern int title_0c520(Eng3Buffer *, Eng3Buffer *);
+extern int title_0c540(int);
+extern int title_0c560(int, int);
+extern int title_0c5b0(Eng3Buffer *);
+extern int title_0c5d0(int);
 extern void title_0c670(Rect16 *, int, int, int);
 extern void title_0c690(unsigned long *, unsigned long);
 extern void title_0c6b0(unsigned long *);
 extern void title_0c6d0(unsigned long);
 extern void title_0c6e0(unsigned long);
-extern void eng3_1fc60(void);
-extern void eng3_1fc70(void);
-extern unsigned short eng3_1fe00(int, int, int, int);
-extern void eng3_1fe20(void);
-extern int eng3_1fe30(Rect16 *, unsigned long *);
-extern int eng3_1fe80(int, int);
-extern int eng3_1fea0(int, int);
-extern int eng3_1ff20(unsigned char *);
-extern int eng3_1ff30(Eng3Buffer *);
+extern void title_0c6f0(void);
+extern void title_0c700(void);
+extern unsigned short title_0c860(int, int, int, int);
+extern void title_0c880(void);
+extern int title_0c890(Rect16 *, unsigned long *);
+extern int title_0c990(int, int);
+extern int title_0c9c0(int, int);
+extern int title_0ca10(unsigned char *);
+extern int title_0ca20(Eng3Buffer *);
 extern void eng3_1ffa0(unsigned long *, int, int, int, int);
 extern long dispatch_engine_2ca40(unsigned long);
 extern void dispatch_engine_2caa0(void);
@@ -2858,7 +2858,7 @@ void eng3_1a330(void)
     title_0c450((void **)&g_eng3_actor_42540, 0x134 * g_eng3_40bcc, 16);
     title_0c450((void **)&g_eng3_43174, 0xec * g_eng3_40c32 + 0x134, 16);
     title_0c450((void **)&g_eng3_actor_431c0, 0x94 * g_eng3_40bd2 + 0x134, 16);
-    eng3_1fe20();
+    title_0c880();
     title_0c450((void **)&g_eng3_frame_4144c, 0x4110, 16);
     title_0c450((void **)&g_eng3_prims_405c4,
                   80 * g_eng3_levels_39870[g_engine_interface.context_004->level].prim_count_08, 16);
@@ -2941,7 +2941,7 @@ void eng3_1a560(void)
             + g_eng3_levels_39870[g_engine_interface.context_004->level].prim_count_08 * 40;
     else
         g_eng3_prim_43164 = g_eng3_prims_405c4;
-    eng3_1fb20(&g_eng3_frame_4144c[0], &g_eng3_frame_4144c[1]);
+    title_0c520(&g_eng3_frame_4144c[0], &g_eng3_frame_4144c[1]);
     dtd = g_eng3_levels_39870[g_engine_interface.context_004->level].flags_04 & 1;
     g_eng3_frame_4144c[1].dtd = dtd;
     g_eng3_frame_4144c[0].dtd = dtd;
@@ -2949,23 +2949,23 @@ void eng3_1a560(void)
     g_eng3_frame_4144c[0].dfe = 0;
     g_eng3_frame_4144c[1].isbg = g_eng3_levels_39870[g_engine_interface.context_004->level].flags_04 & 2;
     g_eng3_frame_4144c[0].isbg = g_eng3_frame_4144c[1].isbg;
-    eng3_1ffa0(g_eng3_frame_4144c[0].prim_70, 1, dtd, eng3_1fe00(1, 0, 0x300, 0x100), 0);
-    eng3_1ffa0(g_eng3_frame_4144c[1].prim_70, 1, dtd, eng3_1fe00(1, 0, 0x300, 0x100), 0);
-    eng3_1ffa0(g_eng3_frame_4144c[0].prim_7c, 1, dtd, eng3_1fe00(1, 0, 0x380, 0x100), 0);
-    eng3_1ffa0(g_eng3_frame_4144c[1].prim_7c, 1, dtd, eng3_1fe00(1, 0, 0x380, 0x100), 0);
+    eng3_1ffa0(g_eng3_frame_4144c[0].prim_70, 1, dtd, title_0c860(1, 0, 0x300, 0x100), 0);
+    eng3_1ffa0(g_eng3_frame_4144c[1].prim_70, 1, dtd, title_0c860(1, 0, 0x300, 0x100), 0);
+    eng3_1ffa0(g_eng3_frame_4144c[0].prim_7c, 1, dtd, title_0c860(1, 0, 0x380, 0x100), 0);
+    eng3_1ffa0(g_eng3_frame_4144c[1].prim_7c, 1, dtd, title_0c860(1, 0, 0x380, 0x100), 0);
     g_eng3_43178 = 1;
     eng1_color_fade_step_5d50();
-    eng3_1fc60();
+    title_0c6f0();
     title_04870();
-    eng3_1fc70();
-    eng3_1fb80(g_eng3_frame_41448);
-    eng3_1fb80(g_eng3_frame_41448);
+    title_0c700();
+    title_0c5b0(g_eng3_frame_41448);
+    title_0c5b0(g_eng3_frame_41448);
     eng3_22070();
     eng3_222c0();
     eng3_20190();
     eng3_1c290();
-    eng3_1ff30(g_eng3_frame_41448);
-    eng3_1ff20(g_eng3_frame_41448->disp_5c);
+    title_0ca20(g_eng3_frame_41448);
+    title_0ca10(g_eng3_frame_41448->disp_5c);
     g_eng3_frame_41448 = g_eng3_frame_41448 == g_eng3_frame_4144c ? &g_eng3_frame_4144c[1] : g_eng3_frame_4144c;
 }
 
@@ -2995,10 +2995,10 @@ int eng3_1a930(void)
     if (g_engine_interface.context_004->unknown_90 != g_engine_interface.context_004->unknown_8c)
         for (;;)
             ;
-    eng3_1fbb0(2);
+    title_0c5d0(2);
     size = eng3_1aa30(size);
     title_0c6d0(0);
-    eng3_1fad0(g_eng3_map_40790, size, 0, 0);
+    eng1_target_02c4a0(g_eng3_map_40790, size, 0, 0);
     return 0;
 }
 
@@ -3016,13 +3016,13 @@ long eng3_1aa30(unsigned long size)
     end = (unsigned char *)image - g_eng3_map_40790 + 0x20;
     rect.x = 0;
     rect.y = 0;
-    eng3_1fe30(&rect, image);
+    title_0c890(&rect, image);
     p++;
     rect.x = 0x300;
     rect.y = 0x100;
     rect.w = 0x100;
     rect.h = 0x100;
-    eng3_1fe30(&rect, p + (*p >> 2));
+    title_0c890(&rect, p + (*p >> 2));
     return end;
 }
 
@@ -3060,7 +3060,7 @@ void eng3_1abb0(void)
 {
     switch (g_eng3_3fb84) {
     case 0:
-        eng3_1fea0(8, 8);
+        title_0c9c0(8, 8);
         g_engine_interface.context_004->sublevel = 0;
         g_engine_interface.context_004->unknown_02 = 0;
         g_engine_interface.context_004->unknown_0a = 3;
@@ -3080,22 +3080,22 @@ void eng3_1abb0(void)
         eng3_25060();
         eng3_1b8f0();
         demo_load_5ea0();
-        eng3_1fe80(g_engine_interface.context_004->level, 0);
+        title_0c990(g_engine_interface.context_004->level, 0);
     restart:
         eng3_1a560();
-        eng3_1fbb0(4);
+        title_0c5d0(4);
         title_0c3c0();
         if (!g_eng3_3fb80)
-            eng3_1fb60(0, 0);
+            title_0c560(0, 0);
         g_eng3_3fb80 = 1;
         g_eng3_vsync_gate_41444 = 0;
         dispatch_engine_2cc40(eng3_1a320);
         g_eng3_4254c = 8;
         g_eng3_35168 = 0x80;
         g_eng3_3fa40 = 0;
-        eng3_1fb10(0);
+        title_0c4f0(0);
         g_engine_interface.context_004->unknown_1b30 = 0x100;
-        eng3_1fb40(1);
+        title_0c540(1);
         g_engine_interface.context_004->unknown_3c = g_eng3_3fc70;
         g_engine_interface.context_004->unknown_40 = 0;
         g_engine_interface.context_004->unknown_04 = 0;
@@ -3144,7 +3144,7 @@ void eng3_1abb0(void)
     g_eng3_vsync_gate_41444 = 1;
     g_engine_interface.context_004->unknown_3c = g_eng3_3fc70;
     g_engine_interface.context_004->unknown_54 = dispatch_engine_2cc30(1);
-    eng3_1fb80(g_eng3_frame_41448);
+    title_0c5b0(g_eng3_frame_41448);
     if (!g_engine_interface.context_004->unknown_04)
         eng3_08050();
     title_041d0();

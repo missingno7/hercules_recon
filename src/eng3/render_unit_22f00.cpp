@@ -48,8 +48,8 @@ int eng3_24a80(TitleObj *o);
 int title_19470(char *obj, int *vec);
 
 
-void eng3_1fcd0(void);
-void eng3_1fd20(void *a);
+void title_0c790(void);
+void title_0c7d0(void *a);
 
 /* ---- primitive / renderer unit ---- */
 
@@ -161,17 +161,17 @@ int eng3_23d90(TitleObj *o);
 void title_18b20(TitleObj *o);
 void eng3_24b00(TitleObj *o);
 void eng3_24f50(TitleObj *o, int v);
-void eng3_1fd00(void);
-void eng3_1fd80(void *e);
-void eng3_1fdc0(void *b);
-void eng3_1fd40(void *p);
+void title_0c7b0(void);
+void title_0c810(void *e);
+void title_0c840(void *b);
+void title_0c7e0(void *p);
 unsigned long eng3_23b00(TitleObj *p);
 int eng3_23ef0(TitleObj *o, unsigned char *q, unsigned long c);
 int title_19570(TitleShape *obj, int k);
 extern int g_eng3_focal_40624;
-void eng3_1fca0(void *p);
-void eng3_1fd50(void *p);
-void eng3_1fdd0(void *p);
+void title_0c760(void *p);
+void title_0c7f0(void *p);
+void title_0c850(void *p);
 
 typedef struct TitleSpanXY {
     int x;
@@ -220,7 +220,7 @@ void eng3_22f00(TitleObj *obj)
         return;
     }
     eng3_24f50(obj, r);
-    eng3_1fcd0();
+    title_0c790();
     span = (TitleSpan *)obj->stream_05c - 1;
     count = obj->w_036;
     g_eng3_actor_431c0->byte_023 = 0;
@@ -248,7 +248,7 @@ void eng3_22f00(TitleObj *obj)
         } else if (span->id_00c != 0) {
             if (flags & 0x200000) {
                 if (flags & 0x400000) {
-                    eng3_1fcd0();
+                    title_0c790();
                     acc += span->z_008;
                 } else {
                     acc = span->z_008;
@@ -257,7 +257,7 @@ void eng3_22f00(TitleObj *obj)
                 title_194e0((char *)&g_eng3_actor_431c0->w_0c, (int *)span, acc);
             } else {
                 if (flags & 0x400000) {
-                    eng3_1fcd0();
+                    title_0c790();
                 }
                 title_19470((char *)&g_eng3_actor_431c0->w_0c, (int *)span);
             }
@@ -338,13 +338,13 @@ extern int g_eng3_3fc7c;
 extern int *g_eng3_40524;
 void title_193e0(TitleObj *o, int k);
 
-void eng3_1fcb0(void *a, void *b, void *c);
-void eng3_1fd10(void);
-void eng3_1fd90(TitlePrim *p);
-void eng3_1fc80(unsigned long a, unsigned long b, unsigned long c);
-void eng3_1fce0(void);
-void eng3_1fd60(int *p);
-void eng3_1fda0(TitlePrim *p);
+void title_0c770(void *a, void *b, void *c);
+void title_0c7c0(void);
+void title_0c820(TitlePrim *p);
+void title_0c740(unsigned long a, unsigned long b, unsigned long c);
+void title_0c7a0(void);
+void title_0c800(int *p);
+void title_0c830(TitlePrim *p);
 void eng1_058e0(TitleObj *o, unsigned long *ot);
 void eng1_059f0(TitleObj *o, unsigned long *ot);
 
@@ -377,10 +377,10 @@ void eng3_231a0(unsigned char *stream, TitleObj *obj, unsigned char count)
     unsigned int off;
     TitlePrim *p;
 
-    eng3_1fd20(g_eng3_matrix_394b8);
-    eng3_1fd50(g_eng3_actor_431c0->trans_078);
+    title_0c7d0(g_eng3_matrix_394b8);
+    title_0c7f0(g_eng3_actor_431c0->trans_078);
     g_eng3_actor_431c0->trans_078[1] += obj->w_028 * 2;
-    eng3_1fd40(g_eng3_actor_431c0->trans_078);
+    title_0c7e0(g_eng3_actor_431c0->trans_078);
     v0.z = 0;
     v1.z = 0;
     v2.z = 0;
@@ -427,15 +427,15 @@ void eng3_231a0(unsigned char *stream, TitleObj *obj, unsigned char count)
         v0.y = y + h;
         v2.y = y;
         v1.x = x2;
-        eng3_1fcb0(&v2, &v1, &v0);
-        eng3_1fd10();
+        title_0c770(&v2, &v1, &v0);
+        title_0c7c0();
         off = row * sizeof(TitleCell);
         p->uv_014.words.tpage = ((TitleCell *)((char *)g_eng3_sprite_cells_42560 + off))->w_02;
         p->tex_004 = 0x2e000000;
-        eng3_1fd90(p);
+        title_0c820(p);
         v0.x = v1.x;
-        eng3_1fca0(&v0);
-        eng3_1fd00();
+        title_0c760(&v0);
+        title_0c7b0();
         p->next_000 = (TitlePrim *)*ot;
         *ot = (unsigned long)p;
         p->uv_00c.words.clut = clut;
@@ -445,7 +445,7 @@ void eng3_231a0(unsigned char *stream, TitleObj *obj, unsigned char count)
         if (!more) {
             w = ((TitleCell *)((char *)g_eng3_sprite_cells_42560 + off))->next_04[g_eng3_cell_order_39ac0[w & 15]];
         }
-        eng3_1fd80(&p->xy_020);
+        title_0c810(&p->xy_020);
         p++;
     } while (--count);
     g_eng3_prim_43164 = (TitleTile *)p;
@@ -495,7 +495,7 @@ void eng3_23440(unsigned char *stream, TitleObj *obj, unsigned char count)
     }
     if (g_eng3_42548 != 0) {
         eng3_24f50(obj, 0);
-        eng3_1fcd0();
+        title_0c790();
     }
     colour = eng3_23b00(obj);
     zoff = 0;
@@ -547,15 +547,15 @@ void eng3_23440(unsigned char *stream, TitleObj *obj, unsigned char count)
         v1.y = y;
         v2.y = y;
         v1.x = x2;
-        eng3_1fcb0(&v2, &v1, &v0);
-        eng3_1fd10();
+        title_0c770(&v2, &v1, &v0);
+        title_0c7c0();
         off = row * sizeof(TitleCell);
         p->uv_014.words.tpage = ((TitleCell *)((char *)g_eng3_sprite_cells_42560 + off))->w_02 | blend;
         p->tex_004 = colour;
-        eng3_1fd90(p);
+        title_0c820(p);
         v0.x = v1.x;
-        eng3_1fca0(&v0);
-        eng3_1fd00();
+        title_0c760(&v0);
+        title_0c7b0();
         p->next_000 = (TitlePrim *)*ot;
         *ot = (unsigned long)p;
         p->uv_00c.words.clut = clut;
@@ -566,7 +566,7 @@ void eng3_23440(unsigned char *stream, TitleObj *obj, unsigned char count)
         if (!more) {
             w = ((TitleCell *)((char *)g_eng3_sprite_cells_42560 + off))->next_04[g_eng3_cell_order_39ac0[w & 15]];
         }
-        eng3_1fd80(&p->xy_020);
+        title_0c810(&p->xy_020);
         p++;
     } while (--count);
     g_eng3_prim_43164 = (TitleTile *)p;
@@ -928,7 +928,7 @@ void title_18b20(TitleObj *o)
     int n;
 
     eng3_24f50(o, o->rot_070.pad);
-    eng3_1fd40(o->trans_078);
+    title_0c7e0(o->trans_078);
     if (o->w_034 == 0) {
         return;
     }
@@ -1004,7 +1004,7 @@ int eng3_23ef0(TitleObj *o, unsigned char *q, unsigned long c)
     if (x != 0) {
         title_193e0(o, x);
     } else {
-        eng3_1fd40(o->trans_078);
+        title_0c7e0(o->trans_078);
     }
     uvt = g_eng3_uvs_40658;
     o->flags_01f |= 2;
@@ -1044,26 +1044,26 @@ int eng3_23ef0(TitleObj *o, unsigned char *q, unsigned long c)
                     goto next;
                 }
             }
-            eng3_1fc80(v0->xy, v1->xy, v3->xy);
-            eng3_1fce0();
-            eng3_1fd60(&clip);
+            title_0c740(v0->xy, v1->xy, v3->xy);
+            title_0c7a0();
+            title_0c800(&clip);
             if (clip > 0) {
                 if (!(w & 0x40)) {
                     goto next;
                 }
                 xy1 = v1->xy;
                 xy3 = v3->xy;
-                eng3_1fc80(xy1, v2->xy, xy3);
-                eng3_1fce0();
+                title_0c740(xy1, v2->xy, xy3);
+                title_0c7a0();
                 prim->xy_008 = v0->xy;
                 prim->xy_010 = xy1;
                 prim->xy_018 = xy3;
-                eng3_1fd60(&clip);
+                title_0c800(&clip);
                 if (clip > 0) {
                     goto next;
                 }
             } else {
-                eng3_1fda0(prim);
+                title_0c830(prim);
             }
         emit:
             prim->xy_020 = v2->xy;
@@ -1129,8 +1129,8 @@ void eng3_24280(int a1, int *vals, int count)
     vals++;
     pair[0] = v >> 8;
     pair[1] = (signed char)v;
-    eng3_1fca0(pair);
-    eng3_1fd00();
+    title_0c760(pair);
+    title_0c7b0();
     v = *vals;
     vals++;
     pair[0] = v >> 8;
@@ -1140,10 +1140,10 @@ void eng3_24280(int a1, int *vals, int count)
         goto tail;
     }
     do {
-        eng3_1fd80(dst);
-        eng3_1fdc0(dst + 4);
-        eng3_1fca0(pair);
-        eng3_1fd00();
+        title_0c810(dst);
+        title_0c840(dst + 4);
+        title_0c760(pair);
+        title_0c7b0();
         v = *vals;
         vals++;
         pair[0] = v >> 8;
@@ -1151,9 +1151,9 @@ void eng3_24280(int a1, int *vals, int count)
         dst += 8;
     } while (--count);
 tail:
-    eng3_1fd80(dst);
+    title_0c810(dst);
     dst += 4;
-    eng3_1fdc0(dst);
+    title_0c840(dst);
 }
 
 void eng3_24340(TitleStream *s, int *vals, int n)
@@ -1170,14 +1170,14 @@ void eng3_24340(TitleStream *s, int *vals, int n)
         v = vals[p[0]];
         pair[0] = v >> 8;
         pair[1] = (signed char)v;
-        eng3_1fca0(pair);
-        eng3_1fd00();
+        title_0c760(pair);
+        title_0c7b0();
         d1 = dst + p[1];
         d1->a_00 = d0->a_00;
         p += 2;
         d1->b_04 = d0->b_04;
-        eng3_1fd80(d0);
-        eng3_1fdc0(&d0->b_04);
+        title_0c810(d0);
+        title_0c840(&d0->b_04);
     } while (--n);
 }
 
@@ -1225,18 +1225,18 @@ void eng3_24420(TitleObj *o, int *vals, int count)
         a = *vals++;
         b = *src++;
         mid = (a << 8) >> 16;
-        eng3_1fd80(dst);
-        eng3_1fdc0(dst4);
+        title_0c810(dst);
+        title_0c840(dst4);
         dst4 += 8;
         hi = (((b >> 24) - (a >> 24)) * t >> 8) + (a >> 24);
         pair[0] = ((((b << 8) >> 16) - mid) * t >> 8) + mid + (hi << 16);
         dst += 8;
         pair[1] = (((signed char)b - (signed char)a) * t >> 8) + (signed char)a;
-        eng3_1fca0(pair);
-        eng3_1fd00();
+        title_0c760(pair);
+        title_0c7b0();
     } while (--count);
-    eng3_1fd80(dst);
-    eng3_1fdc0(dst + 4);
+    title_0c810(dst);
+    title_0c840(dst + 4);
     g_eng3_40524 = src + 1;
 }
 
@@ -1285,10 +1285,10 @@ void eng3_24570(TitleObj *o, int *vals, int count)
             pair[0] = ((((b << 8) >> 16) - mid) * t >> 8) + mid + (hi << 16);
             mid = (signed char)a;
             pair[1] = (((signed char)b - mid) * t >> 8) + mid;
-            eng3_1fca0(pair);
-            eng3_1fd00();
-            eng3_1fd80(dst);
-            eng3_1fdc0(dst4);
+            title_0c760(pair);
+            title_0c7b0();
+            title_0c810(dst);
+            title_0c840(dst4);
         }
         dst += 2;
         dst4 += 2;
@@ -1315,7 +1315,7 @@ void title_193e0(TitleObj *o, int k)
     v[0] += o->trans_078[0];
     v[1] += o->trans_078[1];
     v[2] += o->trans_078[2];
-    eng3_1fd40(v);
+    title_0c7e0(v);
 }
 
 int title_19470(char *obj, int *vec)
@@ -1325,11 +1325,11 @@ int title_19470(char *obj, int *vec)
     v[0] = (short)(vec[0] >> 16);
     v[1] = (short)(vec[1] >> 16);
     v[2] = (short)(vec[2] >> 16);
-    eng3_1fca0(v);
-    eng3_1fd00();
-    eng3_1fd80(obj);
+    title_0c760(v);
+    title_0c7b0();
+    title_0c810(obj);
     obj += 4;
-    eng3_1fdd0(obj);
+    title_0c850(obj);
     return *(short *)obj > 0x40;
 }
 
@@ -1340,11 +1340,11 @@ int title_194e0(char *obj, int *vec, int k)
     v[0] = (short)((((short *)g_engine_interface.data_014)[(k * 4 - 0x400) & 0xfff] * (short)(vec[0] >> 16)) >> 12);
     v[1] = (short)((((short *)g_engine_interface.data_014)[(k & 0x3ff) * 4] * (short)(vec[0] >> 16)) >> 12);
     v[2] = 0;
-    eng3_1fca0(v);
-    eng3_1fd00();
-    eng3_1fd80(obj);
+    title_0c760(v);
+    title_0c7b0();
+    title_0c810(obj);
     obj += 4;
-    eng3_1fdd0(obj);
+    title_0c850(obj);
     return *(short *)obj > 0x40;
 }
 
@@ -1463,9 +1463,9 @@ extern short g_eng3_height_40640;
 extern TitleMatrix g_eng3_matrix_394d8;
 extern TitleMatrix g_eng3_matrix_394f8;
 extern long g_eng3_scale_39518[];
-void eng3_1fd30(TitleMatrix *m);
-void eng3_1ff40(short *angles, TitleMatrix *m);
-void eng3_1ff60(TitleMatrix *m, long *scale);
+void dispatch_engine_2c710(TitleMatrix *m);
+void title_0ca40(short *angles, TitleMatrix *m);
+void title_0ca60(TitleMatrix *m, long *scale);
 int eng3_24bb0(TitleObj *o);
 
 int eng3_24a80(TitleObj *o)
@@ -1483,8 +1483,8 @@ int eng3_24a80(TitleObj *o)
         return -1;
     }
     r = eng3_24bb0(o);
-    eng3_1fd80(&o->w_0c);
-    eng3_1fdd0(&o->w_10);
+    title_0c810(&o->w_0c);
+    title_0c850(&o->w_10);
     if ((unsigned int)(o->w_10 - 0x20) > 0x620) {
         return -1;
     }
@@ -1509,8 +1509,8 @@ void eng3_24b00(TitleObj *o)
         return;
     }
     o->rot_070.pad = (short)eng3_24bb0(o);
-    eng3_1fd80(&o->w_0c);
-    eng3_1fd50(o->trans_078);
+    title_0c810(&o->w_0c);
+    title_0c7f0(o->trans_078);
     o->w_10 = (short)(o->trans_078[2] / 4);
 }
 
@@ -1555,10 +1555,10 @@ int eng3_24bb0(TitleObj *o)
         angles[0] = (short)g_eng3_view_405a0.pitch;
         angles[1] = (short)r;
         angles[2] = 0;
-        eng3_1ff40(angles, &g_eng3_matrix_394f8);
-        eng3_1ff60(&g_eng3_matrix_394f8, g_eng3_scale_39518);
-        eng3_1fd20(&g_eng3_matrix_394f8);
-        eng3_1fd30(&g_eng3_matrix_394f8);
+        title_0ca40(angles, &g_eng3_matrix_394f8);
+        title_0ca60(&g_eng3_matrix_394f8, g_eng3_scale_39518);
+        title_0c7d0(&g_eng3_matrix_394f8);
+        dispatch_engine_2c710(&g_eng3_matrix_394f8);
         v[0] = (short)(o->z_008 >> 16);
         v[2] = (short)((o->pos_000.x >> 16) - (pivot << 7));
     } else {
@@ -1584,10 +1584,10 @@ int eng3_24bb0(TitleObj *o)
         angles[0] = (short)g_eng3_view_405a0.pitch;
         angles[1] = 0;
         angles[2] = 0;
-        eng3_1ff40(angles, &g_eng3_matrix_394d8);
-        eng3_1ff60(&g_eng3_matrix_394d8, g_eng3_scale_39518);
-        eng3_1fd20(&g_eng3_matrix_394d8);
-        eng3_1fd30(&g_eng3_matrix_394d8);
+        title_0ca40(angles, &g_eng3_matrix_394d8);
+        title_0ca60(&g_eng3_matrix_394d8, g_eng3_scale_39518);
+        title_0c7d0(&g_eng3_matrix_394d8);
+        dispatch_engine_2c710(&g_eng3_matrix_394d8);
         if (curve == 1) {
             k = 0x518 - (short)(o->z_008 >> 16);
             a += ((short)(o->pos_000.x >> 16) - (pivot << 7)) / 2 - 0x400;
@@ -1600,8 +1600,8 @@ int eng3_24bb0(TitleObj *o)
         v[2] = (short)((((short *)g_engine_interface.data_014)[a & 0xfff] * k) >> 12);
     }
     v[1] = (short)((o->pos_000.y >> 16) - g_eng3_view_405a0.y);
-    eng3_1fca0(v);
-    eng3_1fd00();
+    title_0c760(v);
+    title_0c7b0();
     return r * 2;
 }
 
@@ -1616,7 +1616,7 @@ void eng3_24f50(TitleObj *o, int v)
     src[0] = (short)(o->rot_070.vx << 2);
     src[1] = (short)((o->rot_070.vy << 2) + v / 2);
     src[2] = (short)(o->rot_070.vz << 2);
-    eng3_1ff40(src, (TitleMatrix *)m);
+    title_0ca40(src, (TitleMatrix *)m);
     if (o->flags_054 & 0x80) {
         x = o->w_03a;
         z = o->w_03e;
@@ -1625,18 +1625,18 @@ void eng3_24f50(TitleObj *o, int v)
             scale[0] = x << 5;
             scale[1] = y << 5;
             scale[2] = z << 5;
-            eng3_1ff60((TitleMatrix *)m, (long *)scale);
+            title_0ca60((TitleMatrix *)m, (long *)scale);
         }
     } else if (o->w_03a != 0x100) {
         s = o->w_03a << 5;
         scale[2] = s;
         scale[1] = s;
         scale[0] = s;
-        eng3_1ff60((TitleMatrix *)m, (long *)scale);
+        title_0ca60((TitleMatrix *)m, (long *)scale);
     } else {
-        eng3_1ff60((TitleMatrix *)m, g_eng3_scale_39518);
+        title_0ca60((TitleMatrix *)m, g_eng3_scale_39518);
     }
-    eng3_1fd20(m);
+    title_0c7d0(m);
 }
 
 } /* extern "C" */
