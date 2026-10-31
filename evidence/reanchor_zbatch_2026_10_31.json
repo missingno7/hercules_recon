@@ -1,0 +1,211 @@
+{
+ "schema": 1,
+ "reason": "The accepted anchors of _g_frame_owner_7348c (0x58b9) and _g_2df44/_g_2df50 (0x4879/0x4870) lie inside eng1.dispatch_local_058b0 and title.04870, which are promoted next (sameunit). Move every accepted use to an independent witness outside every user row and both host rows, under the adopted witness policy; cell, extent, owner, aliases and relocation uses are unchanged.",
+ "baseline_recovery_sha256": "996011aa66d2ce7d8f0785359a62693f51c9c5a45c56b1f819cc8ee1b09cb14a",
+ "exclusion_rows": [
+  "eng1.dispatch_local_058b0",
+  "title.04870"
+ ],
+ "changes": [
+  {
+   "bindings_path": "evidence/zbatch_bindings_2026_10_31.json",
+   "bindings_sha256": "0ec10c44ab309ef1e2589865005a74533e7c69a9035a3bab5832c99035ef7c22",
+   "symbol": "_g_2df44",
+   "function_ids": [
+    "title.047d0"
+   ],
+   "before": {
+    "operand": 1,
+    "rva": 18553,
+    "sha256": "a46e1e9887d691489729d41329e171dcf9c7b8474c201c990d9d4849306ed9a4",
+    "size": 5
+   },
+   "after": {
+    "rva": 119832,
+    "size": 5,
+    "operand": 0,
+    "sha256": "c23de05267521d8224839fd3d25c1ac63caca5cf5027f4da2a94a0385ec5aef6"
+   }
+  },
+  {
+   "bindings_path": "evidence/zbatch_bindings_2026_10_31.json",
+   "bindings_sha256": "0ec10c44ab309ef1e2589865005a74533e7c69a9035a3bab5832c99035ef7c22",
+   "symbol": "_g_2df50",
+   "function_ids": [
+    "title.047d0"
+   ],
+   "before": {
+    "operand": 1,
+    "rva": 18544,
+    "sha256": "09d604024b6cb1ab45234fa4391bae0f29ef8a1451545f7f21077527bfb9c4cc",
+    "size": 5
+   },
+   "after": {
+    "rva": 120542,
+    "size": 5,
+    "operand": 0,
+    "sha256": "90d0f8bf863aa85a9886c91abc73632b52c8b5fac866854e8a532af8252dd3be"
+   }
+  },
+  {
+   "bindings_path": "evidence/zbatch_bindings_2026_10_31.json",
+   "bindings_sha256": "0ec10c44ab309ef1e2589865005a74533e7c69a9035a3bab5832c99035ef7c22",
+   "symbol": "_g_frame_owner_7348c",
+   "function_ids": [
+    "eng1.05820",
+    "eng1.05c70"
+   ],
+   "before": {
+    "operand": 1,
+    "rva": 22713,
+    "sha256": "cef31b3081fa8d7461b6e9eed73eb30d1c69ee21229c2848901ef5b853174a03",
+    "size": 5
+   },
+   "after": {
+    "rva": 127419,
+    "size": 5,
+    "operand": 0,
+    "sha256": "7c1cbeaf7302f7fbd4043c0a843a7c62b313a142ae7b6eb3a302ac96fea72235"
+   }
+  }
+ ],
+ "witnesses": {
+  "TITLE.DLL:_g_2df44": {
+   "cell_rva": "0x2df44",
+   "extent": 4,
+   "users": [
+    "title.047d0"
+   ],
+   "before": {
+    "operand": 1,
+    "rva": 18553,
+    "sha256": "a46e1e9887d691489729d41329e171dcf9c7b8474c201c990d9d4849306ed9a4",
+    "size": 5,
+    "rva_hex": "0x4879",
+    "host": [
+     "title.04870"
+    ]
+   },
+   "after": {
+    "rva": 119832,
+    "size": 5,
+    "operand": 0,
+    "sha256": "c23de05267521d8224839fd3d25c1ac63caca5cf5027f4da2a94a0385ec5aef6",
+    "rva_hex": "0x1d418",
+    "bytes": "6844df0210",
+    "host": [
+     {
+      "row": "title.1d380",
+      "status": "CODEGEN_SIMILAR"
+     }
+    ],
+    "host_compiled_names": [
+     "_g_2df44"
+    ],
+    "verifier_receipts": [
+     {
+      "section": ".data",
+      "zero_start": 168448,
+      "zero_end": 192760,
+      "identity_rva": 119832
+     }
+    ]
+   },
+   "policy": "stable"
+  },
+  "TITLE.DLL:_g_2df50": {
+   "cell_rva": "0x2df50",
+   "extent": 1,
+   "users": [
+    "title.047d0"
+   ],
+   "before": {
+    "operand": 1,
+    "rva": 18544,
+    "sha256": "09d604024b6cb1ab45234fa4391bae0f29ef8a1451545f7f21077527bfb9c4cc",
+    "size": 5,
+    "rva_hex": "0x4870",
+    "host": [
+     "title.04870"
+    ]
+   },
+   "after": {
+    "rva": 120542,
+    "size": 5,
+    "operand": 0,
+    "sha256": "90d0f8bf863aa85a9886c91abc73632b52c8b5fac866854e8a532af8252dd3be",
+    "rva_hex": "0x1d6de",
+    "bytes": "a250df0210",
+    "host": [
+     {
+      "row": "title.1d590",
+      "status": "CODEGEN_SIMILAR"
+     }
+    ],
+    "host_compiled_names": [
+     "_g_2df50"
+    ],
+    "verifier_receipts": [
+     {
+      "section": ".data",
+      "zero_start": 168448,
+      "zero_end": 192760,
+      "identity_rva": 120542
+     }
+    ]
+   },
+   "policy": "stable"
+  },
+  "ENG1.DLL:_g_frame_owner_7348c": {
+   "cell_rva": "0x7348c",
+   "extent": 4,
+   "users": [
+    "eng1.05820",
+    "eng1.05c70"
+   ],
+   "before": {
+    "operand": 1,
+    "rva": 22713,
+    "sha256": "cef31b3081fa8d7461b6e9eed73eb30d1c69ee21229c2848901ef5b853174a03",
+    "size": 5,
+    "rva_hex": "0x58b9",
+    "host": [
+     "eng1.dispatch_local_058b0"
+    ]
+   },
+   "after": {
+    "rva": 127419,
+    "size": 5,
+    "operand": 0,
+    "sha256": "7c1cbeaf7302f7fbd4043c0a843a7c62b313a142ae7b6eb3a302ac96fea72235",
+    "rva_hex": "0x1f1bb",
+    "bytes": "688c340710",
+    "host": [
+     {
+      "row": "eng1.dispatch_local_1f0f0",
+      "status": "CODEGEN_SIMILAR"
+     }
+    ],
+    "host_compiled_names": [
+     "_g_frame_owner_7348c"
+    ],
+    "verifier_receipts": [
+     {
+      "section": ".data",
+      "zero_start": 452608,
+      "zero_end": 476760,
+      "identity_rva": 127419
+     },
+     {
+      "section": ".data",
+      "zero_start": 452608,
+      "zero_end": 476760,
+      "identity_rva": 127419
+     }
+    ]
+   },
+   "policy": "stable"
+  }
+ },
+ "policy": "work/velocity_j/anchors2/anchor_plan.py (stable or >= 3 consistently naming hosts; strict for RECONSTRUCTED)"
+}

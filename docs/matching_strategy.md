@@ -21,7 +21,7 @@ Blocker families, by rows touched (a row counts once per family):
 | Register/register-based indirect CALL | 153 rows contain one | 35 | opaque-indirect-call-v1 (2026-10-31) |
 | EXE statically linked library callees | ~60 rows | 19+ | closed library-member identity (not yet proven) |
 
-Accepted after the wave-j integrations so far: **1,196** (commit e16ebf4).
+Accepted after the wave-j integrations so far: **1,229** (commit 26c3e50).
 
 Highest single gates: ENG1 0x26de0 (16 callers), shared remove_actor_preserving_resource
 (ENG1 0x27410 + ENG3 0x1cd40, 18), TITLE title_054f0 (20) and title_164b0 (14), EXE operator delete
@@ -118,3 +118,21 @@ Independent anchors, not owners or content, now limit storage identities:
 4. Data-owner form for initialized metadata tables (typed initializers, no asset payloads).
 5. VC5 mechanism families from the residual-difference classifier; apply only validated mechanisms.
 6. EXE library closure research (MFC/CRT members) under the 2026-10-27 audit constraints.
+
+## Storage and data identity map (wave j, after solZ2 and sameunit)
+
+- Remaining loader-zero blockers fall into five classes (work/velocity_j/solZ2/classification.json):
+  | Pattern | Symbols | Rows freed alone | Path |
+  | --- | --- | --- | --- |
+  | (a) another name for an owned cell | 56 | 13 | caller renames; needs binding re-issue for accepted callers (repin T2) |
+  | (b) member of a canonical owner | 49 | 23 | member access in callers; changes accepted relocation records |
+  | (c) array or block | 105 | 33 | loader-zero-indexed-v1 minimum extent (zbatch2 in progress) |
+  | (d) no anchor under the planning rule | 107 | 11 | none yet |
+  | (e) other | 249 | 84 | individual review |
+- Same-unit data (sameunit, 74 rows):
+  * 198 of 232 same-unit symbols are uninitialized `.bss`, which content cannot identify; they need anchors.
+  * Initialized objects are identified by a unique placement of the complete allocation in the image, the
+    established byte-table and string-review evidence. 6 rows accepted so far.
+  * Re-staged units often fail the same-section layout check, so their `.bss` ownership needs review.
+- file-data-owner-v1 (dataform): sound, but its anchor rule and the missing re-anchor support must follow the
+  adopted planning rule before integration.
