@@ -695,5 +695,414 @@ class ProtectedRenameRefreshTests(unittest.TestCase):
                     unit_refresh.check_delta(before, after, declaration, protected, allow_protected_renames=allow)
 
 
+class OwnerFixture:
+    """Four accepted RELOCATED rows over two binding documents; three use the owner src/pipe.c."""
+
+    PIPE_BEFORE = b'ENG1Pipe g_pipe = {0};\n'
+    PIPE_AFTER = b'ENG1Pipe g_pipe;\n'
+    NATIVE = {('m.p1', 1): 0x6010, ('m.p2', 1): 0x6010, ('m.p3', 1): 0x6010, ('m.p4', 1): 0x1000}
+
+    def __init__(self, root):
+        self.root = root
+        for folder in ('src', 'work/cand', 'evidence/repin_snapshots', 'toolchains', 'objects'):
+            (root / folder).mkdir(parents=True, exist_ok=True)
+        (root / 'toolchains/manifest.json').write_text('{}')
+        self.write('src/pipe.c', self.PIPE_BEFORE)
+        self.write('work/cand/pipe.c', self.PIPE_AFTER)
+        self.objects = {}
+        for name in ('p1', 'p2', 'p3', 'p4'):
+            source = ('int %s(void) { return g_pipe.w[4]; }\n' % name).encode()
+            self.write('src/%s.c' % name, source)
+            if name == 'p4':
+                code, relocation = b'\xe8\0\0\0\0\xc3' + b'\x90' * 10, (1, '_helper', 20)
+                externals = [('_helper', 0x20)]
+            else:
+                code, relocation = b'\xa1\x10\0\0\0\xc3' + b'\x90' * 10, (1, '_pipe', 6)
+                externals = [('_pipe', 0)]
+            self.objects[sha(source)] = write_coff(root / ('objects/%s.obj' % name), [('_' + name, code, [relocation])],
+                                                   externals)
+        self.doc_a = dict(schema=1, evidence_files={'src/pipe.c': sha(self.PIPE_BEFORE), 'src/p4.c': sha(self.source('p4'))},
+                          functions={'m.p1': dict(symbols={'_pipe': self.owner()}),
+                                     'm.p2': dict(symbols={'_pipe': self.owner()}),
+                                     'm.p4': dict(symbols={'_helper': function_record(0x1000, [1])})})
+        self.doc_b = dict(schema=1, evidence_files={'src/pipe.c': sha(self.PIPE_BEFORE)},
+                          functions={'m.p3': dict(symbols={'_pipe': self.owner()})})
+        self.write_json('evidence/pipe_a.json', self.doc_a)
+        self.write_json('evidence/pipe_b.json', self.doc_b)
+        self.state = dict(schema_version=1, functions=[
+            self.row('m.p1', 'p1', 'evidence/pipe_a.json', self.doc_a),
+            self.row('m.p2', 'p2', 'evidence/pipe_a.json', self.doc_a),
+            self.row('m.p3', 'p3', 'evidence/pipe_b.json', self.doc_b),
+            self.row('m.p4', 'p4', 'evidence/pipe_a.json', self.doc_a)])
+
+    @staticmethod
+    def owner():
+        record = owner_record(0x6000, 0x40, [(1, 0x10)], '_pipe')
+        record['owner']['source'] = 'src/pipe.c'
+        return record
+
+    def source(self, name):
+        return (self.root / ('src/%s.c' % name)).read_bytes()
+
+    def write(self, name, data):
+        (self.root / name).write_bytes(data)
+
+    def write_json(self, name, document):
+        (self.root / name).write_text(json.dumps(document, indent=1) + '\n')
+
+    def row(self, rid, name, bindings, document):
+        proof = dict(scope='s', source_sha256=sha(self.source(name)), toolchain='fixture', bindings_path=bindings,
+                     **binding_rename.proof_fields(document, rid))
+        return dict(id=rid, status=RELOCATED, symbol='_' + name, source='src/%s.c' % name, target=T, rva='0x2000', size=16,
+                    flags=['/O2'], proof=proof)
+
+    def verify(self, rows, original_root=None, relocation_candidates=None, **_):
+        """Fake comparator: record names, addends, destinations and the loader-zero owner pin (never the compiler)."""
+        results = []
+        for row in rows:
+            source = (self.root / row['source']).read_bytes()
+            if sha(source) != row['proof']['source_sha256']:
+                raise ValueError('Canonical source differs from accepted proof: ' + row['id'])
+            obj = self.objects[sha(source)]
+            section = COFF(obj).function(row['symbol'])
+            binding, evidence, _ = match.reference_inputs(row['proof']['bindings_path'], row)
+            if (binding_rename.reference_digest(binding) != row['proof']['bindings_sha256'] or
+                    binding_rename.reference_digest(evidence) != row['proof']['reference_evidence_sha256']):
+                raise ValueError('Accepted reference bindings changed: ' + row['id'])
+            for name, record in binding['symbols'].items():
+                if 'owner' in record:  # match.verify_rows: the owner context is compiled from the current file
+                    owner = record['owner']['source']
+                    if evidence['files'].get(owner) != sha((self.root / owner).read_bytes()):
+                        raise ValueError('Loader-zero owner source/include context must be independently pinned: ' + name)
+            exact = set(binding['symbols']) == {r['symbol'] for r in section['relocations']}
+            for rel in section['relocations']:
+                record = binding['symbols'].get(rel['symbol'], {})
+                addend = struct.unpack_from('<i', section['data'], rel['offset'])[0]
+                exact &= record.get('rva', -1) + addend == self.NATIVE[(row['id'], rel['offset'])]
+                exact &= 0 <= addend < record.get('size', 0)
+            results.append(dict(id=row['id'], exact=exact, relocated_equal=exact, scope='s',
+                                compiled_sha256=sha(section['data']), target_sha256='t', object=str(obj),
+                                object_sha256=sha(obj.read_bytes()), compile_inputs={}, command=['cl'],
+                                source_sha256=sha(source), toolchain='fixture',
+                                bindings_sha256=binding_rename.reference_digest(binding),
+                                bindings_path=row['proof']['bindings_path'],
+                                reference_evidence_sha256=binding_rename.reference_digest(evidence)))
+        return results, dict(compiler_calls=0, rows=len(rows))
+
+    def review(self, **changes):
+        sha_a = sha((self.root / 'evidence/pipe_a.json').read_bytes())
+        sha_b = sha((self.root / 'evidence/pipe_b.json').read_bytes())
+        spec = lambda path, digest: dict(bindings_path=path, bindings_sha256=digest)
+        review = dict(schema=1, profile=binding_rename.PROFILE, reason='The pipeline owner becomes uninitialized COMMON.',
+                      owner_revisions={'src/pipe.c': dict(
+                          before=sha(self.PIPE_BEFORE), after=sha(self.PIPE_AFTER),
+                          rows={'m.p1': spec('evidence/pipe_a.json', sha_a), 'm.p2': spec('evidence/pipe_a.json', sha_a),
+                                'm.p3': spec('evidence/pipe_b.json', sha_b)})})
+        review.update(changes)
+        self.write_json('evidence/pipe_review.json', review)
+        return dict(path='evidence/pipe_review.json', sha256=sha((self.root / 'evidence/pipe_review.json').read_bytes()))
+
+    def plan(self, review):
+        state = (self.root / 'recovery.json').read_bytes()
+        return dict(state_sha256=sha(state), promotions=[], binding_review=review, sources={
+            'src/pipe.c': dict(candidate='work/cand/pipe.c', before_sha256=sha(self.PIPE_BEFORE),
+                               candidate_sha256=sha(self.PIPE_AFTER))})
+
+
+class OwnerRevisionDeriveTests(unittest.TestCase):
+    HASHES = {'src/pipe.c': (sha(OwnerFixture.PIPE_BEFORE), sha(OwnerFixture.PIPE_AFTER))}
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name).resolve()
+        self.fx = OwnerFixture(self.root)
+        self.scope = patch.object(binding_rename, 'ROOT', self.root)
+        self.scope.start()
+
+    def tearDown(self):
+        self.scope.stop()
+        self.tmp.cleanup()
+
+    def derive(self, mutate=None, changed=('src/pipe.c',), hashes='default'):
+        item = self.fx.review()
+        review = json.loads((self.root / item['path']).read_bytes())
+        if mutate:
+            mutate(review)
+        documents = binding_rename.parent_documents(review)
+        return binding_rename.derive(self.fx.state, review, documents, item['path'], 'c' * 64, set(changed),
+                                     self.HASHES if hashes == 'default' else hashes)
+
+    def refuses(self, pattern, mutate=None, **kw):
+        with self.assertRaisesRegex(ValueError, pattern):
+            self.derive(mutate, **kw)
+
+    def reseal(self, name, document, row_id):
+        """Rewrite one accepted manifest and keep its accepted row's proof consistent."""
+        self.fx.write_json(name, document)
+        row = next(r for r in self.fx.state['functions'] if r['id'] == row_id)
+        row['proof'].update(binding_rename.proof_fields(document, row_id))
+        return sha((self.root / name).read_bytes())
+
+    def test_pins_move_and_nothing_else(self):
+        plan = self.derive()
+        before, after = self.HASHES['src/pipe.c']
+        self.assertEqual(plan.rows, {'m.p1': {}, 'm.p2': {}, 'm.p3': {}})
+        self.assertEqual(plan.definitions, {})
+        self.assertEqual(plan.owner_revisions(), {'src/pipe.c': dict(before=before, after=after, rows=['m.p1', 'm.p2', 'm.p3'])})
+        for path, parent in (('evidence/pipe_a.json', self.fx.doc_a), ('evidence/pipe_b.json', self.fx.doc_b)):
+            new_path, document = plan.manifests[path]
+            self.assertTrue(new_path.startswith('evidence/rename_'))
+            self.assertEqual(document['evidence_files']['src/pipe.c'], after)
+            self.assertEqual(document['functions'], parent['functions'])  # every binding verbatim, m.p4 included
+            self.assertEqual(document['evidence_files'][path], sha((self.root / path).read_bytes()))
+            self.assertEqual(document['evidence_files']['evidence/pipe_review.json'], 'c' * 64)  # derive's review_sha
+            rest = {k: v for k, v in document['evidence_files'].items()
+                    if k not in ('src/pipe.c', path, 'evidence/pipe_review.json')}
+            self.assertEqual(rest, {k: v for k, v in parent['evidence_files'].items() if k != 'src/pipe.c'})
+            self.assertEqual(json.loads((self.root / path).read_bytes()), parent)  # the parent stays provenance
+
+    def test_the_derivation_is_the_parent_with_the_pin_undone(self):
+        plan = self.derive()
+        path = 'evidence/pipe_a.json'
+        restored = copy.deepcopy(plan.manifests[path][1])
+        restored['evidence_files']['src/pipe.c'] = self.HASHES['src/pipe.c'][0]
+        for name in (path, 'evidence/pipe_review.json'):
+            del restored['evidence_files'][name]
+        del restored['binding_rename_review']
+        self.assertEqual(restored, self.fx.doc_a)
+
+    def test_the_undo_check_refuses_every_other_difference(self):
+        plan = self.derive()
+        path = 'evidence/pipe_a.json'
+        documents = binding_rename.parent_documents(dict(bindings={'x': dict(bindings_path=path)}))
+        pins = plan.owner_pins[path]
+        check = lambda: binding_rename._check_owner_undo(plan, documents, path, pins, 'evidence/pipe_review.json')
+        check()
+        document = plan.manifests[path][1]
+        tampers = {
+            'a record': lambda: document['functions']['m.p1']['symbols']['_pipe'].update(size=0x80),
+            'a reference': lambda: document['functions']['m.p4']['symbols']['_helper']['references'].append(
+                dict(offset=9, type=20, addend=0)),
+            'another pin': lambda: document['evidence_files'].update({'src/p4.c': '0' * 64}),
+            'the pin is not revised': lambda: document['evidence_files'].update({'src/pipe.c': pins['src/pipe.c'][0]}),
+            'identity': lambda: document.update(schema=2),
+            'a function is dropped': lambda: document['functions'].pop('m.p4'),
+        }
+        for label, tamper in tampers.items():
+            with self.subTest(label):
+                saved = copy.deepcopy(document)
+                tamper()
+                with self.assertRaises(ValueError):
+                    check()
+                document.clear()
+                document.update(saved)
+        check()
+
+    def test_an_owner_revision_combines_with_a_reviewed_rename_of_the_same_row(self):
+        self.fx.doc_a['functions']['m.p1']['symbols']['_helper'] = function_record(0x1000, [9])
+        self.fx.write_json('evidence/pipe_a.json', self.fx.doc_a)
+        for row_id in ('m.p1', 'm.p2', 'm.p4'):  # one document: every row's proof digest follows it
+            row = next(r for r in self.fx.state['functions'] if r['id'] == row_id)
+            row['proof'].update(binding_rename.proof_fields(self.fx.doc_a, row_id))
+        digest = sha((self.root / 'evidence/pipe_a.json').read_bytes())
+
+        def mutate(review):
+            for spec in review['owner_revisions']['src/pipe.c']['rows'].values():
+                if spec['bindings_path'] == 'evidence/pipe_a.json':
+                    spec['bindings_sha256'] = digest
+            review['bindings'] = {'m.p1': dict(bindings_path='evidence/pipe_a.json', bindings_sha256=digest,
+                                               renames={'_helper': '_helper2'})}
+        plan = self.derive(mutate, changed=('src/pipe.c', 'src/p1.c'))
+        self.assertEqual(plan.rows['m.p1'], {'_helper': ('_helper2', 0)})
+        self.assertEqual(plan.rows['m.p2'], {})
+        document = plan.manifests['evidence/pipe_a.json'][1]
+        self.assertEqual(document['evidence_files']['src/pipe.c'], self.HASHES['src/pipe.c'][1])
+        self.assertEqual(document['functions']['m.p1']['symbols']['_helper2'], function_record(0x1000, [9]))
+        self.assertNotIn('_helper', document['functions']['m.p1']['symbols'])
+        self.assertEqual(document['functions']['m.p2'], self.fx.doc_a['functions']['m.p2'])
+
+    def test_refusals(self):
+        revision = lambda r: r['owner_revisions']['src/pipe.c']
+        rows = lambda r: revision(r)['rows']
+        move = lambda r, name: r['owner_revisions'].update({name: r['owner_revisions'].pop('src/pipe.c')})
+        cases = [
+            ('source outside src', 'canonical src', lambda r: move(r, 'recovery.json')),
+            ('a header', 'canonical src', lambda r: move(r, 'src/pipe.h')),
+            ('a path that is not spelled canonically', 'canonical src', lambda r: move(r, 'src/../src/pipe.c')),
+            ('a missing source', 'canonical src', lambda r: move(r, 'src/gone.c')),
+            ('before is not the pinned hash', 'disagrees', lambda r: revision(r).update(before=sha(b'other'))),
+            ('after differs from the plan', 'disagrees', lambda r: revision(r).update(after=sha(b'other'))),
+            ('before equals after', 'Invalid owner revision', lambda r: revision(r).update(after=revision(r)['before'])),
+            ('not a hash', 'Invalid owner revision', lambda r: revision(r).update(after='ABC')),
+            ('no rows', 'Invalid owner revision', lambda r: revision(r).update(rows={})),
+            ('extra field', 'Invalid owner revision', lambda r: revision(r).update(note='x')),
+            ('extra row field', 'Invalid owner revision row', lambda r: rows(r)['m.p1'].update(renames={})),
+            ('unknown review key', 'Invalid binding rename review', lambda r: r.update(non_owner_pins={})),
+            ('stale parent manifest', 'Reviewed parent manifest changed', lambda r: rows(r)['m.p1'].update(
+                bindings_sha256='0' * 64)),
+            ('wrong manifest for a row', 'different current binding', lambda r: rows(r)['m.p3'].update(
+                bindings_path='evidence/pipe_a.json')),
+            ('a row that is not in the reviewed set', 'not reviewed', lambda r: rows(r).pop('m.p3')),
+            ('a row that does not use the owner', 'does not use', lambda r: rows(r).update(
+                {'m.p4': dict(bindings_path='evidence/pipe_a.json', bindings_sha256=rows(r)['m.p1']['bindings_sha256'])})),
+            ('an unknown row', 'RELOCATED', lambda r: rows(r).update({'m.nope': rows(r)['m.p1']})),
+        ]
+        changed = ('src/pipe.c', 'recovery.json', 'src/pipe.h', 'src/../src/pipe.c', 'src/gone.c')
+        for label, pattern, mutate in cases:
+            with self.subTest(label):
+                self.refuses(pattern, mutate, changed=changed)
+        with self.subTest('before is not the pinned hash, even when the plan agrees'):
+            hashes = {'src/pipe.c': (sha(b'other'), self.HASHES['src/pipe.c'][1])}
+            self.refuses('before-hash', lambda r: revision(r).update(before=sha(b'other')), hashes=hashes)
+        with self.subTest('not a changed source'):
+            self.refuses('changed source', changed=())
+        with self.subTest('the plan does not declare the hashes'):
+            self.refuses('disagrees', hashes=None)
+        with self.subTest('a plan that declares other hashes'):
+            self.refuses('disagrees', hashes={'src/pipe.c': (sha(b'a'), sha(b'b'))})
+
+    def test_refusals_from_the_ledger_and_the_bindings(self):
+        functions = self.fx.state['functions']
+        with self.subTest('the revised source is an accepted caller unit'):
+            functions[3]['source'] = 'src/pipe.c'
+            self.refuses('accepted caller')
+            functions[3]['source'] = 'src/p4.c'
+        with self.subTest('a row that is not accepted RELOCATED'):
+            functions[0]['status'] = 'FUNCTION_MATCH'
+            self.refuses('RELOCATED')
+            functions[0]['status'] = RELOCATED
+        with self.subTest('a row with prior raw proof'):
+            functions[0]['prior_raw_proof'] = {'scope': 'raw'}
+            self.refuses('RELOCATED')
+            del functions[0]['prior_raw_proof']
+        with self.subTest('the accepted binding differs from its proof'):
+            saved = functions[0]['proof']['bindings_sha256']
+            functions[0]['proof']['bindings_sha256'] = '0' * 64
+            self.refuses('differs from its proof')
+            functions[0]['proof']['bindings_sha256'] = saved
+        self.derive()
+
+    def test_the_document_must_pin_the_before_hash(self):
+        self.fx.doc_b['evidence_files']['src/pipe.c'] = sha(b'an older owner')
+        digest = self.reseal('evidence/pipe_b.json', self.fx.doc_b, 'm.p3')
+        self.refuses('before-hash', lambda r: r['owner_revisions']['src/pipe.c']['rows']['m.p3'].update(bindings_sha256=digest))
+
+    def test_only_loader_zero_and_file_data_owners_are_revisable(self):
+        record = self.fx.doc_b['functions']['m.p3']['symbols']['_pipe']
+        record['kind'] = 'data'  # an owner-shaped record that is neither a bss nor a file-data owner
+        digest = self.reseal('evidence/pipe_b.json', self.fx.doc_b, 'm.p3')
+        mutate = lambda r: r['owner_revisions']['src/pipe.c']['rows']['m.p3'].update(bindings_sha256=digest)
+        self.refuses('only as a loader-zero or file-data owner', mutate)
+        record['data_profile'] = 'file-data-owner-v1'  # a file-data owner is revisable too
+        digest = self.reseal('evidence/pipe_b.json', self.fx.doc_b, 'm.p3')
+        self.assertEqual(sorted(self.derive(mutate).owner_rows), ['m.p1', 'm.p2', 'm.p3'])
+
+    def test_a_review_with_nothing_to_do_is_refused(self):
+        self.refuses('must declare', lambda r: r.pop('owner_revisions'))
+
+
+class OwnerRevisionApplyTests(unittest.TestCase):
+    """repin.apply() with a reviewed owner revision: the pins move, the fresh gate re-verifies every accepted row."""
+
+    def setUp(self):
+        base = Path(__file__).resolve().parents[1] / 'work'
+        base.mkdir(exist_ok=True)
+        self.tmp = tempfile.TemporaryDirectory(dir=base)
+        self.root = Path(self.tmp.name).resolve()
+        self.fx = OwnerFixture(self.root)
+        (self.root / 'recovery.json').write_text(json.dumps(self.fx.state, indent=2) + '\n')
+        import promote
+        self.patches = [patch.object(repin, 'ROOT', self.root), patch.object(binding_rename, 'ROOT', self.root),
+                        patch.object(match, 'ROOT', self.root), patch.object(promote, 'lock', no_lock),
+                        patch.object(promote, 'JOURNAL', self.root / 'work/promotion-journal.json'),
+                        patch.object(promote, 'assert_verified_inputs', lambda *a, **k: None),
+                        patch.object(repin, 'frozen_before', lambda *a, **k: None),
+                        patch.object(match, 'verify_rows', self.fx.verify)]
+        for p in self.patches:
+            p.start()
+
+    def tearDown(self):
+        for p in reversed(self.patches):
+            p.stop()
+        self.tmp.cleanup()
+
+    def run_apply(self, plan, after_gate=None):
+        state = json.loads((self.root / 'recovery.json').read_bytes())
+        results, _ = self.fx.verify(match.accepted_rows(state['functions']))
+        before = self.root / 'work/before.json'
+        before.write_text(json.dumps(dict(results=results, state_sha256=sha((self.root / 'recovery.json').read_bytes()),
+                                          historical_evidence={})))
+        plan_path = self.root / 'work/plan.json'
+        plan_path.write_text(json.dumps(plan))
+        with patch.object(match, 'verify_rows', after_gate or self.fx.verify):
+            return repin.apply(plan_path, before, self.root, self.root / 'work/repin')
+
+    def test_owner_revision_reissues_the_users_and_reverifies_everything(self):
+        receipt = self.run_apply(self.fx.plan(self.fx.review()))
+        rows = {r['id']: r for r in json.loads((self.root / 'recovery.json').read_bytes())['functions']}
+        self.assertEqual((self.root / 'src/pipe.c').read_bytes(), OwnerFixture.PIPE_AFTER)
+        for row_id, parent in (('m.p1', self.fx.doc_a), ('m.p2', self.fx.doc_a), ('m.p3', self.fx.doc_b)):
+            proof = rows[row_id]['proof']
+            self.assertTrue(proof['bindings_path'].startswith('evidence/rename_'))
+            manifest = json.loads((self.root / proof['bindings_path']).read_bytes())
+            self.assertEqual(manifest['evidence_files']['src/pipe.c'], sha(OwnerFixture.PIPE_AFTER))
+            self.assertEqual(manifest['functions'][row_id], parent['functions'][row_id])  # the record is verbatim
+            self.assertNotIn('src/pipe.c', proof.get('reference_snapshots', {}))  # the live file satisfies the pin
+            history = rows[row_id]['reference_rename_history'][0]
+            self.assertTrue(history['proof']['bindings_path'].startswith('evidence/pipe_'))
+            self.assertEqual(proof['bindings_sha256'], history['proof']['bindings_sha256'])  # binding digest unchanged
+            self.assertNotEqual(proof['reference_evidence_sha256'], history['proof']['reference_evidence_sha256'])
+            fresh = next(r for r in receipt['results'] if r['id'] == row_id)
+            self.assertEqual({k: fresh[k] for k in binding_rename.PROVENANCE},
+                             {k: proof[k] for k in binding_rename.PROVENANCE})
+        # The unreviewed non-user keeps its parent manifest and reads the preserved old owner pin.
+        p4 = rows['m.p4']['proof']
+        self.assertEqual(p4['bindings_path'], 'evidence/pipe_a.json')
+        self.assertEqual(p4['reference_snapshots']['src/pipe.c'],
+                         'evidence/repin_snapshots/%s.txt' % sha(OwnerFixture.PIPE_BEFORE))
+        self.assertNotIn('reference_rename_history', rows['m.p4'])
+        self.assertEqual(receipt['binding_renames']['owner_revisions']['src/pipe.c']['rows'], ['m.p1', 'm.p2', 'm.p3'])
+        self.assertEqual(receipt['binding_renames']['rows']['m.p1'], {})
+        self.assertEqual(len(receipt['preserved']), 4)
+
+    def test_a_user_missing_from_the_review_fails_before_anything_is_written(self):
+        review = self.fx.review()
+        document = json.loads((self.root / review['path']).read_bytes())
+        del document['owner_revisions']['src/pipe.c']['rows']['m.p3']
+        self.fx.write_json('evidence/pipe_review.json', document)
+        review = dict(path=review['path'], sha256=sha((self.root / review['path']).read_bytes()))
+        before = (self.root / 'recovery.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'not reviewed'):
+            self.run_apply(self.fx.plan(review))
+        self.assertEqual((self.root / 'recovery.json').read_bytes(), before)
+        self.assertEqual((self.root / 'src/pipe.c').read_bytes(), OwnerFixture.PIPE_BEFORE)
+        self.assertEqual(list((self.root / 'evidence').glob('rename_*.json')), [])
+
+    def test_the_gate_still_fails_closed_without_the_review(self):
+        # No review: the old pin meets the new owner source, exactly the refusal the gate exists for.
+        plan = self.fx.plan(None)
+        del plan['binding_review']
+        before = (self.root / 'recovery.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'independently pinned'):
+            self.run_apply(plan)
+        self.assertEqual((self.root / 'recovery.json').read_bytes(), before)
+        self.assertEqual((self.root / 'src/pipe.c').read_bytes(), OwnerFixture.PIPE_BEFORE)
+
+    def test_a_comparator_that_reads_the_parent_manifest_fails_closed(self):
+        real = self.fx.verify
+
+        def parent_reader(rows, **kw):
+            results, stats = real(rows, **kw)
+            for result in results:
+                if result['id'] == 'm.p1':
+                    result['bindings_path'] = 'evidence/pipe_a.json'
+            return results, stats
+        before = (self.root / 'recovery.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'all verified findings m.p1'):
+            self.run_apply(self.fx.plan(self.fx.review()), after_gate=parent_reader)
+        self.assertEqual((self.root / 'recovery.json').read_bytes(), before)
+        self.assertEqual((self.root / 'src/pipe.c').read_bytes(), OwnerFixture.PIPE_BEFORE)
+
+
 if __name__ == '__main__':
     unittest.main()

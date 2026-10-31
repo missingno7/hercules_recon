@@ -18,6 +18,14 @@ hash-pinned review in evidence/, everything that may differ, and nothing else:
                references); the caller's uses keep offset and type, and each addend is re-expressed
                so that rva + addend, the native destination, is unchanged and inside the owner.
 
+  owner_revisions
+               {source: {"before", "after", "rows": {row_id: {"bindings_path", "bindings_sha256"}}}}: a
+               canonical src/ C/C++ loader-zero (bss) or file-data owner source is revised. Its pin in the
+               rows' binding documents moves from `before` to `after`, in the derived descendant manifests
+               only; the rows' own binding records stay verbatim. Every accepted RELOCATED row whose binding
+               has an owner record in that source must be listed. The owner records are not rewritten: the
+               after gate recompiles the new owner source and re-verifies names, sizes and capacities.
+
 Each reviewed parent manifest gets one immutable descendant evidence/rename_<parent>_<review>.json
 holding the derived bindings; the parent and the review are pinned in its evidence_files and the
 parent stays as provenance. Every derived binding is checked against its parent by undoing exactly
@@ -56,10 +64,22 @@ class Plan:
         self.rows = {}  # row id -> {old name: (new name, addend delta)}
         self.manifests = {}  # parent path -> (new path, document)
         self.parents = {}  # row id -> (parent path, parent sha256)
+        self.owner_rows = {}  # row id -> revised owner sources its binding pins
+        self.owner_pins = {}  # parent path -> {source: (before, after)}
         self.review = None
 
     def __bool__(self):
         return bool(self.definitions or self.rows)
+
+    def owner_revisions(self):
+        """Receipt form: {source: {before, after, rows}} of the revised owner pins."""
+        result = {}
+        for row_id, sources in sorted(self.owner_rows.items()):
+            for source in sources:
+                pin = next(p[source] for p in self.owner_pins.values() if source in p)
+                entry = result.setdefault(source, dict(before=pin[0], after=pin[1], rows=[]))
+                entry['rows'].append(row_id)
+        return result
 
     def binding_path(self, row_id, current):
         parent = self.parents.get(row_id)
@@ -172,20 +192,25 @@ def _rebound_record(old, template, row, name):
     return record, delta
 
 
-def derive(state, review, documents, review_path, review_sha, changed_sources):
+def derive(state, review, documents, review_path, review_sha, changed_sources, source_hashes=None):
     """Validate one review against the ledger and parent manifests; return a Plan.
 
     documents maps every parent manifest path the review names to (raw bytes, parsed).
+    source_hashes maps each changed source to its (before, after) sha256 as the re-pin plan declares
+    them; owner revisions must agree with it exactly.
     """
     plan = Plan()
     plan.review = (review_path, review_sha)
     if (not isinstance(review, dict) or review.get('schema') != 1 or review.get('profile') != PROFILE or
             not isinstance(review.get('reason'), str) or not review['reason'].strip() or
-            set(review) - {'schema', 'profile', 'reason', 'definitions', 'bindings', 'evidence_files'}):
+            set(review) - {'schema', 'profile', 'reason', 'definitions', 'bindings', 'owner_revisions',
+                           'evidence_files'}):
         raise ValueError('Invalid binding rename review')
     definitions, bindings = review.get('definitions', {}), review.get('bindings', {})
-    if not isinstance(definitions, dict) or not isinstance(bindings, dict) or not (definitions or bindings):
-        raise ValueError('A binding rename review must declare definitions or bindings')
+    revisions = review.get('owner_revisions', {})
+    if (not isinstance(definitions, dict) or not isinstance(bindings, dict) or not isinstance(revisions, dict) or
+            not (definitions or bindings or revisions)):
+        raise ValueError('A binding rename review must declare definitions, bindings or owner revisions')
     rows = {r['id']: r for r in state['functions']}
     for row_id, item in sorted(definitions.items()):
         row = rows.get(row_id)
@@ -278,7 +303,129 @@ def derive(state, review, documents, review_path, review_sha, changed_sources):
         plan.parents[row_id] = (item['bindings_path'], item['bindings_sha256'])
         _manifest(plan, documents, item['bindings_path'], row_id, derived, review_path, review_sha,
                   [documents[spec['from']['bindings_path']][1] for spec in item.get('rebinds', {}).values()])
+    if revisions:
+        _revise_owners(plan, state, rows, revisions, documents, bindings, changed_sources, source_hashes,
+                       review_path, review_sha)
     return plan
+
+
+HEX = re.compile(r'[0-9a-f]{64}')
+
+
+def _canonical_owner_source(name):
+    """A revised owner is an existing canonical C/C++ unit under src/, spelled exactly as it is pinned."""
+    if not isinstance(name, str) or not name:
+        raise ValueError('Owner revisions name repository sources')
+    path = (ROOT / name).resolve()
+    if (not path.is_relative_to((ROOT / 'src').resolve()) or path.suffix not in ('.c', '.cpp') or
+            not path.is_file() or path.relative_to(ROOT.resolve()).as_posix() != name):
+        raise ValueError('Only canonical src/ C/C++ owner sources may be revised: ' + name)
+    return path
+
+
+def owner_records(binding, path):
+    """{name: record} of the records of one binding whose compile owner is the source at `path`."""
+    found = {}
+    for name, record in binding.get('symbols', {}).items():
+        owner = record.get('owner') if isinstance(record, dict) else None
+        if isinstance(owner, dict) and isinstance(owner.get('source'), str) and (ROOT / owner['source']).resolve() == path:
+            found[name] = record
+    return found
+
+
+def _is_owner_record(record):
+    return record.get('kind') == 'bss' or record.get('data_profile') == 'file-data-owner-v1'
+
+
+def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_sources, source_hashes,
+                   review_path, review_sha):
+    """Move the owner-source pin of every listed row's descendant manifest from `before` to `after`.
+
+    Only that pin changes; each binding record is carried over verbatim (or with its reviewed renames,
+    already derived above). The re-pin after gate recompiles the owner from the new source and verifies
+    every owner record strictly, so nothing about acceptance is skipped here.
+    """
+    members = {}
+    for source, item in sorted(revisions.items()):
+        path = _canonical_owner_source(source)
+        if (not isinstance(item, dict) or set(item) != {'before', 'after', 'rows'} or
+                not isinstance(item['before'], str) or not HEX.fullmatch(item['before']) or
+                not isinstance(item['after'], str) or not HEX.fullmatch(item['after']) or
+                item['before'] == item['after'] or not isinstance(item['rows'], dict) or not item['rows']):
+            raise ValueError('Invalid owner revision: ' + source)
+        if source not in changed_sources:
+            raise ValueError('A revised owner must be a changed source: ' + source)
+        if source_hashes is None or tuple(source_hashes.get(source, ())) != (item['before'], item['after']):
+            raise ValueError('Owner revision disagrees with the re-pin plan: ' + source)
+        if any(row['source'] == source for row in state['functions'] if row['status'] in ACCEPTED):
+            raise ValueError('A revised owner source may not also be an accepted caller unit: ' + source)
+        for row_id, spec in sorted(item['rows'].items()):
+            row = rows.get(row_id)
+            if not isinstance(spec, dict) or set(spec) != {'bindings_path', 'bindings_sha256'}:
+                raise ValueError('Invalid owner revision row: ' + row_id)
+            binding = _accepted_binding(row, documents, spec['bindings_path'], spec['bindings_sha256'])
+            if documents[spec['bindings_path']][1]['evidence_files'].get(source) != item['before']:
+                raise ValueError('Owner revision before-hash is not the pinned hash: %s in %s' % (source, row_id))
+            users = owner_records(binding, path)
+            if not users or not all(_is_owner_record(record) for record in users.values()):
+                raise ValueError('The row does not use %s only as a loader-zero or file-data owner: %s' % (source, row_id))
+            members.setdefault(source, {})[row_id] = spec['bindings_path']
+        # Completeness: a row left on the old pin would read a source it no longer matches.
+        cache = {}
+        for row in state['functions']:
+            if row['status'] != RELOCATED or row.get('prior_raw_proof') or row['id'] in item['rows']:
+                continue
+            location = row['proof'].get('bindings_path')
+            if location not in cache:
+                cache[location] = json.loads((ROOT / location).read_bytes())
+            if owner_records(cache[location]['functions'].get(row['id'], {}), path):
+                raise ValueError('An accepted row also uses the revised owner and is not reviewed: ' + row['id'])
+    for source, rows_of in sorted(members.items()):
+        for row_id, location in rows_of.items():
+            if row_id not in plan.parents:  # no rename of its own: the binding is carried over verbatim
+                raw, parent = documents[location]
+                _manifest(plan, documents, location, row_id, copy.deepcopy(parent['functions'][row_id]),
+                          review_path, review_sha, [])
+                plan.rows[row_id] = {}
+                plan.parents[row_id] = (location, digest(raw))
+            plan.owner_rows.setdefault(row_id, []).append(source)
+            plan.owner_pins.setdefault(location, {})[source] = (revisions[source]['before'], revisions[source]['after'])
+    for location, pins in plan.owner_pins.items():
+        document = plan.manifests[location][1]
+        for source, (before, after) in pins.items():
+            if document['evidence_files'].get(source) != before:
+                raise ValueError('Owner pin conflict in %s: %s' % (location, source))
+            document['evidence_files'][source] = after
+        _check_owner_undo(plan, documents, location, pins, review_path)
+
+
+def _check_owner_undo(plan, documents, location, pins, review_path):
+    """Undo exactly the reviewed owner pins: the descendant must reduce to its parent.
+
+    Besides the pins, the descendant may differ only by its provenance (parent and review pins, the
+    review name) and by the reviewed renames of its re-issued rows (each already undone and checked
+    against its parent per row); an owner-only row must equal its parent binding verbatim.
+    """
+    _, parent = documents[location]
+    descendant = copy.deepcopy(plan.manifests[location][1])
+    for source, (before, after) in pins.items():
+        if descendant['evidence_files'].get(source) != after:
+            raise ValueError('Owner pin was not revised: ' + source)
+        descendant['evidence_files'][source] = before
+    for name in (location, review_path):
+        descendant['evidence_files'].pop(name, None)
+    descendant.pop('binding_rename_review', None)
+    identity = lambda document: {k: v for k, v in document.items() if k not in ('functions', 'evidence_files')}
+    if identity(descendant) != identity(parent):
+        raise ValueError('Derived manifest differs from its parent beyond the reviewed change: ' + location)
+    for name, sha in parent['evidence_files'].items():
+        if descendant['evidence_files'].get(name) != sha:
+            raise ValueError('Derived manifest changed a pinned evidence hash: %s in %s' % (name, location))
+    if set(descendant['functions']) != set(parent['functions']):
+        raise ValueError('Derived manifest changed its function set: ' + location)
+    for row_id, binding in descendant['functions'].items():
+        if binding != parent['functions'][row_id] and not plan.rows.get(row_id):
+            raise ValueError('Owner revision changed a binding record: ' + row_id)
 
 
 def _undo_rebind(record, original, delta):
@@ -338,7 +485,7 @@ def expected_findings(result, changes, compiled_sha256=None, provenance=None):
     dropped from the comparison (legacy callers).
     """
     result = copy.deepcopy(result)
-    if not changes:
+    if not changes and provenance is None:
         return result
     if provenance is None:
         result.pop('bindings_sha256', None)
@@ -346,6 +493,8 @@ def expected_findings(result, changes, compiled_sha256=None, provenance=None):
         if set(provenance) != set(PROVENANCE):
             raise ValueError('Re-issued provenance names exactly ' + ', '.join(PROVENANCE))
         result.update(provenance)
+    if not changes:  # owner-only re-issue: just the manifest provenance moves; every receipt is compared as is
+        return result
     if compiled_sha256 is not None:
         result['compiled_sha256'] = compiled_sha256
     for receipt in result.get('references', []):
@@ -423,6 +572,9 @@ def parent_documents(review):
         paths.add(item.get('bindings_path'))
         for spec in item.get('rebinds', {}).values():
             paths.add(spec.get('from', {}).get('bindings_path'))
+    for item in review.get('owner_revisions', {}).values():
+        for spec in (item.get('rows', {}) if isinstance(item, dict) else {}).values():
+            paths.add(spec.get('bindings_path') if isinstance(spec, dict) else None)
     documents = {}
     for name in sorted(p for p in paths if isinstance(p, str)):
         path = (ROOT / name).resolve()

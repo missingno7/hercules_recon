@@ -146,8 +146,9 @@ def binding_renames(state, plan, changed):
     if 'binding_review' not in plan:
         return binding_rename.Plan()
     review, raw = binding_rename.load_review(plan['binding_review'])
+    hashes = {name: (item['before_sha256'], item['candidate_sha256']) for name, item in plan['sources'].items()}
     return binding_rename.derive(state, review, binding_rename.parent_documents(review),
-                                 plan['binding_review']['path'], sha(raw), changed)
+                                 plan['binding_review']['path'], sha(raw), changed, hashes)
 
 
 CHANGEABLE_SUFFIXES = ('.c', '.cpp', '.h')
@@ -334,8 +335,15 @@ def apply(plan_path, before_path, original_root, directory):
             path = proof.get('bindings_path')
             pins = (renames.binding_document(path) or docs.get(path, {})).get('evidence_files', {})
             # Each pin of a changed source reads the snapshot of exactly the hash it pins.
+            # A reviewed owner revision pins the new bytes, which the live file already satisfies: no redirect,
+            # and any older redirect of that source is dropped so the pin reads the canonical file.
+            current = {n for n in source_before if n in pins and pins[n] == sha(candidates[ROOT/n])}
             mapping = {n: ('evidence/repin_snapshots/' + pins[n] + '.txt' if n in source_before else snapshots[n])
-                       for n in snapshots if n in pins}
+                       for n in snapshots if n in pins and n not in current}
+            for n in current & set(proof.get('reference_snapshots', {})):
+                del proof['reference_snapshots'][n]
+            if 'reference_snapshots' in proof and not proof['reference_snapshots'] and current:
+                del proof['reference_snapshots']
             if mapping:
                 # Merge: a row may already read older pins through earlier snapshots.
                 proof['reference_snapshots'] = {**proof.get('reference_snapshots', {}), **mapping}
@@ -425,7 +433,7 @@ def apply(plan_path, before_path, original_root, directory):
                 inventory_receipts = refresh(accepted_rows(state['functions']), old_results,
                                             inventory_refresh, original_root,
                                             renamed={i: before_symbols[i] for i in renames.definitions},
-                                            changes=renames.rows)
+                                            changes={k: v for k, v in renames.rows.items() if v})
             rows = accepted_rows(state['functions'])
             # RELOCATED requests retain their pending status until the gate passes.
             rows += [r for r in selected if r['id'] in pending]
@@ -441,8 +449,10 @@ def apply(plan_path, before_path, original_root, directory):
                 a, b = old_results[old['id']], by_id[old['id']]
                 changes = renames.rows.get(old['id'], {})
                 # A re-issued row verifies with its descendant manifest: the fresh result must name exactly
-                # the path, binding digest and evidence inventory its updated proof records.
-                provenance = binding_rename.reissued_provenance(new_proofs[old['id']]) if changes else None
+                # the path, binding digest and evidence inventory its updated proof records. An owner-only
+                # re-issue has no symbol changes but still moves to its descendant manifest.
+                provenance = (binding_rename.reissued_provenance(new_proofs[old['id']])
+                              if old['id'] in renames.rows else None)
                 require_equal(binding_rename.expected_findings(
                                   expected_after(a, added_functions.get(old.get('source'), []), b['object']), changes,
                                   rebound.get(old['id']), provenance),
@@ -477,6 +487,7 @@ def apply(plan_path, before_path, original_root, directory):
                            inventory_refresh=inventory_receipts,
                            binding_renames=dict(
                                review=list(renames.review), definitions=renames.definitions,
+                               owner_revisions=renames.owner_revisions(),
                                rows={k: {o: list(v) for o, v in c.items()} for k, c in renames.rows.items()},
                                manifests={p: m[0] for p, m in renames.manifests.items()}) if renames else None)
             atomic_bytes(directory/'after.json', (json.dumps(receipt,indent=2)+'\n').encode())
