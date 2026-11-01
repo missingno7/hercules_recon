@@ -1,0 +1,108 @@
+{
+ "schema": 1,
+ "functions": {
+  "eng1.native_code_target_011cd0": {
+   "symbols": {
+    "_eng1_11d30": {
+     "kind": "function",
+     "rva": 73008,
+     "size": 192,
+     "evidence": [
+      "function_identities:eng1.11d30"
+     ],
+     "references": [
+      {
+       "offset": 7,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng1_clut_rows_52b38": {
+     "kind": "data",
+     "rva": 338744,
+     "size": 24,
+     "sha256": "acd5366a6f6362e029b7c82fa596fac19a2b025fd350e553039b9a4ecdd76ec2",
+     "references": [
+      {
+       "offset": 42,
+       "type": 6,
+       "addend": 16
+      }
+     ],
+     "evidence": [
+      "evidence/solOZ_eng1_native_code_target_011cd0_bindings_2026_11_01.json#native_payload_review._g_eng1_clut_rows_52b38"
+     ]
+    },
+    "_random_limit": {
+     "kind": "function",
+     "rva": 181344,
+     "size": 16,
+     "evidence": [
+      "evidence/eng1_actor_followup_matching_2026_10_24.json#callee_identities.eng1.dispatch_engine_2c460"
+     ],
+     "references": [
+      {
+       "offset": 17,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 36,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 66,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ },
+ "function_identities": {
+  "eng1.11d30": {
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "origin": "recovery.json#functions.eng1.11d30; independent own ledger row",
+   "rva": 73008,
+   "size": 192,
+   "source": "src/eng1/level_unit_10120.c",
+   "source_sha256": "61e2c29953e1148852453ce83cfc54ae91c559644d09f9a46e1e95713e3291fc",
+   "symbol": "_eng1_11d30",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+   "accepted_proof": {
+    "bindings_path": "evidence/source_layout_2026_10_25/eng1_direct_call_bindings_2026_10_24.json",
+    "bindings_sha256": "83ab216636a58730c19d6985693aaae32fb84237fc7f267c5e387fc1c6843373",
+    "compiled_sha256": "b7594868c476997c8b688e301dafb8c1641c2a12f0ccf3950ade150d2d5f6419"
+   }
+  }
+ },
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "src/eng1/level_unit_10120.c": "61e2c29953e1148852453ce83cfc54ae91c559644d09f9a46e1e95713e3291fc",
+  "evidence/source_layout_2026_10_25/eng1_actor_followup_bindings_2026_10_24.json": "e92f720365d9e0aefd43dc09d7171a08e14936700e3a3da29d6f2fc0c48f3a48",
+  "evidence/source_layout_2026_10_25/eng1_direct_call_bindings_2026_10_24.json": "1432c6d7af5ac7eabfd7b17079928a846226238692490d374992ce3068df0b2c"
+ },
+ "native_owner_review": {},
+ "native_payload_review": {
+  "_g_eng1_clut_rows_52b38": {
+   "rva": 338744,
+   "size": 24,
+   "payload": "ff03ff03ff03ff03ff07050604050604ff0908ff09080908",
+   "sha256": "acd5366a6f6362e029b7c82fa596fac19a2b025fd350e553039b9a4ecdd76ec2",
+   "all_noncode_payload_hits": [
+    338744
+   ],
+   "unique": true,
+   "basis": "Three native callbacks use row displacements 0,8,16, each after random_limit(8). The 24-byte initialized table is uniquely located by its whole payload, independent of caller operands.",
+   "source": "src/eng1/level_unit_10120.c"
+  }
+ },
+ "native_indirect_review": [],
+ "unresolved_symbols": [],
+ "access_errors": [],
+ "scope": "Original-backed per-row diagnostic binding; candidates must be integrated and anchors scheduled independently. Complete same-unit initialized data identity comes from a unique full payload, not a caller displacement or zero-byte similarity. No acceptance claim."
+}

@@ -1,0 +1,200 @@
+{
+ "schema": 1,
+ "functions": {
+  "eng3.14fd0": {
+   "symbols": {
+    "_g_eng3_image_37658": {
+     "kind": "data",
+     "rva": 226904,
+     "size": 32,
+     "sha256": "85c0e21f8d1e3350e6a5709e85c778ad1af8d3932ccc1df75bc106f396f71a10",
+     "references": [
+      {
+       "offset": 27,
+       "type": 6,
+       "addend": 0
+      }
+     ],
+     "evidence": [
+      "evidence/solOZ_eng3_14fd0_bindings_2026_11_01.json#native_payload_review._g_eng3_image_37658"
+     ]
+    },
+    "_g_focus": {
+     "evidence": [
+      "evidence/eng3_focus_review_2026_10_26.json#focus_cell"
+     ],
+     "identity": {
+      "operand": 1,
+      "rva": 23360,
+      "sha256": "6048839605a1a032866a0e0c1a53e2060c7487dcd46cc3e42dca078c5695fd43",
+      "size": 6
+     },
+     "kind": "bss",
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng3/eng3_focus_storage.c",
+      "symbol": "_g_focus"
+     },
+     "references": [
+      {
+       "offset": 51,
+       "type": 6,
+       "addend": 0
+      }
+     ],
+     "rva": 269652,
+     "size": 4
+    },
+    "_random_limit": {
+     "evidence": [
+      "function_identities:eng3.random_limit_1fab0"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "offset": 76,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 106,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 130,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 171,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 194,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 241,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 260,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 286,
+       "type": 20,
+       "addend": 0
+      }
+     ],
+     "rva": 129712,
+     "size": 16
+    }
+   }
+  }
+ },
+ "function_identities": {
+  "eng3.random_limit_1fab0": {
+   "fresh_own_shape_check": "evidence/eng3_focus_review_2026_10_26.json#function_identity_reviews._random_limit.fresh_own_shape_check",
+   "identity_basis": [
+    "evidence/eng3_focus_review_2026_10_26.json#function_identity_reviews._random_limit"
+   ],
+   "ledger_proof_scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "rva": 129712,
+   "size": 16,
+   "source": "src/eng3/actor_services_1e000.c",
+   "source_sha256": "a6ea65421ac4a989ac6e37abec50c4256e01856b5f5c459bf8a3070d43f34a9f",
+   "symbol": "_random_limit",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  }
+ },
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "src/eng3/handlers_14190.cpp": "c9baa83afa8d9e0e0cda9e6e882ed458609b74c7affd1763532c9b3aff46ff7a",
+  "src/eng3/frame_program_37ca0.c": "9d429790dc47cd692bacab762b19c4c411aa5a0cc4a4b4874ae34710c7f9537f",
+  "evidence/bindK3_bindings_2026_10_31.json": "2e9b532a15e5abbed6a8d6572ee0b493104257b27992c7511da3dcb59fb058a1",
+  "src/eng3/eng3_focus_storage.c": "03b79e19b56d4011ced296f0da346a349aee7cc887fc05a8157ec0db066b1e9d",
+  "src/eng3/actor_services_1e000.c": "a6ea65421ac4a989ac6e37abec50c4256e01856b5f5c459bf8a3070d43f34a9f"
+ },
+ "native_owner_review": {},
+ "native_payload_review": {
+  "_g_eng3_image_37658": {
+   "rva": 226904,
+   "size": 32,
+   "sha256": "85c0e21f8d1e3350e6a5709e85c778ad1af8d3932ccc1df75bc106f396f71a10",
+   "bytes": "1c0100001d0100001e0100001f010000200100002101000022010000ffff0000",
+   "all_noncode_payload_hits": [
+    226904
+   ],
+   "unique": true,
+   "basis": "Eight native command pairs through the {-1,0} restart record; format is already reconstructed by canonical frame_program_37ca0.c. No next-symbol boundary or upper allocation bound is used.",
+   "source": "src/eng3/handlers_14190.cpp",
+   "typed_records": {
+    "type_source": "src/eng3/frame_program_37ca0.c",
+    "type_source_sha256": "9d429790dc47cd692bacab762b19c4c411aa5a0cc4a4b4874ae34710c7f9537f",
+    "typedef_reused_verbatim": "typedef struct Eng3CommandPair { short opcode; short operand; } Eng3CommandPair;",
+    "pair_values": [
+     [
+      2,
+      -1
+     ],
+     [
+      6,
+      -1
+     ]
+    ],
+    "program_values": [
+     [
+      284,
+      0
+     ],
+     [
+      285,
+      0
+     ],
+     [
+      286,
+      0
+     ],
+     [
+      287,
+      0
+     ],
+     [
+      288,
+      0
+     ],
+     [
+      289,
+      0
+     ],
+     [
+      290,
+      0
+     ],
+     [
+      -1,
+      0
+     ]
+    ],
+    "source_type": "Eng3CommandPair",
+    "record_size": 4,
+    "opcode_offset": 0,
+    "operand_offset": 2
+   }
+  }
+ },
+ "native_indirect_review": [],
+ "unresolved_symbols": [],
+ "access_errors": [],
+ "scope": "Original-backed per-row diagnostic binding; candidates must be integrated and anchors scheduled independently. Complete same-unit initialized data identity comes from a unique full payload, not a caller displacement or zero-byte similarity. No acceptance claim."
+}
