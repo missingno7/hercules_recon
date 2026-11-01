@@ -353,9 +353,11 @@ void eng3_0e700(Actor *o)
     o->speed = -0x400;
     o->state = 8;
     o->unknown_116 = 0;
-    count = o->owner_context[g_kind_info[o->profile].sidecar_offset + 0xc];
+    /* Keep the stored sidecar byte distinct from its comparison copy.  VC5 then
+     * stores the byte scratch in unknown_dc before comparing the named count. */
+    o->unknown_dc = o->owner_context[g_kind_info[o->profile].sidecar_offset + 0xc];
     o->unknown_cc = 1;
-    o->unknown_dc = count;
+    count = o->unknown_dc;
     if (count == 0)
         o->sprite = 5;
     if (count == 1)
