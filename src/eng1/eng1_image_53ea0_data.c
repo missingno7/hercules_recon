@@ -1,0 +1,37 @@
+/* Measured typed initialized prefix. Complete fresh compiler storage is
+ * compared with the unique native payload; no original allocation end,
+ * capacity, source identity or runtime index-domain claim. */
+typedef struct Eng1CommandPair { short opcode, operand; } Eng1CommandPair;
+Eng1CommandPair g_eng1_image_53ea0[31] = {
+    { -13, 1 },
+    { 32, 0 },
+    { 33, 0 },
+    { 34, 0 },
+    { -42, 4 },
+    { 35, 0 },
+    { 36, 0 },
+    { 37, 0 },
+    { -29, 16408 },
+    { 50, 0 },
+    { 51, 0 },
+    { -43, 4 },
+    { 46, 0 },
+    { 47, 0 },
+    { 48, 0 },
+    { 49, 0 },
+    { -35, 0 },
+    { 52, 0 },
+    { 53, 0 },
+    { -42, 4 },
+    { 54, 0 },
+    { 55, 0 },
+    { 56, 0 },
+    { -29, 16409 },
+    { 57, 1 },
+    { 58, 0 },
+    { -43, 4 },
+    { 70, 0 },
+    { 71, 0 },
+    { -35, 0 },
+    { -1, 0 }
+};

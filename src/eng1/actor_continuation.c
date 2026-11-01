@@ -36,7 +36,7 @@ struct Actor {
 typedef struct ScriptWord { short value,unknown; } ScriptWord;
 typedef struct Callback8 { void (*initialize)(Actor *); long unknown; } Callback8;
 typedef struct Callback12 { void (*initialize)(Actor *); long unknown[2]; } Callback12;
-extern ScriptWord g_frame_script[];
+extern ScriptWord g_frame_script_58d50_prefix[];
 extern unsigned char g_spawn_gate;
 extern long g_countdown,g_effect_speed,g_effect_phase;
 extern Actor *g_focus;
@@ -59,8 +59,8 @@ void tick_scripted_actor(Actor *p)
 {
     --p->ticks;
     if(p->ticks<=0) {
-        p->ticks=g_frame_script[p->phase++].value;
-        if(p->ticks>=0) p->frame=g_frame_script[p->phase++].value+0x76;
+        p->ticks=g_frame_script_58d50_prefix[p->phase++].value;
+        if(p->ticks>=0) p->frame=g_frame_script_58d50_prefix[p->phase++].value+0x76;
         else release_actor(p);
     }
 }

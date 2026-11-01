@@ -320,7 +320,14 @@ extern unsigned char g_player_palette_64270[];
 extern long g_effect_timer_64474;
 extern long g_effect_widths_64478[];
 extern EffectDescriptor g_effect_descriptor_644d0;
-extern SpawnPair g_spawn_offsets_644f8[6];
+SpawnPair g_spawn_offsets_644f8[6] = {
+    { 0, 0 },
+    { 56, 1 },
+    { 144, 2 },
+    { 32, 3 },
+    { 80, 5 },
+    { 192, 2 }
+};
 extern unsigned char g_entries_64510[];
 extern unsigned char g_entries_646e0[];
 extern unsigned char g_entries_647d0[];
@@ -1654,9 +1661,14 @@ extern unsigned short *g_spatial_sound_words_71714;
 extern unsigned short g_eng1_sound_words_66d68[];
 extern LevelProfile g_frame_config_5df08[];
 extern ClassifierRow g_eng1_classifier_rows_65678[];
-extern unsigned long g_player_dust_index_655a4;
-extern long g_player_dust_ids_655a8[10];
-extern short g_platform_directions_686c0[];
+typedef struct PlayerDustSequence { unsigned long index; long ids[10]; } PlayerDustSequence;
+PlayerDustSequence g_player_dust_sequence_655a4 = { 4294967295UL, { 2, 11, 2, 10, 2, 12, 2, 9, 2, 4 } };
+short g_platform_directions_686c0[4] = {
+    1,
+    2,
+    4,
+    3
+};
 extern FrameBuffer *g_dispatch_frame_current_71ec4;
 extern unsigned char *g_frame_global_73484;
 extern unsigned short g_frame_global_73480;
@@ -1702,9 +1714,9 @@ void eng1_3c410(Actor *p, long id)
 
 void eng1_3c460(Actor *p)
 {
-    if (++g_player_dust_index_655a4 >= 10)
-        g_player_dust_index_655a4 = 0;
-    eng1_3c410(p, g_player_dust_ids_655a8[g_player_dust_index_655a4]);
+    if (++g_player_dust_sequence_655a4.index >= 10)
+        g_player_dust_sequence_655a4.index = 0;
+    eng1_3c410(p, g_player_dust_sequence_655a4.ids[g_player_dust_sequence_655a4.index]);
 }
 
 /* Measured: the if/else assignment to n gives the original setge/dec/and/inc and the eax copy. */
@@ -2736,7 +2748,21 @@ extern unsigned short g_switch_masks_70008[5];
 extern unsigned short g_lane_sprites_66040[];
 extern long g_switch_sound_rows_66ea0[][4];
 extern long g_burst_sound_rows_66738[][4];
-extern SpawnRecord g_spawn_records_661a0[];
+SpawnRecord g_spawn_records_661a0[13] = {
+    { 0, -8, 0, 16445, 58, 0, 0 },
+    { 0, -16, 0, 16445, 61, 0, 0 },
+    { 0, -24, 0, 16445, 62, 0, 0 },
+    { 0, -32, 0, 16445, 63, 0, 0 },
+    { -16, -8, 0, 16445, 62, 0, 0 },
+    { -16, -16, 0, 16445, 61, 0, 0 },
+    { -16, -24, 0, 16445, 58, 0, 0 },
+    { -16, -32, 0, 16445, 61, 0, 0 },
+    { 16, -8, 0, 16445, 62, 0, 0 },
+    { 16, -16, 0, 16445, 63, 0, 0 },
+    { 16, -24, 0, 16445, 62, 0, 0 },
+    { 16, -32, 0, 16445, 61, 0, 0 },
+    { 0, 0, 8, 0, 0, 12, 0 }
+};
 
 int abs(int);
 void spawn_actor_with_owner(Actor *owner, long x, long y, long z, int kind);

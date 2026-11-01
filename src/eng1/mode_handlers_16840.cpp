@@ -205,43 +205,7 @@ Eng1CommandPair g_eng1_image_53930[79] = {
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
 extern unsigned char g_eng1_image_53a20[]; /* Original declaration context; actual use is an owner view. */
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
-Eng1CommandPair g_eng1_image_53b00[35] = {
-    { -13, 3 },
-    { -49, 15 },
-    { 72, 0 },
-    { -49, 16 },
-    { 73, 0 },
-    { -2, 0 },
-    { -49, 17 },
-    { 74, 1 },
-    { -49, 18 },
-    { 75, 1 },
-    { -49, 19 },
-    { 76, 1 },
-    { -49, 20 },
-    { 77, 1 },
-    { -49, 21 },
-    { 78, 1 },
-    { -49, 22 },
-    { 79, 1 },
-    { -49, 23 },
-    { 80, 1 },
-    { -49, 24 },
-    { 81, 1 },
-    { -49, 25 },
-    { 82, 1 },
-    { -49, 26 },
-    { 83, 1 },
-    { -49, 27 },
-    { 84, 1 },
-    { -49, 28 },
-    { 85, 1 },
-    { -49, 29 },
-    { 86, 1 },
-    { -49, 30 },
-    { 87, 1 },
-    { -1, 0 }
-};
+extern Eng1CommandPair g_eng1_image_53b00[35];
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
 Eng1CommandPair g_eng1_image_53b90[7] = {
     { -13, 1 },
@@ -293,8 +257,10 @@ Eng1CommandPair g_eng1_image_53c18[4] = {
     { -4, 0 },
     { -3, 0 }
 };
-extern unsigned char g_eng1_image_53c40[];
-extern unsigned char g_eng1_image_53c80[];
+/* Two separately addressed equal programs at +0 and +64. Their combined
+ * typed payload, including the observed zero pairs, is independently unique. */
+extern Eng1CommandPair g_eng1_program_pair_53c40[32];
+
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
 Eng1CommandPair g_eng1_image_53cc0[19] = {
     { -13, 1 },
@@ -362,8 +328,8 @@ Eng1CommandPair g_eng1_image_53df8[12] = {
     { 468, 1 },
     { -1, 0 }
 };
-extern unsigned char g_eng1_image_540c0[];
-extern unsigned char g_eng1_image_541f8[];
+extern Eng1CommandPair g_eng1_image_540c0[18];
+extern Eng1CommandPair g_eng1_image_541f8[21];
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
 Eng1CommandPair g_eng1_image_53da0[10] = {
     { -13, 1 },
@@ -385,80 +351,9 @@ extern unsigned short g_eng1_setup_word_718e0;
 extern short g_eng1_word_7144c;
 extern short g_eng1_setup_word_6ef80;
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
-Eng1CommandPair g_eng1_image_53ea0[31] = {
-    { -13, 1 },
-    { 32, 0 },
-    { 33, 0 },
-    { 34, 0 },
-    { -42, 4 },
-    { 35, 0 },
-    { 36, 0 },
-    { 37, 0 },
-    { -29, 16408 },
-    { 50, 0 },
-    { 51, 0 },
-    { -43, 4 },
-    { 46, 0 },
-    { 47, 0 },
-    { 48, 0 },
-    { 49, 0 },
-    { -35, 0 },
-    { 52, 0 },
-    { 53, 0 },
-    { -42, 4 },
-    { 54, 0 },
-    { 55, 0 },
-    { 56, 0 },
-    { -29, 16409 },
-    { 57, 1 },
-    { 58, 0 },
-    { -43, 4 },
-    { 70, 0 },
-    { 71, 0 },
-    { -35, 0 },
-    { -1, 0 }
-};
+extern Eng1CommandPair g_eng1_image_53ea0[31];
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
-Eng1CommandPair g_eng1_image_53f80[38] = {
-    { -13, 1 },
-    { -29, 21 },
-    { -30, 0 },
-    { -45, 485 },
-    { 313, 2 },
-    { -30, 0 },
-    { -45, 486 },
-    { 314, 2 },
-    { -30, 0 },
-    { -45, 487 },
-    { 315, 2 },
-    { -30, 0 },
-    { -45, 488 },
-    { 316, 2 },
-    { -30, 0 },
-    { -45, 489 },
-    { 317, 2 },
-    { -30, 0 },
-    { -45, 490 },
-    { 318, 2 },
-    { -30, 0 },
-    { -45, 491 },
-    { 319, 2 },
-    { -30, 0 },
-    { -45, 492 },
-    { 320, 2 },
-    { -2, 0 },
-    { -29, 16406 },
-    { -30, 0 },
-    { -45, 493 },
-    { 321, 2 },
-    { -30, 0 },
-    { -45, 494 },
-    { 322, 2 },
-    { -30, 0 },
-    { -45, 495 },
-    { 323, 2 },
-    { -1, 0 }
-};
+extern Eng1CommandPair g_eng1_image_53f80[38];
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
 Eng1CommandPair g_eng1_image_547e8[10] = {
     { -13, 1 },
@@ -530,32 +425,12 @@ Eng1CommandPair g_eng1_image_53ac8[14] = {
     { 418, 1 },
     { -1, 0 }
 };
-/* Native signed command pairs through first return/restart; no allocation upper bound. */
-Eng1CommandPair g_eng1_image_54da0[21] = {
-    { 0, 0 },
-    { 0, 0 },
-    { 0, 1 },
-    { 0, 0 },
-    { 2, 0 },
-    { 0, 3 },
-    { 0, 0 },
-    { 4, 0 },
-    { 0, 5 },
-    { 0, 0 },
-    { 6, 0 },
-    { 0, 7 },
-    { 0, 0 },
-    { 8, 0 },
-    { 1, 0 },
-    { 2, 0 },
-    { 1, 0 },
-    { 1, 0 },
-    { 2, 0 },
-    { 1, 0 },
-    { -1, 0 }
-};
+/* Actor+0xf0 is consumed by apply_frame_motion_3d at six-byte stride.
+ * Fourteen measured signed XYZ steps (84 bytes); no sentinel or capacity claim. */
+typedef struct Eng1MotionStep3 { short x, y, z; } Eng1MotionStep3;
+extern Eng1MotionStep3 g_eng1_image_54da0[14];
 typedef struct ShortPair { short first, second; } ShortPair;
-extern ShortPair g_eng1_pairs_55240[];
+extern ShortPair g_eng1_pairs_55240[13];
 extern void apply_frame_motion_3d(Actor *);
 extern int eng1_19cf0(void);
 void eng1_16cf0(void);
@@ -614,7 +489,17 @@ Eng1CommandPair g_eng1_image_54120[36] = {
     { -46, 0 },
     { -1, 0 }
 };
-extern unsigned char g_eng1_image_541b0[];
+Eng1CommandPair g_eng1_image_541b0[9] = {
+    { -13, 1 },
+    { -46, 0 },
+    { -43, 8 },
+    { 344, 2 },
+    { 343, 2 },
+    { -36, 0 },
+    { 340, 2 },
+    { 339, 2 },
+    { -3, 0 }
+};
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
 Eng1CommandPair g_eng1_image_541d8[8] = {
     { -13, 1 },
@@ -1080,13 +965,13 @@ void eng1_16e70(void)
     if (g_eng1_setup_dword_7201c) {
         if (g_frame_owner_72860->unknown_94) {
             eng1_sim_state_72108 = 6;
-            g_frame_owner_72860->image = g_eng1_image_53c80;
+            g_frame_owner_72860->image = ((unsigned char *)&g_eng1_program_pair_53c40[16]);
             g_frame_owner_72860->ticks = -1;
             g_frame_owner_72860->phase = -1;
             dispatch_local_15d00();
         } else {
             eng1_sim_state_72108 = 6;
-            g_frame_owner_72860->image = g_eng1_image_53c40;
+            g_frame_owner_72860->image = ((unsigned char *)&g_eng1_program_pair_53c40[0]);
             g_frame_owner_72860->ticks = -1;
             g_frame_owner_72860->phase = -1;
             dispatch_local_15d00();
@@ -1217,7 +1102,7 @@ int eng1_17290(void)
     /* Two conditional input reads stay at their original sites; each casts one access. */
     if (g_eng1_setup_word_6ef7c && (*((unsigned short *)&g_engine_interface.context_004->held_5c) & g_engine_interface.context_004->unknown_6c)
         && !g_eng1_setup_dword_7211c) {
-        g_frame_owner_72860->image = g_eng1_image_541f8;
+        g_frame_owner_72860->image = ((unsigned char *)&g_eng1_image_541f8[0]);
         g_frame_owner_72860->ticks = -1;
         g_frame_owner_72860->phase = -1;
         g_eng1_setup_dword_7211c = 1;
@@ -1225,7 +1110,7 @@ int eng1_17290(void)
         return 1;
     }
     if (g_eng1_setup_word_6ef7c && (*((unsigned short *)&g_engine_interface.context_004->held_5c) & g_engine_interface.context_004->unknown_70)) {
-        g_frame_owner_72860->image = g_eng1_image_540c0;
+        g_frame_owner_72860->image = ((unsigned char *)&g_eng1_image_540c0[0]);
         g_frame_owner_72860->ticks = -1;
         g_frame_owner_72860->phase = -1;
         g_eng1_setup_word_6ef7c = 0;
@@ -1707,7 +1592,7 @@ void eng1_18240(void)
         eng1_17340();
         return;
     }
-    if (g_frame_owner_72860->image == g_eng1_image_541b0 && eng1_17ff0())
+    if (g_frame_owner_72860->image == ((unsigned char *)&g_eng1_image_541b0[0]) && eng1_17ff0())
         return;
     if (eng1_16fa0()) {
         g_eng1_setup_word_6ef7c = 0;

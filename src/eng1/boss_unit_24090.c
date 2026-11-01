@@ -536,3 +536,31 @@ void eng1_255c0(Actor *p)
     if (!p->unknown_12c)
         remove_actor(p);
 }
+
+/* WORD script prefix through the observed zero/restart-index pair. */
+unsigned short g_boss_script_5a060[24] = {
+    1,
+    1,
+    1,
+    2,
+    3,
+    6,
+    8,
+    3,
+    6,
+    4,
+    6,
+    1,
+    2,
+    1,
+    6,
+    3,
+    3,
+    6,
+    8,
+    6,
+    1,
+    6,
+    0,
+    3
+};

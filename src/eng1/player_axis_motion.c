@@ -108,7 +108,32 @@ extern unsigned short g_eng1_setup_word_72194;
 
 /* Native slice bases differ by 16 bytes. The flat declaration intentionally
  * makes no claim about allocation capacity or the signed difficulty domain. */
-extern long g_eng1_mask_values_553e8[];
+long g_eng1_mask_values_553e8[24] = {
+    5,
+    4,
+    3,
+    0,
+    5,
+    4,
+    3,
+    0,
+    5,
+    4,
+    3,
+    0,
+    5,
+    4,
+    3,
+    0,
+    5,
+    4,
+    3,
+    0,
+    15,
+    12,
+    9,
+    0
+};
 
 int __cdecl eng1_19b40(int mask)
 {
