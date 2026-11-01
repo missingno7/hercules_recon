@@ -239,3 +239,23 @@ Independent anchors, not owners or content, now limit storage identities:
   but free no rows alone. Control 70ed8 needs an interior-anchor form (specified in work/velocity_l/solOX). 71714 is
   owned by pipeline storage, so it needs an alias migration plus an owner revision. The FX owner passes zero-section-v1
   but lacks an anchor form.
+
+### Wave l, second half (2026-11-01)
+
+- Strict rows 1,245 -> 1,284: re-anchor l07 + bindK4 (2), b24 (0x41000) + b26 (0x2b130) + bindK7 (5 callers),
+  b25 (solOY owner spellings) + re-anchor + bindK5 (16), b27 (solOZ owners) + bindK8 (18).
+- Callee closures came from fresh per-lane budgets and Sol mechanism analysis. sol2b closed 0x2b130 in 10 builds after
+  Luna stalled at 346 bytes: a unit-local declaration context reverses C2's Y/Z operand keys, so actor fields become
+  the native coordinate carriers. When a stack reload looks like it needs a source change, try declaration context
+  before rewriting the code.
+- A callee closed in its real unit can collide with an older behavioral provider in the runtime selection. Retire
+  that provider from config/<module>/sources.json. Keep the file when accepted evidence pins it as provenance.
+- Owner packages (solOY, solOZ) are the main row source now: owner candidates, caller spellings, T2 label review,
+  re-anchors out of hosts that are about to be promoted, then promotion in anchor-safe order. Rejected and fixed
+  during review: `#define` alias layers (callers now use explicit owner expressions) and byte-dump tables (typed
+  records such as Eng3CommandPair).
+- owner_revisions now also accept canonical headers in an owner's include closure. A header edit that adds struct
+  types renumbers $L labels in declaration-count-sensitive C++ units (actor_unit_282e0.cpp). Named members for the
+  pipeline owner must therefore stay plain members of the existing union.
+- Deferred with a design ready: exe-direct-member-v1 (work/velocity_l/solDM; frees 2 EXE rows now) and the interior
+  member-offset anchor for control 70ed8 (work/velocity_l/solOX).
