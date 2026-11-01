@@ -61960,10 +61960,11 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "lane n5 (2026-10-31): work/velocity_k/n5/handoff.json. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged). Previously: Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Size-exact; 4 non-relocation bytes differ.",
+      "evidence": "lane n5 (2026-10-31): work/velocity_k/n5/handoff.json. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged). Previously: Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Size-exact; 4 non-relocation bytes differ. Re-pin b39 (2026-11-01): actor_pipeline_255f0.cpp reads its pipeline and worklist cells through the canonical pipeline owner with explicit width-preserving owner expressions (solOP); code unchanged.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_call_26480": "0x26480",
+        "_g_actor_pipeline_storage_71440": "0x71440",
         "_g_actor_resources": "0x5cef0",
         "_g_actor_worklist_714c0": "0x714c0",
         "_g_actor_worklist_71580": "0x71580",
@@ -61985,18 +61986,6 @@
         "_g_engine_interface": "0x70f20",
         "_g_middle_actor_pool": "0x73494",
         "_g_normal_actor_pool": "0x72860",
-        "_g_pipeline_dword_71680": "0x71680",
-        "_g_pipeline_dword_716a8": "0x716a8",
-        "_g_pipeline_dword_71718": "0x71718",
-        "_g_pipeline_dword_71840": "0x71840",
-        "_g_pipeline_word_71720": "0x71720",
-        "_g_pipeline_word_71740": "0x71740",
-        "_g_pipeline_word_71bc4": "0x71bc4",
-        "_g_pipeline_word_71c5c": "0x71c5c",
-        "_g_pipeline_word_71c60": "0x71c60",
-        "_g_pipeline_word_71ca0": "0x71ca0",
-        "_g_pipeline_word_71cc0": "0x71cc0",
-        "_g_resource_state_snapshot_719c0": "0x719c0",
         "_g_sine_table_5a848": "0x5a848",
         "_release_actor": "0x27e20",
         "_remove_actor": "0x27260",
@@ -62004,7 +61993,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+        "source_sha256": "a7f94fe6dbf6a7338602f8c47d29db08ea856cdc58abf3990f8dacf1271b1e72",
         "masked_sha256": "efbba317899490a7f22041393fec473d2f7a103e95f5780028e56ef7b756f3ba",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -63264,7 +63253,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned; 6 opaque indirect CALL(s): targets unidentified, ABI unclaimed",
-        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+        "source_sha256": "a7f94fe6dbf6a7338602f8c47d29db08ea856cdc58abf3990f8dacf1271b1e72",
         "compiled_sha256": "07c6638a4b4f74d289e96d09d7a6600df07c47458ff7a517f9beb168a9a1c043",
         "target_sha256": "0d33a45d45a1b6a6efa2c2212ad6b8fc82e64d6c55f4a175b44eb0657eab54eb",
         "toolchain": "msvc5_rtm",
@@ -63272,12 +63261,13 @@
         "bindings_sha256": "d2289d69e0334aa29ad2c39efab1a86424f6321baa66830402cbd743cc98b954",
         "reference_evidence_sha256": "9359147c7b1998713014762690a3ad753dac052ce3c8047f68bd3c4767528e63",
         "context_sha256": {
-          "src/eng1/actor_pipeline_255f0.cpp": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+          "src/eng1/actor_pipeline_255f0.cpp": "a7f94fe6dbf6a7338602f8c47d29db08ea856cdc58abf3990f8dacf1271b1e72",
           "src/eng1/actor_region.h": "a9da278d65814448e711730575eaa30e2edddd9c980aac5f35734d79621c7bc0",
           "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
           "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
-          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
+          "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
         },
         "reference_snapshots": {
           "src/eng1/level_frame_01e50.c": "evidence/repin_snapshots/f049602e0b743e9b011c04b960be970c005c2db135044d460a315bdeb3da1192.txt",
@@ -63314,14 +63304,12 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
+      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged). Re-pin b39 (2026-11-01): actor_pipeline_255f0.cpp reads its pipeline and worklist cells through the canonical pipeline owner with explicit width-preserving owner expressions (solOP); code unchanged.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_actor_bounds_2a880": "0x2a880",
         "_eng1_call_26730": "0x26730",
-        "_g_actor_worklist_71460": "0x71460",
-        "_g_actor_worklist_71900": "0x71900",
-        "_g_actor_worklist_71ce0": "0x71ce0",
+        "_g_actor_pipeline_storage_71440": "0x71440",
         "_g_alternate_actor_pool": "0x734e0",
         "_g_collision_context": "0x7217c",
         "_g_configuration_dword_71370": "0x71370",
@@ -63341,15 +63329,13 @@
         "_g_middle_actor_pool": "0x73494",
         "_g_normal_actor_pool": "0x72860",
         "_g_pipeline_actor_7200c": "0x7200c",
-        "_g_pipeline_actor_slots_71440": "0x71440",
-        "_g_pipeline_dword_71ae0": "0x71ae0",
         "_g_pipeline_word_6fec0": "0x6fec0",
         "_g_pipeline_word_6fec4": "0x6fec4",
         "_g_pipeline_word_71376": "0x71376"
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+        "source_sha256": "a7f94fe6dbf6a7338602f8c47d29db08ea856cdc58abf3990f8dacf1271b1e72",
         "masked_sha256": "ff139f23f23c2bde726dc2c923c5bdb616ca9de8e8861db8769c3a413938c8e5",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -63376,7 +63362,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
+      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged). Re-pin b39 (2026-11-01): actor_pipeline_255f0.cpp reads its pipeline and worklist cells through the canonical pipeline owner with explicit width-preserving owner expressions (solOP); code unchanged.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_call_270c0": "0x270c0",
@@ -63391,7 +63377,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+        "source_sha256": "a7f94fe6dbf6a7338602f8c47d29db08ea856cdc58abf3990f8dacf1271b1e72",
         "masked_sha256": "6c4e4f29c4211a479d9c73faeaf501dac62f152ffd2eae884361a31be4a00708",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -63418,7 +63404,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
+      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged). Re-pin b39 (2026-11-01): actor_pipeline_255f0.cpp reads its pipeline and worklist cells through the canonical pipeline owner with explicit width-preserving owner expressions (solOP); code unchanged.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_call_270c0": "0x270c0",
@@ -63434,7 +63420,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+        "source_sha256": "a7f94fe6dbf6a7338602f8c47d29db08ea856cdc58abf3990f8dacf1271b1e72",
         "masked_sha256": "e7bb95a7ab368496ede2e4e239f4deaf2ffab08035d09d85b8e169e4c9ba1890",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -63468,7 +63454,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+        "source_sha256": "a7f94fe6dbf6a7338602f8c47d29db08ea856cdc58abf3990f8dacf1271b1e72",
         "compiled_sha256": "a1a6022e40adbc9807fe5dd67161b0f875a74fed3dca8650ec85253a19fc03bc",
         "target_sha256": "753826ef93758318845ddcfd51c8a434d88dba498261fbd4dbfba36a903d2aec",
         "toolchain": "msvc5_rtm",
@@ -63476,12 +63462,13 @@
         "bindings_sha256": "5bd3980723579f1d8c58d79295c9ae9828b311b5ea525fd8f876d94d62fe203a",
         "reference_evidence_sha256": "f4ab0e0ef75b09d06104286970fe280a8d65d506b5b1a99d84555bd5191d4448",
         "context_sha256": {
-          "src/eng1/actor_pipeline_255f0.cpp": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+          "src/eng1/actor_pipeline_255f0.cpp": "a7f94fe6dbf6a7338602f8c47d29db08ea856cdc58abf3990f8dacf1271b1e72",
           "src/eng1/actor_region.h": "a9da278d65814448e711730575eaa30e2edddd9c980aac5f35734d79621c7bc0",
           "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
           "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
-          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
+          "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
         },
         "reference_snapshots": {
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528.txt",
@@ -63519,7 +63506,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
+      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged). Re-pin b39 (2026-11-01): actor_pipeline_255f0.cpp reads its pipeline and worklist cells through the canonical pipeline owner with explicit width-preserving owner expressions (solOP); code unchanged.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_sim_state_6feb4": "0x6feb4",
@@ -63531,7 +63518,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+        "source_sha256": "a7f94fe6dbf6a7338602f8c47d29db08ea856cdc58abf3990f8dacf1271b1e72",
         "masked_sha256": "d56ff3ee271a98c3c00b2b9cd811ca389746f2bd7840da9605f2b051ba0631fb",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [

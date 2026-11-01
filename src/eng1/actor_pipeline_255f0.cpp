@@ -6,10 +6,13 @@
    in address order; ends with the already-matched 0x26700 attach_entries. Lane x7 scratch, 2026-10-20. */
 extern "C" {
 #include "actor_region.h"
+#include "actor_pipeline_storage.h"
+/* Explicit typed views preserve each native access width within the established
+ * pipeline backing object. The byte offsets identify cells, not list capacities. */
 
 void dispatch_local_255f0(void)
 {
-    g_pipeline_dword_71844 = 0;
+    (*(unsigned long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x404]) = 0;
     g_pipeline_word_713ae = 0;
     eng1_call_274e0();
     eng1_call_1fdf0();
@@ -21,21 +24,21 @@ void dispatch_local_255f0(void)
 
 void dispatch_local_25620(void)
 {
-    g_pipeline_word_71ca0 = 0;
-    g_pipeline_word_71740 = 0;
-    g_pipeline_word_71720 = 0;
-    g_pipeline_word_71cc0 = 0;
-    g_pipeline_dword_71680[0] = 0;
-    g_pipeline_word_71c60 = 0;
-    g_actor_worklist_714c0[0] = 0;
-    g_actor_worklist_71760[0] = 0;
-    g_actor_worklist_717c0[0] = 0;
-    g_actor_worklist_716c0[0] = 0;
-    g_actor_worklist_71580[0] = 0;
-    g_actor_worklist_71a20[0] = 0;
-    g_actor_worklist_71be0[0] = 0;
-    g_actor_worklist_71b20[0] = 0;
-    g_pipeline_dword_71a18 = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x860]) = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x300]) = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2e0]) = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x880]) = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x240])[0] = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x820]) = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x80])[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x320])[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x380])[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x280])[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x140])[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x5e0])[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x7a0])[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x6e0])[0] = 0;
+    (*(Actor **)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x5d8]) = 0;
     eng1_call_01e50();
     eng1_call_12960();
     eng1_call_26040();
@@ -118,17 +121,17 @@ void dispatch_local_258e0(void)
     Actor *actor;
     unsigned short kind;
     unsigned long flags;
-    g_pipeline_dword_71840 = 0;
-    g_pipeline_word_71bc4 = (short)(g_normal_actor_pool->z >> 16);
-    g_pipeline_word_71c5c = (short)(g_normal_actor_pool->z >> 16);
-    g_pipeline_dword_716a8 = (g_sine_table_5a848[(g_engine_interface.context_004->tick_038 & 0x7f) << 3] << 6) >> 16;
-    g_pipeline_dword_71718 = (g_sine_table_5a848[((g_engine_interface.context_004->tick_038 + 0x10) << 4) & 0x3ff] * 80) >> 16;
-    g_pipeline_word_71ca0 = 0;
-    g_pipeline_word_71740 = 0;
-    g_pipeline_word_71720 = 0;
-    g_pipeline_word_71cc0 = 0;
-    g_pipeline_dword_71680[0] = 0;
-    g_pipeline_word_71c60 = 0;
+    (*(unsigned long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x400]) = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x784]) = (short)(g_normal_actor_pool->z >> 16);
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x81c]) = (short)(g_normal_actor_pool->z >> 16);
+    (*(long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x268]) = (g_sine_table_5a848[(g_engine_interface.context_004->tick_038 & 0x7f) << 3] << 6) >> 16;
+    (*(long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2d8]) = (g_sine_table_5a848[((g_engine_interface.context_004->tick_038 + 0x10) << 4) & 0x3ff] * 80) >> 16;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x860]) = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x300]) = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2e0]) = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x880]) = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x240])[0] = 0;
+    (*(unsigned short *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x820]) = 0;
     eng1_call_26480();
     g_actor_worklist_714c0[0] = 0;
     g_actor_worklist_71760[0] = 0;
@@ -139,12 +142,12 @@ void dispatch_local_258e0(void)
     g_actor_worklist_71be0[0] = 0;
     g_actor_worklist_71b20[0] = 0;
     for (i = 0; i < 81; i++)
-        g_resource_state_snapshot_719c0[i] = g_actor_resources[i].state;
+        (&g_actor_pipeline_storage_71440.byte_cells[0x580])[i] = g_actor_resources[i].state;
     for (i = g_configuration_word_7138c; i < g_configuration_word_713b6; i++) {
         alt = &g_alternate_actor_pool[i];
         kind = alt->kind;
         if (kind) {
-            if (g_resource_state_snapshot_719c0[alt->category] == 4)
+            if ((&g_actor_pipeline_storage_71440.byte_cells[0x580])[alt->category] == 4)
                 release_actor((Actor *)alt);
             else {
                 flags = alt->flags;
@@ -161,7 +164,7 @@ void dispatch_local_258e0(void)
         mid = &g_middle_actor_pool[i];
         kind = mid->kind;
         if (kind) {
-            if (g_resource_state_snapshot_719c0[mid->category] == 4)
+            if ((&g_actor_pipeline_storage_71440.byte_cells[0x580])[mid->category] == 4)
                 remove_actor_variant((Actor *)mid);
             else {
                 flags = mid->flags;
@@ -185,7 +188,7 @@ void dispatch_local_258e0(void)
     for (i = g_configuration_word_71378; i < g_configuration_word_713a8; i++) {
         actor = &g_normal_actor_pool[i];
         if (actor->kind) {
-            if (g_resource_state_snapshot_719c0[actor->category] == 4)
+            if ((&g_actor_pipeline_storage_71440.byte_cells[0x580])[actor->category] == 4)
                 remove_actor(actor);
             else {
                 flags = actor->flags;
@@ -227,11 +230,11 @@ void dispatch_local_25d00(void)
     AltActor *alt;
     MiddleActor *mid;
     Actor *actor;
-    g_actor_worklist_71460[0] = 0;
-    g_actor_worklist_71ce0[0] = 0;
-    g_actor_worklist_71900[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x20])[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x8a0])[0] = 0;
+    ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x4c0])[0] = 0;
     actor_bounds_2a880(g_collision_context, &g_collision_context->bounds, 1);
-    g_pipeline_word_6fec4 = actor_bounds_2a880(g_collision_context, (Bounds *)g_pipeline_actor_slots_71440, 2);
+    g_pipeline_word_6fec4 = actor_bounds_2a880(g_collision_context, (Bounds *)(&g_actor_pipeline_storage_71440.byte_cells[0x0]), 2);
     g_pipeline_word_6fec0 = 0;
     if (g_pipeline_word_71376)
         g_pipeline_word_71376--;
@@ -241,7 +244,7 @@ void dispatch_local_25d00(void)
         mid = &g_middle_actor_pool[i];
         kind = mid->kind & 0x3fff;
         if (kind && kind < 10)
-            g_actor_worklist_71900[++g_actor_worklist_71900[0]] = (long)mid;
+            ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x4c0])[++((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x4c0])[0]] = (long)mid;
     }
     for (i = g_configuration_word_71378; i < g_configuration_word_713a8; i++) {
         actor = &g_normal_actor_pool[i];
@@ -260,14 +263,14 @@ void dispatch_local_25d00(void)
         kind = alt->kind;
         if (kind) {
             if (alt->flags & 0x10000)
-                g_actor_worklist_71ce0[++g_actor_worklist_71ce0[0]] = (long)alt;
+                ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x8a0])[++((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x8a0])[0]] = (long)alt;
             if ((unsigned char)alt->flags & 2)
                 g_configuration_dword_7139c[kind & 0x1ff].update((Actor *)alt);
         }
     }
     i = 0;
-    while (i < g_actor_worklist_71ce0[0]) {
-        alt = (AltActor *)g_actor_worklist_71ce0[++i];
+    while (i < ((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x8a0])[0]) {
+        alt = (AltActor *)((long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x8a0])[++i];
         g_configuration_dword_7139c[alt->kind & 0x1ff].update((Actor *)alt);
     }
     actor = g_pipeline_actor_7200c;
@@ -276,7 +279,7 @@ void dispatch_local_25d00(void)
         g_configuration_dword_71370[kind].draw(actor);
     if (g_engine_interface.context_004->unknown_000[0] != 9)
         eng1_call_26730();
-    g_pipeline_dword_71ae0 = 0;
+    (*(long *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x6a0]) = 0;
     if (g_level_profiles_5df08[(char)g_engine_interface.context_004->unknown_000[0]].wrap_x) {
         actor = g_normal_actor_pool;
         for (i = 0; i < g_configuration_word_713b4; i++) {
