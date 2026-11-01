@@ -1173,13 +1173,6 @@
       "evidence": "evidence/eng1_forest_actor_callback_3ca80.json"
     },
     {
-      "source": "src/eng1/actor_list_producer_2b130.c",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "evidence/eng1_actor_list_producer_2b130.json"
-    },
-    {
       "source": "src/eng1/owned_spawn_callback_40e20.c",
       "flags": [
         "/O2"
@@ -4011,10 +4004,10 @@
     },
     {
       "rva": "0x2b130",
-      "source": "src/eng1/actor_list_producer_2b130.c",
+      "source": "src/eng1/action_group_writers.c",
       "symbol": "_eng1_native_code_target_002b130",
       "evidence": "evidence/eng1_actor_list_producer_2b130.json",
-      "implementation_status": "plausible_unverified",
+      "implementation_status": "original_backed_complete_instructions",
       "contract": "cdecl int(Actor*). Acquire existing action group, traverse12-byte kind-terminated records; signed count vs zero-extended WORD limit; dispatch normal/middle/alternate factories with low-DWORD fixed-point wrap. Reload record/state/callback/count at native sites. Append then cached sprite store. Early null exits preserve+120; post-acquisition rollback releases and clears it.",
       "uncertainty": "Five native/source cases /45 checks through actual action_registry acquire/release: early-null, acquisition-null, empty success, zero-capacity rollback and unsupported class. Fixture counters prove factories/callback endpoints unexecuted; actual spawning is not validated here."
     },
