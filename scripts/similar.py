@@ -13,6 +13,12 @@ defines is pinned by name in each row's proof (co_defined_functions); verify req
 never acceptance: match.py and promote.py verify raw bytes or independently bound references.
 
 In-place plans replace planned rows by id, so a reviewed rename of a masked row's symbol restages that row.
+An in-place plan owns only the rows of its own module: rows another module staged on the same source are never
+replaced or re-recorded. This module's rows recorded under other flags are replaced when the plan restages their
+id (the rows left in the old flag profile are rechecked and repinned like a move). verify compiles one group per
+(source, flags), so the pinned co-defined set is computed over every masked row of that group, and masked rows of
+other modules sharing the flags only follow the group pins (co-defined set, source hash) after their masked
+identity and symbol map re-verify unchanged. A stage that would leave two rows with one id is refused.
 "moves": [row ids] re-sources individual masked rows of the plan's module from another provider; each
 must be listed in the plan with its id and RVA. The rows left in the old provider group are rechecked in
 the same transaction, and their pinned co-defined set then includes the moved symbol. A strict row only
@@ -34,6 +40,7 @@ from masked import masked_compare
 DB = ROOT / 'work/archaeology.sqlite'
 STATE = ROOT / 'recovery.json'
 SCOPE = 'relocation-masked diagnostic equality with consistent implied symbol map; not acceptance'
+STRICT_STATUSES = ('FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', 'LINKED_MATCH')
 BOUNDARY = ('Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, '
             'masked bytes, and absolute relocation offsets equal to target base relocations.')
 
@@ -151,8 +158,24 @@ def stage(plan_path):
         raise ValueError('Only masked rows can be moved')
     explicit = _explicit_moves(plan, state, source, module, in_place)
     plan_flags = list(plan.get('flags') or ['/O2'])
-    existing = [r for r in state['functions'] if r.get('source') == source
-                and list(r.get('flags') or ['/O2']) == plan_flags]
+    same_flags = [r for r in state['functions'] if r.get('source') == source
+                  and list(r.get('flags') or ['/O2']) == plan_flags]
+    planned_ids = {_row_id(f, prefix) for f in plan['functions']}
+    reflagged, other_module = [], []
+    if in_place:
+        # A plan owns the rows of its own module only. Rows of the same source that another module staged are
+        # a separate profile: they are never replaced or re-recorded here. Rows of this module recorded under
+        # other flags are replaced when the plan restages their id, whatever their previous flags.
+        existing = [r for r in same_flags if _module_of(r) == module.upper()]
+        reflagged = [r for r in state['functions'] if r.get('source') == source and _module_of(r) == module.upper()
+                     and list(r.get('flags') or ['/O2']) != plan_flags and r['id'] in planned_ids]
+        if any(r['status'] in STRICT_STATUSES for r in reflagged):
+            raise ValueError('A strict row cannot be staged as a masked row')
+        # Verify compiles one (source, flags) group for every module at once, so masked rows of other
+        # modules with these flags belong to the same compilation and are pinned against it.
+        other_module = [r for r in same_flags if _module_of(r) != module.upper() and _is_masked(r)]
+    else:
+        existing = same_flags
     if in_place:
         # RECONSTRUCTED rows of the same provider stay as they are; their functions are pinned co-defined.
         # A planned function that is RECONSTRUCTED now replaces that row once it verifies masked equal.
@@ -163,11 +186,11 @@ def stage(plan_path):
         existing = [r for r in existing if r not in upgraded]
         # Strict rows (FUNCTION_MATCH, LINKED_MATCH) keep their own proofs; like RECONSTRUCTED rows their
         # functions are pinned co-defined, and they are never restaged as masked rows.
-        strict = [r for r in existing if r['status'] in ('FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', 'LINKED_MATCH')]
+        strict = [r for r in existing if r['status'] in STRICT_STATUSES]
         # A strict row protects its own module's symbol; a twin module may stage a masked row on shared source.
         if {r['symbol'] for r in strict if Path(r['target']).name.upper() == module.upper()} & planned:
             raise ValueError('A strict row cannot be staged as a masked row')
-        existing = [r for r in existing if r['status'] not in ('RECONSTRUCTED', 'FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', 'LINKED_MATCH')]
+        existing = [r for r in existing if r['status'] != 'RECONSTRUCTED' and r['status'] not in STRICT_STATUSES]
         if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in existing):
             raise ValueError('In-place staging only extends sources whose recorded rows are masked or reconstructed rows')
         for r in upgraded:
@@ -183,39 +206,54 @@ def stage(plan_path):
                 raise ValueError('A moved row keeps its id and RVA: ' + taken[key]['id'])
         elif key in taken and taken[key].get('source') not in [source] + replaces:
             raise ValueError(f"{f['rva']} already tracked as {taken[key]['id']}")
-    by_id = {r['id']: r for r in existing}
+    if in_place:
+        # Another profile of this module on the same source keeps its rows; a planned RVA cannot be tracked twice.
+        profile_rvas = {int(r['rva'], 16): r for r in state['functions'] if r.get('source') == source
+                        and _module_of(r) == module.upper() and r not in reflagged and r not in explicit
+                        and list(r.get('flags') or ['/O2']) != plan_flags}
+        for f in plan['functions']:
+            if int(f['rva'], 16) in profile_rvas:
+                raise ValueError(f"{f['rva']} already tracked as {profile_rvas[int(f['rva'], 16)]['id']}")
+    by_id = {r['id']: r for r in existing + reflagged}
     for f in plan['functions']:
         if f.get('id') in by_id and by_id[f['id']]['rva'] != f['rva']:
             raise ValueError('A restaged row keeps its RVA: ' + f['id'])
     if {(r['rva'], r['symbol']) for r in moved} - {(f['rva'], f['symbol']) for f in plan['functions']}:
         raise ValueError('A replaced source has rows missing from the plan')
     for f in plan['functions']:
-        name = f['symbol'].lstrip('_@').split('@')[0]
-        if name.startswith(prefix + '_'):
-            name = name[len(prefix) + 1:]
         evidence = f['evidence']
         if (f['rva'], f['symbol']) in prior_evidence:
             evidence = f"{evidence} Previously: {prior_evidence[(f['rva'], f['symbol'])]}"
-        rows.append(dict(id=f.get('id') or f'{prefix}.{name}', status='CODEGEN_SIMILAR',
+        rows.append(dict(id=_row_id(f, prefix), status='CODEGEN_SIMILAR',
                          name_status='provisional address label', target=target_rel,
                          target_sha256=digest((ROOT / target_rel).read_bytes()), rva=f['rva'], size=f['size'],
                          source=source, symbol=f['symbol'], flags=list(plan.get('flags') or ['/O2']), evidence=evidence,
                          boundary=BOUNDARY))
     # Planned rows replace existing rows by id too, so a reviewed symbol rename restages its row.
-    planned_ids = {x['id'] for x in rows}
     keep = [r for r in existing if (r['rva'], r['symbol']) not in {(x['rva'], x['symbol']) for x in rows}
             and r['id'] not in planned_ids]
+    # Never leave two rows with one id: refuse before compiling or touching any source.
+    replaced_ids = {r['id'] for r in existing + reflagged + moved + explicit}
+    _require_unique_ids([r for r in state['functions'] if r['id'] not in replaced_ids] + keep + rows)
     if in_place:
         content = (ROOT / source).read_bytes()
         if b'\r' in content:
             raise ValueError('In-place provider must already be LF text')
-        obj, _ = compile_source(ROOT / source, list(plan.get('flags') or ['/O2']))
-        co_defined = sorted(defined_functions(obj) - {r['symbol'] for r in keep + rows})
-        results = check_rows(keep + rows, source, co_defined)
-        old_groups = _remaining_groups(state, explicit)
+        obj, _ = compile_source(ROOT / source, plan_flags)
+        # One compilation covers every masked row of this (source, flags) group, as verify groups them;
+        # the symbols other modules staged there are expected, not pinned co-defined.
+        group = keep + rows + other_module
+        co_defined = sorted(defined_functions(obj) - {r['symbol'] for r in group})
+        results = check_rows(group, source, co_defined)
+        # Rows of other modules keep their proofs: masked identity and symbol map must be unchanged,
+        # and only the group-level pins (co-defined set, source hash) follow the compilation.
+        _repin_group(other_module, co_defined, results, content)
+        # Rows leaving a profile (explicit moves, restaged ids of other flags) change what that profile
+        # leaves co-defined; the rows left behind are rechecked and repinned the same way.
+        old_groups = _remaining_groups(state, explicit + reflagged)
         if STATE.read_bytes() != state_before or (ROOT / source).read_bytes() != content:
             raise ValueError('recovery.json or source changed during staging')
-        _record(state, existing, moved + explicit, keep, rows, results, content, co_defined, old_groups)
+        _record(state, existing + reflagged, moved + explicit, keep, rows, results, content, co_defined, old_groups)
         print(f'Staged {len(rows)} CODEGEN_SIMILAR rows ({len(keep)} retained) in place in {source}; '
               f'{len(co_defined)} pinned co-defined functions'
               + (f'; moved {sorted(moved_ids)}; rechecked {len(old_groups)} old provider groups' if explicit else ''))
@@ -246,6 +284,50 @@ def stage(plan_path):
         (ROOT / old).unlink(missing_ok=True)
     print(f'Staged {len(rows)} CODEGEN_SIMILAR rows ({len(keep)} retained) in {source}'
           + (f'; replaced {len(replaces)} sources' if replaces else ''))
+
+
+def _module_of(row):
+    return Path(row['target']).name.upper()
+
+
+def _is_masked(row):
+    return row['status'] == 'CODEGEN_SIMILAR' and row.get('proof', {}).get('scope') == SCOPE
+
+
+def _row_id(f, prefix):
+    if f.get('id'):
+        return f['id']
+    name = f['symbol'].lstrip('_@').split('@')[0]
+    if name.startswith(prefix + '_'):
+        name = name[len(prefix) + 1:]
+    return f'{prefix}.{name}'
+
+
+def _require_unique_ids(rows):
+    seen, duplicated = set(), set()
+    for r in rows:
+        (duplicated if r['id'] in seen else seen).add(r['id'])
+    if duplicated:
+        raise ValueError('Staging would duplicate row ids: ' + ', '.join(sorted(duplicated)))
+
+
+def _repin_group(rows, co_defined, results, content):
+    """Follow the shared (source, flags) compilation for masked rows another module owns.
+
+    verify compiles one group per (source, flags) and reads its pins from one row, so these rows must see the
+    same co-defined set and source hash. Their flags, evidence, masked identity and symbol map stay as recorded:
+    a row whose masked identity or symbol map changed refuses the stage instead of being re-recorded.
+    """
+    for r in rows:
+        res = results[r['id']]
+        if res['masked_sha256'] != r['proof']['masked_sha256'] or res['symbols'] != r['link_symbols']:
+            raise ValueError('A row of another module in this source group changed: ' + r['id'])
+    for r in rows:
+        r['proof']['source_sha256'] = digest(content)
+        if co_defined:
+            r['proof']['co_defined_functions'] = list(co_defined)
+        else:
+            r['proof'].pop('co_defined_functions', None)
 
 
 def _explicit_moves(plan, state, source, module, in_place):
@@ -299,6 +381,7 @@ def _record(state, existing, moved, keep, rows, results, content, co_defined, ol
     toolchain = verify_toolchain(DEFAULT_TOOLCHAIN)
     replaced = {r['id'] for r in existing} | {r['id'] for r in moved}
     state['functions'] = [r for r in state['functions'] if r['id'] not in replaced]
+    _require_unique_ids(state['functions'] + keep + rows)
     for r in keep + rows:
         res = results[r['id']]
         r['link_symbols'] = res['symbols']
