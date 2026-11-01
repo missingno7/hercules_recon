@@ -169,6 +169,7 @@ extern void *g_bonus_images_537e0[];
 extern long g_bonus_x_52b50[];
 extern long g_bonus_sprites_52b70[];
 extern short g_flash_sprites_534d0[];
+extern unsigned short g_eng1_config_word_pool_533c8[282];
 extern unsigned long eng1_sim_state_72174;
 extern unsigned long eng1_sim_state_72104;
 extern short eng1_sim_state_6ef40;
@@ -483,18 +484,18 @@ void eng1_native_code_target_012c00(Actor *o)
     o->unknown_032 = ((unsigned long)(o->x + o->y) >> 17) & 7;
     if (o->kind == 0x2012 && g_engine_interface.context_004->lives_00c == 9) {
         o->kind = 0x2013;
-        o->image_064 = eng1_frame_target_053550;
+        o->image_064 = ((unsigned char *)&g_eng1_config_word_pool_533c8[196]);
     }
     if (o->kind == 0x2002 && g_engine_interface.context_004->target_01e == 0xff) {
         o->kind = 0x2013;
-        o->image_064 = eng1_frame_target_053550;
+        o->image_064 = ((unsigned char *)&g_eng1_config_word_pool_533c8[196]);
     }
     kind = o->kind;
     if (kind == 0x2015 || kind == 0x2016 || kind == 0x2017) {
         c = action_spawn_27d40(o, 0xa007);
         if (c) {
             c->unknown_04a = 0x80;
-            c->sprite = g_flash_sprites_534d0[2];
+            c->sprite = ((short *)&g_eng1_config_word_pool_533c8[132])[2];
         }
         o->unknown_04a = 0xa0;
         o->render_flags |= 0x4000605;
@@ -831,25 +832,25 @@ void eng1_native_code_target_013570(Actor *o)
     }
     eng1_interpret_word_stream(o);
     if (o->child)
-        o->child->sprite = g_flash_sprites_534d0[o->unknown_032];
+        o->child->sprite = ((short *)&g_eng1_config_word_pool_533c8[132])[o->unknown_032];
     if (g_engine_interface.context_004->level_000 == 9)
         o->x += g_player_cruise_707e8;
     hit = damped_contact_motion(o);
     if (hit) {
-        if (o->image_064 == eng1_frame_target_053548)
-            o->image_064 = eng1_frame_target_053550;
+        if (o->image_064 == ((unsigned char *)&g_eng1_config_word_pool_533c8[192]))
+            o->image_064 = ((unsigned char *)&g_eng1_config_word_pool_533c8[196]);
     } else if (o->direction_y) {
         if (o->motion_y_velocity > 0x20000 || !(g_engine_interface.context_004->tick_038 & 3)) {
             c = eng1_129e0(o->x + ((random_limit(12) - 6) << 16), o->y + 0x20000, o->z, 0x2010, 0);
             if (c) {
                 c->state = 0;
-                c->image_064 = eng1_frame_target_0535b0;
+                c->image_064 = ((unsigned char *)&g_eng1_config_word_pool_533c8[244]);
             }
             if (o->counter_021) {
                 c = eng1_129e0(o->x + ((random_limit(12) - 6) << 16), o->y + 0x20000, o->z, 0x2010, 1);
                 if (c) {
                     c->state = 1;
-                    c->image_064 = eng1_frame_target_0535b0;
+                    c->image_064 = ((unsigned char *)&g_eng1_config_word_pool_533c8[244]);
                 }
             }
         }

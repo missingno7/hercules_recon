@@ -148,7 +148,8 @@ extern void eng1_30290(unsigned long, int);
 
 typedef struct SlotState { unsigned short state_00; unsigned char unknown_02[0x12]; } SlotState;
 
-extern SlotState g_slots_5cef0[];
+#include "../shared/resource_record.h"
+extern ActorResource g_actor_resources[];
 extern unsigned short g_eng1_collision_map_04f1e0[];
 extern unsigned long g_eng1_setup_dword_72118;
 extern unsigned long g_eng1_setup_dword_72120;
@@ -1182,7 +1183,7 @@ void eng1_native_code_target_00a670(Actor *p)
             remove_actor_preserving_resource(p);
         else
             remove_actor(p);
-        if (g_slots_5cef0[0x2f].state_00 == 3)
+        if (g_actor_resources[0x2f].residency_state == 3)
             resource_cancel(0x2f);
     }
 }
@@ -1787,7 +1788,7 @@ void eng1_native_code_target_00bc50(Actor *p)
                 eng1_interpret_signed_pairs(p);
             } else {
                 if (!g_eng1_dword_721b4) {
-                    if (g_slots_5cef0[0x45].state_00 != 3) {
+                    if (g_actor_resources[0x45].residency_state != 3) {
                         p->state = 1;
                         select_frame(p, 0);
                         eng1_interpret_signed_pairs(p);
@@ -1796,7 +1797,7 @@ void eng1_native_code_target_00bc50(Actor *p)
                     p->state = 0x16;
                     select_frame(p, 10);
                 } else {
-                    if (g_slots_5cef0[0x46].state_00 != 3) {
+                    if (g_actor_resources[0x46].residency_state != 3) {
                         p->state = 1;
                         select_frame(p, 0);
                         eng1_interpret_signed_pairs(p);
@@ -1821,7 +1822,7 @@ void eng1_native_code_target_00bc50(Actor *p)
                 eng1_interpret_signed_pairs(p);
             } else {
                 if (!g_eng1_dword_721b4) {
-                    if (g_slots_5cef0[0x45].state_00 != 3) {
+                    if (g_actor_resources[0x45].residency_state != 3) {
                         p->state = 1;
                         select_frame(p, 0);
                         eng1_interpret_signed_pairs(p);
@@ -1830,7 +1831,7 @@ void eng1_native_code_target_00bc50(Actor *p)
                     p->state = 0x16;
                     select_frame(p, 10);
                 } else {
-                    if (g_slots_5cef0[0x46].state_00 != 3) {
+                    if (g_actor_resources[0x46].residency_state != 3) {
                         p->state = 1;
                         select_frame(p, 0);
                         eng1_interpret_signed_pairs(p);
@@ -1856,14 +1857,14 @@ void eng1_native_code_target_00bc50(Actor *p)
     case 10:
         if (walk_x_blocked(p, &wall) || (dx > -0x500000 && dx < 0x500000)) {
             if (!g_eng1_dword_721b4) {
-                if (g_slots_5cef0[0x45].state_00 == 3) {
+                if (g_actor_resources[0x45].residency_state == 3) {
                     p->state = 0x16;
                     select_frame(p, 10);
                     eng1_interpret_signed_pairs(p);
                     p->counter = random_limit(3) + g_engine_interface.context->unknown_00e + 1;
                     break;
                 }
-            } else if (g_slots_5cef0[0x46].state_00 == 3) {
+            } else if (g_actor_resources[0x46].residency_state == 3) {
                 p->state = 0x46;
                 select_frame(p, 5);
                 eng1_interpret_signed_pairs(p);

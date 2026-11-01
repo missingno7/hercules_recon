@@ -48,31 +48,12 @@ typedef char mode_context_pressed5e[(offsetof(ModeContext, pressed) == 0x5e) ? 1
 
 extern void *g_normal_actor_pool;
 extern unsigned short g_eng1_6ef70;
-extern unsigned short g_eng1_word_5cf54;
+#include "../shared/resource_record.h"
+extern ActorResource g_actor_resources[];
 typedef struct Eng1CommandPair { short opcode; short operand; } Eng1CommandPair;
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
 extern unsigned char g_eng1_image_546b0[]; /* Original declaration context; actual use is an owner view. */
 extern unsigned char g_eng1_setup_program_54558[];
-/* Native signed command pairs through first return/restart; no allocation upper bound. */
-Eng1CommandPair g_eng1_image_54c30[17] = {
-    { -13, 4 },
-    { 1, 6 },
-    { 2, 3 },
-    { 3, 3 },
-    { 4, 3 },
-    { 5, 3 },
-    { 6, 3 },
-    { 7, 3 },
-    { 8, 14 },
-    { 7, 3 },
-    { 6, 3 },
-    { 5, 3 },
-    { 4, 3 },
-    { 3, 3 },
-    { 2, 3 },
-    { 1, 6 },
-    { -1, 0 }
-};
 /* Native signed command pairs through first return/restart; no allocation upper bound. */
 Eng1CommandPair g_eng1_image_54b50[55] = {
     { -13, 1 },
@@ -129,6 +110,26 @@ Eng1CommandPair g_eng1_image_54b50[55] = {
     { -9, 0 },
     { -2, 0 },
     { 1, 2 },
+    { -1, 0 }
+};
+/* Native signed command pairs through first return/restart; no allocation upper bound. */
+Eng1CommandPair g_eng1_image_54c30[17] = {
+    { -13, 4 },
+    { 1, 6 },
+    { 2, 3 },
+    { 3, 3 },
+    { 4, 3 },
+    { 5, 3 },
+    { 6, 3 },
+    { 7, 3 },
+    { 8, 14 },
+    { 7, 3 },
+    { 6, 3 },
+    { 5, 3 },
+    { 4, 3 },
+    { 3, 3 },
+    { 2, 3 },
+    { 1, 6 },
     { -1, 0 }
 };
 extern unsigned char g_eng1_image_53e80[];
@@ -234,7 +235,7 @@ void __cdecl eng1_native_code_target_00191e0(void)
             title_04ea0(1);
             actor = MODE_ACTOR();
         }
-        if (g_eng1_word_5cf54 == 3) {
+        if (g_actor_resources[5].residency_state == 3) {
             eng1_sim_state_72108 = 0x19;
             actor->image = ((unsigned char *)&g_eng1_image_54b50[0]);
             MODE_ACTOR()->ticks = -1;
@@ -839,7 +840,7 @@ void __cdecl eng1_19160(void)
 {
     ModeByte *context;
 
-    if (g_eng1_word_5cf54 != 3) {
+    if (g_actor_resources[5].residency_state != 3) {
         resource_reset(5);
         {
             ModeActor *owner;
