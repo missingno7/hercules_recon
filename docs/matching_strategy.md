@@ -279,3 +279,20 @@ Independent anchors, not owners or content, now limit storage identities:
   while the rows it freed read interior cells bounded by the reconstructor's own declared size, which is the reason
   for the 2026-10-27 withdrawal. Any future EXE storage form needs an independent anchor for every accessed address,
   and native-only evidence for the start. It must also refuse to reopen a withdrawn identity's missing link.
+
+### Wave l, Codex-only part (2026-11-01): 1,339 -> 1,359
+
+- Owner ruling: only Codex workers (Sol 6.1 high, Luna xhigh). Fresh Sol workers run the adversarial reviews.
+- Control state 70ed8: eng1 0x2cc50 was bootstrapped through the exact-base anchor in 0x2cd30 (solCB/solCC, bindK18). Its
+  own 0x2cca1 is now a stable witness; 12 control rows followed (bindK18, b35/bindK19). Five more are masked-equal with
+  separate cell spellings, but existing alias forms rename only whole scalars, and migrating them through the owner widens
+  WORD accesses (solWW), so they stay parked.
+- Near-miss wave (n1-n7) closed five RECONSTRUCTED rows (b37, b38). Shared units may carry minimal ENG3 branches under
+  HERCULES_ENGINE3 when the native codegen differs (relative.c). A unit whose accepted rows hold whole-unit inventory
+  proofs needs a reviewed-unit-delta-v3 declaration (l10).
+- New tools: module-aware in-place staging (similar.py); the linked_object_unchanged re-pin path (four Sol review rounds).
+  Rejected or parked: the in-extent byte-table form (two Sol rejections: hidden reachable code and foreign pointer
+  extraction) and b40, which hit a blocker chain in the shared, linked and owner unit u02b70.c.
+- Lane hygiene: a reconstruction must go in the unit its native neighbours bracket. l11 first put ENG3 0x8ca0 in a
+  renderer unit at 0x22f00. Shared-unit ENG3 rows now sit in split flag profiles (/O2 versus /O2 /DHERCULES_ENGINE3),
+  which a reviewed profile migration should unify.
