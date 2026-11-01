@@ -12,7 +12,12 @@ typedef struct RelativeMeasure {
 
 void measure_relative_vector(FixedPosition *a, FixedPosition *b, RelativeMeasure *out)
 {
+    /* ENG3 orders the commutative planar shifts opposite ENG1's native order. */
+#if defined(HERCULES_ENGINE3)
+    short y, x, z;
+#else
     short x, y, z;
+#endif
     int temp;
     unsigned short direction = 4;
     x = out->x = (a->x - b->x) >> 16;

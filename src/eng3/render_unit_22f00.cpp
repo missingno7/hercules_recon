@@ -195,15 +195,18 @@ void eng3_08ca0(TitleObj *o);
 void title_02dc0(TitleObj *o);
 int title_194e0(char *obj, int *vec, int k);
 
+/* Renderer entrypoint declaration context; named argument preserves the measured C2 sum order. */
+void eng3_22f00(TitleObj *obj);
+
 void eng3_22f00(TitleObj *obj)
 {
     unsigned int flags;
     int z;
     int xy[2];
-    TitleSpan *span;
     int acc;
     unsigned long *ot;
     int count;
+    TitleSpan *span;
     int r;
     unsigned short id;
     unsigned short *e;

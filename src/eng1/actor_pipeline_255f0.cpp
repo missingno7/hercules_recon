@@ -1,3 +1,7 @@
+/* Measured translation-unit context hypothesis: actor-pool lifecycle code may have
+ * included CRT allocation declarations. This changes VC5 address-expression keys,
+ * while leaving the game statements and data references intact. */
+#include <stdlib.h>
 /* ENG1.DLL 0x255f0..0x26700: per-frame actor pipeline, forest record producers, hit report (C++ unit),
    in address order; ends with the already-matched 0x26700 attach_entries. Lane x7 scratch, 2026-10-20. */
 extern "C" {

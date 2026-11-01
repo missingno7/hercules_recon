@@ -1363,6 +1363,22 @@ int planar_bounds_overlap(Bounds3D *a, Bounds3D *b)
              (a->max_x < b->min_x) | (b->max_x < a->min_x));
 }
 
+
+
+int eng1_2a660(Actor *q, Actor *p)
+{
+    Bounds3D a, b;
+
+    if (!actor_bounds_2a880(p, &a, 0) || !actor_bounds_2a880(q, &b, 0))
+        return 0;
+    return !((b.max_z < a.min_z) | (a.max_z < b.min_z) |
+             (b.max_x < a.min_x) | (a.max_x < b.min_x) |
+             (b.max_y < a.min_y) | (a.max_y < b.min_y));
+}
+
+/* Measured VC5 source-order steering: place this complete query after
+ * eng1_2a660 so C2 orders the Z predicates as in native code. Function logic
+ * is unchanged; this is not evidence of original source or image ordering. */
 int eng1_2a570(Bounds3D *box, Actor *p)
 {
     unsigned short x = (unsigned long)p->x >> 16;
@@ -1387,17 +1403,6 @@ int eng1_2a570(Bounds3D *box, Actor *p)
     return !(((short)(p->shape.max_z + z) < box->min_z) | (box->max_z < (short)(p->shape.min_z + z)) |
              (r.max_y < box->min_y) | (box->max_y < r.min_y) |
              (box->max_x < r.min_x) | (r.max_x < box->min_x));
-}
-
-int eng1_2a660(Actor *q, Actor *p)
-{
-    Bounds3D a, b;
-
-    if (!actor_bounds_2a880(p, &a, 0) || !actor_bounds_2a880(q, &b, 0))
-        return 0;
-    return !((b.max_z < a.min_z) | (a.max_z < b.min_z) |
-             (b.max_x < a.min_x) | (a.max_x < b.min_x) |
-             (b.max_y < a.min_y) | (a.max_y < b.min_y));
 }
 
 }

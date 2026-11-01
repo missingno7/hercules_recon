@@ -244,7 +244,7 @@
       "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
       "proof": {
         "scope": "complete relocation-free function COFF contribution",
-        "source_sha256": "76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2",
+        "source_sha256": "781328d6449937f990b4f019ece6cdc49d94e43193c6498ce374072820733ffd",
         "compiled_sha256": "ab702c9965e6fb87633cc4e6b5571b46ec17a133942ae09fe3d1139eaa47fc48",
         "target_sha256": "ab702c9965e6fb87633cc4e6b5571b46ec17a133942ae09fe3d1139eaa47fc48",
         "toolchain": "msvc5_rtm"
@@ -349,18 +349,30 @@
     {
       "id": "eng3.measure_relative_vector",
       "status": "CODEGEN_SIMILAR",
-      "name_status": "provisional semantic label",
+      "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG3.DLL",
       "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
       "rva": "0x1f280",
       "size": 224,
-      "body_size": 209,
       "source": "src/shared/relative.c",
       "symbol": "_measure_relative_vector",
       "flags": [
-        "/O2"
+        "/O2",
+        "/DHERCULES_ENGINE3"
       ],
-      "evidence": "Same source matches ENG1; ENG3 differs at offsets 0x91 and 0x97: shift constants 2 and 3 exchange positions. RTM and SP2 both retain the discrepancy. Exact gate must reject."
+      "evidence": "work/velocity_l/n5/receipt.json",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {},
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "781328d6449937f990b4f019ece6cdc49d94e43193c6498ce374072820733ffd",
+        "masked_sha256": "33385f14d05efcd30cfac7b548e60b44bfb79fd398c48a97b1feca646e412451",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_measure_absolute_vector",
+          "_measure_xz_vector"
+        ]
+      }
     },
     {
       "id": "eng1.advance_planar_motion",
@@ -622,7 +634,7 @@
       ],
       "proof": {
         "scope": "complete relocation-free function COFF contribution",
-        "source_sha256": "76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2",
+        "source_sha256": "781328d6449937f990b4f019ece6cdc49d94e43193c6498ce374072820733ffd",
         "compiled_sha256": "818848cc1deb9651926c66dc567dd1fed5d169cd4e6d100ed810ed8537c36b30",
         "target_sha256": "818848cc1deb9651926c66dc567dd1fed5d169cd4e6d100ed810ed8537c36b30",
         "toolchain": "msvc5_rtm"
@@ -650,7 +662,7 @@
       ],
       "proof": {
         "scope": "complete relocation-free function COFF contribution",
-        "source_sha256": "76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2",
+        "source_sha256": "781328d6449937f990b4f019ece6cdc49d94e43193c6498ce374072820733ffd",
         "compiled_sha256": "c31e05e289ae4abcad3a4337988609dc57754960d801cbffc952fae814b1b11c",
         "target_sha256": "c31e05e289ae4abcad3a4337988609dc57754960d801cbffc952fae814b1b11c",
         "toolchain": "msvc5_rtm"
@@ -10689,7 +10701,8 @@
         },
         "reference_snapshots": {
           "src/shared/remove_actor.c": "evidence/repin_snapshots/4e8c40447b180b3f4e8a49578164f17d2c9c8bbe44c3a559af8fbe34dd850642.txt",
-          "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt"
+          "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -10852,7 +10865,8 @@
         },
         "reference_snapshots": {
           "src/shared/remove_actor.c": "evidence/repin_snapshots/4e8c40447b180b3f4e8a49578164f17d2c9c8bbe44c3a559af8fbe34dd850642.txt",
-          "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt"
+          "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -17681,7 +17695,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -27977,7 +27992,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -34595,7 +34611,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -35016,7 +35033,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -37111,7 +37129,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -38295,30 +38314,67 @@
     },
     {
       "id": "eng1.eng1_2a570",
-      "status": "RECONSTRUCTED",
+      "status": "CODEGEN_SIMILAR",
       "name_status": "provisional address label",
-      "source": "src/eng1/actor_unit_282e0.cpp",
-      "symbol": "_eng1_2a570",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
       "rva": "0x2a570",
       "size": 240,
+      "source": "src/eng1/actor_unit_282e0.cpp",
+      "symbol": "_eng1_2a570",
       "flags": [
         "/O2"
       ],
-      "boundary": "Function-map span; compiled /Gy contribution size equals the span.",
-      "evidence": "Lane x3 (2026-10-20): ENG1 actor/command unit 0x282e0..0x2a660 as one C++ unit (extern \"C\") with <stdlib.h>/<string.h> as TU-context hypothesis (best context keeping every recorded neighbour exact; declaration-count sensitive, re-decide with the final unit). Recorded neighbours are carried for unit context; their recorded providers stay authoritative. Size-exact; 31 non-relocation bytes differ.",
+      "evidence": "lane n2 (2026-10-31): work/velocity_k/n2/handoff.json. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged). Previously: Lane x3 (2026-10-20): ENG1 actor/command unit 0x282e0..0x2a660 as one C++ unit (extern \"C\") with <stdlib.h>/<string.h> as TU-context hypothesis (best context keeping every recorded neighbour exact; declaration-count sensitive, re-decide with the final unit). Recorded neighbours are carried for unit context; their recorded providers stay authoritative. Size-exact; 31 non-relocation bytes differ.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {},
       "proof": {
-        "scope": "fresh size-exact reconstructed contribution; neither raw nor masked equality",
-        "compiled_size": 240,
-        "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
-        "compiled_sha256": "aaed6b193d060cc91fd9241ad83e5d78199d46848e9eeb916392b69b465294fb",
-        "nonrelocation_differences": 31,
-        "raw_differences": 31,
-        "binding_conflicts": 0,
-        "toolchain": "msvc5_rtm"
-      },
-      "link_symbols": {}
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
+        "masked_sha256": "013c69f11fca78b8d5d2c5bb685f235db56984f7b741d38f7d82a6e9b3efa0ed",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_advance_frame",
+          "_allocate_command",
+          "_append_chain",
+          "_apply_frame_motion_2d",
+          "_apply_frame_motion_3d",
+          "_change_kind",
+          "_clear_command_high_bit",
+          "_count_chain",
+          "_create_command",
+          "_detach_attachment",
+          "_detach_buffer",
+          "_detach_child",
+          "_eng1_296e0",
+          "_eng1_29870",
+          "_eng1_299d0",
+          "_eng1_29b70",
+          "_eng1_29da0",
+          "_eng1_29e20",
+          "_eng1_29f50",
+          "_eng1_2a010",
+          "_eng1_2a220",
+          "_eng1_2a330",
+          "_eng1_2a3d0",
+          "_eng1_2a460",
+          "_eng1_2a660",
+          "_eng1_interpret_animation_triples",
+          "_eng1_interpret_word_stream",
+          "_eng1_native_code_target_002a290",
+          "_find_tag",
+          "_hide_and_unlink",
+          "_initialize_command_table",
+          "_insert_scene",
+          "_planar_bounds_overlap",
+          "_reset_command_table",
+          "_reset_frame_state",
+          "_restart_steps",
+          "_select_frame",
+          "_unlink_0e4",
+          "_unlink_12c"
+        ]
+      }
     },
     {
       "id": "eng1.interpret_signed_pairs",
@@ -38350,7 +38406,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned; 2 opaque indirect CALL(s): targets unidentified, ABI unclaimed",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "5e8c30e290220e7767208119029b21cea7bec81b35271b4d8d926378f7b9ef3d",
         "target_sha256": "042751c515addd81f0fbd4be6456c8d7de6a940f5733ae8ae25c31f6982b4bf6",
         "toolchain": "msvc5_rtm",
@@ -38358,7 +38414,7 @@
         "bindings_sha256": "c2c8077bac3d5bbde3eb1552eac4330354f6f109909aa0acf321ea9e72b21a14",
         "reference_evidence_sha256": "8e79cbf89220dbc6e92cc59eef3d404014695c8c3e1cebf50fdf47f949c095c9",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -38477,7 +38533,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned; 1 opaque indirect CALL(s): targets unidentified, ABI unclaimed",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "1a5b447e34283e609274ede55a83e43b3e923c060cd837319100a8f40691340a",
         "target_sha256": "8d150ad97393ccc2a0a61865f0103a62c64579515e544b874ea2dba105e6509e",
         "toolchain": "msvc5_rtm",
@@ -38485,7 +38541,7 @@
         "bindings_sha256": "eb6b5a65574289ee4d8e040412ee5241ac5c9882c62482dd854836a48b4fa934",
         "reference_evidence_sha256": "eb08583e0fed05eec5eda0f67cc10c35147be1d16fbde6955dc407e733b480f9",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -38593,7 +38649,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned; 3 opaque indirect CALL(s): targets unidentified, ABI unclaimed",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "05e00d5c9b4b073d7dde7aa04bc72fec1ae1a53055f328e35eb6964c3140048b",
         "target_sha256": "9343a9d0b8a9dd6b6c9f0dc6fb2be40fb7a2950cf47faaa8dc307c280671f858",
         "toolchain": "msvc5_rtm",
@@ -38601,7 +38657,7 @@
         "bindings_sha256": "0b5968ac8b154792205d710decc9d3e114e0511ee5e077298f5e25bb24ce913b",
         "reference_evidence_sha256": "0ed22251028216dc646df4cd153f4adbc017530f0a6d0de9b74f2b8caea598cf",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -38678,7 +38734,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "003189a9d92fe13670df35ba8ca55f57b919750b22b7b1485df06bd2f45a6358",
         "target_sha256": "a6d59a6002d2e53934951825cc44719e338c555efa0f9c6728246e6cafa1c985",
         "toolchain": "msvc5_rtm",
@@ -38686,7 +38742,7 @@
         "bindings_sha256": "54e84191016c7433e856dfa09283cf37252da2ff6d796046351297f87f601d34",
         "reference_evidence_sha256": "22473c21e59de6708c5449dad9028b7789cff16658303a0a5cdacebd1a92ef2b",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -38787,7 +38843,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "c611b6bf3614d6ba8bdf23508002121c8bdda18f7ebba1c1e3921ec3107fa5f3",
         "target_sha256": "f195635ddc7a274e81a76848f7f8da945f7996ce559279bb5ed28f9551a54eb6",
         "toolchain": "msvc5_rtm",
@@ -38795,7 +38851,7 @@
         "bindings_sha256": "50968b7bbea3bade040c8f1ab1fa8901db42bb5ff8e035e99016af8fdad792fc",
         "reference_evidence_sha256": "1976ef0e09d1343571c254d9028116c7a2aa1b7d4d54b24fbe279ffc7a1cbf08",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -38805,7 +38861,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -38904,7 +38961,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "bb1c06bbf1ac52e6b197f2e6beea90902b647dd5aed42d634d921d1f73a23806",
         "target_sha256": "1d1822005db257716818e1ead239ca3bc4704c0ae076d5661ca83f635ef1ae2e",
         "toolchain": "msvc5_rtm",
@@ -38912,7 +38969,7 @@
         "bindings_sha256": "b9c93ba71b7411d16ef051aaa1015518e98ef3b6349c89c2d68d8fe19304d55d",
         "reference_evidence_sha256": "22473c21e59de6708c5449dad9028b7789cff16658303a0a5cdacebd1a92ef2b",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39006,7 +39063,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x3 (2026-10-20): ENG1 actor/command unit 0x282e0..0x2a660 as one C++ unit (extern \"C\") with <stdlib.h>/<string.h> as TU-context hypothesis (best context keeping every recorded neighbour exact; declaration-count sensitive, re-decide with the final unit). Recorded neighbours are carried for unit context; their recorded providers stay authoritative. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review.",
+      "evidence": "Lane x3 (2026-10-20): ENG1 actor/command unit 0x282e0..0x2a660 as one C++ unit (extern \"C\") with <stdlib.h>/<string.h> as TU-context hypothesis (best context keeping every recorded neighbour exact; declaration-count sensitive, re-decide with the final unit). Recorded neighbours are carried for unit context; their recorded providers stay authoritative. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_296e0": "0x296e0",
@@ -39017,7 +39074,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "masked_sha256": "2c252140694e8c8a5ad7ab3a0a2d1bf79bea0b1fe1d5c891698d00982e7dd46b",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -39045,7 +39102,6 @@
           "_eng1_2a330",
           "_eng1_2a3d0",
           "_eng1_2a460",
-          "_eng1_2a570",
           "_eng1_2a660",
           "_eng1_interpret_animation_triples",
           "_eng1_interpret_word_stream",
@@ -39084,7 +39140,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "af7be0787e7aca96c9787bb68245a09047aa7e10a6447c13e5182aac76bb43ed",
         "target_sha256": "beaeab722f3a542c729249f4793c5555a2fca9736b1787ec2bf3000b55e64d0f",
         "toolchain": "msvc5_rtm",
@@ -39092,7 +39148,7 @@
         "bindings_sha256": "7915f67f56389a45270eb6f42d6bd1d7759791648d41dfdb78f482a3b356543a",
         "reference_evidence_sha256": "ab3d87c0b770fbc8a049a4568bb13c13afbc19eb126944e95d6d044779494ada",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39159,7 +39215,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "d0d2085cf114e185a440fa0b7446d9f4731a9dbedc8894c6352d7c10ca0b5a55",
         "target_sha256": "6b75787bdfd0b1cc236cd0750ee8e485436f5ca82509da456bbd8acf0c5c8d7a",
         "toolchain": "msvc5_rtm",
@@ -39167,7 +39223,7 @@
         "bindings_sha256": "b4c6f8481b85e12d6b5b193d45c7c4c84c1ff8fc585ae0b8703d8e1ed59e1852",
         "reference_evidence_sha256": "ab3d87c0b770fbc8a049a4568bb13c13afbc19eb126944e95d6d044779494ada",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39231,7 +39287,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "fd9d30dbd558439b49d7a6465a2f18616f4b5718c630b6be5d03e6a5041f7d9d",
         "target_sha256": "78185bfca96c2240283d15246df7365f1afbb03a8f0cc4689c4950ab9f076f1f",
         "toolchain": "msvc5_rtm",
@@ -39239,7 +39295,7 @@
         "bindings_sha256": "aff380c7adeb5604ea5a25ce61a14474cb8eb9a34f296d031e54ba9ad5281602",
         "reference_evidence_sha256": "ab3d87c0b770fbc8a049a4568bb13c13afbc19eb126944e95d6d044779494ada",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39296,7 +39352,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x3 (2026-10-20): ENG1 actor/command unit 0x282e0..0x2a660 as one C++ unit (extern \"C\") with <stdlib.h>/<string.h> as TU-context hypothesis (best context keeping every recorded neighbour exact; declaration-count sensitive, re-decide with the final unit). Recorded neighbours are carried for unit context; their recorded providers stay authoritative. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review.",
+      "evidence": "Lane x3 (2026-10-20): ENG1 actor/command unit 0x282e0..0x2a660 as one C++ unit (extern \"C\") with <stdlib.h>/<string.h> as TU-context hypothesis (best context keeping every recorded neighbour exact; declaration-count sensitive, re-decide with the final unit). Recorded neighbours are carried for unit context; their recorded providers stay authoritative. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_actor_bounds_2a880": "0x2a880",
@@ -39307,7 +39363,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "masked_sha256": "fba27140b25a33a44a8226f6d57ea540580d911e89605e182dcebf95c16a41e5",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -39335,7 +39391,6 @@
           "_eng1_2a330",
           "_eng1_2a3d0",
           "_eng1_2a460",
-          "_eng1_2a570",
           "_eng1_2a660",
           "_eng1_interpret_animation_triples",
           "_eng1_interpret_word_stream",
@@ -39374,7 +39429,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "0da760bc56fd89832cf6ca16bb7304cbd50d05231a5f704535cd424b02a7c454",
         "target_sha256": "fa2153c988f726c795ae1d175da63fa15f1476ba3f1fdb4cbb90030ba0305833",
         "toolchain": "msvc5_rtm",
@@ -39382,7 +39437,7 @@
         "bindings_sha256": "5da9c0613e2511f8935d8cebc83d923e566b2d4358062c168959f190e8433d3b",
         "reference_evidence_sha256": "22473c21e59de6708c5449dad9028b7789cff16658303a0a5cdacebd1a92ef2b",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39484,7 +39539,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "b79317441ab5d0386346e3556f54e6dc21e7f574e7e523cf1b67d59fe21b0ecb",
         "target_sha256": "892d5bc83ea380110f4b2c52a67bebc3f7560559be4c27739277d2a54611b3ba",
         "toolchain": "msvc5_rtm",
@@ -39492,7 +39547,7 @@
         "bindings_sha256": "0b1c544f577a76bfd0eb58f6aafc9f0eda2170a3b5995fb0151005efb0153db8",
         "reference_evidence_sha256": "2f1a1a4cda442f8cd23fea2b0a07efc178915c053c93bf9f8c54c6d8aa9f6a4d",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39612,7 +39667,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "3ef8dc1a6b060b44950828ede5d685c81fac0fe069bfe0f785903918ffd4b026",
         "target_sha256": "cea8a8c2bfff59943606a74d2b167378b6fa3c823030cc259c733500b6d19a5c",
         "toolchain": "msvc5_rtm",
@@ -39620,7 +39675,7 @@
         "bindings_sha256": "e41a46bb403cea43d6b0ca5e4f2cd97f8cbf6e3d052bc7146e71b06e6d2ad91b",
         "reference_evidence_sha256": "22473c21e59de6708c5449dad9028b7789cff16658303a0a5cdacebd1a92ef2b",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39721,7 +39776,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "2f1547b1095ab5d57e7a9c03c8114d86120b05a85ed8d66f8c5823ad62c6cb72",
         "target_sha256": "a7fd017dbef67230a6a4348b292c9776c5e7f235f228ffaea0ceb7baffec210c",
         "toolchain": "msvc5_rtm",
@@ -39729,7 +39784,7 @@
         "bindings_sha256": "9cdd6683b6fb761913af42b04cb0acef05ef27c020122a307ce2e8dc341da423",
         "reference_evidence_sha256": "51704d3df838d011b17c089bd2320707eecf926ec6047cd9e7f48f8eb991dd9c",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39796,7 +39851,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "ad70e96aec375b4ad581d49d3859a049bfd4ae6808fab03d06c4ea429dc7f3a2",
         "target_sha256": "019e6eda55dc5e6dfe6db78001f7716dcc5bff1b336bb18c3f300f6aad940a02",
         "toolchain": "msvc5_rtm",
@@ -39804,7 +39859,7 @@
         "bindings_sha256": "eab07a6c84dc41097b7db351b4f49c6d60f543c92c378e46e6d633a722e61522",
         "reference_evidence_sha256": "51704d3df838d011b17c089bd2320707eecf926ec6047cd9e7f48f8eb991dd9c",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39871,7 +39926,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "2dbdbb61300a3e6562a548d01e6b22ebe21a6ef73d475d92a661bc8d3f8053d4",
         "target_sha256": "0cd67a6bfb3634224fa69e82d2d46819d82c047d50c61cda5399852d81c8bb79",
         "toolchain": "msvc5_rtm",
@@ -39879,7 +39934,7 @@
         "bindings_sha256": "c4d440051c29dc32336f71dfdeaa366f64e2bb01098e9f0d581804265bc9af79",
         "reference_evidence_sha256": "51704d3df838d011b17c089bd2320707eecf926ec6047cd9e7f48f8eb991dd9c",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -39939,7 +39994,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Shared implementation (cross-module twin test): the unchanged recorded source of ENG1.DLL 0x283e0 (src/eng1/actor_unit_282e0.cpp, symbol _eng1_interpret_signed_pairs) compiled with pinned RTM /O2 is relocation-masked equal at ENG3.DLL 0x1dbc0 with a consistent implied symbol map. Evidence that the same source text produced both functions; ENG3.DLL unit ownership, names and placement are unproved. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review.",
+      "evidence": "Shared implementation (cross-module twin test): the unchanged recorded source of ENG1.DLL 0x283e0 (src/eng1/actor_unit_282e0.cpp, symbol _eng1_interpret_signed_pairs) compiled with pinned RTM /O2 is relocation-masked equal at ENG3.DLL 0x1dbc0 with a consistent implied symbol map. Evidence that the same source text produced both functions; ENG3.DLL unit ownership, names and placement are unproved. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_advance_frame": "0x1e280",
@@ -39956,7 +40011,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "masked_sha256": "5e8c30e290220e7767208119029b21cea7bec81b35271b4d8d926378f7b9ef3d",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -39984,7 +40039,6 @@
           "_eng1_2a330",
           "_eng1_2a3d0",
           "_eng1_2a460",
-          "_eng1_2a570",
           "_eng1_2a660",
           "_eng1_interpret_animation_triples",
           "_eng1_interpret_word_stream",
@@ -40024,7 +40078,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "bb1c06bbf1ac52e6b197f2e6beea90902b647dd5aed42d634d921d1f73a23806",
         "target_sha256": "61e92767ab43eb1291f6f2007679edd8c996660ed14b582d9d52e6c600e75de7",
         "toolchain": "msvc5_rtm",
@@ -40032,7 +40086,7 @@
         "bindings_sha256": "22cd1682f9734223f07e75b273864b7ec28a683139614f84a21e40b2607e4ec2",
         "reference_evidence_sha256": "31c3031761309c960ce9302f893eb9d003404476cc80a416de51edf0299ac2e9",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -40104,7 +40158,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Shared implementation (cross-module twin test): the unchanged recorded source of ENG1.DLL 0x29c20 (src/eng1/actor_unit_282e0.cpp, symbol _eng1_29c20) compiled with pinned RTM /O2 is relocation-masked equal at ENG3.DLL 0x1e8e0 with a consistent implied symbol map. Evidence that the same source text produced both functions; ENG3.DLL unit ownership, names and placement are unproved. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review.",
+      "evidence": "Shared implementation (cross-module twin test): the unchanged recorded source of ENG1.DLL 0x29c20 (src/eng1/actor_unit_282e0.cpp, symbol _eng1_29c20) compiled with pinned RTM /O2 is relocation-masked equal at ENG3.DLL 0x1e8e0 with a consistent implied symbol map. Evidence that the same source text produced both functions; ENG3.DLL unit ownership, names and placement are unproved. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_296e0": "0x1e540",
@@ -40115,7 +40169,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "masked_sha256": "2c252140694e8c8a5ad7ab3a0a2d1bf79bea0b1fe1d5c891698d00982e7dd46b",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -40143,7 +40197,6 @@
           "_eng1_2a330",
           "_eng1_2a3d0",
           "_eng1_2a460",
-          "_eng1_2a570",
           "_eng1_2a660",
           "_eng1_interpret_animation_triples",
           "_eng1_interpret_word_stream",
@@ -40175,7 +40228,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Shared implementation (cross-module twin test): the unchanged recorded source of ENG1.DLL 0x2a170 (src/eng1/actor_unit_282e0.cpp, symbol _dispatch_local_2a170) compiled with pinned RTM /O2 is relocation-masked equal at ENG3.DLL 0x1ecf0 with a consistent implied symbol map. Evidence that the same source text produced both functions; ENG3.DLL unit ownership, names and placement are unproved. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review.",
+      "evidence": "Shared implementation (cross-module twin test): the unchanged recorded source of ENG1.DLL 0x2a170 (src/eng1/actor_unit_282e0.cpp, symbol _dispatch_local_2a170) compiled with pinned RTM /O2 is relocation-masked equal at ENG3.DLL 0x1ecf0 with a consistent implied symbol map. Evidence that the same source text produced both functions; ENG3.DLL unit ownership, names and placement are unproved. Re-pin S2 (2026-10-31): callback-table cells named by their owners (as actor_region.h, b18); no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3a (2026-10-31): asset-table cells named by their canonical owners (solZ2 class a); no code change. Re-pin W7 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b25 (2026-11-01): seven ENG1 caller units read 6fec4/7210c/6fedc/71714/716c0/70f30/7217c through their canonical owners (solOY), S3e-style owner expressions, no macros; code bytes unchanged; renumbered $L labels re-issued under the reviewed T2 review. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_actor_bounds_2a880": "0x1f1a0",
@@ -40186,7 +40239,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "masked_sha256": "fba27140b25a33a44a8226f6d57ea540580d911e89605e182dcebf95c16a41e5",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -40214,7 +40267,6 @@
           "_eng1_2a330",
           "_eng1_2a3d0",
           "_eng1_2a460",
-          "_eng1_2a570",
           "_eng1_2a660",
           "_eng1_interpret_animation_triples",
           "_eng1_interpret_word_stream",
@@ -40253,7 +40305,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "0da760bc56fd89832cf6ca16bb7304cbd50d05231a5f704535cd424b02a7c454",
         "target_sha256": "eebdfc39a386da7211dd4a8eff3ac07dc644b6af23b4846f11c3a5ab8bf07e6a",
         "toolchain": "msvc5_rtm",
@@ -40261,7 +40313,7 @@
         "bindings_sha256": "2c160c526cce091d7d41dedd2276655c1b20e4e9c87d1d09da895a7d7d932cbe",
         "reference_evidence_sha256": "22473c21e59de6708c5449dad9028b7789cff16658303a0a5cdacebd1a92ef2b",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -40362,7 +40414,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+        "source_sha256": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
         "compiled_sha256": "2dbdbb61300a3e6562a548d01e6b22ebe21a6ef73d475d92a661bc8d3f8053d4",
         "target_sha256": "4fb406a6bbac2bb710fb24bb3d65db968f5f31c98ecde4782bb46a35fa68f0af",
         "toolchain": "msvc5_rtm",
@@ -40370,7 +40422,7 @@
         "bindings_sha256": "b1e8ccef9caa85aa5f8c153777ad6947b900054b95b72882ece68c4a9d87f65f",
         "reference_evidence_sha256": "31c3031761309c960ce9302f893eb9d003404476cc80a416de51edf0299ac2e9",
         "context_sha256": {
-          "src/eng1/actor_unit_282e0.cpp": "34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f",
+          "src/eng1/actor_unit_282e0.cpp": "ada66ebc222ad2bbbfd560c632c341e69ac91deed8c528935e11ff3e85d83dd3",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
@@ -61223,7 +61275,8 @@
           "src/eng1/host_wrappers_extra.c": "evidence/repin_snapshots/2412fbfd7e6e4de37f51c5dd91d239c1acff9fa656436f06cd75211c22d3043c.txt",
           "src/eng1/sprite_unit_03cd0.c": "evidence/repin_snapshots/7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185.txt",
           "src/eng1/host_control_wrappers.c": "evidence/repin_snapshots/bb7570b33a62555f1d44a06e3a21314ebeded2316c446ce0c32e876512a55ef7.txt",
-          "src/eng1/host_wrappers.c": "evidence/repin_snapshots/84c4a2618601b7734de042088fcc9add82457df7a3d8fc7bf676fcad4c9552cf.txt"
+          "src/eng1/host_wrappers.c": "evidence/repin_snapshots/84c4a2618601b7734de042088fcc9add82457df7a3d8fc7bf676fcad4c9552cf.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -61896,29 +61949,19 @@
     },
     {
       "id": "eng1.dispatch_local_258e0",
-      "status": "RECONSTRUCTED",
+      "status": "CODEGEN_SIMILAR",
       "name_status": "provisional address label",
-      "source": "src/eng1/actor_pipeline_255f0.cpp",
-      "symbol": "_dispatch_local_258e0",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
       "rva": "0x258e0",
       "size": 1056,
+      "source": "src/eng1/actor_pipeline_255f0.cpp",
+      "symbol": "_dispatch_local_258e0",
       "flags": [
         "/O2"
       ],
-      "boundary": "Function-map span; compiled /Gy contribution size equals the span.",
-      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Size-exact; 4 non-relocation bytes differ.",
-      "proof": {
-        "scope": "fresh size-exact reconstructed contribution; neither raw nor masked equality",
-        "compiled_size": 1056,
-        "source_sha256": "f6a00f08c02fb46d216f7ee62e9cbac96d354c58148349f21d79f3ced3970ac6",
-        "compiled_sha256": "e8c6af9893731ae41dd0713a6d03da6171c6bea91cf19718297744d0d0812548",
-        "nonrelocation_differences": 4,
-        "raw_differences": 340,
-        "binding_conflicts": 0,
-        "toolchain": "msvc5_rtm"
-      },
+      "evidence": "lane n5 (2026-10-31): work/velocity_k/n5/handoff.json. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged). Previously: Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Size-exact; 4 non-relocation bytes differ.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_call_26480": "0x26480",
         "_g_actor_resources": "0x5cef0",
@@ -61930,10 +61973,10 @@
         "_g_actor_worklist_71a20": "0x71a20",
         "_g_actor_worklist_71b20": "0x71b20",
         "_g_actor_worklist_71be0": "0x71be0",
-        "_g_alt_callbacks": "0x7139c",
         "_g_alternate_actor_pool": "0x734e0",
-        "_g_callbacks": "0x71370",
+        "_g_configuration_dword_71370": "0x71370",
         "_g_configuration_dword_7137c": "0x7137c",
+        "_g_configuration_dword_7139c": "0x7139c",
         "_g_configuration_word_71378": "0x71378",
         "_g_configuration_word_7138c": "0x7138c",
         "_g_configuration_word_713a0": "0x713a0",
@@ -61958,6 +62001,21 @@
         "_release_actor": "0x27e20",
         "_remove_actor": "0x27260",
         "_remove_actor_variant": "0x27860"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
+        "masked_sha256": "efbba317899490a7f22041393fec473d2f7a103e95f5780028e56ef7b756f3ba",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_attach_entries",
+          "_dispatch_local_255f0",
+          "_dispatch_local_25620",
+          "_dispatch_local_256e0",
+          "_eng1_26640",
+          "_eng1_call_26040",
+          "_engine_shutdown"
+        ]
       }
     },
     {
@@ -63206,7 +63264,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned; 6 opaque indirect CALL(s): targets unidentified, ABI unclaimed",
-        "source_sha256": "2bd5a48dd17d34f2f9616cd55926ef50e44345347f5609b45eed71e74041919b",
+        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
         "compiled_sha256": "07c6638a4b4f74d289e96d09d7a6600df07c47458ff7a517f9beb168a9a1c043",
         "target_sha256": "0d33a45d45a1b6a6efa2c2212ad6b8fc82e64d6c55f4a175b44eb0657eab54eb",
         "toolchain": "msvc5_rtm",
@@ -63214,11 +63272,12 @@
         "bindings_sha256": "d2289d69e0334aa29ad2c39efab1a86424f6321baa66830402cbd743cc98b954",
         "reference_evidence_sha256": "9359147c7b1998713014762690a3ad753dac052ce3c8047f68bd3c4767528e63",
         "context_sha256": {
-          "src/eng1/actor_pipeline_255f0.cpp": "2bd5a48dd17d34f2f9616cd55926ef50e44345347f5609b45eed71e74041919b",
+          "src/eng1/actor_pipeline_255f0.cpp": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
           "src/eng1/actor_region.h": "a9da278d65814448e711730575eaa30e2edddd9c980aac5f35734d79621c7bc0",
           "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
-          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
         },
         "reference_snapshots": {
           "src/eng1/level_frame_01e50.c": "evidence/repin_snapshots/f049602e0b743e9b011c04b960be970c005c2db135044d460a315bdeb3da1192.txt",
@@ -63255,7 +63314,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change.",
+      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_actor_bounds_2a880": "0x2a880",
@@ -63290,7 +63349,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "2bd5a48dd17d34f2f9616cd55926ef50e44345347f5609b45eed71e74041919b",
+        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
         "masked_sha256": "ff139f23f23c2bde726dc2c923c5bdb616ca9de8e8861db8769c3a413938c8e5",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -63298,7 +63357,6 @@
           "_dispatch_local_255f0",
           "_dispatch_local_25620",
           "_dispatch_local_256e0",
-          "_dispatch_local_258e0",
           "_eng1_26640",
           "_eng1_call_26040",
           "_engine_shutdown"
@@ -63318,7 +63376,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change.",
+      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_call_270c0": "0x270c0",
@@ -63333,7 +63391,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "2bd5a48dd17d34f2f9616cd55926ef50e44345347f5609b45eed71e74041919b",
+        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
         "masked_sha256": "6c4e4f29c4211a479d9c73faeaf501dac62f152ffd2eae884361a31be4a00708",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -63341,7 +63399,6 @@
           "_dispatch_local_255f0",
           "_dispatch_local_25620",
           "_dispatch_local_256e0",
-          "_dispatch_local_258e0",
           "_eng1_26640",
           "_eng1_call_26040",
           "_engine_shutdown"
@@ -63361,7 +63418,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change.",
+      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_call_270c0": "0x270c0",
@@ -63377,7 +63434,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "2bd5a48dd17d34f2f9616cd55926ef50e44345347f5609b45eed71e74041919b",
+        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
         "masked_sha256": "e7bb95a7ab368496ede2e4e239f4deaf2ffab08035d09d85b8e169e4c9ba1890",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -63385,7 +63442,6 @@
           "_dispatch_local_255f0",
           "_dispatch_local_25620",
           "_dispatch_local_256e0",
-          "_dispatch_local_258e0",
           "_eng1_26640",
           "_eng1_call_26040",
           "_engine_shutdown"
@@ -63412,7 +63468,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "2bd5a48dd17d34f2f9616cd55926ef50e44345347f5609b45eed71e74041919b",
+        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
         "compiled_sha256": "a1a6022e40adbc9807fe5dd67161b0f875a74fed3dca8650ec85253a19fc03bc",
         "target_sha256": "753826ef93758318845ddcfd51c8a434d88dba498261fbd4dbfba36a903d2aec",
         "toolchain": "msvc5_rtm",
@@ -63420,11 +63476,12 @@
         "bindings_sha256": "5bd3980723579f1d8c58d79295c9ae9828b311b5ea525fd8f876d94d62fe203a",
         "reference_evidence_sha256": "f4ab0e0ef75b09d06104286970fe280a8d65d506b5b1a99d84555bd5191d4448",
         "context_sha256": {
-          "src/eng1/actor_pipeline_255f0.cpp": "2bd5a48dd17d34f2f9616cd55926ef50e44345347f5609b45eed71e74041919b",
+          "src/eng1/actor_pipeline_255f0.cpp": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
           "src/eng1/actor_region.h": "a9da278d65814448e711730575eaa30e2edddd9c980aac5f35734d79621c7bc0",
           "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
-          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
         },
         "reference_snapshots": {
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528.txt",
@@ -63462,7 +63519,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change.",
+      "evidence": "Lane x7 (2026-10-20): ENG1 actor pipeline unit 0x255f0..0x26700 compiled as C++ (extern \"C\"); 0x256e0/0x25d00 match only under the C++ front end; shares src/eng1/actor_region.h; ownership unproved. Re-pin hdr-region (2026-10-31): actor_region.h and its users name the canonical storage owners; no code change. Re-pin W5 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng1_sim_state_6feb4": "0x6feb4",
@@ -63474,7 +63531,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "2bd5a48dd17d34f2f9616cd55926ef50e44345347f5609b45eed71e74041919b",
+        "source_sha256": "1e74df0a079f6c84b11093e8b20e9e12bcebb229b0486542d4cc2c5b705d7b99",
         "masked_sha256": "d56ff3ee271a98c3c00b2b9cd811ca389746f2bd7840da9605f2b051ba0631fb",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
@@ -63482,7 +63539,6 @@
           "_dispatch_local_255f0",
           "_dispatch_local_25620",
           "_dispatch_local_256e0",
-          "_dispatch_local_258e0",
           "_eng1_26640",
           "_eng1_call_26040",
           "_engine_shutdown"
@@ -63513,7 +63569,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "compiled_sha256": "fd032e2c9f49063ffb4fc8d69b1c5b87f270f18c886bb3e398c7896db108676a",
         "target_sha256": "43079e101aa84cfc7f9ce847b5300814c5c7a941017b8a2ca5a1618cc8ae8c7f",
         "toolchain": "msvc5_rtm",
@@ -63521,7 +63577,7 @@
         "bindings_sha256": "59e465683075f1bffe0a415597eac1eb6a3c82c8bd76e3f76a2fcfb78b874ab9",
         "reference_evidence_sha256": "5b76a571a0d503473399dbe3a38ecb26444e836ccefb60aef4e6a633271bfb13",
         "context_sha256": {
-          "src/eng3/render_unit_22f00.cpp": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+          "src/eng3/render_unit_22f00.cpp": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
           "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
           "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
@@ -63617,7 +63673,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "compiled_sha256": "9bab68ea4a0b9ee65be23cb1fd89b271579822580849d94ab928cb488ec25588",
         "target_sha256": "bc55a38619d27fb7e4f8720fa0c36e7601715afccab8025456deb6ec57d797ac",
         "toolchain": "msvc5_rtm",
@@ -63625,7 +63681,7 @@
         "bindings_sha256": "8897ad2e9c31ac2eafa8d08f28eaaeab47ba62c0d7240e13c0d13f660a967538",
         "reference_evidence_sha256": "5b76a571a0d503473399dbe3a38ecb26444e836ccefb60aef4e6a633271bfb13",
         "context_sha256": {
-          "src/eng3/render_unit_22f00.cpp": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+          "src/eng3/render_unit_22f00.cpp": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
           "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
           "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
@@ -63724,7 +63780,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "compiled_sha256": "96abdf655069656e9e829ac93ad6f6df9ceae4a96a48b3f6d7cae70ce10af7bd",
         "target_sha256": "c1aac2edeaf226f8d86588582672dbb0ca6ecce36793cf15485392141c4ff7ed",
         "toolchain": "msvc5_rtm",
@@ -63732,7 +63788,7 @@
         "bindings_sha256": "165be0aaa334d953c21f72004ee5095711b12788e3f2028ca9b9f7a7c4d34c75",
         "reference_evidence_sha256": "0a64a821b2dd21fadf3bb94bdab65b27b7f8e70a3c8683a2c8335e01693d20a8",
         "context_sha256": {
-          "src/eng3/render_unit_22f00.cpp": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+          "src/eng3/render_unit_22f00.cpp": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
           "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
           "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
@@ -63821,7 +63877,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "compiled_sha256": "ff7c2bd750fc17ac0dbb4a1c3a39f60d5bc3cc3c6b4bdb17ba64039c0d422eae",
         "target_sha256": "baea4f7ec867288526ab5f9c0dbad87a350fb8fe5c36d7a1c2a1c077790cf4d3",
         "toolchain": "msvc5_rtm",
@@ -63829,7 +63885,7 @@
         "bindings_sha256": "f3fbc5bcd89ddcb7e21f2240ef6bcb08ddf8dd9872a881e0b86dd565ede7ccf9",
         "reference_evidence_sha256": "ec8161f3c96c5702988e45b5fdd84095f12fd58efdf74a2a2b809cdef3e71bd9",
         "context_sha256": {
-          "src/eng3/render_unit_22f00.cpp": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+          "src/eng3/render_unit_22f00.cpp": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
           "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
           "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
@@ -63892,42 +63948,60 @@
     },
     {
       "id": "eng3.eng3_22f00",
-      "status": "RECONSTRUCTED",
+      "status": "CODEGEN_SIMILAR",
       "name_status": "provisional address label",
-      "source": "src/eng3/render_unit_22f00.cpp",
-      "symbol": "_eng3_22f00",
       "target": "assets/pc/HERCULES/ENG3.DLL",
       "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
       "rva": "0x22f00",
       "size": 672,
+      "source": "src/eng3/render_unit_22f00.cpp",
+      "symbol": "_eng3_22f00",
       "flags": [
         "/O2"
       ],
-      "boundary": "Function-map span; compiled /Gy contribution size equals the span.",
-      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Size-exact; 2 non-relocation bytes differ.",
-      "proof": {
-        "scope": "fresh size-exact reconstructed contribution; neither raw nor masked equality",
-        "compiled_size": 672,
-        "source_sha256": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
-        "compiled_sha256": "a11c5fcd83c0c7d0aa4045e23de2a68ed9149ed3b79c09e2b2040a9ec0019a52",
-        "nonrelocation_differences": 2,
-        "raw_differences": 156,
-        "binding_conflicts": 0,
-        "toolchain": "msvc5_rtm"
-      },
+      "evidence": "lane n4 (2026-10-31): work/velocity_k/n4/handoff.json. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged). Previously: Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Size-exact; 2 non-relocation bytes differ.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng3_08ca0": "0x8ca0",
-        "_eng3_1fcd0": "0x1fcd0",
         "_eng3_24a80": "0x24a80",
         "_eng3_24f50": "0x24f50",
-        "_g_eng3_actor_431c0": "0x431c0",
+        "_g_2dfa0": "0x431c0",
         "_g_eng3_frame_41448": "0x41448",
         "_g_eng3_prim_43164": "0x43164",
         "_g_eng3_records_39548": "0x39548",
         "_title_02dc0": "0x8da0",
         "_title_04d80": "0x8820",
+        "_title_0c790": "0x1fcd0",
         "_title_19470": "0x24770",
         "_title_194e0": "0x247e0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
+        "masked_sha256": "95c6bd9ce25c7cc2aaf7360efb8bacaf551a9407cd96ce6056a7fab1e6d5f288",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_eng3_231a0",
+          "_eng3_23440",
+          "_eng3_23720",
+          "_eng3_23b00",
+          "_eng3_23ef0",
+          "_eng3_24280",
+          "_eng3_24340",
+          "_eng3_24420",
+          "_eng3_24870",
+          "_eng3_24bb0",
+          "_eng3_24f50",
+          "_extent_producer_30e40",
+          "_title_18600",
+          "_title_18680",
+          "_title_189e0",
+          "_title_18b20",
+          "_title_193e0",
+          "_title_19470",
+          "_title_194e0",
+          "_title_19570"
+        ]
       }
     },
     {
@@ -64237,7 +64311,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -64326,7 +64401,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -70065,6 +70141,9 @@
         "reference_evidence_sha256": "8720c73e3317cf1518fdab0f38872c46e4569dcea20fb83b1506f485af053649",
         "context_sha256": {
           "src/eng3/handlers_14190.cpp": "c9baa83afa8d9e0e0cda9e6e882ed458609b74c7affd1763532c9b3aff46ff7a"
+        },
+        "reference_snapshots": {
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -70796,7 +70875,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -71024,7 +71104,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -71250,7 +71331,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -75352,7 +75434,8 @@
           "src/eng1/host_wrappers_extra.c": "evidence/repin_snapshots/2412fbfd7e6e4de37f51c5dd91d239c1acff9fa656436f06cd75211c22d3043c.txt",
           "src/eng1/sprite_unit_03cd0.c": "evidence/repin_snapshots/7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185.txt",
           "src/eng1/host_control_wrappers.c": "evidence/repin_snapshots/bb7570b33a62555f1d44a06e3a21314ebeded2316c446ce0c32e876512a55ef7.txt",
-          "src/eng1/host_wrappers.c": "evidence/repin_snapshots/84c4a2618601b7734de042088fcc9add82457df7a3d8fc7bf676fcad4c9552cf.txt"
+          "src/eng1/host_wrappers.c": "evidence/repin_snapshots/84c4a2618601b7734de042088fcc9add82457df7a3d8fc7bf676fcad4c9552cf.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -80974,7 +81057,8 @@
         "reference_snapshots": {
           "src/eng1/actor_handlers_high.c": "evidence/repin_snapshots/f7829c5788dd0c6522947799e4b310c65f3656e4a18fe7a05a9e3adb38c23bb3.txt",
           "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -81216,7 +81300,8 @@
         "reference_snapshots": {
           "src/eng1/actor_handlers_high.c": "evidence/repin_snapshots/f7829c5788dd0c6522947799e4b310c65f3656e4a18fe7a05a9e3adb38c23bb3.txt",
           "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -81649,7 +81734,8 @@
         "reference_snapshots": {
           "src/eng1/actor_handlers_high.c": "evidence/repin_snapshots/f7829c5788dd0c6522947799e4b310c65f3656e4a18fe7a05a9e3adb38c23bb3.txt",
           "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -82236,7 +82322,8 @@
         "reference_snapshots": {
           "src/eng1/actor_handlers_high.c": "evidence/repin_snapshots/f7829c5788dd0c6522947799e4b310c65f3656e4a18fe7a05a9e3adb38c23bb3.txt",
           "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -82664,7 +82751,8 @@
         "reference_snapshots": {
           "src/eng1/actor_handlers_high.c": "evidence/repin_snapshots/f7829c5788dd0c6522947799e4b310c65f3656e4a18fe7a05a9e3adb38c23bb3.txt",
           "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -82857,6 +82945,9 @@
           "src/eng1/status_panel_32b10.c": "a04c8213056ffdb13754d9396849f77d84c7785741a627aada3c4cfb7e013be4",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
+        },
+        "reference_snapshots": {
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -89977,7 +90068,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -105650,7 +105742,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -105840,7 +105933,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -111265,7 +111359,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -111386,7 +111481,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -112502,6 +112598,9 @@
         "context_sha256": {
           "src/eng3/handlers_16240.cpp": "de80ebe696314ce9f4d6e3d002f769c37ada7e1101e509caab8cc472aeb1d165",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec"
+        },
+        "reference_snapshots": {
+          "src/eng3/render_unit_22f00.cpp": "evidence/repin_snapshots/cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33.txt"
         }
       },
       "prior_masked_proof": {
@@ -113129,7 +113228,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -117937,7 +118037,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -118049,7 +118150,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -119256,7 +119358,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -119480,7 +119583,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -119703,7 +119807,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -120509,7 +120614,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -135451,7 +135557,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -139781,7 +139888,8 @@
           "src/eng1/actor_control_state.h": "98a60b9fa15d9e5ae7955c4971068bc3f1f346b820eba384e23e0d444f5ddcf9"
         },
         "reference_snapshots": {
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -141398,7 +141506,8 @@
         "reference_snapshots": {
           "src/eng1/actor_handlers_high.c": "evidence/repin_snapshots/f7829c5788dd0c6522947799e4b310c65f3656e4a18fe7a05a9e3adb38c23bb3.txt",
           "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -141622,7 +141731,8 @@
         "reference_snapshots": {
           "src/eng1/actor_handlers_high.c": "evidence/repin_snapshots/f7829c5788dd0c6522947799e4b310c65f3656e4a18fe7a05a9e3adb38c23bb3.txt",
           "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -142894,7 +143004,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -143696,7 +143807,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -145226,7 +145338,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -146984,7 +147097,8 @@
           "src/eng1/sound_choice_1aba0.c": "evidence/repin_snapshots/86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5.txt",
           "src/eng1/actor_pipeline_storage.c": "evidence/repin_snapshots/900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668.txt",
           "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
-          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -149196,7 +149310,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -149830,6 +149945,9 @@
           "src/shared/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
           "src/eng1/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
           "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e"
+        },
+        "reference_snapshots": {
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -150586,7 +150704,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -150687,7 +150806,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -150789,7 +150909,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -150891,7 +151012,8 @@
           "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/407ab0b7f91900a6b5e405723bb95853761a8c7341a3f0d7660b4b1f408ef986.txt",
           "src/eng1/player_modes_remaining.c": "evidence/repin_snapshots/2fbe96e6ab81de30b0a3533c840a18402497dd4677f8240f008b91289d1c95ff.txt",
           "src/shared/remove_actor.c": "evidence/repin_snapshots/6d6880866d6a2d0020c50b02d54ea16fb711380e7375694c7b386784e5973f50.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/34afda28e73cfb3e89af54533089260d23c6e49adaea73cab443a7a3e19a319f.txt"
         }
       },
       "prior_masked_proof": {
@@ -151488,7 +151610,8 @@
         "reference_snapshots": {
           "src/eng1/actor_handlers_high.c": "evidence/repin_snapshots/f7829c5788dd0c6522947799e4b310c65f3656e4a18fe7a05a9e3adb38c23bb3.txt",
           "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt",
-          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt"
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/5495d8a2d0b80f62aa55d16fbad15bbec683bec3210f36310dee8889f852df3c.txt",
+          "src/shared/relative.c": "evidence/repin_snapshots/76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2.txt"
         }
       },
       "prior_masked_proof": {
@@ -151697,7 +151820,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change.",
+      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng3_23b00": "0x23b00",
@@ -151709,11 +151832,10 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "masked_sha256": "8010efbd7f416b13810048a3d0fb0dc86a38f72ef8741cafdbdc4adb419d7053",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
-          "_eng3_22f00",
           "_eng3_231a0",
           "_eng3_23440",
           "_eng3_23720",
@@ -151750,7 +151872,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change.",
+      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_g_eng3_40120": "0x40120",
@@ -151758,11 +151880,10 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "masked_sha256": "675c43c829215d1bc29ad72e0ab0847e76c7f2f667715e75b45d5a3d234803ca",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
-          "_eng3_22f00",
           "_eng3_231a0",
           "_eng3_23440",
           "_eng3_23720",
@@ -151799,7 +151920,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change.",
+      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_g_eng3_40120": "0x40120",
@@ -151813,11 +151934,10 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "masked_sha256": "5e596b7a44260b4e07127ae0e17a48743e55ab55b4e963cf570f187c4c42ad64",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
-          "_eng3_22f00",
           "_eng3_231a0",
           "_eng3_23440",
           "_eng3_23720",
@@ -151854,7 +151974,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change.",
+      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng3_24bb0": "0x24bb0",
@@ -151864,11 +151984,10 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "masked_sha256": "873cb4ad52a6cfb34e4bb1a6aaf2f18c87e10340a1c13aff3a21afc0ef2d4b62",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
-          "_eng3_22f00",
           "_eng3_231a0",
           "_eng3_23440",
           "_eng3_23720",
@@ -151905,7 +152024,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change.",
+      "evidence": "Lane y7 (2026-10-20): ENG3 copy of the shared renderer/primitive unit (one C++ unit, extern \"C\"); the ENG1 render_unit_30010.cpp source with ENG3 constants (0x800-entry ordering table indexed &ot[0x7fe - (depth & ~3)], vertex scratch at interface data +0x10, depth window 0x67f) plus new ENG3 bodies; recorded twins carried with their recorded symbols; ownership unproved. Re-pin W2 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3c (2026-10-31): ENG3 cells named by their canonical (TITLE-named) owners (solZ2 class a); no code change. Re-pin b37 (2026-11-01): near-miss wave - eng1 0x258e0 (n5), eng1 0x2a570 (n2), eng3 0x22f00 (n4) reach masked equality in their units; shared relative.c gets a minimal ENG3 declaration-order branch under HERCULES_ENGINE3 for eng3.measure_relative_vector (ENG1 path unchanged).",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
         "_eng3_24bb0": "0x24bb0",
@@ -151915,11 +152034,10 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "masked_sha256": "6f963ec254ebbc338b55cdf3fff084dae44a6734b5a1a9b977c71cf24d975594",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
-          "_eng3_22f00",
           "_eng3_231a0",
           "_eng3_23440",
           "_eng3_23720",
@@ -151964,7 +152082,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "compiled_sha256": "d3d03cc64c222f4d044a5a4ae394d403468feb18f04105bfbe405bb43212dbf3",
         "target_sha256": "d3befd9dd891ca16165fcea1580c7bf1961be9bb0a29cd81f76356ba6761846e",
         "toolchain": "msvc5_rtm",
@@ -151972,10 +152090,13 @@
         "bindings_sha256": "7dea67a8cd83867e6ea8b6522cd53f243598228e4e5e122994dfe201f2e36b13",
         "reference_evidence_sha256": "47f9eed5f82666bd7233ef3835876f1fbc50eb7d20e607455a8b3c2921efe1b4",
         "context_sha256": {
-          "src/eng3/render_unit_22f00.cpp": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+          "src/eng3/render_unit_22f00.cpp": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
           "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
           "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+        },
+        "reference_snapshots": {
+          "src/eng3/render_unit_22f00.cpp": "evidence/repin_snapshots/cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33.txt"
         }
       },
       "prior_masked_proof": {
@@ -152027,7 +152148,7 @@
       },
       "proof": {
         "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
-        "source_sha256": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
         "compiled_sha256": "0d583f2ce31c2c0bafa80ca47577051dd7a550bd19294015d04344765eea9af3",
         "target_sha256": "4340fe2c69368f166a2751ba733a9476187af37c45f067f6fa3ca46b65c91202",
         "toolchain": "msvc5_rtm",
@@ -152035,10 +152156,13 @@
         "bindings_sha256": "9ca754d32cae843d67e3db82f735bbad9ce71dd4c8bcb034b98643169661aec9",
         "reference_evidence_sha256": "dd975a1fa5bde86afa70e686b46c0d74a9def84f40c6e3b27a958fdf97f76cf1",
         "context_sha256": {
-          "src/eng3/render_unit_22f00.cpp": "cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33",
+          "src/eng3/render_unit_22f00.cpp": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
           "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
           "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
           "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+        },
+        "reference_snapshots": {
+          "src/eng3/render_unit_22f00.cpp": "evidence/repin_snapshots/cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33.txt"
         }
       },
       "prior_masked_proof": {
