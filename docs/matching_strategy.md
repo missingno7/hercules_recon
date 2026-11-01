@@ -275,3 +275,7 @@ Independent anchors, not owners or content, now limit storage identities:
   owner EAX/ECX roles; l189 and s189 both stalled), 0x44240 (166 bytes), 0x1ae00, 0x2b130 is closed.
 - Lane hygiene: sandboxed lanes can hit compiler launch failures (0xC0000142) under concurrency. The integrator's
   gates are authoritative.
+- Rejected after adversarial review (2026-11-01): exe-direct-member-v1. Its anchors proved only the member start,
+  while the rows it freed read interior cells bounded by the reconstructor's own declared size, which is the reason
+  for the 2026-10-27 withdrawal. Any future EXE storage form needs an independent anchor for every accessed address,
+  and native-only evidence for the start. It must also refuse to reopen a withdrawn identity's missing link.

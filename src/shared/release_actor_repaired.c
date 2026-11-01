@@ -45,7 +45,12 @@ typedef char sidecar_flags_offset[(unsigned long)&(((Sidecar *)0)->flags) == 0x0
 typedef char sidecar_word_offset[(unsigned long)&(((Sidecar *)0)->field_00e) == 0x0e ? 1 : -1];
 
 extern KindInfo g_kind_info[];
-extern signed char g_special_kind;
+/* Select the physical byte owner with the shared module configuration. */
+#if defined(HERCULES_ENGINE3)
+extern signed char g_eng3_layer_40638;
+#else
+extern signed char g_active_category_70cfe;
+#endif
 extern void detach_child(Actor *);
 extern void detach_buffer(Actor *);
 extern void detach_attachment(Actor *);
@@ -81,13 +86,21 @@ int release_actor(Actor *p)
     owner = (Sidecar *)((unsigned char *)owner + sidecar_offset);
     owner_flags = owner->flags;
     if (owner_flags & 0x2000) return 0;
-    if ((owner_flags & 0x0100) && profile == (unsigned short)g_special_kind) {
+#if defined(HERCULES_ENGINE3)
+    if ((owner_flags & 0x0100) && profile == (unsigned short)g_eng3_layer_40638) {
+#else
+    if ((owner_flags & 0x0100) && profile == (unsigned short)g_active_category_70cfe) {
+#endif
         owner->x = p->x;
         owner->y = p->y;
         owner->z = p->z;
         owner->field_00e = p->field_02a;
     }
-    if ((owner_flags & 0x0080) && p->profile == (unsigned short)g_special_kind) {
+#if defined(HERCULES_ENGINE3)
+    if ((owner_flags & 0x0080) && p->profile == (unsigned short)g_eng3_layer_40638) {
+#else
+    if ((owner_flags & 0x0080) && p->profile == (unsigned short)g_active_category_70cfe) {
+#endif
         owner->field_00e = p->field_02a;
     }
     detach_child(p);
