@@ -451,6 +451,13 @@ def _check_owner_undo(plan, documents, location, pins, review_path):
     for name in (location, review_path):
         descendant['evidence_files'].pop(name, None)
     descendant.pop('binding_rename_review', None)
+    inherited = parent.get('binding_rename_review')
+    if inherited is not None:
+        # The parent is itself a descendant: its own review stays pinned (checked below with every parent pin)
+        # and only the name of the latest review moves.
+        if not isinstance(inherited, str) or inherited not in parent['evidence_files']:
+            raise ValueError('The parent manifest does not pin its own rename review: ' + location)
+        descendant['binding_rename_review'] = inherited
     identity = lambda document: {k: v for k, v in document.items() if k not in ('functions', 'evidence_files')}
     if identity(descendant) != identity(parent):
         raise ValueError('Derived manifest differs from its parent beyond the reviewed change: ' + location)

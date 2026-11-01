@@ -1254,6 +1254,20 @@ class HeaderRevisionDeriveTests(unittest.TestCase):
                 document.update(saved)
         check()
 
+    def test_a_parent_that_is_itself_a_descendant_keeps_its_review_pinned(self):
+        document = self.fx.doc_a
+        self.fx.write('evidence/old_review.json', b'{}\n')
+        document['binding_rename_review'] = 'evidence/old_review.json'
+        document['evidence_files']['evidence/old_review.json'] = sha(b'{}\n')
+        digest = self.reseal('evidence/pipe_a.json', document)
+        plan = self.derive(self.use_digest('evidence/pipe_a.json', digest))
+        child = plan.manifests['evidence/pipe_a.json'][1]
+        self.assertEqual(child['binding_rename_review'], 'evidence/pipe_review.json')  # the latest review
+        self.assertEqual(child['evidence_files']['evidence/old_review.json'], sha(b'{}\n'))  # the earlier one stays pinned
+        del document['evidence_files']['evidence/old_review.json']  # a parent that does not pin its own review
+        digest = self.reseal('evidence/pipe_a.json', document)
+        self.refuses('does not pin its own rename review', self.use_digest('evidence/pipe_a.json', digest))
+
     def test_refusals_of_the_header_itself(self):
         self.fx.write('src/pipe.inc', b'x\n')
         revision = lambda r: r['owner_revisions'][self.KEY]
