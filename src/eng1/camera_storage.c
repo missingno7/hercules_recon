@@ -7,7 +7,9 @@ typedef char camera_storage_short16[(sizeof(short)==2)?1:-1];
 /* All32 bytes are read by2DA90's eight-DWORD copy.2F840 writes seven cells,
  * preserving DWORD+14; the source object exposes that observed prefix only. */
 long g_render_transform_70c60[8]={0};
-long g_camera_x_70ca0=0, g_camera_y_70ca4=0, g_camera_z_70ca8=0;
+/* Scalar width is native DWORD; static storage still starts at zero. */
+long g_camera_x_70ca0;
+long g_camera_y_70ca4=0, g_camera_z_70ca8=0;
 long g_camera_grid_x_70cac=0, g_camera_grid_y_70cb0=0, g_camera_grid_z_70cb4=0;
 long g_camera_offset_x_70cb8=0, g_camera_offset_y_70cbc=0, g_camera_offset_z_70cc0=0;
 long g_camera_prior_x_70cc4=0, g_camera_prior_y_70cc8=0;

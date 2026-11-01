@@ -1,7 +1,7 @@
 #include "actor_pipeline_storage.h"
 
 /* Loader-zero native data; this source supplies one measured physical span. */
-ENG1ActorPipelineStorage71440 g_actor_pipeline_storage_71440 = {0};
+ENG1ActorPipelineStorage71440 g_actor_pipeline_storage_71440;
 
 /* Native actor pointer at 0x7200c, separate from the larger worklist span. */
 typedef struct ENG1ActorPipelineActor ENG1ActorPipelineActor;
