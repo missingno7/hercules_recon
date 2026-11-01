@@ -20,11 +20,15 @@ hash-pinned review in evidence/, everything that may differ, and nothing else:
 
   owner_revisions
                {source: {"before", "after", "rows": {row_id: {"bindings_path", "bindings_sha256"}}}}: a
-               canonical src/ C/C++ loader-zero (bss) or file-data owner source is revised. Its pin in the
-               rows' binding documents moves from `before` to `after`, in the derived descendant manifests
-               only; the rows' own binding records stay verbatim. Every accepted RELOCATED row whose binding
-               has an owner record in that source must be listed. The owner records are not rewritten: the
-               after gate recompiles the new owner source and re-verifies names, sizes and capacities.
+               canonical src/ C/C++ loader-zero (bss) or file-data owner source, or a canonical src/ header in
+               the include closure of such an owner, is revised. Its pin in the rows' binding documents moves
+               from `before` to `after`, in the derived descendant manifests only; the rows' own binding
+               records stay verbatim. Every accepted RELOCATED row whose binding has an owner record in that
+               source (for a header: an owner record whose source, compiled with its own flags, has the header
+               in its literal include closure, as match.compile_inputs computes it) must be listed. The owner
+               records are not rewritten: the after gate recompiles the new owner source and re-verifies names,
+               sizes and capacities. A header may also be in the context of accepted caller rows that are not
+               listed; repin handles those through their context pins and snapshots, exactly as without a review.
 
 Each reviewed parent manifest gets one immutable descendant evidence/rename_<parent>_<review>.json
 holding the derived bindings; the parent and the review are pinned in its evidence_files and the
@@ -313,22 +317,46 @@ HEX = re.compile(r'[0-9a-f]{64}')
 
 
 def _canonical_owner_source(name):
-    """A revised owner is an existing canonical C/C++ unit under src/, spelled exactly as it is pinned."""
+    """A revised source is an existing canonical C/C++ unit or header under src/, spelled exactly as it is pinned."""
     if not isinstance(name, str) or not name:
         raise ValueError('Owner revisions name repository sources')
     path = (ROOT / name).resolve()
-    if (not path.is_relative_to((ROOT / 'src').resolve()) or path.suffix not in ('.c', '.cpp') or
+    if (not path.is_relative_to((ROOT / 'src').resolve()) or path.suffix not in ('.c', '.cpp', '.h') or
             not path.is_file() or path.relative_to(ROOT.resolve()).as_posix() != name):
-        raise ValueError('Only canonical src/ C/C++ owner sources may be revised: ' + name)
+        raise ValueError('Only canonical src/ C/C++ owner sources and headers may be revised: ' + name)
     return path
 
 
-def owner_records(binding, path):
-    """{name: record} of the records of one binding whose compile owner is the source at `path`."""
+def include_closure(source, flags):
+    """The literal include closure of one owner compile, exactly as the verifier computes it (match.compile_inputs)."""
+    import match
+    try:
+        return match.compile_inputs(source, list(flags), match.DEFAULT_TOOLCHAIN)
+    except (OSError, ValueError) as error:
+        raise ValueError('The owner include closure cannot be computed: %s: %s' % (source, error))
+
+
+def owner_records(binding, path, closure=include_closure):
+    """{name: record} of the records of one binding whose compile owner is the source at `path`.
+
+    For a header, the records whose owner source, compiled with the record's own flags, has the header in
+    its literal include closure (`closure(source, flags)` -> {path: sha256}). An owner profile that does not
+    declare a source and flags cannot be placed and is refused, never skipped.
+    """
     found = {}
     for name, record in binding.get('symbols', {}).items():
         owner = record.get('owner') if isinstance(record, dict) else None
-        if isinstance(owner, dict) and isinstance(owner.get('source'), str) and (ROOT / owner['source']).resolve() == path:
+        if path.suffix != '.h':
+            if isinstance(owner, dict) and isinstance(owner.get('source'), str) and (ROOT / owner['source']).resolve() == path:
+                found[name] = record
+            continue
+        if owner is None:
+            continue
+        flags = owner.get('flags') if isinstance(owner, dict) else None
+        if (not isinstance(owner.get('source'), str) or not isinstance(flags, list) or
+                any(not isinstance(flag, str) for flag in flags)):
+            raise ValueError('Invalid owner compile profile: ' + name)
+        if path in closure((ROOT / owner['source']).resolve(), tuple(flags)):
             found[name] = record
     return found
 
@@ -346,6 +374,12 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
     every owner record strictly, so nothing about acceptance is skipped here.
     """
     members = {}
+    closures = {}
+
+    def closure(owner, flags):  # one compile-input walk per (owner source, flags)
+        if (owner, flags) not in closures:
+            closures[owner, flags] = include_closure(owner, flags)
+        return closures[owner, flags]
     for source, item in sorted(revisions.items()):
         path = _canonical_owner_source(source)
         if (not isinstance(item, dict) or set(item) != {'before', 'after', 'rows'} or
@@ -359,6 +393,8 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
             raise ValueError('Owner revision disagrees with the re-pin plan: ' + source)
         if any(row['source'] == source for row in state['functions'] if row['status'] in ACCEPTED):
             raise ValueError('A revised owner source may not also be an accepted caller unit: ' + source)
+        if path.suffix == '.h' and digest(path.read_bytes()) != item['before']:
+            raise ValueError('The revised header on disk is not its before hash: ' + source)
         for row_id, spec in sorted(item['rows'].items()):
             row = rows.get(row_id)
             if not isinstance(spec, dict) or set(spec) != {'bindings_path', 'bindings_sha256'}:
@@ -366,7 +402,7 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
             binding = _accepted_binding(row, documents, spec['bindings_path'], spec['bindings_sha256'])
             if documents[spec['bindings_path']][1]['evidence_files'].get(source) != item['before']:
                 raise ValueError('Owner revision before-hash is not the pinned hash: %s in %s' % (source, row_id))
-            users = owner_records(binding, path)
+            users = owner_records(binding, path, closure)
             if not users or not all(_is_owner_record(record) for record in users.values()):
                 raise ValueError('The row does not use %s only as a loader-zero or file-data owner: %s' % (source, row_id))
             members.setdefault(source, {})[row_id] = spec['bindings_path']
@@ -378,7 +414,7 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
             location = row['proof'].get('bindings_path')
             if location not in cache:
                 cache[location] = json.loads((ROOT / location).read_bytes())
-            if owner_records(cache[location]['functions'].get(row['id'], {}), path):
+            if owner_records(cache[location]['functions'].get(row['id'], {}), path, closure):
                 raise ValueError('An accepted row also uses the revised owner and is not reviewed: ' + row['id'])
     for source, rows_of in sorted(members.items()):
         for row_id, location in rows_of.items():

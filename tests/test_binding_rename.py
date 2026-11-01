@@ -927,7 +927,7 @@ class OwnerRevisionDeriveTests(unittest.TestCase):
         move = lambda r, name: r['owner_revisions'].update({name: r['owner_revisions'].pop('src/pipe.c')})
         cases = [
             ('source outside src', 'canonical src', lambda r: move(r, 'recovery.json')),
-            ('a header', 'canonical src', lambda r: move(r, 'src/pipe.h')),
+            ('a header that does not exist', 'canonical src', lambda r: move(r, 'src/pipe.h')),
             ('a path that is not spelled canonically', 'canonical src', lambda r: move(r, 'src/../src/pipe.c')),
             ('a missing source', 'canonical src', lambda r: move(r, 'src/gone.c')),
             ('before is not the pinned hash', 'disagrees', lambda r: revision(r).update(before=sha(b'other'))),
@@ -1102,6 +1102,351 @@ class OwnerRevisionApplyTests(unittest.TestCase):
             self.run_apply(self.fx.plan(self.fx.review()), after_gate=parent_reader)
         self.assertEqual((self.root / 'recovery.json').read_bytes(), before)
         self.assertEqual((self.root / 'src/pipe.c').read_bytes(), OwnerFixture.PIPE_BEFORE)
+
+
+class HeaderFixture(OwnerFixture):
+    """OwnerFixture whose owner src/pipe.c reaches the header src/pipe.h through src/mid.h.
+
+    The header is the revised source: three accepted rows use the owner (and so the header); m.p4 does not.
+    """
+
+    PIPE_BEFORE = b'#include "mid.h"\nENG1Pipe g_pipe;\n'
+    PIPE_AFTER = PIPE_BEFORE
+    MID = b'#include "pipe.h"\n'
+    HEADER_BEFORE = b'typedef struct { unsigned long w[8]; } ENG1Pipe;\n'
+    HEADER_AFTER = b'typedef union { unsigned long w[8]; struct { unsigned long a, b, c, d, e, f, g, h; } named; } ENG1Pipe;\n'
+    OTHER = b'int other_cell;\n'
+    OTHER_AFTER = b'#include "pipe.h"\nint other_cell;\n'
+
+    def __init__(self, root):
+        super().__init__(root)
+        self.write('src/mid.h', self.MID)
+        self.write('src/pipe.h', self.HEADER_BEFORE)
+        self.write('work/cand/pipe.h', self.HEADER_AFTER)
+        self.write('src/unrelated.h', b'int unrelated;\n')
+        self.write('src/other_owner.c', self.OTHER)
+        for document in (self.doc_a, self.doc_b):
+            document['evidence_files'].update({'src/mid.h': sha(self.MID), 'src/pipe.h': sha(self.HEADER_BEFORE)})
+        self.write_json('evidence/pipe_a.json', self.doc_a)
+        self.write_json('evidence/pipe_b.json', self.doc_b)
+        self.rebuild_state()
+
+    def rebuild_state(self):
+        docs = {'evidence/pipe_a.json': self.doc_a, 'evidence/pipe_b.json': self.doc_b}
+        for row in self.state['functions']:
+            document = docs[row['proof']['bindings_path']]
+            row['proof'].update(binding_rename.proof_fields(document, row['id']))
+
+    def verify(self, rows, **kw):
+        """The OwnerFixture comparator, plus the whole owner include closure must be pinned by the manifest."""
+        for row in rows:
+            binding, evidence, _ = match.reference_inputs(row['proof']['bindings_path'], row)
+            for name, record in binding['symbols'].items():
+                if 'owner' in record:
+                    closure = match.compile_inputs(self.root / record['owner']['source'], record['owner']['flags'],
+                                                   match.DEFAULT_TOOLCHAIN)
+                    for path, digest in closure.items():
+                        if evidence['files'].get(path.relative_to(self.root).as_posix()) != digest:
+                            raise ValueError('Loader-zero owner source/include context must be independently pinned: ' + name)
+        return super().verify(rows, **kw)
+
+    def review(self, **changes):
+        sha_a = sha((self.root / 'evidence/pipe_a.json').read_bytes())
+        sha_b = sha((self.root / 'evidence/pipe_b.json').read_bytes())
+        spec = lambda path, digest: dict(bindings_path=path, bindings_sha256=digest)
+        review = dict(schema=1, profile=binding_rename.PROFILE, reason='The pipeline storage gains named members.',
+                      owner_revisions={'src/pipe.h': dict(
+                          before=sha(self.HEADER_BEFORE), after=sha(self.HEADER_AFTER),
+                          rows={'m.p1': spec('evidence/pipe_a.json', sha_a), 'm.p2': spec('evidence/pipe_a.json', sha_a),
+                                'm.p3': spec('evidence/pipe_b.json', sha_b)})})
+        review.update(changes)
+        self.write_json('evidence/pipe_review.json', review)
+        return dict(path='evidence/pipe_review.json', sha256=sha((self.root / 'evidence/pipe_review.json').read_bytes()))
+
+    def plan(self, review):
+        state = (self.root / 'recovery.json').read_bytes()
+        return dict(state_sha256=sha(state), promotions=[], binding_review=review, sources={
+            'src/pipe.h': dict(candidate='work/cand/pipe.h', before_sha256=sha(self.HEADER_BEFORE),
+                               candidate_sha256=sha(self.HEADER_AFTER))})
+
+
+class HeaderRevisionDeriveTests(unittest.TestCase):
+    KEY = 'src/pipe.h'
+    HASHES = {KEY: (sha(HeaderFixture.HEADER_BEFORE), sha(HeaderFixture.HEADER_AFTER))}
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name).resolve()
+        self.fx = HeaderFixture(self.root)
+        self.scope = patch.object(binding_rename, 'ROOT', self.root)
+        self.scope.start()
+
+    def tearDown(self):
+        self.scope.stop()
+        self.tmp.cleanup()
+
+    def derive(self, mutate=None, changed=(KEY,), hashes='default'):
+        item = self.fx.review()
+        review = json.loads((self.root / item['path']).read_bytes())
+        if mutate:
+            mutate(review)
+        return binding_rename.derive(self.fx.state, review, binding_rename.parent_documents(review), item['path'],
+                                     'c' * 64, set(changed), self.HASHES if hashes == 'default' else hashes)
+
+    def refuses(self, pattern, mutate=None, **kw):
+        with self.assertRaisesRegex(ValueError, pattern):
+            self.derive(mutate, **kw)
+
+    def reseal(self, document_name, document):
+        self.fx.write_json(document_name, document)
+        self.fx.rebuild_state()
+        return sha((self.root / document_name).read_bytes())
+
+    def use_digest(self, name, digest, extra=None):
+        """A mutate hook re-pointing every listed row of one manifest at its resealed hash."""
+        def mutate(review):
+            rows = review['owner_revisions'][self.KEY]['rows']
+            for spec in rows.values():
+                if spec['bindings_path'] == name:
+                    spec['bindings_sha256'] = digest
+            for row_id in extra or ():
+                rows[row_id] = dict(bindings_path=name, bindings_sha256=digest)
+        return mutate
+
+    def test_a_header_pin_moves_and_nothing_else(self):
+        plan = self.derive()
+        before, after = self.HASHES[self.KEY]
+        self.assertEqual(plan.owner_revisions(), {self.KEY: dict(before=before, after=after, rows=['m.p1', 'm.p2', 'm.p3'])})
+        for path, parent in (('evidence/pipe_a.json', self.fx.doc_a), ('evidence/pipe_b.json', self.fx.doc_b)):
+            document = plan.manifests[path][1]
+            self.assertEqual(document['evidence_files'][self.KEY], after)
+            self.assertEqual(document['evidence_files']['src/pipe.c'], parent['evidence_files']['src/pipe.c'])
+            self.assertEqual(document['evidence_files']['src/mid.h'], parent['evidence_files']['src/mid.h'])
+            self.assertEqual(document['functions'], parent['functions'])
+            restored = copy.deepcopy(document)
+            restored['evidence_files'][self.KEY] = before
+            for name in (path, 'evidence/pipe_review.json'):
+                del restored['evidence_files'][name]
+            del restored['binding_rename_review']
+            self.assertEqual(restored, parent)
+
+    def test_the_undo_check_is_exact_for_a_header_pin(self):
+        plan = self.derive()
+        path = 'evidence/pipe_a.json'
+        documents = binding_rename.parent_documents(dict(bindings={'x': dict(bindings_path=path)}))
+        pins = plan.owner_pins[path]
+        check = lambda: binding_rename._check_owner_undo(plan, documents, path, pins, 'evidence/pipe_review.json')
+        check()
+        document = plan.manifests[path][1]
+        tampers = {
+            'the pin is not revised': lambda: document['evidence_files'].update({self.KEY: pins[self.KEY][0]}),
+            'the owner source pin moves too': lambda: document['evidence_files'].update({'src/pipe.c': '0' * 64}),
+            'an intermediate header pin moves': lambda: document['evidence_files'].update({'src/mid.h': '0' * 64}),
+            'a record': lambda: document['functions']['m.p1']['symbols']['_pipe'].update(size=0x80),
+        }
+        for label, tamper in tampers.items():
+            with self.subTest(label):
+                saved = copy.deepcopy(document)
+                tamper()
+                with self.assertRaises(ValueError):
+                    check()
+                document.clear()
+                document.update(saved)
+        check()
+
+    def test_refusals_of_the_header_itself(self):
+        self.fx.write('src/pipe.inc', b'x\n')
+        revision = lambda r: r['owner_revisions'][self.KEY]
+        move = lambda r, name: r['owner_revisions'].update({name: r['owner_revisions'].pop(self.KEY)})
+        changed = (self.KEY, 'src/pipe.inc', 'src/../src/pipe.h', 'src/gone.h', 'toolchains/manifest.json')
+        cases = [
+            ('a file that is not C, C++ or a header', 'canonical src', lambda r: move(r, 'src/pipe.inc')),
+            ('a header outside src', 'canonical src', lambda r: move(r, 'toolchains/manifest.json')),
+            ('an uncanonical spelling', 'canonical src', lambda r: move(r, 'src/../src/pipe.h')),
+            ('a missing header', 'canonical src', lambda r: move(r, 'src/gone.h')),
+            ('before is not the pinned hash', 'disagrees', lambda r: revision(r).update(before=sha(b'other'))),
+            ('after differs from the plan', 'disagrees', lambda r: revision(r).update(after=sha(b'other'))),
+            ('no rows', 'Invalid owner revision', lambda r: revision(r).update(rows={})),
+        ]
+        for label, pattern, mutate in cases:
+            with self.subTest(label):
+                self.refuses(pattern, mutate, changed=changed)
+        with self.subTest('not in the changed set'):
+            self.refuses('changed source', changed=())
+        with self.subTest('the plan declares other hashes'):
+            self.refuses('disagrees', hashes={self.KEY: (sha(b'a'), sha(b'b'))})
+        with self.subTest('the plan declares no hashes'):
+            self.refuses('disagrees', hashes=None)
+        with self.subTest('the file on disk is not the before hash'):
+            self.fx.write(self.KEY, b'typedef int edited;\n')
+            self.refuses('on disk')
+            self.fx.write(self.KEY, HeaderFixture.HEADER_BEFORE)
+        self.derive()
+
+    def test_the_header_must_be_in_the_closure_of_every_listed_rows_owner(self):
+        unrelated = (sha(b'int unrelated;\n'), sha(b'int unrelated2;\n'))
+
+        def mutate(review):
+            review['owner_revisions']['src/unrelated.h'] = review['owner_revisions'].pop(self.KEY)
+            review['owner_revisions']['src/unrelated.h'].update(before=unrelated[0], after=unrelated[1])
+        with self.subTest('a header the owners never include'):
+            for name, document in (('evidence/pipe_a.json', self.fx.doc_a), ('evidence/pipe_b.json', self.fx.doc_b)):
+                document['evidence_files']['src/unrelated.h'] = unrelated[0]  # even when the manifests pin it
+                self.reseal(name, document)
+            self.refuses('does not use', mutate, changed=('src/unrelated.h',), hashes={'src/unrelated.h': unrelated})
+            for name, document in (('evidence/pipe_a.json', self.fx.doc_a), ('evidence/pipe_b.json', self.fx.doc_b)):
+                del document['evidence_files']['src/unrelated.h']
+                self.reseal(name, document)
+        with self.subTest('a row without an owner record is not a user'):
+            digest = sha((self.root / 'evidence/pipe_a.json').read_bytes())
+            self.refuses('does not use', self.use_digest('evidence/pipe_a.json', digest, extra=['m.p4']))
+        with self.subTest('the closure is literal: an inactive include is still in it'):
+            self.fx.write('src/mid.h', b'#if 0\n#include "pipe.h"\n#endif\n')
+            self.derive()
+        with self.subTest('the closure is followed through nested includes only'):
+            self.fx.write('src/mid.h', b'int mid;\n')
+            self.refuses('does not use')
+        self.fx.write('src/mid.h', HeaderFixture.MID)
+
+    def test_a_row_using_the_header_through_any_owner_must_be_listed(self):
+        document = self.fx.doc_a
+        helper = document['functions']['m.p4']['symbols'].pop('_helper')
+        # m.p4 has an owner record in an owner unit that does not reach the header: it stays unreviewed.
+        record = self.fx.owner()
+        record['owner']['source'] = 'src/other_owner.c'
+        document['functions']['m.p4']['symbols']['_pipe'] = record
+        digest = self.reseal('evidence/pipe_a.json', document)
+        self.derive(self.use_digest('evidence/pipe_a.json', digest))
+        # The same owner unit reaching the header makes the row a user: refused until it is reviewed.
+        self.fx.write('src/other_owner.c', HeaderFixture.OTHER_AFTER)
+        self.refuses('not reviewed', self.use_digest('evidence/pipe_a.json', digest))
+        plan = self.derive(self.use_digest('evidence/pipe_a.json', digest, extra=['m.p4']))
+        self.assertEqual(plan.owner_revisions()[self.KEY]['rows'], ['m.p1', 'm.p2', 'm.p3', 'm.p4'])
+        # A record that is neither a bss nor a file-data owner cannot be reviewed away.
+        document['functions']['m.p4']['symbols']['_pipe']['kind'] = 'data'
+        digest = self.reseal('evidence/pipe_a.json', document)
+        self.refuses('only as a loader-zero or file-data owner', self.use_digest('evidence/pipe_a.json', digest, extra=['m.p4']))
+        self.assertTrue(helper)
+
+    def test_an_owner_unit_that_cannot_be_placed_fails_closed(self):
+        document = self.fx.doc_a
+        record = self.fx.owner()
+        document['functions']['m.p4']['symbols']['_pipe'] = record
+        with self.subTest('flags are not a list'):
+            record['owner']['flags'] = '/O2'
+            digest = self.reseal('evidence/pipe_a.json', document)
+            self.refuses('Invalid owner compile profile', self.use_digest('evidence/pipe_a.json', digest))
+        with self.subTest('the owner source has an unresolved include'):
+            record['owner'].update(flags=['/O2'], source='src/other_owner.c')
+            self.fx.write('src/other_owner.c', b'#include "missing.h"\n')
+            digest = self.reseal('evidence/pipe_a.json', document)
+            self.refuses('cannot be computed', self.use_digest('evidence/pipe_a.json', digest))
+        with self.subTest('the owner flags are unsupported by the verifier'):
+            record['owner'].update(flags=['/FIforce.h'])
+            self.fx.write('src/other_owner.c', HeaderFixture.OTHER)
+            digest = self.reseal('evidence/pipe_a.json', document)
+            self.refuses('cannot be computed', self.use_digest('evidence/pipe_a.json', digest))
+
+    def test_the_manifest_must_pin_the_header_before_hash(self):
+        self.fx.doc_b['evidence_files'][self.KEY] = sha(b'an older header')
+        digest = self.reseal('evidence/pipe_b.json', self.fx.doc_b)
+        self.refuses('before-hash', self.use_digest('evidence/pipe_b.json', digest))
+
+    def test_a_header_revision_combines_with_an_owner_unit_revision(self):
+        base = self.fx.review
+        pipe_after = sha(b'#include "mid.h"\nENG1Pipe g_pipe2;\n')
+
+        def review(**kw):
+            item = base(**kw)
+            document = json.loads((self.root / item['path']).read_bytes())
+            document['owner_revisions']['src/pipe.c'] = dict(
+                before=sha(HeaderFixture.PIPE_BEFORE), after=pipe_after,
+                rows=dict(document['owner_revisions'][self.KEY]['rows']))
+            self.fx.write_json('evidence/pipe_review.json', document)
+            return item
+        self.fx.review = review
+        hashes = dict(self.HASHES, **{'src/pipe.c': (sha(HeaderFixture.PIPE_BEFORE), pipe_after)})
+        plan = self.derive(changed=(self.KEY, 'src/pipe.c'), hashes=hashes)
+        document = plan.manifests['evidence/pipe_a.json'][1]
+        self.assertEqual(document['evidence_files'][self.KEY], self.HASHES[self.KEY][1])
+        self.assertEqual(document['evidence_files']['src/pipe.c'], pipe_after)
+        self.assertEqual(sorted(plan.owner_revisions()), ['src/pipe.c', self.KEY])
+
+
+class HeaderRevisionApplyTests(unittest.TestCase):
+    """repin.apply() with a reviewed header revision: the fresh gate re-verifies every accepted row."""
+
+    def setUp(self):
+        base = Path(__file__).resolve().parents[1] / 'work'
+        base.mkdir(exist_ok=True)
+        self.tmp = tempfile.TemporaryDirectory(dir=base)
+        self.root = Path(self.tmp.name).resolve()
+        self.fx = HeaderFixture(self.root)
+        (self.root / 'recovery.json').write_text(json.dumps(self.fx.state, indent=2) + '\n')
+        import promote
+        self.patches = [patch.object(repin, 'ROOT', self.root), patch.object(binding_rename, 'ROOT', self.root),
+                        patch.object(match, 'ROOT', self.root), patch.object(promote, 'lock', no_lock),
+                        patch.object(promote, 'JOURNAL', self.root / 'work/promotion-journal.json'),
+                        patch.object(promote, 'assert_verified_inputs', lambda *a, **k: None),
+                        patch.object(repin, 'frozen_before', lambda *a, **k: None),
+                        patch.object(match, 'verify_rows', self.fx.verify)]
+        for p in self.patches:
+            p.start()
+
+    def tearDown(self):
+        for p in reversed(self.patches):
+            p.stop()
+        self.tmp.cleanup()
+
+    run_apply = OwnerRevisionApplyTests.run_apply
+
+    def test_header_revision_reissues_the_owner_users_and_snapshots_the_rest(self):
+        # m.p4 is a caller whose context contains the header; it is not an owner user.
+        state = json.loads((self.root / 'recovery.json').read_bytes())
+        p4 = next(r for r in state['functions'] if r['id'] == 'm.p4')
+        p4['proof']['context_sha256'] = {'src/p4.c': sha((self.root / 'src/p4.c').read_bytes()),
+                                         'src/pipe.h': sha(HeaderFixture.HEADER_BEFORE)}
+        (self.root / 'recovery.json').write_text(json.dumps(state, indent=2) + '\n')
+        self.fx.state = state
+        receipt = self.run_apply(self.fx.plan(self.fx.review()))
+        rows = {r['id']: r for r in json.loads((self.root / 'recovery.json').read_bytes())['functions']}
+        self.assertEqual((self.root / 'src/pipe.h').read_bytes(), HeaderFixture.HEADER_AFTER)
+        for row_id in ('m.p1', 'm.p2', 'm.p3'):
+            proof = rows[row_id]['proof']
+            manifest = json.loads((self.root / proof['bindings_path']).read_bytes())
+            self.assertTrue(proof['bindings_path'].startswith('evidence/rename_'))
+            self.assertEqual(manifest['evidence_files']['src/pipe.h'], sha(HeaderFixture.HEADER_AFTER))
+            self.assertEqual(manifest['evidence_files']['src/pipe.c'], sha(HeaderFixture.PIPE_BEFORE))
+            self.assertNotIn('src/pipe.h', proof.get('reference_snapshots', {}))
+        proof = rows['m.p4']['proof']
+        self.assertEqual(proof['bindings_path'], 'evidence/pipe_a.json')  # not an owner user: parent manifest, snapshot
+        self.assertEqual(proof['reference_snapshots']['src/pipe.h'],
+                         'evidence/repin_snapshots/%s.txt' % sha(HeaderFixture.HEADER_BEFORE))
+        self.assertEqual(proof['context_sha256']['src/pipe.h'], sha(HeaderFixture.HEADER_AFTER))  # caller context follows
+        self.assertEqual(receipt['binding_renames']['owner_revisions']['src/pipe.h']['rows'], ['m.p1', 'm.p2', 'm.p3'])
+        self.assertEqual(len(receipt['preserved']), 4)
+
+    def test_a_user_missing_from_the_review_fails_before_anything_is_written(self):
+        review = self.fx.review()
+        document = json.loads((self.root / review['path']).read_bytes())
+        del document['owner_revisions']['src/pipe.h']['rows']['m.p3']
+        self.fx.write_json('evidence/pipe_review.json', document)
+        review = dict(path=review['path'], sha256=sha((self.root / review['path']).read_bytes()))
+        before = (self.root / 'recovery.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'not reviewed'):
+            self.run_apply(self.fx.plan(review))
+        self.assertEqual((self.root / 'recovery.json').read_bytes(), before)
+        self.assertEqual((self.root / 'src/pipe.h').read_bytes(), HeaderFixture.HEADER_BEFORE)
+        self.assertEqual(list((self.root / 'evidence').glob('rename_*.json')), [])
+
+    def test_the_gate_still_fails_closed_without_the_review(self):
+        plan = self.fx.plan(None)
+        del plan['binding_review']
+        before = (self.root / 'recovery.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'independently pinned'):
+            self.run_apply(plan)
+        self.assertEqual((self.root / 'recovery.json').read_bytes(), before)
+        self.assertEqual((self.root / 'src/pipe.h').read_bytes(), HeaderFixture.HEADER_BEFORE)
 
 
 if __name__ == '__main__':
