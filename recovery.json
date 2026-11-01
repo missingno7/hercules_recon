@@ -145159,6 +145159,32 @@
           "_eng1_native_code_target_0019c20"
         ]
       }
+    },
+    {
+      "id": "eng1.native_code_target_0041000",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x41000",
+      "size": 176,
+      "source": "src/eng1/classifier_child_41000.c",
+      "symbol": "_eng1_native_code_target_0041000",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane l06 (2026-10-31): work/velocity_k/l06/handoff.json. Re-pin b24 (2026-11-01): ENG1 callee 0x41000 reconstructed in classifier_child_41000.c (l06); the unit's diagnostic bounds guard and volatile casts are removed (the native indexes the classifier row directly).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_eng1_guarded_select_frame": "0x292f0",
+        "_g_eng1_classifier_rows_65678": "0x65678"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "b69ca609aa5ee1593ea8c16f85e5a1094ee35160cb8bc366fb782ed3a191d046",
+        "masked_sha256": "c44d618b19c3d11e4b028577e08b4976305c9d22bf13b0f0864f8e3f8833fd39",
+        "toolchain": "msvc5_rtm"
+      }
     }
   ]
 }
