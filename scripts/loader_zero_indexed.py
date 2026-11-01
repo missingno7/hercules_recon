@@ -41,7 +41,12 @@ def verify_record_access(ins, off, addend, extent, caller_rva, record, expected,
         return dict(offset=off, addend=addend, form='immediate')
     mem = [o for o in ins.operands if o.type == capstone.x86.X86_OP_MEM]
     if len(mem) == 1 and not (mem[0].mem.base or mem[0].mem.index):
-        if mem[0].mem.segment or addend + mem[0].size > extent:
+        # Same mnemonic/prefix allowlist as fixed_disp32.verify_access: no LEA, CALL/JMP, address-size
+        # or segment/REP/LOCK prefixes (only an optional 0x66 operand-size prefix).
+        from fixed_disp32 import _scalar_prefixes
+        if (ins.mnemonic == 'lea' or ins.group(capstone.CS_GRP_CALL) or ins.group(capstone.CS_GRP_JUMP) or
+                ins.addr_size != 4 or not _scalar_prefixes(ins) or
+                mem[0].mem.segment or addend + mem[0].size > extent):
             raise ValueError('Loader-zero memory access exceeds its complete scalar owner')
         return dict(offset=off, addend=addend, width=mem[0].size, form='direct')
     receipt = dict(verify_indexed_access(ins, off, addend, extent, caller_rva), profile=ACCESS_PROFILE)

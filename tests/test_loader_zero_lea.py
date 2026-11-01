@@ -133,7 +133,8 @@ class LoaderZeroLeaTests(unittest.TestCase):
             self.compare()
 
     def test_base_plus_index_base_only_and_missing_index_reject(self):
-        for raw in ['8d848500224000', '8d8c0500224000', '8d800022400000', '8d042500224000', '8d002200400000']:
+        for raw in ['8d848500224000', '8d8c0500224000', '8d800022400000', '8d042500224000', '8d002200400000',
+                    '8d0500224000']:
             with self.subTest(raw=raw), self.assertRaises(ValueError):
                 lea.lea_encoding(decode(bytes.fromhex(raw)))
         self.prepare('8d848500000000c3', survey=[PLACEHOLDER])
@@ -154,6 +155,45 @@ class LoaderZeroLeaTests(unittest.TestCase):
         self.prepare('678d048500000000c3', off=4, survey=[PLACEHOLDER])
         with self.assertRaises(ValueError):
             self.compare()
+
+    def test_every_lea_is_routed_here_and_absolute_lea_no_longer_gets_a_width(self):
+        # Deliberate tightening: loader_zero_indexed used to admit these as width-carrying 'direct' receipts.
+        for raw in ['8d0500224000', '668d0500224000', '648d0500224000']:
+            ins = decode(bytes.fromhex(raw))
+            off = ins.disp_offset
+            self.assertTrue(lea.is_lea(ins))
+            with self.assertRaises(ValueError):
+                lea.verify_record_access(ins, off, 0, 8, 0x1000, {}, bytes.fromhex(raw), 0x402200)
+        self.assertEqual(lz.verify_record_access(decode(bytes.fromhex('a100224000')), 1, 0, 8, 0x1000, {},
+                                                 bytes.fromhex('a100224000'), 0x402200)['form'], 'direct')
+        old_survey = [dict(profile=lz.ACCESS_PROFILE, offset=2, addend=0, width=4, form='direct')]
+        self.prepare('8d0500000000c3', off=2, survey=old_survey)
+        with self.assertRaisesRegex(ValueError, 'unprefixed lea'):
+            self.compare()
+        # The same absolute site as a plain MOV passes the access check (only the survey differs).
+        self.prepare('8b0500000000c3', off=2, survey=old_survey)
+        with self.assertRaisesRegex(ValueError, 'survey differs'):
+            self.compare()
+
+    def test_lea_only_survey_satisfies_the_indexed_survey_gate(self):
+        self.prepare()
+        survey = self.z.record['loader_zero_indexed']['accesses']
+        self.assertTrue(all(a.get('access') == 'address' for a in survey))
+        lz.validate_record(self.z.record)
+        self.assertTrue(self.compare()['relocated_equal'])
+
+    def test_direct_path_applies_the_verify_access_mnemonic_and_prefix_gate(self):
+        good = ['a100224000', '66a100224000', '8b0d00224000', '0fb60500224000']
+        for raw in good:
+            ins = decode(bytes.fromhex(raw))
+            with self.subTest(raw=raw):
+                self.assertEqual(lz.verify_record_access(ins, ins.disp_offset, 0, 8, 0x1000, {},
+                                                         bytes.fromhex(raw), 0x402200)['form'], 'direct')
+        for raw in ['ff1500224000', 'ff2500224000', 'f38b0d00224000', 'f3a100224000', 'f0ff0500224000',
+                    '648b0d00224000', '678b0d00224000', 'f2a100224000', '8d0500224000']:
+            ins = decode(bytes.fromhex(raw))
+            with self.subTest(raw=raw), self.assertRaises(ValueError):
+                lz.verify_record_access(ins, ins.disp_offset, 0, 8, 0x1000, {}, bytes.fromhex(raw), 0x402200)
 
     def test_other_opcodes_and_non_dword_destinations_reject(self):
         for raw in ['8b048500224000', 'ff148500224000', 'ff248500224000', 'c7048500224000ffffffff',

@@ -223,7 +223,16 @@ Verifier forms, all opt-in and dispatched from the `fixed_disp32.py` copy of the
   index, no prefix of any kind, disp32 = owner + addend with `0 <= addend < minimum extent`, and the
   shared comparator's exact HIGHLOW check. Its survey receipt carries `access: "address"` and no
   `width`: it proves only that the address was formed from the owner base plus the addend, and claims
-  nothing about any access made through it. The dereference module and every other check are unchanged.
+  nothing about any access made through it. Owner identity and extent still come only from the compiled
+  owner and the anchor, and a record whose survey holds only LEA receipts satisfies the "needs an indexed
+  access survey" gate. Two deliberate tightenings: every LEA now goes through this module, so absolute
+  `8d05 disp32` and prefixed LEAs, which `loader_zero_indexed` used to admit as a width-carrying `direct`
+  receipt, are refused (a width on an LEA was the wrong claim); and the `direct` path of
+  `loader_zero_indexed` now applies the `fixed_disp32.verify_access` mnemonic/prefix allowlist (no LEA,
+  CALL/JMP, address-size override, or segment/REP/LOCK prefix; only an optional `0x66`), where it
+  previously admitted e.g. `call [owner]` or an `f3`-prefixed `mov` with a width. A scan of all 68 accepted
+  rows with a `loader-zero-indexed-v1` record (87 reference sites: 86 `mov`, 1 `add`, no LEA) re-ran every
+  site through the verifier on the native bytes with 0 failures, so no accepted row regresses.
 
 `_g_kind_info` (ENG1 0x6fee8; ENG3 0x3fbd0) is bound with an 8-byte minimum extent (element 0).
 The canonical `g_kind_info[1]` declaration is **not** a proven allocation size. A native runtime

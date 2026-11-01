@@ -1,11 +1,12 @@
 """Address-formation (LEA) use of an independently anchored DLL loader-zero owner.
 
-An opt-in companion to loader-zero-indexed-v1 (loader_zero_indexed.py, unchanged).
-The record, its anchor, its minimum-extent claim and its access survey are exactly
-those of the indexed dereference form. This module only admits one more instruction
-shape in that survey: ``lea reg32, [index*scale + disp32]`` (8D /r, mod00 rm100,
-SIB base101, a real index, scale 1/2/4/8, no prefix) whose disp32 is the HIGHLOW
-field owner + addend with 0 <= addend < the proven minimum extent.
+An opt-in companion to loader-zero-indexed-v1 (loader_zero_indexed.py). The
+record, its anchor, its minimum-extent claim and its access survey are exactly
+those of the indexed dereference form. Owner identity and extent still come only
+from the compiled owner and the native anchor. This module admits one more
+instruction shape in that survey: ``lea reg32, [index*scale + disp32]`` (8D /r,
+mod00 rm100, SIB base101, a real index, scale 1/2/4/8, no prefix) whose disp32 is
+the HIGHLOW field owner + addend with 0 <= addend < the proven minimum extent.
 
 LEA computes an address and accesses no memory. The receipt therefore carries
 access='address' and no width, and proves only that the address was formed from
@@ -13,7 +14,18 @@ the owner base plus the addend. It makes no claim about what the computed addres
 is later used for, the width of any later access, an upper bound or a runtime
 index range. The HIGHLOW fixup at the field is checked by the shared comparator
 (native base-relocation inventory against the compiler DIR32 fields).
-Everything that is not this exact LEA goes to loader_zero_indexed unchanged.
+
+Deliberate tightening: EVERY LEA is routed here, including absolute ``8d05 disp32``
+and prefixed forms that loader_zero_indexed used to admit as a width-carrying
+'direct' receipt. A width on an LEA was the wrong claim, so those forms are now
+refused. A scan of every accepted loader-zero-indexed record found no LEA site,
+so no accepted row regresses. Everything that is not an LEA goes to
+loader_zero_indexed, whose direct path now applies the fixed_disp32.verify_access
+mnemonic/prefix allowlist (also scanned: no accepted row regresses).
+
+A record whose survey holds only LEA receipts still satisfies the "needs an
+indexed access survey" gate of loader_zero_indexed.validate_record: the gate only
+requires one survey entry with this profile.
 """
 import struct
 
@@ -76,7 +88,8 @@ def verify_record_access(ins, off, addend, extent, caller_rva, record, expected,
     decoder.detail = True
     native = list(decoder.disasm(expected[start:start + ins.size], ins.address))
     try:
-        same = len(native) == 1 and native[0].size == ins.size and             verify_lea_access(native[0], off, addend, extent, caller_rva) == receipt
+        same = (len(native) == 1 and native[0].size == ins.size and
+                verify_lea_access(native[0], off, addend, extent, caller_rva) == receipt)
     except ValueError:
         same = False
     if not same:
