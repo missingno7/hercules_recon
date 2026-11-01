@@ -1,19 +1,18 @@
-/* Ordinary-C behavioral reconstruction of ENG1.DLL RVA 0x2cc50.
+/* Original-backed C reconstruction of ENG1.DLL RVA 0x2cc50.
  * The callback table uses cdecl actor-pointer entries; this body has one
  * measured stack argument and its caller-facing return contract is void. */
 #include "interpreters.h"
 #include "actor_pipeline_storage.h"
 #include "initial_motion_roots.h"
 #include "actor_control_state.h"
-#include "read_guard.h"
 
 extern Eng1InitialMotion2 g_eng1_initial_motion_05c3a0[6];
 extern void __cdecl eng1_native_code_target_002a290(Actor *actor);
 
 void __cdecl eng1_native_code_target_02cc50(Actor *actor)
 {
-    volatile Eng1ActorControlState70ed8 *state;
-    volatile Actor *view;
+    Eng1ActorControlState70ed8 *state;
+    Actor *view;
 
     state = &g_eng1_actor_control_state_70ed8;
     view = actor;
@@ -22,7 +21,7 @@ void __cdecl eng1_native_code_target_02cc50(Actor *actor)
     state->words[19] = 0U;            /* WORD 0x70efe */
     state->words[18] = 0U;            /* WORD 0x70efc */
     state->words[25] = 0U;            /* WORD 0x70f0a */
-    *(volatile unsigned short *)(void *)
+    *(unsigned short *)(void *)
         &g_actor_pipeline_storage_71440.word_cells[6] = 0U; /* WORD 0x7144c */
     state->words[12] = 0U;            /* WORD 0x70ef0 */
     state->words[22] = 0U;            /* WORD 0x70f04 */
@@ -38,7 +37,7 @@ void __cdecl eng1_native_code_target_02cc50(Actor *actor)
     state->words[20] = 0x83U;         /* WORD 0x70f00 */
 
     view->direction_x = 0U;            /* BYTE actor+0x94 */
-    eng1_guarded_advance_frame(actor);  /* preflight, then existing 0x29270 */
+    advance_frame(actor);              /* Native direct call: accepted eng1.advance_frame, RVA 0x29270. */
     view->steps = g_eng1_initial_motion_05c3a0; /* pointer actor+0xf0 */
     view->step_index = 1L;             /* DWORD actor+0xf4 */
     view->active_step = (short)-1;     /* WORD actor+0x11e */
