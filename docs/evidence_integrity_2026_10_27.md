@@ -217,6 +217,13 @@ Verifier forms, all opt-in and dispatched from the `fixed_disp32.py` copy of the
   keep the legacy loader-zero checks. Tests: `tests/test_loader_zero_indexed.py`, which covers wrong
   anchors, offsets, owner extents and native instruction mismatches, with native controls on
   ENG1.DLL.
+  The same profile also admits the address form `lea reg32, [index*scale + disp32]`
+  (`scripts/loader_zero_lea.py`, dispatched from `fixed_disp32.access_form`; tests in
+  `tests/test_loader_zero_lea.py`): exactly `8D /r` with mod00 rm100, a SIB with no base and a real
+  index, no prefix of any kind, disp32 = owner + addend with `0 <= addend < minimum extent`, and the
+  shared comparator's exact HIGHLOW check. Its survey receipt carries `access: "address"` and no
+  `width`: it proves only that the address was formed from the owner base plus the addend, and claims
+  nothing about any access made through it. The dereference module and every other check are unchanged.
 
 `_g_kind_info` (ENG1 0x6fee8; ENG3 0x3fbd0) is bound with an 8-byte minimum extent (element 0).
 The canonical `g_kind_info[1]` declaration is **not** a proven allocation size. A native runtime

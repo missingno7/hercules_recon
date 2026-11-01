@@ -216,7 +216,8 @@ def access_form(record):
     if 'access_profile' not in record:
         return None
     if record['access_profile'] == 'loader-zero-indexed-v1':
-        from loader_zero_indexed import validate_record, verify_record_access
+        from loader_zero_indexed import validate_record
+        from loader_zero_lea import verify_record_access  # adds the LEA address form; all else unchanged
     else:
         from fixed_indexed import validate_record, verify_record_access
     validate_record(record)
