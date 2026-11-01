@@ -854,7 +854,25 @@ unsigned char g_status_palette_block_602a8[28] = { 255, 1, 2, 3, 4, 0, 0, 0, 255
 
 
 extern unsigned long eng1_sim_state_72110;
-extern SpawnRecord g_spawn_records_5ff60[];
+/* Native 12-byte placement records through the kind-zero stop record. */
+SpawnRecord g_spawn_records_5ff60[16] = {
+    { 0, -72, 8, 16427, 182, 153, 0 },
+    { 0, -68, 12, 16427, 183, 105, 0 },
+    { -8, -64, -8, 16427, 185, 105, 0 },
+    { 16, -68, 8, 16427, 178, 0, 0 },
+    { 12, -68, -12, 16427, 178, 0, 0 },
+    { 8, -72, 16, 16427, 179, 0, 0 },
+    { 4, -52, 12, 16427, 179, 0, 0 },
+    { 0, -60, -16, 16427, 180, 0, 0 },
+    { -4, -58, -8, 16427, 181, 255, 255 },
+    { -8, -89, 8, 16427, 184, 255, 255 },
+    { -12, -66, 4, 16427, 185, 255, 255 },
+    { -16, -78, 12, 16427, 188, 255, 255 },
+    { 0, -64, -16, 16427, 189, 255, 255 },
+    { 24, -54, 9, 16427, 190, 255, 255 },
+    { 16, -68, -12, 16427, 191, 255, 255 },
+    { 0, 0, 0, 0, 0, 0, 0 }
+};
 extern Callback8 *g_configuration_dword_7137c;
 extern unsigned short g_debris_sounds_5febc[];
 unsigned int dispatch_engine_2c470(void);

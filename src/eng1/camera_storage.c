@@ -9,18 +9,18 @@ typedef char camera_storage_short16[(sizeof(short)==2)?1:-1];
 long g_render_transform_70c60[8]={0};
 /* Scalar width is native DWORD; static storage still starts at zero. */
 long g_camera_x_70ca0;
-long g_camera_y_70ca4=0, g_camera_z_70ca8=0;
-long g_camera_grid_x_70cac=0, g_camera_grid_y_70cb0=0, g_camera_grid_z_70cb4=0;
-long g_camera_offset_x_70cb8=0, g_camera_offset_y_70cbc=0, g_camera_offset_z_70cc0=0;
-long g_camera_prior_x_70cc4=0, g_camera_prior_y_70cc8=0;
-long g_camera_angle_x_70cd0=0, g_camera_angle_y_70cd4=0;
-long g_camera_center_x_70cdc=0, g_camera_center_y_70ce0=0, g_camera_focal_70ce4=0;
-unsigned char g_camera_iterations_70cfd=0, g_camera_bounds_id_70cff=0;
-short g_camera_adjust_x_70d02=0, g_camera_adjust_y_70d04=0, g_camera_adjust_z_70d06=0;
-short g_camera_depth_low_70d0c=0, g_camera_depth_high_70d0e=0;
+long g_camera_y_70ca4, g_camera_z_70ca8;
+long g_camera_grid_x_70cac, g_camera_grid_y_70cb0, g_camera_grid_z_70cb4;
+long g_camera_offset_x_70cb8, g_camera_offset_y_70cbc, g_camera_offset_z_70cc0;
+long g_camera_prior_x_70cc4, g_camera_prior_y_70cc8;
+long g_camera_angle_x_70cd0, g_camera_angle_y_70cd4;
+long g_camera_center_x_70cdc, g_camera_center_y_70ce0, g_camera_focal_70ce4;
+unsigned char g_camera_iterations_70cfd, g_camera_bounds_id_70cff;
+short g_camera_adjust_x_70d02, g_camera_adjust_y_70d04, g_camera_adjust_z_70d06;
+short g_camera_depth_low_70d0c, g_camera_depth_high_70d0e;
 /* +12 is independently supplied selected-width WORD; no overlapping DWORD. */
-unsigned short g_camera_flags_70d10=0;
-long g_camera_z_offset_70d18=0, g_camera_z_base_70d1c=0;
+unsigned short g_camera_flags_70d10;
+long g_camera_z_offset_70d18, g_camera_z_base_70d1c;
 
 /* Each native lookup terminates at the firstFFFF WORD. The17-WORD prefix is
  * sufficient for every16-bit magnitude; six following zero bytes are padding/

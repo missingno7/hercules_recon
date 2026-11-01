@@ -183,6 +183,8 @@ extern unsigned char eng1_frame_target_053550[];
 extern unsigned char g_eng1_setup_byte_7215c;
 extern short g_eng1_setup_word_721a0;
 extern short g_eng1_word_7144c;
+#include "actor_pipeline_storage.h"
+
 extern long g_context_default_dword_72190;
 extern long g_player_cruise_707e8;
 extern LiftRow g_lift_rows_52c08[];
@@ -685,7 +687,7 @@ int eng1_12ef0(Actor *o)
     }
     if (sound)
         play_sound(sound, o);
-    g_eng1_word_7144c = 0;
+    (*(short *)(void *)&g_actor_pipeline_storage_71440.word_cells[6]) = 0;
     return taken;
 }
 

@@ -49,8 +49,89 @@ typedef char mode_context_pressed5e[(offsetof(ModeContext, pressed) == 0x5e) ? 1
 extern void *g_normal_actor_pool;
 extern unsigned short g_eng1_6ef70;
 extern unsigned short g_eng1_word_5cf54;
-extern unsigned char g_eng1_image_546b0[], g_eng1_image_54c30[];
-extern unsigned char g_eng1_image_54b50[], g_eng1_image_53e80[];
+typedef struct Eng1CommandPair { short opcode; short operand; } Eng1CommandPair;
+/* Native signed command pairs through first return/restart; no allocation upper bound. */
+extern unsigned char g_eng1_image_546b0[]; /* Original declaration context; actual use is an owner view. */
+extern unsigned char g_eng1_setup_program_54558[];
+/* Native signed command pairs through first return/restart; no allocation upper bound. */
+Eng1CommandPair g_eng1_image_54c30[17] = {
+    { -13, 4 },
+    { 1, 6 },
+    { 2, 3 },
+    { 3, 3 },
+    { 4, 3 },
+    { 5, 3 },
+    { 6, 3 },
+    { 7, 3 },
+    { 8, 14 },
+    { 7, 3 },
+    { 6, 3 },
+    { 5, 3 },
+    { 4, 3 },
+    { 3, 3 },
+    { 2, 3 },
+    { 1, 6 },
+    { -1, 0 }
+};
+/* Native signed command pairs through first return/restart; no allocation upper bound. */
+Eng1CommandPair g_eng1_image_54b50[55] = {
+    { -13, 1 },
+    { 1, 2 },
+    { -13, 5 },
+    { 1, 2 },
+    { -51, 0 },
+    { -29, 16444 },
+    { 2, 2 },
+    { 3, 2 },
+    { 4, 2 },
+    { 5, 2 },
+    { 6, 2 },
+    { 7, 2 },
+    { 8, 2 },
+    { 9, 2 },
+    { 10, 2 },
+    { 11, 2 },
+    { 12, 2 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 21, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 21, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 21, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 21, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 21, 2 },
+    { 22, 2 },
+    { 23, 2 },
+    { 24, 2 },
+    { 25, 2 },
+    { 26, 2 },
+    { 27, 2 },
+    { 28, 2 },
+    { 29, 2 },
+    { 30, 2 },
+    { 31, 2 },
+    { 32, 2 },
+    { -10, 0 },
+    { 1, 25 },
+    { -9, 0 },
+    { -2, 0 },
+    { 1, 2 },
+    { -1, 0 }
+};
+extern unsigned char g_eng1_image_53e80[];
 extern unsigned char g_eng1_image_53e58[];
 extern unsigned long __cdecl dispatch_local_15d00(void);
 extern void __cdecl dispatch_local_16790(void);
@@ -83,7 +164,7 @@ void __cdecl eng1_native_code_target_0018a10(void)
     if (!dispatch_local_15d00())
         return;
     eng1_sim_state_72108 = 0x13;
-    MODE_ACTOR()->image = g_eng1_image_546b0;
+    MODE_ACTOR()->image = (g_eng1_setup_program_54558 + 0x158);
     MODE_ACTOR()->ticks = -1;
     MODE_ACTOR()->phase = -1;
     dispatch_local_15d00();
@@ -148,14 +229,14 @@ void __cdecl eng1_native_code_target_0019140(void)
 void __cdecl eng1_native_code_target_00191e0(void)
 {
     ModeActor *actor = MODE_ACTOR();
-    if (actor->image == g_eng1_image_54c30) {
+    if (actor->image == ((unsigned char *)&g_eng1_image_54c30[0])) {
         if (actor->phase > 8) {
             title_04ea0(1);
             actor = MODE_ACTOR();
         }
         if (g_eng1_word_5cf54 == 3) {
             eng1_sim_state_72108 = 0x19;
-            actor->image = g_eng1_image_54b50;
+            actor->image = ((unsigned char *)&g_eng1_image_54b50[0]);
             MODE_ACTOR()->ticks = -1;
             MODE_ACTOR()->phase = -1;
             dispatch_local_15d00();
@@ -319,7 +400,21 @@ void __cdecl eng1_native_code_target_0019c20(void)
 /* 0x19d70..0x19f50: vertical braking, stop transition, and floor clamp. */
 extern ModeActor *g_native_pointer_7217c;
 /* Native pointer cell 0x7217c uses its canonical collision owner below. */
-extern unsigned char g_eng1_image_53e28[];
+/* Native signed command pairs through first return/restart; no allocation upper bound. */
+Eng1CommandPair g_eng1_image_53e28[12] = {
+    { -13, 1 },
+    { 392, 2 },
+    { -29, 16389 },
+    { 393, 2 },
+    { 394, 2 },
+    { 395, 2 },
+    { -2, 0 },
+    { 396, 2 },
+    { 397, 2 },
+    { 398, 2 },
+    { 399, 2 },
+    { -1, 0 }
+};
 extern int __cdecl eng1_29da0(void *);
 extern int __cdecl eng1_19970(int);
 extern void __cdecl eng1_170c0(void);
@@ -346,7 +441,7 @@ void __cdecl eng1_19d70(void)
                 (MODE_CONTEXT()->held & 0x40)) {
                 actor = MODE_ACTOR();
                 eng1_sim_state_72108 = 0x18;
-                actor->image = g_eng1_image_53e28;
+                actor->image = ((unsigned char *)&g_eng1_image_53e28[0]);
                 MODE_ACTOR()->ticks = -1;
                 MODE_ACTOR()->phase = -1;
                 dispatch_local_15d00();
@@ -409,11 +504,193 @@ extern ModeActor *g_frame_owner_72860;
 extern long g_eng1_7210c;
 extern short g_pipeline_word_71bc4, g_pipeline_word_71c5c;
 extern unsigned long g_frame_global_70c54;
-extern unsigned char g_eng1_image_544c0[];
-extern unsigned char g_eng1_image_549f0[], g_eng1_image_54aa0[], g_eng1_image_54930[];
+/* Native signed command pairs through first return/restart; no allocation upper bound. */
+Eng1CommandPair g_eng1_image_544c0[38] = {
+    { -13, 3 },
+    { 1, 1 },
+    { 2, 1 },
+    { 3, 1 },
+    { 4, 1 },
+    { 5, 1 },
+    { 21, 4 },
+    { 22, 2 },
+    { 23, 2 },
+    { -29, 16395 },
+    { 24, 2 },
+    { -49, 1 },
+    { 25, 2 },
+    { -49, 2 },
+    { 26, 2 },
+    { -49, 3 },
+    { 27, 2 },
+    { -49, 4 },
+    { 28, 2 },
+    { -49, 5 },
+    { 29, 2 },
+    { -49, 6 },
+    { 30, 2 },
+    { -49, 7 },
+    { 31, 4 },
+    { -49, 8 },
+    { 32, 2 },
+    { -49, 9 },
+    { 33, 2 },
+    { -49, 10 },
+    { 34, 2 },
+    { -49, 11 },
+    { 35, 2 },
+    { -49, 12 },
+    { 36, 2 },
+    { -49, 13 },
+    { 37, 5 },
+    { -3, 0 }
+};
+/* Native signed command pairs through first return/restart; no allocation upper bound. */
+Eng1CommandPair g_eng1_image_549f0[43] = {
+    { -13, 4 },
+    { 9, 2 },
+    { 10, 2 },
+    { 11, 2 },
+    { 12, 2 },
+    { -29, 16426 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 28, 2 },
+    { 29, 2 },
+    { 30, 2 },
+    { -29, 16427 },
+    { 31, 2 },
+    { 32, 2 },
+    { 33, 30 },
+    { -10, 0 },
+    { 33, 30 },
+    { -11, 0 },
+    { -2, 0 },
+    { 33, 30 },
+    { -1, 0 }
+};
+/* Native signed command pairs through first return/restart; no allocation upper bound. */
+Eng1CommandPair g_eng1_image_54aa0[43] = {
+    { -13, 4 },
+    { 9, 2 },
+    { 10, 2 },
+    { 11, 2 },
+    { 12, 2 },
+    { -29, 16426 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 21, 2 },
+    { 22, 2 },
+    { 23, 2 },
+    { 24, 2 },
+    { 25, 2 },
+    { -29, 16427 },
+    { 26, 30 },
+    { -10, 0 },
+    { 26, 30 },
+    { -11, 0 },
+    { -2, 0 },
+    { 26, 30 },
+    { -1, 0 }
+};
+/* Native signed command pairs through first return/restart; no allocation upper bound. */
+Eng1CommandPair g_eng1_image_54930[48] = {
+    { -13, 4 },
+    { 9, 2 },
+    { 10, 2 },
+    { 11, 2 },
+    { 12, 2 },
+    { -29, 16426 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 13, 2 },
+    { 14, 2 },
+    { 15, 2 },
+    { 16, 2 },
+    { 17, 2 },
+    { 18, 2 },
+    { 19, 2 },
+    { 20, 2 },
+    { 28, 2 },
+    { 29, 2 },
+    { 30, 2 },
+    { -29, 16427 },
+    { 31, 2 },
+    { 32, 2 },
+    { 33, 8 },
+    { 34, 4 },
+    { 35, 4 },
+    { 36, 2 },
+    { -29, 16427 },
+    { 36, 28 },
+    { -10, 0 },
+    { 36, 30 },
+    { -11, 0 },
+    { -2, 0 },
+    { 36, 52 },
+    { -1, 0 }
+};
 extern unsigned char g_eng1_setup_program_54558[];
 extern void __cdecl resource_reset(int);
-extern void __cdecl dispatch_engine_2c4d0(void);
+extern void __cdecl title_0c4e0(void);
 extern unsigned int __cdecl random_limit(int);
 extern long __cdecl eng1_2a010(long, long, long, int);
 
@@ -433,9 +710,9 @@ int __cdecl eng1_18b10(void)
     g_eng1_setup_word_6ef9c = 0;
     g_eng1_setup_dword_7201c = kind;
     eng1_sim_state_72108 = 0x14;
-    g_frame_owner_72860->image = g_eng1_image_544c0;
-    g_frame_owner_72860->ticks = -1;
-    g_frame_owner_72860->phase = -1;
+    ((ModeActor *)(void *)g_normal_actor_pool)->image = ((unsigned char *)&g_eng1_image_544c0[0]);
+    ((ModeActor *)(void *)g_normal_actor_pool)->ticks = -1;
+    ((ModeActor *)(void *)g_normal_actor_pool)->phase = -1;
     dispatch_local_15d00();
     return 1;
 }
@@ -450,16 +727,16 @@ int __cdecl eng1_18bb0(void)
         if (context->held_05c & 0x10) {
             if (g_eng1_setup_dword_7201c == 4)
                 return 0;
-            owner = g_frame_owner_72860;
+            owner = ((ModeActor *)(void *)g_normal_actor_pool);
             eng1_sim_state_72108 = 0x2f;
             owner->image = g_eng1_setup_program_54558 + 0x90;
         } else {
-            owner = g_frame_owner_72860;
+            owner = ((ModeActor *)(void *)g_normal_actor_pool);
             eng1_sim_state_72108 = 0x2f;
             owner->image = g_eng1_setup_program_54558;
         }
-        g_frame_owner_72860->ticks = -1;
-        g_frame_owner_72860->phase = -1;
+        ((ModeActor *)(void *)g_normal_actor_pool)->ticks = -1;
+        ((ModeActor *)(void *)g_normal_actor_pool)->phase = -1;
         dispatch_local_15d00();
         return 1;
     }
@@ -501,37 +778,37 @@ void __cdecl eng1_18f60(void)
     context[5] = 1;
     context = (ModeByte *)(void *)MODE_CONTEXT();
     context[1] = context[2];
-    dispatch_engine_2c4d0();
-    eng1_29c20(g_frame_owner_72860);
+    title_0c4e0();
+    eng1_29c20(((ModeActor *)(void *)g_normal_actor_pool));
 
     positive = 0;
     negative = 0;
     for (step = 0x100000L; step < 0x410000L; step += 0x100000L) {
-        if (dispatch_local_30010(g_frame_owner_72860->x + step,
-                                 g_frame_owner_72860->y - 0x20000UL,
-                                 g_frame_owner_72860->z, 1))
+        if (dispatch_local_30010(((ModeActor *)(void *)g_normal_actor_pool)->x + step,
+                                 ((ModeActor *)(void *)g_normal_actor_pool)->y - 0x20000UL,
+                                 ((ModeActor *)(void *)g_normal_actor_pool)->z, 1))
             positive++;
-        hit = (unsigned short)eng1_2a010(g_frame_owner_72860->x + step,
-                                         g_frame_owner_72860->y,
-                                         g_frame_owner_72860->z, 0);
+        hit = (unsigned short)eng1_2a010(((ModeActor *)(void *)g_normal_actor_pool)->x + step,
+                                         ((ModeActor *)(void *)g_normal_actor_pool)->y,
+                                         ((ModeActor *)(void *)g_normal_actor_pool)->z, 0);
         if (hit != 0)
             positive++;
-        if (dispatch_local_30010(g_frame_owner_72860->x - step,
-                                 g_frame_owner_72860->y - 0x20000UL,
-                                 g_frame_owner_72860->z, 1))
+        if (dispatch_local_30010(((ModeActor *)(void *)g_normal_actor_pool)->x - step,
+                                 ((ModeActor *)(void *)g_normal_actor_pool)->y - 0x20000UL,
+                                 ((ModeActor *)(void *)g_normal_actor_pool)->z, 1))
             negative++;
-        hit = (unsigned short)eng1_2a010(g_frame_owner_72860->x - step,
-                                         g_frame_owner_72860->y,
-                                         g_frame_owner_72860->z, 0);
+        hit = (unsigned short)eng1_2a010(((ModeActor *)(void *)g_normal_actor_pool)->x - step,
+                                         ((ModeActor *)(void *)g_normal_actor_pool)->y,
+                                         ((ModeActor *)(void *)g_normal_actor_pool)->z, 0);
         if (hit != 0)
             negative++;
     }
 
     eng1_sim_state_72108 = 0x16;
-    g_frame_owner_72860->ticks = -1;
-    g_frame_owner_72860->phase = -1;
+    ((ModeActor *)(void *)g_normal_actor_pool)->ticks = -1;
+    ((ModeActor *)(void *)g_normal_actor_pool)->phase = -1;
     if (negative != 0 && positive != 0) {
-        g_frame_owner_72860->image = g_eng1_image_549f0;
+        ((ModeActor *)(void *)g_normal_actor_pool)->image = ((unsigned char *)&g_eng1_image_549f0[0]);
         dispatch_local_15d00();
         return;
     }
@@ -540,21 +817,21 @@ void __cdecl eng1_18f60(void)
         negative = 1;
 
     if (negative != 0) {
-        if (g_frame_owner_72860->direction_x != 0) {
-            g_frame_owner_72860->image = g_eng1_image_54930;
+        if (((ModeActor *)(void *)g_normal_actor_pool)->direction_x != 0) {
+            ((ModeActor *)(void *)g_normal_actor_pool)->image = ((unsigned char *)&g_eng1_image_54930[0]);
             dispatch_local_15d00();
             return;
         }
-        g_frame_owner_72860->image = g_eng1_image_54aa0;
+        ((ModeActor *)(void *)g_normal_actor_pool)->image = ((unsigned char *)&g_eng1_image_54aa0[0]);
         dispatch_local_15d00();
         return;
     }
-    if (g_frame_owner_72860->direction_x != 0) {
-        g_frame_owner_72860->image = g_eng1_image_54aa0;
+    if (((ModeActor *)(void *)g_normal_actor_pool)->direction_x != 0) {
+        ((ModeActor *)(void *)g_normal_actor_pool)->image = ((unsigned char *)&g_eng1_image_54aa0[0]);
         dispatch_local_15d00();
         return;
     }
-    g_frame_owner_72860->image = g_eng1_image_54930;
+    ((ModeActor *)(void *)g_normal_actor_pool)->image = ((unsigned char *)&g_eng1_image_54930[0]);
     dispatch_local_15d00();
 }
 
@@ -566,20 +843,20 @@ void __cdecl eng1_19160(void)
         resource_reset(5);
         {
             ModeActor *owner;
-            owner = g_frame_owner_72860;
+            owner = ((ModeActor *)(void *)g_normal_actor_pool);
             eng1_sim_state_72108 = 0x19;
-            owner->image = g_eng1_image_54c30;
+            owner->image = ((unsigned char *)&g_eng1_image_54c30[0]);
         }
     } else {
         {
             ModeActor *owner;
-            owner = g_frame_owner_72860;
+            owner = ((ModeActor *)(void *)g_normal_actor_pool);
             eng1_sim_state_72108 = 0x19;
-            owner->image = g_eng1_image_54b50;
+            owner->image = ((unsigned char *)&g_eng1_image_54b50[0]);
         }
     }
-    g_frame_owner_72860->ticks = -1;
-    g_frame_owner_72860->phase = -1;
+    ((ModeActor *)(void *)g_normal_actor_pool)->ticks = -1;
+    ((ModeActor *)(void *)g_normal_actor_pool)->phase = -1;
     dispatch_local_15d00();
     context = (ModeByte *)(void *)MODE_CONTEXT();
     g_frame_global_70c54 = 1;
@@ -597,7 +874,7 @@ int __cdecl eng1_19cf0(void)
     ModeActor *actor;
     long z;
 
-    actor = g_frame_owner_72860;
+    actor = ((ModeActor *)(void *)g_normal_actor_pool);
     z = (long)actor->z >> 16;
     if (z < g_pipeline_word_71c5c) {
         actor->z = (unsigned long)((long)g_pipeline_word_71c5c << 16);
