@@ -3,6 +3,7 @@
  * Preserve live root reloads, low-WORD arithmetic and post-service flag reads.
  */
 #include <stddef.h>
+#include "setup_shared_state.h"
 
 typedef struct PairActor {
     long x,y;
@@ -83,15 +84,33 @@ void eng1_native_code_target_01a390(PairActor *p)
     if(eng1_interpret_word_stream(p)==1)eng1_native_code_target_001a280();
 }
 
+/* Native ENG1 0x1a3e0: initialize the setup actor when its state is zero. */
+/* Header-backed non-volatile state pointer; PairActor is a field view. */
+extern void __cdecl initialize_middle_actor(void *);
+extern void __cdecl eng1_native_code_target_001a440(void *);
+
+void __cdecl eng1_native_code_target_001a3e0(void)
+{
+    PairActor *actor = (PairActor *)g_eng1_setup_pointer_72020;
+
+    if (actor->w2e == 0) {
+        initialize_middle_actor(actor);
+        actor = (PairActor *)g_eng1_setup_pointer_72020;
+        actor->w2e = 0x4001;
+        actor = (PairActor *)g_eng1_setup_pointer_72020;
+    }
+
+    eng1_native_code_target_001a440(actor);
+}
+
 /* Native ENG1 0x1a410: conditionally unlink the setup actor and its sound id. */
-extern PairActor *g_eng1_setup_pointer_72020;
 extern PairActor *g_native_pointer_7217c;
 extern int remove_actor_variant(PairActor *actor);
 extern void RemoveFxIdLinks_7f8e(unsigned short id, void *owner);
 
 void eng1_native_code_target_001a410(void)
 {
-    PairActor *actor = g_eng1_setup_pointer_72020;
+    PairActor *actor = (PairActor *)g_eng1_setup_pointer_72020;
 
     if (actor->w2e != 0) {
         remove_actor_variant(actor);

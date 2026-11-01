@@ -465,6 +465,98 @@ int __cdecl eng1_18bb0(void)
     return 0;
 }
 
+void __cdecl eng1_18f60(void)
+{
+    ModeByte *context;
+    ModeByte counter;
+    long step;
+    int negative;
+    int positive;
+    unsigned long hit;
+
+    context = (ModeByte *)(void *)MODE_CONTEXT();
+    counter = context[0x0d];
+    counter++;
+    context[0x0d] = counter;
+    context = (ModeByte *)(void *)MODE_CONTEXT();
+    counter = context[0x0c];
+    if (counter != 0) {
+        counter--;
+        context[0x0c] = counter;
+        context = (ModeByte *)(void *)MODE_CONTEXT();
+    }
+    if (context[0x30] & 8) {
+        counter = context[0x0c];
+        counter++;
+        context[0x0c] = counter;
+        context = (ModeByte *)(void *)MODE_CONTEXT();
+    }
+    counter = context[0x0c];
+    if (counter == 0) {
+        context[3] = 1;
+        context = (ModeByte *)(void *)MODE_CONTEXT();
+    }
+    g_frame_global_70c54 = 1;
+    context[5] = 1;
+    context = (ModeByte *)(void *)MODE_CONTEXT();
+    context[1] = context[2];
+    dispatch_engine_2c4d0();
+    eng1_29c20(g_frame_owner_72860);
+
+    positive = 0;
+    negative = 0;
+    for (step = 0x100000L; step < 0x410000L; step += 0x100000L) {
+        if (dispatch_local_30010(g_frame_owner_72860->x + step,
+                                 g_frame_owner_72860->y - 0x20000UL,
+                                 g_frame_owner_72860->z, 1))
+            positive++;
+        hit = (unsigned short)eng1_2a010(g_frame_owner_72860->x + step,
+                                         g_frame_owner_72860->y,
+                                         g_frame_owner_72860->z, 0);
+        if (hit != 0)
+            positive++;
+        if (dispatch_local_30010(g_frame_owner_72860->x - step,
+                                 g_frame_owner_72860->y - 0x20000UL,
+                                 g_frame_owner_72860->z, 1))
+            negative++;
+        hit = (unsigned short)eng1_2a010(g_frame_owner_72860->x - step,
+                                         g_frame_owner_72860->y,
+                                         g_frame_owner_72860->z, 0);
+        if (hit != 0)
+            negative++;
+    }
+
+    eng1_sim_state_72108 = 0x16;
+    g_frame_owner_72860->ticks = -1;
+    g_frame_owner_72860->phase = -1;
+    if (negative != 0 && positive != 0) {
+        g_frame_owner_72860->image = g_eng1_image_549f0;
+        dispatch_local_15d00();
+        return;
+    }
+    positive += negative;
+    if (positive == 0 && random_limit(100) < 0x32)
+        negative = 1;
+
+    if (negative != 0) {
+        if (g_frame_owner_72860->direction_x != 0) {
+            g_frame_owner_72860->image = g_eng1_image_54930;
+            dispatch_local_15d00();
+            return;
+        }
+        g_frame_owner_72860->image = g_eng1_image_54aa0;
+        dispatch_local_15d00();
+        return;
+    }
+    if (g_frame_owner_72860->direction_x != 0) {
+        g_frame_owner_72860->image = g_eng1_image_54aa0;
+        dispatch_local_15d00();
+        return;
+    }
+    g_frame_owner_72860->image = g_eng1_image_54930;
+    dispatch_local_15d00();
+}
+
 void __cdecl eng1_19160(void)
 {
     ModeByte *context;
