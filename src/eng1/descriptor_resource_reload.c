@@ -7,7 +7,7 @@
 extern ActorResource g_actor_resources[81];
 extern int __cdecl resource_provider(int resource_id, int async_mode);
 
-void __cdecl eng1_target_03410(const unsigned char *resource_ids,
+void __cdecl title_04a40(const unsigned char *resource_ids,
                                int resource_id)
 {
     unsigned long byte_index;
@@ -43,7 +43,7 @@ void __cdecl eng1_target_033e0(const unsigned char *first_list,
     int resource_id;
 
     for (resource_id = 0; resource_id < 81; ++resource_id) {
-        eng1_target_03410(first_list, resource_id);
-        eng1_target_03410(second_list, resource_id);
+        title_04a40(first_list, resource_id);
+        title_04a40(second_list, resource_id);
     }
 }

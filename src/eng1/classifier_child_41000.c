@@ -28,20 +28,20 @@ void __cdecl eng1_native_code_target_0041000(Actor *child,
 
     frame = *child_frame;
     if (frame == 0x10U) {
-        eng1_guarded_select_frame(child, 0x0e);
+        select_frame(child, 0x0e);
         return;
     }
 
     switch (frame & 3U) {
     case 0U:
     case 1U:
-        eng1_guarded_select_frame(child, 0);
+        select_frame(child, 0);
         break;
     case 2U:
-        eng1_guarded_select_frame(child, 1);
+        select_frame(child, 1);
         break;
     case 3U:
-        eng1_guarded_select_frame(child, 2);
+        select_frame(child, 2);
         break;
     default:
         break;

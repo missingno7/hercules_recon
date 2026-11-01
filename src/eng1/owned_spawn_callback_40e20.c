@@ -13,7 +13,7 @@ void __cdecl eng1_native_code_target_040e20(Actor *actor)
     long x;
 
     live = actor;
-    eng1_guarded_advance_frame(actor);
+    advance_frame(actor);
 
     /* Native 0x40e2b/2e/31 loads these after frame advancement, z/y/x. */
     z = live->z;

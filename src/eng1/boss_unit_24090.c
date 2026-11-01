@@ -117,6 +117,9 @@ void eng1_24320(Actor *p)
     }
 }
 
+/* Same recovered signature as the old address-labelled declaration. */
+extern long cosine_angle(long);
+
 void eng1_244d0(Actor *p)
 {
     RelativeMeasure m;
@@ -164,7 +167,7 @@ void eng1_244d0(Actor *p)
             select_frame(p, 0x17);
         else
             select_frame(p, 0x11);
-        p->motion_x.target = eng1_2bef0(eng3_1f7b0(m.x, m.y)) << 4;
+        p->motion_x.target = cosine_angle(eng3_1f7b0(m.x, m.y)) << 4;
         return;
     }
 }
@@ -198,6 +201,9 @@ void eng1_246c0(Actor *p)
     p->motion_x.unknown = 0;
 }
 
+/* Same recovered signature as the old address-labelled declaration. */
+extern void title_18600(Actor *, Offset2 *);
+
 void eng1_24780(Actor *p)
 {
     Offset2 offset;
@@ -214,7 +220,7 @@ void eng1_24780(Actor *p)
         case 2:
         case 4:
         case 5:
-            eng1_31000(g_boss_71e28, &offset);
+            title_18600(g_boss_71e28, &offset);
             p->x = g_boss_71e28->x + (offset.x << 16);
             p->y = g_boss_71e28->y + (offset.y << 16);
             p->direction_x = g_boss_71e28->direction_x;

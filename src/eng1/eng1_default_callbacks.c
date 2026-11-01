@@ -106,7 +106,7 @@ extern int __cdecl eng1_native_code_target_002a880(Eng1CallbackActor *, Eng1Boun
 extern int __cdecl bounds_overlap(Eng1Bounds3D *, Eng1Bounds3D *);
 extern void __cdecl eng1_native_code_target_00266a0(Eng1CallbackActor *, eng1_u32,
                                          eng1_u32);
-extern int __cdecl eng1_native_code_target_002a810(eng1_u32, eng1_u32, eng1_u32, void *);
+extern int __cdecl point_in_box_2a810(eng1_u32, eng1_u32, eng1_u32, void *);
 extern int __cdecl eng1_native_code_target_002aa30(Eng1CallbackActor *, eng1_u32,
                                         eng1_u32);
 extern void __cdecl eng1_native_code_target_0028820(Eng1CallbackActor *);
@@ -398,7 +398,7 @@ void __cdecl eng1_native_code_target_001d80(Eng1CallbackActor *actor)
 
     advance_planar_motion(actor);
     frame_area = g_native_pointer_7217c + 0x88;
-    if (eng1_native_code_target_002a810(actor->x_000, actor->y_004, actor->z_008,
+    if (point_in_box_2a810(actor->x_000, actor->y_004, actor->z_008,
                              frame_area)) {
         eng1_native_code_target_00266a0(actor, 3, 0);
         remove_actor_variant(actor);

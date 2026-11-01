@@ -222,7 +222,7 @@ void detach_child(Actor *p);
 int remove_actor_variant(Actor *p);
 unsigned long damped_contact_motion(Actor *p);
 unsigned int dispatch_local_30010(long x, long y, long z, unsigned short mask);
-int eng1_31000(Actor *p, FramePos *pos);
+int title_18600(Actor *p, FramePos *pos);
 int actor_bounds_2a880(Actor *p, Bounds *b, int mode);
 int planar_bounds_overlap(Bounds *a, Bounds *b);
 long grid_scan_20b50(long x, long y, long z, int group);
@@ -232,7 +232,7 @@ int eng1_14d80(Actor *p, long dx, long dy, int mode);
 void eng1_20000(Actor *p);
 void eng1_27410(Actor *p);
 void change_kind(Actor *p, int kind);
-void eng1_27450(Actor *p);
+void mark_actor_resource_for_release(Actor *p);
 int eng1_200e0(Bounds *b, Actor *p);
 int eng1_2a710(Bounds *b, Actor *p);
 int eng1_2a9e0(Actor *p, int range);
@@ -553,7 +553,7 @@ void eng1_native_code_target_012d80(Actor *o)
         hit = eng1_2a710(&g_native_pointer_7217c->bounds, o);
     if (hit) {
         if (eng1_12ef0(o)) {
-            eng1_27450(o);
+            mark_actor_resource_for_release(o);
             if (o->child)
                 detach_child(o);
             change_kind(o, 0x2011);
@@ -920,7 +920,7 @@ void eng1_native_code_target_013880(Actor *o)
         eng1_native_code_target_002a290(o);
         return;
     }
-    eng1_31000(o, &pos);
+    title_18600(o, &pos);
     if (!eng1_sim_state_72170) {
         actor_bounds_2a880(o, &o->bounds, 0);
         if (planar_bounds_overlap(&g_native_pointer_7217c->bounds, &o->bounds)) {
@@ -982,7 +982,7 @@ void eng1_native_code_target_0139f0(Actor *o)
     }
     eng1_interpret_word_stream(o);
     if (g_engine_interface.context_004->next_002 == ((o->kind + 6) & 0xf)) {
-        eng1_31000(o, &pos);
+        title_18600(o, &pos);
         eng1_129e0(o->x + ((random_limit(5) + pos.x) << 16), o->y + ((random_limit(5) + pos.y) << 16), o->z, 0x2010, 2);
         if (g_engine_interface.context_004->tick_038 & 1) {
             eng1_129e0(o->x + ((random_limit(2) + pos.x) << 16), o->y + ((random_limit(2) + pos.y) << 16), o->z, 0x2010, 0);

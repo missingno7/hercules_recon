@@ -308,7 +308,7 @@ Actor *__cdecl eng1_26d50(Actor *query)
 }
 
 extern long g_level_actors_6fe78[];
-extern void __cdecl eng1_29470(void *, void *);
+extern void __cdecl append_chain(void *, void *);
 
 Actor *__cdecl eng1_26f20(void *argument)
 {
@@ -321,7 +321,7 @@ Actor *__cdecl eng1_26f20(void *argument)
     while (index < count) {
         record = (Actor *)g_level_actors_6fe78[++index];
         if (*(void **)((unsigned char *)record + 0x12c) == 0) {
-            eng1_29470(argument, record);
+            append_chain(argument, record);
             *(unsigned long *)((unsigned char *)record + 0x54) |= 0x80000000UL;
             return record;
         }
