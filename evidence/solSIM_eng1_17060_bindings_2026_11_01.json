@@ -1,0 +1,236 @@
+{
+ "schema": 1,
+ "functions": {
+  "eng1.17060": {
+   "symbols": {
+    "_dispatch_local_15d00": {
+     "kind": "function",
+     "rva": 89344,
+     "size": 2704,
+     "evidence": [
+      "function_identities:eng1.dispatch_local_15d00",
+      "evidence/eng1_player_setup_continuation.json#target_span; evidence/local_15d00_review_2026_10_26.json#function_callers._dispatch_local_15d00"
+     ],
+     "references": [
+      {
+       "offset": 45,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng1_17130": {
+     "evidence": [
+      "function_identities:eng1.17130"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "offset": 59,
+       "type": 20,
+       "addend": 0
+      }
+     ],
+     "rva": 94512,
+     "size": 128
+    },
+    "_eng1_sim_state_72108": {
+     "kind": "bss",
+     "rva": 467208,
+     "size": 2,
+     "owner": {
+      "source": "src/eng1/simulation_storage.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_eng1_sim_state_72108"
+     },
+     "identity": {
+      "rva": 74007,
+      "size": 6,
+      "operand": 1,
+      "sha256": "3f30d45a5957c3473d14969ea64700d99d57321b8c97930be7fd4ff4f2d67db4"
+     },
+     "evidence": [
+      "evidence/solSIM_native_review_2026_11_01.json#surveys._eng1_sim_state_72108"
+     ],
+     "references": [
+      {
+       "offset": 8,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng1_6ef70": {
+     "kind": "bss",
+     "rva": 454512,
+     "size": 2,
+     "owner": {
+      "source": "src/eng1/eng1_actor_zero_cells.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng1_6ef70"
+     },
+     "identity": {
+      "rva": 103229,
+      "size": 7,
+      "operand": 0,
+      "sha256": "124bc6e7afd485b1a3a7dc37cb9179611ddc4b743f85bfc5c434db7959632c33"
+     },
+     "evidence": [
+      "evidence/solSIM_native_review_2026_11_01.json#surveys._g_eng1_6ef70"
+     ],
+     "references": [
+      {
+       "offset": 52,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng1_image_53d10": {
+     "kind": "data",
+     "rva": 343312,
+     "size": 108,
+     "sha256": "985c1cdf09746382c2281b5551a0f920a5132ac8bf03a7b0299afb2bb271536f",
+     "evidence": [
+      "evidence/solSIM_native_review_2026_11_01.json#payloads._g_eng1_image_53d10"
+     ],
+     "references": [
+      {
+       "offset": 17,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_frame_owner_72860": {
+     "kind": "bss",
+     "rva": 469088,
+     "size": 4,
+     "owner": {
+      "source": "src/eng1/actor_storage.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_normal_actor_pool"
+     },
+     "identity": {
+      "rva": 127245,
+      "size": 5,
+      "operand": 0,
+      "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+     },
+     "source_alias": {
+      "kind": "owner-compile-renaming",
+      "header": "src/eng1/actor_pool_pointer_owner_alias.h",
+      "renames": {
+       "g_frame_owner_72860": "g_normal_actor_pool"
+      },
+      "pointer_types": {
+       "g_frame_owner_72860": "void"
+      }
+     },
+     "evidence": [
+      "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 23,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 36,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 64,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 75,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_unlink_0e4": {
+     "evidence": [
+      "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x29620"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "offset": 70,
+       "type": 20,
+       "addend": 0
+      }
+     ],
+     "rva": 169504,
+     "size": 80
+    }
+   }
+  }
+ },
+ "function_identities": {
+  "eng1.dispatch_local_15d00": {
+   "symbol": "_dispatch_local_15d00",
+   "rva": 89344,
+   "size": 2704,
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+   "source": "src/eng1/mode_handlers_16840.cpp",
+   "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+   "identity_basis": "Native entry/body extent and hash in the independent player-setup continuation review, plus direct E8/E9 callers outside this task set. The ENG3 eng3_18370 body is a corroborating twin label, not the address proof.",
+   "native_span_sha256": "4ebd29488e0fad4645c7e46eb071dd178c5478f4699792b6aa48c7b790c0c599",
+   "outside_caller_count": 65,
+   "origin": "evidence/eng1_player_setup_continuation.json#target_span; evidence/local_15d00_review_2026_10_26.json#function_callers._dispatch_local_15d00"
+  },
+  "eng1.17130": {
+   "accepted_proof": {
+    "bindings_path": "evidence/scalar_eng1_2_bindings_2026_10_26.json",
+    "bindings_sha256": "0b176e728d3148e2d6fab114acaa5fdea87af724ee074f31002e96963e04bc4b",
+    "compiled_sha256": "4a239fd61fda9a86e139caba0a2147e8e4d46b69215db2b9a39abff3373b3fcf"
+   },
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "origin": "recovery.json#functions.eng1.17130; the FUNCTION_MATCH_RELOCATED ledger row is the independent identity source, not derived from the pending caller",
+   "rva": 94512,
+   "size": 128,
+   "source": "src/eng1/mode_handlers_16840.cpp",
+   "source_sha256": "0b66d9ef3155ff912d7b72e9d7164c3bef7fcc31b7a1f493caf54fac61b6adf9",
+   "symbol": "_eng1_17130",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  }
+ },
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "src/eng1/mode_handlers_16840.cpp": "0b66d9ef3155ff912d7b72e9d7164c3bef7fcc31b7a1f493caf54fac61b6adf9",
+  "evidence/solSIM_native_review_2026_11_01.json": "afd0bb43f150aff4628f80c5120fed9dbfa873f1c2d0668ae996da2c5e6f1eb0",
+  "evidence/local_15d00_bindings_2026_10_26.json": "33a4c619146b2e4118e45c5fef51e9ab2e330b85cd5a922a94d7696e395074d0",
+  "evidence/eng1_player_setup_continuation.json": "80619e748d026c41537cb6299c012711c78ea9fdb634e001987d4f1d2b81ac52",
+  "src/eng1/simulation_storage.c": "e648368eda765ab181ed1aef96919e6a6ff3c9e52322e63405fee23314df2d7c",
+  "src/eng1/eng1_actor_zero_cells.c": "b4f974a015d2b69f9a71543e0d79b2ced347140bfc0d19f35232cee2fd043e37",
+  "evidence/source_layout_2026_10_25/owner_alias_bindings_2026_10_25.json": "9776bbe6a5859f1effe4ffd6a89cadf8843751cd0b6406209b5d37f181745600",
+  "evidence/owner_alias_references_2026_10_25.json": "d728c9fcb23170ad3ffa21c8e9606e85d261a0bfaf701f64f358763bd1f8b2b0",
+  "src/eng1/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+  "src/eng1/actor_pool_pointer_owner_alias.h": "a89c3550137fa3bdd527d53c74702500e30d0129a59bcf0ddb6447c0909f8068",
+  "evidence/byteA_bindings_2026_10_31.json": "d01b045b635f5b78c40e8844fcedfab09e8bdc6bfa54f4329dd58f9e2838bc80",
+  "evidence/grid_callers_references_2026_10_25.json": "e7cec15345a5f10486ea87ffb7c7f6b270f9bf075781fca196fde310a7581151",
+  "evidence/scalar_eng1_2_bindings_2026_10_26.json": "db3316c4ba4436032dfdd6e36e11e13614141977194dd6495a7e440269f48259",
+  "evidence/local_15d00_review_2026_10_26.json": "e442e7ad0aa0cad2bdc5e705aca7eb3f0f48efc797fc73b71a669d70e47908df",
+  "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc"
+ },
+ "unresolved_symbols": [],
+ "scope": "Lane-private proposed post-install binding; typed initialized data and independently anchored existing owners, complete contribution only. No acceptance claim."
+}
