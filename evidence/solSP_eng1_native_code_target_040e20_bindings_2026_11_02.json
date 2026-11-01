@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "functions": {
+    "eng1.native_code_target_040e20": {
+      "symbols": {
+        "_advance_frame": {
+          "kind": "function",
+          "rva": 168560,
+          "size": 80,
+          "evidence": [
+            "function_identities:eng1.advance_frame"
+          ],
+          "references": [
+            {
+              "offset": 7,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_spawn_actor_with_owner": {
+          "kind": "function",
+          "rva": 196992,
+          "size": 272,
+          "evidence": [
+            "function_identities:eng1.spawn_actor_with_owner"
+          ],
+          "references": [
+            {
+              "offset": 29,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "function_identities": {
+    "eng1.advance_frame": {
+      "ledger_status": "FUNCTION_MATCH",
+      "origin": "Existing own callee ledger row and fresh own complete shape; caller-implied destination is navigation only",
+      "rva": 168560,
+      "size": 80,
+      "source": "src/shared/frame_state.c",
+      "source_sha256": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "symbol": "_advance_frame",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+    },
+    "eng1.spawn_actor_with_owner": {
+      "ledger_status": "FUNCTION_MATCH_RELOCATED",
+      "origin": "Existing own callee ledger row and fresh own complete shape; caller-implied destination is navigation only",
+      "rva": 196992,
+      "size": 272,
+      "source": "src/eng1/render_unit_30010.cpp",
+      "source_sha256": "1b2bea3b9bb408daa9208344981e3d437e18f917eaa492ec77fd94ff52ff577c",
+      "symbol": "_spawn_actor_with_owner",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "accepted_proof": {
+        "bindings_path": "evidence/anchor_d4fc5b150f68_a4be0204f705.json",
+        "bindings_sha256": "becd034baab763837eb437f89fd21d207055f525310f61684bdd5743eee7325e",
+        "compiled_sha256": "e2943c7f68b567a3b25bd1b1cebb7b12df1ce1db1a797e571a0fd0dc873be963"
+      }
+    }
+  },
+  "evidence_files": {
+    "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "src/eng1/owned_spawn_callback_40e20.c": "62986c70dec5e608794b63352c4e912381940237485480b96d473088325972da",
+    "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+    "src/eng1/render_unit_30010.cpp": "1b2bea3b9bb408daa9208344981e3d437e18f917eaa492ec77fd94ff52ff577c",
+    "evidence/anchor_d4fc5b150f68_a4be0204f705.json": "ec9a5b5e15748fcca074c65da130211130b8359e7a1dae9d966b1b65cdb5a429",
+    "evidence/solSP_native_review_2026_11_02.json": "36036479ae89059d63f5d7587145c1b4fc78415e4c67874803dff815fd263140"
+  },
+  "scope": "Conditional spelling-migration proof. Install T2 definition/caller candidates and refresh accepted proof identities before canonical verification; no acceptance.",
+  "unresolved_symbols": []
+}

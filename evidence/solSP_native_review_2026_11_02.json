@@ -1,0 +1,577 @@
+{
+  "schema": 1,
+  "task": "solSP",
+  "hypothesis": "Spelling-only migration reuses existing independent own function rows; the queue operand selects no identity.",
+  "definitions": {
+    "eng1.engine_diagnostic": {
+      "before": "_engine_diagnostic",
+      "after": "_dbg_printf",
+      "source": "src/eng1/engine_diagnostic.c",
+      "before_sha256": "49a1a364efe77c197af700808c06040332e40c0e3809716ad743c013e8046084",
+      "after_sha256": "597e944f83633fe71021623866d003bfb6b273c32b8820b3531628a2525f4dab",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x1000",
+      "size": 16,
+      "prior_evidence": "evidence/engine_diagnostic.json: full16-byte target/hash and referenced1010 boundary; provider3556 pushes format/id, cleans8 and overwrites EAX. No formatter behavior inferred.",
+      "prior_proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "49a1a364efe77c197af700808c06040332e40c0e3809716ad743c013e8046084",
+        "compiled_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+        "target_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+        "toolchain": "msvc5_rtm"
+      },
+      "fresh_shape": {
+        "source": "src/eng1/engine_diagnostic.c",
+        "status": "FUNCTION_MATCH",
+        "before_symbol": "_engine_diagnostic",
+        "after_symbol": "_dbg_printf",
+        "size": 16,
+        "bytes_equal": true,
+        "relocations_equal": true,
+        "masked_equal": true,
+        "differing_bytes": 0,
+        "conflicts": [],
+        "compiled_size": 16,
+        "compiler_local_renames": {},
+        "raw_equal": true
+      },
+      "claim": "Canonical descriptive/shared spelling; original identifier unproved."
+    },
+    "eng3.empty_1000": {
+      "before": "_eng3_empty_1000",
+      "after": "_dbg_printf",
+      "source": "src/shared/empty_entries.c",
+      "before_sha256": "a52e56e14dec826c3fa6e7127582cac6f9dfcba675857c61c0eca1775250551b",
+      "after_sha256": "77f7288009c5ea1d6771a5d282e19c6a41006c2813c6cb7acabbd4d02554e9cd",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1000",
+      "size": 16,
+      "prior_evidence": "evidence/cross_module_empty_entries.json: complete native correspondence to an accepted empty-body outcome; independently called entry, reviewed RET/NOP interval, no indexed interior incoming entry; fresh pinned strict gate required.",
+      "prior_proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "a52e56e14dec826c3fa6e7127582cac6f9dfcba675857c61c0eca1775250551b",
+        "compiled_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+        "target_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+        "toolchain": "msvc5_rtm"
+      },
+      "fresh_shape": {
+        "source": "src/shared/empty_entries.c",
+        "status": "FUNCTION_MATCH",
+        "before_symbol": "_eng3_empty_1000",
+        "after_symbol": "_dbg_printf",
+        "size": 16,
+        "bytes_equal": true,
+        "relocations_equal": true,
+        "masked_equal": true,
+        "differing_bytes": 0,
+        "conflicts": [],
+        "compiled_size": 16,
+        "compiler_local_renames": {},
+        "raw_equal": true
+      },
+      "claim": "Canonical descriptive/shared spelling; original identifier unproved."
+    },
+    "eng1.30d00": {
+      "before": "_eng1_30d00",
+      "after": "_title_184c0",
+      "source": "src/eng1/render_unit_30010.cpp",
+      "before_sha256": "1b2bea3b9bb408daa9208344981e3d437e18f917eaa492ec77fd94ff52ff577c",
+      "after_sha256": "f9ba74b1d53a5ffd35514f0f5c38efb11dd962ebd92ca764d1f3c951123da67c",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x30d00",
+      "size": 320,
+      "prior_evidence": "Lane x4 (2026-10-20): ENG1 renderer/primitive unit 0x30010..0x32300, the same shared source as TITLE src/title/u17cb0.cpp (one C++ unit, extern \"C\"; <string.h> first as declaration-count TU-context hypothesis under the owner real-header policy); carried recorded rows stay equal and keep their recorded providers. Re-pin W4 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin W6 (2026-10-31): interface-slot wrappers named by one canonical symbol per family (decision (a)); no code change. Re-pin S3d (2026-10-31): actor-pool pointer cells named by their canonical owners (solZ2 class a); no code change.",
+      "prior_proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "1b2bea3b9bb408daa9208344981e3d437e18f917eaa492ec77fd94ff52ff577c",
+        "compiled_sha256": "7d13eb8ec8e0db3756ae234ae43cf55bd45db5ddef7d1200809d0544c687c913",
+        "target_sha256": "003660301cfc2c838e3caa4c615710978c41e77cfbb6da10f45d098e24fac3ba",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/solOV_eng1_30d00_bindings_2026_11_01.json",
+        "bindings_sha256": "df31383a0aee8c3125c377ebd2a96455d0a26b41655cf5483e416288dd3f5cc5",
+        "reference_evidence_sha256": "60db04691e7accf94c4348865a1fb75ea6e2caf2608d0cc74cf5dedb29cae8bb",
+        "context_sha256": {
+          "src/eng1/render_unit_30010.cpp": "1b2bea3b9bb408daa9208344981e3d437e18f917eaa492ec77fd94ff52ff577c",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
+          "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
+          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+        }
+      },
+      "fresh_shape": {
+        "source": "src/eng1/render_unit_30010.cpp",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "before_symbol": "_eng1_30d00",
+        "after_symbol": "_title_184c0",
+        "size": 320,
+        "bytes_equal": true,
+        "relocations_equal": true,
+        "masked_equal": true,
+        "differing_bytes": 0,
+        "conflicts": [],
+        "compiled_size": 320,
+        "compiler_local_renames": {}
+      },
+      "claim": "Canonical descriptive/shared spelling; original identifier unproved."
+    },
+    "eng1.320d0": {
+      "before": "_eng1_320d0",
+      "after": "_title_195f0",
+      "source": "src/eng1/render_unit_30010.cpp",
+      "before_sha256": "1b2bea3b9bb408daa9208344981e3d437e18f917eaa492ec77fd94ff52ff577c",
+      "after_sha256": "f9ba74b1d53a5ffd35514f0f5c38efb11dd962ebd92ca764d1f3c951123da67c",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x320d0",
+      "size": 96,
+      "prior_evidence": "Lane x4 (2026-10-20): ENG1 renderer/primitive unit 0x30010..0x32300, the same shared source as TITLE src/title/u17cb0.cpp (one C++ unit, extern \"C\"; <string.h> first as declaration-count TU-context hypothesis under the owner real-header policy); carried recorded rows stay equal and keep their recorded providers.",
+      "prior_proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "1b2bea3b9bb408daa9208344981e3d437e18f917eaa492ec77fd94ff52ff577c",
+        "compiled_sha256": "0a45f0fc35a8856a73c4c402af41e0cae949e79375010895e24ae526ddc1df75",
+        "target_sha256": "6512097fb662a368b2f604e5be265b0c07265cf10c197ed3fa039d23d4df45fc",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/rename_8e9bd30af305_386029d00eaf.json",
+        "bindings_sha256": "162f0c68ea8a1ade8b754926256b4f2dd2cc4cbfe30201f3a2484fc220520590",
+        "reference_evidence_sha256": "59973592ded9ad4972cdb2d5d2b3e93df0cc7002fbc789370993ee34c005a79b",
+        "context_sha256": {
+          "src/eng1/render_unit_30010.cpp": "1b2bea3b9bb408daa9208344981e3d437e18f917eaa492ec77fd94ff52ff577c",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
+          "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
+          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+        },
+        "reference_snapshots": {
+          "src/eng3/handlers_16240.cpp": "evidence/repin_snapshots/3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e.txt",
+          "src/eng3/actor_pools.c": "evidence/repin_snapshots/2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4.txt",
+          "src/pc/host_libsnd_0bf20.c": "evidence/repin_snapshots/8eac0a4fd5f36bb679f7d891e0a0db48d10522afd8c99a51f67e620757ba9a40.txt",
+          "src/pc/host_sound_channels.cpp": "evidence/repin_snapshots/fcaf0c026b853a8b0d1f07307a0a6e5a5b32a66df01573606e8ca84179a1dbd7.txt",
+          "src/eng3/handlers_14190.cpp": "evidence/repin_snapshots/cbd957c12e6e1b3f3ee522cfd68303ee645b34b241eb718a86aea4f4fe40658a.txt",
+          "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
+          "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7.txt",
+          "src/eng1/control_unit_2c030.c": "evidence/repin_snapshots/86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de.txt",
+          "src/eng1/host_wrappers_extra.c": "evidence/repin_snapshots/2412fbfd7e6e4de37f51c5dd91d239c1acff9fa656436f06cd75211c22d3043c.txt",
+          "src/eng1/render_unit_30010.cpp": "evidence/repin_snapshots/537a53c3dd7428634a552f9a104431ade7db1a4b1d2efe05f5d5deb101fa8c6b.txt"
+        }
+      },
+      "fresh_shape": {
+        "source": "src/eng1/render_unit_30010.cpp",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "before_symbol": "_eng1_320d0",
+        "after_symbol": "_title_195f0",
+        "size": 96,
+        "bytes_equal": true,
+        "relocations_equal": true,
+        "masked_equal": true,
+        "differing_bytes": 0,
+        "conflicts": [],
+        "compiled_size": 96,
+        "compiler_local_renames": {}
+      },
+      "claim": "Canonical descriptive/shared spelling; original identifier unproved."
+    },
+    "eng3.22bd0": {
+      "before": "_eng3_22bd0",
+      "after": "_title_17ad0",
+      "source": "src/eng3/track_unit_20010.cpp",
+      "before_sha256": "fd3f670d29c91bfc7c99fb737891ec1a8565ae79a70b21acd3572aa070e7d0d5",
+      "after_sha256": "2a9d63799262c8a52fa56c30cb28d696eeece3d21c0720960a85641048698a56",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x22bd0",
+      "size": 224,
+      "prior_evidence": "lane y6 (2026-10-20): ENG3 track/wrapper region 0x20010..0x22e00 Callee alias rename re-pin b10 (2026-10-31): callers name accepted callees by their own symbols; no codegen change. Re-pin storage-1 (2026-10-31): callers name the canonical storage owners (lane solZ2); no code change.",
+      "prior_proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned; 3 opaque indirect CALL(s): targets unidentified, ABI unclaimed",
+        "source_sha256": "fd3f670d29c91bfc7c99fb737891ec1a8565ae79a70b21acd3572aa070e7d0d5",
+        "compiled_sha256": "26a2b5be2b09b35beb3bf1bc563ef87de48782bdd1675fc426f6f43481c3e141",
+        "target_sha256": "a6fa105cadc76fa14de747d0a388e8db8bafd4e020f53eada771e8f818d1c6e4",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindAA_bindings_2026_10_31.json",
+        "bindings_sha256": "62b2e28e0cbe0d5cb848613ce7f0e84c4ecd2770f0c6c4cea868bfbd6cb32113",
+        "reference_evidence_sha256": "c00cec2fe1dfcc7716cf0716f8b48707a18d95eb38ad71483f894044c11bc8ab",
+        "context_sha256": {
+          "src/eng3/track_unit_20010.cpp": "fd3f670d29c91bfc7c99fb737891ec1a8565ae79a70b21acd3572aa070e7d0d5"
+        },
+        "reference_snapshots": {
+          "src/eng1/level_actors_0c730.c": "evidence/repin_snapshots/2dc86bf31e838f507acb9eb79803a729878e59d7c08a66dc97b12bdf52eb3067.txt",
+          "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/1046865d78d2a9ad621fe70bf89e78e171f81dc6e27aa2afc9ed5c20c4ea81b7.txt",
+          "src/eng3/track_unit_20010.cpp": "evidence/repin_snapshots/e1e9c904b8add3f9185f0814f94f51dad670abdffdd8f6b1a7e6f7a69e4404d7.txt",
+          "src/eng1/actor_continuation.c": "evidence/repin_snapshots/fde914a53421cbfbcf018c30c069d8c6b897cb1d22863ab67426c387fe4ff1b8.txt"
+        }
+      },
+      "fresh_shape": {
+        "source": "src/eng3/track_unit_20010.cpp",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "before_symbol": "_eng3_22bd0",
+        "after_symbol": "_title_17ad0",
+        "size": 224,
+        "bytes_equal": true,
+        "relocations_equal": true,
+        "masked_equal": true,
+        "differing_bytes": 0,
+        "conflicts": [],
+        "compiled_size": 224,
+        "compiler_local_renames": {}
+      },
+      "claim": "Canonical descriptive/shared spelling; original identifier unproved."
+    },
+    "eng3.22cb0": {
+      "before": "_eng3_22cb0",
+      "after": "_spawn_actor_with_owner",
+      "source": "src/eng3/track_unit_20010.cpp",
+      "before_sha256": "fd3f670d29c91bfc7c99fb737891ec1a8565ae79a70b21acd3572aa070e7d0d5",
+      "after_sha256": "2a9d63799262c8a52fa56c30cb28d696eeece3d21c0720960a85641048698a56",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x22cb0",
+      "size": 304,
+      "prior_evidence": "lane y6 (2026-10-20): ENG3 track/wrapper region 0x20010..0x22e00 Callee alias rename re-pin b10 (2026-10-31): callers name accepted callees by their own symbols; no codegen change. Re-pin storage-1 (2026-10-31): callers name the canonical storage owners (lane solZ2); no code change.",
+      "prior_proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned; 3 opaque indirect CALL(s): targets unidentified, ABI unclaimed",
+        "source_sha256": "fd3f670d29c91bfc7c99fb737891ec1a8565ae79a70b21acd3572aa070e7d0d5",
+        "compiled_sha256": "86eabef3419fb8f8ae3ad549c40be14118995971fa65a4a936c0f8b50f019a6f",
+        "target_sha256": "7b88a8a5216a5b36cfbcd6fb2f354913ca96829b718eabebd738e3584baf0cfc",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindAA_bindings_2026_10_31.json",
+        "bindings_sha256": "3720f3c16f85799554d8a726475ba077e2f822fc9eacf7c3569fd88e85267b72",
+        "reference_evidence_sha256": "c00cec2fe1dfcc7716cf0716f8b48707a18d95eb38ad71483f894044c11bc8ab",
+        "context_sha256": {
+          "src/eng3/track_unit_20010.cpp": "fd3f670d29c91bfc7c99fb737891ec1a8565ae79a70b21acd3572aa070e7d0d5"
+        },
+        "reference_snapshots": {
+          "src/eng1/level_actors_0c730.c": "evidence/repin_snapshots/2dc86bf31e838f507acb9eb79803a729878e59d7c08a66dc97b12bdf52eb3067.txt",
+          "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/1046865d78d2a9ad621fe70bf89e78e171f81dc6e27aa2afc9ed5c20c4ea81b7.txt",
+          "src/eng3/track_unit_20010.cpp": "evidence/repin_snapshots/e1e9c904b8add3f9185f0814f94f51dad670abdffdd8f6b1a7e6f7a69e4404d7.txt",
+          "src/eng1/actor_continuation.c": "evidence/repin_snapshots/fde914a53421cbfbcf018c30c069d8c6b897cb1d22863ab67426c387fe4ff1b8.txt"
+        }
+      },
+      "fresh_shape": {
+        "source": "src/eng3/track_unit_20010.cpp",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "before_symbol": "_eng3_22cb0",
+        "after_symbol": "_spawn_actor_with_owner",
+        "size": 304,
+        "bytes_equal": true,
+        "relocations_equal": true,
+        "masked_equal": true,
+        "differing_bytes": 0,
+        "conflicts": [],
+        "compiled_size": 304,
+        "compiler_local_renames": {}
+      },
+      "claim": "Canonical descriptive/shared spelling; original identifier unproved."
+    },
+    "eng3.eng3_1f130": {
+      "before": "_eng3_1f130",
+      "after": "_point_in_box_2a810",
+      "source": "src/eng3/actor_services_1e000.c",
+      "before_sha256": "a6ea65421ac4a989ac6e37abec50c4256e01856b5f5c459bf8a3070d43f34a9f",
+      "after_sha256": "731130abb63019f040c6fa7f3375640f9bc3a37fd5562d1097313c92e2f9b629",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1f130",
+      "size": 112,
+      "prior_evidence": "lane solCMP (2026-10-31): work/velocity_j/solCMP/handoff.json. Re-pin b11 (2026-10-31): wave-j callee reconstructions added to this unit; no other function body changed. Previously: Lane y5 (2026-10-20): ENG3 actor services and interface slot wrappers 0x1e000..0x20000, one C region (ownership unproved); several bodies are the ENG1 actor-unit text with ENG3 constants. Size-exact; 21 non-relocation bytes differ.",
+      "prior_proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "a6ea65421ac4a989ac6e37abec50c4256e01856b5f5c459bf8a3070d43f34a9f",
+        "compiled_sha256": "2b414c4bdc66d392a36acd631ae73f897c3e3d9269f45d8fa37ea995d58b8fb0",
+        "target_sha256": "2b414c4bdc66d392a36acd631ae73f897c3e3d9269f45d8fa37ea995d58b8fb0",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/bindU_bindings_2026_10_31.json",
+        "bindings_sha256": "370dc2ef5160f0543ce59a908b878b2fa4707dba820ff5e35fe7a7827c754365",
+        "reference_evidence_sha256": "934b663350500489b707f1b9d5d3f1ec1e1468d58044f7494c9ae7cf6783af6b",
+        "context_sha256": {
+          "src/eng3/actor_services_1e000.c": "a6ea65421ac4a989ac6e37abec50c4256e01856b5f5c459bf8a3070d43f34a9f",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
+        },
+        "reference_snapshots": {
+          "src/eng3/actor_services_1e000.c": "evidence/repin_snapshots/48505a734e131d7ac9b154d5f3fa8f703b0ba4aa602cddbce7f13f924aa53d75.txt"
+        }
+      },
+      "fresh_shape": {
+        "source": "src/eng3/actor_services_1e000.c",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "before_symbol": "_eng3_1f130",
+        "after_symbol": "_point_in_box_2a810",
+        "size": 112,
+        "bytes_equal": true,
+        "relocations_equal": true,
+        "masked_equal": true,
+        "differing_bytes": 0,
+        "conflicts": [],
+        "compiled_size": 112,
+        "compiler_local_renames": {}
+      },
+      "claim": "Canonical descriptive/shared spelling; original identifier unproved."
+    },
+    "eng3.1b9e0": {
+      "before": "_eng3_1b9e0",
+      "after": "_engine_shutdown",
+      "source": "src/eng3/handlers_16240.cpp",
+      "before_sha256": "e4d818fcae4fc7459269e53ccdfe40e1213b42f764ac3f00024b9b149003c97e",
+      "after_sha256": "0f2ecc4744bed539b29bb19c1c2d77be3c8e4b191b3a739282fe35d277b1acc1",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1b9e0",
+      "size": 16,
+      "prior_evidence": "lane y13 (2026-10-20): ENG3 0x1a070..0x1c010 appended to the 0x16240 unit (C++); LevelContext pressed input word +0x5e volatile (engine-context pressed field, owner-approved for ENG1/ENG3 2026-10-20).",
+      "prior_proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "e4d818fcae4fc7459269e53ccdfe40e1213b42f764ac3f00024b9b149003c97e",
+        "compiled_sha256": "b9032760bc3fde17757be12527d259547b8029d0b1dca531056c51c1d603a143",
+        "target_sha256": "b69899ab9200705e466f303ca3a33017f690be8249d96363a630c0181528e544",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/source_layout_2026_10_25/context_9d3222369d7d_cbf2b6df6980.json",
+        "bindings_sha256": "32f9d9cc29be8e9269226c55e0f387240d9ef5588db1a161ef955015279954dc",
+        "reference_evidence_sha256": "22473c21e59de6708c5449dad9028b7789cff16658303a0a5cdacebd1a92ef2b",
+        "context_sha256": {
+          "src/eng3/handlers_16240.cpp": "e4d818fcae4fc7459269e53ccdfe40e1213b42f764ac3f00024b9b149003c97e",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec"
+        },
+        "reference_snapshots": {
+          "src/eng3/handlers_16240.cpp": "evidence/repin_snapshots/3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e.txt",
+          "src/pc/host_input.c": "evidence/repin_snapshots/ea90fc047f9f702c34478cea2b7ef1b737ac02bbe65d2078ca8807c2aa70733d.txt",
+          "src/pc/host_libsnd_0bf20.c": "evidence/repin_snapshots/8eac0a4fd5f36bb679f7d891e0a0db48d10522afd8c99a51f67e620757ba9a40.txt",
+          "src/pc/host_gte_0b2f0.c": "evidence/repin_snapshots/1aebf245641593306e7158a2df7a7a0cbec1224d4fc438d6949a8d956c461faa.txt",
+          "src/pc/host_app_075d0.cpp": "evidence/repin_snapshots/cfaf7073bbd4ce2d1a8d5f3d38831c98dfe4b0217394346d1f07370ddd02f844.txt",
+          "src/eng3/handlers_023a0.c": "evidence/repin_snapshots/081e10eec0e08ab77d9155bd931b9b7f52931c7fd4306904b6c13e652296e8da.txt",
+          "src/eng1/status_panel_32b10.c": "evidence/repin_snapshots/504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca.txt",
+          "src/eng3/handlers_10370.c": "evidence/repin_snapshots/01d04f6da76bc2b9c82641aebbdc5b8f2063823461a8b735f1654894b0fcf038.txt",
+          "src/eng3/handlers_25040.c": "evidence/repin_snapshots/3aa2c3be889d92ca3962085aa34c9a6c54ed7d2326d91e728a04ff10e7e4de78.txt",
+          "src/eng3/handlers_26b40.c": "evidence/repin_snapshots/299b6098e43028edea8d7083659d18d60022548c214a6c8d17667060b4643867.txt",
+          "src/eng3/handlers_121c0.c": "evidence/repin_snapshots/5d1480090320234df6441ab8dcad951224b3fd18bd2457916db839da5a46f736.txt",
+          "src/eng3/handlers_0e020.cpp": "evidence/repin_snapshots/a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4.txt",
+          "src/eng3/handlers_28ae0.c": "evidence/repin_snapshots/315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64.txt",
+          "src/eng1/level_unit_10120.c": "evidence/repin_snapshots/33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180.txt",
+          "src/pc/host_setup.c": "evidence/repin_snapshots/dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c.txt",
+          "src/eng1/level_actors_083e0.cpp": "evidence/repin_snapshots/0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528.txt",
+          "src/eng1/level_actors_0c730.c": "evidence/repin_snapshots/ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f.txt",
+          "src/eng1/player_unit_36030.c": "evidence/repin_snapshots/a5f53b808e44ad54681b8b2a935269a64352e6ff35e9c7dfaf69a755e21a4830.txt",
+          "src/eng1/player_scene_3a040.c": "evidence/repin_snapshots/fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d.txt",
+          "src/eng1/pickup_lift_unit_12620.c": "evidence/repin_snapshots/3e0bf7b9dba4e51a0c9d1967874a4ca54c60539087b3a14eeccfcdc1a8c00cb4.txt",
+          "src/shared/remove_actor.c": "evidence/repin_snapshots/9ee60475338734cd7f83184eddd5cb24af578f3649c4d46f407407de672f5b22.txt",
+          "src/eng1/actor_links.c": "evidence/repin_snapshots/88aa85f0879a7b41badb11828d5cbb839e0e1211f3ef0b26e6df768dd02b2b49.txt",
+          "src/eng3/actor_services_1e000.c": "evidence/repin_snapshots/d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475.txt",
+          "src/eng1/actor_region.h": "evidence/repin_snapshots/6effc45a9a7188038ef9474b61071abf84884947bdb37aefdeb67897fb191262.txt",
+          "src/eng1/boss_unit_24090.c": "evidence/repin_snapshots/92b95d69daca3b7dc46158c0b5d0501adb78add7e42ded1542b4f8fe39c58668.txt",
+          "src/eng1/actor_unit_282e0.cpp": "evidence/repin_snapshots/629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7.txt",
+          "src/shared/macro_actor.c": "evidence/repin_snapshots/8e5573535c58ed16cf5da403cdb4f833a933cb450182ab3f54ee45d09e419fb7.txt",
+          "src/eng3/interface_wrappers.c": "evidence/repin_snapshots/fb0782554e9a8d44d2fa971fdb094ffa9a7f0fcb6fb0213c466c9e5382d93158.txt",
+          "src/eng3/render_unit_22f00.cpp": "evidence/repin_snapshots/2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac.txt",
+          "src/eng1/control_unit_2c030.c": "evidence/repin_snapshots/86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de.txt",
+          "src/eng1/render_unit_30010.cpp": "evidence/repin_snapshots/537a53c3dd7428634a552f9a104431ade7db1a4b1d2efe05f5d5deb101fa8c6b.txt",
+          "src/eng1/command_table.c": "evidence/repin_snapshots/ac20334d2b2c9e324fcf755b3e7d0af49a80529bb8888014b19d758ccfe806ea.txt",
+          "src/eng1/sound_od.c": "evidence/repin_snapshots/1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc.txt",
+          "src/shared/frame_lifecycle_bridges.h": "evidence/repin_snapshots/c4dd6d415988c01f143b7868ebcedaf64756d05b4d57553fc2c43d7ce66aec3e.txt",
+          "src/eng1/host_control_wrappers.c": "evidence/repin_snapshots/bb7570b33a62555f1d44a06e3a21314ebeded2316c446ce0c32e876512a55ef7.txt",
+          "src/eng1/eng1_default_callbacks.c": "evidence/repin_snapshots/e0284df5728c9050c97b9a4132436217cf18e2980acb8be93b804368d70a07d2.txt",
+          "src/shared/release_actor_repaired.c": "evidence/repin_snapshots/df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac.txt",
+          "src/shared/action_registry.c": "evidence/repin_snapshots/ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424.txt"
+        }
+      },
+      "fresh_shape": {
+        "source": "src/eng3/handlers_16240.cpp",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "before_symbol": "_eng3_1b9e0",
+        "after_symbol": "_engine_shutdown",
+        "size": 16,
+        "bytes_equal": true,
+        "relocations_equal": true,
+        "masked_equal": true,
+        "differing_bytes": 0,
+        "conflicts": [],
+        "compiled_size": 16,
+        "compiler_local_renames": {}
+      },
+      "claim": "Canonical descriptive/shared spelling; original identifier unproved."
+    },
+    "eng3.shared_23aa0": {
+      "before": "_title_18680",
+      "after": "_resource_metadata_pointer",
+      "source": "src/eng3/render_unit_22f00.cpp",
+      "before_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
+      "after_sha256": "baedf77585e486dfc9c633ffd4d5cfaa495e81a25186e072174eb53484c2f271",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x23aa0",
+      "size": 96,
+      "prior_evidence": "evidence/solRR_eng3_source_move_review_2026_11_01.json; unchanged existing ENG3 provider; own complete masked body and independent native record-table identity.",
+      "prior_proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
+        "compiled_sha256": "0d583f2ce31c2c0bafa80ca47577051dd7a550bd19294015d04344765eea9af3",
+        "target_sha256": "4340fe2c69368f166a2751ba733a9476187af37c45f067f6fa3ca46b65c91202",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/solRR_eng3_shared_23aa0_existing_unit_bindings_2026_11_01.json",
+        "bindings_sha256": "9ca754d32cae843d67e3db82f735bbad9ce71dd4c8bcb034b98643169661aec9",
+        "reference_evidence_sha256": "dd975a1fa5bde86afa70e686b46c0d74a9def84f40c6e3b27a958fdf97f76cf1",
+        "context_sha256": {
+          "src/eng3/render_unit_22f00.cpp": "c05a5005f73a25b441cb4a37f8d7f4e7607cfbad50518c9f9db055ea7848f1d0",
+          "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
+          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+        },
+        "reference_snapshots": {
+          "src/eng3/render_unit_22f00.cpp": "evidence/repin_snapshots/cbac81605c689fe70170a938a95980e80c868e4c2a62ac093ec87b83141c1d33.txt"
+        }
+      },
+      "fresh_shape": {
+        "source": "src/eng3/render_unit_22f00.cpp",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "before_symbol": "_title_18680",
+        "after_symbol": "_resource_metadata_pointer",
+        "size": 96,
+        "bytes_equal": true,
+        "relocations_equal": true,
+        "masked_equal": true,
+        "differing_bytes": 0,
+        "conflicts": [],
+        "compiled_size": 96,
+        "compiler_local_renames": {}
+      },
+      "claim": "Canonical descriptive/shared spelling; original identifier unproved."
+    }
+  },
+  "payloads": {},
+  "tables": {
+    "eng1.call_1fdf0": {
+      "source": "src/eng1/setup_dispatch.c",
+      "rva": 130544,
+      "tables": [
+        {
+          "offset": 44,
+          "size": 36,
+          "evidence": [
+            "evidence/solSP_native_review_2026_11_02.json#tables.eng1.call_1fdf0"
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "offset": 44,
+          "native_rvas": [
+            130565,
+            130585,
+            130585,
+            130585,
+            130570,
+            130575,
+            130585,
+            130585,
+            130580
+          ]
+        }
+      ],
+      "basis": "Complete compiler-local DIR32 table and original destination instruction starts checked by full comparator; no external function identity inferred."
+    },
+    "eng1.244d0": {
+      "source": "src/eng1/boss_unit_24090.c",
+      "rva": 148688,
+      "tables": [
+        {
+          "offset": 396,
+          "size": 24,
+          "evidence": [
+            "evidence/solSP_native_review_2026_11_02.json#tables.eng1.244d0"
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "offset": 396,
+          "native_rvas": [
+            149065,
+            148951,
+            148967,
+            149065,
+            149065,
+            148983
+          ]
+        }
+      ],
+      "basis": "Complete compiler-local DIR32 table and original destination instruction starts checked by full comparator; no external function identity inferred."
+    },
+    "eng1.native_code_target_0041000": {
+      "source": "src/eng1/classifier_child_41000.c",
+      "rva": 266240,
+      "tables": [
+        {
+          "offset": 148,
+          "size": 16,
+          "evidence": [
+            "evidence/solSP_native_review_2026_11_02.json#tables.eng1.native_code_target_0041000"
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "offset": 148,
+          "native_rvas": [
+            266350,
+            266350,
+            266362,
+            266374
+          ]
+        }
+      ],
+      "basis": "Complete compiler-local DIR32 table and original destination instruction starts checked by full comparator; no external function identity inferred."
+    }
+  },
+  "opaque_calls": {
+    "eng3.0e960@0x1ee": {
+      "row": "eng3.0e960",
+      "offset": 494,
+      "bytes": "ff9070010000",
+      "assembly": "call dword ptr [eax + 0x170]",
+      "target": "unidentified",
+      "abi": "unclaimed"
+    }
+  },
+  "negative_findings": [],
+  "replacement_anchors": {
+    "eng1.244d0|_g_boss_script_index_71e24": {
+      "row": "eng1.244d0",
+      "symbol": "_g_boss_script_index_71e24",
+      "old_identity": {
+        "operand": 1,
+        "rva": 149023,
+        "sha256": "c1565408b48605e33efbdf05f650aea27c2fa18009ef3c7f212242f6bd12d759",
+        "size": 6
+      },
+      "identity": {
+        "rva": 148085,
+        "size": 9,
+        "operand": 0,
+        "sha256": "6c5d4c4679e2e0bbe6545dc7b04f457670cca820188a7599310d43c740930ef0"
+      },
+      "accepted_host": "eng1.24270",
+      "assembly": "mov word ptr [0x10071e24], 0xffff",
+      "bytes": "66c705241e0710ffff"
+    },
+    "eng1.26f20|_g_level_actors_6fe78": {
+      "row": "eng1.26f20",
+      "symbol": "_g_level_actors_6fe78",
+      "old_identity": {
+        "operand": 1,
+        "rva": 159520,
+        "sha256": "aff555f669b5e18ba8e771e45977608129885e410ffec8b64f65a45ab0e01718",
+        "size": 6
+      },
+      "identity": {
+        "rva": 210874,
+        "size": 10,
+        "operand": 0,
+        "sha256": "0f48d08b6736f3741fc5dfb7ce690d21cbc120c2dd520c81ab4bfae73132e858"
+      },
+      "accepted_host": "eng1.337b0",
+      "assembly": "mov dword ptr [0x1006fe78], 0",
+      "bytes": "c70578fe061000000000"
+    }
+  }
+}
