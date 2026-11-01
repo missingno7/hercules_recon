@@ -75,7 +75,7 @@ extern Callback12 *g_configuration_dword_71370;
 extern Callback8 *g_configuration_dword_7137c;
 extern unsigned short g_eng1_setup_word_72012;
 extern unsigned short g_native_word_72168;
-extern unsigned short g_eng1_setup_word_7082e;
+extern unsigned char g_cold_start_state_bytes_70820[0x1c];
 extern unsigned short g_eng1_setup_word_6ef90;
 extern unsigned short g_pipeline_word_6fec4;
 extern Bounds g_actor_pipeline_storage_71440;
@@ -977,7 +977,7 @@ void eng1_native_code_target_00a010(Actor *p)
                 goto done;
             eng1_1aba0();
             g_native_word_72168 |= mask;
-            if ((g_eng1_setup_word_72012 & 2) && g_eng1_setup_word_7082e > 200) {
+            if ((g_eng1_setup_word_72012 & 2) && (*(unsigned short *)(void *)(g_cold_start_state_bytes_70820 + 14)) > 200) {
                 play_sound(0xcf, 0);
                 eng1_09db0(p);
                 g_eng1_setup_word_6ef90 = 1;
@@ -1098,7 +1098,7 @@ void eng1_native_code_target_00a490(Actor *p)
                 goto done;
             eng1_1aba0();
             g_native_word_72168 |= mask;
-            if ((g_eng1_setup_word_72012 & 2) && g_eng1_setup_word_7082e > 200) {
+            if ((g_eng1_setup_word_72012 & 2) && (*(unsigned short *)(void *)(g_cold_start_state_bytes_70820 + 14)) > 200) {
                 play_sound(0xcf, 0);
                 eng1_0a140(p);
                 g_eng1_setup_word_6ef90 = 1;
@@ -1987,7 +1987,7 @@ void eng1_native_code_target_00bc50(Actor *p)
         break;
     case 0x43:
         eng1_interpret_signed_pairs(p);
-        if ((g_eng1_setup_word_72012 & 2) && g_eng1_setup_word_7082e > 100) {
+        if ((g_eng1_setup_word_72012 & 2) && (*(unsigned short *)(void *)(g_cold_start_state_bytes_70820 + 14)) > 100) {
             if (g_pipeline_word_6fec4 && eng1_2a710(&g_actor_pipeline_storage_71440, p)) {
                 p->state = 0x23;
                 select_frame(p, 4);
