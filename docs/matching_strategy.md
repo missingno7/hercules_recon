@@ -213,3 +213,29 @@ Independent anchors, not owners or content, now limit storage identities:
   gate the rows the S3e, S3f and S3i storage packages free.
 - Rows whose new masked boundary covers an accepted proof's anchor cannot be promoted (eng1.02d80,
   eng1.02920); their callers are unaffected. Re-anchor before promoting such hosts when a witness exists.
+
+### Wave l (2026-11-01, census queue_x: 850 pending, 12 ready)
+
+- Landed: storage packages S3c-S3i and W7 (chain, pins gated per package); b21 (new unit context_sequence_targets.c,
+  0x44120); bindK2 (4 rows the S3 owner spellings freed); b22 (0x1a3e0, 0x18f60); b23 (two owners made COMMON).
+  Strict rows: 1,235.
+- Volatile, twice measured inert: k11's cast on 0x70198 and k08's `volatile g_eng1_setup_pointer_72020` both closed
+  without volatile once the unit took the real declaration (setup_shared_state.h) or dropped an unrelated function.
+  Lanes now must prove a kept volatile is needed (work/velocity_l/contract_l.md).
+- Build budgets count per lane. Resuming two stalled lanes with a fresh budget closed 0x18f60 (two local declarations
+  swapped: C2 then emits the native `add ebp,edi`) and took 0x44240 from 615 to 166 differing bytes (EBP/EBX swap fixed
+  by first-definition order; the remainder is short-register clamp-store code from +0x257).
+- New proof-tool extension: reviewed owner revision (`owner_revisions` in reviewed-binding-rename-v1, 73cbad2 on main).
+  An owner unit that accepted bindings pin may change when a review lists every accepted row that uses the file as a
+  loader-zero or file-data owner. Each such row gets a descendant manifest that differs from its parent only in that
+  pin, and the after gate recompiles the owner and re-verifies all rows. First use: b23. Most documents pin owner files
+  as provenance only and keep reading their snapshots.
+- Re-pins that add an include declare it: batch `context_additions` (direct headers) expands to the closure difference.
+- solSL (negative): a section-layout owner proof from one anchor is unsound here. The canonical multi-object .bss
+  layouts disagree with native caller constraints (graphics: 15 members, sound bank: 3), and __crtheap is COMMON.
+  Remaining options are independent evidence of the original contribution layout, or a direct-member form where each
+  member has its own anchor.
+- solOX: camera_x 70ca0 COMMON frees 3 hosts (bindK3, with the pipeline hosts). 72108/72110 have viable COMMON owners
+  but free no rows alone. Control 70ed8 needs an interior-anchor form (specified in work/velocity_l/solOX). 71714 is
+  owned by pipeline storage, so it needs an alias migration plus an owner revision. The FX owner passes zero-section-v1
+  but lacks an anchor form.
