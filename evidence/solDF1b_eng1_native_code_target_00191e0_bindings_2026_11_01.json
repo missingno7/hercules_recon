@@ -1,0 +1,224 @@
+{
+ "schema": 1,
+ "functions": {
+  "eng1.native_code_target_00191e0": {
+   "symbols": {
+    "_dispatch_local_15d00": {
+     "kind": "function",
+     "rva": 89344,
+     "size": 2704,
+     "evidence": [
+      "function_identities:eng1.dispatch_local_15d00",
+      "evidence/eng1_player_setup_continuation.json#target_span; evidence/local_15d00_review_2026_10_26.json#function_callers._dispatch_local_15d00"
+     ],
+     "references": [
+      {
+       "offset": 86,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 91,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng1_sim_state_72108": {
+     "kind": "bss",
+     "rva": 467208,
+     "size": 2,
+     "owner": {
+      "source": "src/eng1/simulation_storage.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_eng1_sim_state_72108"
+     },
+     "identity": {
+      "rva": 74007,
+      "size": 6,
+      "operand": 1,
+      "sha256": "3f30d45a5957c3473d14969ea64700d99d57321b8c97930be7fd4ff4f2d67db4"
+     },
+     "evidence": [
+      "evidence/solSIM_native_review_2026_11_01.json#surveys._eng1_sim_state_72108"
+     ],
+     "references": [
+      {
+       "offset": 49,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_actor_resources": {
+     "kind": "data",
+     "rva": 380640,
+     "size": 1620,
+     "sha256": "4ba542e0c2ac3b325b4ac9a1a9e68699cfd9ec288b80b17abe6885509bdcd4be",
+     "evidence": [
+      "evidence/resource_writer_layout.json#analysis.resource_records",
+      "evidence/scale_resource_callbacks_review_2026_10_25.json#resource_records"
+     ],
+     "references": [
+      {
+       "offset": 39,
+       "type": 6,
+       "addend": 116
+      }
+     ]
+    },
+    "_g_eng1_image_54b50": {
+     "kind": "data",
+     "rva": 346960,
+     "size": 224,
+     "sha256": "9c9b081278de9011a45543f6a07aa747915cbe08f4f85e55b4e8cfbad5bd6cd0",
+     "evidence": [
+      "evidence/solDF1_native_review_2026_11_01.json#same_unit_existing._g_eng1_image_54b50"
+     ],
+     "references": [
+      {
+       "offset": 58,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng1_image_54c30": {
+     "kind": "data",
+     "rva": 347184,
+     "size": 72,
+     "sha256": "998589777ca7222f621d411a94a4572825ba5798eb1cd5b1757910f4c4a86209",
+     "evidence": [
+      "evidence/solDF1_native_review_2026_11_01.json#same_unit_existing._g_eng1_image_54c30"
+     ],
+     "references": [
+      {
+       "offset": 8,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_normal_actor_pool": {
+     "evidence": [
+      "evidence/loader_zero_axis_references_2026_10_25.json#pool_owner",
+      "evidence/normal_pool_pointer_2026_10_25.json"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 127245,
+      "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5",
+      "size": 5
+     },
+     "kind": "bss",
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng1/actor_storage.c",
+      "symbol": "_g_normal_actor_pool"
+     },
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 29,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 64,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 77,
+       "type": 6,
+       "addend": 0
+      }
+     ],
+     "rva": 469088,
+     "size": 4
+    },
+    "_title_04ea0": {
+     "kind": "function",
+     "rva": 14448,
+     "size": 96,
+     "evidence": [
+      "function_identities:eng1.shared_03870"
+     ],
+     "references": [
+      {
+       "offset": 24,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ },
+ "function_identities": {
+  "eng1.dispatch_local_15d00": {
+   "symbol": "_dispatch_local_15d00",
+   "rva": 89344,
+   "size": 2704,
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+   "source": "src/eng1/mode_handlers_16840.cpp",
+   "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+   "identity_basis": "Native entry/body extent and hash in the independent player-setup continuation review, plus direct E8/E9 callers outside this task set. The ENG3 eng3_18370 body is a corroborating twin label, not the address proof.",
+   "native_span_sha256": "4ebd29488e0fad4645c7e46eb071dd178c5478f4699792b6aa48c7b790c0c599",
+   "outside_caller_count": 65,
+   "origin": "evidence/eng1_player_setup_continuation.json#target_span; evidence/local_15d00_review_2026_10_26.json#function_callers._dispatch_local_15d00"
+  },
+  "eng1.shared_03870": {
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "origin": "recovery.json#functions.eng1.shared_03870; independent own complete fresh shape",
+   "rva": 14448,
+   "size": 96,
+   "source": "src/title/r04d80.c",
+   "source_sha256": "3da3ac403e6a26d434960c8e3db31d21161e32fb906ef551ae3f0581db035e74",
+   "symbol": "_title_04ea0",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+   "accepted_proof": {
+    "bindings_path": "evidence/bindK1_bindings_2026_10_31.json",
+    "bindings_sha256": "bdccdf33edd939526593c64ae50b9496484b885d775b97fa8974534fecdd6e6f",
+    "compiled_sha256": "e5fbc542b958496fbf2378233a9f54c021dbf75a395e4ee3c93a3b92d13337d5"
+   }
+  }
+ },
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "src/eng1/player_modes_remaining.c": "b38deb2038bfb2d17811671173429dd15dfc7aa937004a0a1daf56266277ffca",
+  "evidence/anchor_33a4c619146b_4bd277942bf0.json": "1d9a6c754818d098c8951f9b32315ef2fd6ce697281bfff0528366066beafc53",
+  "evidence/eng1_player_setup_continuation.json": "80619e748d026c41537cb6299c012711c78ea9fdb634e001987d4f1d2b81ac52",
+  "evidence/solSIM_eng1_16840_bindings_2026_11_01.json": "75b4c1b6b9fd9a4dfba430952d75c98d80bcb2890e7842bcfb5d2c8e00a1029f",
+  "evidence/solSIM_native_review_2026_11_01.json": "afd0bb43f150aff4628f80c5120fed9dbfa873f1c2d0668ae996da2c5e6f1eb0",
+  "src/eng1/simulation_storage.c": "e648368eda765ab181ed1aef96919e6a6ff3c9e52322e63405fee23314df2d7c",
+  "evidence/anchor_d4fc5b150f68_a4be0204f705.json": "ec9a5b5e15748fcca074c65da130211130b8359e7a1dae9d966b1b65cdb5a429",
+  "evidence/loader_zero_axis_references_2026_10_25.json": "6221129c6cdbfc25da3d2880e825c2abb5b13c33bdde8851d411d71c23e8bf83",
+  "evidence/normal_pool_pointer_2026_10_25.json": "d87cff10b461c18e90bd881ab2d0bef309db13cd9fc7073678fa2c577d387165",
+  "src/eng1/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+  "src/eng1/mode_handlers_16840.cpp": "ea0c6554b986160edc08ff28563750a7f8e96d29f3028fbdd6c5a6ac492ef4c1",
+  "src/title/r04d80.c": "3da3ac403e6a26d434960c8e3db31d21161e32fb906ef551ae3f0581db035e74",
+  "evidence/bindK1_bindings_2026_10_31.json": "e78ee1cdad1f700b8f81d6409b862236627fcfc1f4197436bfd670edb0a1ab1b",
+  "evidence/solDF1_native_review_2026_11_01.json": "ccb48808ecbdf9e9295fb4109a445c211ae9c73344b95c9f4f33288a5afdeaba",
+  "evidence/solDF1b_native_review_2026_11_01.json": "b4d268ad10ffe1a270f9c5800c2eb7ed400941c55993cb388b2d1cf8c2a8c8a4",
+  "src/eng1/frame_data_config_word_pool.c": "d811f5a5224f912b03dc650aec551bf738c2a22588256da67c5d9da50ad28305",
+  "evidence/scale_resource_callbacks_bindings_2026_10_25.json": "7cad6a927b941c159de5dfba8cbfd1fcf52dc0c6b6ff2c950cf9b2400886115e",
+  "toolchains/manifest.json": "d52d560ef78589b6008df0fd3ca42f8d258a34248015398158716e9a811e063d",
+  "evidence/resource_writer_layout.json": "c449d77865b109f0afe8bedb921f887b45a49b0c3ded92fdd2fdb2d7137e8d87",
+  "evidence/resource_provider_contract.json": "270c1f9cb861a7894dce546728732c21e2d4d2676f47af5cd2eb089e5a74cdce",
+  "evidence/resource_callbacks_region.json": "ad68fc9bc72642c6ca2dc7269b19adee5faf5a6756d56040b9287ca6713b729c",
+  "evidence/scale_resource_callbacks_review_2026_10_25.json": "f172e8f8149c58881c9ec31519f785a7de4cd89693e22cb879db81da80f8e9db"
+ },
+ "unresolved_symbols": [],
+ "scope": "Current-baseline candidate document. Exact identities are inherited or independently reviewed, caller-specific uses freshly inventoried. Source installation/reanchor and future accepted-proof refresh are integration prerequisites; no acceptance."
+}
