@@ -843,12 +843,16 @@ extern unsigned short g_native_word_72168;
 extern long g_level_effects_5e9c0[8][8];
 extern unsigned short g_level_noise_5ef88[];
 extern unsigned char g_debris_sprites_5ef60[];
-extern unsigned char g_clut_rows_602a8[];
-extern unsigned char g_clut_rows_602b0[];
-extern unsigned char g_clut_rows_602b4[];
-extern unsigned char g_clut_rows_602b8[];
-extern unsigned char g_clut_rows_602bc[];
-extern unsigned char g_clut_rows_602c0[];
+/* Observed palette-byte span through the last random_limit(4) view.
+ * 28 bytes are a reconstructed minimum, not the native allocation capacity.
+ * Views use measured displacements; gaps retain their opaque original bytes. */
+unsigned char g_status_palette_block_602a8[28] = { 255, 1, 2, 3, 4, 0, 0, 0, 255, 1, 2, 0, 255, 1, 2, 3, 255, 2, 0, 0, 255, 1, 2, 0, 255, 1, 2, 3 };
+
+
+
+
+
+
 extern unsigned long eng1_sim_state_72110;
 extern SpawnRecord g_spawn_records_5ff60[];
 extern Callback8 *g_configuration_dword_7137c;
@@ -941,7 +945,7 @@ void eng1_341a0(Actor *p)
     restart_steps(p);
     p->render_flags |= 8;
     p->unknown_0f4 = 2;
-    p->clut_01c = g_clut_rows_602b0[random_limit(3)];
+    p->clut_01c = (g_status_palette_block_602a8 + 0x8)[random_limit(3)];
     eng1_native_code_target_002a290(p);
 }
 
@@ -1005,7 +1009,7 @@ void eng1_343a0(Actor *p)
     advance_frame(p);
     p->render_flags |= 8;
     p->unknown_124 = 2;
-    p->clut_01c = g_clut_rows_602bc[random_limit(3)];
+    p->clut_01c = (g_status_palette_block_602a8 + 0x14)[random_limit(3)];
     eng1_native_code_target_002a290(p);
 }
 
@@ -1163,7 +1167,7 @@ void eng1_348a0(Actor *p)
     p->render_flags |= 8;
     p->unknown_0f4 = 4;
     p->unknown_124 = 2;
-    p->clut_01c = g_clut_rows_602b8[random_limit(2)];
+    p->clut_01c = (g_status_palette_block_602a8 + 0x10)[random_limit(2)];
     eng1_native_code_target_002a290(p);
     spawn_actor_with_owner(p, p->x, p->y, p->z, 0x42);
 }
@@ -1310,7 +1314,7 @@ void eng1_34c80(Actor *p)
     p->direction_x = -random_limit(2);
     p->render_flags |= 8;
     p->unknown_0f4 = random_limit(3) & 1;
-    p->clut_01c = g_clut_rows_602a8[random_limit(5)];
+    p->clut_01c = (g_status_palette_block_602a8 + 0x0)[random_limit(5)];
     eng1_native_code_target_002a290(p);
 }
 
@@ -1488,7 +1492,7 @@ void eng1_35200(Actor *p)
         p->unknown_097 = g_kind_info[p->profile].owner[p->record_offset + 0xc] & 0x3f;
     }
     if (p->state == 0) {
-        p->clut_01c = g_clut_rows_602c0[random_limit(4)];
+        p->clut_01c = (g_status_palette_block_602a8 + 0x18)[random_limit(4)];
     } else {
         p->clut_01c = p->state >> 8;
         p->state &= 0xff;
@@ -1814,7 +1818,7 @@ void eng1_35c60(Actor *p)
     select_frame(p, 1);
     restart_steps(p);
     p->render_flags |= 8;
-    p->clut_01c = g_clut_rows_602b4[random_limit(4)];
+    p->clut_01c = (g_status_palette_block_602a8 + 0xc)[random_limit(4)];
     p->unknown_0f4 = random_limit(0xe) + 1;
     p->y = 0x4e00000;
     p->direction_z = 0xff;
@@ -1830,7 +1834,7 @@ void eng1_35cf0(Actor *p)
     advance_frame(p);
     restart_steps(p);
     p->render_flags |= 8;
-    p->clut_01c = g_clut_rows_602b4[random_limit(4)];
+    p->clut_01c = (g_status_palette_block_602a8 + 0xc)[random_limit(4)];
     p->unknown_0f4 = random_limit(0xe) + 1;
     p->y = 0x4e00000;
     p->direction_z = 0;

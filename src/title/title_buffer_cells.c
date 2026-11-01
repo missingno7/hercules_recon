@@ -2,4 +2,4 @@
 #include "title_gpu.h"
 
 TitleBuffer *g_2cc04 = 0;
-TitleBuffer *g_2cc08 = 0;
+TitleBuffer *g_2cc08;

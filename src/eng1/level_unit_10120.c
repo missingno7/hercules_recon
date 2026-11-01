@@ -154,7 +154,12 @@ extern short g_pipeline_word_71720[];
 extern short g_pipeline_word_71740[];
 extern Actor *g_frame_global_734f4;
 extern SpawnRecord g_eng1_spawn_records_52100[];
-extern unsigned char g_eng1_clut_rows_52b38[][8];
+/* solOZ: initialized table observed by this unit; original allocation upper bound unclaimed. */
+unsigned char g_eng1_clut_rows_52b38[3][8] = {
+    { 255, 3, 255, 3, 255, 3, 255, 3 },
+    { 255, 7, 5, 6, 4, 5, 6, 4 },
+    { 255, 9, 8, 255, 9, 8, 9, 8 }
+};
 extern PanelState g_panel_70820;
 extern long g_eng1_setup_dword_6ef5c;
 extern short g_eng1_word_6ef50;

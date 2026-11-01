@@ -113,9 +113,25 @@ extern Actor *g_focus;
 extern Actor *g_eng3_actor_431d4;
 extern TrailPoint g_eng3_trail_41d60[];
 extern TrailPoint *g_eng3_trail_cursor_37b60;
-extern unsigned char g_eng3_image_37b24[];
-extern unsigned char g_eng3_image_37b28[];
-extern unsigned char g_eng3_image_37658[];
+/* Reuse the exact canonical frame_program_37ca0.c typedef; checked by the lane generator.
+ * Signed opcode/operand word pairs, not serialized byte storage. */
+typedef struct Eng3CommandPair { short opcode; short operand; } Eng3CommandPair;
+Eng3CommandPair g_eng3_image_pair_37b24[2] = {
+    { 2, -1 },
+    { 6, -1 }
+};
+
+/* Eight observed frame command pairs through the {-1,0} restart record. */
+Eng3CommandPair g_eng3_image_37658[8] = {
+    { 284, 0 },
+    { 285, 0 },
+    { 286, 0 },
+    { 287, 0 },
+    { 288, 0 },
+    { 289, 0 },
+    { 290, 0 },
+    { -1, 0 }
+};
 extern unsigned char g_eng3_image_375f0[];
 extern unsigned char g_eng3_image_37618[];
 extern unsigned char g_eng3_image_37678[];
@@ -160,9 +176,9 @@ void eng3_14190(Actor *o)
         o->category = 6;
     o->flags = 0x802;
     if (((o->kind + 5) & 0xf) == g_engine_interface.context_004->unknown_02)
-        o->image = g_eng3_image_37b24;
+        o->image = ((unsigned char *)&g_eng3_image_pair_37b24[0]);
     else
-        o->image = g_eng3_image_37b28;
+        o->image = ((unsigned char *)&g_eng3_image_pair_37b24[1]);
     reset_frame_state(o);
     eng3_1e000(o);
     eng3_1f1a0(o, &o->shape, 0);
@@ -171,14 +187,14 @@ void eng3_14190(Actor *o)
 
 void eng3_14200(Actor *o)
 {
-    if (o->image == g_eng3_image_37b28) {
+    if (o->image == ((unsigned char *)&g_eng3_image_pair_37b24[1])) {
         if (eng1_2a660(o, g_focus)) {
-            o->image = g_eng3_image_37b24;
+            o->image = ((unsigned char *)&g_eng3_image_pair_37b24[0]);
             g_engine_interface.context_004->unknown_02 = (o->kind + 5) & 0xf;
             reset_frame_state(o);
         }
     } else if (g_engine_interface.context_004->unknown_02 != ((o->kind + 5) & 0xf)) {
-        o->image = g_eng3_image_37b28;
+        o->image = ((unsigned char *)&g_eng3_image_pair_37b24[1]);
         reset_frame_state(o);
     }
     eng3_1e000(o);
@@ -539,7 +555,7 @@ void eng3_14d90(Actor *o)
         if (g_engine_interface.context_004->level == 8) {
             o->category = 6;
             o->render_flags = 0x80000000;
-            o->image = g_eng3_image_37658;
+            o->image = (unsigned char *)&g_eng3_image_37658[0];
         } else {
             o->render_flags |= 0x10000040;
         }
@@ -599,7 +615,7 @@ void eng3_14fd0(Actor *o)
     if (o) {
         o->category = 6;
         o->render_flags = 0x80000000;
-        o->image = g_eng3_image_37658;
+        o->image = (unsigned char *)&g_eng3_image_37658[0];
         o->unknown_d8 = 0;
         o->unknown_98 = 0;
         o->profile = g_focus->profile;

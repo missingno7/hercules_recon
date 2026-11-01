@@ -79,8 +79,37 @@ extern unsigned short g_eng1_setup_word_7082e;
 extern unsigned short g_eng1_setup_word_6ef90;
 extern unsigned short g_pipeline_word_6fec4;
 extern Bounds g_actor_pipeline_storage_71440;
-extern Debris g_debris_4fb50[13];
-extern Debris g_debris_4fbb8[12];
+/* The 13 sequential records and 12 random records share one observed 200-byte span.
+ * Minimum reconstructed storage only; original allocation upper bound is unclaimed.
+ * Keeping both views in one owner also contains the native loop-end address at +108. */
+Debris g_debris_records_4fb50[25] = {
+    { -10, 0, 20, 16443 },
+    { -20, -40, 0, 16445 },
+    { 0, -10, 40, 16446 },
+    { 40, -20, 60, 16448 },
+    { 10, 0, -20, 16443 },
+    { 20, -40, 0, 16443 },
+    { -20, -40, 20, 16445 },
+    { -10, 10, 160, 16447 },
+    { -20, -20, 80, 16444 },
+    { 20, -20, 80, 16443 },
+    { 10, -10, 160, 16445 },
+    { 20, 20, -80, 16447 },
+    { -20, -20, -60, 16444 },
+    { -30, 0, 30, 16443 },
+    { 0, -30, 20, 16446 },
+    { 30, 0, -30, 16444 },
+    { 0, 30, 30, 16444 },
+    { -30, 30, 80, 16447 },
+    { -20, -40, 80, 16443 },
+    { 0, 0, -60, 16444 },
+    { 40, -40, 80, 16443 },
+    { 30, -30, 80, 16445 },
+    { 40, -20, -80, 16447 },
+    { 0, 0, -30, 16448 },
+    { -20, -40, -30, 16443 }
+};
+extern Debris g_debris_4fbb8[12]; /* Existing unused declaration retained as original caller context. */
 extern long g_bob_steps_4fc18[];
 
 extern void engine_diagnostic(const char *, ...);
@@ -883,8 +912,8 @@ void eng1_09db0(Actor *p)
 
     play_sound(0xcc, 0);
     for (i = 0; i < 13; i++) {
-        q = spawn_middle_277e0((g_debris_4fb50[i].x << 16) + x, (g_debris_4fb50[i].y << 16) + y,
-                               (g_debris_4fb50[i].z << 16) + z, g_debris_4fb50[i].kind);
+        q = spawn_middle_277e0(((g_debris_records_4fb50 + 0)[i].x << 16) + x, ((g_debris_records_4fb50 + 0)[i].y << 16) + y,
+                               ((g_debris_records_4fb50 + 0)[i].z << 16) + z, (g_debris_records_4fb50 + 0)[i].kind);
         if (q) {
             g_configuration_dword_7137c[65].initialize(q);
             q->state = 0x3e;
@@ -906,8 +935,8 @@ void eng1_09ec0(Actor *p)
     play_sound(0xcc, 0);
     for (i = 0; i < 4; i++) {
         r = random_limit(12);
-        q = spawn_middle_277e0((g_debris_4fbb8[r].x << 16) + x, (g_debris_4fbb8[r].y << 16) + y,
-                               (g_debris_4fbb8[r].z << 16) + z, g_debris_4fbb8[r].kind);
+        q = spawn_middle_277e0(((g_debris_records_4fb50 + 13)[r].x << 16) + x, ((g_debris_records_4fb50 + 13)[r].y << 16) + y,
+                               ((g_debris_records_4fb50 + 13)[r].z << 16) + z, (g_debris_records_4fb50 + 13)[r].kind);
         if (q) {
             g_configuration_dword_7137c[65].initialize(q);
             q->state = 0x3e;
@@ -988,8 +1017,8 @@ void eng1_0a140(Actor *p)
 
     play_sound(0xcd, 0);
     for (i = 0; i < 13; i++) {
-        q = spawn_middle_277e0((g_debris_4fb50[i].x << 16) + x, (g_debris_4fb50[i].y << 16) + y,
-                               (g_debris_4fb50[i].z << 16) + z, g_debris_4fb50[i].kind);
+        q = spawn_middle_277e0(((g_debris_records_4fb50 + 0)[i].x << 16) + x, ((g_debris_records_4fb50 + 0)[i].y << 16) + y,
+                               ((g_debris_records_4fb50 + 0)[i].z << 16) + z, (g_debris_records_4fb50 + 0)[i].kind);
         if (q) {
             g_configuration_dword_7137c[40].initialize(q);
             q->state = 1;
@@ -1015,8 +1044,8 @@ void eng1_0a2c0(Actor *p)
     play_sound(0xcd, 0);
     for (i = 0; i < 2; i++) {
         r = random_limit(12);
-        q = spawn_middle_277e0((g_debris_4fbb8[r].x << 16) + x, (g_debris_4fbb8[r].y << 16) + y,
-                               (g_debris_4fbb8[r].z << 16) + z, g_debris_4fbb8[r].kind);
+        q = spawn_middle_277e0(((g_debris_records_4fb50 + 13)[r].x << 16) + x, ((g_debris_records_4fb50 + 13)[r].y << 16) + y,
+                               ((g_debris_records_4fb50 + 13)[r].z << 16) + z, (g_debris_records_4fb50 + 13)[r].kind);
         if (q) {
             g_configuration_dword_7137c[40].initialize(q);
             q->state = 1;
