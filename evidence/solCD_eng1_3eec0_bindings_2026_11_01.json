@@ -1,0 +1,228 @@
+{
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "evidence/bindK7_bindings_2026_11_01.json": "da0c8b47395b79b6b21fcf4651d588a838c33f2e2fdf867aa9a0a94298361262",
+  "evidence/rename_304b0c837a30_a75ff44c5257.json": "f73f38ebdba6812632a815372f8f6db63ebc2ac1c5e206242af4e0e106a83738",
+  "evidence/rename_d01b045b635f_310de8efa563.json": "29abdcf322f382aee0e3f5372f795ac6b29831167aaf17db2185f003f3c5e371",
+  "evidence/scalar_eng1_0_bindings_2026_10_26.json": "cdafb5e2b4427d06d4fbb1f118e2efc7992c5d4a2c5c7899b8b25677bff3b00f",
+  "evidence/solCC_eng1_3e770_bindings_2026_11_01.json": "1f4896ed0da6ca245c527edca284373323fa39089fa6c1af62962334e13d67cd",
+  "evidence/solCC_eng1_native_code_target_02cc50_bindings_2026_11_01.json": "2468280991f401adf4d24244c5fd9fb1cb8bbc0bb492893eefcfd902a870c48e",
+  "evidence/solCD_native_review_2026_11_01.json": "3f3d677208186828e5ae1e44b225a97783df1d2a582578e007fc561517dd04e2",
+  "evidence/source_layout_2026_10_25/motion_contacts_bindings_2026_10_25.json": "dcc5738b9b2002296665542c2e659c5b30e78a7777aa28dee6edf70a86ca3d1a",
+  "evidence/strict_next_bindings_2026_10_25.json": "daa8044c0f74d419b2f491f668adacf64616b7aafb0cf809f85921ba8ab482ed",
+  "src/eng1/actor_control_cells.c": "2bc12ffd0ada012a7fa5d027c326123d6a4a8a192755279643bcfc17df27abb4",
+  "src/eng1/actor_control_cells.h": "b367659f10059f662f45acddd904ce50b19dc09d97ce3b495d7c6b5c1ecf2e6f",
+  "src/eng1/actor_control_state.h": "98a60b9fa15d9e5ae7955c4971068bc3f1f346b820eba384e23e0d444f5ddcf9",
+  "src/eng1/collision_pointer_owner_alias.h": "100934002a244e02bb1292616ae4f953ed1ce5ff42c42f43a297ab23f4461391",
+  "src/eng1/contact_motion.c": "384601e3f2bb4905f2cb12b8c03e708a6eac22cf0fd9dbdf63672c06a443deab",
+  "src/eng1/forest_level_state.c": "079438de958e017e4a2514c7cd6ff1e1fd79b3c821918c0241eac81018a89bb7",
+  "src/eng1/player_scene_3a040.c": "338f3bd60820605440f56d36b92e65b15d289676f24856035cbb5fbbc7d7e305",
+  "src/eng1/sound_od.c": "06fd0efe61b7842a94d8fde576b9d228233fad110e92c5a732d5ff4edfc0e60b"
+ },
+ "function_identities": {
+  "eng1.damped_contact_motion": {
+   "accepted_proof": {
+    "bindings_path": "evidence/source_layout_2026_10_25/motion_contacts_bindings_2026_10_25.json",
+    "bindings_sha256": "7289eb9d72693a035c136b45c75392e802c4aebdaf81abbd2f6d5d1ed224bff7",
+    "compiled_sha256": "455f30de999fea6684f5350a543379ada4c42f0277806edd8f02c1cb3390b9ca"
+   },
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "origin": "recovery.json#functions.eng1.damped_contact_motion; the FUNCTION_MATCH_RELOCATED ledger row is the independent identity source, not derived from the pending caller",
+   "rva": 179280,
+   "size": 208,
+   "source": "src/eng1/contact_motion.c",
+   "source_sha256": "384601e3f2bb4905f2cb12b8c03e708a6eac22cf0fd9dbdf63672c06a443deab",
+   "symbol": "_damped_contact_motion",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "eng1.od_06da0": {
+   "ledger_status": "CODEGEN_SIMILAR",
+   "origin": "recovery.json#functions.eng1.od_06da0; the CODEGEN_SIMILAR ledger row is the independent identity source, not derived from the pending caller",
+   "rva": 28064,
+   "size": 2115,
+   "source": "src/eng1/sound_od.c",
+   "source_sha256": "06fd0efe61b7842a94d8fde576b9d228233fad110e92c5a732d5ff4edfc0e60b",
+   "symbol": "_LinkedSoundFx_6da0",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  }
+ },
+ "functions": {
+  "eng1.3eec0": {
+   "symbols": {
+    "_LinkedSoundFx_6da0": {
+     "evidence": [
+      "function_identities:eng1.od_06da0"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 185,
+       "type": 20
+      }
+     ],
+     "rva": 28064,
+     "size": 2115
+    },
+    "_damped_contact_motion": {
+     "evidence": [
+      "function_identities:eng1.damped_contact_motion"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 88,
+       "type": 20
+      },
+      {
+       "addend": 0,
+       "offset": 109,
+       "type": 20
+      }
+     ],
+     "rva": 179280,
+     "size": 208
+    },
+    "_eng1_2a9e0": {
+     "evidence": [
+      "evidence/frame_callbacks_recovery_2026_10_26.json#independent_native_callee_entries[2]"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 345,
+       "type": 20
+      }
+     ],
+     "rva": 174560,
+     "size": 80
+    },
+    "_eng1_native_code_target_002a290": {
+     "evidence": [
+      "evidence/spatial_predicates_references_2026_10_25.json#function_entries._eng1_native_code_target_002a290"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 57,
+       "type": 20
+      }
+     ],
+     "rva": 172688,
+     "size": 160
+    },
+    "_g_eng1_actor_control_state_70ed8": {
+     "evidence": [
+      "evidence/solCD_native_review_2026_11_01.json#owner"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 183457,
+      "sha256": "b07d14115d3c8b7cfe73d45f3de6658806eae0c624c6f661f2d3d48d69c6811d",
+      "size": 6
+     },
+     "kind": "bss",
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng1/forest_level_state.c",
+      "symbol": "_g_eng1_actor_control_state_70ed8"
+     },
+     "references": [
+      {
+       "addend": 18,
+       "offset": 16,
+       "type": 6
+      },
+      {
+       "addend": 32,
+       "offset": 24,
+       "type": 6
+      }
+     ],
+     "rva": 462552,
+     "size": 56
+    },
+    "_g_eng1_classifier_rows_65678": {
+     "evidence": [
+      "evidence/eng1_filedata_review_2026_10_26.json#table_reviews.classifier_rows_65678",
+      "evidence/eng1_actor_position_classifier_41fd0.json#data (measured 18x6 WORD owner; full payload SHA-256)",
+      "src/eng1/actor_control_tables.c#g_eng1_classifier_rows_65678[18][6]"
+     ],
+     "kind": "data",
+     "references": [
+      {
+       "addend": 10,
+       "offset": 44,
+       "type": 6
+      }
+     ],
+     "rva": 415352,
+     "sha256": "cc16de76182437e16196071b24c947b127e4d2e0982cf3fe5fbd3629351c3e62",
+     "size": 216
+    },
+    "_g_native_pointer_7217c": {
+     "evidence": [
+      "evidence/owner_alias_references_2026_10_25.json#owners._g_native_pointer_7217c"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 87043,
+      "sha256": "5643f772837e8044d1c932dbfa548ad4224aeded6fadfc7193293340b1aab5c1",
+      "size": 5
+     },
+     "kind": "bss",
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng1/actor_control_cells.c",
+      "symbol": "_g_collision_context"
+     },
+     "references": [
+      {
+       "addend": 0,
+       "offset": 157,
+       "type": 6
+      }
+     ],
+     "rva": 467324,
+     "size": 4,
+     "source_alias": {
+      "header": "src/eng1/collision_pointer_owner_alias.h",
+      "kind": "owner-compile-renaming",
+      "pointer_types": {
+       "g_native_pointer_7217c": "byte"
+      },
+      "renames": {
+       "g_native_pointer_7217c": "g_collision_context"
+      }
+     }
+    },
+    "_remove_actor": {
+     "evidence": [
+      "evidence/pool_limit_alias_references_2026_10_25.json#callees._remove_actor"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 358,
+       "type": 20
+      }
+     ],
+     "rva": 160352,
+     "size": 432
+    }
+   }
+  }
+ },
+ "schema": 1,
+ "scope": "Focused references binding for eng1.3eec0: symbol records copied verbatim from accepted bindings or issued from unique accepted/masked-equal ledger rows; 0 opaque-indirect-call-v1 site(s) claim instruction identity only (targets unidentified, ABI unclaimed). Native review: evidence/solCD_native_review_2026_11_01.json. No acceptance claim."
+}
