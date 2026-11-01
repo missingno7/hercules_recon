@@ -259,3 +259,19 @@ Independent anchors, not owners or content, now limit storage identities:
   pipeline owner must therefore stay plain members of the existing union.
 - Deferred with a design ready: exe-direct-member-v1 (work/velocity_l/solDM; frees 2 EXE rows now) and the interior
   member-offset anchor for control 70ed8 (work/velocity_l/solOX).
+
+### Wave l, third part (2026-11-01): 1,284 -> 1,326
+
+- b28 + bindK9 (solSIM, 21 rows) bootstrapped eng1.18b10 as a stable witness host and re-anchored seven references
+  into it before promoting the hosts it freed. b29/b30/bindK10/bindK11 closed 0x41da0 and the 0x2b130 family
+  (a stale caller spelling dispatch_engine_2c460 -> random_limit was the last blocker). b31 + bindK12 (solOT, 11 rows)
+  added typed data owners (bob steps, lane sprites, ENG3 script 0x39f98 as Eng3CommandPair).
+- Rejected after adversarial review: loader-zero-member-v1 (interior member-offset anchor). The member offset k came
+  from a masked relocation addend in an unaccepted host, so a shifted base with re-indexed addends passed on
+  identical native bytes. That is the compiled-layout proof again, and actor_control_state.h's union is not an
+  original structure. Control 70ed8 rows wait for an independent addend-0 base witness. Member sites do not count
+  toward the planning rule because they cannot serve as re-anchor targets.
+- Parked callees: 0x17810 (native read/test without a consumer; dead-code forms are not admitted), 0x18900 (zero and
+  owner EAX/ECX roles; l189 and s189 both stalled), 0x44240 (166 bytes), 0x1ae00, 0x2b130 is closed.
+- Lane hygiene: sandboxed lanes can hit compiler launch failures (0xC0000142) under concurrency. The integrator's
+  gates are authoritative.
