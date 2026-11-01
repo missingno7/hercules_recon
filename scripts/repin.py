@@ -41,6 +41,25 @@ def documents():
     return result
 
 
+def merge_frozen_inputs(frozen, observed):
+    """Retain the FIRST digest of every compiler/discovery input."""
+    from os.path import abspath
+    for name, expected in observed.items():
+        path = Path(abspath(name))
+        if path in frozen:
+            require_equal(frozen[path], expected, 'frozen input read again ' + str(path))
+        else:
+            frozen[path] = expected
+
+
+def assert_frozen_inputs(frozen, replacements=None):
+    """The re-pin publication guard, also used by linked dependency discovery."""
+    replacements = replacements or {}
+    for path, expected in frozen.items():
+        expected = sha(replacements[path]) if path in replacements else expected
+        require_equal(sha(path.read_bytes()), expected, 'frozen input ' + str(path))
+
+
 def contribution(path, symbol):
     from coff import COFF
     section = COFF(path).function(symbol)
@@ -292,6 +311,8 @@ def apply(plan_path, before_path, original_root, directory):
             require_equal(sha(data), item['candidate_sha256'], 'candidate identity')
             candidates[path] = data
             additions[name] = context_additions(item)
+        from linked_repin import prepare as prepare_linked_repin
+        linked_gate = prepare_linked_repin(state, plan, directory, original_root)
         docs = documents()
         audit = impact(state, docs, changed)
         import binding_rename
@@ -369,10 +390,7 @@ def apply(plan_path, before_path, original_root, directory):
             if proof.get('unit_inventory_sha256') and changed & set(proof.get('context_sha256', {})):
                 if row['source'] not in inventory_refresh or changed & set(proof['context_sha256']) != {row['source']}:
                     raise ValueError('Whole-unit change needs a separately reviewed inventory proof')
-        # Retained raw proof dictionaries are references to their canonical fields.
-        for row in state['functions']:
-            if row['status'] == 'LINKED_MATCH' and row['source'] in changed:
-                raise ValueError('Linked source change needs linked re-proof')
+        # LINKED_MATCH inputs are protected by the explicit complete-object gate.
         pending = {}
         selected = []
         for request in plan['promotions']:
@@ -423,10 +441,14 @@ def apply(plan_path, before_path, original_root, directory):
                 path = Path(p)
                 if path not in candidates:
                     guard[path] = path.read_bytes()
+        frozen_guard = {}
+        merge_frozen_inputs(frozen_guard, {path: sha(data) for path, data in guard.items()})
+        merge_frozen_inputs(frozen_guard, linked_gate.guard)
         def check_guard():
-            for path, data in guard.items():
-                require_equal(path.read_bytes(), data, 'frozen input '+str(path))
+            assert_frozen_inputs(frozen_guard)
         def finish():
+            linked_receipts = linked_gate.finish(state, candidates, original_root)
+            affected.extend(rid for receipt in linked_receipts for rid in receipt['proofs_before'])
             inventory_receipts = []
             if inventory_refresh:
                 from unit_refresh import refresh
@@ -468,6 +490,9 @@ def apply(plan_path, before_path, original_root, directory):
                     raise ValueError('Renamed definition still referenced by accepted ' + old['id'])
                 preserved.append(dict(id=old['id'], **new_part))
             assert_verified_inputs(rows, results, original_root)
+            linked_gate.assert_after(candidates)
+            for path, data in candidates.items():
+                require_equal(path.read_bytes(), data, 'candidate source after verification')
             check_guard()
             require_equal((ROOT/'recovery.json').read_bytes(), staged_state, 'staged state')
             for row in selected:
@@ -485,6 +510,8 @@ def apply(plan_path, before_path, original_root, directory):
                            affected=sorted(affected), statistics=statistics, pins=audit['direct_pins'],
                            snapshots=snapshots, preserved=preserved, results=results,
                            inventory_refresh=inventory_receipts,
+                           linked_object_unchanged=linked_receipts,
+                           linked_discovery_inputs={str(p): h for p, h in linked_gate.inputs.items()},
                            binding_renames=dict(
                                review=list(renames.review), definitions=renames.definitions,
                                owner_revisions=renames.owner_revisions(),
@@ -497,6 +524,8 @@ def apply(plan_path, before_path, original_root, directory):
             record['intermediate_sha256']=record['after_sha256']
             record['after_sha256']=sha(after)
             atomic_bytes(journal,(json.dumps(records,indent=2)+'\n').encode())
+            linked_gate.assert_after(candidates)
+            check_guard()
             atomic_bytes(ROOT/'recovery.json',after)
             return receipt
         staged_state = (json.dumps(state,indent=2)+'\n').encode()
