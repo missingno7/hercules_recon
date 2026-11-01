@@ -15,7 +15,7 @@ extern Actor *spawn_normal(int x, int y, int z, int kind);
 extern Actor *spawn_kind(long x, long y, long z, int kind);
 extern void LinkedSoundFx_6da0(unsigned short id, void *owner);
 extern void dispatch_engine_2c4d0(void);
-extern unsigned int __cdecl dispatch_engine_2c460(int range);
+extern unsigned int __cdecl random_limit(int range);
 extern int eng1_2c030(int x, int y);
 extern int __cdecl eng1_native_code_target_002c4c0(unsigned long value);
 extern void __cdecl eng1_native_code_target_0019240(void);

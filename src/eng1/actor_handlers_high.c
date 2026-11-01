@@ -127,7 +127,7 @@ void set_state_flags_41300(Actor *p)
     p->mode = 5;
 }
 
-extern unsigned int __cdecl dispatch_engine_2c460(int limit);
+extern unsigned int __cdecl random_limit(int limit);
 extern unsigned int __cdecl dispatch_engine_2c470(void);
 extern Actor *__cdecl spawn_at_group_300c0(long x, long y, long z,
                                            unsigned short kind,
@@ -146,7 +146,7 @@ void eng1_41da0(Actor *p)
     Actor *source;
     long remaining;
 
-    remaining = (long)(dispatch_engine_2c460(8) + 8U);
+    remaining = (long)(random_limit(8) + 8U);
     if (remaining <= 0)
         return;
 
@@ -162,10 +162,10 @@ void eng1_41da0(Actor *p)
         if (child != 0) {
             child->unknown_94 =
                 (unsigned char)(0U -
-                    (unsigned char)dispatch_engine_2c460(2));
+                    (unsigned char)random_limit(2));
             child->unknown_96 =
                 (unsigned char)(0U -
-                    (unsigned char)dispatch_engine_2c460(2));
+                    (unsigned char)random_limit(2));
             child->unknown_95 = 0xffU;
 
             value = dispatch_engine_2c470() & 0x1ffUL;
@@ -174,7 +174,7 @@ void eng1_41da0(Actor *p)
             child->unknown_bc = value;
             child->unknown_b8 = value;
             child->unknown_c4 =
-                dispatch_engine_2c460(0x2000) + 0x8000UL;
+                random_limit(0x2000) + 0x8000UL;
 
             value = dispatch_engine_2c470() & 0x1ffUL;
             value = (value + 0x300UL) << 8;
@@ -182,7 +182,7 @@ void eng1_41da0(Actor *p)
             child->unknown_c8 =
                 (unsigned long)((long)value >> 1);
             child->unknown_d0 =
-                dispatch_engine_2c460(0x1000) + 0x6000UL;
+                random_limit(0x1000) + 0x6000UL;
             child->unknown_d4 = 0UL;
 
             value = dispatch_engine_2c470() & 0x1ffUL;
@@ -191,10 +191,10 @@ void eng1_41da0(Actor *p)
             child->unknown_a8 =
                 (unsigned long)((long)value >> 1);
             child->unknown_b0 =
-                dispatch_engine_2c460(0x1000) + 0x6000UL;
+                random_limit(0x1000) + 0x6000UL;
             child->unknown_b4 = 0UL;
             child->sprite =
-                (unsigned short)(dispatch_engine_2c460(0x0b) + 1U);
+                (unsigned short)(random_limit(0x0b) + 1U);
         }
 
         p = (Actor *)((long)p - 1);
