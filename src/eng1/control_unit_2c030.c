@@ -609,6 +609,8 @@ void eng1_native_code_target_02d320(Actor *actor)
     }
 }
 
+#include "actor_control_state.h"
+/* Only the following helpers migrate to the canonical owner; no new alias layer. */
 int eng1_native_dep_002d3f0(Actor *actor, int selector)
 {
     ControlRecord *record = (ControlRecord *)actor->initial_steps;
@@ -618,7 +620,7 @@ int eng1_native_dep_002d3f0(Actor *actor, int selector)
     for (;;) {
         opcode = record->opcode;
         if (opcode == 20 && record->y == selector) {
-            g_eng1_control_70eea = (unsigned short)selector;
+            (g_eng1_actor_control_state_70ed8.words[9]) = (unsigned short)selector;
             actor->unknown_11c = index;
             return 1;
         }
@@ -830,9 +832,9 @@ void eng1_native_dep_002d440(Actor *actor)
 
 void eng1_native_code_target_02d9e0(Actor *actor)
 {
-    if (g_eng1_control_70eea == actor->unknown_021)
-        g_eng1_control_70f06 = (unsigned short)(actor->x >> 16);
-    actor->active_command = g_eng1_control_70ef4;
+    if ((g_eng1_actor_control_state_70ed8.words[9]) == actor->unknown_021)
+        (g_eng1_actor_control_state_70ed8.words[23]) = (unsigned short)(actor->x >> 16);
+    actor->active_command = (g_eng1_actor_control_state_70ed8.words[14]);
 }
 
 void eng1_native_code_target_02da10(Actor *actor)
@@ -845,11 +847,11 @@ void eng1_native_code_target_02da10(Actor *actor)
 
 void eng1_native_code_target_02da40(Actor *actor)
 {
-    if (g_eng1_control_70eea == actor->unknown_021)
-        g_eng1_control_70ede = (unsigned short)(actor->x >> 16);
-    if (g_eng1_control_70f00 != 0) {
-        actor->unknown_036 = g_eng1_control_70f00;
-        actor->active_command = g_eng1_control_70f00;
+    if ((g_eng1_actor_control_state_70ed8.words[9]) == actor->unknown_021)
+        (g_eng1_actor_control_state_70ed8.words[3]) = (unsigned short)(actor->x >> 16);
+    if ((g_eng1_actor_control_state_70ed8.words[20]) != 0) {
+        actor->unknown_036 = (g_eng1_actor_control_state_70ed8.words[20]);
+        actor->active_command = (g_eng1_actor_control_state_70ed8.words[20]);
     } else {
         actor->active_command = actor->unknown_036;
     }

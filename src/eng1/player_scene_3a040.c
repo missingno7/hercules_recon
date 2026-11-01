@@ -2921,7 +2921,7 @@ void eng1_3ea00(Actor *p)
 void eng1_3ea40(Actor *p)
 {
     if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
-        g_eng1_control_70ede = (p->x >> 16) - 0x1a;
+        (g_eng1_actor_control_state_70ed8.words[3]) = (p->x >> 16) - 0x1a;
 }
 
 void eng1_3ea70(Actor *p)
@@ -3016,7 +3016,7 @@ void eng1_3ecb0(Actor *p)
     int dy;
 
     if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
-        g_eng1_control_actor_70ef8 = p;
+        (*(Actor **)(void *)&g_eng1_actor_control_state_70ed8.bytes[0x20]) = p;
     g_eng1_classifier_rows_65678[p->counter_021].unknown_0a = p->state;
     if (p->control_025 & 1) {
         eng1_native_code_target_002a290(p);
@@ -3028,7 +3028,7 @@ void eng1_3ecb0(Actor *p)
                 dy = -8;
             } else {
                 p->state = 9;
-                RemoveFxLinks_7ef6(g_eng1_control_actor_70ef8);
+                RemoveFxLinks_7ef6((*(Actor **)(void *)&g_eng1_actor_control_state_70ed8.bytes[0x20]));
             }
         }
         if (p->records_118) {
@@ -3045,7 +3045,7 @@ void eng1_3ecb0(Actor *p)
             }
         }
     }
-    if (eng1_2a9e0(p, 0x200) && p->counter_021 != g_eng1_control_70f0c)
+    if (eng1_2a9e0(p, 0x200) && p->counter_021 != (g_eng1_actor_control_state_70ed8.words[26]))
         remove_actor(p);
 }
 
@@ -3078,7 +3078,7 @@ void eng1_3eec0(Actor *p)
     int i;
 
     if ((g_eng1_actor_control_state_70ed8.words[9]) == p->counter_021)
-        g_eng1_control_actor_70ef8 = p;
+        (*(Actor **)(void *)&g_eng1_actor_control_state_70ed8.bytes[0x20]) = p;
     g_eng1_classifier_rows_65678[p->counter_021].unknown_0a = p->state;
     if (p->control_025 & 1) {
         eng1_native_code_target_002a290(p);
