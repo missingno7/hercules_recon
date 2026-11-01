@@ -28,13 +28,25 @@ struct Actor {
     unsigned char unknown_76[0x88 - 0x76];
     short unknown_88;
     short unknown_8a;
-    unsigned char unknown_8c[0x98 - 0x8c];
+    unsigned char unknown_8c[0x94 - 0x8c];
+    unsigned char unknown_94;
+    unsigned char unknown_95;
+    unsigned char unknown_96;
+    unsigned char unknown_97;
     short unknown_98;
     unsigned char unknown_9a[0xa8 - 0x9a];
     int unknown_a8;
-    unsigned char unknown_ac[0xb8 - 0xac];
+    int unknown_ac;
+    int unknown_b0;
+    int unknown_b4;
     int unknown_b8;
-    unsigned char unknown_bc[0xd8 - 0xbc];
+    int unknown_bc;
+    int unknown_c0;
+    int unknown_c4;
+    int unknown_c8;
+    int unknown_cc;
+    int unknown_d0;
+    int unknown_d4;
     int unknown_d8;
     int unknown_dc;
     int unknown_e0;
@@ -114,6 +126,81 @@ void set_state_flags_41300(Actor *p)
     p->render_flags |= 0x684;
     p->mode = 5;
 }
+
+extern unsigned int __cdecl dispatch_engine_2c460(int limit);
+extern unsigned int __cdecl dispatch_engine_2c470(void);
+extern Actor *__cdecl spawn_at_group_300c0(long x, long y, long z,
+                                           unsigned short kind,
+                                           unsigned short group);
+
+/* ENG1.DLL 0x41da0 creates the actor's randomized 0x4037 child burst.
+ * Measured VC5 steering: after the positive-count guard, retain the actor in
+ * source and reuse the incoming argument as the count carrier. Native saves
+ * the actor in EBP and overwrites its argument home with the loop count.
+ * The integer-valued pointer carrier is never dereferenced; casts describe
+ * the original 32-bit address/integer representation. A separate counter
+ * local generates an additional stack slot. This does not identify original
+ * variable spelling or imply whole-image matching. */
+void eng1_41da0(Actor *p)
+{
+    Actor *source;
+    long remaining;
+
+    remaining = (long)(dispatch_engine_2c460(8) + 8U);
+    if (remaining <= 0)
+        return;
+
+    source = p;
+    p = (Actor *)remaining; /* positive count, no actor address after this */
+    do {
+        unsigned long value;
+        Actor *child;
+
+        child = spawn_at_group_300c0(source->x,
+            source->y - (long)((dispatch_engine_2c470() & 0x1f00UL) << 8),
+            source->z, 0x4037U, 0U);
+        if (child != 0) {
+            child->unknown_94 =
+                (unsigned char)(0U -
+                    (unsigned char)dispatch_engine_2c460(2));
+            child->unknown_96 =
+                (unsigned char)(0U -
+                    (unsigned char)dispatch_engine_2c460(2));
+            child->unknown_95 = 0xffU;
+
+            value = dispatch_engine_2c470() & 0x1ffUL;
+            child->unknown_c0 = 0UL;
+            value = (value + 0x800UL) << 8;
+            child->unknown_bc = value;
+            child->unknown_b8 = value;
+            child->unknown_c4 =
+                dispatch_engine_2c460(0x2000) + 0x8000UL;
+
+            value = dispatch_engine_2c470() & 0x1ffUL;
+            value = (value + 0x300UL) << 8;
+            child->unknown_cc = value;
+            child->unknown_c8 =
+                (unsigned long)((long)value >> 1);
+            child->unknown_d0 =
+                dispatch_engine_2c460(0x1000) + 0x6000UL;
+            child->unknown_d4 = 0UL;
+
+            value = dispatch_engine_2c470() & 0x1ffUL;
+            value = (value + 0x300UL) << 8;
+            child->unknown_ac = value;
+            child->unknown_a8 =
+                (unsigned long)((long)value >> 1);
+            child->unknown_b0 =
+                dispatch_engine_2c460(0x1000) + 0x6000UL;
+            child->unknown_b4 = 0UL;
+            child->sprite =
+                (unsigned short)(dispatch_engine_2c460(0x0b) + 1U);
+        }
+
+        p = (Actor *)((long)p - 1);
+    } while (p != 0);
+}
+
 
 void copy_link_state_41fa0(Actor *p)
 {
