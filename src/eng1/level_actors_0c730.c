@@ -181,7 +181,8 @@ extern Callback8 *g_configuration_dword_7139c;
 extern unsigned short g_eng1_collision_map_04f1e0[];
 extern unsigned short g_eng1_setup_word_72012;
 extern unsigned short g_native_word_72168;
-extern unsigned short *g_spatial_sound_words_71714;
+#include "actor_pipeline_storage.h"
+/* Native sound pointer cell 0x71714 is pipeline +0x2d4. */
 extern unsigned short eng1_native_words_04dce8[];
 extern long g_camera_x_70ca0, g_camera_y_70ca4;
 extern unsigned char g_bob_profile_51ff8[], g_bob_profile_52050[], g_bob_profile_520a8[];
@@ -1637,7 +1638,7 @@ void eng1_native_code_target_00fe60(Actor *p)
     p->saved_y += 0x200000;
     if (eng1_2bd20(p) & 1) {
         eng1_native_dep_00ff70(p, 0x10);
-        play_sound(g_spatial_sound_words_71714[0] | 0xc000, p);
+        play_sound((*(unsigned short **)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2d4])[0] | 0xc000, p);
         spawn_at_group_300c0(p->x, p->y - 0x200000, p->z - 0x200000, 0x2027, 0);
         q = spawn_at_group_300c0(p->x + ((random_limit(0x20) - 0x10) << 16), p->y - (random_limit(0x20) << 16) - 0x100000,
                                  p->z - 0x200000, 0x2027, 0);
@@ -1662,7 +1663,7 @@ void eng1_native_dep_00ff70(Actor *p, int spread)
         q = spawn_at_group_300c0(p->x + offset, p->y, p->z, 0x4024, 0);
         if (q) {
             q->render_flags |= 0x10000000;
-            q->frame_command = g_spatial_sound_words_71714[random_limit(2) + 3];
+            q->frame_command = (*(unsigned short **)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2d4])[random_limit(2) + 3];
             q->scale = random_limit(0x80 - n * 3) + (0x40 - n * 3);
             q->direction_x = -random_limit(2);
             q->direction_z = 0xff;

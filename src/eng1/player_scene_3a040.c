@@ -3,6 +3,8 @@
  * +0x128 owner_128, PanelContext +0x38 tick_038; eng1_05c70 last parameter unsigned char).
  * Same object as the player unit (.data 0x64270..0x65658, .bss 0x707e4..0x707f8). */
 
+#include "actor_pipeline_storage.h"
+
 typedef struct Actor Actor;
 typedef struct ActorEntry {         /* 16-byte attached entry */
     unsigned char unknown_00[0x0c];
@@ -198,14 +200,10 @@ extern unsigned long eng1_sim_state_72110;
 extern unsigned short eng1_sim_state_72108;
 extern unsigned short g_native_word_72168;
 extern unsigned char g_eng1_setup_word_72012;
-extern short g_camera_adjust_x_70d02, g_camera_adjust_y_70d04;
-extern long g_camera_x_70ca0, g_camera_y_70ca4, g_camera_z_70ca8;
-extern long g_camera_center_x_70cdc, g_camera_center_y_70ce0, g_camera_focal_70ce4;
-extern unsigned char g_camera_iterations_70cfd;
+/* Camera X/center X come from the canonical storage header. Unused copied
+ * camera declarations are omitted; this unit reads only adjust Y below. */
+extern short g_camera_adjust_y_70d04;
 extern unsigned char g_active_category_70cfe;
-extern short g_camera_depth_low_70d0c, g_camera_depth_high_70d0e;
-extern unsigned short g_camera_flags_70d10;
-extern long g_camera_z_base_70d1c;
 extern long g_eng1_setup_dword_6ef88;
 extern short g_eng1_setup_word_6ef8c;
 extern short g_eng1_setup_word_6ef90;
@@ -343,7 +341,6 @@ extern long g_spawn_phase_6fff8;
 extern long g_effect_width_707ec;
 extern long g_effect_width_target_707f0;
 extern Callback8 *g_configuration_dword_7137c;
-extern Bounds g_actor_pipeline_storage_71440;
 
 void engine_diagnostic(const char *format, ...);
 void RemoveFxIdLinks_7f8e(unsigned short id, Actor *owner);
@@ -1497,7 +1494,7 @@ void eng1_3c070(Actor *p)
     switch (p->state) {
     case 2:
         eng1_interpret_signed_pairs(p);
-        if (g_pipeline_word_6fec4 && eng1_2a710(&g_actor_pipeline_storage_71440, p)) {
+        if (g_pipeline_word_6fec4 && eng1_2a710((Bounds *)&g_actor_pipeline_storage_71440.byte_cells[0], p)) {
             p->state = 0x23;
             p->motion_y_velocity = 0;
             select_frame(p, 1);
@@ -1653,6 +1650,7 @@ typedef struct ClassifierRow {      /* 12-byte zone row at 0x65678 */
 } ClassifierRow;
 
 extern unsigned short *g_spatial_sound_words_71714;
+/* Native sound pointer cell 0x71714 is pipeline +0x2d4. */
 extern unsigned short g_eng1_sound_words_66d68[];
 extern LevelProfile g_frame_config_5df08[];
 extern ClassifierRow g_eng1_classifier_rows_65678[];
@@ -1862,7 +1860,7 @@ void eng1_3c980(int x, int y, int w, int h, int u, int v, int layer)
 void eng1_native_code_target_003ca10(void)
 {
     g_eng1_setup_word_718e0 = 0x360;
-    g_spatial_sound_words_71714 = g_eng1_sound_words_66d68;
+    (*(unsigned short **)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2d4]) = g_eng1_sound_words_66d68;
     initialize_command_table(0x14, 0x3781, 0xe);
     g_camera_adjust_y_70d04 = -2;
     g_eng1_setup_word_7183c = -2;

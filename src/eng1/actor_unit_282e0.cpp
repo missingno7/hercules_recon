@@ -13,6 +13,8 @@
 
 extern "C" {
 
+#include "actor_pipeline_storage.h"
+
 typedef struct Actor Actor;
 
 typedef struct Bounds3D {
@@ -126,6 +128,7 @@ extern ActorCallback *g_configuration_dword_71384;
 extern KindInfo g_kind_info[];
 extern long g_actor_worklist_714c0[];
 extern long g_actor_worklist_716c0[];
+/* Native DWORD count/list 0x716c0 is pipeline +0x280. */
 extern long g_actor_worklist_71b20[];
 extern Actor *g_support_actor_6fed8;
 extern Actor *g_eng1_spatial_match_actor_6fedc;
@@ -888,10 +891,10 @@ void unlink_0e4(Actor *p)
 
 Actor *find_tag(int tag)
 {
-    int i, count = g_actor_worklist_716c0[0];
+    int i, count = ((long *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])[0];
     Actor *p;
     for (i = 0; i < count; ) {
-        p = (Actor *)g_actor_worklist_716c0[++i];
+        p = (Actor *)((long *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])[++i];
         if (p->tag == tag)
             return p;
     }
@@ -1170,7 +1173,9 @@ int eng1_29da0(Actor *p)
 
 int eng1_29e20(Actor *p)
 {
-    short dx, dz, dy;
+    /* Measured VC5 declaration order preserves native promoted-sum order
+     * with the real pipeline owner header in this unit. */
+    short dy, dx, dz;
     long r;
 
     dy = abs((short)((p->y - p->prev_y) >> 16));
@@ -1200,7 +1205,9 @@ int eng1_29e20(Actor *p)
 
 int eng1_29f50(Actor *p)
 {
-    short dx, dz, dy;
+    /* Measured VC5 declaration order preserves native promoted-sum order
+     * with the real pipeline owner header in this unit. */
+    short dy, dx, dz;
     long r;
 
     dy = (short)((p->y - p->prev_y) >> 16);

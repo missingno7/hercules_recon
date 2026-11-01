@@ -135,7 +135,8 @@ extern EngineInterfaceView g_engine_interface;
 extern KindInfo g_kind_info[];
 extern Actor *g_native_pointer_7217c;
 extern Actor *g_pipeline_dword_71a18;
-extern unsigned short *g_spatial_sound_words_71714;
+#include "actor_pipeline_storage.h"
+/* Native sound pointer cell 0x71714 is pipeline +0x2d4. */
 extern unsigned short *g_configuration_dword_713bc;
 extern unsigned short g_native_word_72168;
 extern unsigned short g_boss_state_6ffda;
@@ -147,7 +148,7 @@ extern long g_eng1_setup_dword_72188;
 extern long g_eng1_dword_721b0;
 extern short g_native_word_70832;
 extern signed char g_eng1_byte_719de;
-extern long g_actor_worklist_716c0[];
+/* Native DWORD count/list 0x716c0 is pipeline +0x280. */
 extern short g_pipeline_word_71ca0[];
 extern short g_pipeline_word_71720[];
 extern short g_pipeline_word_71740[];
@@ -248,7 +249,7 @@ void eng1_10120(Actor *p)
         a = spawn_at_group_300c0(p->x + dx, p->y, p->z, 0x4024, 0);
         if (a != 0) {
             a->render_flags |= 0x10000000;
-            a->sprite = g_spatial_sound_words_71714[random_limit(2) + 3];
+            a->sprite = (*(unsigned short **)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2d4])[random_limit(2) + 3];
             a->scale = random_limit(0xa0 - count * 3) + 0x40 - count * 3;
             a->direction_x = -random_limit(2);
             a->direction_z = 0xff;
@@ -282,7 +283,7 @@ void eng1_native_code_target_0102c0(Actor *p)
         return;
     }
     if (p->state < random_limit(2) + 1 && (hit & 1)) {
-        play_sound(g_spatial_sound_words_71714[random_limit(2) + 1] | 0xc000, p);
+        play_sound((*(unsigned short **)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2d4])[random_limit(2) + 1] | 0xc000, p);
         p->state++;
     }
     if (p->z < (long)0xff000000 || p->y > 0x5800000 || eng1_native_code_target_002aa30(p, 0x80, 0x190))
@@ -1013,7 +1014,7 @@ void eng1_native_code_target_011950(Actor *p)
     p->render_flags = 0;
     p->flags = 0x81;
     p->unknown_097 = 0x55;
-    g_actor_worklist_716c0[++g_actor_worklist_716c0[0]] = (long)p;
+    ((long *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])[++((long *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])[0]] = (long)p;
     spawn_at_group_300c0(0x26a00000, 0x4600000, 0, 0x2029, 0);
 }
 
@@ -1046,7 +1047,7 @@ void eng1_native_code_target_011a80(Actor *p)
     p->render_flags = 0;
     p->flags = 0x81;
     p->unknown_097 = 0x33;
-    g_actor_worklist_716c0[++g_actor_worklist_716c0[0]] = (long)p;
+    ((long *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])[++((long *)&g_actor_pipeline_storage_71440.dword_cells[0x280 / 4])[0]] = (long)p;
     g_eng1_cursor_721ac = 0;
 }
 

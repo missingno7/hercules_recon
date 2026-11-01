@@ -318,6 +318,7 @@ void __cdecl eng1_native_code_target_0019c20(void)
 
 /* 0x19d70..0x19f50: vertical braking, stop transition, and floor clamp. */
 extern ModeActor *g_native_pointer_7217c;
+/* Native pointer cell 0x7217c uses its canonical collision owner below. */
 extern unsigned char g_eng1_image_53e28[];
 extern int __cdecl eng1_29da0(void *);
 extern int __cdecl eng1_19970(int);
@@ -330,7 +331,7 @@ void __cdecl eng1_19d70(void)
 
     actor = MODE_ACTOR();
     if (actor->direction_y != 0) {
-        eng1_29da0(g_native_pointer_7217c);
+        eng1_29da0(((ModeActor *)(void *)g_collision_context));
         actor = MODE_ACTOR();
         actor->velocity_y -= actor->limit_y;
         actor = MODE_ACTOR();
@@ -351,7 +352,7 @@ void __cdecl eng1_19d70(void)
                 dispatch_local_15d00();
                 MODE_ACTOR()->rate_y = 0x10000;
                 MODE_ACTOR()->target_y = 0x200000;
-                g_native_pointer_7217c->render_flags &= 0xff7fffffUL;
+                ((ModeActor *)(void *)g_collision_context)->render_flags &= 0xff7fffffUL;
                 return;
             }
             eng1_sim_state_72108 = 7;
@@ -646,7 +647,7 @@ int __cdecl eng1_197b0(void)
                 (g_eng1_setup_dword_7201c
                     ? 0x380000L : 0x1c0000L)),
             (long)(((ModeActor *)g_normal_actor_pool)->y - 0x10000UL),
-            (long)g_native_pointer_7217c->z, 1)) {
+            (long)((ModeActor *)(void *)g_collision_context)->z, 1)) {
         if (g_eng1_setup_dword_7201c == 0) {
             ModeDword match = g_eng1_spatial_match_actor_6fedc;
             if (match != 0)
@@ -664,7 +665,7 @@ int __cdecl eng1_19820(void)
                 (g_eng1_setup_dword_7201c
                     ? 0x400000L : 0x240000L)),
             (long)(((ModeActor *)g_normal_actor_pool)->y - 0x10000UL),
-            (long)g_native_pointer_7217c->z, 1)) {
+            (long)((ModeActor *)(void *)g_collision_context)->z, 1)) {
         if (g_eng1_setup_dword_7201c == 0) {
             ModeDword match = g_eng1_spatial_match_actor_6fedc;
             if (match != 0)
@@ -685,7 +686,7 @@ int __cdecl eng1_19890(void)
     if (dispatch_local_30010(
             horizontal_offset,
             (long)(((ModeActor *)g_normal_actor_pool)->y - 0x80000UL),
-            (long)g_native_pointer_7217c->z, 1)) {
+            (long)((ModeActor *)(void *)g_collision_context)->z, 1)) {
         if (g_eng1_setup_dword_7201c == 0) {
             ModeDword match = g_eng1_spatial_match_actor_6fedc;
             if (match != 0)
@@ -706,7 +707,7 @@ int __cdecl eng1_19900(void)
     if (dispatch_local_30010(
             horizontal_offset,
             (long)(((ModeActor *)g_normal_actor_pool)->y - 0x80000UL),
-            (long)g_native_pointer_7217c->z, 1)) {
+            (long)((ModeActor *)(void *)g_collision_context)->z, 1)) {
         if (g_eng1_setup_dword_7201c == 0) {
             ModeDword match = g_eng1_spatial_match_actor_6fedc;
             if (match != 0)
@@ -738,7 +739,7 @@ int __cdecl eng1_19970(int vertical_offset)
     level = ((ModeByte *)(void *)MODE_CONTEXT())[0];
     if (level != 1 && level != 5 && level != 3)
         return 0;
-    if (!actor_bounds_2a880(g_native_pointer_7217c, &bounds, 1UL))
+    if (!actor_bounds_2a880(((ModeActor *)(void *)g_collision_context), &bounds, 1UL))
         return 0;
     index = 0;
     if (g_actor_worklist_71a20[0] <= 0)

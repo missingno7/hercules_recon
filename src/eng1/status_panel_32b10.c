@@ -469,7 +469,8 @@ struct Actor {
 
 extern short g_level_timer_70800;
 extern unsigned short g_level_toggle_70802;
-extern unsigned short *g_spatial_sound_words_71714;
+#include "actor_pipeline_storage.h"
+/* Native sound pointer cell 0x71714 is pipeline +0x2d4. */
 extern unsigned short g_level_sound_words_60268[];
 extern long g_eng1_setup_dword_72188;
 extern unsigned short g_boss_state_6ffda;
@@ -505,7 +506,7 @@ void eng1_33700(void)
 {
     g_level_toggle_70802 = 0;
     g_level_timer_70800 = -1;
-    g_spatial_sound_words_71714 = g_level_sound_words_60268;
+    (*(unsigned short **)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2d4]) = g_level_sound_words_60268;
 }
 
 void eng1_33720(void)

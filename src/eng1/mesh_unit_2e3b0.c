@@ -41,13 +41,14 @@ typedef struct MeshVisit {
     long transform_054[8];
 } MeshVisit;
 
-typedef struct Scratch {        /* scratchpad view at *g_scratch_70f30 */
+typedef struct Scratch {        /* scratchpad view at *(*(Scratch **)(void *)&g_engine_interface.opaque_010[0]) */
     Mat m0;
     Mat m1;
     SVec v[1];
 } Scratch;
 
-extern Scratch *g_scratch_70f30;
+#include "../shared/engine_interface.h"
+/* Native scratch pointer cell 0x70f30 is interface +0x10. */
 extern short *g_sine_table_70f34;
 extern long g_camera_angle_x_70cd0;
 extern long g_mesh_scale_5ceb0[3];
@@ -74,7 +75,7 @@ int dispatch_local_2e3b0(MeshVisit *visit)
     SVec ang;
     long theta, x, z, c, s, turn, column, row;
 
-    m = &g_scratch_70f30->m0;
+    m = &(*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->m0;
     sv = (SVec *)(m + 2);
     child = visit->child_008;
     if (visit->cell_02a != visit->cached_040) {
@@ -146,7 +147,7 @@ void dispatch_local_2e600(unsigned long *stream, MeshVisit *visit, int count)
     SVec *sv;
     long w;
 
-    sv = g_scratch_70f30->v;
+    sv = (*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->v;
     w = *stream++;
     if (visit->winding_024) {
         do {
@@ -180,7 +181,7 @@ void dispatch_local_2e6c0(unsigned long *stream, MeshVisit *visit, int count)
     SVec *sv;
     long w, row, column, layer;
 
-    sv = g_scratch_70f30->v;
+    sv = (*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->v;
     w = *stream++;
     row = visit->row_local_048;
     column = visit->column_local_04c;
@@ -221,7 +222,7 @@ int dispatch_local_2e7a0(MeshVisit *visit)
     long theta, orbit, key, x, z, c, s, tx, tz, curve, angle, radius, row;
     short depth;
 
-    m = &g_scratch_70f30->m1;
+    m = &(*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->m1;
     child = visit->child_008;
     theta = visit->transform_054[4];
     orbit = ((child->angle_008 >> 12) & 0xfff) + theta;
@@ -260,7 +261,7 @@ int dispatch_local_2e7a0(MeshVisit *visit)
         dispatch_engine_2c710(m);
         orbit = visit->cached_044;
     }
-    lv = (LVec2 *)g_scratch_70f30->v;
+    lv = (LVec2 *)(*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->v;
     row = child->row_00e & 0x3fff;
     if (visit->variant_025 == 1) {
         angle = ((visit->row_018 - row + 0x10) << 6) + orbit;
@@ -291,7 +292,7 @@ void dispatch_local_2ea50(unsigned long *stream, MeshVisit *visit, int count)
     long w, orbit, a0, r0, x, z, xl;
     short ang, d;
 
-    sv = g_scratch_70f30->v;
+    sv = (*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->v;
     w = *stream++;
     orbit = visit->cached_044;
     a0 = visit->anchor_row_050;
@@ -387,7 +388,7 @@ void dispatch_local_2ed10(unsigned long *stream, MeshVisit *visit, int count, in
     c1 = (col >> 8) & 0xff;
     c2 = (col >> 16) & 0xff;
     c3 = (col >> 24) & 0xff;
-    sv = g_scratch_70f30->v;
+    sv = (*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->v;
     w = *stream++;
     if (visit->winding_024) {
         do {
@@ -430,7 +431,7 @@ void dispatch_local_2ef60(MeshVisit *visit)
     SVec ang;
     long theta, orbit, key, x, z, c, s, tx, tz, curve;
 
-    m = &g_scratch_70f30->m1;
+    m = &(*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->m1;
     child = visit->child_008;
     theta = visit->transform_054[4];
     orbit = ((child->angle_008 >> 12) & 0xfff) + theta;
@@ -474,7 +475,7 @@ void dispatch_local_2f120(unsigned long *stream, MeshVisit *visit, int count)
     long w, a0, r0, cy;
     short ang, d;
 
-    out = g_scratch_70f30->v;
+    out = (*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->v;
     r0 = 0x28c - visit->layer_y_038;
     a0 = ((visit->anchor_row_050 - visit->row_018 - 0x10) << 6) - visit->cached_044;
     cy = (visit->column_01c - g_mesh_cached_column_6ffb8) << 5;
@@ -520,7 +521,7 @@ void dispatch_local_2f340(unsigned long *stream, MeshVisit *visit, int count)
     c1 = (col >> 8) & 0xff;
     c2 = (col >> 16) & 0xff;
     c3 = col >> 24;
-    sv = g_scratch_70f30->v;
+    sv = (*(Scratch **)(void *)&g_engine_interface.opaque_010[0])->v;
     w = *stream++;
     anchor = visit->anchor_row_050;
     if (visit->variant_025 == 1) {
