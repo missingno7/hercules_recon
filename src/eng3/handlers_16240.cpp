@@ -244,7 +244,15 @@ extern Rect16 g_eng3_rect_35110;
 extern Rect16 g_eng3_rect_35118;
 extern long g_eng3_3803c;
 extern long g_eng3_38040;
-extern int g_eng3_37b8c, g_eng3_37b90, g_eng3_37b94, g_eng3_37b98, g_eng3_37b9c, g_eng3_37ba0;
+/* Six adjacent native DWORD one-shot flags at 37b8c..37ba3.
+ * Same-unit storage: native 16320 reads and clears each signed DWORD.
+ * The complete six-object initialized section is one unique native payload. */
+int g_eng3_37b8c = 1;
+int g_eng3_37b90 = 1;
+int g_eng3_37b94 = 1;
+int g_eng3_37b98 = 1;
+int g_eng3_37b9c = 1;
+int g_eng3_37ba0 = 1;
 extern int g_eng3_38140;
 extern int g_eng3_3fae4;
 extern int g_eng3_3fae8;

@@ -10,4 +10,7 @@
  * the original file bytes at 0x3803c. No size, end, capacity or type of the original
  * object is proved, and runtime writes are not ruled out. Keep it the only object here.
  */
+/* Adjacent signed-DWORD limit loaded into actor unknown_ac at 18690/18950.
+ * Together these two real cells have one unique native eight-byte payload. */
+long g_eng3_38038 = 0xa0000;
 long g_eng3_3803c = 0x140;
