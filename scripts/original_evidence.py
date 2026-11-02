@@ -1,6 +1,8 @@
 """Explicit read-only original evidence routing for isolated worktrees."""
 from pathlib import Path
 
+from evidence_keys import confined_path, repository_key
+
 
 def inventory_with_original_paths(coff, root, original_root):
     """Relocate only COFF FILE provenance, then require the OLD inventory hash.
@@ -28,17 +30,20 @@ def inventory_with_original_paths(coff, root, original_root):
 
 
 def original_evidence_path(root, name, original_root=None):
-    relative = Path(name)
-    if original_root is not None:
+    """(path, is_original) of one evidence_files key; SDK keys are routed by match.py.
+
+    Every repository key, including the two recorded absolute aliases, names its LOCAL file, except
+    hash-pinned originals (assets/, work/discs/) which an explicit original_root supplies. Confinement
+    below either base is OS identity of every component (evidence_keys.confined_path).
+    """
+    relative = repository_key(name)
+    if relative is None:
+        raise ValueError('Unsupported absolute repository evidence key: ' + name)
+    parts = relative.split('/')
+    if original_root is not None and (parts[:1] == ['assets'] or parts[:2] == ['work', 'discs']):
         base = Path(original_root).resolve()
-        # Some older manifests used absolute paths inside their checkout.
-        # Rebase those inputs onto LOCAL source/evidence, never remote source.
-        if relative.is_absolute() and relative.is_relative_to(base):
-            relative = relative.relative_to(base)
-    if (original_root is not None and not relative.is_absolute() and
-            (relative.parts[:1] == ('assets',) or relative.parts[:2] == ('work', 'discs'))):
-        result = (base / relative).resolve()
-        if '..' in relative.parts or not any(result.is_relative_to(base / p) for p in ('assets', 'work/discs')):
+        result = confined_path(base, parts)
+        if not any(result.is_relative_to(base / p) for p in ('assets', 'work/discs')):
             raise ValueError('Original evidence escapes original assets root')
         return result, True
-    return (root / relative).resolve(), False
+    return confined_path(root, parts), False

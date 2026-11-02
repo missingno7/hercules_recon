@@ -18,6 +18,9 @@ import tempfile
 from pathlib import Path
 
 from env import ROOT
+from evidence_keys import canonical_keys, checked_path, external_parts, load_json
+import match
+from reviewed_evidence import snapshot_path
 
 ACCEPTED = ('FUNCTION_MATCH', 'FUNCTION_MATCH_RELOCATED')
 SNAPSHOTS = 'evidence/repin_snapshots'
@@ -29,8 +32,9 @@ def digest(path):
 
 def check_tree(tree):
     """Return (counts, problems) for one checked-out tree."""
-    rows = json.loads((tree / 'recovery.json').read_bytes())['functions']
+    rows = load_json((tree / 'recovery.json').read_bytes())['functions']
     problems, counts = [], dict(rows=0, sources=0, pins=0, snapshots=0)
+    verified = set()  # components already confined during this one read-only pass
     for snapshot in sorted((tree / SNAPSHOTS).glob('*.txt')):
         counts['snapshots'] += 1
         if digest(snapshot) != snapshot.stem:
@@ -46,14 +50,35 @@ def check_tree(tree):
         path = proof.get('bindings_path')
         if not path:
             continue
-        document = json.loads((tree / path).read_text(encoding='utf-8'))
+        document = load_json((tree / path).read_text(encoding='utf-8'))
         redirects = proof.get('reference_snapshots', {})
-        for name, expected in (document.get('evidence_files') or {}).items():
-            relative = name.replace('\\', '/')
-            if Path(relative).is_absolute() or relative.startswith(('assets/', 'work/discs/')):
+        files = document.get('evidence_files') or {}
+        try:
+            keys = canonical_keys(files)  # the verifier's one shared spelling; ambiguous aliases refused
+        except ValueError as error:
+            problems.append(('invalid pin key', row['id'], str(error)))
+            continue
+        for name, expected in files.items():
+            relative = keys[name]
+            if relative is None:
+                # Not a repository key: only pinned SDK inputs (exact prefix), verified by match.py.
+                if name in redirects:
+                    problems.append(('invalid snapshot redirect', row['id'], name))
+                elif external_parts(name, match.DEFAULT_TOOLCHAIN) is None:
+                    problems.append(('invalid absolute pin', row['id'], name))
+                continue
+            if relative.startswith(('assets/', 'work/discs/')):
+                if name in redirects:
+                    problems.append(('invalid snapshot redirect', row['id'], name))
                 continue  # uncommitted originals: verified by match.py --original-root
             counts['pins'] += 1
-            item = tree / redirects.get(name, relative)
+            try:
+                # Provenance confinement first, then the exact content address of any redirect.
+                item = checked_path(tree, relative.split('/'), verified)
+                item = snapshot_path(tree, name, expected, redirects) or item
+            except ValueError as error:
+                problems.append(('invalid pin path', row['id'], name, str(error)))
+                continue
             if not item.exists():
                 problems.append(('missing pin', row['id'], name))
             elif digest(item) != expected:

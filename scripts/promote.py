@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 
 from env import ROOT
+from evidence_keys import load_json
 from match import (check, digest, verify_rows, compile_inputs, context_proof,
                    unit_inventory, DEFAULT_TOOLCHAIN)
 from coff import COFF
@@ -163,7 +164,7 @@ def recover():
     if not JOURNAL.exists():
         print("No interrupted promotion.")
         return
-    journal = json.loads(JOURNAL.read_text())
+    journal = load_json(JOURNAL.read_text())
     for row in journal:
         path = ROOT / row["path"]
         if path.resolve() != STATE.resolve() and not path.resolve().is_relative_to((ROOT / "src").resolve()):
@@ -259,7 +260,7 @@ def promote(ids, candidate, verify_only=False, original_root=None):
     if JOURNAL.exists():
         raise ValueError("Interrupted promotion: run scripts/promote.py --recover first")
     state_before = STATE.read_bytes()
-    state = json.loads(state_before)
+    state = load_json(state_before)
     wanted = set(ids)
     rows = [r for r in state["functions"] if r["id"] in wanted]
     if not rows or {r["id"] for r in rows} != wanted:
@@ -384,7 +385,7 @@ def promote_existing_units(ids, verify_only=False, report=None, preserve_reconst
     if report is not None and not any(report.resolve().is_relative_to(ROOT / d) for d in ('work', 'build')):
         raise ValueError('Promotion reports belong under work/ or build/')
     state_before = STATE.read_bytes()
-    state = json.loads(state_before)
+    state = load_json(state_before)
     wanted = set(ids)
     metadata = existing_unit_metadata(state['functions'], wanted, preserve_reconstructed,
                                       root=ROOT, toolchain=DEFAULT_TOOLCHAIN)
@@ -548,7 +549,7 @@ def _relocation_bindings(ids, bindings):
         if not path.is_relative_to(root):
             raise ValueError('Reference bindings must be repository evidence')
         try:
-            document = json.loads(path.read_text(encoding='utf-8'))
+            document = load_json(path.read_text(encoding='utf-8'))
         except (OSError, UnicodeError, json.JSONDecodeError) as exc:
             raise ValueError('Cannot read reference binding document: ' + str(path)) from exc
         if not isinstance(document, dict):
@@ -578,7 +579,7 @@ def promote_relocated(ids, bindings, verify_only=False, report=None, original_ro
     if JOURNAL.exists():
         raise ValueError('Interrupted promotion: recover it first')
     before = STATE.read_bytes()
-    state = json.loads(before)
+    state = load_json(before)
     selected = [r for r in state['functions'] if r['id'] in set(ids)]
     if not ids or len(ids) != len(set(ids)) or len(selected) != len(ids):
         raise ValueError('Provide unique existing recovery IDs')

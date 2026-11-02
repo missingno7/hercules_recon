@@ -106,10 +106,13 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(source.read_bytes(),self.new);self.assertEqual(state.read_bytes(),b'old state')
         self.assertFalse(journal.exists())
 
-    def test_original_checkout_source_is_rebased_to_local_source(self):
+    def test_unrecorded_absolute_checkout_source_is_refused(self):
+        # Only the two recorded checkout spellings alias relative keys (test_absolute_evidence_keys);
+        # an arbitrary absolute checkout path is never rebased.
         primary=self.root/'primary'
-        path,external=original_evidence_path(self.root,str(primary/'src/x.c'),primary)
-        self.assertEqual(path,self.root/'src/x.c');self.assertFalse(external)
+        for name in (str(primary/'src/x.c'),(primary/'src/x.c').as_posix()):
+            with self.assertRaisesRegex(ValueError,'Unsupported absolute'):
+                original_evidence_path(self.root,name,primary)
         with self.assertRaises(ValueError):original_evidence_path(self.root,'assets/../escape',primary)
 
     def test_journal_recovers_intermediate_and_refuses_concurrent_edits(self):

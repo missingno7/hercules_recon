@@ -48,6 +48,7 @@ import json
 import re
 
 from env import ROOT
+from evidence_keys import canonical_keys, confined_path, equivalent_keys, load_json, repository_key
 
 PROFILE = 'reviewed-binding-rename-v1'
 IDENTIFIER = re.compile(r'[_?@$A-Za-z][\w@?$]*')
@@ -331,8 +332,11 @@ def _canonical_owner_source(name):
     """A revised source is an existing canonical C/C++ unit or header under src/, spelled exactly as it is pinned."""
     if not isinstance(name, str) or not name:
         raise ValueError('Owner revisions name repository sources')
-    path = (ROOT / name).resolve()
-    if (not path.is_relative_to((ROOT / 'src').resolve()) or path.suffix not in ('.c', '.cpp', '.h') or
+    try:
+        path = confined_path(ROOT, name.split('/')) if repository_key(name) == name else None
+    except ValueError:
+        path = None
+    if (path is None or not path.is_relative_to((ROOT / 'src').resolve()) or path.suffix not in ('.c', '.cpp', '.h') or
             not path.is_file() or path.relative_to(ROOT.resolve()).as_posix() != name):
         raise ValueError('Only canonical src/ C/C++ owner sources and headers may be revised: ' + name)
     return path
@@ -391,6 +395,18 @@ def _is_owner_record(record):
     return record.get('kind') == 'bss' or record.get('data_profile') == 'file-data-owner-v1'
 
 
+def _owner_pin_key(document, source):
+    """The one evidence_files key of a document that pins `source`, in whichever recorded spelling.
+
+    Keys are compared only through the shared canonical spelling (evidence_keys); ambiguous aliases
+    are refused, and so is any document with zero or several keys naming the source.
+    """
+    keys = equivalent_keys(document['evidence_files'], source)
+    if len(keys) != 1:
+        raise ValueError('Owner revision needs exactly one equivalent source pin: ' + source)
+    return keys[0]
+
+
 def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_sources, source_hashes,
                    review_path, review_sha):
     """Move the owner-source pin of every listed row's descendant manifest from `before` to `after`.
@@ -433,7 +449,8 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
             if not isinstance(spec, dict) or set(spec) != {'bindings_path', 'bindings_sha256'}:
                 raise ValueError('Invalid owner revision row: ' + row_id)
             binding = _accepted_binding(row, documents, spec['bindings_path'], spec['bindings_sha256'])
-            if documents[spec['bindings_path']][1]['evidence_files'].get(source) != item['before']:
+            document = documents[spec['bindings_path']][1]
+            if document['evidence_files'][_owner_pin_key(document, source)] != item['before']:
                 raise ValueError('Owner revision before-hash is not the pinned hash: %s in %s' % (source, row_id))
             users = owner_records(binding, path, closure)
             if not users or not all(_is_owner_record(record) for record in users.values()):
@@ -446,7 +463,7 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
                 continue
             location = row['proof'].get('bindings_path')
             if location not in cache:
-                cache[location] = json.loads((ROOT / location).read_bytes())
+                cache[location] = load_json((ROOT / location).read_bytes())
             if owner_records(cache[location]['functions'].get(row['id'], {}), path, closure):
                 raise ValueError('An accepted row also uses the revised owner and is not reviewed: ' + row['id'])
     for source, rows_of in sorted(members.items()):
@@ -462,9 +479,10 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
     for location, pins in plan.owner_pins.items():
         document = plan.manifests[location][1]
         for source, (before, after) in pins.items():
-            if document['evidence_files'].get(source) != before:
+            key = _owner_pin_key(document, source)
+            if document['evidence_files'][key] != before:
                 raise ValueError('Owner pin conflict in %s: %s' % (location, source))
-            document['evidence_files'][source] = after
+            document['evidence_files'][key] = after
         _check_owner_undo(plan, documents, location, pins, review_path)
 
 
@@ -478,9 +496,10 @@ def _check_owner_undo(plan, documents, location, pins, review_path):
     _, parent = documents[location]
     descendant = copy.deepcopy(plan.manifests[location][1])
     for source, (before, after) in pins.items():
-        if descendant['evidence_files'].get(source) != after:
+        key = _owner_pin_key(descendant, source)
+        if descendant['evidence_files'][key] != after:
             raise ValueError('Owner pin was not revised: ' + source)
-        descendant['evidence_files'][source] = before
+        descendant['evidence_files'][key] = before
     for name in (location, review_path):
         descendant['evidence_files'].pop(name, None)
     descendant.pop('binding_rename_review', None)
@@ -533,6 +552,7 @@ def _manifest(plan, documents, parent_path, row_id, binding, review_path, review
                 raise ValueError('Conflicting pinned evidence for a rebound owner: ' + name)
             document['evidence_files'][name] = sha
             plan.rebind_pins.setdefault(parent_path, {})[name] = sha
+    canonical_keys(document['evidence_files'])  # never publish ambiguous aliases of one file
     document['functions'][row_id] = binding
 
 
@@ -644,7 +664,7 @@ def load_review(plan_item):
     raw = path.read_bytes()
     if digest(raw) != plan_item['sha256']:
         raise ValueError('Binding rename review hash mismatch')
-    return json.loads(raw), raw
+    return load_json(raw), raw
 
 
 def parent_documents(review):
@@ -663,5 +683,5 @@ def parent_documents(review):
         if not path.is_relative_to((ROOT / 'evidence').resolve()):
             raise ValueError('Binding manifests must be repository evidence: ' + name)
         raw = path.read_bytes()
-        documents[name] = (raw, json.loads(raw))
+        documents[name] = (raw, load_json(raw))
     return documents

@@ -12,6 +12,7 @@ import time
 from functools import lru_cache
 
 from env import ROOT
+from evidence_keys import load_json
 from pe import PE
 from coff import COFF
 
@@ -305,20 +306,37 @@ class ReferenceSnapshot:
             if path in self.files and self.files[path] != actual:
                 raise ValueError('Independent reference input changed during verification: ' + str(path))
             self.files[path] = actual
-            document = json.loads(content)
+            document = load_json(content)
             if document.get('schema') != 1 or not document.get('evidence_files'):
                 raise ValueError('Reference bindings need versioned, pinned independent evidence')
             observed = {path: actual}
+            from evidence_keys import canonical_keys, confined_path, external_parts, key_identity
+            from original_evidence import original_evidence_path
+            from reviewed_evidence import snapshot_path
+            outside = 'Reference evidence must be repository evidence or pinned SDK inputs, independent of recovery state'
+            keys = canonical_keys(document['evidence_files'])  # one shared spelling; ambiguous aliases refused
             for name, expected in document['evidence_files'].items():
-                from original_evidence import original_evidence_path
-                item, original = original_evidence_path(ROOT, name, self.original_root)
-                from reviewed_evidence import snapshot_path
+                # The pinned provenance itself is confined (OS identity per component) BEFORE any
+                # historical redirect may replace it.
+                if keys[name] is None:
+                    parts = external_parts(name, DEFAULT_TOOLCHAIN)
+                    if parts is None:
+                        raise ValueError(outside + ': ' + name)
+                    item, original = confined_path(DEFAULT_TOOLCHAIN, parts), False
+                else:
+                    item, original = original_evidence_path(ROOT, name, self.original_root)
+                    state = ROOT / 'recovery.json'
+                    if (key_identity(keys[name]) == 'recovery.json' or
+                            (item.exists() and state.exists() and item.samefile(state))):
+                        raise ValueError(outside)
+                if not original and not any(item.is_relative_to(root.resolve()) for root in (ROOT, DEFAULT_TOOLCHAIN)):
+                    raise ValueError(outside)
                 historical = snapshot_path(ROOT, name, expected, snapshots)
                 if historical is not None:
                     item, original = historical, False
                 if (not original and not any(item.is_relative_to(root.resolve()) for root in (ROOT, DEFAULT_TOOLCHAIN)) or
                         item == ROOT / 'recovery.json'):
-                    raise ValueError('Reference evidence must be repository evidence or pinned SDK inputs, independent of recovery state')
+                    raise ValueError(outside)
                 if item not in self.files:
                     self.files[item] = digest(item.read_bytes())
                 if self.files[item] != expected:
@@ -409,7 +427,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                         raise ValueError('Loader-zero identity anchor overlaps a selected caller')
                     if record.get('anchor_profile') in ('fixed-i386-disp32-v1', 'fixed-i386-moffs32-v1', 'fixed-i386-regimm-v1'):
                         from fixed_disp32 import review_inputs
-                        ledger = json.loads((ROOT / 'recovery.json').read_bytes())['functions']
+                        ledger = load_json((ROOT / 'recovery.json').read_bytes())['functions']
                         review_inputs(record, ledger, row, observed, ROOT)
             callback_calls = binding.get('indirect_calls', [])
             if not isinstance(callback_calls, list):
@@ -637,7 +655,7 @@ def main():
                         help='preflight recorded source-only reconstructed peers with --raw')
     args = parser.parse_args()
     state_before = (ROOT / "recovery.json").read_bytes()
-    state = json.loads(state_before)
+    state = load_json(state_before)
     rows = [r for r in state["functions"] if r["id"] == args.id] if args.id else state["functions"]
     if args.id and not rows:
         raise SystemExit(f"Unknown function {args.id}")
@@ -667,7 +685,7 @@ def main():
             if args.bindings is None:
                 parser.error('reference preflight requires --bindings')
             from reference_preflight import preflight
-            ids = set(json.loads(args.bindings.read_bytes())['functions'])
+            ids = set(load_json(args.bindings.read_bytes())['functions'])
             known = {r['id'] for r in state['functions']}
             if ids - known:
                 parser.error('Reference bindings contain unknown recovery IDs')
@@ -702,7 +720,7 @@ def main():
         if args.bindings is None or args.source or args.obj:
             parser.error('references requires --bindings and canonical source')
         path = args.bindings.resolve().relative_to(ROOT.resolve()).as_posix()
-        ids = set(json.loads(args.bindings.read_bytes())['functions'])
+        ids = set(load_json(args.bindings.read_bytes())['functions'])
         rows = [r for r in rows if r['id'] in ids]
         if not rows:
             parser.error('No selected functions have reviewed bindings')

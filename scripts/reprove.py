@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 
 from env import ROOT
+from evidence_keys import load_json
 from coff import COFF
 from match import (ACCEPTED, RELOCATED, DEFAULT_TOOLCHAIN, accepted_rows,
                    compile_inputs, context_proof, digest, reference_digest,
@@ -79,7 +80,7 @@ def refresh(review_path, candidate, report, verify_only=False):
     review_path, candidate, report = map(lambda p:Path(p).resolve(), (review_path,candidate,report))
     if not review_path.is_relative_to(ROOT/'evidence') or not report.is_relative_to(ROOT/'work'):
         raise ValueError('Reviewed evidence belongs in evidence/ and generated reports in work/')
-    review_bytes = review_path.read_bytes(); review = json.loads(review_bytes)
+    review_bytes = review_path.read_bytes(); review = load_json(review_bytes)
     if review.get('schema') != 1 or not review.get('reason') or not review.get('changed_symbols'):
         raise ValueError('Explicit source review and exact changed-symbol inventory are required')
     destination = (ROOT/review['source']).resolve()
@@ -97,7 +98,7 @@ def refresh(review_path, candidate, report, verify_only=False):
         if not path.is_relative_to(ROOT/'evidence') or digest(path.read_bytes()) != expected:
             raise ValueError('Reviewed original evidence changed')
         evidence_inputs[path]=expected
-    state=json.loads(before_state); rows=accepted_rows(state['functions'])
+    state=load_json(before_state); rows=accepted_rows(state['functions'])
     members=[r for r in rows if r['source']==review['source']]
     if not members or any(r['status'] != RELOCATED for r in members):
         raise ValueError('Refresh requires existing relocated peers, preserving their category')
@@ -111,7 +112,7 @@ def refresh(review_path, candidate, report, verify_only=False):
     baseline_object=baseline_by_id[members[0]['id']]['object']
     manifests={};manifest_frozen={}
     for path in sorted({r['proof']['bindings_path'] for r in rows if r['status']==RELOCATED}):
-        absolute=ROOT/path; content=absolute.read_bytes(); document=json.loads(content)
+        absolute=ROOT/path; content=absolute.read_bytes(); document=load_json(content)
         if review['source'] not in document['evidence_files']:continue
         if document['evidence_files'][review['source']]!=review['before_sha256']:
             raise ValueError('Reference manifest has another source baseline')

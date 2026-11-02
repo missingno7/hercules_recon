@@ -7,11 +7,22 @@ import json
 from pathlib import Path
 
 from env import ROOT
+from evidence_keys import canonical_keys, confined_path, key_identity, load_json, repository_key
 from match import accepted_rows
 
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def changed_source(changed, relative):
+    """The changed source a canonical evidence key names (Windows file-name identity), else None."""
+    if relative is None:
+        return None
+    found = [name for name in changed if key_identity(name) == key_identity(relative)]
+    if len(found) > 1:
+        raise ValueError('Ambiguous changed sources: ' + ', '.join(sorted(found)))
+    return found[0] if found else None
 
 
 def impact(state, documents, changed):
@@ -23,8 +34,10 @@ def impact(state, documents, changed):
             by_binding.setdefault(path, []).append(row['id'])
     pins = []
     for path, document in sorted(documents.items()):
+        # Every spelling of a changed source is its pin: the relative key and both recorded absolute aliases.
+        keys = canonical_keys(document.get('evidence_files', {}))
         for name, expected in document.get('evidence_files', {}).items():
-            if name in changed:
+            if changed_source(changed, keys[name]) is not None:
                 pins.append(dict(document=path, path=name, sha256=expected,
                                  accepted_consumers=sorted(by_binding.get(path, []))))
     peers = sorted(row['id'] for row in rows if row.get('source') in changed)
@@ -35,7 +48,7 @@ def impact(state, documents, changed):
 def documents():
     result = {}
     for path in (ROOT / 'evidence').rglob('*.json'):
-        doc = json.loads(path.read_bytes())
+        doc = load_json(path.read_bytes())
         if isinstance(doc, dict) and isinstance(doc.get('evidence_files'), dict):
             result[path.relative_to(ROOT).as_posix()] = doc
     return result
@@ -180,9 +193,13 @@ def canonical_change(name):
     hash, every evidence pin of it is snapshotted and redirected, and the complete after gate
     recompiles and protects every accepted row. Masked rows of its includers are restaged.
     """
-    path = (ROOT / name).resolve()
-    if (not path.is_relative_to((ROOT / 'src').resolve()) or path.suffix not in CHANGEABLE_SUFFIXES or
-            not path.is_file()):
+    try:
+        relative = repository_key(name)
+        path = confined_path(ROOT, relative.split('/')) if relative == name else None
+    except (AttributeError, ValueError):
+        path = None
+    if (path is None or not path.is_relative_to((ROOT / 'src').resolve()) or path.suffix not in CHANGEABLE_SUFFIXES or
+            not path.is_file() or path.relative_to(ROOT.resolve()).as_posix() != name):
         raise ValueError('Only canonical C/C++ units and headers may change')
     return path
 
@@ -197,6 +214,27 @@ def pin_snapshot(name, expected, current):
     if not path.exists() or sha(path.read_bytes()) != expected:
         raise ValueError('Preservation failed: historical source pin has no preserved snapshot: ' + name)
     return relative
+
+
+def reference_redirects(pins, source_before, candidate_hashes, snapshots):
+    """(current, mapping) for one binding document's pins; exact manifest keys are preserved.
+
+    A pin of a changed source, in any of its spellings, reads the snapshot of exactly the hash it
+    pins, or the canonical file when it already pins the candidate bytes (a reviewed owner revision).
+    Other pins keep an earlier re-pin's snapshot of their exact key.
+    """
+    keys = canonical_keys(pins)
+    current, mapping = set(), {}
+    for name, expected in pins.items():
+        source = changed_source(source_before, keys[name])
+        if source is not None:
+            if expected == candidate_hashes[source]:
+                current.add(name)
+            else:
+                mapping[name] = 'evidence/repin_snapshots/' + expected + '.txt'
+        elif name in snapshots:
+            mapping[name] = snapshots[name]
+    return current, mapping
 
 
 def frozen_before(state, results, original_root, baseline):
@@ -276,7 +314,7 @@ def transaction(entries, journal, action):
 
 def recover_transaction(journal):
     from promote import atomic_bytes
-    records = json.loads(journal.read_bytes())
+    records = load_json(journal.read_bytes())
     for record in records:
         path = (ROOT / record['path']).resolve()
         created_manifest = path.is_relative_to(ROOT / 'evidence') and record['before'] is None
@@ -306,16 +344,16 @@ def apply(plan_path, before_path, original_root, directory):
         if JOURNAL.exists() or journal.exists():
             raise ValueError('Recover interrupted transaction first')
         state_bytes = (ROOT / 'recovery.json').read_bytes()
-        state = json.loads(state_bytes)
+        state = load_json(state_bytes)
         old_state = copy.deepcopy(state)
         plan_bytes = plan_path.read_bytes()
-        plan = json.loads(plan_bytes)
+        plan = load_json(plan_bytes)
         inventory_refresh = plan.get('inventory_refresh', {})
         if not isinstance(inventory_refresh, dict) or set(inventory_refresh) - set(plan['sources']):
             raise ValueError('Inventory refresh must name changed sources explicitly')
         require_equal(sha(state_bytes), plan['state_sha256'], 'plan state')
         before_bytes = before_path.read_bytes()
-        before = json.loads(before_bytes)
+        before = load_json(before_bytes)
         require_equal(before['state_sha256'], sha(state_bytes), 'before state')
         baseline = before.get('historical_evidence', {})
         old_results = {r['id']: r for r in before['results']}
@@ -348,7 +386,8 @@ def apply(plan_path, before_path, original_root, directory):
         for pin in audit['direct_pins']:
             # A pin of the current bytes is snapshotted now; a pin of an older version must
             # already be preserved, by an earlier re-pin, at its own content address.
-            address = pin_snapshot(pin['path'], pin['sha256'], source_before[pin['path']])
+            address = pin_snapshot(pin['path'], pin['sha256'],
+                                   source_before[changed_source(source_before, repository_key(pin['path']))])
             pin.update(document_sha256=sha((ROOT/pin['document']).read_bytes()),
                        snapshot=address,
                        usage='historical source provenance; live compiler inputs remain canonical')
@@ -382,9 +421,9 @@ def apply(plan_path, before_path, original_root, directory):
             # Each pin of a changed source reads the snapshot of exactly the hash it pins.
             # A reviewed owner revision pins the new bytes, which the live file already satisfies: no redirect,
             # and any older redirect of that source is dropped so the pin reads the canonical file.
-            current = {n for n in source_before if n in pins and pins[n] == sha(candidates[ROOT/n])}
-            mapping = {n: ('evidence/repin_snapshots/' + pins[n] + '.txt' if n in source_before else snapshots[n])
-                       for n in snapshots if n in pins and n not in current}
+            candidate_hashes = {n: sha(candidates[ROOT/n]) for n in source_before}
+            current, mapping = reference_redirects(pins, source_before, candidate_hashes, snapshots)
+            pinned_changes = {changed_source(changed, key) for key in canonical_keys(pins).values()} - {None}
             for n in current & set(proof.get('reference_snapshots', {})):
                 del proof['reference_snapshots'][n]
             if 'reference_snapshots' in proof and not proof['reference_snapshots'] and current:
@@ -407,7 +446,7 @@ def apply(plan_path, before_path, original_root, directory):
                         if set(keyed) & set(proof['context_sha256']):
                             raise ValueError('Declared context addition is already pinned: ' + row['id'])
                         proof['context_sha256'].update(keyed)
-            if row['source'] in changed or changed & set(pins) or mapping or row['id'] in renames.rows:
+            if row['source'] in changed or pinned_changes or mapping or row['id'] in renames.rows:
                 affected.append(row['id'])
             # Legacy default still refuses whole-unit changes. The opt-in gate
             # checks complete old/new inventories and all accepted contributions.
@@ -546,7 +585,7 @@ def apply(plan_path, before_path, original_root, directory):
                                manifests={p: m[0] for p, m in renames.manifests.items()}) if renames else None)
             atomic_bytes(directory/'after.json', (json.dumps(receipt,indent=2)+'\n').encode())
             # Keep journal recovery valid across the final ledger replacement.
-            records=json.loads(journal.read_bytes())
+            records=load_json(journal.read_bytes())
             record=next(r for r in records if r['path']=='recovery.json')
             record['intermediate_sha256']=record['after_sha256']
             record['after_sha256']=sha(after)
@@ -588,7 +627,7 @@ def main():
     if not args.paths:
         parser.error('Supply paths for audit or --plan for reviewed publication')
     state_bytes=(ROOT/'recovery.json').read_bytes()
-    result=impact(json.loads(state_bytes),documents(),set(args.paths))
+    result=impact(load_json(state_bytes),documents(),set(args.paths))
     result['state_sha256']=sha(state_bytes)
     result['input_sha256']={p:sha((ROOT/p).read_bytes()) for p in args.paths}
     text=json.dumps(result,indent=2)+'\n'

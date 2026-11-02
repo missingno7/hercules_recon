@@ -33,6 +33,7 @@ import time
 from pathlib import Path
 
 from env import ROOT
+from evidence_keys import load_json
 from match import compile_source, compare, digest, verify_toolchain, DEFAULT_TOOLCHAIN
 from coff import COFF
 from masked import masked_compare
@@ -129,7 +130,7 @@ def write_state(state):
 
 
 def stage(plan_path):
-    plan = json.loads(Path(plan_path).read_text())
+    plan = load_json(Path(plan_path).read_text())
     source = plan['source']
     in_place = bool(plan.get('in_place'))
     if in_place:
@@ -145,7 +146,7 @@ def stage(plan_path):
     target_rel = Path(db.execute('select path from modules where name=?', (module,)).fetchone()[0]).as_posix()
     prefix = module.split('.')[0].lower().replace('hercules', 'exe')
     state_before = STATE.read_bytes()
-    state = json.loads(state_before)
+    state = load_json(state_before)
     taken = {(Path(r['target']).name.upper(), int(r['rva'], 16)): r for r in state['functions']}
     # Optional consolidation: rows of these masked sources move into `source`; the old files
     # are removed only after every moved row verifies in the new file.
@@ -400,7 +401,7 @@ def _record(state, existing, moved, keep, rows, results, content, co_defined, ol
 
 
 def verify(report=None):
-    state = json.loads(STATE.read_text())
+    state = load_json(STATE.read_text())
     groups = {}
     for r in state['functions']:
         if r['status'] == 'CODEGEN_SIMILAR' and r.get('proof', {}).get('scope') == SCOPE:
@@ -433,7 +434,7 @@ def verify(report=None):
 
 def summary(module, function_map=None):
     """Counters with explicit definitions (one source for reports and evidence)."""
-    state = json.loads(STATE.read_text())
+    state = load_json(STATE.read_text())
     rows = [r for r in state['functions'] if Path(r['target']).name.upper() == module.upper()]
     masked = [r for r in rows if r['status'] == 'CODEGEN_SIMILAR' and r.get('proof', {}).get('scope') == SCOPE]
     legacy = [r for r in rows if r['status'] == 'CODEGEN_SIMILAR' and r not in masked]

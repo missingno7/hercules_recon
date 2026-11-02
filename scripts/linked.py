@@ -32,6 +32,7 @@ import subprocess
 import time
 
 from env import ROOT
+from evidence_keys import load_json
 from coff import COFF
 from match import DEFAULT_TOOLCHAIN, compile_source, digest, verify_toolchain
 from pe import PE
@@ -84,7 +85,7 @@ def _relative_inside(root, value, dirs):
 def load_plan(module, path=None):
     path = Path(path) if path else plan_path(module)
     raw = path.read_bytes()
-    plan = json.loads(raw)
+    plan = load_json(raw)
     if plan.get('module', '').upper() != module.upper():
         raise LinkRefused(f'Plan {path} is for {plan.get("module")}, not {module}')
     return plan, raw
@@ -304,7 +305,7 @@ def build(module, plan_file=None, out=None, original_root=None, quiet=False):
     assert_unchanged(files, 'build')
     if digest(target.read_bytes()) != plan['target_sha256']:
         raise LinkRefused('Target changed during build')
-    state = json.loads(files[STATE.resolve()])
+    state = load_json(files[STATE.resolve()])
     image_bytes = image.read_bytes()
     image_pe = PE(image)
     base, symbols = read_map(mapfile)
@@ -449,7 +450,7 @@ def promote(module, ids, **kw):
     if (ROOT / 'work/promotion-journal.json').exists():
         raise LinkRefused('Interrupted promotion: run scripts/promote.py --recover first')
     state_before = STATE.read_bytes()
-    state = json.loads(state_before)
+    state = load_json(state_before)
     rows = {r['id']: r for r in module_rows(state, module)}
     missing = [i for i in ids if i not in rows]
     if missing:
@@ -494,7 +495,7 @@ def promote(module, ids, **kw):
 
 
 def verify(module=None, strict_provenance=False, **kw):
-    state = json.loads(STATE.read_text())
+    state = load_json(STATE.read_text())
     modules = sorted({Path(r['target']).name.upper() for r in state['functions'] if r['status'] == STATUS})
     if module:
         modules = [m for m in modules if m == module.upper()]

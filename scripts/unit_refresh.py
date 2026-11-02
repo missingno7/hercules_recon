@@ -40,6 +40,7 @@ import re
 import struct
 
 from coff import COFF
+from evidence_keys import load_json
 
 V2_KEYS = {'profile', 'removed', 'added', 'rebases', 'renames', 'symbol_renames', 'review', 'review_sha256'}
 DELTA_KEYS = {
@@ -392,7 +393,7 @@ def refresh(rows, old_results, declarations, original_root, renamed=None, change
         review = (ROOT / declaration['review']).resolve()
         if not review.is_relative_to(ROOT / 'evidence') or match.digest(review.read_bytes()) != declaration['review_sha256']:
             raise ValueError('Unit delta review must be hash-pinned durable evidence')
-        review_doc = json.loads(review.read_bytes())
+        review_doc = load_json(review.read_bytes())
         declared = {k: v for k, v in declaration.items() if k not in ('review', 'review_sha256')}
         if review_doc.get('units', {}).get(source, {}).get('declaration') != declared:
             raise ValueError('Unit delta differs from independently recorded review')

@@ -12,6 +12,7 @@ import struct
 from collections import Counter
 
 from env import ROOT
+from evidence_keys import load_json
 from pe import PE
 import capstone as cs
 from capstone.x86 import X86_OP_IMM, X86_OP_MEM, X86_OP_REG
@@ -316,7 +317,7 @@ def generate_bindings(review):
     from fixed_slot import REVIEW_SHA256
     if digest((ROOT / REVIEW).read_bytes()) != REVIEW_SHA256: raise ValueError('Unpinned review')
     originals = ['evidence/interface_transfer_bindings_2026_10_25.json', 'evidence/title_interface_bindings_2026_10_25.json']
-    documents = [json.loads((ROOT / p).read_bytes()) for p in originals]
+    documents = [load_json((ROOT / p).read_bytes()) for p in originals]
     owners = {name:next(copy.deepcopy(f['symbols'][ROOT_SYMBOL]) for d in documents for f in d['functions'].values()
                         if ROOT_SYMBOL in f['symbols'] and f['symbols'][ROOT_SYMBOL]['rva'] == root) for name,root in ROOTS.items()}
     # TITLE's accepted record is its real exact-size COMMON owner; ENG1/ENG3 use

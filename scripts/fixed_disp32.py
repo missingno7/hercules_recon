@@ -8,6 +8,7 @@ import json
 import struct
 
 from coff import COFF
+from evidence_keys import load_json
 from pe import PE
 from masked import binding_records, REL32, DIR32
 from local_byte_tables import (PROFILE as BYTE_TABLE_PROFILE, verify_table as verify_byte_table,
@@ -76,7 +77,7 @@ def review_inputs(record, rows, row, observed, root):
     path = (root / review).resolve()
     if path not in observed:
         raise ValueError('Fixed disp32 boundary review must be independently pinned')
-    document = json.loads(path.read_bytes())
+    document = load_json(path.read_bytes())
     native = {k: v for k, v in boundary.items() if k != 'review'}
     if (document.get('target_sha256') != row['target_sha256'] or
             native not in document.get('native_functions', [])):

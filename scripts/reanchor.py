@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 
 from env import ROOT
+from evidence_keys import load_json
 from match import RELOCATED,accepted_rows,digest,reference_digest,verify_rows
 from promote import JOURNAL,STATE,assert_verified_inputs,atomic_bytes,lock,recover
 
@@ -97,13 +98,13 @@ def reanchor(review_path,report,verify_only=False):
     review_path=Path(review_path).resolve();report=Path(report).resolve()
     if not review_path.is_relative_to(ROOT/'evidence') or not report.is_relative_to(ROOT/'work'):raise ValueError('Review in evidence/, report in work/')
     if JOURNAL.exists():raise ValueError('Recover the interrupted transaction first')
-    content=review_path.read_bytes();review=json.loads(content);before=STATE.read_bytes();state=json.loads(before)
+    content=review_path.read_bytes();review=load_json(content);before=STATE.read_bytes();state=load_json(before)
     if digest(before)!=review.get('baseline_recovery_sha256'):raise ValueError('Reviewed recovery baseline changed')
     observed={review_path:digest(content)};documents={}
     for change in review.get('changes',[]):
         path=(ROOT/change['bindings_path']).resolve()
         if not path.is_relative_to(ROOT/'evidence'):raise ValueError('Canonical evidence manifest required')
-        raw=path.read_bytes();documents[change['bindings_path']]=(raw,json.loads(raw));observed[path]=digest(raw)
+        raw=path.read_bytes();documents[change['bindings_path']]=(raw,load_json(raw));observed[path]=digest(raw)
     for name,sha in review.get('evidence_files',{}).items():
         path=(ROOT/name).resolve()
         if not path.is_relative_to(ROOT/'evidence') or digest(path.read_bytes())!=sha:raise ValueError('Native review evidence changed')
