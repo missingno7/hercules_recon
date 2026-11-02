@@ -1,6 +1,8 @@
 /* ENG1.DLL 0x24090..0x255c0: boss script reader, boss/debris actor handlers (C unit), in address order.
    Includes the already-matched 0x253b0 reset_render_parameter at its address. Lane x7 scratch, 2026-10-20. */
 #include "actor_region.h"
+#include "actor_pipeline_storage.h"
+/* Measured pointer cell 0x71a18 belongs to the existing physical pipeline owner. */
 
 long eng1_24090(void)
 {
@@ -109,11 +111,11 @@ void eng1_24320(Actor *p)
     }
     if (eng1_2a710(&g_collision_context->bounds, p))
         eng1_native_code_target_00266a0(p, 3, 0);
-    if (g_pipeline_dword_71a18 && g_pipeline_dword_71a18->child &&
-        g_pipeline_dword_71a18->child->kind == g_pipeline_dword_71a18->unknown_108 &&
-        !g_eng1_setup_dword_7201c && eng1_2a660(g_pipeline_dword_71a18->child, p)) {
-        eng1_20000(g_pipeline_dword_71a18->child);
-        remove_actor(g_pipeline_dword_71a18->child);
+    if ((*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4]) && (*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child &&
+        (*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child->kind == (*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->unknown_108 &&
+        !g_eng1_setup_dword_7201c && eng1_2a660((*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child, p)) {
+        eng1_20000((*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child);
+        remove_actor((*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child);
     }
 }
 
@@ -429,11 +431,11 @@ void eng1_24f50(Actor *p)
     p->saved_y -= 0x180000;
     if (eng1_2a710(&g_collision_context->bounds, p))
         eng1_native_code_target_00266a0(p, 3, 0);
-    if (g_pipeline_dword_71a18 && g_pipeline_dword_71a18->child &&
-        g_pipeline_dword_71a18->child->kind == g_pipeline_dword_71a18->unknown_108 &&
-        !g_eng1_setup_dword_7201c && eng1_2a660(g_pipeline_dword_71a18->child, p)) {
-        eng1_20000(g_pipeline_dword_71a18->child);
-        remove_actor(g_pipeline_dword_71a18->child);
+    if ((*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4]) && (*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child &&
+        (*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child->kind == (*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->unknown_108 &&
+        !g_eng1_setup_dword_7201c && eng1_2a660((*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child, p)) {
+        eng1_20000((*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child);
+        remove_actor((*(Actor **)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5d8 / 4])->child);
     }
     if (p->z < -0x800000 || p->z > 0x1f00000 || eng1_2a9e0(p, 0x80))
         remove_actor_variant(p);
