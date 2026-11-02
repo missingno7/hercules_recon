@@ -352,33 +352,31 @@ void eng3_02580(Actor *o)
 
 int eng3_028f0(Actor *o, Actor *c)
 {
-    long v[4][4]; /* four-long vectors, three used */
-    long ox, oy, oz;
+    long x, y, z;
+    long offsets[4][4];
     int i, angle, pitch, limit;
-    long sa, ca, sp, cp;
-    long t, rz, ry, rx;
-    long vx, vy, vz;
+    long dz, dy, ry, rx;
 
+    z = o->z;
     i = o->unknown_e0;
-    ox = o->x;
-    oy = o->y;
-    oz = o->z;
+    y = o->y;
+    x = o->x;
     angle = o->unknown_116;
-    c->unknown_74 = angle >> 2;
-    v[0][0] = 0;
-    v[0][1] = 0;
-    v[0][2] = 0;
-    v[1][0] = 0;
-    v[1][1] = -0x80;
-    v[1][2] = 0;
-    v[2][0] = 0;
-    v[2][1] = -0x100;
-    v[2][2] = 0;
-    v[3][0] = 0;
-    v[3][1] = -0x10b;
-    v[3][2] = 0;
+    offsets[0][0] = 0;
+    offsets[0][1] = 0;
+    offsets[0][2] = 0;
+    offsets[1][0] = 0;
+    offsets[1][1] = -0x80;
+    offsets[1][2] = 0;
+    offsets[2][0] = 0;
+    offsets[2][1] = -0x100;
+    offsets[2][2] = 0;
+    offsets[3][0] = 0;
+    offsets[3][1] = -0x10b;
+    offsets[3][2] = 0;
     pitch = angle;
     limit = 0x400;
+    c->unknown_74 = angle >> 2;
     if (o->unknown_dc == 2) {
         pitch = 0;
         limit = 0x400;
@@ -394,20 +392,13 @@ int eng3_028f0(Actor *o, Actor *c)
     if (o->unknown_dc == 0)
         limit = 0x258;
     c->speed = pitch >> 2;
-    sa = g_eng3_table_407b4[(angle - 0x400) & 0xfff];
-    ca = g_eng3_table_407b4[angle & 0xfff];
-    vx = v[i][0];
-    vy = v[i][1];
-    vz = v[i][2];
-    t = (vy * ca + vx * sa) >> 12;
-    rz = (vx * ca - vy * sa) >> 12;
-    sp = g_eng3_table_407b4[(pitch - 0x400) & 0xfff];
-    cp = g_eng3_table_407b4[pitch & 0xfff];
-    ry = (t * cp - vz * sp) >> 12;
-    rx = (t * sp + vz * cp) >> 12;
-    c->z = (rz << 16) + oz;
-    c->y = (ry << 16) + oy;
-    c->x = (rx << 16) + ox;
+    dz = (offsets[i][0] * g_eng3_table_407b4[angle & 0xfff] - offsets[i][1] * g_eng3_table_407b4[(angle - 0x400) & 0xfff]) >> 12;
+    dy = (offsets[i][0] * g_eng3_table_407b4[(angle - 0x400) & 0xfff] + offsets[i][1] * g_eng3_table_407b4[angle & 0xfff]) >> 12;
+    ry = (dy * g_eng3_table_407b4[pitch & 0xfff] - offsets[i][2] * g_eng3_table_407b4[(pitch - 0x400) & 0xfff]) >> 12;
+    rx = (dy * g_eng3_table_407b4[(pitch - 0x400) & 0xfff] + offsets[i][2] * g_eng3_table_407b4[pitch & 0xfff]) >> 12;
+    c->z = (dz << 16) + z;
+    c->y = (ry << 16) + y;
+    c->x = (rx << 16) + x;
     if (++o->unknown_e0 >= 4)
         o->unknown_e0 = 0;
     return o->unknown_116 >= limit;

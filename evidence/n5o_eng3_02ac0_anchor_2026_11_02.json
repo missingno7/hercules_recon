@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "scope": "Independent original-native loader-zero identity anchor for the eng3.02ac0 caller binding.",
+  "target": "assets/pc/HERCULES/ENG3.DLL",
+  "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "image_base": "0x10000000",
+  "owner": {
+    "symbol": "_g_eng3_actor_3fb0c",
+    "rva": "0x3fb0c",
+    "size": 4,
+    "storage": "writable zero tail"
+  },
+  "excluded_prior_anchor": {
+    "rva": "0x2af6",
+    "size": 6,
+    "function_id": "eng3.02ac0",
+    "reason": "The prior instruction lies inside the selected caller span [0x2ac0,0x2eb0); it cannot independently identify the caller reference."
+  },
+  "anchor": {
+    "instruction_span": {
+      "rva": "0x201d",
+      "size": 6
+    },
+    "instruction_bytes": "8b0d0cfb0310",
+    "instruction": "mov ecx, dword ptr [0x1003fb0c]",
+    "operand_index": 1,
+    "operand_kind": "absolute memory",
+    "operand_width": 4,
+    "operand_va": "0x1003fb0c",
+    "fixup": {
+      "rva": "0x201f",
+      "type": "HIGHLOW (IMAGE_REL_BASED_HIGHLOW)"
+    },
+    "instruction_sha256": "2bc7e58a244b733a4d6b0f6a57ad69b7646671cdb455c8be8b57068ad49323e8",
+    "recovery_function_boundary": "unmapped; identity is the complete original native instruction and its PE fixup"
+  },
+  "independence": {
+    "selected_caller_span": {
+      "rva": "0x2ac0",
+      "size": 1008
+    },
+    "anchor_instruction_disjoint_from_caller": true,
+    "anchor_instruction_disjoint_from_accepted_rows": [
+      "eng3.03200",
+      "eng3.03290"
+    ],
+    "owner_address_matches_absolute_operand": true,
+    "owner_extent_evidence": "evidence/scalar_eng3_4_review_2026_10_26.json#native_storage.extent_sweep._g_eng3_actor_3fb0c"
+  }
+}
