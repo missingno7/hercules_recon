@@ -184,7 +184,7 @@ typedef struct PanelState {          /* 0x70820, 0x1c bytes */
 } PanelState;
 
 extern EngineInterfaceView g_engine_interface;
-extern PanelState g_panel_70820;
+extern unsigned char g_cold_start_state_bytes_70820[0x1c];
 extern Actor *g_native_pointer_7217c;
 extern Actor *g_frame_global_734f4;
 extern Actor *g_frame_owner_72860;
@@ -493,7 +493,7 @@ void eng1_365f0(Actor *p)
                 if (n) {
                     eng1_1aba0();
                     g_native_word_72168 |= n;
-                    if ((g_eng1_setup_word_72012 & 2) && g_panel_70820.flash_0e >= 0xc8) {
+                    if ((g_eng1_setup_word_72012 & 2) && (*(PanelState *)(void *)g_cold_start_state_bytes_70820).flash_0e >= 0xc8) {
                         eng1_36990(owner);
                         play_sound(0xd150, p);
                         owner->state = 2;

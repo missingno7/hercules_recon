@@ -1191,7 +1191,7 @@ extern TitleObject *g_frame_actor_list_734f8;
 int ensure_actor_resource_ready(int idx, int arg2);
 
 extern unsigned long g_6ee70;
-extern int g_6eee4;
+extern int g_context_sequence_phase;
 void eng1_02400(int a);
 
 void eng1_05370(TitleObject *p, int count, int stride)
@@ -1249,7 +1249,7 @@ void eng1_05370(TitleObject *p, int count, int stride)
                                 goto next;
                             }
                             if ((unsigned short)p->unknown_00c < 0x140 && (unsigned short)p->unknown_00e < 0xf0 &&
-                                g_6eee4 == 0 && g_engine_interface.context_004->unknown_000[4] == 0)
+                                g_context_sequence_phase == 0 && g_engine_interface.context_004->unknown_000[4] == 0)
                                 eng1_02400(0x80);
                         }
                     }
@@ -1418,7 +1418,14 @@ void dispatch_local_058b0(void)
 /* 0x58e0 / 0x59f0: bracket an object drawn with flag 0x10000 by a drawing-area change. 0x58e0 links a
    DR_AREA-style primitive for the object's clip band into the ordering-table entry; 0x59f0 restores the
    area from the second rectangle. */
+/* The shared sprite unit uses the ENG3 view's Y member in that module.
+ * ENG1 has a distinct scalar at 70c64. The module selection preserves one
+ * canonical provider for the ENG3 aggregate and no overlapping scalar. */
+#ifdef HERCULES_ENG3
+extern unsigned char g_eng3_view_405a0[36];
+#else
 extern int g_70c64;
+#endif
 extern TitleRect g_4d800[2];
 void title_0c650(unsigned long *ot, TitlePrim *prim);
 void title_0c760(TitleRect *r);
@@ -1433,7 +1440,12 @@ void eng1_058e0(TitleObject *p, unsigned long *ot)
     int y;
 
     area = (TitleRect *)g_engine_interface.data_010;
+#ifdef HERCULES_ENG3
+    area->y = (short)(p->unknown_004 >> 16) - p->unknown_026
+        - *(int *)(void *)(g_eng3_view_405a0 + 4);
+#else
     area->y = (short)(p->unknown_004 >> 16) - p->unknown_026 - g_70c64;
+#endif
     title_0c760(area);
     title_0c7b0();
     y = p->unknown_00e;

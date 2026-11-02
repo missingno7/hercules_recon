@@ -126,7 +126,7 @@ extern char *g_demo_paths[8];
 extern CtxMasks g_demo_masks;
 extern char *g_engine_paths[4];
 extern short g_frame_word_6ee84;
-extern int g_demo_phase;
+extern int g_context_sequence_phase;
 extern int g_demo_index;
 extern unsigned short *g_demo_words;
 extern char g_cold_file_prefix_byte_6eef4[];
@@ -296,7 +296,7 @@ void demo_load_5ea0(void)
         CTX->masks_06c = g_demo_masks;
         CTX->unknown_00c = 3;
         g_demo_index = 3;
-        g_demo_phase = 2;
+        g_context_sequence_phase = 2;
     }
 }
 
@@ -307,7 +307,7 @@ void demo_step_6005(void)
 
     if (CTX->mute_004)
         return;
-    switch (g_demo_phase) {
+    switch (g_context_sequence_phase) {
     case 0:
         break;
     case 2:
