@@ -1033,7 +1033,7 @@ void eng1_343a0(Actor *p)
 
 void eng1_343e0(Actor *p)
 {
-    unsigned int w;
+
     RelativeMeasure m;
     int d;
     int v;
@@ -1042,9 +1042,13 @@ void eng1_343e0(Actor *p)
         eng1_native_code_target_002a290(p);
     } else {
         eng1_interpret_signed_pairs(p);
-        if (!eng1_29c20(p) ||
-            ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x180000 : 0x180000), p->y,
-                                                              (p->z + 0x400000) & 0xf800000, p->profile)]) & 7)) {
+        if (!eng1_29c20(p)) {
+            p->x = p->saved_x;
+            p->y = p->saved_y;
+            select_frame(p, 3);
+        } else if ((d = g_configuration_dword_713bc[dispatch_local_2a170(
+                       p->x + (p->direction_x ? -0x180000 : 0x180000), p->y,
+                       (p->z + 0x400000) & 0xf800000, p->profile)]) & 7) {
             p->x = p->saved_x;
             p->y = p->saved_y;
             select_frame(p, 3);

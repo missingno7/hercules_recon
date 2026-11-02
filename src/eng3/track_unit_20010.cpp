@@ -531,7 +531,8 @@ void eng3_204c0(Eng3Visit *visit, unsigned char *entries, int layer, int start, 
     if (g_eng3_layer_40638 != layer && force == 0 && start > g_eng3_layers_40674[layer].depth)
         return;
     visit->layer = layer;
-    n = *entries++;
+    n = *(p = entries);
+    entries = p + 1;
     g_eng3_ranges_4078c[layer].first = start;
     end = start + count;
     g_eng3_ranges_4078c[layer].end = end;
