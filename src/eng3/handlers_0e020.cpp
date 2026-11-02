@@ -148,7 +148,7 @@ extern unsigned int random_limit(int);
 extern int eng3_0dae0(Actor *, Actor *);
 extern int eng3_01050(long, long, long, long, long, long);
 extern int eng3_01600(Actor *);
-extern void eng3_1cd40(Actor *);
+extern void remove_actor_preserving_resource(Actor *);
 extern int dispatch_engine_2c470(void);
 
 void eng3_0e020(Actor *o)
@@ -426,7 +426,7 @@ void eng3_0e960(Actor *o)
             o->state = 2;
         if (o->x < g_focus->x - 0xc00000) {
             o->state = 0x20;
-            eng3_1cd40(o);
+            remove_actor_preserving_resource(o);
             return;
         }
     }
