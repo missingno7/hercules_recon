@@ -221,7 +221,7 @@ extern u8 dispatch_local_056c0(void *palette, int key, int c, int d);
 extern u16 dispatch_engine_2c7c0(int x, int y);
 extern void title_0c790(void);
 extern void title_0c890(Rect16 *rect, void *pixels);
-extern int eng1_320d0(Effect *e);
+extern int title_195f0(Effect *e);
 extern void eng1_32810(Effect *e, int n);
 extern void title_0c760(SVector *v);
 extern void title_0c7b0(void);
@@ -563,7 +563,7 @@ void eng1_027a0(Effect *e)
         return;
     if (e->count > 0x14)
         e->count = 0x14;
-    depth = eng1_320d0(e);
+    depth = title_195f0(e);
     if (depth == -1)
         e->flags |= 8;
     if ((unsigned)(e->sx + 0x80) > 0x240)

@@ -8,7 +8,8 @@ void eng1_empty_22180(void)
 {
 }
 
-void eng3_empty_1000(void)
+/* Release diagnostic role; historical identifier/prototype unproved. */
+void __cdecl dbg_printf(const char *format, ...)
 {
 }
 

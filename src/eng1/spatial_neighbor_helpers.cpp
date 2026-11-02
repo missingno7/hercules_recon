@@ -19,7 +19,7 @@ typedef char screen_is_32[sizeof(ScreenPrefix)==32?1:-1];
 typedef char actor_bounds_is_94[sizeof(ActorBoundsPrefix)==0x94?1:-1];
 extern unsigned short g_pipeline_word_71376;
 extern int __cdecl extent_producer_30e40(void *,void *,unsigned long);
-extern int __cdecl eng1_320d0(void *);
+extern int __cdecl title_195f0(void *);
 
 int __cdecl eng1_native_code_target_002a950(ActorBoundsPrefix *actor,
     unsigned short mode)
@@ -57,7 +57,7 @@ int __cdecl eng1_native_code_target_002aab0(ScreenPrefix *actor,
 void __cdecl eng1_native_code_target_002ae50(ScreenPrefix *actor)
 {
     int x,y;
-    if (eng1_320d0(actor)==-1) {
+    if (title_195f0(actor)==-1) {
         actor->flags |= 8;
         return;
     }

@@ -1295,7 +1295,7 @@ extern unsigned short g_pipeline_word_6fec4;
 extern Bounds g_actor_pipeline_storage_71440;
 extern BurstRecord g_burst_records_63c80[];
 
-void engine_diagnostic(const char *format, ...);
+void dbg_printf(const char *format, ...);
 void RemoveFxIdLinks_7f8e(unsigned short id, Actor *p);
 void advance_frame(Actor *p);
 int eng1_2a710(Bounds *b, Actor *p);
@@ -1402,7 +1402,7 @@ void eng1_383b0(Actor *p)
 
 void eng1_383d0(Actor *p)
 {
-    engine_diagnostic(" GoodbyeRockT %d, %d, %d\n", p->x >> 16, p->y >> 16, p->z >> 16);
+    dbg_printf(" GoodbyeRockT %d, %d, %d\n", p->x >> 16, p->y >> 16, p->z >> 16);
     eng1_empty_c720(p);
     p->motion_y_velocity += 0x8000;
     if (p->direction_x == 0) {
@@ -1884,7 +1884,7 @@ void eng1_39360(Actor *p)
 
 void eng1_393b0(Actor *p)
 {
-    engine_diagnostic("FIRE Here, Special1 = %d", p->unknown_108);
+    dbg_printf("FIRE Here, Special1 = %d", p->unknown_108);
     eng1_interpret_word_stream(p);
     switch (p->state) {
     case 1:
@@ -1934,7 +1934,7 @@ void eng1_39530(Actor *p)
 {
     Bounds b;
 
-    engine_diagnostic(" FirBAll %d, %d, %d\n", p->x >> 16, p->y >> 16, p->z >> 16);
+    dbg_printf(" FirBAll %d, %d, %d\n", p->x >> 16, p->y >> 16, p->z >> 16);
     p->motion_y_velocity += 0x8000;
     if (p->direction_y == 0xff && p->motion_y_velocity > 0) {
         p->direction_y = 0;
@@ -2101,7 +2101,7 @@ void eng1_39ae0(Actor *p)
 
 void eng1_39b00(Actor *p)
 {
-    engine_diagnostic(" WofBall at %d, %d, %d\n", p->x >> 16, p->y >> 16, p->z >> 16);
+    dbg_printf(" WofBall at %d, %d, %d\n", p->x >> 16, p->y >> 16, p->z >> 16);
     eng1_3c4d0(p);
     p->x -= 0x20000;
     eng1_interpret_word_stream(p);

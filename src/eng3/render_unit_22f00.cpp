@@ -636,7 +636,7 @@ struct title_pos {
     short x;
     short y;
 };
-unsigned char *title_18680(int index, int key);
+unsigned char *resource_metadata_pointer(int index, int key);
 int eng3_24870(TitleObj *o, short *out, int mode);
 
 int extent_producer_30e40(TitleObj *o, short *out, int mode)
@@ -654,7 +654,7 @@ int extent_producer_30e40(TitleObj *o, short *out, int mode)
     if (o->w_034 > g_eng3_records_39548[o->b_022].count_04) {
         return 0;
     }
-    p = title_18680(o->b_022, o->w_034);
+    p = resource_metadata_pointer(o->b_022, o->w_034);
     if (p == 0) {
         return 0;
     }
@@ -717,7 +717,7 @@ int title_18600(TitleObj *o, struct title_pos *pos)
     if (o->w_034 > g_eng3_records_39548[o->b_022].count_04) {
         return 0;
     }
-    p = title_18680(o->b_022, o->w_034);
+    p = resource_metadata_pointer(o->b_022, o->w_034);
     if (p == 0) {
         return 0;
     }
@@ -731,7 +731,7 @@ int title_18600(TitleObj *o, struct title_pos *pos)
     return 1;
 }
 
-unsigned char *title_18680(int index, int key)
+unsigned char *resource_metadata_pointer(int index, int key)
 {
     TitleRecord *rec;
     int *entries;

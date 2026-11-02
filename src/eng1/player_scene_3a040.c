@@ -349,7 +349,7 @@ extern long g_effect_width_707ec;
 extern long g_effect_width_target_707f0;
 extern Callback8 *g_configuration_dword_7137c;
 
-void engine_diagnostic(const char *format, ...);
+void dbg_printf(const char *format, ...);
 void RemoveFxIdLinks_7f8e(unsigned short id, Actor *owner);
 int eng1_02500(Actor *p, void *descriptor);
 void eng1_02920(Actor *p, int width);
@@ -515,9 +515,9 @@ void eng1_3a420(Actor *p)
 
 void eng1_3a4a0(Actor *p)
 {
-    engine_diagnostic("TTRAIN here\n");
+    dbg_printf("TTRAIN here\n");
     if (p->render_flags & 0x80000000) {
-        engine_diagnostic("TTRAIN training\n");
+        dbg_printf("TTRAIN training\n");
         p->x = g_burst_origin_707e4->x + 0x200000;
         p->y = g_burst_origin_707e4->y + 0x200000;
         if (g_effect_timer_64474 < 0) {
@@ -785,7 +785,7 @@ void eng1_3ac10(Actor *p)
 
 void eng1_3ac80(Actor *p)
 {
-    engine_diagnostic("God Here, Type %d, X %d, Y %d\n", p->kind, p->x >> 16, p->y >> 16);
+    dbg_printf("God Here, Type %d, X %d, Y %d\n", p->kind, p->x >> 16, p->y >> 16);
     switch (p->state) {
     case 2:
         p->x += 0x60000;

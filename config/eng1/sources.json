@@ -4687,7 +4687,7 @@
       "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
     },
     "dispatch_local_01000": {
-      "provider": "engine_diagnostic",
+      "provider": "dbg_printf",
       "original_rva": "0x1000",
       "evidence": "evidence/engine_dispatch_region.json",
       "confidence": "verified_same_PC_entry_identity",
@@ -6285,13 +6285,6 @@
       "confidence": "verified_same_PC_entry_identity",
       "limits": "Native cdecl entry and 32-bit argument/result view only; source name/TU are unproved."
     },
-    "dbg_printf": {
-      "provider": "engine_diagnostic",
-      "original_rva": "0x1000",
-      "evidence": "evidence/eng1_provider_reuse_2026_10_26.json",
-      "confidence": "verified_same_PC_entry_identity",
-      "limits": "Independent native caller/body review; provider dependencies and source spelling remain separate."
-    },
     "stop_actor_sounds": {
       "provider": "RemoveFxLinks_7ef6",
       "original_rva": "0x7ef6",
@@ -7081,6 +7074,13 @@
         "function": "eng1_native_code_target_013990",
         "provider": "src/eng1/pickup_lift_unit_12620.c",
         "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source. Lane x19 provider (relocation-masked equal) replaces this copy (2026-10-20)."
+      }
+    ],
+    "src/shared/empty_entries.c": [
+      {
+        "function": "dbg_printf",
+        "reason": "Select ENG1 engine_diagnostic.c renamed dbg_printf; omit only the accepted ENG3 diagnostic contribution from this generated ENG1 unit.",
+        "evidence": "evidence/solSP2_final_debug_provider_review_2026_11_02.json"
       }
     ]
   }

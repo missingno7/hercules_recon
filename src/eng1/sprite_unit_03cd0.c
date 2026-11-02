@@ -187,7 +187,7 @@ extern void (*g_frame_callbacks_4d6f8[8])();
 extern int g_camera_focal_70ce4;
 void eng1_05370(TitleObject *p, int count, int stride);
 int eng1_31330(int a);
-int eng1_320d0(TitleObject *p);
+int title_195f0(TitleObject *p);
 void eng1_058e0(TitleObject *p, unsigned long *ot);
 void eng1_059f0(TitleObject *p, unsigned long *ot);
 void eng1_03bd0(TitleObject *p);
@@ -195,7 +195,7 @@ void eng1_03cd0(TitleObject *p);
 void eng1_03f60(unsigned char *stream, TitleObject *p, unsigned char count);
 unsigned short eng1_target_04ca0(unsigned char *q, int n, int m);
 void eng1_30790(unsigned char *stream, TitleObject *p, unsigned char count);
-int eng1_30d00(TitleObject *p, unsigned char *box, int pass);
+int title_184c0(TitleObject *p, unsigned char *box, int pass);
 
 typedef struct TitleTabEntry { unsigned short a_00; unsigned short b_02; } TitleTabEntry;
 extern TitleTabEntry g_727e0[];
@@ -309,11 +309,11 @@ void eng1_03cd0(TitleObject *p)
     if (!(flags & 0x80000)) {
         y = p->unknown_00e;
         if ((unsigned short)p->unknown_00c > 0x140 || (unsigned int)y > 0xf0) {
-            clipped = eng1_30d00(p, s, 0);
+            clipped = title_184c0(p, s, 0);
             if (clipped) {
                 if (!(flags & 8))
                     return;
-                if (eng1_30d00(p, s, 1))
+                if (title_184c0(p, s, 1))
                     return;
             }
         }
@@ -1245,7 +1245,7 @@ void eng1_05370(TitleObject *p, int count, int stride)
                             if ((f & 0x40000000) == 0x40000000) {
                                 p->unknown_00c = (short)(p->unknown_000 >> 16);
                                 p->unknown_00e = (short)(p->unknown_004 >> 16);
-                            } else if (eng1_320d0(p) == -1) {
+                            } else if (title_195f0(p) == -1) {
                                 goto next;
                             }
                             if ((unsigned short)p->unknown_00c < 0x140 && (unsigned short)p->unknown_00e < 0xf0 &&
@@ -1422,7 +1422,8 @@ void dispatch_local_058b0(void)
  * ENG1 has a distinct scalar at 70c64. The module selection preserves one
  * canonical provider for the ENG3 aggregate and no overlapping scalar. */
 #ifdef HERCULES_ENG3
-extern unsigned char g_eng3_view_405a0[36];
+#include "../eng3/view_state_405a0.h"
+extern Eng3View g_eng3_view_405a0;
 #else
 extern int g_70c64;
 #endif
@@ -1442,7 +1443,7 @@ void eng1_058e0(TitleObject *p, unsigned long *ot)
     area = (TitleRect *)g_engine_interface.data_010;
 #ifdef HERCULES_ENG3
     area->y = (short)(p->unknown_004 >> 16) - p->unknown_026
-        - *(int *)(void *)(g_eng3_view_405a0 + 4);
+        - g_eng3_view_405a0.y;
 #else
     area->y = (short)(p->unknown_004 >> 16) - p->unknown_026 - g_70c64;
 #endif

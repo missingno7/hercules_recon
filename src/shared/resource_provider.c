@@ -10,7 +10,7 @@ extern ResourceCallbackContext *g_resource_context;
 extern const char g_resource_suffix[];
 extern const char g_provider_bad_id_format[];
 
-extern void __cdecl engine_diagnostic(const char *format, ...);
+extern void __cdecl dbg_printf(const char *format, ...);
 extern unsigned long __cdecl resource_file_length(const char *path, const char *suffix);
 extern ActorReference *__cdecl resource_allocate(
     ActorReference **output_slot, unsigned long bytes, unsigned long flags);
@@ -39,7 +39,7 @@ int __cdecl resource_provider(int resource_id, int async_mode)
     int initialized_rows;
 
     if (resource_id >= 81) {
-        engine_diagnostic(g_provider_bad_id_format, resource_id);
+        dbg_printf(g_provider_bad_id_format, resource_id);
         return 1;
     }
 

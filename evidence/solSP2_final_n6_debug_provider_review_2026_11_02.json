@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "canonical": {
+    "ENG1.DLL": "_dbg_printf",
+    "ENG3.DLL": "_dbg_printf"
+  },
+  "reason": "Common shared sound_od.c calls dbg_printf in both engines; format/vararg calls discard EAX and target each module own accepted empty entry. This is a descriptive canonical name, not original source identity or a formatter implementation.",
+  "definitions": {
+    "eng1.engine_diagnostic": {
+      "before": "_engine_diagnostic",
+      "after": "_dbg_printf"
+    },
+    "eng3.empty_1000": {
+      "before": "_eng3_empty_1000",
+      "after": "_dbg_printf"
+    }
+  },
+  "evidence_files": {
+    "evidence/eng1_provider_reuse_2026_10_26.json": "98b5aa05f7e3f6f5cb55f9d68b0f23511f88bbd8a5bd559011360d1a6d1cf651",
+    "evidence/engine_diagnostic.json": "be178eeace2f2ce74056b6e068d3bfa595efa04716a300562d31bf1c83d77944"
+  },
+  "source_selection": {
+    "path": "config/eng1/sources.json",
+    "before_sha256": "f7d86414ade68e2e05d8c7aa7dea431b4cdc03b1416f478c47c5ce479dc23e07",
+    "candidate": "work/velocity_m/solSP2/candidates/config/eng1/sources.json",
+    "candidate_sha256": "c77720b2f27322d9467d1868a7ce630b6bb57732ecefb8a7a4698d20ead7fbfa",
+    "omit": {
+      "function": "dbg_printf",
+      "reason": "The accepted ENG3 diagnostic row belongs to ENG3. ENG1 selects the accepted engine_diagnostic.c provider, renamed dbg_printf; retain the two ENG1 empty entries and omit this duplicate ENG3 provider from the generated ENG1 compiler input.",
+      "evidence": "evidence/solSP2_debug_provider_review_2026_11_02.json"
+    },
+    "obsolete_alias_removed": "dbg_printf -> engine_diagnostic",
+    "existing_alias_provider_updated": "dispatch_local_01000 -> dbg_printf"
+  },
+  "projection_check": {
+    "provider_counts": {
+      "_dbg_printf": 1,
+      "_eng1_empty_c720": 1,
+      "_eng1_empty_22180": 1,
+      "_eng3_empty_2390": 1
+    },
+    "objects": [
+      {
+        "path": "D:\\Prog\\hercules_recon\\build\\match\\compile-yl96pc3y\\candidate.obj",
+        "sha256": "1a1b1df8e2bd3033625ae4a45cb197e4a68fd9c2d6628199923c1066b09e4f78"
+      },
+      {
+        "path": "D:\\Prog\\hercules_recon\\build\\match\\compile-_nr0orgs\\candidate.obj",
+        "sha256": "84f709751ad6be5d27947faaa8b1273016a0d821cdd7b914585b5eae1aa8123a"
+      }
+    ],
+    "eng1_empty_entries_raw_preserved": true
+  },
+  "limits": "Bounded provider selection only; no ENG1 full source graph/link, runtime, or acceptance claim. Excluded player unit still requires its owner to rename engine_diagnostic calls before the source batch is integrated.",
+  "approval": "Explicit integrator approval in final-batch instruction",
+  "base_revision": "0a98ebe0245361482bcf2107d8b9f4e07af02389"
+}

@@ -236,7 +236,7 @@ int eng3_1f1a0(Actor *p, Bounds3D *b, unsigned short mode);
 int eng3_1eaf0(Actor *p);
 int eng3_1ec20(Actor *p);
 int eng3_1f0a0(Bounds3D *box, Actor *q);
-int eng3_1f130(unsigned long, unsigned long, unsigned long, Bounds3D *);
+int point_in_box_2a810(unsigned long, unsigned long, unsigned long, Bounds3D *);
 
 #define WORD(p) (((short *)(p)->image)[(p)->frame_state])
 
@@ -592,7 +592,7 @@ int eng3_1f0a0(Bounds3D *box, Actor *q)
     return 0;
 }
 
-int eng3_1f130(unsigned long x, unsigned long y, unsigned long z, Bounds3D *b)
+int point_in_box_2a810(unsigned long x, unsigned long y, unsigned long z, Bounds3D *b)
 {
     short hx = (short)(x >> 16);
     short hy = (short)(y >> 16);

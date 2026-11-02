@@ -1679,7 +1679,7 @@ int eng3_22b90(long x, long y, long z, unsigned short mask)
     return tile & mask;
 }
 
-Actor *eng3_22bd0(long x, long y, long z, int kind, int profile)
+Actor *title_17ad0(long x, long y, long z, int kind, int profile)
 {
     Actor *actor;
 
@@ -1707,7 +1707,7 @@ Actor *eng3_22bd0(long x, long y, long z, int kind, int profile)
     return actor;
 }
 
-void eng3_22cb0(Actor *owner, long x, long y, long z, int kind)
+void spawn_actor_with_owner(Actor *owner, long x, long y, long z, int kind)
 {
     Actor *actor;
 

@@ -334,7 +334,7 @@ extern unsigned int random_limit(int);
 extern void title_0c650(unsigned long, unsigned char *);
 extern void dispatch_engine_2c960(unsigned char *, Rect16 *);
 extern void eng3_22b30(int, Actor *);
-extern Actor *eng3_22bd0(long, long, long, int, int);
+extern Actor *title_17ad0(long, long, long, int, int);
 extern int title_18600(Actor *, FramePos *);
 extern void eng3_284f0(Actor *);
 
@@ -587,19 +587,19 @@ void eng3_16670(Actor *o)
     if (g_engine_interface.context_004->unknown_02 == ((o->kind + 6) & 0xf)) {
         title_18600(o, &pos);
         if (g_engine_interface.context_004->tick & 1) {
-            a = eng3_22bd0(o->x, o->y + ((random_limit(3) + pos.y) << 16),
+            a = title_17ad0(o->x, o->y + ((random_limit(3) + pos.y) << 16),
                            o->z + ((random_limit(3) + pos.x) << 16), 0x201b, 0);
             if (a) {
                 a->state = 0;
                 a->profile = o->profile;
             }
-            a = eng3_22bd0(o->x, o->y + ((random_limit(3) + pos.y) << 16),
+            a = title_17ad0(o->x, o->y + ((random_limit(3) + pos.y) << 16),
                            o->z + ((random_limit(3) + pos.x) << 16), 0x201b, 0);
             if (a) {
                 a->state = 1;
                 a->profile = o->profile;
             }
-            a = eng3_22bd0(o->x, o->y + ((random_limit(3) + pos.y) << 16),
+            a = title_17ad0(o->x, o->y + ((random_limit(3) + pos.y) << 16),
                            o->z + ((random_limit(3) + pos.x) << 16), 0x201b, 0);
             if (a) {
                 a->state = 2;
@@ -2678,7 +2678,7 @@ extern long g_eng3_41200[];
 extern long g_eng3_413a0[];
 extern Actor *g_eng3_actor_41c60;
 
-extern void eng3_empty_1000(const char *);
+extern void dbg_printf(const char *);
 extern void eng3_01870(void);
 extern void eng3_01880(void);
 extern void eng3_01890(Actor *);
@@ -3110,7 +3110,7 @@ void eng3_1abb0(void)
         g_engine_interface.context_004->unknown_05 = 1;
         g_engine_interface.context_004->unknown_03 = 5;
         g_engine_interface.context_004->unknown_54 = dispatch_engine_2cc30(1);
-        eng3_empty_1000("-------------------------------------------\n");
+        dbg_printf("-------------------------------------------\n");
         g_eng3_3fb84 = 1;
         break;
     case 1:
@@ -3497,7 +3497,7 @@ void eng3_1b9c0(void)
     g_eng3_40b92 = 3;
 }
 
-void eng3_1b9e0(void)
+void engine_shutdown(void)
 {
     reset_normal_actor_pool();
     eng3_process_middle_actor_pool();

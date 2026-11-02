@@ -112,7 +112,7 @@ Debris g_debris_records_4fb50[25] = {
 extern Debris g_debris_4fbb8[12]; /* Existing unused declaration retained as original caller context. */
 extern long g_bob_steps_4fc18[];
 
-extern void engine_diagnostic(const char *, ...);
+extern void dbg_printf(const char *, ...);
 extern void play_sound(unsigned short, Actor *);
 extern void stop_actor_sounds(Actor *);
 extern void eng1_0ceb0(Actor *);
@@ -683,7 +683,7 @@ void eng1_native_code_target_0092c0(Actor *p)
         }
         break;
     case 10:
-        engine_diagnostic("WCENTAUR WALKING\n");
+        dbg_printf("WCENTAUR WALKING\n");
         walk_x_blocked(p, &b);
         eng1_native_code_target_002a290(p);
         d = p->x - g_normal_actor_pool->x;
@@ -840,10 +840,10 @@ void eng1_native_code_target_009a20(Actor *p)
     long range;
     Actor *q;
 
-    engine_diagnostic(" LCROCK->NAStatus = %d\n", p->state);
+    dbg_printf(" LCROCK->NAStatus = %d\n", p->state);
     p->z -= p->motion_z.velocity;
     range = (g_normal_actor_pool->z - p->z) >> 16;
-    engine_diagnostic(" Range is %d\n", range);
+    dbg_printf(" Range is %d\n", range);
     if (range > 0x100 || range < -0x200) {
         remove_actor(p);
         return;

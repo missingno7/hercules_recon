@@ -119,7 +119,7 @@ void append_chain(TitleObject *owner, TitleObject *child);
 void reset_frame_state(TitleObject *p);
 void eng1_interpret_word_stream(TitleObject *p);
 void remove_actor_variant(TitleObject *p);
-int eng1_320d0(TitleObj *o);
+int title_195f0(TitleObj *o);
 int eng1_31dc0(char *obj, int *vec);
 void eng1_05310(void *p);
 void eng1_03cd0(void *p);
@@ -251,7 +251,7 @@ void eng1_303d0(TitleObject *obj)
     int count;
     TitleObject *item;
 
-    if (eng1_320d0((TitleObj *)obj) == -1) {
+    if (title_195f0((TitleObj *)obj) == -1) {
         obj->unknown_01f |= 8;
         return;
     }
@@ -260,7 +260,7 @@ void eng1_303d0(TitleObject *obj)
     while (count--) {
         item = (TitleObject *)*list++;
         eng1_05310(item);
-        eng1_320d0((TitleObj *)item);
+        title_195f0((TitleObj *)item);
         eng1_03cd0(item);
     }
 }
@@ -274,7 +274,7 @@ void eng1_30430(TitleObject *obj)
     int count;
     TitleObject *item;
 
-    r = eng1_320d0((TitleObj *)obj);
+    r = title_195f0((TitleObj *)obj);
     if (r == -1) {
         obj->unknown_01f |= 8;
         return;
@@ -416,7 +416,7 @@ void title_0c840(void *b);
 void title_0c7e0(void *p);
 unsigned long eng1_311a0(TitleObj *p);
 int eng1_31540(TitleObj *o, unsigned char *q, unsigned long c);
-int eng1_32050(TitleShape *obj, int k);
+int title_19570(TitleShape *obj, int k);
 extern int g_camera_focal_70ce4;
 void title_0c760(void *p);
 void title_0c7f0(void *p);
@@ -441,7 +441,7 @@ typedef struct TitleTile {         /* 12-byte single-pixel tile primitive (code 
 extern TitleObj *g_alternate_actor_pool;
 extern TitleTile *g_frame_global_73484;
 void eng1_03bd0(TitleObj *o);
-int eng1_31e30(char *obj, int *vec, int k);
+int title_194e0(char *obj, int *vec, int k);
 
 void eng1_304f0(TitleObj *obj)
 {
@@ -462,7 +462,7 @@ void eng1_304f0(TitleObj *obj)
             return;
         }
     }
-    r = eng1_320d0(obj);
+    r = title_195f0(obj);
     if (r == -1) {
         obj->flags_01f |= 8;
         return;
@@ -502,7 +502,7 @@ void eng1_304f0(TitleObj *obj)
                     acc = span->z_008;
                 }
                 g_alternate_actor_pool->rot_070.vz = z - acc;
-                eng1_31e30((char *)&g_alternate_actor_pool->w_0c, (int *)span, acc);
+                title_194e0((char *)&g_alternate_actor_pool->w_0c, (int *)span, acc);
             } else {
                 if (flags & 0x400000) {
                     title_0c790();
@@ -823,7 +823,7 @@ void eng1_30a20(unsigned char *stream, TitleObj *obj, unsigned char count)
     }
 }
 
-int eng1_30d00(TitleObj *o, TitleFrameBox *box, int pass)
+int title_184c0(TitleObj *o, TitleFrameBox *box, int pass)
 {
     int flip;
     int x;
@@ -1148,7 +1148,7 @@ int eng1_313e0(TitleObj *o)
     q = (unsigned char *)(g_header_pointer_70d2c + *(int *)(g_header_pointer_70d2c + idx * 4));
     q += idx * 4;
     if (o->w_0c > 0x140 || o->w_0e > 0xf0) {
-        if (eng1_32050((TitleShape *)o, q[3]) != 0) {
+        if (title_19570((TitleShape *)o, q[3]) != 0) {
             return 0;
         }
     }
@@ -1362,7 +1362,7 @@ int eng1_31540(TitleObj *o, unsigned char *q, unsigned long c)
     return 1;
 }
 
-void eng1_318d0(int a1, int *vals, int count)
+void title_18f80(int a1, int *vals, int count)
 {
     int pair[2];
     unsigned char *dst;
@@ -1453,7 +1453,7 @@ void eng1_31a70(TitleObj *o, int *vals, int count)
 
     t = o->dword_04c;
     if (t == 0) {
-        eng1_318d0((int)o, vals, count);
+        title_18f80((int)o, vals, count);
         return;
     }
     if (g_70c44 != 0) {
@@ -1577,7 +1577,7 @@ int eng1_31dc0(char *obj, int *vec)
     return *(short *)obj > 0x40;
 }
 
-int eng1_31e30(char *obj, int *vec, int k)
+int title_194e0(char *obj, int *vec, int k)
 {
     short v[3];
 
@@ -1657,7 +1657,7 @@ int profile_extent_31ec0(TitleObj *o, short *out, int mode)
     return count;
 }
 
-int eng1_32050(TitleShape *obj, int k)
+int title_19570(TitleShape *obj, int k)
 {
     int h = g_camera_focal_70ce4 >> 1;
     int q1 = (obj->unknown_03a * h) / obj->unknown_010;
@@ -1678,7 +1678,7 @@ int eng1_32050(TitleShape *obj, int k)
 
 int eng1_32300(TitleObj *o);
 
-int eng1_320d0(TitleObj *o)
+int title_195f0(TitleObj *o)
 {
     int r;
 
@@ -1989,7 +1989,7 @@ void eng1_32920(TitleObj *o, int *vals, int count)
         title_0c840(dst + 4);
         o->w_10 -= 0x146;
     } else {
-        eng1_318d0((int)o, vals, count);
+        title_18f80((int)o, vals, count);
     }
 }
 
