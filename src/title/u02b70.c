@@ -164,6 +164,53 @@ void title_02cc0(TitleObject *p)
     }
 }
 
+
+#if defined(HERCULES_ENGINE3)
+/* ENG3 variant of the TITLE 0x02cc0 wrapper. Kept in the shared u02b70
+   unit immediately before the shared 0x02dc0 renderer. */
+void eng3_08ca0(TitleObject *p)
+{
+    extern unsigned char *g_eng3_frame_41448;
+    extern int g_eng3_42548;
+    extern void eng1_058e0(TitleObject *p, unsigned long *ot);
+    extern void eng1_059f0(TitleObject *p, unsigned long *ot);
+    unsigned long flags;
+    unsigned long sel;
+    unsigned long saved34;
+    unsigned long saved46;
+
+    flags = p->unknown_054;
+    sel = flags & 0x10000;
+    if (sel) {
+        eng1_058e0(p, (unsigned long *)((unsigned char *)g_eng3_frame_41448 + 0x2080 - ((p->unknown_010 & ~3) << 2)));
+    }
+    if ((flags & 0x8000000) && p->unknown_036 != 0) {
+        if (!(flags & 0x4000000)) {
+            title_02dc0(p);
+            g_eng3_42548 = 0;
+        }
+        saved34 = p->unknown_034;
+        saved46 = p->unknown_046;
+        p->unknown_034 = p->unknown_036;
+        p->unknown_046 = p->unknown_048;
+        title_02dc0(p);
+        g_eng3_42548 = 0;
+        p->unknown_048 = p->unknown_046;
+        p->unknown_034 = saved34;
+        p->unknown_046 = saved46;
+        if (flags & 0x4000000) {
+            title_02dc0(p);
+        }
+        g_eng3_42548 = 1;
+    } else {
+        title_02dc0(p);
+    }
+    if (sel) {
+        eng1_059f0(p, (unsigned long *)((unsigned char *)g_eng3_frame_41448 + 0x2080 - ((p->unknown_010 & ~3) << 2)));
+    }
+}
+#endif
+
 void title_02dc0(TitleObject *p)
 {
     unsigned int off;
