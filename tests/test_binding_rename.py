@@ -1500,8 +1500,8 @@ class DualFixture(OwnerFixture):
                                                 rva='0x2100', size=16, flags=['/O2'], proof=proof))
 
     def verify(self, rows, original_root=None, relocation_candidates=None, **_):
-        raw = [row for row in rows if row['status'] == 'FUNCTION_MATCH']
-        results, _ = super().verify([row for row in rows if row['status'] != 'FUNCTION_MATCH'])
+        raw = [row for row in rows if row['status'] in match.RAW_STATUSES]
+        results, _ = super().verify([row for row in rows if row['status'] not in match.RAW_STATUSES])
         for row in raw:
             source = (self.root / row['source']).read_bytes()
             if sha(source) != row['proof']['source_sha256']:
@@ -1731,6 +1731,56 @@ class DualOwnerApplyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Fresh after acceptance failed'):
             self.run_apply(self.fx.plan(self.fx.review()), after_gate=inexact)
         self.unchanged(before)
+
+    def retain_raw(self, status, keep=None):
+        """rvDUAL reproduction: m.praw keeps its RAW proof under another status (match.accepted_rows counts it)."""
+        if keep is not None:
+            self.fx.state['functions'] = [r for r in self.fx.state['functions'] if r['id'] not in keep]
+        row = next(r for r in self.fx.state['functions'] if r['id'] == 'm.praw')
+        if status == 'FUNCTION_MATCH_RAW':
+            row['status'] = status
+        else:
+            row.update(status=status, prior_raw_proof=row['proof'], proof={'legacy': 'not an accepted RAW proof'})
+        (self.root / 'recovery.json').write_text(json.dumps(self.fx.state, indent=2) + '\n')
+        self.assertIn('m.praw', {r['id'] for r in match.accepted_rows(self.fx.state['functions'])})
+
+    def test_retained_raw_callers_cannot_be_omitted(self):
+        # rvDUAL: the caller inventory once used only FUNCTION_MATCH/RELOCATED statuses, so these rows could be left
+        # out of an otherwise exact declaration and the re-pin still published.
+        for status in ('RECONSTRUCTED', 'FUNCTION_MATCH_RAW'):
+            with self.subTest(status):
+                self.tearDown()
+                self.setUp()
+                self.retain_raw(status)
+                before = (self.root / 'recovery.json').read_bytes()
+                with self.assertRaisesRegex(ValueError, 'differ from the accepted rows'):
+                    self.run_apply(self.fx.plan(self.fx.review(callers=['m.p0', 'm.p5'])))
+                self.unchanged(before)
+        with self.subTest('LINKED_MATCH'):  # the linked gate precedes apply's derivation: refused at derive
+            self.tearDown()
+            self.setUp()
+            self.retain_raw('LINKED_MATCH')
+            item = self.fx.review(callers=['m.p0', 'm.p5'])
+            review = json.loads((self.root / item['path']).read_bytes())
+            with self.assertRaisesRegex(ValueError, 'differ from the accepted rows'):
+                binding_rename.derive(self.fx.state, review, binding_rename.parent_documents(review), item['path'],
+                                      item['sha256'], {'src/pipe.c'}, DualOwnerDeriveTests.HASHES)
+
+    def test_a_sole_retained_raw_caller_still_needs_the_declaration(self):
+        # rvDUAL: with the unit's only accepted caller a retained RAW proof, no caller_rows declaration was needed.
+        self.retain_raw('RECONSTRUCTED', keep=('m.p0', 'm.p5'))
+        before = (self.root / 'recovery.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'accepted caller unit unless'):
+            self.run_apply(self.fx.plan(self.fx.review(callers=None, dual=False)))
+        self.unchanged(before)
+
+    def test_a_declared_retained_raw_caller_is_reverified_with_the_new_source(self):
+        self.retain_raw('RECONSTRUCTED')
+        receipt = self.run_apply(self.fx.plan(self.fx.review()))
+        rows = {r['id']: r for r in json.loads((self.root / 'recovery.json').read_bytes())['functions']}
+        self.assertEqual(rows['m.praw']['prior_raw_proof']['source_sha256'], sha(DualFixture.PIPE_AFTER))
+        self.assertEqual(receipt['binding_renames']['owner_revisions']['src/pipe.c']['caller_rows'], DualFixture.CALLERS)
+        self.assertIn('m.praw', [p['id'] for p in receipt['preserved']])
 
 
 class OwnerPinAccountingTests(unittest.TestCase):

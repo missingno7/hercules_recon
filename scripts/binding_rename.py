@@ -31,8 +31,8 @@ hash-pinned review in evidence/, everything that may differ, and nothing else:
                listed; repin handles those through their context pins and snapshots, exactly as without a review.
       caller_rows
                [row_id, ...], only for a C/C++ unit: the unit is also the source of accepted rows. Without this
-               declaration such a unit is refused. It must name exactly the accepted rows (RAW and RELOCATED)
-               whose ledger source is the unit. Their source and context pins stay with repin's ordinary source
+               declaration such a unit is refused. It must name exactly the accepted rows (match.accepted_rows:
+               RAW, retained RAW proofs and RELOCATED) whose ledger source is the unit. Their source and context pins stay with repin's ordinary source
                path; only the listed owner users' manifest pins move here, so each pin has one writer. A caller
                row that uses the unit as its own owner must also be listed in `rows` (completeness, below); a
                caller row that does not keeps its manifest and reads the old pin through its snapshot.
@@ -417,7 +417,9 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
             raise ValueError('A revised owner must be a changed source: ' + source)
         if source_hashes is None or tuple(source_hashes.get(source, ())) != (item['before'], item['after']):
             raise ValueError('Owner revision disagrees with the re-pin plan: ' + source)
-        callers = sorted(row['id'] for row in state['functions'] if row['status'] in ACCEPTED and row['source'] == source)
+        # Every row the strict gate treats as accepted (retained RAW proofs and FUNCTION_MATCH_RAW included).
+        import match
+        callers = sorted(row['id'] for row in match.accepted_rows(state['functions']) if row['source'] == source)
         if 'caller_rows' in item:
             _check_caller_rows(source, path, item['caller_rows'], callers)
             plan.caller_rows[source] = callers
