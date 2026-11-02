@@ -449,13 +449,17 @@ void eng1_107c0(Actor *p)
 
 void eng1_10800(Actor *p)
 {
-    unsigned long w;
+    unsigned int w;
 
     eng1_interpret_signed_pairs(p);
     apply_frame_motion_2d(p);
-    if (!eng1_29c20(p) ||
-        ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x100000 : 0x100000), p->y,
-                                                               (p->z + 0x400000) & 0xff800000, p->profile)]) & 2)) {
+    if (!eng1_29c20(p)) {
+        p->x = p->saved_x;
+        p->y = p->saved_y;
+        select_frame(p, 2);
+    } else if (((w = g_configuration_dword_713bc[dispatch_local_2a170(
+                p->x + (p->direction_x ? -0x100000 : 0x100000), p->y,
+                (p->z + 0x400000) & 0xff800000, p->profile)]) & 2)) {
         p->x = p->saved_x;
         p->y = p->saved_y;
         select_frame(p, 2);
@@ -1150,15 +1154,19 @@ void eng1_native_code_target_011df0(Actor *p)
 {
     Offset2 pos;
     Actor *a;
-    unsigned long w;
+    unsigned int w;
 
     eng1_interpret_signed_pairs(p);
     switch (p->state) {
     case 0:
         apply_frame_motion_2d(p);
-        if (!eng1_29c20(p) ||
-            ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x100000 : 0x100000), p->y,
-                                                                   (p->z + 0x400000) & 0xff800000, p->profile)]) & 4)) {
+        if (!eng1_29c20(p)) {
+            p->x = p->saved_x;
+            p->y = p->saved_y;
+            select_frame(p, 2);
+        } else if (((w = g_configuration_dword_713bc[dispatch_local_2a170(
+                    p->x + (p->direction_x ? -0x100000 : 0x100000), p->y,
+                    (p->z + 0x400000) & 0xff800000, p->profile)]) & 4)) {
             p->x = p->saved_x;
             p->y = p->saved_y;
             select_frame(p, 2);
