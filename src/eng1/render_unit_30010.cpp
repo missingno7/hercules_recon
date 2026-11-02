@@ -1598,6 +1598,7 @@ int profile_extent_31ec0(TitleObj *o, short *out, int mode)
     unsigned int count;
     int base;
     int v;
+    int sy, sz, sx;
     int x, y, z;
     unsigned int w, h, d;
 
@@ -1628,25 +1629,28 @@ int profile_extent_31ec0(TitleObj *o, short *out, int mode)
         z += base >> 24;
     }
     v = *(int *)q;
-    d = v & 0xff;
-    w = (v >> 8) & 0xffff;
-    h = (v >> 24) & 0xff;
+    d = (unsigned char)v;
+    w = (unsigned short)(v >> 8);
+    h = (unsigned char)(v >> 24);
+    sx = o->w_03a;
     if (o->flags_054 & 0x80) {
-        if ((o->w_03a | o->w_03c | o->w_03e) != 0x100) {
-            x = x * o->w_03a >> 8;
-            w = w * o->w_03a >> 8;
-            y = y * o->w_03c >> 8;
-            h = h * o->w_03c >> 8;
-            z = z * o->w_03e >> 8;
-            d = d * o->w_03e >> 8;
+        sy = o->w_03c;
+        sz = o->w_03e;
+        if ((sx | sy | sz) != 0x100) {
+            x = x * sx >> 8;
+            w = w * sx >> 8;
+            y = y * sy >> 8;
+            h = h * sy >> 8;
+            z = z * sz >> 8;
+            d = d * sz >> 8;
         }
-    } else if (o->w_03a != 0x100) {
-        x = x * o->w_03a >> 8;
-        y = y * o->w_03a >> 8;
-        z = z * o->w_03a >> 8;
-        w = w * o->w_03a >> 8;
-        h = h * o->w_03a >> 8;
-        d = d * o->w_03a >> 8;
+    } else if (sx != 0x100) {
+        x = x * sx >> 8;
+        y = y * sx >> 8;
+        z = z * sx >> 8;
+        w = w * sx >> 8;
+        h = h * sx >> 8;
+        d = d * sx >> 8;
     }
     out[0] = x;
     out[1] = y;

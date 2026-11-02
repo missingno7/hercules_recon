@@ -1,0 +1,94 @@
+{
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "evidence/q1_extent_alias_review_2026_11_02.json": "cdb997b1678d228e8a9d52a6371b67c166257c4ea977afaf76d25ad545af27fb",
+  "evidence/q1_extents_review_2026_11_02.json": "7eaeb1bfe4ba6b0639bbe8a658b44f7cb38caae99d8910d4290188b60fde6f78",
+  "evidence/velocity_resource_metadata_bindings_2026_10_25.json": "b3a0eeb138f4c1072bc85caf613ff2aace91582c2969b014240be1aae1465aa5",
+  "src/eng1/render_unit_30010.cpp": "f5342a04c0822bf9e48eff434e7a8c5558c97c7c1cbad9080fdfc87f900eb830",
+  "src/eng1/resource_metadata.c": "a6c579e74b9d008d11f5eb3735f09e1bfe107b7847d323befba2a88bece044f0"
+ },
+ "function_identities": {
+  "eng1.profile_extent_31ec0": {
+   "ledger_status": "CODEGEN_SIMILAR",
+   "origin": "recovery.json#functions.eng1.profile_extent_31ec0; the CODEGEN_SIMILAR ledger row is the independent identity source, not derived from the pending caller",
+   "rva": 204480,
+   "size": 400,
+   "source": "src/eng1/render_unit_30010.cpp",
+   "source_sha256": "f5342a04c0822bf9e48eff434e7a8c5558c97c7c1cbad9080fdfc87f900eb830",
+   "symbol": "_profile_extent_31ec0",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "eng1.resource_metadata_pointer": {
+   "accepted_proof": {
+    "bindings_path": "evidence/velocity_resource_metadata_bindings_2026_10_25.json",
+    "bindings_sha256": "d9a22c18ae9b74d47bed50f7818804862d47fb813b0b389fcc61b8779009cbf6",
+    "compiled_sha256": "0d583f2ce31c2c0bafa80ca47577051dd7a550bd19294015d04344765eea9af3"
+   },
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "origin": "recovery.json#functions.eng1.resource_metadata_pointer; the FUNCTION_MATCH_RELOCATED ledger row is the independent identity source, not derived from the pending caller",
+   "rva": 200832,
+   "size": 96,
+   "source": "src/eng1/resource_metadata.c",
+   "source_sha256": "a6c579e74b9d008d11f5eb3735f09e1bfe107b7847d323befba2a88bece044f0",
+   "symbol": "_resource_metadata_pointer",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  }
+ },
+ "functions": {
+  "eng1.extent_producer_30e40": {
+   "symbols": {
+    "_g_5cee0": {
+     "evidence": [
+      "evidence/scale_resource_callbacks_review_2026_10_25.json#resource_records",
+      "evidence/resource_writer_layout.json#resource_records"
+     ],
+     "kind": "data",
+     "references": [
+      {
+       "addend": 4,
+       "offset": 71,
+       "type": 6
+      }
+     ],
+     "rva": 380640,
+     "sha256": "4ba542e0c2ac3b325b4ac9a1a9e68699cfd9ec288b80b17abe6885509bdcd4be",
+     "size": 1620
+    },
+    "_profile_extent_31ec0": {
+     "evidence": [
+      "function_identities:eng1.profile_extent_31ec0"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 45,
+       "type": 20
+      }
+     ],
+     "rva": 204480,
+     "size": 400
+    },
+    "_resource_metadata_pointer": {
+     "evidence": [
+      "function_identities:eng1.resource_metadata_pointer"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 93,
+       "type": 20
+      }
+     ],
+     "rva": 200832,
+     "size": 96
+    }
+   }
+  }
+ },
+ "schema": 1,
+ "scope": "Focused references binding for eng1.extent_producer_30e40: symbol records copied verbatim from accepted bindings or issued from unique accepted/masked-equal ledger rows; 0 opaque-indirect-call-v1 site(s) claim instruction identity only (targets unidentified, ABI unclaimed). Native review: evidence/q1_extents_review_2026_11_02.json. No acceptance claim."
+}

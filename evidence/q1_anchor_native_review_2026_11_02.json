@@ -1,0 +1,198 @@
+{
+  "schema": 1,
+  "date": "2026-11-02",
+  "task": "q1 anchor replacement only",
+  "question": "Can the already accepted shape-table and actor scalar identities retain their existing owner/extents using complete HIGHLOW instructions independent of every q1 selected row?",
+  "base_revision": "3897c3841abda0e6836ba961d27e491df084e84f",
+  "observed_recovery_sha256": "34dd580ac30f518c79de340e8400eff884b15d95ee6f544d6fa496c1fd27d6ec",
+  "target": {
+    "path": "assets/pc/HERCULES/ENG3.DLL",
+    "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "image_base": 268435456
+  },
+  "scope": "Only three existing BSS identity instruction anchors change. No new cell identity, owner, extent, function identity, reference-use or source claim.",
+  "existing_native_reviews": {
+    "evidence/scalar_eng3_5_review_2026_10_26.json": "2dbb76ebdf13ed6d6c59ff1e3b0b6931c7e870f575368d0951ccf06cad4712a7",
+    "evidence/scalar_eng3_4_review_2026_10_26.json": "d5a5df14ce74410275535f14a40ea249295aef961a037815a1d9bef8a5dab5f2"
+  },
+  "selected_rows": [
+    "eng3.eng3_24870",
+    "eng3.eng3_1b4a0",
+    "eng1.profile_extent_31ec0",
+    "eng3.02ac0",
+    "eng3.02440",
+    "eng3.03dc0",
+    "eng3.05070",
+    "eng3.shared_1ecf0",
+    "eng3.eng3_10590",
+    "eng3.eng3_10df0",
+    "eng3.292f0",
+    "eng3.shared_23860",
+    "eng3.29a10",
+    "eng1.extent_producer_30e40"
+  ],
+  "replacement_anchors": {
+    "shape_table": {
+      "identity": {
+        "rva": 148869,
+        "size": 6,
+        "operand": 1,
+        "sha256": "c212ce43d67fc0833b1cc8a2986a16e15362e29600731f4d97582ac508127b14"
+      },
+      "bytes": "8b1554060410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10040654]",
+      "fixup_field_rva": 148871,
+      "original_fixups": [
+        {
+          "rva": 148871,
+          "type": 3
+        }
+      ],
+      "selected_rows_overlapping": []
+    },
+    "actor": {
+      "identity": {
+        "rva": 28528,
+        "size": 5,
+        "operand": 1,
+        "sha256": "39cf7d079add1a31dfeadf5a984b9f01a3389910f3b6c514543b4d177061ae75"
+      },
+      "bytes": "a10cfb0310",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x1003fb0c]",
+      "fixup_field_rva": 28529,
+      "original_fixups": [
+        {
+          "rva": 28529,
+          "type": 3
+        }
+      ],
+      "selected_rows_overlapping": []
+    }
+  },
+  "shape_table_corroboration": [
+    {
+      "id": "eng3.23d90",
+      "status": "CODEGEN_SIMILAR",
+      "source": "src/eng3/render_unit_22f00.cpp",
+      "source_sha256": "baedf77585e486dfc9c633ffd4d5cfaa495e81a25186e072174eb53484c2f271",
+      "function_symbol": "_eng3_23d90",
+      "source_cell_symbol": "_g_eng3_shape_table_40654",
+      "ledger_cell_rva": "0x40654",
+      "native_rva": "0x23d90",
+      "native_size": 144,
+      "native_contribution_sha256": "0ecb0a8a6cb949dc5b6a1001e50160d8f0ab0ace669e101f48a5f513702a59fc",
+      "instruction": {
+        "identity": {
+          "rva": 146871,
+          "size": 6,
+          "operand": 1,
+          "sha256": "7b803d1ddfd2ff352f7fd10f737ab0fc3c2a1dd69b48d2bbd8f3d01d6f02c571"
+        },
+        "bytes": "8b0d54060410",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [0x10040654]",
+        "fixup_field_rva": 146873,
+        "original_fixups": [
+          {
+            "rva": 146873,
+            "type": 3
+          }
+        ],
+        "selected_rows_overlapping": []
+      }
+    },
+    {
+      "id": "eng3.shared_23e20",
+      "status": "CODEGEN_SIMILAR",
+      "source": "src/title/u17cb0.cpp",
+      "source_sha256": "24f0718161e0e687793d32041ec5c9b541820f5e45e5e58d2f4a629d0b3fb010",
+      "function_symbol": "_title_18b20",
+      "source_cell_symbol": "_g_2cbf0",
+      "ledger_cell_rva": "0x40654",
+      "native_rva": "0x23e20",
+      "native_size": 208,
+      "native_contribution_sha256": "852ec2a93fd8692f97d6403d9dd33edc07ad6b39d00b54c6767bf06765d61736",
+      "instruction": {
+        "identity": {
+          "rva": 147023,
+          "size": 6,
+          "operand": 1,
+          "sha256": "7b803d1ddfd2ff352f7fd10f737ab0fc3c2a1dd69b48d2bbd8f3d01d6f02c571"
+        },
+        "bytes": "8b0d54060410",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [0x10040654]",
+        "fixup_field_rva": 147025,
+        "original_fixups": [
+          {
+            "rva": 147025,
+            "type": 3
+          }
+        ],
+        "selected_rows_overlapping": []
+      }
+    },
+    {
+      "id": "eng3.24570",
+      "status": "CODEGEN_SIMILAR",
+      "source": "src/eng3/render_unit_22f00.cpp",
+      "source_sha256": "baedf77585e486dfc9c633ffd4d5cfaa495e81a25186e072174eb53484c2f271",
+      "function_symbol": "_eng3_24570",
+      "source_cell_symbol": "_g_eng3_shape_table_40654",
+      "ledger_cell_rva": "0x40654",
+      "native_rva": "0x24570",
+      "native_size": 368,
+      "native_contribution_sha256": "ad02cd01929b4415ca6ce7a8df3eb79fcd236a6827011dbb0d666c9b591243e6",
+      "instruction": {
+        "identity": {
+          "rva": 148869,
+          "size": 6,
+          "operand": 1,
+          "sha256": "c212ce43d67fc0833b1cc8a2986a16e15362e29600731f4d97582ac508127b14"
+        },
+        "bytes": "8b1554060410",
+        "mnemonic": "mov",
+        "operands": "edx, dword ptr [0x10040654]",
+        "fixup_field_rva": 148871,
+        "original_fixups": [
+          {
+            "rva": 148871,
+            "type": 3
+          }
+        ],
+        "selected_rows_overlapping": []
+      }
+    }
+  ],
+  "shape_table_reasoning": "The primary instruction at 0x24585 loads a dword from absolute VA 0x10040654 into EDX. It is instruction-aligned when decoding host eng3.24570 from its existing row start and has exactly one HIGHLOW at 0x24587. Three distinct nonselected CODEGEN_SIMILAR host rows consistently name RVA 0x40654: eng3.23d90 and eng3.24570 use _g_eng3_shape_table_40654; shared twin eng3.shared_23e20 uses _g_2cbf0. Existing scalar review independently inventories all seven original exact-target references, including the producer at 0x1b0a0. This is the contract_j three-host route, not a stable accepted/outside-row witness; exclude eng3.24570 from any simultaneous promotion group.",
+  "actor_reasoning": "At 0x6f70 a complete A1 moffs32 MOV reads the existing dword actor cell at VA 0x1003fb0c; its only address field at 0x6f71 has exactly one HIGHLOW. The instruction is outside every ledger row and every selected q1 row. Original bytes immediately before it are RET at 0x6f62 followed by thirteen NOP bytes at 0x6f63..0x6f6f, establishing this instruction boundary without inventing a function identity or extent. The following MOV ECX,[EAX+0xbc] consumes the loaded actor pointer.",
+  "actor_boundary_context": {
+    "rva": 28514,
+    "size": 25,
+    "bytes": "c390909090909090909090909090a10cfb03108b88bc000000",
+    "sha256": "a3add4ff579f54d81b7db9fdf1e558f96da984b958851e9ada4bbb5d3cb8e9a4"
+  },
+  "accepted_target_contributions": [
+    {
+      "id": "eng3.24420",
+      "rva": "0x24420",
+      "size": 336,
+      "sha256": "c1aac2edeaf226f8d86588582672dbb0ca6ecce36793cf15485392141c4ff7ed"
+    },
+    {
+      "id": "eng3.03200",
+      "rva": "0x3200",
+      "size": 144,
+      "sha256": "cbce2beb430e8451bdb1d6acae59f2aadb0e8a2cda678ee7be6446e343d559fa"
+    },
+    {
+      "id": "eng3.03290",
+      "rva": "0x3290",
+      "size": 176,
+      "sha256": "fed76a68029759c6c9628b14e30af3110fa47236ebb66576b16ee3ac10a191a2"
+    }
+  ],
+  "limitations": "No compiler or strict verifier was run. Existing accepted BSS owner and capacity proofs are reused unchanged; full strict baseline/replacement verification remains integrator-owned."
+}

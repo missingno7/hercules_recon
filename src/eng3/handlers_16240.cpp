@@ -3328,19 +3328,20 @@ long eng3_1b2e0(unsigned short x, short y, unsigned short z, int layer)
 unsigned short eng3_1b4a0(unsigned short x, short y, unsigned short z, int layer)
 {
     unsigned char *entry;
-    unsigned long value;
+    short *ep;
     unsigned long *cell;
     unsigned char *shape;
     long cx, cz, height, dy;
     int flag, info;
     int count, lane, xs, ys, zs;
 
-    entry = (unsigned char *)&g_eng3_map_40650.layers_74[layer].entries + g_eng3_map_40650.layers_74[layer].entries;
-    z += 0x300;
     x -= 0x40;
-    count = *entry++;
+    z += 0x300;
     cz = z >> 7;
     cx = x >> 7;
+    ep = &g_eng3_map_40650.layers_74[layer].entries;
+    entry = (unsigned char *)ep + *ep;
+    count = *entry++;
     while (count--) {
         lane = *entry++;
         height = (signed char)*entry++ << 5;
@@ -3353,7 +3354,8 @@ unsigned short eng3_1b4a0(unsigned short x, short y, unsigned short z, int layer
         flag = g_eng3_map_40650.cell_flags_7c[((*cell >> 11) & 0x1fff) * 2];
         if (!flag)
             continue;
-        shape = (unsigned char *)&g_eng3_map_40650.table_68[flag - 1] + g_eng3_map_40650.table_68[flag - 1];
+        shape = (unsigned char *)&g_eng3_map_40650.table_68[flag - 1];
+        shape += *(unsigned long *)shape;
         info = *(unsigned short *)shape;
         shape += 2;
         if (!info)
