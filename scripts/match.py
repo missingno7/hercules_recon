@@ -200,6 +200,8 @@ def compare(obj, symbol, target, rva, size):
 
 
 def check(row, source=None, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
+    from profile_history import history_inputs
+    profile_inputs = history_inputs(row, ROOT)
     # Source and acceptance state remain local to this worktree. Only the
     # read location of the hash-pinned original may come from another checkout.
     target = (Path(original_root).resolve() if original_root is not None else ROOT) / row["target"]
@@ -223,6 +225,8 @@ def check(row, source=None, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
         if compile_inputs(source, row['flags'], toolchain) != context:
             raise ValueError('Compile context changed during verification')
         validate_unit_proof(row, context, obj, original_root)
+    if history_inputs(row, ROOT) != profile_inputs:
+        raise ValueError('Compiler profile reviews changed during verification: ' + row['id'])
     result.update(id=row["id"], source_sha256=digest(source_before), command=command,
                   toolchain=verify_toolchain(toolchain))
     if original_root is not None:
@@ -365,6 +369,8 @@ def reference_inputs(path, row, *, snapshot=None):
 def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocation_candidates=None,
                 historical_evidence=None):
     """One fresh compile per immutable source/ordered-profile group, per run only."""
+    from profile_history import history_inputs
+    profile_inputs = {row['id']: history_inputs(row, ROOT) for row in rows}
     started = time.perf_counter()
     toolchain = toolchain.resolve()
     manifest = ROOT / 'toolchains/manifest.json'
@@ -629,6 +635,9 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
     verify_toolchain.cache_clear()
     verify_toolchain(toolchain)
     stable()
+    for row in rows:
+        if history_inputs(row, ROOT) != profile_inputs[row['id']]:
+            raise ValueError('Compiler profile reviews changed during verification: ' + row['id'])
     by_id = {r['id']: r for r in results}
     if len(by_id) != len(rows):
         raise ValueError('Duplicate recovery IDs')

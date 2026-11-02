@@ -265,6 +265,18 @@ def promote(ids, candidate, verify_only=False, original_root=None):
     rows = [r for r in state["functions"] if r["id"] in wanted]
     if not rows or {r["id"] for r in rows} != wanted:
         raise ValueError("Every requested function must already have reviewed target context in recovery.json")
+    # The legacy RAW publisher uses check(), not grouped verify_rows(). Freeze
+    # every row it will recheck, including accepted RAW peers outside the source.
+    from profile_history import history_inputs
+    profile_rows = copy.deepcopy([r for r in state['functions']
+                                  if r['status'] == 'FUNCTION_MATCH' or r['id'] in wanted])
+    profile_inputs = {r['id']: history_inputs(r, ROOT) for r in profile_rows}
+
+    def assert_profile_reviews_unchanged():
+        for row in profile_rows:
+            if history_inputs(row, ROOT) != profile_inputs[row['id']]:
+                raise ValueError('Compiler profile reviews changed before RAW publication: ' + row['id'])
+
     sources = {r["source"] for r in rows}
     if any(r['status'] == 'FUNCTION_MATCH_RELOCATED' and
            (r.get('source') in sources or sources & set(r.get('proof', {}).get('context_sha256', {})))
@@ -338,6 +350,7 @@ def promote(ids, candidate, verify_only=False, original_root=None):
                 if path in header_observed:
                     raise ValueError(f"Concurrent quoted-header edit during verification: {path}")
                 raise ValueError(f"Concurrent canonical edit during verification: {path}")
+        assert_profile_reviews_unchanged()
         print(f"Fresh byte verification passed for {len(results)} functions.")
         if verify_only:
             return
@@ -354,14 +367,19 @@ def promote(ids, candidate, verify_only=False, original_root=None):
                             "before": base64.b64encode(before).decode("ascii") if before is not None else None,
                             "before_sha256": digest(before) if before is not None else None,
                             "after_sha256": digest(after)})
+        assert_profile_reviews_unchanged()
         atomic_bytes(JOURNAL, json.dumps(journal).encode("utf-8"))
         try:
             _assert_headers_unchanged(header_observed, "promotion commit")
+            assert_profile_reviews_unchanged()
             atomic_bytes(destination, content)
             _assert_headers_unchanged(header_observed, "source replacement")
+            assert_profile_reviews_unchanged()
             atomic_bytes(STATE, state_content)
             _assert_headers_unchanged(header_observed, "state replacement")
+            assert_profile_reviews_unchanged()
             _assert_headers_unchanged(header_observed, "journal removal")
+            assert_profile_reviews_unchanged()
         except BaseException:
             recover()
             raise
@@ -502,7 +520,9 @@ def assert_verified_inputs(rows, results, original_root=None):
     # Repeated bindings can share evidence files, but all of those inputs are
     # freshly rehashed once more at the end of this phase.
     reference_snapshot = ReferenceSnapshot(original_root)
+    from profile_history import history_inputs
     for row in rows:
+        history_inputs(row, ROOT)
         result = by_id[row['id']]
         if digest(Path(result['object']).read_bytes()) != result['object_sha256']:
             raise ValueError('Compiler object changed before publication')

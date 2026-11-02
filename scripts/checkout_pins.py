@@ -20,6 +20,7 @@ from pathlib import Path
 from env import ROOT
 from evidence_keys import canonical_keys, checked_path, external_parts, load_json
 import match
+from profile_history import history_inputs
 from reviewed_evidence import snapshot_path
 
 ACCEPTED = ('FUNCTION_MATCH', 'FUNCTION_MATCH_RELOCATED')
@@ -40,6 +41,10 @@ def check_tree(tree):
         if digest(snapshot) != snapshot.stem:
             problems.append(('snapshot address', snapshot.name))
     for row in rows:
+        try:
+            counts['pins'] += len(history_inputs(row, tree))
+        except (ValueError, OSError, UnicodeError) as error:
+            problems.append(('compiler profile review', row['id'], str(error)))
         if row['status'] not in ACCEPTED:
             continue
         counts['rows'] += 1
