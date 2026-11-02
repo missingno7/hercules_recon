@@ -156,7 +156,7 @@ extern void play_sound(unsigned short, Actor *);
 extern long eng3_1b2e0(long, long, long, int);
 extern int eng3_1b920(Actor *, int);
 extern void remove_actor(Actor *);
-extern void eng3_1cd40(Actor *);
+extern void remove_actor_preserving_resource(Actor *);
 extern void eng3_1cd80(Actor *);
 extern void remove_actor_variant(Actor *);
 extern Actor *attach_actor(Actor *, int);
@@ -1060,7 +1060,7 @@ void eng3_15f30(Actor *o)
         if (g_engine_interface.context_004->level == 8)
             o->unknown_4a = 0x40;
         if (eng3_1dbc0(o)) {
-            eng3_1cd40(o);
+            remove_actor_preserving_resource(o);
             return;
         }
     }

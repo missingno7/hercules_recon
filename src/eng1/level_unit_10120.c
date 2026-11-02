@@ -215,7 +215,7 @@ int eng1_2a710(Bounds *b, Actor *p);
 long eng1_native_code_target_00266a0(Actor *p, int priority, int value);
 unsigned long damped_contact_motion(Actor *p);
 int eng1_31000(Actor *p, Offset2 *pos);
-void eng1_27450(Actor *p);
+void mark_actor_resource_for_release(Actor *p);
 
 void eng1_107c0(Actor *p);
 void eng1_10800(Actor *p);
@@ -1077,7 +1077,7 @@ void eng1_native_code_target_011ac0(Actor *p)
                     eng1_11300(q);
             }
         }
-        eng1_27450(p);
+        mark_actor_resource_for_release(p);
         return;
     }
     for (q = p->link_130; q != 0; q = q->link_130)

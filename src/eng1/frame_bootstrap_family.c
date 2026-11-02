@@ -36,8 +36,8 @@ extern const u8 g_frame_setup_callback_58a60[];
 extern void __cdecl frame_configuration_280f0(void);
 extern void *__cdecl title_0c450(void **, u32, u32);
 extern void __cdecl title_0c880(void);
-extern void __cdecl dispatch_local_05710(void);
-extern void __cdecl frame_context_defaults_15600(void);
+extern void __cdecl title_04760(void);
+extern void __cdecl eng1_context_defaults(void);
 extern EngineNoArgCallback __cdecl title_0c6e0(EngineNoArgCallback);
 extern int __cdecl title_0c2d0(void);
 extern void __cdecl title_0c300(void);
@@ -95,8 +95,8 @@ void __cdecl dispatch_local_1f0f0(void)
     memset(g_frame_owner_72870, 0, 0x8000UL);
     memset(g_frame_owner_734e8, 0, 0x300UL);
 
-    dispatch_local_05710();
-    frame_context_defaults_15600();
+    title_04760();
+    eng1_context_defaults();
 }
 
 void __cdecl dispatch_local_1f220(void)
