@@ -225,6 +225,30 @@ def frozen_before(state, results, original_root, baseline):
         # Complete function checks are repeated below against fresh after objects.
 
 
+def check_owner_pins(rows, renames, document_of):
+    """Exactly-once accounting of reviewed owner revisions after the per-row proof update.
+
+    For every accepted row and every revised owner source: a manifest pin of the new bytes is never redirected
+    (the live file satisfies it), a pin of the old bytes reads its preserved snapshot, a listed owner user pins
+    only the new bytes, and a reviewed caller row of the unit carries the new source hash. Pins are matched by
+    their pinned hash, never by key spelling. The after gate still verifies every pin against its file.
+    """
+    revisions = renames.owner_revisions()
+    for row in rows:
+        proof = row['proof']
+        pins = document_of(proof.get('bindings_path')).get('evidence_files', {})
+        redirects = proof.get('reference_snapshots', {})
+        for source, item in revisions.items():
+            moved = {k for k, v in pins.items() if v == item['after']}
+            kept = {k for k, v in pins.items() if v == item['before']}
+            snapshot_of_before = 'evidence/repin_snapshots/' + item['before'] + '.txt'
+            if (moved & set(redirects) or any(redirects.get(k) != snapshot_of_before for k in kept) or
+                    (row['id'] in item['rows'] and (kept or not moved)) or
+                    (row['id'] in item.get('caller_rows', ()) and proof['source_sha256'] != item['after'])):
+                raise ValueError('Preservation failed: reviewed owner pin of %s not updated exactly once: %s' %
+                                 (source, row['id']))
+
+
 def transaction(entries, journal, action):
     """Recoverable publication using the existing promotion lock and atomic writer."""
     from promote import atomic_bytes
@@ -390,6 +414,9 @@ def apply(plan_path, before_path, original_root, directory):
             if proof.get('unit_inventory_sha256') and changed & set(proof.get('context_sha256', {})):
                 if row['source'] not in inventory_refresh or changed & set(proof['context_sha256']) != {row['source']}:
                     raise ValueError('Whole-unit change needs a separately reviewed inventory proof')
+        # A unit may be both a revised owner (manifest pins, binding_rename) and an accepted caller unit (source
+        # and context pins, above): check that every pin of it was written once, by its one writer.
+        check_owner_pins(old_rows, renames, lambda path: renames.binding_document(path) or docs.get(path, {}))
         # LINKED_MATCH inputs are protected by the explicit complete-object gate.
         pending = {}
         selected = []

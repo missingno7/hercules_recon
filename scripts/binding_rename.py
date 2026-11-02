@@ -29,6 +29,13 @@ hash-pinned review in evidence/, everything that may differ, and nothing else:
                records are not rewritten: the after gate recompiles the new owner source and re-verifies names,
                sizes and capacities. A header may also be in the context of accepted caller rows that are not
                listed; repin handles those through their context pins and snapshots, exactly as without a review.
+      caller_rows
+               [row_id, ...], only for a C/C++ unit: the unit is also the source of accepted rows. Without this
+               declaration such a unit is refused. It must name exactly the accepted rows (RAW and RELOCATED)
+               whose ledger source is the unit. Their source and context pins stay with repin's ordinary source
+               path; only the listed owner users' manifest pins move here, so each pin has one writer. A caller
+               row that uses the unit as its own owner must also be listed in `rows` (completeness, below); a
+               caller row that does not keeps its manifest and reads the old pin through its snapshot.
 
 Each reviewed parent manifest gets one immutable descendant evidence/rename_<parent>_<review>.json
 holding the derived bindings; the parent and the review are pinned in its evidence_files and the
@@ -70,6 +77,8 @@ class Plan:
         self.parents = {}  # row id -> (parent path, parent sha256)
         self.owner_rows = {}  # row id -> revised owner sources its binding pins
         self.owner_pins = {}  # parent path -> {source: (before, after)}
+        self.caller_rows = {}  # revised owner unit -> reviewed accepted rows whose source it is
+        self.rebind_pins = {}  # parent path -> {name: sha256} added from rebound owners' manifests
         self.review = None
 
     def __bool__(self):
@@ -83,6 +92,8 @@ class Plan:
                 pin = next(p[source] for p in self.owner_pins.values() if source in p)
                 entry = result.setdefault(source, dict(before=pin[0], after=pin[1], rows=[]))
                 entry['rows'].append(row_id)
+        for source, rows in self.caller_rows.items():
+            result[source]['caller_rows'] = list(rows)
         return result
 
     def binding_path(self, row_id, current):
@@ -361,6 +372,21 @@ def owner_records(binding, path, closure=include_closure):
     return found
 
 
+def _check_caller_rows(source, path, declared, callers):
+    """A dual-role unit is admitted only with an exact reviewed list of the accepted rows it is the source of.
+
+    Those rows keep repin's ordinary source path (source_sha256, context_sha256, snapshots of every other pin);
+    the declaration makes the second role explicit and must agree with the ledger in both directions.
+    """
+    if path.suffix == '.h':
+        raise ValueError('A header has no caller rows: ' + source)
+    if (not isinstance(declared, list) or not declared or any(not isinstance(i, str) for i in declared) or
+            len(set(declared)) != len(declared)):
+        raise ValueError('Invalid reviewed caller rows: ' + source)
+    if sorted(declared) != callers:
+        raise ValueError('Reviewed caller rows differ from the accepted rows of the unit: ' + source)
+
+
 def _is_owner_record(record):
     return record.get('kind') == 'bss' or record.get('data_profile') == 'file-data-owner-v1'
 
@@ -382,7 +408,7 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
         return closures[owner, flags]
     for source, item in sorted(revisions.items()):
         path = _canonical_owner_source(source)
-        if (not isinstance(item, dict) or set(item) != {'before', 'after', 'rows'} or
+        if (not isinstance(item, dict) or set(item) - {'caller_rows'} != {'before', 'after', 'rows'} or
                 not isinstance(item['before'], str) or not HEX.fullmatch(item['before']) or
                 not isinstance(item['after'], str) or not HEX.fullmatch(item['after']) or
                 item['before'] == item['after'] or not isinstance(item['rows'], dict) or not item['rows']):
@@ -391,8 +417,13 @@ def _revise_owners(plan, state, rows, revisions, documents, bindings, changed_so
             raise ValueError('A revised owner must be a changed source: ' + source)
         if source_hashes is None or tuple(source_hashes.get(source, ())) != (item['before'], item['after']):
             raise ValueError('Owner revision disagrees with the re-pin plan: ' + source)
-        if any(row['source'] == source for row in state['functions'] if row['status'] in ACCEPTED):
-            raise ValueError('A revised owner source may not also be an accepted caller unit: ' + source)
+        callers = sorted(row['id'] for row in state['functions'] if row['status'] in ACCEPTED and row['source'] == source)
+        if 'caller_rows' in item:
+            _check_caller_rows(source, path, item['caller_rows'], callers)
+            plan.caller_rows[source] = callers
+        elif callers:
+            raise ValueError('A revised owner source may not also be an accepted caller unit '
+                             'unless the review declares its caller_rows: ' + source)
         if path.suffix == '.h' and digest(path.read_bytes()) != item['before']:
             raise ValueError('The revised header on disk is not its before hash: ' + source)
         for row_id, spec in sorted(item['rows'].items()):
@@ -464,6 +495,11 @@ def _check_owner_undo(plan, documents, location, pins, review_path):
     for name, sha in parent['evidence_files'].items():
         if descendant['evidence_files'].get(name) != sha:
             raise ValueError('Derived manifest changed a pinned evidence hash: %s in %s' % (name, location))
+    # A pin the parent lacks is allowed only as evidence a reviewed rebind copied from its owner's manifest.
+    rebound = plan.rebind_pins.get(location, {})
+    for name in set(descendant['evidence_files']) - set(parent['evidence_files']):
+        if name not in rebound or rebound[name] != descendant['evidence_files'][name]:
+            raise ValueError('Derived manifest adds an unreviewed evidence pin: %s in %s' % (name, location))
     if set(descendant['functions']) != set(parent['functions']):
         raise ValueError('Derived manifest changed its function set: ' + location)
     for row_id, binding in descendant['functions'].items():
@@ -494,6 +530,7 @@ def _manifest(plan, documents, parent_path, row_id, binding, review_path, review
             if document['evidence_files'].get(name, sha) != sha:
                 raise ValueError('Conflicting pinned evidence for a rebound owner: ' + name)
             document['evidence_files'][name] = sha
+            plan.rebind_pins.setdefault(parent_path, {})[name] = sha
     document['functions'][row_id] = binding
 
 

@@ -1463,5 +1463,330 @@ class HeaderRevisionApplyTests(unittest.TestCase):
         self.assertEqual((self.root / 'src/pipe.h').read_bytes(), HeaderFixture.HEADER_BEFORE)
 
 
+
+class DualFixture(OwnerFixture):
+    """OwnerFixture whose owner unit src/pipe.c is also an accepted caller unit (the b40 shape).
+
+    m.p0 (RELOCATED, in pipe.c) uses g_pipe as its own unit's owner: both roles in one row. m.p5 (RELOCATED, in
+    pipe.c) shares the parent manifest that pins pipe.c but is not an owner user; m.praw is a RAW row of pipe.c.
+    The candidate adds a definition under a preprocessor guard, so the object is unchanged.
+    """
+
+    PIPE_BEFORE = (b'ENG1Pipe g_pipe = {0};\nint p0(void) { return g_pipe.w[4]; }\n'
+                   b'int praw(void) { return 0; }\nint p5(void) { return helper(); }\n')
+    PIPE_AFTER = PIPE_BEFORE + b'#if defined(VARIANT)\nint p6(void) { return 1; }\n#endif\n'
+    NATIVE = {**OwnerFixture.NATIVE, ('m.p0', 1): 0x6010, ('m.p5', 1): 0x1000}
+    CALLERS = ['m.p0', 'm.p5', 'm.praw']
+
+    def __init__(self, root):
+        super().__init__(root)
+        unit = write_coff(root / 'objects/pipe.obj', [
+            ('_p0', b'\xa1\x10\0\0\0\xc3' + b'\x90' * 10, [(1, '_pipe', 6)]),
+            ('_praw', b'\x33\xc0\xc3' + b'\x90' * 13, []),
+            ('_p5', b'\xe8\0\0\0\0\xc3' + b'\x90' * 10, [(1, '_helper', 20)])], [('_pipe', 0), ('_helper', 0x20)])
+        self.objects[sha(self.PIPE_BEFORE)] = self.objects[sha(self.PIPE_AFTER)] = unit
+        self.doc_a['functions'].update({'m.p0': dict(symbols={'_pipe': self.owner()}),
+                                        'm.p5': dict(symbols={'_helper': function_record(0x1000, [1])})})
+        self.write_json('evidence/pipe_a.json', self.doc_a)
+        for row in self.state['functions']:
+            if row['proof']['bindings_path'] == 'evidence/pipe_a.json':
+                row['proof'].update(binding_rename.proof_fields(self.doc_a, row['id']))
+        for rid, name, status in (('m.p0', '_p0', RELOCATED), ('m.praw', '_praw', 'FUNCTION_MATCH'),
+                                  ('m.p5', '_p5', RELOCATED)):
+            proof = dict(scope='s', source_sha256=sha(self.PIPE_BEFORE), toolchain='fixture')
+            if status == RELOCATED:
+                proof.update(bindings_path='evidence/pipe_a.json', **binding_rename.proof_fields(self.doc_a, rid))
+            self.state['functions'].append(dict(id=rid, status=status, symbol=name, source='src/pipe.c', target=T,
+                                                rva='0x2100', size=16, flags=['/O2'], proof=proof))
+
+    def verify(self, rows, original_root=None, relocation_candidates=None, **_):
+        raw = [row for row in rows if row['status'] == 'FUNCTION_MATCH']
+        results, _ = super().verify([row for row in rows if row['status'] != 'FUNCTION_MATCH'])
+        for row in raw:
+            source = (self.root / row['source']).read_bytes()
+            if sha(source) != row['proof']['source_sha256']:
+                raise ValueError('Canonical source differs from accepted proof: ' + row['id'])
+            obj = self.objects[sha(source)]
+            section = COFF(obj).function(row['symbol'])
+            results.append(dict(id=row['id'], exact=True, scope='s', compiled_sha256=sha(section['data']),
+                                target_sha256='t', object=str(obj), object_sha256=sha(obj.read_bytes()),
+                                compile_inputs={}, command=['cl'], source_sha256=sha(source), toolchain='fixture'))
+        return results, dict(compiler_calls=0, rows=len(rows))
+
+    def review(self, callers='default', dual=True, **changes):
+        item = super().review(**changes)
+        review = json.loads((self.root / item['path']).read_bytes())
+        revision = review['owner_revisions']['src/pipe.c']
+        if dual:
+            revision['rows']['m.p0'] = dict(bindings_path='evidence/pipe_a.json',
+                                            bindings_sha256=sha((self.root / 'evidence/pipe_a.json').read_bytes()))
+        if callers is not None:
+            revision['caller_rows'] = list(self.CALLERS if callers == 'default' else callers)
+        self.write_json(item['path'], review)
+        return dict(path=item['path'], sha256=sha((self.root / item['path']).read_bytes()))
+
+
+class DualOwnerDeriveTests(unittest.TestCase):
+    HASHES = {'src/pipe.c': (sha(DualFixture.PIPE_BEFORE), sha(DualFixture.PIPE_AFTER))}
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name).resolve()
+        self.fx = DualFixture(self.root)
+        self.scope = patch.object(binding_rename, 'ROOT', self.root)
+        self.scope.start()
+
+    def tearDown(self):
+        self.scope.stop()
+        self.tmp.cleanup()
+
+    def derive(self, mutate=None):
+        item = self.fx.review()
+        document = json.loads((self.root / item['path']).read_bytes())
+        if mutate:
+            mutate(document)
+        return binding_rename.derive(self.fx.state, document, binding_rename.parent_documents(document), item['path'],
+                                     'c' * 64, {'src/pipe.c'}, self.HASHES)
+
+    def test_a_dual_role_unit_is_derived_with_its_reviewed_caller_rows(self):
+        plan = self.derive()
+        before, after = self.HASHES['src/pipe.c']
+        self.assertEqual(plan.rows, {'m.p0': {}, 'm.p1': {}, 'm.p2': {}, 'm.p3': {}})
+        self.assertEqual(plan.caller_rows, {'src/pipe.c': DualFixture.CALLERS})
+        self.assertEqual(plan.owner_revisions(), {'src/pipe.c': dict(
+            before=before, after=after, rows=['m.p0', 'm.p1', 'm.p2', 'm.p3'], caller_rows=DualFixture.CALLERS)})
+        document = plan.manifests['evidence/pipe_a.json'][1]
+        self.assertEqual(document['evidence_files']['src/pipe.c'], after)
+        self.assertEqual(document['functions'], self.fx.doc_a['functions'])  # m.p0 and m.p5 verbatim
+        # Exact undo: the reviewed pin and provenance reverse to the parent.
+        restored = copy.deepcopy(document)
+        restored['evidence_files']['src/pipe.c'] = before
+        for name in ('evidence/pipe_a.json', 'evidence/pipe_review.json'):
+            del restored['evidence_files'][name]
+        del restored['binding_rename_review']
+        self.assertEqual(restored, self.fx.doc_a)
+        documents = binding_rename.parent_documents(dict(bindings={'x': dict(bindings_path='evidence/pipe_a.json')}))
+        pins = plan.owner_pins['evidence/pipe_a.json']
+        check = lambda: binding_rename._check_owner_undo(plan, documents, 'evidence/pipe_a.json', pins,
+                                                         'evidence/pipe_review.json')
+        check()
+        tampers = {
+            'the dual row record': lambda: document['functions']['m.p0']['symbols']['_pipe'].update(size=8),
+            'the non-user caller record': lambda: document['functions']['m.p5'].update(tables=[]),
+            'the caller unit pinned a second time': lambda: document['evidence_files'].update({'./src/pipe.c': after}),
+        }
+        for label, tamper in tampers.items():
+            with self.subTest(label):
+                saved = copy.deepcopy(document)
+                tamper()
+                with self.assertRaises(ValueError):
+                    check()
+                document.clear()
+                document.update(saved)
+        check()
+
+    def test_refusals(self):
+        revision = lambda r: r['owner_revisions']['src/pipe.c']
+        cases = [
+            ('undeclared caller unit', 'accepted caller unit unless', lambda r: revision(r).pop('caller_rows')),
+            ('a caller row missing', 'differ from the accepted rows', lambda r: revision(r).update(
+                caller_rows=['m.p0', 'm.p5'])),
+            ('an extra caller row', 'differ from the accepted rows', lambda r: revision(r).update(
+                caller_rows=DualFixture.CALLERS + ['m.p1'])),
+            ('an unknown caller row', 'differ from the accepted rows', lambda r: revision(r).update(
+                caller_rows=DualFixture.CALLERS + ['m.nope'])),
+            ('a duplicate caller row', 'Invalid reviewed caller rows', lambda r: revision(r).update(
+                caller_rows=DualFixture.CALLERS + ['m.p0'])),
+            ('an empty declaration', 'Invalid reviewed caller rows', lambda r: revision(r).update(caller_rows=[])),
+            ('not a list', 'Invalid reviewed caller rows', lambda r: revision(r).update(caller_rows='m.p0')),
+            ('not row ids', 'Invalid reviewed caller rows', lambda r: revision(r).update(caller_rows=[1, 2, 3])),
+            ('the dual row is not listed as an owner user', 'not reviewed', lambda r: revision(r)['rows'].pop('m.p0')),
+            ('a caller row that does not use the owner', 'does not use', lambda r: revision(r)['rows'].update(
+                {'m.p5': revision(r)['rows']['m.p0']})),
+            ('another unknown key', 'Invalid owner revision', lambda r: revision(r).update(callers=[])),
+        ]
+        for label, pattern, mutate in cases:
+            with self.subTest(label), self.assertRaisesRegex(ValueError, pattern):
+                self.derive(mutate)
+        with self.subTest('a caller row that is no longer accepted'):
+            row = next(r for r in self.fx.state['functions'] if r['id'] == 'm.praw')
+            row['status'] = 'CODEGEN_SIMILAR'
+            with self.assertRaisesRegex(ValueError, 'differ from the accepted rows'):
+                self.derive()
+            row['status'] = 'FUNCTION_MATCH'
+        self.derive()
+
+    def test_a_pure_owner_unit_cannot_declare_caller_rows(self):
+        fixture = OwnerFixture(Path(tempfile.mkdtemp(dir=self.root)))
+        with patch.object(binding_rename, 'ROOT', fixture.root):
+            item = fixture.review()
+            review = json.loads((fixture.root / item['path']).read_bytes())
+            review['owner_revisions']['src/pipe.c']['caller_rows'] = ['m.p1']
+            with self.assertRaisesRegex(ValueError, 'differ from the accepted rows'):
+                binding_rename.derive(fixture.state, review, binding_rename.parent_documents(review), item['path'],
+                                      'c' * 64, {'src/pipe.c'}, OwnerRevisionDeriveTests.HASHES)
+
+    def test_a_header_has_no_caller_rows(self):
+        fixture = HeaderFixture(Path(tempfile.mkdtemp(dir=self.root)))
+        with patch.object(binding_rename, 'ROOT', fixture.root):
+            item = fixture.review()
+            review = json.loads((fixture.root / item['path']).read_bytes())
+            review['owner_revisions']['src/pipe.h']['caller_rows'] = ['m.p1']
+            with self.assertRaisesRegex(ValueError, 'A header has no caller rows'):
+                binding_rename.derive(fixture.state, review, binding_rename.parent_documents(review), item['path'],
+                                      'c' * 64, {'src/pipe.h'}, HeaderRevisionDeriveTests.HASHES)
+
+
+class DualOwnerApplyTests(unittest.TestCase):
+    """repin.apply() on a unit that is both a revised owner and an accepted caller unit."""
+
+    def setUp(self):
+        base = Path(__file__).resolve().parents[1] / 'work'
+        base.mkdir(exist_ok=True)
+        self.tmp = tempfile.TemporaryDirectory(dir=base)
+        self.root = Path(self.tmp.name).resolve()
+        self.fx = DualFixture(self.root)
+        (self.root / 'recovery.json').write_text(json.dumps(self.fx.state, indent=2) + '\n')
+        import promote
+        self.patches = [patch.object(repin, 'ROOT', self.root), patch.object(binding_rename, 'ROOT', self.root),
+                        patch.object(match, 'ROOT', self.root), patch.object(promote, 'lock', no_lock),
+                        patch.object(promote, 'JOURNAL', self.root / 'work/promotion-journal.json'),
+                        patch.object(promote, 'assert_verified_inputs', lambda *a, **k: None),
+                        patch.object(repin, 'frozen_before', lambda *a, **k: None),
+                        patch.object(match, 'verify_rows', self.fx.verify)]
+        for p in self.patches:
+            p.start()
+
+    def tearDown(self):
+        for p in reversed(self.patches):
+            p.stop()
+        self.tmp.cleanup()
+
+    run_apply = OwnerRevisionApplyTests.run_apply
+
+    def unchanged(self, before):
+        self.assertEqual((self.root / 'recovery.json').read_bytes(), before)
+        self.assertEqual((self.root / 'src/pipe.c').read_bytes(), DualFixture.PIPE_BEFORE)
+        self.assertEqual(list((self.root / 'evidence').glob('rename_*.json')), [])
+
+    def test_each_pin_of_the_dual_role_unit_is_written_once_and_reverified(self):
+        before, after = sha(DualFixture.PIPE_BEFORE), sha(DualFixture.PIPE_AFTER)
+        receipt = self.run_apply(self.fx.plan(self.fx.review()))
+        rows = {r['id']: r for r in json.loads((self.root / 'recovery.json').read_bytes())['functions']}
+        self.assertEqual((self.root / 'src/pipe.c').read_bytes(), DualFixture.PIPE_AFTER)
+        snapshot = 'evidence/repin_snapshots/%s.txt' % before
+        self.assertEqual((self.root / snapshot).read_bytes(), DualFixture.PIPE_BEFORE)
+        # Caller role (repin's source path): every accepted row of the unit carries the new source hash.
+        for row_id in DualFixture.CALLERS:
+            self.assertEqual(rows[row_id]['proof']['source_sha256'], after)
+        # Owner role (owner revision): the dual row and the other users pin the new bytes in their descendant,
+        # are never redirected, and keep their binding records verbatim.
+        for row_id in ('m.p0', 'm.p1', 'm.p2', 'm.p3'):
+            proof = rows[row_id]['proof']
+            manifest = json.loads((self.root / proof['bindings_path']).read_bytes())
+            self.assertTrue(proof['bindings_path'].startswith('evidence/rename_'))
+            self.assertEqual([k for k, v in manifest['evidence_files'].items() if v in (before, after)], ['src/pipe.c'])
+            self.assertEqual(manifest['evidence_files']['src/pipe.c'], after)
+            self.assertNotIn('reference_snapshots', proof)
+            self.assertEqual(proof['bindings_sha256'],
+                             rows[row_id]['reference_rename_history'][0]['proof']['bindings_sha256'])
+        history = rows['m.p0']['reference_rename_history'][0]['proof']
+        self.assertEqual((history['bindings_path'], history['source_sha256']), ('evidence/pipe_a.json', before))
+        # Neither role: the non-user caller row of the unit and m.p4 keep the parent and read the old pin.
+        for row_id in ('m.p5', 'm.p4'):
+            proof = rows[row_id]['proof']
+            self.assertEqual(proof['bindings_path'], 'evidence/pipe_a.json')
+            self.assertEqual(proof['reference_snapshots'], {'src/pipe.c': snapshot})
+            self.assertNotIn('reference_rename_history', rows[row_id])
+        self.assertNotIn('bindings_path', rows['m.praw']['proof'])
+        self.assertEqual(receipt['binding_renames']['owner_revisions']['src/pipe.c'], dict(
+            before=before, after=after, rows=['m.p0', 'm.p1', 'm.p2', 'm.p3'], caller_rows=DualFixture.CALLERS))
+        self.assertEqual(sorted(p['id'] for p in receipt['preserved']), sorted(rows))
+        self.assertEqual(sorted(r['id'] for r in receipt['results']), sorted(rows))
+
+    def test_an_undeclared_caller_unit_fails_before_anything_is_written(self):
+        before = (self.root / 'recovery.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'accepted caller unit unless'):
+            self.run_apply(self.fx.plan(self.fx.review(callers=None)))
+        self.unchanged(before)
+
+    def test_the_gate_still_fails_closed_without_the_review(self):
+        plan = self.fx.plan(None)
+        del plan['binding_review']
+        before = (self.root / 'recovery.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'independently pinned'):
+            self.run_apply(plan)
+        self.unchanged(before)
+
+    def test_the_after_gate_still_reverifies_the_dual_row(self):
+        real = self.fx.verify
+
+        def inexact(rows, **kw):
+            results, stats = real(rows, **kw)
+            for result in results:
+                if result['id'] == 'm.p0':
+                    result['exact'] = False
+            return results, stats
+        before = (self.root / 'recovery.json').read_bytes()
+        with self.assertRaisesRegex(ValueError, 'Fresh after acceptance failed'):
+            self.run_apply(self.fx.plan(self.fx.review()), after_gate=inexact)
+        self.unchanged(before)
+
+
+class OwnerPinAccountingTests(unittest.TestCase):
+    """repin.check_owner_pins: each pin of a reviewed owner revision has exactly one writer."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name).resolve()
+        self.fx = DualFixture(self.root)
+        with patch.object(binding_rename, 'ROOT', self.root):
+            item = self.fx.review()
+            review = json.loads((self.root / item['path']).read_bytes())
+            self.plan = binding_rename.derive(self.fx.state, review, binding_rename.parent_documents(review),
+                                              item['path'], 'c' * 64, {'src/pipe.c'}, DualOwnerDeriveTests.HASHES)
+        self.before, self.after = DualOwnerDeriveTests.HASHES['src/pipe.c']
+        docs = {'evidence/pipe_a.json': self.fx.doc_a, 'evidence/pipe_b.json': self.fx.doc_b}
+        self.document_of = lambda path: self.plan.binding_document(path) or docs.get(path, {})
+        self.rows = copy.deepcopy(self.fx.state['functions'])
+        for row in self.rows:  # the per-row update repin.apply performs
+            proof = row['proof']
+            if row['id'] in self.plan.rows:
+                proof['bindings_path'] = self.plan.manifests[self.plan.parents[row['id']][0]][0]
+            elif proof.get('bindings_path') == 'evidence/pipe_a.json':
+                proof['reference_snapshots'] = {'src/pipe.c': 'evidence/repin_snapshots/%s.txt' % self.before}
+            if row['source'] == 'src/pipe.c':
+                proof['source_sha256'] = self.after
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def check(self):
+        repin.check_owner_pins(self.rows, self.plan, self.document_of)
+
+    def test_accounting(self):
+        self.check()
+        row = lambda rid: next(r for r in self.rows if r['id'] == rid)
+        old = 'evidence/repin_snapshots/%s.txt' % self.before
+        tampers = {
+            'a moved pin is also redirected': lambda: row('m.p0')['proof'].update(reference_snapshots={'src/pipe.c': old}),
+            'an old pin is not redirected': lambda: row('m.p5')['proof'].pop('reference_snapshots'),
+            'an old pin reads another snapshot': lambda: row('m.p4')['proof'].update(
+                reference_snapshots={'src/pipe.c': 'evidence/repin_snapshots/%s.txt' % self.after}),
+            'an owner user left on its parent': lambda: row('m.p1')['proof'].update(
+                bindings_path='evidence/pipe_a.json', reference_snapshots={'src/pipe.c': old}),
+            'a caller row without the new source hash': lambda: row('m.praw')['proof'].update(source_sha256=self.before),
+            'the dual row without the new source hash': lambda: row('m.p0')['proof'].update(source_sha256=self.before),
+        }
+        for label, tamper in tampers.items():
+            with self.subTest(label):
+                saved = copy.deepcopy(self.rows)
+                tamper()
+                with self.assertRaisesRegex(ValueError, 'not updated exactly once'):
+                    self.check()
+                self.rows[:] = saved
+        self.check()
+
+
 if __name__ == '__main__':
     unittest.main()
