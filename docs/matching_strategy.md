@@ -317,3 +317,27 @@ Independent anchors, not owners or content, now limit storage identities:
   linked_object_unchanged {src: [TITLE.DLL]} (+36 compiles per re-pin).
 - Parked: absolute evidence keys (four Sol rounds; 52 legacy backslash keys; pre-existing junction/alias confinement
   weaknesses on main recorded in work/velocity_k/NOTES.md), solZ (5 rows wait on it), b40.
+
+### Waves n and o (2026-11-02): 190,416 -> 204,272 strict bytes; compiler models for large functions
+
+- Unblocked mechanisms: canonical evidence keys (scripts/evidence_keys.py: absolute slash/backslash keys canonicalize,
+  OS-identity confinement, duplicate JSON keys refused; two review rounds) released solZ and b40; reviewed
+  compiler-profile revision (repin compiler_profile_review, profile reviewed-append-define-v1: one appended /D macro
+  for all accepted rows of a source/target, three review rounds) unified the ENG3 profile of u02b70.c.
+- Near misses: an Opus round closed _eng3_028f0, _eng3_1b4a0 and _eng3_24870 (+ ENG1 twin) at ~60-90 builds each by
+  writing the function like its matched relatives (inline table lookups, two-statement pointer forms, cast vs mask,
+  local declaration order). Luna lanes on large rows stop early; enforce a minimum effort (200 builds or 15 logged
+  hypotheses) and send compiler-behaviour questions to Sol as studies with synthetic reproducers.
+- Gradient toolkit (work/gradient/, diagnostic only): layered score (control flow, frame incl. slot occupancy,
+  register-abstracted instructions, registers, scheduling, unattributed bytes), oracle with ranked source edits,
+  islands, TU coupling, isolated probe/search, shared ledger. Census: work/gradient/census.md.
+- VC5 C2 scheduling (work/velocity_o/s1/rule.md): list scheduling by priority = height << 13 (+ load bonus), height =
+  longest successor chain; ties by node ID. No deferred-pop merging: cleanup vs a following store is decided by which
+  leads the longer chain (e.g. a store feeding an alias-sensitive reload chain wins).
+- VC5 C2 register choice (work/velocity_o/s2/rule.md): priorities accumulate S*U per block (S = 2^(depth+1) weight x
+  range-set count, U = lowered use coefficient) with a -S live-through penalty; colouring in descending signed
+  priority, then descending reverse definition stamp; least cost, ties by table order EAX ECX EDX ESI EDI EBX EBP.
+  Declaration order changes operand (SIB) order, not register ownership.
+- Linking (work/velocity_o/s3/icf_findings.md): ENG1, ENG3 and HERCULES.EXE were linked with identical-COMDAT folding
+  (independent CRT/MFC witnesses); TITLE NOICF. Un-merged identical call tails also occur in accepted rows, so they are
+  not by themselves evidence of folded identities. A folded-identity form is a proposal only.
