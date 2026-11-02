@@ -296,3 +296,24 @@ Independent anchors, not owners or content, now limit storage identities:
 - Lane hygiene: a reconstruction must go in the unit its native neighbours bracket. l11 first put ENG3 0x8ca0 in a
   renderer unit at 0x22f00. Shared-unit ENG3 rows now sit in split flag profiles (/O2 versus /O2 /DHERCULES_ENGINE3),
   which a reviewed profile migration should unify.
+
+### Wave m (2026-11-01..02, supervisor directive): 173,664 -> 190,416 strict bytes
+
+- Highest yield: typed initialized-data owners for rows blocked only by data identities (solDF3: 22 ENG3 owner units,
+  solDF1: 16 ENG1 owner units, solDF1b leftovers), then canonical caller spellings for callees that already exist as
+  rows under another symbol (solSP; work/velocity_m/spelling.py lists 66 such pairs).
+- Throughput: promote.py already accepts repeated --bindings (one per-row document each), so a lane's anchor-safe batch
+  promotes in one gate run (16 rows in 221 s instead of ~52 min). scripts/pe.py now parses each original module once
+  per process (gate 240 -> 150 s). Parallel compilation inside verify_rows was rejected after three Sol reviews: guard
+  observation order cannot match the serial gate without serializing the compile/hash/guard transaction.
+- Negative results with numbers (work/velocity_m/solTL/causes.md): TITLE natural-link data layout. All 362 rows are
+  placed and 296 rows / 84,448 B differ only in data operands, but seven faithful fixes flipped 0 rows. Unowned storage
+  (a 1 KB gap at 0x29990 that no module references) and unknown COMMON first-definers block it, and dummy storage is
+  forbidden. TITLE same-unit data (solSU2): 0 rows.
+- JNG transfer study (work/velocity_m/solJNG/assessment.md): funcmerge 0 measured recoverable wins; insdiff-style
+  classes already exist in the solVC5 classifier and only need exposing; objproof/cgorder/peep2 need ELF/TU identity
+  Hercules lacks; no compile daemon is needed.
+- The linked gate fails closed: 20 opaque directive forms in TITLE sources make every re-pin carry
+  linked_object_unchanged {src: [TITLE.DLL]} (+36 compiles per re-pin).
+- Parked: absolute evidence keys (four Sol rounds; 52 legacy backslash keys; pre-existing junction/alias confinement
+  weaknesses on main recorded in work/velocity_k/NOTES.md), solZ (5 rows wait on it), b40.
