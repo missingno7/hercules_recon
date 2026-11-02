@@ -1,0 +1,86 @@
+{
+ "evidence_files": {
+  "evidence/bindK1_bindings_2026_10_31.json": "e78ee1cdad1f700b8f81d6409b862236627fcfc1f4197436bfd670edb0a1ab1b",
+  "evidence/exe_host_iface_bindings_2026_10_26.json": "8ddcb416efcabb7416b65f34f55d985060bfd9dc3d438d5bfd752a8953110fa5",
+  "evidence/n1_primary_native_review_2026_11_02.json": "d9d26cc4d7028aa3fcae286a03ed216ecb30e6f793382255061374cd548471b9",
+  "src/pc/host_callback_protocol.c": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+  "src/pc/host_psx_shim_01bd0.c": "6cba0b43356f23c3b05492167776251a0ccf04555c4612521785552c0392d711",
+  "work/discs/pc_install/HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+ },
+ "function_identities": {
+  "exe.host_set_callback_one": {
+   "ledger_status": "CODEGEN_SIMILAR",
+   "origin": "recovery.json#functions.exe.host_set_callback_one; the CODEGEN_SIMILAR ledger row is the independent identity source, not derived from the pending caller",
+   "rva": 48592,
+   "size": 16,
+   "source": "src/pc/host_callback_protocol.c",
+   "source_sha256": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+   "symbol": "_host_set_callback_one",
+   "target": "work/discs/pc_install/HERCULES.EXE",
+   "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  }
+ },
+ "functions": {
+  "exe.host_01d30": {
+   "symbols": {
+    "_g_host_engine_interface": {
+     "evidence": [
+      "evidence/engine_interface_binding.json:source_table (complete 1000-byte native payload and static pointer cell at RVA 0x365a0)",
+      "evidence/host_interface_provider_audit_2026_10_11.json:table (file-backed initialized payload; base relocations absent)",
+      "src/shared/engine_interface.h:1000-byte physical EngineInterface view",
+      "evidence/exe_host_interface_review_2026_10_26.json:interface_storage; independent_native_review"
+     ],
+     "kind": "data",
+     "references": [
+      {
+       "addend": 4,
+       "offset": 8,
+       "type": 6
+      }
+     ],
+     "rva": 221624,
+     "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+     "size": 1000
+    },
+    "_host_01d30": {
+     "evidence": [
+      "evidence/n1_primary_native_review_2026_11_02.json#self_references.exe.host_01d30"
+     ],
+     "kind": "local",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 22,
+       "type": 6
+      }
+     ],
+     "role": "code",
+     "rva": 7472,
+     "size": 48
+    },
+    "_host_set_callback_one": {
+     "evidence": [
+      "function_identities:exe.host_set_callback_one"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 3,
+       "type": 20
+      },
+      {
+       "addend": 0,
+       "offset": 34,
+       "type": 20
+      }
+     ],
+     "rva": 48592,
+     "size": 16
+    }
+   }
+  }
+ },
+ "schema": 1,
+ "scope": "Focused references binding for exe.host_01d30: symbol records copied verbatim from accepted bindings or issued from unique accepted/masked-equal ledger rows; 0 opaque-indirect-call-v1 site(s) claim instruction identity only (targets unidentified, ABI unclaimed). Native review: evidence/n1_primary_native_review_2026_11_02.json. No acceptance claim."
+}

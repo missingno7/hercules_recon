@@ -1,0 +1,127 @@
+{
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "evidence/anchor_ec9a5b5e1574_7bc6ee7f7ead.json": "b26c4e4ca16df093a78caf68e53620be8cff74593e1b8e1d43574c34826acabd",
+  "evidence/cfg_713bc_bindings_2026_10_26.json": "e67ff152447d4eeb59a30035dd1c43837015d33ec549cef377de116e2f95b4e2",
+  "evidence/eng1_player_setup_continuation.json": "80619e748d026c41537cb6299c012711c78ea9fdb634e001987d4f1d2b81ac52",
+  "evidence/local_15d00_review_2026_10_26.json": "e442e7ad0aa0cad2bdc5e705aca7eb3f0f48efc797fc73b71a669d70e47908df",
+  "evidence/n1_primary_native_review_2026_11_02.json": "d9d26cc4d7028aa3fcae286a03ed216ecb30e6f793382255061374cd548471b9",
+  "evidence/repin_snapshots/d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc.txt": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+  "evidence/solOP_eng1_native_code_target_00266a0_bindings_2026_11_01.json": "fab9beda889cbb30fa24cad4b5f3598082149c805bef52b54bdfe15a0d4cf752",
+  "evidence/solSIM_eng1_16840_bindings_2026_11_01.json": "75b4c1b6b9fd9a4dfba430952d75c98d80bcb2890e7842bcfb5d2c8e00a1029f",
+  "src/eng1/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+  "src/eng1/player_modes_remaining.c": "b38deb2038bfb2d17811671173429dd15dfc7aa937004a0a1daf56266277ffca",
+  "src/eng1/simulation_storage.c": "e648368eda765ab181ed1aef96919e6a6ff3c9e52322e63405fee23314df2d7c"
+ },
+ "function_identities": {
+  "eng1.dispatch_local_15d00": {
+   "identity_basis": "Native entry/body extent and hash in the independent player-setup continuation review, plus direct E8/E9 callers outside this task set. The ENG3 eng3_18370 body is a corroborating twin label, not the address proof.",
+   "native_span_sha256": "4ebd29488e0fad4645c7e46eb071dd178c5478f4699792b6aa48c7b790c0c599",
+   "origin": "evidence/eng1_player_setup_continuation.json#target_span; evidence/local_15d00_review_2026_10_26.json#function_callers._dispatch_local_15d00",
+   "outside_caller_count": 65,
+   "rva": 89344,
+   "size": 2704,
+   "source": "src/eng1/mode_handlers_16840.cpp",
+   "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+   "symbol": "_dispatch_local_15d00",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  }
+ },
+ "functions": {
+  "eng1.native_code_target_0019140": {
+   "symbols": {
+    "_dispatch_local_15d00": {
+     "evidence": [
+      "function_identities:eng1.dispatch_local_15d00",
+      "evidence/eng1_player_setup_continuation.json#target_span; evidence/local_15d00_review_2026_10_26.json#function_callers._dispatch_local_15d00"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 24,
+       "type": 20
+      }
+     ],
+     "rva": 89344,
+     "size": 2704
+    },
+    "_eng1_29c20": {
+     "evidence": [
+      "recovery.json#functions[eng1.29c20]"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "addend": 0,
+       "offset": 16,
+       "type": 20
+      }
+     ],
+     "rva": 171040,
+     "size": 384
+    },
+    "_eng1_sim_state_6feb4": {
+     "evidence": [
+      "evidence/solOP_eng1_native_code_target_00266a0_bindings_2026_11_01.json#native_owner_review._eng1_sim_state_6feb4"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 86798,
+      "sha256": "1ce2458d5e08933828b3eee22775a7e505bc3603b691530b90e9a4ed66018868",
+      "size": 7
+     },
+     "kind": "bss",
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng1/simulation_storage.c",
+      "symbol": "_eng1_sim_state_6feb4"
+     },
+     "references": [
+      {
+       "addend": 0,
+       "offset": 8,
+       "type": 6
+      }
+     ],
+     "rva": 458420,
+     "size": 2
+    },
+    "_g_normal_actor_pool": {
+     "evidence": [
+      "evidence/loader_zero_axis_references_2026_10_25.json#pool_owner",
+      "evidence/normal_pool_pointer_2026_10_25.json"
+     ],
+     "identity": {
+      "operand": 0,
+      "rva": 127245,
+      "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5",
+      "size": 5
+     },
+     "kind": "bss",
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng1/actor_storage.c",
+      "symbol": "_g_normal_actor_pool"
+     },
+     "references": [
+      {
+       "addend": 0,
+       "offset": 1,
+       "type": 6
+      }
+     ],
+     "rva": 469088,
+     "size": 4
+    }
+   }
+  }
+ },
+ "schema": 1,
+ "scope": "Focused references binding for eng1.native_code_target_0019140: symbol records copied verbatim from accepted bindings or issued from unique accepted/masked-equal ledger rows; 0 opaque-indirect-call-v1 site(s) claim instruction identity only (targets unidentified, ABI unclaimed). Native review: evidence/n1_primary_native_review_2026_11_02.json. No acceptance claim."
+}

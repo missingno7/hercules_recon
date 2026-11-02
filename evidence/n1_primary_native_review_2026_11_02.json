@@ -1,0 +1,58 @@
+{
+ "schema": 1,
+ "task_id": "velocity_j/primary",
+ "profile": "opaque-indirect-call-v1",
+ "scope": "Native review of near indirect CALL sites admitted as opaque-indirect-call-v1: instruction identity only. Every target is explicitly unidentified and no calling convention, argument use or runtime ABI compatibility is claimed. Static bytes only; no original execution.",
+ "targets": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "work/discs/pc_install/HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+ },
+ "call_sites": {},
+ "tables": {
+  "eng1.34e20@table_0x258": {
+   "row": "eng1.34e20",
+   "offset": 600,
+   "size": 24,
+   "native_entry_offsets_in_function": [
+    206,
+    99,
+    85,
+    206,
+    99,
+    334
+   ],
+   "compiled_entry_labels": [
+    "$L902",
+    "$L899",
+    "$L898",
+    "$L902",
+    "$L899",
+    "$L905"
+   ],
+   "basis": "Embedded jump table: every entry is a DIR32 to a local code label; the comparator checks each native entry against its own decoded instruction boundary and the original HIGHLOW inventory."
+  },
+  "eng1.34e20@bytes_0x270": {
+   "row": "eng1.34e20",
+   "offset": 624,
+   "size": 16,
+   "bytes": "00010205050505050505030490909090",
+   "basis": "Relocation-free compiler-local byte table; complete COFF allocation equals the native bytes."
+  }
+ },
+ "self_references": {
+  "exe.host_01d30": {
+   "symbol": "_host_01d30",
+   "rva": "0x1d30",
+   "size": 48,
+   "references": [
+    {
+     "offset": 22,
+     "type": 6,
+     "addend": 0
+    }
+   ],
+   "basis": "COFF function symbol is defined in this same contribution; the relocated verifier checks the local function start and each use against the complete function extent."
+  }
+ }
+}
