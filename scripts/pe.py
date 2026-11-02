@@ -3,6 +3,10 @@ from __future__ import annotations
 
 import datetime
 import hashlib
+import os
+from collections import OrderedDict
+from operator import itemgetter
+from threading import RLock
 from pathlib import Path
 
 try:
@@ -16,11 +20,131 @@ def _text(value):
     return value.decode("ascii", "replace") if isinstance(value, bytes) else value
 
 
+def _private_record(self):
+    value = pefile.PE(data=self[0], fast_load=False)
+    for attribute, key in self[1]:
+        value = getattr(value, key) if attribute else value[key]
+    return value
+
+
+def _record_attribute(self, name):
+    if name.startswith('_') or name not in self[2]:
+        raise AttributeError(name)
+    for field, value in self[3]:
+        if field == name:
+            return value
+    # Methods/back-references run on a private parse, including lazy writes.
+    return getattr(_private_record(self), name)
+
+
+def _record_string(self):
+    return str(_private_record(self))
+
+
+def _record_repr(self):
+    return '<private PE record>'
+
+
+def _freeze_parse(value, trail=(), memo=None):
+    """Cache only builtin immutable primitives; never records or record classes."""
+    if value is None or isinstance(value, (bool, int, float, str, bytes)):
+        return value
+    if memo is None:
+        memo = {}
+    key = id(value)
+    if key not in memo:
+        def freeze(item, part):
+            return _freeze_parse(item, trail + (part,), memo)
+        if isinstance(value, dict):
+            result = (2, tuple((key, freeze(item, (False, key)))
+                               for key, item in value.items()))
+        elif isinstance(value, (list, tuple)):
+            result = (0 if isinstance(value, list) else 1,
+                      tuple(freeze(item, (False, index)) for index, item in enumerate(value)))
+        else:
+            names = tuple(name for name in sorted(dir(value)) if not name.startswith('_'))
+            fields = {name: getattr(value, name) for name in names}
+            dictionaries = tuple((name, freeze(item, (True, name)))
+                                 for name, item in fields.items() if isinstance(item, dict))
+            fields = {name: item for name, item in fields.items()
+                      if not callable(item) and not isinstance(item, (dict, pefile.PE))}
+            result = (3, trail, names, tuple(fields), dictionaries,
+                      tuple(freeze(item, (True, name)) for name, item in fields.items()))
+        memo[key] = result
+    return memo[key]
+
+
+def _consumer_view(snapshot, data):
+    # Every construction owns its types, descriptors and containers. In
+    # particular, type(record).type = 0 cannot change any later construction.
+    types, memo = {}, {}
+    def iterate(self):
+        return (view(item) for item in tuple.__iter__(self))
+    def item(self, index):
+        value = tuple.__getitem__(self, index)
+        return tuple(view(part) for part in value) if isinstance(index, slice) else view(value)
+    sequence = type('_PESequence', (tuple,), dict(__slots__=(), __iter__=iterate, __getitem__=item))
+    def field(index):
+        return property(lambda self: view(self[index]))
+    def view(facts, dictionary=False):
+        if type(facts) is not tuple:
+            return facts
+        key = (id(facts), dictionary)
+        if key not in memo:
+            kind = facts[0]
+            if kind in (0, 1):
+                if dictionary:
+                    values = (view(item, True) for item in facts[1])
+                    result = list(values) if kind == 0 else tuple(values)
+                else:
+                    result = sequence(facts[1])
+            elif kind == 2:
+                result = {key: view(item, True) for key, item in facts[1]}
+            else:
+                _, trail, names, shape, dictionaries, fields = facts
+                structured = tuple(type(item) is tuple for item in fields)
+                type_key = shape, structured
+                if type_key not in types:
+                    attributes = dict(__slots__=(), _private=_private_record,
+                                      __getattr__=_record_attribute, __str__=_record_string,
+                                      __repr__=_record_repr)
+                    attributes.update((name, field(index + 4) if structured[index] else property(itemgetter(index + 4)))
+                                      for index, name in enumerate(shape))
+                    # No shared Python base class or generated namedtuple base:
+                    # the only base reachable through a record is builtin tuple.
+                    types[type_key] = type('_PERecord', (tuple,), attributes)
+                result = types[type_key]((data, trail, names,
+                    tuple((name, view(item, True)) for name, item in dictionaries),
+                    *fields))
+            memo[key] = result
+        return memo[key]
+    return view(snapshot)
+
+
+# Process-local only; each constructor hashes its freshly read bytes. Values
+# contain only None/bool/int/float/str/bytes/tuple, with no shared parser handles.
+_PARSES = OrderedDict()
+_PARSE_LOCK = RLock()
+
+
+def _parsed_image(path, data):
+    key = (path.resolve(), hashlib.sha256(data).digest())
+    if os.environ.get('HERCULES_PE_CACHE') == '0':
+        return pefile.PE(data=data, fast_load=False)
+    with _PARSE_LOCK:
+        if key not in _PARSES:
+            _PARSES[key] = _freeze_parse(pefile.PE(data=data, fast_load=False))
+        _PARSES.move_to_end(key)
+        if len(_PARSES) > 16:
+            _PARSES.popitem(last=False)
+        snapshot = _PARSES[key]
+    return _consumer_view(snapshot, data)
+
 class PE:
     def __init__(self, path):
         self.path = Path(path)
         self.data = self.path.read_bytes()
-        self.pe = pefile.PE(data=self.data, fast_load=False)
+        self.pe = _parsed_image(self.path, self.data)
         self.image_base = self.pe.OPTIONAL_HEADER.ImageBase
         self.sections = [dict(name=_text(s.Name.rstrip(b"\0")),
                               virtual_address=s.VirtualAddress,
