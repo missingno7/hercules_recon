@@ -179,9 +179,10 @@ class Reproductions(unittest.TestCase):
         ]
         with patch.object(c.Path, 'read_bytes', return_value=json.dumps(
                          dict(functions=dict(zip(('0', '1'), entries)))).encode()):
-            self.ev.anchors, self.ev.anchor_conflicts, _ = c.accepted_anchors(rows, lambda row, name: (M, name))
+            self.ev.anchors, self.ev.anchor_conflicts, _, self.ev.opaque_pins = c.accepted_anchors(rows, lambda row, name: (M, name))
         self.assertEqual(self.ev.anchors, {})
         self.assertEqual(self.ev.anchor_conflicts, {(M, '_g')})
+        self.assertEqual({(base, size) for _, base, size in self.ev.opaque_pins}, {(0x3200, 4), (0x3210, 4)})
         self.row('a', ref('_g', 0x3220), start=0x1000)
         self.row('b', ref('_g', 0x3220), start=0x1100)
         self.grade('a', None)

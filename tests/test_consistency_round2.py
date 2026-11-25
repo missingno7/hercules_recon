@@ -162,7 +162,7 @@ class Round2(unittest.TestCase):
 
     def test_equal_extent_accepted_aliases_bypass_collision_report(self):
         for name in ('_first', '_second'):
-            self.ev.anchors[M, name] = (0x3200, 4, 'data', '_owner')
+            self.ev.anchors[M, name] = (0x3200, 4, 'data', (M, '_owner'))
             self.row(name, ref(name, 0x3200), start=0x1000 if name == '_first' else 0x1100)
         result = self.grade('_first', 'A')
         self.assertEqual(result['grades']['_second'], 'A')
@@ -259,7 +259,7 @@ class Round2(unittest.TestCase):
         pinned['proof'] = {'bindings_path': 'binding.json', 'bindings_sha256': digest}
         with patch.object(c.Path, 'read_bytes',
                           return_value=json.dumps(dict(functions={'accepted': binding})).encode()):
-            self.ev.anchors, self.ev.anchor_conflicts, _ = c.accepted_anchors(
+            self.ev.anchors, self.ev.anchor_conflicts, _, self.ev.opaque_pins = c.accepted_anchors(
                 [pinned], lambda row, name: (M, 'a.c', (), name))   # _f is static in a.c
         self.ev.functions[M, 'a.c', (), '_f'] = [(0x1200, 'private-f', True)]
         self.ev.starts[M, 0x1200] = 'private-f'

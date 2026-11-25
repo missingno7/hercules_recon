@@ -1,11 +1,12 @@
 # Whole-image consistency tier (CONSISTENT, design 2026-11-25)
 
 Status: **proposed**. Adversarial review rvCON (GPT-6.2 Sol xhigh, 2026-11-26):
-- round 1 found 12 holes and 3 gaps;
-- round 2 found 10 holes and 3 gaps.
+- Round 1 found 12 holes and 3 gaps.
+- Round 2 found 10 holes and 3 gaps.
+- Round 3 found 8 holes and 3 gaps.
 
-All are fixed or stated below. Their 53 reproducers are regression tests:
-`tests/test_consistency_review.py` and `tests/test_consistency_round2.py`.
+The regression suites are `tests/test_consistency_review.py`, `tests/test_consistency_round2.py` and
+`tests/test_consistency_round3.py`.
 
 This is a separate and weaker tier:
 - it never changes `recovery.json`;
@@ -33,9 +34,12 @@ For each module separately, a CONSISTENT row satisfies all of the following.
 1. **Code.**
    - The row's complete fresh `/Gy` contribution is instruction-equal to the native extent
      (`masked._compare_section`). In a DLL this includes that the DIR32 field set equals the native
-     base-relocation set.
-   - A reference into the row's own contribution must land inside it; an own function symbol only at
-     its entry.
+     base-relocation set touching the contribution. Four-byte relocation fields must be in bounds and
+     disjoint, including for the fixed-base EXE.
+   - A reference into the row's own contribution must land inside it. An own function symbol must
+     resolve to its entry.
+   - An own-section DIR32 must mark a supported absolute operand and retains its decoded form.
+     An inline data field requires separate proof of its boundaries and role.
    - A REL32 field must name a function symbol and sit in a branch. An own-section REL32 must also be a
      branch.
    - A named own-function reference records the row's entry as a use of its key, so it must agree with
@@ -55,20 +59,22 @@ For each module separately, a CONSISTENT row satisfies all of the following.
      - data takes its pin, else its single observed base.
    - An accepted binding fixes the base, and then only disagreeing uses fail. A wrong payload pointer
      fails its own table, not the pinned target.
-   - A binding name gets its linkage from the bound row's own compiled unit: a file-local name is
+   - A binding name gets its linkage from the bound row's own compiled unit. A file-local name is
      scoped to its object. Contradictory accepted records fail their key.
    - The rows that observe the map are the module's instruction-equal rows whose operand forms are
      supported. Refused rows and conflicting keys are listed in the report. The map is claimed over
      the rows that survive, not over every byte-equal row.
 3. **Injective, non-overlapping storage.**
    - No two data keys share or overlap storage.
-   - Accepted extents and every IAT slot (named or ordinal) are reserved under their own identities,
-     even when used.
-   - Overlapping accepted pin intervals are listed as collisions, and every user of one is at most
-     grade B.
-   - Exception: equal intervals of names that an accepted `source_alias` record makes aliases of one
-     owner. These are the reviewed compile-renaming aliases, one object under two names, and are not
-     collisions.
+   - Accepted data pin intervals and every named or ordinal PE IAT slot are reserved whether or not
+     any row references them. A pin with unresolved linkage or contradictory records reserves each
+     recorded interval under an opaque identity. Symbolic attribution requires resolved linkage.
+   - An ordinary pin overlapping an IAT slot fails. The PE slot retains its canonical import identity.
+     The grade-B cap applies to collisions between two accepted pin intervals.
+   - Only exact intervals whose keys identify the same verified scoped owner qualify for the alias
+     exception. An accepted `source_alias` record identifies the compile-renaming owner, and that
+     owner's compiled profile establishes its linkage. Unresolved ownership and matching spelling
+     alone do not qualify.
    - A use or definition that extends a pinned object beyond its accepted interval is a separate,
      non-authoritative extent and must not overlap anything.
    - Extents are lower bounds: the exact compiler-listed size (`/Fa`, the only addition to the recorded
@@ -79,15 +85,19 @@ For each module separately, a CONSISTENT row satisfies all of the following.
 4. **Definitions equal the image.** Every definition of a key among all compiled recorded profiles (every
    data symbol, external or file-local, whether or not the profile's rows are equal) and the data units
    must equal the native bytes at the base.
-   - Initialized definitions: literal bytes equal, and every native fixup that touches the object is
-     exactly at a pointer field of the definition.
+   - In an initialized definition, the literal bytes must match. The four-byte pointer fields must
+     be disjoint and in bounds. For a relocated image, the fields must match all touching native
+     fixups exactly.
    - Zero definitions: no touching fixup, and zero storage or zero file bytes.
-   - A listing form the parser does not recognize makes the definition fail. This includes any
-     unrecognized line inside an object and an ORG operand that is not one complete number.
+   - Blank and comment-only listing lines preserve the active object and its unlabeled continuation.
+     Recognized object and segment boundaries close it. An unknown line inside an object or an
+     incomplete ORG number leaves the definition unproven.
    - A key defined twice in one unit fails.
    - File-backed data needs a definition or an accepted binding.
-   - Pointers inside a placed definition bind their targets. A failing target fails every definition
-     that points to it, transitively.
+   - Code uses and placed data pins seed definition discovery. Each batch uses a stable placement
+     snapshot. A source publishes pointer equations only after all its local definitions pass.
+     A late placement conflict quarantines the source and discovery replays without its equations.
+     A failing target invalidates every verified definition that points to it, transitively.
    - Function pointers in data need an instruction-equal callee entry and no addend.
 5. **Callees.** A function key's recorded rows (identity scoped like keys) decide its address:
    - several addresses fail;
@@ -96,16 +106,17 @@ For each module separately, a CONSISTENT row satisfies all of the following.
 
    An unrecorded callee, or an address recorded under another name, fails.
 6. **Grade.**
-   - Accepted rows vote only when they pass every rule above themselves. The report lists the ones that
-     fail.
+   - Accepted rows vote only when they pass every rule above themselves. The report lists tier failures
+     and collection refusals separately.
    - **A:** every key in the row's closure is content-proven or used by at least two live rows. The
      closure is its direct keys plus the data reached through payload pointers.
      - Content proof: a function, an import, an accepted binding, or a definition with at least 8
        compared literal bytes of more than 2 distinct values. Pointer addends don't count.
-     - Witnesses: two rows count as two only if their native bytes differ, their masked bodies differ
-       and their extents do not overlap.
-     - This is a greatest fixpoint over all live rows, accepted ones included: a witness must itself
-       stay strong.
+     - One pair of live rows must directly use the key, differ in native bytes and masked bodies, and
+       have disjoint native extents. The same pair must satisfy all three conditions. No third row's
+       extent enters that comparison.
+     - Compute the greatest fixed point over the eligible rows, including accepted rows, by retesting
+       the pair requirement as rows leave the strong set.
    - **B:** everything else that passes.
    - HERCULES.EXE has no base relocations, so which absolute fields are references comes from the
      candidate's own relocation inventory. An integer literal and an address with the same value cannot
@@ -124,6 +135,20 @@ For each module separately, a CONSISTENT row satisfies all of the following.
 
   The report lists each unit, its origin and any compile failure.
 - **Anything about rows that are not instruction-equal.**
+
+## Round 3 measurements (2026-11-26)
+
+| Pending rows | Grade A | Grade B |
+|---|---:|---:|
+| ENG1 | 15 rows / 2,398 B | 24 / 5,730 B |
+| ENG3 | 9 / 1,758 B | 11 / 3,778 B |
+| TITLE | 30 / 5,360 B | 78 / 23,360 B |
+| EXE (no fixups) | 53 / 3,536 B | 41 / 7,840 B |
+
+Both fresh runs reported zero accepted address contradictions. The revised collector refused 36
+accepted rows with unsupported own-section DIR32 fields. Of the 1,447 accepted rows evaluated, 174
+failed a tier rule and were ineligible to vote. The 22 accepted pin collisions stayed the same.
+See [the comparison](COMPARISON.md) for each grade change.
 
 ## Measured state (2026-11-26, after the round-2 fixes)
 
@@ -163,12 +188,13 @@ For each module separately, a CONSISTENT row satisfies all of the following.
 
 `evidence/consistency_debt.json` holds three shrink-only lists:
 - name conflicts: several addresses, shared storage, callees under another name, kind conflicts, pointers
-  that disagree with the map;
+  that disagree with the map and use-level overlaps labeled by row and reference;
 - definition defects;
 - accepted-name collisions.
 
 `python scripts/consistency.py check` fails on any new entry or any accepted-row address contradiction.
-A conflict is repaid by giving each object one name and one owner (as pop2 did) or by fixing the
+Address disagreements are checked independently of other defects and retain their classification through
+every level of pointer dependencies. A conflict is repaid by giving each object one name and one owner (as pop2 did) or by fixing the
 definition, never by editing the ledger.
 
 ## Commands

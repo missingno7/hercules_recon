@@ -1,7 +1,7 @@
 """Whole-image reference consistency of instruction-equal rows (a separate, weaker tier).
 
 A row is CONSISTENT when its complete contribution is instruction-equal and every
-reference fits ONE symbol-to-address map shared by the module's instruction-equal rows:
+reference fits one symbol-to-address map shared by the module's surviving rows:
 one address per symbol, one symbol per address, no overlapping objects, definitions
 whose bytes and fixups equal the image, pointers inside definitions that bind
 consistently, and callees that are themselves instruction-equal at their entry.
@@ -22,6 +22,8 @@ import re
 import struct
 import sys
 from concurrent.futures import ThreadPoolExecutor
+from itertools import combinations
+from typing import NamedTuple
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -127,12 +129,13 @@ def accesses(decoder, code, rva, offset):
     return None
 
 
-def table_fields(decoder, code, rva):
-    """First offset at which linear decoding stops (inline tables follow code)."""
-    end = 0
-    for ins in decoder.disasm(code, rva):
-        end = ins.address - rva + ins.size
-    return end
+def disjoint_fields(offsets, start, end):
+    """Each four-byte relocation occupies a separate, in-bounds field."""
+    for offset in sorted(offsets):
+        if offset < start or offset + 4 > end:
+            return False
+        start = offset + 4
+    return True
 
 
 WIDTHS = {'DB': 1, 'DW': 2, 'DD': 4, 'DQ': 8, 'DT': 10}
@@ -140,7 +143,7 @@ DATA_LINE = re.compile(r'^(\S*)\s+(DB|DW|DD|DQ|DT)\s+(.*)$')
 NUMBER = re.compile(r'^(?:[0-9][0-9A-Fa-f]*H|[0-9]+)$')
 SCALAR = re.compile(r'^-?(?:[0-9][0-9A-Fa-f]*[Hr]?|[0-9]+|FLAT:[\w$?@]+(?:[+-][0-9A-Fa-f]+H?)?|[\w$?@]+'
                     r'|[\w$?@]+[+-][0-9A-Fa-f]+H?|\?)$')
-BOUNDARY = re.compile(r'^\s*(?:ALIGN\s+\d+|COMM\s.*|PUBLIC\s.*|EXTRN\s.*|;.*)?\s*$')
+BOUNDARY = re.compile(r'^\s*(?:ALIGN\s+\d+|COMM\s.*|PUBLIC\s.*|EXTRN\s.*)\s*$')
 
 
 def number(text):
@@ -203,6 +206,8 @@ def listing_sizes(text):
         if segment in (None, '_TEXT') or segment.startswith('.'):
             continue
         body = line.split(';', 1)[0].rstrip()
+        if not body:
+            continue
         match = re.match(r'^\s+ORG\s+\$\+(\S+)$', body)
         if match or re.match(r'^\s+ORG\b', body):
             if name is not None and sizes[name] is not None:
@@ -210,7 +215,7 @@ def listing_sizes(text):
             continue
         match = DATA_LINE.match(line)
         if not match:
-            if not BOUNDARY.match(line) and name is not None:
+            if not BOUNDARY.match(body) and name is not None:
                 sizes[name] = None   # an unrecognized line inside an object
             name = None
             continue
@@ -278,11 +283,16 @@ def collect_row(row, unit, image, decoder):
     except ValueError as error:
         return dict(reason='contribution: ' + str(error))
     number_ = coff.sections.index(section) + 1
+    fields = [r['offset'] for r in section['relocations']]
+    if not disjoint_fields(fields, 0, min(size, len(section['data']))):
+        return dict(reason='overlapping or out-of-bounds code relocation fields')
+    if image.relocated and touching(image, rva, size) != {
+            rva + r['offset'] for r in section['relocations'] if r['type'] == DIR32}:
+        return dict(reason='not instruction-equal')
     result = _compare_section(coff, section, number_, image.pe, rva, size)
     if not result['masked_equal']:
         return dict(reason='not instruction-equal')
     native = image.read(rva, size)
-    stop = table_fields(decoder, native, rva)
     masked = bytearray(native)
     refs = []
     for r in section['relocations']:
@@ -296,21 +306,25 @@ def collect_row(row, unit, image, decoder):
             target = (rva + r['offset'] + 4 + field) & 0xffffffff
         else:
             target = (field - image.base) & 0xffffffff
-        use = accesses(decoder, native, rva, r['offset']) if r['offset'] < stop else None
+        use = accesses(decoder, native, rva, r['offset'])
         if symbol['section'] == number_:
             # Own contribution: masked._compare_section fixed the arithmetic. The field must have the
             # role of its relocation type, and the target must stay inside the contribution.
             if r['type'] == REL32 and (use is None or use[0] != 'branch'):
                 return dict(reason='own-section REL32 that is not a branch at %#x' % r['offset'])
-            if r['type'] == DIR32 and use is not None and use[0] == 'branch':
-                return dict(reason='own-section DIR32 in a branch at %#x' % r['offset'])
+            # A DIR32 cell outside any operand (a switch table entry) is admitted only for a local label in an
+            # image with base relocations: masked._compare_section then requires a native fixup exactly at the
+            # field and the exact own-contribution value, so the field cannot hide differing instruction bytes.
+            table_cell = use is None and image.relocated and not symbol['type'] & 0x20
+            if r['type'] == DIR32 and ((use is None and not table_cell) or (use and use[0] == 'branch')):
+                return dict(reason='own-section DIR32 without a supported operand form at %#x' % r['offset'])
             if not rva <= target < rva + size:
                 return dict(reason='own-section reference leaves the contribution at %#x' % r['offset'])
             if symbol['type'] & 0x20:
                 if target != rva or addend:
                     return dict(reason='own function reference is not the entry at %#x' % r['offset'])
                 refs.append(dict(key=key_of(module, source, flags, symbol), name=r['symbol'], base=rva, addend=0,
-                                 use='branch' if r['type'] == REL32 else 'value', width=0, write=False,
+                                 use=use[0], width=use[1], write=use[2],
                                  function=True, defined=True, common=0))
             continue
         kind = ref_kind(r['symbol'], bool(symbol['type'] & 0x20))
@@ -344,18 +358,20 @@ def define(module, source, flags, unit, symbol):
     size, start = unit.extent(symbol), symbol['value']
     if size is None:
         return dict(size=0, payload=None, refs=None)
+    fields = [r for r in section['relocations'] if r['offset'] < start + size and r['offset'] + 4 > start]
     if not len(section['data']) or section['flags'] & CNT_UNINITIALIZED:
-        return dict(size=size, payload=None, refs=[])
+        return dict(size=size, payload=None, refs=None if fields else [])
+    if not disjoint_fields((r['offset'] for r in fields), start, start + size):
+        return dict(size=size, payload=b'', refs=None)
     refs = []
-    for r in section['relocations']:
-        if r['offset'] + 4 > start and r['offset'] < start + size:
-            target = unit.unique(r['symbol'])
-            if target is None or r['type'] != DIR32 or r['offset'] < start or r['offset'] + 4 > start + size:
-                return dict(size=size, payload=b'', refs=None)
-            refs.append(dict(offset=r['offset'] - start, name=r['symbol'],
-                             key=key_of(module, source, flags, target), function=bool(target['type'] & 0x20),
-                             defined=target['section'] > 0, section=target['section'], value=target['value'],
-                             common=target['value'] if target['section'] == 0 else 0))
+    for r in fields:
+        target = unit.unique(r['symbol'])
+        if target is None or r['type'] != DIR32:
+            return dict(size=size, payload=b'', refs=None)
+        refs.append(dict(offset=r['offset'] - start, name=r['symbol'],
+                         key=key_of(module, source, flags, target), function=bool(target['type'] & 0x20),
+                         defined=target['section'] > 0, section=target['section'], value=target['value'],
+                         common=target['value'] if target['section'] == 0 else 0))
     return dict(size=size, payload=section['data'][start:start + size], refs=refs)
 
 
@@ -391,6 +407,7 @@ class Evidence:
         self.functions = collections.defaultdict(list)     # function key -> [(rva, id, equal)]
         self.anchors = {}                    # key -> dict(rva, size, kind, alias_of) or (rva, size[, kind[, alias]])
         self.anchor_conflicts = set()        # keys with contradictory accepted records
+        self.opaque_pins = []                # (reservation key, RVA, size) without a trusted symbolic key
         self.starts = {}                     # (module, rva) -> id of a recorded row
         self.scope = {}                      # provenance of the definition inventory
 
@@ -424,10 +441,13 @@ def payload_local(image, base, definition):
     if image.zone(base, size) != 'file':
         return 'initialized definition outside file-backed data'
     native, own = image.read(base, size), definition['payload']
-    pointers = {o for r in definition['refs'] for o in range(r['offset'], r['offset'] + 4)}
+    offsets = [r['offset'] for r in definition['refs']]
+    if len(own) != size or len(native) != size or not disjoint_fields(offsets, 0, size):
+        return 'unsupported definition'
+    pointers = {i for offset in offsets for i in range(offset, offset + 4)}
     if any(native[i] != own[i] for i in range(size) if i not in pointers):
         return 'payload differs'
-    if image.relocated and fields != {base + r['offset'] for r in definition['refs']}:
+    if image.relocated and fields != {base + offset for offset in offsets}:
         return 'payload fixups differ'
     return None
 
@@ -447,269 +467,281 @@ def label(key):
     return ' | '.join((key[0], ' '.join(' '.join(p) if isinstance(p, tuple) else str(p) for p in key[1:])))
 
 
-def evaluate(evidence, minimum=2):
+class Issue(NamedTuple):
+    message: str
+    category: str
+    origin: tuple
+
+
+class Storage(NamedTuple):
+    start: int
+    end: int
+    key: tuple
+    authority: str | None = None
+    use: tuple | None = None
+
+
+def definition_graph(evidence, row_uses, pins, blocked):
+    """Discover pointer equations in stable batches from code and placed data pins."""
+    def kinds(key, occurrences):
+        seen = {o['kind'] for o in occurrences.get(key, ())}
+        if key in pins:
+            seen.add(pins[key]['kind'])
+        if key in evidence.definitions:
+            seen.add('data')
+        if key in evidence.functions:
+            seen.add('function')
+        return seen
+
+    def data_base(key, occurrences):
+        if key in pins:
+            return pins[key]['rva']
+        values = {o['value'] for o in occurrences.get(key, ())}
+        return next(iter(values)) if len(values) == 1 else None
+
+    def placement(key, occurrences):
+        if kinds(key, occurrences) != {'data'}:
+            return None
+        return data_base(key, occurrences)
+
+    # If a late equation invalidates a placement that exported pointers, quarantine that
+    # source and replay without its equations. Quarantine only grows, even for cycles.
+    quarantined = {}
+    while True:
+        occurrences = {key: list(uses) for key, uses in row_uses.items()}
+        edges, local, processed = {}, {}, set()
+        while True:
+            pending = {}
+            for key in occurrences.keys() | pins.keys():
+                if key in processed or key in blocked or key in quarantined or key not in evidence.definitions:
+                    continue
+                base = placement(key, occurrences)
+                if base is not None:
+                    pending[key] = base
+            if not pending:
+                break
+            processed.update(pending)
+            batch = {}
+            for key, base in pending.items():
+                image, definitions = evidence.images[key[0]], evidence.definitions[key]
+                local[key] = {failure for d in definitions if (failure := payload_local(image, base, d))}
+                if local[key]:
+                    continue
+                targets = []
+                for i, d in enumerate(definitions):
+                    if not d['refs']:
+                        continue
+                    native = image.read(base, d['size'])
+                    for r in d['refs']:
+                        offset = r['offset']
+                        addend = struct.unpack_from('<i', d['payload'], offset)[0]
+                        value = (struct.unpack_from('<I', native, offset)[0] - image.base - addend) & 0xffffffff
+                        kind = ref_kind(r['name'], r['function'])
+                        o = dict(source=('edge', key, i, offset), value=value, kind=kind, addend=addend, ref=None)
+                        targets.append((r['key'], o))
+                if targets:
+                    batch[key] = targets
+            for key, targets in batch.items():
+                edges[key] = targets
+                for target, o in targets:
+                    occurrences.setdefault(target, []).append(o)
+        late = {key for key in edges if placement(key, occurrences) is None}
+        if not late:
+            break
+        for key in late:
+            quarantined[key] = 'kind conflict' if kinds(key, occurrences) != {'data'} else 'several addresses'
+
+    keys = occurrences.keys() | pins.keys() | evidence.anchor_conflicts
+    seen_kinds = {key: kinds(key, occurrences) for key in keys}
+    bases = {key: data_base(key, occurrences) for key in keys}
+    return occurrences, edges, local, quarantined, seen_kinds, bases
+
+
+def evaluate(evidence):
     """Apply the rules. Returns grades, conflicts, defects and the reason each pending row fails."""
     rows, images = evidence.rows, evidence.images
-    problems = {}                     # key -> key-wide failure
+    failures = collections.defaultdict(dict)      # key -> {typed issue: pointer distance}
 
-    def problem(key, text):
-        problems.setdefault(key, text)
+    def problem(key, text, category='invalid'):
+        failures[key][Issue(text, category, ('key', key))] = 0
 
-    # Occurrences: every use of a key with the value it implies, from rows and from placed definitions.
-    occurrences = collections.defaultdict(list)    # key -> [dict(source, value, kind, addend, ...)]
-    names = {}
+    row_uses = collections.defaultdict(list)
     for rid, row in rows.items():
         for i, ref in enumerate(row['refs']):
             kind = ref_kind(ref['name'], ref['function'])
-            occurrences[ref['key']].append(dict(source=('row', rid, i), value=ref['base'], kind=kind,
-                                                addend=ref['addend'], ref=ref))
-            names[ref['key']] = ref['name']
+            row_uses[ref['key']].append(dict(source=('row', rid, i), value=ref['base'], kind=kind,
+                                            addend=ref['addend'], ref=ref))
 
-    def import_slot(key):
-        plain = import_name(names.get(key, ''))
-        slots = [s for s, n in images[key[0]].imports.items() if n == plain] if plain else []
-        return slots[0] if len(slots) == 1 else None
+    pins = {key: anchor_record(evidence, key) for key in evidence.anchors if key not in evidence.anchor_conflicts}
+    iat = {module: [Storage(slot, slot + 4, (module, ('iat', slot)), 'iat') for slot in image.imports]
+           for module, image in images.items()}
+    items = [item for slots in iat.values() for item in slots]
+    for key, base, size in [
+            *((key, pin['rva'], pin['size']) for key, pin in pins.items() if pin['kind'] == 'data' and pin['size']),
+            *evidence.opaque_pins]:
+        items.append(Storage(base, base + size, key, 'pin'))
+        if any(slot.start < base + size and base < slot.end for slot in iat[key[0]]):
+            problem(key, 'shares storage with an IAT slot', 'conflict')
 
-    def function_entry(key):
-        """Canonical entry of a function key: the accepted pin, else its recorded rows, else uses."""
-        anchor = anchor_record(evidence, key)
-        ledger = {d[0] for d in evidence.functions.get(key, [])}
-        if anchor and anchor['kind'] == 'function':
-            if ledger and ledger != {anchor['rva']}:
-                problem(key, 'several addresses')
-            return anchor['rva']
-        if len(ledger) > 1:
-            problem(key, 'several addresses')
-            return None
-        if ledger:
-            return next(iter(ledger))
-        values = {o['value'] for o in occurrences[key]}
-        if len(values) > 1:
-            problem(key, 'several addresses')
-        return next(iter(values)) if len(values) == 1 else None
-
-    def data_base(key):
-        anchor = anchor_record(evidence, key)
-        if anchor and anchor['kind'] != 'function':
-            return anchor['rva']
-        values = {o['value'] for o in occurrences[key]}
-        return next(iter(values)) if len(values) == 1 else None
-
-    # Placed definitions bind their pointer targets (never as witnesses); iterate to a fixpoint.
-    edges = collections.defaultdict(list)          # source key -> [(target key, occurrence)]
-    local, processed = {}, set()
-    while True:
-        pending = [k for k in list(occurrences) if k not in processed and evidence.definitions.get(k)
-                   and data_base(k) is not None]
-        if not pending:
-            break
-        for key in pending:
-            processed.add(key)
-            image, base = images[key[0]], data_base(key)
-            for d in evidence.definitions[key]:
-                failure = payload_local(image, base, d)
-                if failure:
-                    local.setdefault(key, failure)
-                    continue
-                if d['payload'] is None:
-                    continue
-                native = image.read(base, d['size'])
-                for r in d['refs']:
-                    addend = struct.unpack_from('<i', d['payload'], r['offset'])[0]
-                    value = (struct.unpack_from('<I', native, r['offset'])[0] - image.base - addend) & 0xffffffff
-                    kind = ref_kind(r['name'], r['function'])
-                    occurrence = dict(source=('edge', key), value=value, kind=kind, addend=addend, ref=None)
-                    occurrences[r['key']].append(occurrence)
-                    names.setdefault(r['key'], r['name'])
-                    edges[key].append((r['key'], occurrence))
-    for key, failure in local.items():
-        problem(key, failure)
-
-    # Kinds: one key is one kind of object everywhere (uses, definitions, pins and recorded rows).
-    kinds = {}
-    for key, found in occurrences.items():
-        seen = {o['kind'] for o in found}
-        anchor = anchor_record(evidence, key)
-        if anchor:
-            seen.add('function' if anchor['kind'] == 'function' else 'data')
-        if evidence.definitions.get(key):
-            seen.add('data')
-        if evidence.functions.get(key):
-            seen.add('function')
-        kinds[key] = seen
-        if len(seen) > 1:
-            problem(key, 'kind conflict')
+    occurrences, edges, local, quarantined, kinds, bases = definition_graph(
+        evidence, row_uses, pins, evidence.anchor_conflicts | failures.keys())
+    for key, issues in local.items():
+        for issue in issues:
+            problem(key, issue, 'defect')
+    for key, text in quarantined.items():
+        problem(key, text, 'address')
     for key in evidence.anchor_conflicts:
-        problem(key, 'accepted bindings disagree')
+        problem(key, 'accepted bindings disagree', 'address')
 
-    # Canonical value per key, then key-level validity.
-    canonical, content, reach = {}, set(), collections.defaultdict(int)
+    # Keep a known canonical address even when another check fails for that key.
+    canonical, content = {}, set()
     for key, seen in kinds.items():
-        if key in problems:
+        if not seen:
             continue
-        kind = next(iter(seen))
-        image = images[key[0]]
+        image, anchor = images[key[0]], pins.get(key)
+        if len(seen) > 1:
+            problem(key, 'kind conflict', 'address')
+        kind = anchor['kind'] if anchor else next(iter(seen)) if len(seen) == 1 else None
         if kind == 'function':
-            entry = function_entry(key)
+            defs = evidence.functions.get(key, [])
+            addresses = {d[0] for d in defs}
+            if len(addresses) > 1 or (anchor and addresses - {anchor['rva']}):
+                problem(key, 'several addresses', 'address')
+            entry = bases[key] if anchor or not addresses else next(iter(addresses)) if len(addresses) == 1 else None
             if entry is None:
-                problem(key, problems.get(key, 'callee without a row'))
+                problem(key, 'several addresses', 'address')
                 continue
             canonical[key] = entry
-            defs = evidence.functions.get(key, [])
-            anchor = anchor_record(evidence, key)
             if image.zone(entry, 1) != 'code':
                 problem(key, 'callee outside code')
             elif defs:
                 if not all(d[2] for d in defs):
                     problem(key, 'callee not instruction-equal')
-            elif not (anchor and anchor['kind'] == 'function'):
-                problem(key, 'callee recorded under another name' if (key[0], entry) in evidence.starts
-                        else 'callee without a row')
-            if key not in problems:
+            elif not anchor:
+                if (key[0], entry) in evidence.starts:
+                    problem(key, 'callee recorded under another name', 'conflict')
+                else:
+                    problem(key, 'callee without a row')
+            if key not in failures:
                 content.add(key)
-            continue
-        if kind == 'import':
-            slot = import_slot(key)
-            if slot is None:
-                problem(key, 'import slot')
+        elif kind == 'import':
+            plain = import_name(key[-1])
+            slots = [s for s in iat[key[0]] if plain and image.imports[s.start] == plain]
+            if len(slots) == 1:
+                canonical[key] = slots[0].start
+                content.add(key)
             else:
-                canonical[key] = slot
-                content.add(key)
-            continue
-        base = data_base(key)
-        if base is None:
-            problem(key, 'several addresses')
-            continue
-        canonical[key] = base
-        for o in occurrences[key]:
-            ref = o['ref']
-            if ref and o['value'] == base and ref['use'] == 'direct' and ref['addend'] >= 0:
-                reach[key] = max(reach[key], ref['addend'] + ref['width'])
-
-    # Storage items: accepted pins, IAT slots, data keys and any extent a use adds beyond a pin.
-    items = []        # (start, end, owner, authority label or None)
-    for key in evidence.anchors:
-        anchor = anchor_record(evidence, key)
-        if anchor and anchor['kind'] != 'function' and anchor['size']:
-            items.append((anchor['rva'], anchor['rva'] + anchor['size'], ('key', key),
-                          'pin:' + (anchor.get('alias_of') or key[-1])))
-    for module, image in images.items():
-        for slot in image.imports:
-            items.append((slot, slot + 4, ('key', (module, ('iat', slot))), 'iat:%#x' % slot))
-    occurrence_items = {}
-    for key, seen in kinds.items():
-        if key in problems or 'data' not in seen:
-            continue
-        base, image = canonical[key], images[key[0]]
-        definitions = evidence.definitions.get(key, [])
-        anchor = anchor_record(evidence, key)
-        defined = max([d['size'] for d in definitions] + [1])
-        zone = image.zone(base, max(defined, reach[key]))
-        if zone in (None, 'code'):
-            problem(key, 'not inside one data zone')
-            continue
-        if not definitions and zone == 'file' and not anchor:
-            problem(key, 'initialized data without a definition')
-        if any(reach[key] > d['size'] for d in definitions):
-            problem(key, 'access beyond the definition')
-        if anchor:
-            if defined > anchor['size']:
-                items.append((base, base + defined, ('key', key), None))
-            for o in occurrences[key]:
-                ref = o['ref']
-                if ref and o['value'] == base and ref['use'] == 'direct' and ref['addend'] >= 0:
-                    end = ref['addend'] + ref['width']
-                    if end > anchor['size']:
-                        owner = ('use',) + o['source']
-                        occurrence_items[owner] = key
-                        items.append((base, base + end, owner, None))
-        else:
-            items.append((base, base + max(defined, reach[key]), ('key', key), None))
-        if key not in problems and (anchor or any(literal_content(d) for d in definitions)):
-            content.add(key)
-
-    collisions, failed_uses = set(), {}
-    by_module = collections.defaultdict(list)
-    for start, end, owner, authority in items:
-        module = owner[1][0] if owner[0] == 'key' else rows[owner[2]]['module'] if owner[1] == 'row' else None
-        if module is None:
-            module = occurrence_items[owner][0]
-        by_module[module].append((start, end, owner, authority))
-
-    def object_of(owner):
-        return owner[1] if owner[0] == 'key' else occurrence_items[owner]
-
-    for module, entries in by_module.items():
-        entries.sort(key=lambda t: (t[0], t[1], str(t[2])))
-        active = []
-        for start, end, owner, authority in entries:
-            active = [x for x in active if x[1] > start]
-            for other in active:
-                if object_of(other[2]) == object_of(owner):
-                    continue
-                if authority and other[3]:
-                    if authority != other[3]:
-                        collisions.add(tuple(sorted((object_of(other[2]), object_of(owner)), key=str)))
-                    continue
-                for item_owner, item_authority in ((owner, authority), (other[2], other[3])):
-                    if item_authority:
-                        continue
-                    if item_owner[0] == 'key':
-                        problem(item_owner[1], 'shares storage with another name')
-                    else:
-                        failed_uses[item_owner] = 'access beyond the accepted extent overlaps another object'
-            active.append((start, end, owner, authority))
-    # A valid import's key is its IAT slot; ordinary keys must not overlap a slot (handled above).
-
-    # Every occurrence must agree with the canonical value; failures flow back through definitions.
-    def occurrence_problem(key, o):
-        if key in problems:
-            return problems[key]
-        if o['kind'] != 'data' and o['addend']:
-            return 'function or import reference with an addend'
-        if canonical.get(key) != o['value']:
-            return 'several addresses'
-        return None
-
-    changed = True
-    while changed:
-        changed = False
-        for source, targets in edges.items():
-            if source in problems:
+                problem(key, 'import slot', 'address')
+        elif kind == 'data':
+            base = bases[key]
+            if base is None:
+                problem(key, 'several addresses', 'address')
                 continue
-            for target, o in targets:
-                failure = occurrence_problem(target, o)
-                if failure:
-                    problems[source] = 'payload pointer: ' + (
-                        'disagrees with the map' if failure == 'several addresses' else failure)
-                    changed = True
-                    break
+            canonical[key] = base
+            if key in failures:
+                continue
+            direct = [o for o in occurrences.get(key, ()) if o['ref'] and o['value'] == base
+                      and o['ref']['use'] == 'direct' and o['addend'] >= 0]
+            extent = max((o['addend'] + o['ref']['width'] for o in direct), default=0)
+            definitions = evidence.definitions.get(key, [])
+            defined = max([d['size'] for d in definitions] + [1])
+            zone = image.zone(base, max(defined, extent))
+            if zone in (None, 'code'):
+                problem(key, 'not inside one data zone')
+                continue
+            if not definitions and zone == 'file' and not anchor:
+                problem(key, 'initialized data without a definition')
+            if any(extent > d['size'] for d in definitions):
+                problem(key, 'access beyond the definition', 'defect')
+            if not anchor or defined > anchor['size']:
+                items.append(Storage(base, base + (defined if anchor else max(defined, extent)), key))
+            if anchor:
+                for o in direct:
+                    end = base + o['addend'] + o['ref']['width']
+                    if end > base + anchor['size']:
+                        items.append(Storage(base, end, key, use=o['source']))
+            if key not in failures and (anchor or any(literal_content(d) for d in definitions)):
+                content.add(key)
 
-    def ref_problem(rid, i, ref):
-        key = ref['key']
-        o = next(x for x in occurrences[key] if x['source'] == ('row', rid, i))
-        failure = occurrence_problem(key, o)
-        if failure:
-            return failure
-        if ('use', 'row', rid, i) in failed_uses:
-            return failed_uses['use', 'row', rid, i]
-        if ref['use'] == 'direct' and ref['addend'] < 0:
-            return 'direct access before the object'
-        return None
+    collisions, failed_uses = set(), set()
+    by_module = collections.defaultdict(list)
+    for item in items:
+        by_module[item.key[0]].append(item)
+
+    def pin_owner(key):
+        return pins.get(key, {}).get('alias_of') or key
+
+    for entries in by_module.values():
+        entries.sort(key=lambda t: (t.start, t.end, str(t.key)))
+        active = []
+        for item in entries:
+            active = [other for other in active if other.end > item.start]
+            for other in active:
+                if other.key == item.key:
+                    continue
+                if item.authority == other.authority == 'pin':
+                    if (item[:2], pin_owner(item.key)) != (other[:2], pin_owner(other.key)):
+                        collisions.add(tuple(sorted((item.key, other.key), key=str)))
+                    continue
+                for claim in (item, other):
+                    if claim.authority:
+                        continue
+                    if claim.use:
+                        failed_uses.add(claim.use)
+                    else:
+                        problem(claim.key, 'shares storage with another name', 'conflict')
+            active.append(item)
+
+    # Check occurrences independently of key-level failures, then propagate typed causes.
+    use_issues, conflicts, reverse, queue = {}, set(), collections.defaultdict(set), collections.deque()
+    overlap = 'access beyond the accepted extent overlaps another object'
+    for key, found in occurrences.items():
+        for o in found:
+            source, ref = o['source'], o['ref']
+            issues = use_issues[source] = set()
+            if key in canonical and canonical[key] != o['value']:
+                issues.add(Issue('several addresses', 'address', source))
+                if source[0] == 'row':
+                    conflicts.add(label(key) + ' | several addresses')
+            if o['kind'] != 'data' and o['addend']:
+                issues.add(Issue('function or import reference with an addend', 'invalid', source))
+            if ref and ref['use'] == 'direct' and ref['addend'] < 0:
+                issues.add(Issue('direct access before the object', 'invalid', source))
+            if source in failed_uses:
+                issues.add(Issue(overlap, 'conflict', source))
+                conflicts.add('%s | row %s reference %d | %s' % (label(key), source[1], source[2] + 1, overlap))
+            if source[0] == 'edge':
+                reverse[key].add(source[1])
+                queue.extend((source[1], issue, 1) for issue in issues)
+    queue.extend((key, issue, 0) for key, issues in failures.items() for issue in issues)
+    while queue:
+        key, issue, depth = queue.popleft()
+        if depth:
+            distances = failures[key]
+            if issue in distances and distances[issue] <= depth:
+                continue
+            distances[issue] = depth
+        queue.extend((parent, issue, depth + 1) for parent in reverse[key])
+
+    def describe(issue, depth):
+        text = 'disagrees with the map' if depth and issue.message == 'several addresses' else issue.message
+        return 'payload pointer: ' * depth + text
 
     reasons, failing_accepted, live, disagreeing = {}, [], set(), set()
-    hard = ('several addresses', 'accepted bindings disagree', 'import slot', 'kind conflict',
-            'payload pointer: disagrees with the map')
     for rid, row in rows.items():
-        found = [(ref_problem(rid, i, r), r) for i, r in enumerate(row['refs'])]
-        bad = sorted({p + ': ' + r['name'] for p, r in found if p})
+        bad, address_error = set(), False
+        for i, ref in enumerate(row['refs']):
+            found = dict(failures.get(ref['key'], {}))
+            found.update((issue, 0) for issue in use_issues['row', rid, i])
+            bad.update(describe(issue, depth) + ': ' + ref['name'] for issue, depth in found.items())
+            address_error |= any(issue.category == 'address' for issue in found)
         if bad:
             if row['accepted']:
                 failing_accepted.append(rid)
-                if any(p and p.startswith(hard) for p, _ in found):
+                if address_error:
                     disagreeing.add(rid)
             else:
-                reasons[rid] = bad
+                reasons[rid] = sorted(bad)
         else:
             live.add(rid)
 
@@ -720,7 +752,7 @@ def evaluate(evidence, minimum=2):
             if key in seen:
                 continue
             seen.add(key)
-            stack.extend(t for t, o in edges.get(key, ()) if o['kind'] == 'data')
+            stack.extend(t for t, _ in edges.get(key, ()))
         return seen
 
     closures = {rid: closure(rows[rid]) for rid in live}
@@ -728,46 +760,47 @@ def evaluate(evidence, minimum=2):
     for rid in live:
         for r in rows[rid]['refs']:
             users[r['key']].add(rid)
-    # Rows whose extents overlap are one witness.
-    group = {}
-    for module in {rows[r]['module'] for r in rows}:
-        spans = sorted((rows[r]['start'], rows[r]['start'] + rows[r]['size'], r) for r in rows if rows[r]['module'] == module)
-        current, end = None, -1
-        for start, stop, rid in spans:
-            if start >= end:
-                current = rid
-            end = max(end, stop)
-            group[rid] = current
 
     def witnessed(key, strong):
-        found = [rows[i] for i in users[key] if i in strong]
-        return min(len({r.get('native', r['body']) for r in found}), len({r['body'] for r in found}),
-                   len({group.get(r_id) for r_id in users[key] if r_id in strong}))
+        for a, b in combinations((rows[rid] for rid in users[key] & strong), 2):
+            if (a.get('native', a['body']) != b.get('native', b['body']) and a['body'] != b['body']
+                    and (a['start'] + a['size'] <= b['start'] or b['start'] + b['size'] <= a['start'])):
+                return True
+        return False
 
     collided = {k for pair in collisions for k in pair}
     strong = {rid for rid in live if not closures[rid] & collided}
+    weak_reasons = {rid: ['accepted pin collision: ' + label(key) for key in closures[rid] & collided]
+                    for rid in live - strong}
     while True:
-        weak = {rid for rid in strong if any(
-            key not in content and witnessed(key, strong) < minimum for key in closures[rid])}
+        needed = set().union(*(closures[rid] - content for rid in strong))
+        unwitnessed = {key for key in needed if not witnessed(key, strong)}
+        weak = {rid for rid in strong if closures[rid] & unwitnessed}
         if not weak:
             break
+        for rid in weak:
+            weak_reasons[rid] = ['no qualifying witness pair: ' + label(key) for key in closures[rid] & unwitnessed]
         strong -= weak
-    grades = {rid: ('A' if rid in strong else 'B') for rid in live if not rows[rid]['accepted']}
+    grades = {rid: ('A' if rid in strong else 'B') for rid in sorted(live) if not rows[rid]['accepted']}
+    grade_b_reasons = {rid: sorted(weak_reasons[rid]) for rid, grade in grades.items() if grade == 'B'}
 
-    named = ('several addresses', 'shares storage', 'accepted bindings disagree', 'callee recorded under',
-             'kind conflict', 'payload pointer: disagrees with the map')
-    conflicts = {label(k) + ' | ' + p for k, p in problems.items() if p.startswith(named)}
-    for key, found in occurrences.items():
-        if key not in problems and any(occurrence_problem(key, o) == 'several addresses' for o in found):
-            conflicts.add(label(key) + ' | several addresses')
-    defects = sorted({label(k) + ' | ' + p for k, p in problems.items()
-                      if p in ('payload differs', 'payload fixups differ', 'access beyond the definition',
-                               'zero definition is not zero in the image', 'zero definition carries loader fixups',
-                               'unsupported definition')})
-    return dict(grades=grades, reasons=reasons, conflicts=sorted(conflicts), defects=defects, problems=problems,
-                accepted_failing=sorted(failing_accepted), accepted_disagreement=sorted(disagreeing),
+    defects, problems = set(), {}
+    for key, found in failures.items():
+        issue, depth = min(found.items(), key=lambda pair: (pair[1], pair[0].message))
+        problems[key] = describe(issue, depth)
+        for issue, depth in found.items():
+            if not depth and issue.category == 'defect':
+                defects.add(label(key) + ' | ' + issue.message)
+            if not depth and issue.category in ('address', 'conflict'):
+                conflicts.add(label(key) + ' | ' + issue.message)
+            if depth and issue.category == 'address':
+                conflicts.add(label(key) + ' | ' + describe(issue, 1))
+    return dict(grades=grades, grade_b_reasons=grade_b_reasons, reasons=reasons,
+                conflicts=sorted(conflicts), defects=sorted(defects),
+                problems=problems, accepted_failing=sorted(failing_accepted),
+                accepted_disagreement=sorted(disagreeing),
                 collisions=sorted(' / '.join(label(k) for k in pair) for pair in collisions),
-                symbols=len(kinds), content=len(content))
+                symbols=len(occurrences), content=len(content))
 
 
 def binding_records(ledger):
@@ -788,31 +821,41 @@ def binding_records(ledger):
             if record['kind'] not in ('data', 'bss', 'function') or name.startswith(('$', '.')):
                 continue
             kind = 'function' if record['kind'] == 'function' else 'data'
-            alias = record['owner']['symbol'] if 'source_alias' in record and 'owner' in record else None
+            owner = record.get('owner') if 'source_alias' in record else None
             yield row, module, name, dict(rva=record['rva'], size=record.get('size', 0) if kind == 'data' else 0,
-                                          kind=kind, alias_of=alias)
+                                          kind=kind, alias_owner=owner)
 
 
-def accepted_anchors(ledger, scope):
-    """Anchors keyed by each bound name's real linkage, and the keys whose records disagree.
-
-    ``scope(row, name)`` returns the key of ``name`` in the row's own freshly compiled unit
-    (file-local names are scoped to their object), or None when the linkage is unknown.
-    """
-    out, conflicts, unresolved = {}, set(), []
+def accepted_anchors(ledger, scope, owner_scope=None):
+    """Resolve symbolic pins and keep physical reservations for unresolved or conflicting records."""
+    records, aliases = collections.defaultdict(set), collections.defaultdict(set)
+    unresolved, reservations = [], set()
     for row, module, name, entry in binding_records(ledger):
         key = scope(row, name)
+        base, size, kind = entry['rva'], entry['size'], entry['kind']
         if key is None:
             unresolved.append((row['id'], name))
+            if kind == 'data' and size:
+                opaque = (module, 'unresolved pin', row['source'], tuple(row['flags']), name)
+                reservations.add((opaque, base, size))
             continue
-        found = out.setdefault(key, dict(entry))
-        if (found['rva'], found['kind']) != (entry['rva'], entry['kind']):
+        records[key].add((base, size, kind))
+        owner = entry['alias_owner']
+        if owner:
+            aliases[key].add(owner_scope(module, owner) if owner_scope else None)
+
+    out, conflicts = {}, set()
+    for key, found in records.items():
+        if len({(base, kind) for base, _, kind in found}) > 1:
             conflicts.add(key)
-        elif found['size'] < entry['size']:
-            found['size'] = entry['size']
-    for key in conflicts:
-        out.pop(key, None)
-    return out, conflicts, unresolved
+            opaque = (key[0], 'conflicting pin', *key[1:])
+            reservations.update((opaque, base, size) for base, size, kind in found if size and kind == 'data')
+            continue
+        base, size, kind = max(found)
+        owners = aliases[key]
+        alias = next(iter(owners)) if len(owners) == 1 else None
+        out[key] = dict(rva=base, size=size, kind=kind, alias_of=alias)
+    return out, conflicts, unresolved, sorted(reservations, key=str)
 
 
 def compile_unit(source, flags):
@@ -917,16 +960,27 @@ def gather(jobs=8, modules=None):
             for d in found:
                 if d not in evidence.definitions[key]:
                     evidence.definitions[key].append(d)
-    for definitions, provenance in data:
+    owner_linkage = {}
+    for (module, source, flags, origin), (definitions, _) in zip(owners, data):
+        if origin == 'owner':
+            keys = collections.defaultdict(list)
+            for key in definitions:
+                keys[key[-1]].append(key)
+            owner_linkage[module, source, flags] = {name: found[0] for name, found in keys.items() if len(found) == 1}
         for key, found in definitions.items():
             for d in found:
                 if d not in evidence.definitions[key]:
                     evidence.definitions[key].append(d)
-    evidence.anchors, evidence.anchor_conflicts, unresolved = accepted_anchors(
-        ledger, lambda row, name: linkage.get(row['id'], {}).get(name))
+    def owner_scope(module, owner):
+        return owner_linkage.get((module, owner['source'], tuple(owner['flags'])), {}).get(owner['symbol'])
+
+    evidence.anchors, evidence.anchor_conflicts, unresolved, evidence.opaque_pins = accepted_anchors(
+        ledger, lambda row, name: linkage.get(row['id'], {}).get(name), owner_scope)
     evidence.scope = dict(compile_failures=sorted(failed),
                           data_units=sorted('%s [%s] %s' % p for _, p in data),
-                          unresolved_binding_names=sorted('%s %s' % u for u in unresolved))
+                          unresolved_binding_names=sorted('%s %s' % u for u in unresolved),
+                          opaque_pin_intervals=[dict(identity=label(k), rva=base, size=size)
+                                                for k, base, size in evidence.opaque_pins])
     return evidence
 
 
@@ -958,11 +1012,14 @@ def main():
         raise ValueError('recovery.json changed during the run')
     summary = summarize(evidence, result, ledger)
     accepted = sum(r['accepted'] for r in evidence.rows.values())
+    accepted_refused = sorted(r['id'] for r in ledger if r['status'] in ACCEPTED and r['id'] in evidence.refused)
     print('%d instruction-equal rows (%d accepted), %d symbols, %d conflicts, %d defects, %d accepted collisions' % (
         len(evidence.rows), accepted, result['symbols'], len(result['conflicts']), len(result['defects']),
         len(result['collisions'])))
     print('accepted rows: %d fail a tier rule (not witnesses), %d contradict an address' % (
         len(result['accepted_failing']), len(result['accepted_disagreement'])))
+    if accepted_refused:
+        print('%d accepted rows refused during collection' % len(accepted_refused))
     for name, (count, size) in summary.items():
         print('  %-28s %4d rows %7d B' % (name, count, size))
     if args.output:
@@ -973,9 +1030,10 @@ def main():
         output.write_text(json.dumps(dict(
             scope='Whole-image reference consistency; not FUNCTION_MATCH or FUNCTION_MATCH_RELOCATED.',
             recovery_sha256=hashlib.sha256(before).hexdigest(), summary=summary, grades=result['grades'],
-            reasons=result['reasons'], conflicts=result['conflicts'], defects=result['defects'],
+            reasons=result['reasons'], grade_b_reasons=result['grade_b_reasons'],
+            conflicts=result['conflicts'], defects=result['defects'],
             collisions=result['collisions'], refused=evidence.refused, inventory=evidence.scope,
-            accepted_failing=result['accepted_failing'],
+            accepted_failing=result['accepted_failing'], accepted_refused=accepted_refused,
             accepted_disagreement=result['accepted_disagreement']), indent=1) + '\n', encoding='utf-8')
     if args.mode == 'record-debt':
         DEBT.write_text(json.dumps(dict(scope='Shrink-only whole-image name conflicts, definition defects and '

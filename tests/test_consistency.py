@@ -43,7 +43,7 @@ class Rules(unittest.TestCase):
         self.ev = c.Evidence({M: self.image})
 
     def row(self, rid, refs, body=None, accepted=False):
-        start = 0x1000 + 0x20 * len(self.ev.rows)   # rows never overlap: overlapping rows are one witness
+        start = 0x1000 + 0x20 * len(self.ev.rows)   # the fixture places disjoint rows
         self.ev.rows[rid] = dict(refs=refs, body=body or rid, start=start, size=16, module=M, accepted=accepted)
 
     def grades(self):
