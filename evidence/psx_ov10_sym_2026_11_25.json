@@ -1,0 +1,35 @@
+{
+ "scope": "PsyQ SYM definition records found after the overlay payload of OV/OV10 on the USA v1.0 PSX disc. Secondary evidence for type names, member offsets and widths; not a PC layout proof and no acceptance.",
+ "disc": "assets/psx/usa_original/Disney's Hercules Action Game (USA) (v1.0).bin",
+ "disc_sha256": "2ce144ba0e1fed6952ad80976814e3033fec6cddfb5e17cdf0294517ea311365",
+ "file": "OV/OV10",
+ "lba": 626,
+ "size": 46588,
+ "file_sha256": "f07e3224622cb72df956e9dc92f76aa91b209f2312b64ea2628c8d055e65ca22",
+ "record_run": {
+  "start": 31735,
+  "end": 46568,
+  "records": 664,
+  "aggregates": 59,
+  "typedefs": 60
+ },
+ "header": "evidence/psx_ov10_sym_types_2026_11_25.h",
+ "header_sha256": "7aec2eeed0f4b6defb371046661bc7ddde99046f339420791e5e55f70bb1d908",
+ "reproduce": "python scripts/psx_sym.py DISC --file OV/OV10 --header OUT.h",
+ "pc_correspondence": {
+  "NStype": "0x134 bytes = ENG1/ENG3 normal actor stride (src/eng1/actor_region.h Actor)",
+  "SPtype": "0xec bytes = MiddleActor",
+  "TStype": "0x94 bytes = AltActor",
+  "SDBASE": "20 bytes; ENG1 g_actor_resources is 1620 bytes = 81 records, Status at +0x10",
+  "LDBASE": "24 bytes, the size of the ENG1 level descriptor rows"
+ },
+ "width_check": {
+  "ENG1": "5,208 of 5,422 native accesses at actor-field offsets use the PSX member width",
+  "ENG3": "4,358 of 4,670"
+ },
+ "absent": {
+  "europe": "same file size, no records (other stale bytes)",
+  "usa_v11": "file shorter, no records",
+  "pc": "no SYM/MAP/PDB or debug directory in any PC module; no other record run on any disc"
+ }
+}

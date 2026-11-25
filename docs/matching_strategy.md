@@ -341,3 +341,36 @@ Independent anchors, not owners or content, now limit storage identities:
 - Linking (work/velocity_o/s3/icf_findings.md): ENG1, ENG3 and HERCULES.EXE were linked with identical-COMDAT folding
   (independent CRT/MFC witnesses); TITLE NOICF. Un-merged identical call tails also occur in accepted rows, so they are
   not by themselves evidence of folded identities. A folded-identity form is a proposal only.
+
+### Frontier review (2026-11-25, on 9c51713)
+
+- First-party code (function-map leads) is 633,056 B:
+  | State | Bytes | Share |
+  | --- | ---: | ---: |
+  | Strict | 204,448 | 32.3% |
+  | Instruction-equal, references unproven | 211,527 | 33.4% |
+  | RECONSTRUCTED (code differs) | 99,728 | 15.8% |
+  | No source | 117,353 | 18.5% |
+
+  Unsourced code is mostly ENG1 (272 spans / 87,800 B) and ENG3 (66 / 26,417 B). ENG1 0x15d00 (2,704 B)
+  alone is the callee of 12 pending rows. title_054f0 and title_164b0 gate up to 34 TITLE rows.
+- PSX debug types: the USA v1.0 disc's OV/OV10 holds 664 PsyQ SYM records (59 aggregates, 60 typedefs)
+  after the overlay payload: evidence/psx_ov10_sym_2026_11_25.json, header evidence/psx_ov10_sym_types_2026_11_25.h,
+  reader scripts/psx_sym.py.
+  * NStype (0x134), SPtype (0xec) and TStype (0x94) are the ENG actor records; SDBASE is g_actor_resources'
+    record; the member widths agree with 93-96% of native accesses.
+  * Use real member types and signedness in near misses before other levers.
+  * The Europe and v1.1 discs and the PC modules carry no such records.
+- Sibling projects:
+  * blood2 and blupi share the VC5 family. blupi's c2trace has an RTM profile pinned to our c2 SHA
+    (expression keys only). blood2's compiler_kb symptom extractor runs unchanged on our objects.
+  * pop2 reached a whole-image link by separating code exactness (CODE_MATCH) from reference proof and
+    shrinking a link-consistency ledger to zero.
+- Whole-image consistency tier: docs/consistency_tier.md, scripts/consistency.py.
+  * It is separate from acceptance.
+  * After the rvCON review fixes: grade A covers 62 DLL rows / 12,108 B and grade B 123 / 40,740 B;
+    EXE (no fixups) A 51 / 3,376 B, B 43 / 8,336 B.
+  * Calibration: 0 address contradictions on 1,483 accepted rows; 34 accepted-name collisions are listed
+    for review. Mutations rejected: 200 of 200 in grade A.
+  * Its ledger lists the name conflicts and definition defects. Repaying them (one name per object,
+    typed owners for file data, callee rows) is the work queue it creates.
