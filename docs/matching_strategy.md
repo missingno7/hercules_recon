@@ -374,3 +374,29 @@ Independent anchors, not owners or content, now limit storage identities:
     for review. Mutations rejected: 200 of 200 in grade A.
   * Its ledger lists the name conflicts and definition defects. Repaying them (one name per object,
     typed owners for file data, callee rows) is the work queue it creates.
+
+### Wave q (2026-11-26, autonomous, Codex workers): 204,448 -> 225,264 strict bytes
+
+- Results:
+  - Unsourced clusters in ENG1/ENG3 were written and refined: q6-q8, q10-q17, w1-w6, n1, t4, t5.
+  - Reference bindings for the newly staged rows: w5 (two rounds) and o1, which also built 9 typed owners.
+  - One source defect fixed: q4 (the g_actor_resources record).
+  - Two rename packages: q5 and o1, repaying 48 consistency conflicts.
+  - First-party strict coverage went from 32.3% to about 35.6%. Instruction-equal staged code grew by about 25 KB.
+- Models:
+  - gpt-6.2-sol refuses to write instruction-matched reconstruction for this game, even with accurate project
+    context. It does review, tooling, audit and binding work.
+  - gpt-6.1-sol (high/xhigh) did all reconstruction and refinement.
+  - 6.2 review sessions are sometimes stopped by a false-positive cyber filter.
+- Process (work/velocity_q/contract_q.md, one self-contained contract):
+  - Packages check pre-image hashes of the files they touch instead of HEAD equality. Overlaps are refused and
+    rebuilt; disjoint packages land in any order.
+  - A standard clean-tree check, the linked_object_unchanged opt-in in every repin plan, and cleanup on failure.
+  - Gate builds never count against the research budget. The full rehearsal runs at most twice: one lane used 7,719
+    gate compiles.
+  - One name per object, enforced by `scripts/consistency.py check`. Broad rename packages land at wave boundaries.
+  - The minimum-effort rule is re-sent when a 6.1 lane stops early. Resumed lanes then closed 2-byte AL/CL residues
+    (q16) and took 0x20300 from 418 to 4 bytes (q15).
+- Stubborn register residues stayed open after 40-50 logged hypotheses each: title_0d910 (36 -> 15 register
+  differences), title_1c500, eng1_35d70/33830, 0x20300 (4 bytes, register cursor). Their traces and findings are in
+  work/velocity_q/t1, t2, t3, n1.
