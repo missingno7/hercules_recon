@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "scope": "Original-backed native control flow, operand widths and update order. Complete code generation equality only, with all references consistent but not independently bound.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "base_head": "4acfaa3a8ef7df57b54cbfcede68ba8b2ef6f592",
+  "source": "src/eng1/boss_unit_24090.c",
+  "source_before_sha256": "eaf17ab6cd1ac53f6ef47346880b7443cc095f9b4ac6dd430afa741db661f9e1",
+  "source_candidate_sha256": "bc0f592d6a3cd561b97e74d4f046ae9f84ff019dae856912a7a69ba967d4428c",
+  "function": {
+    "id": "eng1.native_code_target_023b30",
+    "symbol": "_eng1_native_code_target_023b30",
+    "rva": "0x23b30",
+    "size": 1376,
+    "next_entry": "0x24090",
+    "masked_equal": true,
+    "nonreference_differences": 0,
+    "reference_conflicts": 0
+  },
+  "ownership": "Existing provisional boss provider is retained: native callback record0x59978 pairs23a50/23b30; handler directly calls adjacent24090/24120. No original TU claim.",
+  "native_observations": [
+    {
+      "rva": "0x2405c",
+      "operation": "Choice-table slot1 points to0x23c57, the same sound/program arm as choices0 and2, not0x23c6f. Correct inherited source grouping."
+    },
+    {
+      "rva": "0x23f1f",
+      "operation": "SUB WORD [actor+0xee],AX consumes low WORD damage"
+    },
+    {
+      "rva": "0x23f26",
+      "operation": "MOV ECX,damage program0x590d0"
+    },
+    {
+      "rva": "0x23f31..0x23f48",
+      "operation": "Store ECX to cursor0x64 then program0x10c; reset counter/phase/state before the sound call"
+    }
+  ],
+  "canonical_data_owner": {
+    "symbol": "eng1_sim_state_72110",
+    "source": "src/eng1/simulation_storage.c",
+    "source_sha256": "e648368eda765ab181ed1aef96919e6a6ff3c9e52322e63405fee23314df2d7c",
+    "reason": "Reuse the existing physical owner name at72110 instead of the inherited setup alias; no new definition."
+  },
+  "source_changes": [
+    "Move real program-pointer stores before the damage subtraction in source. EAX damage now interferes with the program CSE range at allocation; s1 schedules SUB before address materialization/stores, restoring native final ordering.",
+    "Express actual case1 as an explicit shared-action edge to cases0/2. VC5 otherwise compresses the corrected contiguous0/1/2 group into a byte-index table. The explicit real edge retains the native direct eleven-slot switch table. No redundant predicate or dummy statement is added."
+  ],
+  "limits": [
+    "All calls, state reloads, signedness, widths and RNG are retained; source update corrects the real choice1 behavior from native table evidence.",
+    "Only CODEGEN_SIMILAR staging is proposed. Script/data-object owners and complete reference bindings are not independently proved.",
+    "No original host/module execution, asset edits, flags tuning, machine-code copying or compiler/verifier patch."
+  ]
+}

@@ -578,6 +578,7 @@ unsigned short g_boss_script_5a060[24] = {
 #include "cluster_view.h"
 #include <stdlib.h>
 extern int eng1_20250(ClusterActor *);
+extern unsigned long eng1_sim_state_72110;
 extern unsigned long eng1_19b40(unsigned long);
 extern void eng1_1aba0(void);
 extern void eng1_30290(int,unsigned long);
@@ -636,14 +637,16 @@ void eng1_native_code_target_023b30(ClusterActor *p)
                 }
             } else if(abs(delta)<=range) {
                 choice=random_limit(11);
-                if(g_eng1_setup_dword_72110) choice=10;
+                if(eng1_sim_state_72110) choice=10;
                 switch(choice) {
+                case 1: goto choose_sound_program;
                 case 0:case 2:
+                choose_sound_program:
                     LinkedSoundFx_6da0(0x51d9,p);
                     p->program=p->cursor=g_cluster_program_58f98;
                     p->counter=0; p->phase=0; p->state=1;
                     break;
-                case 1:case 3:case 4:case 5:
+                case 3:case 4:case 5:
                     p->program=p->cursor=g_cluster_program_59008;
                     p->counter=0; p->phase=0; p->state=1;
                     break;
@@ -727,8 +730,8 @@ void eng1_native_code_target_023b30(ClusterActor *p)
             if(hit==0x80) {
                 hit=eng1_19b40((~g_native_word_72168)&0x7f);
                 if(hit) {
-                    p->hits-=hit;
                     p->program=p->cursor=g_cluster_program_590d0;
+                    p->hits-=hit;
                     p->counter=0; p->phase=0; p->state=1;
                     LinkedSoundFx_6da0(0xd1de,p);
                 }
