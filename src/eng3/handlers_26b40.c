@@ -55,7 +55,11 @@ struct KindInfo {
 
 typedef struct Eng3Game Eng3Game;
 struct Eng3Game {
-    unsigned char unknown_000[0x2c4];
+    unsigned char unknown_000[0x288];
+    void (*method_288)(Actor *);
+    unsigned char unknown_28c[8];
+    void (*method_294)(Actor *);
+    unsigned char unknown_298[0x2c4 - 0x298];
     void (*method_2c4)(Actor *);
     unsigned char unknown_2c8[0x2e8 - 0x2c8];
     void (*method_2e8)(Actor *);
@@ -549,4 +553,155 @@ void eng3_28a90(Actor *o)
     o->unknown_4a = 0x80;
     eng3_1eeb0(o);
     o->y += 0xc0000;
+}
+
+typedef struct Eng3EffectMethods {
+    unsigned char unknown_000[0xb0];
+    void (*method_0b0)(Actor *);
+} Eng3EffectMethods;
+extern Eng3EffectMethods *g_eng3_host_40bb4;
+extern Actor *create_eng3_kind_actor(long, long, long, int);
+
+void eng3_27370(Actor *o)
+{
+    short d[6];
+    Actor *child;
+    int i;
+
+    vec_diff_fixed_1420((const int *)o, (const int *)g_focus, d);
+    if ((o->state & 8) && d[0] < 0x300) {
+        play_sound(0xe287, o);
+        child = create_eng3_kind_actor(o->x - 0x400000,
+            o->y - 0x200000 - eng3_01010(0x200000),
+            o->z + ((random_limit(0x80) << 16) - (random_limit(0x80) << 16)), 0x2016);
+        if (child) {
+            g_eng3_host_40bb4->method_0b0(child);
+            child->unknown_4a = 0x80;
+            child->render_flags = 0x80000005;
+        }
+        child = create_eng3_kind_actor(o->x - 0x400000,
+            o->y - 0x600000 - eng3_01010(0x200000),
+            o->z + ((random_limit(0x80) << 16) - (random_limit(0x80) << 16)), 0x2016);
+        if (child) {
+            g_eng3_host_40bb4->method_0b0(child);
+            child->unknown_4a = 0x80;
+            child->render_flags = 0x80000005;
+        }
+        child = create_eng3_kind_actor(o->x - 0x400000,
+            o->y - 0x800000 - eng3_01010(0x200000),
+            o->z + ((random_limit(0x80) << 16) - (random_limit(0x80) << 16)), 0x2016);
+        if (child) {
+            g_eng3_host_40bb4->method_0b0(child);
+            child->unknown_4a = 0x80;
+            child->render_flags = 0x80000005;
+        }
+        child = create_eng3_kind_actor(o->x - 0x400000,
+            o->y - 0xc40000 - eng3_01010(0x200000),
+            o->z + ((random_limit(0x20) << 16) - (random_limit(0x20) << 16)), 0x2016);
+        if (child) {
+            g_eng3_host_40bb4->method_0b0(child);
+            child->unknown_4a = 0x80;
+            child->render_flags = 0x80000005;
+        }
+        o->state = 4;
+        o->unknown_4a = 0xfe;
+    }
+    if (o->state & 4) {
+        o->unknown_4a -= 0x20;
+        if (o->unknown_4a < 0x80)
+            o->unknown_4a = 0x80;
+        if (o->unknown_dc == 0) {
+            o->unknown_74 += o->unknown_116;
+            if (++o->unknown_116 > 0x10)
+                o->unknown_116 = 0x10;
+            if (o->unknown_74 >= 0x100)
+                o->state = 2;
+        }
+        if (o->unknown_dc == 1) {
+            o->unknown_74 -= o->unknown_116;
+            if (++o->unknown_116 > 0x10)
+                o->unknown_116 = 0x10;
+            if (o->unknown_74 <= -0x100)
+                o->state = 2;
+        }
+    }
+    if (o->state & 2) {
+        play_sound(0xe288, o);
+        o->sprite = 0;
+        if (o->unknown_dc)
+            o->z -= 0x1c40000;
+        child = title_08a50(o->x, o->y - 0x600000, o->z + 0xe00000, 0x36);
+        if (child) {
+            g_eng3_game_40b8c->method_288(child);
+            if (o->unknown_dc)
+                child->render_flags |= 0x10;
+        }
+        if (o->unknown_dc)
+            o->z += 0x1000000;
+        child = title_08a50(o->x, o->y - 0x600000,
+                            o->z + (eng3_01010(0x80) << 16), 0x37);
+        if (child) {
+            g_eng3_game_40b8c->method_294(child);
+            if (o->unknown_dc)
+                child->render_flags |= 0x10;
+        }
+        child = title_08a50(o->x, o->y - 0x600000,
+                            o->z + (eng3_01010(0x80) << 16), 0x37);
+        if (child) {
+            g_eng3_game_40b8c->method_294(child);
+            if (o->unknown_dc)
+                child->render_flags |= 0x10;
+        }
+        child = title_08a50(o->x, o->y - 0x600000,
+                            o->z + (eng3_01010(0x80) << 16), 0x37);
+        if (child) {
+            g_eng3_game_40b8c->method_294(child);
+            if (o->unknown_dc)
+                child->render_flags |= 0x10;
+        }
+        child = title_08a50(o->x, o->y - 0x600000,
+                            o->z + (eng3_01010(0x80) << 16), 0x37);
+        if (child) {
+            g_eng3_game_40b8c->method_294(child);
+            if (o->unknown_dc)
+                child->render_flags |= 0x10;
+        }
+        for (i = 0; i < 0xc; i++) {
+            child = title_08a50(o->x, o->y - random_limit(0x400000),
+                               o->z + (random_limit(0x130) << 16), 0x3b);
+            if (!child)
+                continue;
+            g_eng3_game_40b8c->method_2c4(child);
+            child->unknown_bc = random_limit(0x200000) + 0x400000;
+            child->unknown_ac = child->unknown_bc >> 2;
+            child->unknown_cc = child->unknown_ac >> 2;
+            if (i == 0x0 || i == 0x4 || i == 0x8 || i == 0xc || i == 0x10 || i == 0x14 || i == 0x18 || i == 0x1c) {
+                child->unknown_94 = 0xff;
+                child->unknown_96 = 0;
+                if (o->unknown_dc)
+                    child->unknown_96 = 0xff;
+            }
+            if (i == 0x1 || i == 0x5 || i == 0x9 || i == 0xd || i == 0x11 || i == 0x15 || i == 0x19 || i == 0x1d) {
+                child->unknown_94 = 0;
+                child->unknown_96 = 0;
+                if (o->unknown_dc)
+                    child->unknown_96 = 0xff;
+            }
+            if (i == 0x2 || i == 0x6 || i == 0xa || i == 0xe || i == 0x12 || i == 0x16 || i == 0x1a || i == 0x1e) {
+                child->unknown_94 = 0xff;
+                child->unknown_96 = 0xff;
+                if (o->unknown_dc)
+                    child->unknown_96 = 0xff;
+            }
+            if (i == 0x3 || i == 0x7 || i == 0xb || i == 0xf || i == 0x13 || i == 0x17 || i == 0x1b || i == 0x1f) {
+                child->unknown_94 = 0;
+                child->unknown_96 = 0xff;
+                if (o->unknown_dc)
+                    child->unknown_96 = 0xff;
+            }
+        }
+        o->state = 0x80;
+    }
+    if (eng3_1b920(o, 0x100))
+        remove_actor(o);
 }

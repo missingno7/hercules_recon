@@ -1,0 +1,16 @@
+/* Genuine WORD owners; include after target externs. */
+#include "remaining_word_assets.h"
+#define eng1_frame_target_04fb40 ((unsigned char *)g_eng1_word_asset_04fb40)
+#define eng1_frame_target_04fb48 ((unsigned char *)g_eng1_word_asset_04fb48)
+#define eng1_frame_target_04fc30 ((unsigned char *)g_eng1_word_asset_04fc30)
+#define eng1_frame_target_051190 ((unsigned char *)g_eng1_word_asset_051190)
+#define eng1_frame_target_051198 ((unsigned char *)g_eng1_word_asset_051198)
+#define eng1_frame_target_0512c8 ((unsigned char *)g_eng1_word_asset_0512c8)
+#define eng1_frame_target_05e5c8 ((unsigned char *)g_eng1_word_asset_05e5c8)
+#define eng1_frame_target_063240 ((unsigned char *)g_eng1_word_asset_063240)
+#define eng1_frame_target_063a50 ((unsigned char *)g_eng1_word_asset_063a50)
+#define eng1_frame_target_063a58 ((unsigned char *)g_eng1_word_asset_063a58)
+#define eng1_frame_target_063e38 ((unsigned char *)g_eng1_word_asset_063e38)
+#define eng1_frame_target_063eb0 ((unsigned char *)g_eng1_word_asset_063eb0)
+#define eng1_frame_target_063ec8 ((unsigned char *)g_eng1_word_asset_063ec8)
+#define eng1_frame_target_063ee0 ((unsigned char *)g_eng1_word_asset_063ee0)

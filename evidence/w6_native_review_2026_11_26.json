@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "scope": "Original-backed native semantics, inferred unit ownership and complete instruction equality. Does not itself grant matching acceptance.",
+  "target": "assets/pc/HERCULES/ENG3.DLL",
+  "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "compiler": "MSVC 5.0 RTM /Gy /O2; no flag tuning; HERCULES_ENGINE3 selects native ENG3 layouts",
+  "functions": [
+    {
+      "id": "eng3.01460",
+      "rva": "0x1460",
+      "size": 416,
+      "source": "src/eng3/actor_transition_01460.c",
+      "symbol": "_eng3_01460"
+    },
+    {
+      "id": "eng3.01600",
+      "rva": "0x1600",
+      "size": 624,
+      "source": "src/eng3/actor_transition_01460.c",
+      "symbol": "_eng3_01600"
+    },
+    {
+      "id": "eng3.27370",
+      "rva": "0x27370",
+      "size": 1584,
+      "source": "src/eng3/handlers_26b40.c",
+      "symbol": "_eng3_27370"
+    },
+    {
+      "id": "eng3.01880",
+      "rva": "0x1880",
+      "size": 16,
+      "source": "src/eng3/actor_handlers.c",
+      "symbol": "_eng3_01880"
+    },
+    {
+      "id": "eng3.07d10",
+      "rva": "0x7d10",
+      "size": 240,
+      "source": "src/eng1/level_frame_01e50.c",
+      "symbol": "_eng1_02920"
+    },
+    {
+      "id": "eng3.08050",
+      "rva": "0x8050",
+      "size": 208,
+      "source": "src/eng1/level_frame_01e50.c",
+      "symbol": "_eng3_08050"
+    },
+    {
+      "id": "eng3.082d0",
+      "rva": "0x82d0",
+      "size": 112,
+      "source": "src/eng1/level_frame_01e50.c",
+      "symbol": "_eng3_082d0"
+    }
+  ],
+  "ownership": {
+    "transition": "Existing original-backed actor_transition_01460.c supplies the complete 01460 body; 01600 is its adjacent extended contact/frame-offset variant before 01870. Inferred source ownership, not historical TU identity.",
+    "actor": "01880 is bracketed by existing actor_handlers.c 01870 and 01890, with the same conditional level-8 tail-dispatch idiom.",
+    "high": "27370 follows handlers_26b40.c 272e0 initializer and matches its sidecar/state/RNG/spawn idioms; the next unit begins at 279a0.",
+    "level": "Shared level_frame_01e50.c 7840/7e00 bracket 7d10 and 8000 precedes 8050. ENG3 retains word scroll coordinates versus ENG1 byte coordinates; 82d0 resets this four-byte scroll record.",
+    "reserved_title": "8340 and 84b0 are native variants of u02b70.c 048a0/04a10, with 10 rather than 18 slots. Their unified diff and 416-byte instruction-equal receipt are delivered separately for the owner; excluded from integration."
+  },
+  "semantics": {
+    "27370": "Native call/RNG order preserved in four effect constructions, four actor constructions, and twelve fragments. Each child is reloaded and conditional facing/render stores remain in native order. No simplified case arithmetic.",
+    "transition": "Three original signed-long motion fields are halved arithmetically. Moving only independent velocity/acceleration stores reproduces scheduling. No call or external-state read is reordered.",
+    "7d10": "Native frame ordering-table offset is 0x2080 and clamped depth byte offset is 0x1ff4; ENG1 retains 0x1384/0x12f8.",
+    "82d0": "Native allocates signed_count*4 and clears two word components through reloaded pointer cells."
+  },
+  "evidence": [
+    "evidence/psx_ov10_sym_types_2026_11_25.h",
+    "assets/pc/HERCULES/ENG3.DLL"
+  ],
+  "acceptance_claim": false
+}

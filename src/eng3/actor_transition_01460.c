@@ -66,7 +66,7 @@ typedef char moving_object_view_layout_verified[
      offsetof(MovingObject, axis) == 0xa8 &&
      offsetof(MovingObject, target_x) == 0xd8) ? 1 : -1];
 
-extern Actor *g_eng3_actor_41d54;
+extern Actor *g_focus;
 extern void advance_object_motion(MovingObject *);
 extern int eng3_1eaf0(Actor *);
 
@@ -76,7 +76,7 @@ int eng3_01460(Actor *p)
 
     if (*(signed char *)g_engine_interface.context_004 == 8) {
         threshold = 0x1c00000;
-        if (g_eng3_actor_41d54->profile == 0) {
+        if (g_focus->profile == 0) {
             long x_sector = (long)((unsigned long)p->x & 0xff800000UL);
             if (x_sector > 0x37000000 && x_sector < 0x41000000)
                 threshold = 0x1400000;
@@ -96,9 +96,9 @@ int eng3_01460(Actor *p)
         return 0;
 
     if (*(signed char *)g_engine_interface.context_004 == 8 && p->y >= threshold) {
-        p->unknown_b0 = p->unknown_b4;
-        p->unknown_c4 = p->unknown_c0;
         p->unknown_b8 >>= 1;
+        p->unknown_c4 = p->unknown_c0;
+        p->unknown_b0 = p->unknown_b4;
         p->unknown_c0 = 0;
         p->unknown_95 = 0xff;
         p->unknown_ac >>= 1;
@@ -111,9 +111,9 @@ int eng3_01460(Actor *p)
 
     if ((*(signed char *)g_engine_interface.context_004 == 10 ||
          *(signed char *)g_engine_interface.context_004 == 2) && eng3_1eaf0(p)) {
-        p->unknown_b0 = p->unknown_b4;
-        p->unknown_c4 = p->unknown_c0;
         p->unknown_b8 >>= 1;
+        p->unknown_c4 = p->unknown_c0;
+        p->unknown_b0 = p->unknown_b4;
         p->unknown_c0 = 0;
         p->unknown_95 = 0xff;
         p->unknown_ac >>= 1;
@@ -122,6 +122,80 @@ int eng3_01460(Actor *p)
         p->unknown_cc >>= 1;
         if (p->unknown_b8 == 0)
             return 1;
+    }
+    return 0;
+}
+
+extern void eng3_24870(Actor *, short *, int);
+
+int eng3_01600(Actor *p)
+{
+    long threshold = 0;
+    short delta[6];
+
+    if (*(signed char *)g_engine_interface.context_004 == 2)
+        threshold = 0x1c00000;
+    if (*(signed char *)g_engine_interface.context_004 == 8) {
+        threshold = 0x1c00000;
+        if (g_focus->profile == 0) {
+            long x_sector = (long)((unsigned long)p->x & 0xff800000UL);
+            if (x_sector > 0x37000000 && x_sector < 0x41000000)
+                threshold = 0x1400000;
+        }
+    }
+    if (*(signed char *)g_engine_interface.context_004 == 10)
+        threshold = 0x400000;
+    advance_object_motion((MovingObject *)p);
+    p->unknown_9a = 0;
+    if (p->unknown_b8 == 0) {
+        p->unknown_c0 = p->unknown_c4;
+        p->unknown_c4 = 0;
+        p->unknown_95 = 0;
+        p->unknown_b4 = p->unknown_b0;
+        p->unknown_b0 = 0;
+    }
+    if (p->unknown_95 != 0)
+        return 0;
+    if ((p->render_flags & 0x10000000) && p->sprite != 0) {
+        eng3_24870(p, delta, 1);
+        p->y += (long)delta[3] << 15;
+    }
+    if (*(signed char *)g_engine_interface.context_004 == 2 && p->y >= threshold) {
+        p->unknown_b8 >>= 1;
+        p->unknown_c4 = p->unknown_c0;
+        p->unknown_c0 = 0;
+        p->unknown_ac >>= 1;
+        p->unknown_95 = 0xff;
+        p->unknown_b0 = p->unknown_b4;
+        p->unknown_b4 = 0;
+        p->unknown_9a = 1;
+        p->unknown_cc >>= 1;
+        if (p->unknown_b8 == 0) {
+            if (p->render_flags & 0x10000000)
+                p->y -= (long)delta[3] << 15;
+            return 1;
+        }
+    }
+    if ((*(signed char *)g_engine_interface.context_004 == 10 ||
+         *(signed char *)g_engine_interface.context_004 == 8) && eng3_1eaf0(p)) {
+        p->unknown_b8 >>= 1;
+        p->unknown_c4 = p->unknown_c0;
+        p->unknown_b0 = p->unknown_b4;
+        p->unknown_c0 = 0;
+        p->unknown_95 = 0xff;
+        p->unknown_ac >>= 1;
+        p->unknown_b4 = 0;
+        p->unknown_9a = 1;
+        p->unknown_cc >>= 1;
+        if (p->unknown_b8 == 0) {
+            if (p->render_flags & 0x10000000)
+                p->y -= (long)delta[3] << 15;
+            return 1;
+        }
+    }
+    if ((p->render_flags & 0x10000000) && p->sprite != 0) {
+        eng3_24870(p, delta, 1);
+        p->y -= (long)delta[3] << 15;
     }
     return 0;
 }

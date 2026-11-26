@@ -291,3 +291,10 @@ void eng3_01890(AnimationActorView *actor)
     actor->rotation_y_90 &= 0x0fff;
     actor->rotation_z_92 &= 0x0fff;
 }
+
+extern void eng3_03610(void);
+void eng3_01880(void)
+{
+    if (*g_engine_interface.context_004 == 8)
+        eng3_03610();
+}
