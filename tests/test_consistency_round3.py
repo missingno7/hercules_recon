@@ -73,8 +73,8 @@ class Round3(unittest.TestCase):
         self.ev.anchors[M, '_alias'] = (0x3204, 4, 'data', (M, '_owner'))
         self.row('owner', ref('_owner', 0x3200))
         self.row('alias', ref('_alias', 0x3204), start=0x1100)
-        result = self.grade('alias', 'B')
-        self.assertEqual(result['grades']['owner'], 'B')
+        result = self.grade('alias', None)
+        self.assertNotIn('owner', result['grades'])
         self.assertEqual(len(result['collisions']), 1)
 
     def test_native_iat_displaces_ordinary_pin_without_collision_cap(self):
@@ -258,7 +258,7 @@ class Round3(unittest.TestCase):
 
 
 class SwitchTables(unittest.TestCase):
-    """Integrator rule after fixCON: a local-label DIR32 cell outside any operand is a switch table entry."""
+    """A naked own-section DIR32 after RET is not a verified table."""
     setUp = fixture.Reproductions.setUp
     collect = fixture.Reproductions.collect
     prepare_code = fixture.Reproductions.prepare_code
@@ -272,8 +272,8 @@ class SwitchTables(unittest.TestCase):
         obj = unit([sym('_switch', 1, function=True), sym('$L1', 1, 0, storage=c.STATIC)], raw, [rel(4, '$L1')])
         return self.collect(row, obj, native, [4] if relocated else [], refused=refused)
 
-    def test_table_cell_is_collected_with_base_relocations(self):
-        self.assertEqual(self.case(True)['refs'], [])
+    def test_naked_field_is_refused_with_base_relocations(self):
+        self.case(True, refused='supported operand form')
 
     def test_table_cell_is_refused_without_base_relocations(self):
         self.case(False, refused='supported operand form')

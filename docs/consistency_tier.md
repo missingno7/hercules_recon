@@ -4,9 +4,10 @@ Status: **proposed**. Adversarial review rvCON (GPT-6.2 Sol xhigh, 2026-11-26):
 - Round 1 found 12 holes and 3 gaps.
 - Round 2 found 10 holes and 3 gaps.
 - Round 3 found 8 holes and 3 gaps.
+- Round 4 found 5 holes, 1 gap and 1 documentation issue.
 
 The regression suites are `tests/test_consistency_review.py`, `tests/test_consistency_round2.py` and
-`tests/test_consistency_round3.py`.
+`tests/test_consistency_round3.py` and `tests/test_consistency_round4.py`.
 
 This is a separate and weaker tier:
 - it never changes `recovery.json`;
@@ -38,8 +39,13 @@ For each module separately, a CONSISTENT row satisfies all of the following.
      disjoint, including for the fixed-base EXE.
    - A reference into the row's own contribution must land inside it. An own function symbol must
      resolve to its entry.
-   - An own-section DIR32 must mark a supported absolute operand and retains its decoded form.
-     An inline data field requires separate proof of its boundaries and role.
+   - An own-section DIR32 must mark a supported absolute operand. Arithmetic-only references require
+     a contribution-local label or a section symbol. Named functions retain their scoped identities.
+   - For a DLL, a reachable flat `jmp dword ptr [reg*4 + disp32]` can identify an inline table. Its
+     disp32 must have an own-section DIR32 giving the start of a contiguous run of four-byte local
+     DIR32 cells with matching native fixups. Each cell must target a decoded code boundary, and the
+     run must lie outside the decoded code. Unsupported instruction operands and other unclassified
+     fields fail collection.
    - A REL32 field must name a function symbol and sit in a branch. An own-section REL32 must also be a
      branch.
    - A named own-function reference records the row's entry as a use of its key, so it must agree with
@@ -71,16 +77,16 @@ For each module separately, a CONSISTENT row satisfies all of the following.
      recorded interval under an opaque identity. Symbolic attribution requires resolved linkage.
    - An ordinary pin overlapping an IAT slot fails. The PE slot retains its canonical import identity.
      The grade-B cap applies to collisions between two accepted pin intervals.
-   - Only exact intervals whose keys identify the same verified scoped owner qualify for the alias
+   - A verified alias and its scoped owner share placement, definitions and dependency checks. Every
+     pin in the group must agree on the base. Only identical intervals qualify for the overlap
      exception. An accepted `source_alias` record identifies the compile-renaming owner, and that
      owner's compiled profile establishes its linkage. Unresolved ownership and matching spelling
      alone do not qualify.
    - A use or definition that extends a pinned object beyond its accepted interval is a separate,
      non-authoritative extent and must not overlap anything.
-   - Extents are lower bounds: the exact compiler-listed size (`/Fa`, the only addition to the recorded
-     profile), COMMON sizes and accepted sizes. A direct store proves its full width; x87 and
-     first-operand stores are recognized by mnemonic. A read proves one byte, because VC5 widens narrow
-     loads.
+   - Declared sizes come from CodeView or the unambiguous listing rule below. Accepted sizes and verified access widths also bound
+     storage. A direct store proves its full width. The verifier recognizes x87 and first-operand
+     stores by mnemonic. A read proves one byte because VC5 widens narrow loads.
    - A direct access before an object's base fails.
 4. **Definitions equal the image.** Every definition of a key among all compiled recorded profiles (every
    data symbol, external or file-local, whether or not the profile's rows are equal) and the data units
@@ -89,15 +95,29 @@ For each module separately, a CONSISTENT row satisfies all of the following.
      be disjoint and in bounds. For a relocated image, the fields must match all touching native
      fixups exactly.
    - Zero definitions: no touching fixup, and zero storage or zero file bytes.
-   - Blank and comment-only listing lines preserve the active object and its unlabeled continuation.
-     Recognized object and segment boundaries close it. An unknown line inside an object or an
-     incomplete ORG number leaves the definition unproven.
+   - Build each source and flags profile once for comparison, then compile it with `/Z7` for CodeView
+     metadata. A separate owner entry for the same profile shares these builds. Use the ordinary COFF
+     object for all code, data bytes, fixups, and symbol bounds.
+   - Bind each C11 `S_GDATA32` or `S_LDATA32` record through its matching offset and section COFF
+     relocations. Both objects must identify the same unique linkage symbol. The type supplies the
+     size for scalars, qualified types, pointers, enums, arrays including nested arrays, and complete
+     structs, unions and classes. Array records specify the total in bytes, including when VC5
+     references a forward declaration for the element. A standalone forward declaration has no size.
+     The declared size must fit before the next symbol or section end. A COMMON definition must
+     agree exactly with its ordinary COFF size.
+   - A bound CodeView record takes precedence. For a symbol without a data record, the ordinary
+     profile's `/Fa` listing may prove the extent if all operands are recognized and the object
+     ends without a trailing `ORG`. Blank lines, comments and visibility directives preserve the
+     active object. An internal `ORG` followed by data contributes its stated bytes. A trailing
+     `ORG` can encode either alignment or real zeros and leaves the listing extent unproven.
    - A key defined twice in one unit fails.
    - File-backed data needs a definition or an accepted binding.
    - Code uses and placed data pins seed definition discovery. Each batch uses a stable placement
-     snapshot. A source publishes pointer equations only after all its local definitions pass.
-     A late placement conflict quarantines the source and discovery replays without its equations.
-     A failing target invalidates every verified definition that points to it, transitively.
+     snapshot. A source publishes equations after its local checks and rejects all its exports
+     if any pointer contradicts an authoritative base or has an invalid form. A late placement
+     conflict quarantines the source and replays discovery without its equations. Locally viable
+     paths hidden by ambiguity reserve possible storage against weaker claims. They supply no
+     witnesses. A failed target invalidates its dependents transitively.
    - Function pointers in data need an instruction-equal callee entry and no addend.
 5. **Callees.** A function key's recorded rows (identity scoped like keys) decide its address:
    - several addresses fail;
@@ -136,7 +156,16 @@ For each module separately, a CONSISTENT row satisfies all of the following.
   The report lists each unit, its origin and any compile failure.
 - **Anything about rows that are not instruction-equal.**
 
-## Round 3 measurements (2026-11-26)
+## CodeView-only baseline measurements
+
+The fresh report compiled 557 distinct profiles with eight workers. It made 1,113 VC5 calls and
+took 93.649 s, compared with 565 calls and 35.978 s for the listing-based baseline. One
+unrecorded candidate provider's ordinary build failed in both runs. Both runs collected the
+same 2,133 code rows and found zero accepted address contradictions.
+
+See [the CodeView-only comparison](../COMPARISON.md) for baseline grades and defects. The [Round 4 comparison](COMPARISON.md) covers the current verifier.
+
+## Round 3 strict pre-integration snapshot (2026-11-26)
 
 | Pending rows | Grade A | Grade B |
 |---|---:|---:|
@@ -148,7 +177,16 @@ For each module separately, a CONSISTENT row satisfies all of the following.
 Both fresh runs reported zero accepted address contradictions. The revised collector refused 36
 accepted rows with unsupported own-section DIR32 fields. Of the 1,447 accepted rows evaluated, 174
 failed a tier rule and were ineligible to vote. The 22 accepted pin collisions stayed the same.
-See [the comparison](COMPARISON.md) for each grade change.
+See [the strict collector receipt](../../COMPARISON.md) in the repository's `work/velocity_q/fixCON/` lane for each grade change.
+
+The type and symbol record layouts follow [Microsoft's CodeView definitions](https://github.com/microsoft/microsoft-pdb/blob/master/include/cvinfo.h).
+
+## Round 4 measurements
+
+The revised report collected 2,133 code rows, including 1,483 accepted rows, with zero accepted
+address contradictions. The proved listing fallback restored 384 of the 390 previously unsupported
+extents. The 115 grade-A and 164 grade-B rows match the original listing report row for row.
+See [the comparison](COMPARISON.md) for timing and all row and defect changes.
 
 ## Measured state (2026-11-26, after the round-2 fixes)
 
@@ -194,7 +232,8 @@ See [the comparison](COMPARISON.md) for each grade change.
 
 `python scripts/consistency.py check` fails on any new entry or any accepted-row address contradiction.
 Address disagreements are checked independently of other defects and retain their classification through
-every level of pointer dependencies. A conflict is repaid by giving each object one name and one owner (as pop2 did) or by fixing the
+every level of pointer dependencies. A comparator address contradiction also survives a collection
+refusal and fails `check` for an accepted row. A conflict is repaid by giving each object one name and one owner (as pop2 did) or by fixing the
 definition, never by editing the ledger.
 
 ## Commands
