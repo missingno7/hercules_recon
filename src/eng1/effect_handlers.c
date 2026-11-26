@@ -137,7 +137,7 @@ typedef struct Slot {
 } Slot;
 typedef struct Placement { long x,y,z,ax,ay,az,ox,oy,oz,bend,unused0,unused1,unused2,follow,min_x,max_x,ex,ey,ez,unused3,unused4; } Placement;
 typedef struct Flash { NStype *actor; long x,y,z,ax,ay,az,index,state,timer; } Flash;
-extern long g_6f3ec,g_6f44c,g_6efb8,g_6f3f8,g_6f444,g_6f448,g_6f454,g_6f468,g_6f3e4,g_6f480,g_5602c,g_56030,g_6f3e8,g_6f440,g_72110,g_56040,g_6f460,g_6f464,g_72184,g_71ecc,g_6f3d8,g_6ffbc,g_6f3d4,g_6f380;
+extern long g_6f3ec,g_6f44c,g_6efb8,g_6f3f8,g_6f444,g_6f448,g_6f454,g_6f468,g_scene_cell_6f3e4,g_6f480,g_5602c,g_56030,g_6f3e8,g_6f440,g_72110,g_56040,g_6f460,g_6f464,g_72184,g_71ecc,g_6f3d8,g_6ffbc,g_6f3d4,g_6f380;
 extern unsigned long g_6f46c,g_6f470;
 extern long *g_6f3c8,*g_6f3cc;
 extern NStype *g_normal_actor_pool,*g_6f3f4,*g_6f474,*g_6f478,*g_734f4,*g_6f47c;
@@ -150,9 +150,9 @@ extern short g_562b8[],g_55c28[],g_5a848[];
 extern short *g_57498[];
 extern Vec3s g_70840[];
 extern unsigned short g_72168,g_configuration_word_713b4,g_56400;
-extern short g_71740[],g_71720[],g_71ca0[];
+extern short g_pipeline_word_71740[],g_pipeline_word_71720[],g_pipeline_word_71ca0[];
 extern long g_6f488,g_6f48c,g_6f484,g_70cd0,g_70cd4,g_70d18;
-extern short g_6f490,g_70d04;
+extern short g_6f490,g_camera_adjust_y_70d04;
 extern long g_71580[];
 extern void (**g_71370)(NStype *),(**g_7139c)(NStype *);
 extern void (*g_562d0[])(NStype *);
@@ -355,14 +355,14 @@ void eng1_native_code_target_001c220(NStype *p)
 }
 void eng1_native_code_target_001c2a0(NStype *p)
 {
- int a,b;long rate;
- p->Xpos=g_6f3f4->Xpos+g_6f480;p->Ypos=g_6f3f4->Ypos+g_5602c;p->Zpos=g_6f3f4->Zpos+g_56030;
- if(g_6f3e4==1)p->StepRate+=16;
- if(p->StepRate>255){p->StepRate=0;p->Frame=p->SubFrame;++g_6f3e4;}
+ int a,b;long rate;long x,y,z;
+ x=g_6f480;p->Xpos=g_6f3f4->Xpos+x;p->Ypos=g_6f3f4->Ypos+g_5602c;p->Zpos=g_6f3f4->Zpos+g_56030;
+ rate=p->StepRate;if(g_scene_cell_6f3e4==1)rate+=16;p->StepRate=rate;
+ if(p->StepRate>255){p->StepRate=0;p->Frame=p->SubFrame;++g_scene_cell_6f3e4;}
  a=g_6f3f4->Frame-34;b=g_6f3f4->SubFrame-34;rate=g_6f3f4->StepRate;
- p->XYZOffset.x=(short)(g_56338[a][0]+((g_56338[b][0]-g_56338[a][0])*rate)/255-31);
- p->XYZOffset.y=(short)(g_56338[a][1]+((g_56338[b][1]-g_56338[a][1])*rate)/255+8);
- p->XYZOffset.z=(short)(g_56338[a][2]+((g_56338[b][2]-g_56338[a][2])*rate)/255-5);
+ x=g_56338[a][0]+((g_56338[b][0]-g_56338[a][0])*rate)/255;p->XYZOffset.x=(short)(x-31);
+ y=g_56338[a][1]+((g_56338[b][1]-g_56338[a][1])*rate)/255;p->XYZOffset.y=(short)(y+8);
+ z=g_56338[a][2]+((g_56338[b][2]-g_56338[a][2])*rate)/255;p->XYZOffset.z=(short)(z-5);
  if(g_6f454>=2)remove_actor(p);
 }
 void eng1_native_code_target_001c3f0(NStype *p)
@@ -474,8 +474,7 @@ void eng1_native_code_target_001c720(NStype *p)
 long eng1_native_code_target_001ce80(long x,long y,long x2,long y2)
 {
  int dx,dy,ax,ay,angle;
- x2-=x;x2>>=16;y2-=y;y2>>=16;
- dx=x2;dy=y2;ax=abs(dx);ay=abs(dy);
+ dx=(x2-x)>>16;ax=abs(dx);dy=(y2-y)>>16;ay=abs(dy);
  if(ax==ay)angle=ax?128:0;
  else if(ay<ax)angle=g_55c28[(ay<<9)/ax];else angle=256-g_55c28[(ax<<9)/ay];
  if(dx<0)angle=512-angle;if(dy<0)angle=1024-angle;return angle;
@@ -560,7 +559,7 @@ void eng1_native_code_target_001d780(NStype *p)
   p->Zmove+=80;
   if(--p->Aux3Index==1){
    if(g_6f188[p->Aux2Index].effect){p->Aux3Index=2;return;}
-   if(!g_6f3e4){g_6f3e4=1;g_6f3d8=5;g_6ffbc=1;
+   if(!g_scene_cell_6f3e4){g_scene_cell_6f3e4=1;g_6f3d8=5;g_6ffbc=1;
     for(f=g_57b18;f<g_57b18+3;f++){
      if(g_6f44c==1){index=f->index;q=spawn_normal(g_574d8[index].x,g_574d8[index].y,g_574d8[index].z,0x30);f->actor=q;if(q)g_71370[0x240/4](q);f->state=0;
       f->actor->Xpos=f->x;f->actor->Ypos=f->y;f->actor->Zpos=f->z;f->actor->Angle.x=(short)f->ax;f->actor->Angle.y=(short)f->ay;f->actor->Angle.z=(short)f->az;f->actor->Scale=64;
@@ -611,7 +610,6 @@ void eng1_native_code_target_001dbc0(NStype *p)
 }
 void eng1_native_code_target_001dc00(NStype *p)
 {
- ++g_71740[0];g_70cd0=g_6f488;g_70cd4=g_6f48c;g_70d04=g_6f490;g_71740[g_71740[0]]=(short)g_6f488;
- ++g_71720[0];g_71720[g_71720[0]]=(short)g_6f48c;g_70d18=g_6f484;
- ++g_71ca0[0];g_71ca0[g_71ca0[0]]=(short)g_6f484;
+ g_70cd0=g_6f488;g_70cd4=g_6f48c;g_camera_adjust_y_70d04=g_6f490;g_70d18=g_6f484;
+ g_pipeline_word_71740[++g_pipeline_word_71740[0]]=(short)g_70cd0;g_pipeline_word_71720[++g_pipeline_word_71720[0]]=(short)g_70cd4;g_pipeline_word_71ca0[++g_pipeline_word_71ca0[0]]=(short)g_70d18;
 }

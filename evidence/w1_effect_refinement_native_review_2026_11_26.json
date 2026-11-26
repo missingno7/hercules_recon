@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "scope": "Complete contribution instruction equality only. References unproven; no function acceptance or historical translation-unit claim.",
+  "oracle": "assets/pc/HERCULES/ENG1.DLL",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "src/eng1/effect_handlers.c",
+  "preexisting_evidence": [
+    "evidence/q6_native_review_2026_11_26.json",
+    "evidence/psx_ov10_sym_types_2026_11_25.h"
+  ],
+  "canonical_names": {
+    "replacements": {
+      "g_6f3e4": "g_scene_cell_6f3e4",
+      "g_70d04": "g_camera_adjust_y_70d04",
+      "g_71740": "g_pipeline_word_71740",
+      "g_71720": "g_pipeline_word_71720",
+      "g_71ca0": "g_pipeline_word_71ca0"
+    },
+    "source_authorities": [
+      "src/eng1/scene_state_1abf0.c",
+      "src/eng1/camera_storage.c",
+      "src/eng1/level_unit_10120.c"
+    ],
+    "scope": "Existing object spellings reused; this is no independent storage-identity proof."
+  },
+  "placement": "These three bodies were already co-defined in the canonical effect_handlers.c provider. Repository ownership is retained; historical translation-unit identity remains provisional.",
+  "changes": {
+    "0x1ce80": "Compute scaled X delta and its absolute value before introducing scaled Y delta. This shortens the input live ranges and reproduces the native prologue.",
+    "0x1dc00": "Restore the four independent saved camera scalars, then push each restored coordinate onto its separate signed-short stack. Native scheduling interleaves these independent operations.",
+    "0x1c2a0": "Retain the X offset in a consumed scalar, the guarded StepRate value in a consumed scalar, and full-width interpolated X/Y/Z values before final short coordinate conversion. All stores and reloads occur in native order."
+  },
+  "functions": {
+    "0x1b230": {
+      "size": 112,
+      "native_sha256": "85972b3b04d714a61bec0d0855fb24cdd34dc08040df1363c3606b320ee1ac4f"
+    },
+    "0x1b2a0": {
+      "size": 208,
+      "native_sha256": "9831f7efa4a5ec9266614e5fe3b3dafc387e005091249c65944d6941a04c58b8"
+    },
+    "0x1b760": {
+      "size": 144,
+      "native_sha256": "5fbc6099e94a2b3a6816d642de40ad4d3cb1d013ccd5b2b621c09d2d616a452e"
+    },
+    "0x1b9a0": {
+      "size": 272,
+      "native_sha256": "39665d6548104517e3797af71f73d27083ae6eaecf3e1a333c12687cc46fefde"
+    },
+    "0x1bc20": {
+      "size": 128,
+      "native_sha256": "62ee85523ba71863e2f5048f93c94dd9b02536f6c1433846fe49413afd624a3e"
+    },
+    "0x1bca0": {
+      "size": 64,
+      "native_sha256": "b7897abc6a9fb80f17d274d83f30fbedadcdffd538b65839bf92f01b7c62bc5e"
+    },
+    "0x1c200": {
+      "size": 32,
+      "native_sha256": "341a18c77c6da74875093aab2cf4aab778d4bc25b2a8c0b9afa5bbbf80cce466"
+    },
+    "0x1c220": {
+      "size": 128,
+      "native_sha256": "cb9af1525eba368157e5fc5bc018e4d54fffdfb8aa094f6376010a8f741c518d"
+    },
+    "0x1c3f0": {
+      "size": 224,
+      "native_sha256": "48190851213ec0119eb3b0cff81cf31ab8b9726691d5d2510216da3c724fc313"
+    },
+    "0x1c4d0": {
+      "size": 400,
+      "native_sha256": "998a6f6cfa4c5d17efb07e2889daebcdf0610ff93e96175b80814661cb88512b"
+    },
+    "0x1c6c0": {
+      "size": 96,
+      "native_sha256": "fe53c0c27cc9e50440e2e632c3c10f53c564a6b4851abf3013b7bb15ef564783"
+    },
+    "0x1cf10": {
+      "size": 64,
+      "native_sha256": "d3c635e5a7289ad8ceafaf9594c5ac5dcc99b11dd5e0d348f8cc222cf5937987"
+    },
+    "0x1cf50": {
+      "size": 288,
+      "native_sha256": "b12d8eeb05773caf2b4e1a5441bd586675f5ba2779999f2cb6ea71f74f201afa"
+    },
+    "0x1d070": {
+      "size": 64,
+      "native_sha256": "0b0e163a0fc7e706ce645fc70bcebedb8aa5197db83fd95171ce9c3b015f19c4"
+    },
+    "0x1d0b0": {
+      "size": 192,
+      "native_sha256": "a7724d8335afc374b44b8403b41a201786655d666505a83ebd358f24fc139aa1"
+    },
+    "0x1d360": {
+      "size": 656,
+      "native_sha256": "76d623211b3d0a7b97b332088481abd3afe0f7d73c8f3db7ab34ebd16907c20f"
+    },
+    "0x1d5f0": {
+      "size": 208,
+      "native_sha256": "c5a9c5100fe7103f0eba87d5ae9db12c5b7e4b9dbbf9ffb431a485f5acf4c10b"
+    },
+    "0x1d6c0": {
+      "size": 192,
+      "native_sha256": "dee07951f9fb101bce0c6cdfb68536d66b39af5007a895e531d65ca4b8cfa358"
+    },
+    "0x1d910": {
+      "size": 240,
+      "native_sha256": "aa8795cdd9fd304bd9e237083ef13b7ac7e42d2e64c833def42157bb4bc9444d"
+    },
+    "0x1da00": {
+      "size": 32,
+      "native_sha256": "3643018a79be486bd601b9b239fd8539b4ee658ac6e8094ad71fdbc880a04e7e"
+    },
+    "0x1da20": {
+      "size": 160,
+      "native_sha256": "622a8947e0a0b0b4814fb5defd6e28102f2061de2043a163f0b0e2575a8be94c"
+    },
+    "0x1dbc0": {
+      "size": 64,
+      "native_sha256": "d644fba9a61d0f630148b37fcf48962af09374d355aebd7d438d8c2aae61ef3c"
+    },
+    "0x1c2a0": {
+      "size": 336,
+      "native_sha256": "f135827c9976d9527541d79e076e11bc3574a351c35c18af16bc0a034d391c97"
+    },
+    "0x1ce80": {
+      "size": 144,
+      "native_sha256": "b0af83845208c415880d26fb0bf3ab0e5e4c912ced3ce9f2eb34e71a16439ad0"
+    },
+    "0x1dc00": {
+      "size": 128,
+      "native_sha256": "5b016fa3b61a0e921a3e13eee908153ff5ce49530fa189c92521e4c31e7f17d8"
+    }
+  }
+}
