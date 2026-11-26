@@ -106,7 +106,15 @@ typedef struct MiddleActor {
     unsigned char unknown_0a4[0xec - 0xa4];
 } MiddleActor;
 
-typedef struct ResourceEntry { unsigned char state; unsigned char unknown_01[0x14 - 0x01]; } ResourceEntry;
+typedef struct ResourceEntry {
+    void *path;
+    unsigned short entry_count;
+    unsigned short unknown_006;
+    unsigned long file_length;
+    short (*references)[2];
+    unsigned short residency_state;
+    unsigned short unknown_012;
+} ResourceEntry;
 typedef struct LevelProfile { unsigned char unknown_00[3]; unsigned char wrap_x; unsigned char unknown_04[0x1c - 0x04]; } LevelProfile;
 typedef struct KindInfo { unsigned char *owner; long count; } KindInfo;
 typedef struct ForestRecord {

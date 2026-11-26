@@ -142,7 +142,7 @@ void dispatch_local_258e0(void)
     g_actor_worklist_71be0[0] = 0;
     g_actor_worklist_71b20[0] = 0;
     for (i = 0; i < 81; i++)
-        (&g_actor_pipeline_storage_71440.byte_cells[0x580])[i] = g_actor_resources[i].state;
+        (&g_actor_pipeline_storage_71440.byte_cells[0x580])[i] = (unsigned char)g_actor_resources[i].residency_state;
     for (i = g_configuration_word_7138c; i < g_configuration_word_713b6; i++) {
         alt = &g_alternate_actor_pool[i];
         kind = alt->kind;
