@@ -1,0 +1,116 @@
+{
+ "schema": 1,
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "src/eng1/effect_handlers.c": "73344bb63019bbdd569824cc2ce10a51b527cf9b0be2873d33e06ebb970d10e9",
+  "src/eng1/effect_storage.c": "75b0f87cc009c96620e3f44d8dde7781ff61738de599b0cde07cc779516718de",
+  "evidence/o2_storage_review_2026_11_26.json": "55a6eb65ed3a1de1700677193efb65a02fbb938952b6ad2f22ae59522c9145ed",
+  "evidence/source_layout_2026_10_25/eng1_actor_followup_bindings_2026_10_24.json": "e92f720365d9e0aefd43dc09d7171a08e14936700e3a3da29d6f2fc0c48f3a48",
+  "evidence/eng1_actor_followup_matching_2026_10_24.json": "ee0238589dd8342349db4b1ae46ae2fe1f42cc1b29942e9f67f315269ca0a62f",
+  "evidence/o2_reference_review_2026_11_26.json": "7a5fc91280cb79cc8b3ac94c1d3dca383d5ddb1c655a2ddb9f521eaf7241fb38"
+ },
+ "function_identities": {
+  "eng1.native_code_target_001d910": {
+   "ledger_status": "CODEGEN_SIMILAR",
+   "rva": 121104,
+   "size": 240,
+   "source": "src/eng1/effect_handlers.c",
+   "source_sha256": "73344bb63019bbdd569824cc2ce10a51b527cf9b0be2873d33e06ebb970d10e9",
+   "symbol": "_eng1_native_code_target_001d910",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+   "origin": "Independent complete entry already recorded in recovery.json as eng1.native_code_target_001d910"
+  }
+ },
+ "functions": {
+  "eng1.native_code_target_001da20": {
+   "symbols": {
+    "_eng1_native_code_target_001d910": {
+     "kind": "function",
+     "rva": 121104,
+     "size": 240,
+     "evidence": [
+      "function_identities:eng1.native_code_target_001d910"
+     ],
+     "references": [
+      {
+       "offset": 107,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_6f188": {
+     "kind": "bss",
+     "rva": 455048,
+     "size": 504,
+     "owner": {
+      "source": "src/eng1/effect_storage.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_6f188"
+     },
+     "identity": {
+      "rva": 119384,
+      "size": 8,
+      "addend": 20,
+      "sha256": "3c194cc4d442024894f0a14c3a3f74b6bcbbc339ba22ff0a470f1c06e1a1d042"
+     },
+     "evidence": [
+      "evidence/o2_storage_review_2026_11_26.json#objects._g_6f188"
+     ],
+     "anchor_profile": "loader-zero-paired-v1",
+     "access_profile": "loader-zero-indexed-v1",
+     "loader_zero_indexed": {
+      "extent_claim": "minimum",
+      "accesses": [
+       {
+        "profile": "loader-zero-indexed-v1",
+        "offset": 18,
+        "addend": 4,
+        "width": 4,
+        "encoding": {
+         "instruction": "8b0cc500000000",
+         "mnemonic": "mov",
+         "operand": 1,
+         "modrm": 12,
+         "sib": 197,
+         "base": null,
+         "index": "eax",
+         "scale": 8,
+         "disp_offset": 3,
+         "disp_size": 4,
+         "address_size": 4,
+         "width": 4
+        }
+       }
+      ]
+     },
+     "references": [
+      {
+       "offset": 18,
+       "type": 6,
+       "addend": 4
+      }
+     ]
+    },
+    "_random_limit": {
+     "kind": "function",
+     "rva": 181344,
+     "size": 16,
+     "evidence": [
+      "evidence/eng1_actor_followup_matching_2026_10_24.json#callee_identities.eng1.dispatch_engine_2c460"
+     ],
+     "references": [
+      {
+       "offset": 134,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}
