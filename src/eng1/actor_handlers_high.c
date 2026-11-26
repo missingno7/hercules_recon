@@ -147,8 +147,8 @@ void set_state_flags_41300(Actor *p)
 extern unsigned int __cdecl random_limit(int limit);
 extern unsigned int __cdecl dispatch_engine_2c470(void);
 extern Actor *__cdecl spawn_at_group_300c0(long x, long y, long z,
-                                           unsigned short kind,
-                                           unsigned short group);
+                                           int kind,
+                                           int group);
 
 /* ENG1.DLL 0x41da0 creates the actor's randomized 0x4037 child burst.
  * Measured VC5 steering: after the positive-count guard, retain the actor in
@@ -975,4 +975,472 @@ void eng1_440d0(Actor *p,unsigned short margin)
     int delta;
     delta=(unsigned short)eng1_20b50(p->x>>16,p->y>>16,p->z>>16,p->profile)-margin;
     if(delta<0)p->y+=delta<<16;
+}
+
+#include "actor_control_state.h"
+/* ENG1 0x410b0..0x41da0, excluding accepted 0x41300.
+ * Fragment for actor_handlers_high.c, bracketed by its 0x41300 and 0x41da0.
+ * The local field view preserves the existing unit's Actor declaration. */
+typedef struct HighActor HighActor;
+typedef struct HighRecord HighRecord;
+struct HighRecord {
+    long x, y, z;
+    unsigned short flags;
+    unsigned char kind;
+    unsigned char unknown_0f;
+};
+struct HighActor {
+    long x, y, z;
+    short screen_x;
+    unsigned char unknown_0e[0x22 - 0x0e];
+    unsigned char category, mode, flags_24, flags_25;
+    short elevation;
+    unsigned short unknown_28, state, unknown_2c, kind;
+    short ticks, phase;
+    unsigned short sprite, unknown_36, profile;
+    short scale, scale_z;
+    unsigned char unknown_3e[0x4a - 0x3e];
+    unsigned short frame;
+    long timer;
+    unsigned long flags, render_flags;
+    unsigned char unknown_58[4];
+    HighActor *attachment;
+    unsigned char unknown_60[0x70 - 0x60];
+    short speed, step;
+    unsigned char unknown_74[0x88 - 0x74];
+    short bounds[6];
+    unsigned char direction_x, direction_y, direction_z, drop;
+    unsigned char unknown_98[4];
+    long saved_x, saved_y, saved_z;
+    long velocity_x, target_x, rate_x, extra_x;
+    long velocity_y, target_y, rate_y, extra_y;
+    long velocity_z, target_z, rate_z, extra_z;
+    long spin[3];
+    HighActor *child;
+    unsigned char unknown_e8[4];
+    unsigned char cooldown, unknown_ed;
+    short hits;
+    unsigned char unknown_f0[0x120 - 0xf0];
+    long *members;
+};
+typedef struct HighKindInfo { unsigned char *owner; long count; } HighKindInfo;
+extern HighKindInfo g_kind_info[];
+extern unsigned long eng1_sim_state_72110;
+extern unsigned short g_eng1_setup_word_718e0;
+extern short g_pipeline_dword_716a8;
+extern long g_pipeline_dword_71718;
+extern unsigned short g_native_word_72168;
+extern void advance_object_motion(void *);
+extern int eng1_native_code_target_002a710(void *, void *);
+extern int remove_actor_preserving_resource(void *);
+extern HighRecord *eng1_26640(void *);
+extern void remove_counted_value(long *, long);
+extern void unlink_0e4(void *);
+extern void eng1_1ab50(void);
+
+void eng1_410b0(HighActor *p)
+{
+    p->flags |= 0x800;
+    advance_frame(p);
+    attach_actor(p, 0x202a);
+    p->hits = 30;
+}
+
+void eng1_410e0(HighActor *p)
+{
+    eng1_interpret_signed_pairs(p);
+    if (p->hits-- == 0) {
+        p->x = p->saved_x;
+        p->z = p->saved_z;
+        p->y = p->saved_y;
+        eng1_native_code_target_002a290(p);
+        p->velocity_y = p->target_y = 0xf0000;
+        p->direction_y = 0xff;
+        p->extra_y = 0x9000;
+        p->rate_y = 0;
+        p->target_z = 0x30000;
+        p->velocity_z = 0;
+        p->direction_z = 0xff;
+        p->extra_z = 0;
+        p->rate_z = 0x1000;
+        select_frame(p, 3);
+        if (p->x > ((HighActor *)(void *)g_collision_context)->x) p->direction_x = 0xff;
+        else p->direction_x = 0;
+        p->render_flags = (p->render_flags & ~0x10UL) | (p->direction_x & 0x10);
+    }
+    if (p->state != 0) {
+        advance_object_motion(p);
+        if (p->phase == 2 && p->velocity_y < 0x4000) p->ticks = 0;
+        if (p->velocity_y == 0) {
+            p->rate_y = p->extra_y;
+            p->extra_y = 0;
+            p->direction_y = 0;
+            p->extra_z = p->rate_z;
+            p->rate_z = 0;
+        }
+        if (p->state == 1 && p->y < (g_eng1_setup_word_718e0 << 16)) {
+            spawn_at_group_300c0(p->x, p->y, p->z, 0x202e, p->profile);
+            LinkedSoundFx_6da0(0x405b, p);
+            p->state = 2;
+        }
+        if (p->state < 9 && p->direction_y == 0 && p->y > 0x3600000) {
+            spawn_at_group_300c0(p->x, p->y, p->z, 0x202d, p->profile);
+            LinkedSoundFx_6da0(0x405c, p);
+            p->state = 9;
+            p->hits = 60;
+        }
+    }
+    if (eng1_native_code_target_002a710(((HighActor *)(void *)g_collision_context)->bounds, p)) {
+        eng1_native_code_target_00266a0(p, 0x13, 0);
+        ++g_eng1_actor_control_state_70ed8.words[12];
+    }
+    if (eng1_native_code_target_002a9e0(p, 0x200)) remove_actor(p);
+}
+
+void eng1_41320(HighActor *p)
+{
+    HighActor *q = p->attachment;
+    long height;
+    p->y -= 0x20000;
+    p->z = q->z;
+    p->render_flags &= ~0x10UL;
+    p->render_flags |= (q->render_flags & 0x10) | 0x80000000UL;
+    p->category = q->category;
+    p->flags_24 = q->flags_24;
+    p->frame = q->frame;
+    p->sprite = q->sprite;
+    q->render_flags &= ~0x70000UL;
+    p->render_flags &= ~0x70001UL;
+    height = 0x4000000 - q->y;
+    if (height > 0x1400000) height = 0x1400000;
+    if (height < 0) height = 0;
+    p->y += height;
+    p->scale = p->scale_z = q->scale - (height >> 17);
+    p->speed = q->speed - 255;
+    p->step = 64;
+    p->speed = q->speed + 255;
+    p->step = g_pipeline_dword_716a8;
+    p->scale_z += g_pipeline_dword_71718 + 32;
+    p->render_flags |= 1;
+    p->z = q->z - 0x40000;
+    height = (q->y >> 16) - g_eng1_setup_word_718e0;
+    q->elevation = height;
+    p->render_flags |= 0x50000;
+    q->render_flags |= 0x30000;
+    p->elevation = q->elevation - 1;
+    p->y = (g_eng1_setup_word_718e0 + p->elevation) << 16;
+}
+
+void eng1_41460(HighActor *p)
+{
+    p->flags |= 0x800;
+    advance_frame(p);
+    attach_actor(p, 0x202a);
+    p->hits = 5;
+}
+
+void eng1_41490(HighActor *p)
+{
+    unsigned long result, damage;
+    eng1_interpret_signed_pairs(p);
+    if (p->state == 0) {
+        if (p->hits-- < 0) {
+            if (((HighActor *)(void *)g_collision_context)->direction_x) {
+                p->direction_x = 0;
+                p->x = p->saved_x - 0xbc0000;
+            } else {
+                p->direction_x = 0xff;
+                p->x = p->saved_x + 0xbc0000;
+            }
+            p->y = p->saved_y;
+            eng1_native_code_target_002a290(p);
+            p->target_x = 0xc0000;
+            p->velocity_x = 0;
+            p->extra_x = 0;
+            p->rate_x = 0x6800;
+            p->velocity_y = p->target_y = 0xc0000;
+            p->direction_y = 0xff;
+            p->extra_y = 0x6800;
+            p->rate_y = 0;
+            p->flags &= ~0x200UL;
+            select_frame(p, 6);
+        }
+    }
+    if (p->state != 0) {
+        advance_object_motion(p);
+        if (p->phase == 4 && p->velocity_x > 0x90000) p->ticks = 0;
+        if (p->velocity_y == 0) {
+            p->rate_y = p->extra_y;
+            p->extra_y = 0;
+            p->direction_y = 0;
+            p->extra_x = p->rate_x;
+            p->rate_x = 0;
+        }
+        if (p->state == 1 && p->y < (g_eng1_setup_word_718e0 << 16)) {
+            spawn_at_group_300c0(p->x, p->y, p->z, 0x202e, p->profile);
+            LinkedSoundFx_6da0(0x405b, p);
+            p->state = 2;
+        }
+        if (p->state < 9 && p->direction_y == 0 && p->y > 0x3600000) {
+            spawn_at_group_300c0(p->x, p->y, p->z, 0x202d, p->profile);
+            LinkedSoundFx_6da0(0x405c, p);
+            p->state = 9;
+            p->hits = 60;
+        }
+        if (p->y > 0x3d00000) {
+            if (p->state == 21) goto remove;
+            select_frame(p, 0);
+        }
+    }
+    if (p->state < 20 && p->cooldown == 0) {
+        result = eng1_26de0(p);
+        if (result) {
+            if (result == 0x80) {
+                damage = eng1_19b40(~g_native_word_72168 & 0x5f);
+                if (damage) {
+                    eng1_1ab50();
+                    p->hits -= (short)damage;
+                    p->state = 20;
+                    if (p->direction_y != 0xff) goto hit;
+                    goto reverse;
+                }
+            } else {
+                eng1_30290(result, 0);
+                p->hits -= 100;
+                p->state = 20;
+                if (p->direction_y == 0xff) {
+reverse:
+                    p->rate_y = p->extra_y;
+                    p->extra_y = 0;
+                    p->direction_y = 0;
+                    p->extra_x = p->rate_x;
+                    p->rate_x = 0;
+                    p->direction_x = ~p->direction_x;
+                }
+hit:
+                p->flags &= ~0x200UL;
+                select_frame(p, 9);
+            }
+            p->cooldown = 30;
+            if (p->hits <= 0) p->state = 21;
+        } else if (eng1_native_code_target_002a710(((HighActor *)(void *)g_collision_context)->bounds, p)) {
+            eng1_native_code_target_00266a0(p, 0x13, 0);
+            g_eng1_actor_control_state_70ed8.words[12] += 3;
+        }
+    }
+    p->render_flags = (p->direction_x & 0x10) | (p->render_flags & ~0x10UL);
+    if (eng1_native_code_target_002a9e0(p, 0x320)) {
+remove:
+        remove_actor(p);
+    }
+}
+
+void eng1_417e0(HighActor *p)
+{
+    p->y = g_eng1_setup_word_718e0 << 16;
+    p->z -= 0x100000;
+    reset_frame_state(p);
+}
+
+void eng1_41810(HighActor *p)
+{
+    eng1_interpret_word_stream(p);
+}
+
+void eng1_41820(HighActor *p)
+{
+    HighRecord *record;
+    p->flags |= 0x20000;
+    record = eng1_26640(p);
+    if (record) {
+        if (p->x > record->x) {
+            p->x = record->x;
+            p->y = record->y;
+            p->state = record->kind;
+        }
+        p->attachment = (HighActor *)((unsigned char *)record - g_kind_info[0].owner);
+    }
+    eng1_native_code_target_002a290(p);
+    if (eng1_native_code_target_002b130(p)) {
+        if (record) record->flags |= 0x8000;
+        p->state = 0;
+        p->hits = 30;
+    } else remove_actor(p);
+}
+
+void eng1_418a0(HighActor *p)
+{
+    long *list;
+    long i;
+    int state;
+    HighActor *q;
+    HighRecord *record;
+    if (p->flags_25 & 1) {
+        eng1_native_code_target_002a290(p);
+    } else {
+        if (eng1_sim_state_72110) return;
+        list = p->members;
+        state = 0;
+        if (p->state == 0) {
+            q = ((HighActor *)(void *)g_collision_context)->child;
+            if (q) {
+                while (q->child) q = q->child;
+                if (q->kind != 0x4035 && q->kind != 0x403e) p->hits = 30;
+                else {
+                    --p->hits;
+                    if (p->hits < 0) {
+                        p->state = 1;
+                        state = 2;
+                    }
+                }
+            } else p->hits = 30;
+        } else state = 2;
+        i = 0;
+        while (i < list[0]) {
+            q = (HighActor *)list[++i];
+            if (q->state == 0 && state == 2) q->state = 1;
+            state = q->state;
+            if (state == 4) {
+                remove_counted_value(list, (long)q);
+                remove_actor_variant(q);
+            }
+        }
+        if (list[0] < 1) {
+            if (p->attachment) {
+                record = (HighRecord *)p->attachment;
+                record = (HighRecord *)((long)record + (long)g_kind_info[p->profile].owner);
+                record->flags = (record->flags & 0x3fff) | 0x4000;
+            }
+            remove_actor_preserving_resource(p);
+            return;
+        }
+    }
+    eng1_native_code_target_002ae50(p);
+    if (p->screen_x > 1008 || p->screen_x < -1008) {
+        if (p->state == 0) {
+            if (p->attachment) {
+                record = (HighRecord *)p->attachment;
+                record = (HighRecord *)((long)record + (long)g_kind_info[p->profile].owner);
+                record->flags &= 0x7fff;
+            }
+            remove_actor(p);
+        } else {
+            if (p->attachment) {
+                record = (HighRecord *)p->attachment;
+                record = (HighRecord *)((long)record + (long)g_kind_info[p->profile].owner);
+                record->flags = (record->flags & 0x3fff) | 0x4000;
+            }
+            remove_actor_preserving_resource(p);
+        }
+    }
+}
+
+void eng1_41a50(HighActor *p)
+{
+    unsigned long value;
+    p->flags |= 0x40000;
+    p->render_flags |= 0x10000080;
+    p->drop = (unsigned char)p->state;
+    p->state = 0;
+    p->direction_y = 0xff;
+    value = dispatch_engine_2c470() & 0x3ff;
+    p->velocity_y = 0;
+    p->target_y = (value + 0xe00) << 8;
+    p->rate_y = 0;
+    p->extra_y = random_limit(0x6000) + 0x8000;
+    p->timer = 6;
+}
+
+void eng1_41ad0(HighActor *p)
+{
+    if (eng1_sim_state_72110) return;
+    switch (p->state) {
+    case 1:
+        if (--p->timer < 0) {
+            p->state = 2;
+            if (p->drop) {
+                --p->drop;
+                LinkedSoundFx_6da0(((unsigned short)p->drop + 0x6a) | 0xc000, p);
+                p->drop = 0;
+                p->flags &= ~0x40000UL;
+                unlink_0e4(p);
+            }
+        }
+    case 2:
+        if (damped_contact_motion(p) & 1) {
+            eng1_41da0((Actor *)p);
+            p->sprite = 0;
+            p->state = 4;
+        }
+        break;
+    }
+}
+
+void eng1_41b70(HighActor *p)
+{
+    if (eng1_sim_state_72110) return;
+    switch (p->state) {
+    case 1:
+        if (--p->timer < 0) {
+            p->state = 2;
+            if (p->drop) {
+                --p->drop;
+                LinkedSoundFx_6da0(((unsigned short)p->drop + 0x6a) | 0xc000, p);
+                p->drop = 0;
+            }
+        }
+    case 2:
+        if (damped_contact_motion(p) & 1) {
+            eng1_41da0((Actor *)p);
+            p->sprite = 0;
+            p->state = 4;
+        }
+        if (p->y > (g_eng1_setup_word_718e0 << 16)) {
+            spawn_at_group_300c0(p->x, p->y, p->z, 0x202e, p->profile);
+            p->sprite = 0;
+            p->state = 4;
+        }
+        break;
+    }
+}
+
+void eng1_41c30(HighActor *p)
+{
+    HighActor *source;
+    long remaining;
+    remaining = (long)(random_limit(4) + 4U);
+    source = p;
+    if (remaining > 0) {
+        p = (HighActor *)remaining;
+        do {
+            unsigned long value;
+            HighActor *child;
+            child = (HighActor *)spawn_at_group_300c0(source->x,
+                source->y - (long)((dispatch_engine_2c470() & 0x1f00UL) << 8),
+                source->z, 0x4037, 0);
+            if (child) {
+                child->direction_x = (unsigned char)(0U - (unsigned char)random_limit(2));
+                child->direction_z = (unsigned char)(0U - (unsigned char)random_limit(2));
+                child->direction_y = 0xff;
+                value = dispatch_engine_2c470() & 0x1ff;
+                child->velocity_y = 0;
+                child->target_y = (value + 0x800) << 8;
+                child->rate_y = 0;
+                child->extra_y = random_limit(0x2000) + 0xe000;
+                value = (dispatch_engine_2c470() & 0x1ff) + 0x100;
+                value <<= 8;
+                child->velocity_z = child->target_z = value;
+                child->rate_z = random_limit(0x1000) + 0x3000;
+                child->extra_z = 0;
+                value = (dispatch_engine_2c470() & 0x1ff) + 0x100;
+                value <<= 8;
+                child->velocity_x = child->target_x = value;
+                child->rate_x = random_limit(0x1000) + 0x3000;
+                child->extra_x = 0;
+                child->sprite = (unsigned short)(random_limit(11) + 1);
+            }
+            p = (HighActor *)((long)p - 1);
+        } while (p);
+    }
+    remove_actor_variant(source);
 }
