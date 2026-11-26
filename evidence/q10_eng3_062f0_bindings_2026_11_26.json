@@ -1,0 +1,170 @@
+{
+ "schema": 1,
+ "scope": "Complete instruction-equal candidate plus independently accepted function/data identities. No masked acceptance inference.",
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "src/eng3/handlers_023a0.c": "98591ed6c744b76af1dc53eec2f9c80a9351a20ccbf2722bc515679ab1adb14a",
+  "evidence/q10_native_review_2026_11_26.json": "ff6371b1d5d0aec3fef46b8614a0e34d3189c30746a9a03034e8404bc1cec7ba",
+  "evidence/eng3_01010_bindings_2026_10_26.json": "63b7024a5028e293c5421417480ca56a0cf14192624c5986c05eeaac372336fe",
+  "evidence/eng3_initializer_rng_review_2026_10_26.json": "b011421ed6720f8842a3a9e320c70933e8a6161b9fd10d8ea5fd6a857ee7b2ea",
+  "evidence/eng3_rng_provider_2026_10_25.json": "9065d84486464d690e69aeecf4d670d976ad725f3de02d819e00f38751b5c33c",
+  "evidence/q1_ready_eng3_03dc0_bindings.json": "989a969facff4e5349b22e7214188ef57e8c2f9102ff41fe16ee153c36d1147f",
+  "evidence/bindK3_review_2026_10_31.json": "1087d3f977f482e6c99f44d633e82113a95f0ab1c0091c119ac7846800599b9e",
+  "src/eng3/kind_info_storage.c": "cf706f0968526d1fd307659119475ffa171240220daf6692ebfb1b744d70ce2c",
+  "evidence/solOU_registry_eng3_shared_1f3c0_bindings_2026_11_01.json": "3445555fa142cc26a4ec4d1ce25ae0894e2fbf77aed3497586d81d9761ddb416",
+  "src/shared/action_registry.c": "af3891555a25f422e289c6759ef987f6085f99ce0ded240d5876581fbedffe73",
+  "src/eng3/actor_services_1e000.c": "2e4a74793b42aa2db5ff5c457990e7714cf27acb0033f78e1b73ec93416b60c8"
+ },
+ "function_identities": {
+  "eng3.shared_1f3c0": {
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "origin": "Independent existing whole-function identity, not derived from any new caller operand. CODEGEN_SIMILAR identity reuse does not transfer acceptance.",
+   "rva": 127936,
+   "size": 80,
+   "source": "src/shared/action_registry.c",
+   "source_sha256": "af3891555a25f422e289c6759ef987f6085f99ce0ded240d5876581fbedffe73",
+   "symbol": "_acquire_pending_action_group",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "accepted_proof": {
+    "bindings_path": "evidence/solOU_registry_eng3_shared_1f3c0_bindings_2026_11_01.json",
+    "bindings_sha256": "04e4e8a0a24159710690befafc2d06b7a4078089b287150f7829883ab36d124c",
+    "compiled_sha256": "11fef1077da1a0f910effc57df030bad2179d3ca604bdba4abd01d68b560598b"
+   }
+  },
+  "eng3.1f410": {
+   "ledger_status": "CODEGEN_SIMILAR",
+   "origin": "Independent existing whole-function identity, not derived from any new caller operand. CODEGEN_SIMILAR identity reuse does not transfer acceptance.",
+   "rva": 128016,
+   "size": 112,
+   "source": "src/eng3/actor_services_1e000.c",
+   "source_sha256": "2e4a74793b42aa2db5ff5c457990e7714cf27acb0033f78e1b73ec93416b60c8",
+   "symbol": "_eng3_1f410",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  }
+ },
+ "functions": {
+  "eng3.062f0": {
+   "symbols": {
+    "_eng3_01010": {
+     "kind": "function",
+     "rva": 4112,
+     "size": 64,
+     "evidence": [
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#provider",
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#abi_witness",
+      "evidence/eng3_rng_provider_2026_10_25.json#native_abi_witness"
+     ],
+     "references": [
+      {
+       "offset": 24,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_kind_info": {
+     "access_profile": "loader-zero-indexed-v1",
+     "anchor_profile": "loader-zero-paired-v1",
+     "evidence": [
+      "evidence/bindK3_review_2026_10_31.json#eng3_kind_info"
+     ],
+     "identity": {
+      "addend": 4,
+      "rva": 115125,
+      "sha256": "a5697269686124f4b975ebe571a3a49629792bd53e87a20768912d4a2a6955c4",
+      "size": 8
+     },
+     "kind": "bss",
+     "loader_zero_indexed": {
+      "accesses": [
+       {
+        "profile": "loader-zero-indexed-v1",
+        "offset": 92,
+        "addend": 0,
+        "width": 4,
+        "encoding": {
+         "instruction": "8b0cc500000000",
+         "mnemonic": "mov",
+         "operand": 1,
+         "modrm": 12,
+         "sib": 197,
+         "base": null,
+         "index": "eax",
+         "scale": 8,
+         "disp_offset": 3,
+         "disp_size": 4,
+         "address_size": 4,
+         "width": 4
+        }
+       }
+      ],
+      "extent_claim": "minimum"
+     },
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng3/kind_info_storage.c",
+      "symbol": "_g_kind_info"
+     },
+     "references": [
+      {
+       "offset": 92,
+       "type": 6,
+       "addend": 0
+      }
+     ],
+     "rva": 261072,
+     "size": 8
+    },
+    "_acquire_pending_action_group": {
+     "kind": "function",
+     "rva": 127936,
+     "size": 80,
+     "evidence": [
+      "function_identities:eng3.shared_1f3c0"
+     ],
+     "references": [
+      {
+       "offset": 161,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_1f410": {
+     "kind": "function",
+     "rva": 128016,
+     "size": 112,
+     "evidence": [
+      "function_identities:eng3.1f410"
+     ],
+     "references": [
+      {
+       "offset": 206,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 390,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 569,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 747,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}
