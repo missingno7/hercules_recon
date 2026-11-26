@@ -1188,7 +1188,12 @@ void title_0c890(void *p, int n);
 extern TitleObject *g_frame_resource_list_734e4;
 extern TitleObject *g_frame_owner_list_73490;
 extern TitleObject *g_frame_actor_list_734f8;
+#ifdef HERCULES_ENG3
+void title_04410(TitleObject *p);
+int title_04d80(int idx, int arg2);
+#else
 int ensure_actor_resource_ready(int idx, int arg2);
+#endif
 
 extern unsigned long g_6ee70;
 extern int g_context_sequence_phase;
@@ -1215,14 +1220,26 @@ void eng1_05370(TitleObject *p, int count, int stride)
                     g_frame_owner_list_73490 = p;
                 } else {
                     slot = p->unknown_022;
+#ifdef HERCULES_ENG3
+                    title_04410(p);
+#else
                     eng1_05310(p);
+#endif
                     if (slot != 0) {
                         state = g_5cee0[slot].state_10;
+#ifdef HERCULES_ENG3
+                        if (state == 3 || title_04d80(p->unknown_022, p->unknown_034) != 0) {
+#else
                         if (state == 3 || ensure_actor_resource_ready(p->unknown_022, p->unknown_034) != 0) {
+#endif
                             if (f & 0x800000) {
                                 q = p->unknown_060;
                                 if (q != 0) {
+#ifdef HERCULES_ENG3
+                                    title_04410(q);
+#else
                                     eng1_05310(q);
+#endif
                                     q->unknown_000 = p->unknown_000 += p->unknown_014 << 16;
                                     q->unknown_004 = p->unknown_004 += p->unknown_016 << 16;
                                     q->unknown_008 = p->unknown_008 += p->unknown_018 << 16;
@@ -1485,8 +1502,14 @@ void eng1_059f0(TitleObject *p, unsigned long *ot)
 
 /* ---- ENG1 colour fade group 0x5a60..0x5e00 (fade level g_frame_word_6ee84, packed RGB words) ---- */
 extern short g_frame_word_6ee84;
+#ifdef HERCULES_ENG3
+extern short g_eng3_3fa40;
+#endif
 extern short g_dispatch_word_6ee80;
 extern int g_dispatch_setting_4d858;
+#ifdef HERCULES_ENG3
+extern unsigned char g_eng3_4254c;
+#endif
 extern signed char g_dispatch_key_7286c;
 typedef struct Eng1Rgb {
     unsigned char r, g, b, cd;
@@ -1599,14 +1622,21 @@ void eng1_05c70(unsigned short *a, unsigned short *b, int row, int n, unsigned c
 /* 0x5d50: step the fade level by g_dispatch_key_7286c, stopping at g_dispatch_setting_4d858 (rising) or g_dispatch_word_6ee80. */
 void eng1_color_fade_step_5d50(void)
 {
-    if (g_dispatch_key_7286c != 0) {
-        g_frame_word_6ee84 += g_dispatch_key_7286c;
-        if (g_dispatch_key_7286c > 0 && (unsigned short)g_frame_word_6ee84 > (unsigned short)g_dispatch_setting_4d858) {
+#ifdef HERCULES_ENG3
+    signed char *key = (signed char *)&g_eng3_4254c;
+    short *limit = &g_eng3_3fa40;
+#else
+    signed char *key = &g_dispatch_key_7286c;
+    short *limit = &g_dispatch_word_6ee80;
+#endif
+    if (*key != 0) {
+        g_frame_word_6ee84 += *key;
+        if (*key > 0 && (unsigned short)g_frame_word_6ee84 > (unsigned short)g_dispatch_setting_4d858) {
             g_frame_word_6ee84 = g_dispatch_setting_4d858;
-            g_dispatch_key_7286c = 0;
-        } else if (g_frame_word_6ee84 < g_dispatch_word_6ee80) {
-            g_frame_word_6ee84 = g_dispatch_word_6ee80;
-            g_dispatch_key_7286c = 0;
+            *key = 0;
+        } else if (g_frame_word_6ee84 < *limit) {
+            g_frame_word_6ee84 = *limit;
+            *key = 0;
         }
         eng1_color_profile_5dc0(g_frame_word_6ee84);
         title_0c960(g_frame_word_6ee84);

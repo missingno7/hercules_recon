@@ -118,7 +118,7 @@ extern void dispatch_primary(Actor *);
 extern void dispatch_secondary(Actor *);
 extern void vec_diff_fixed_1420(const int *, const int *, short *);
 extern void play_sound(unsigned short, Actor *);
-extern void stop_actor_sounds(Actor *);
+extern void RemoveFxLinks_7ef6(Actor *);
 extern void eng3_15340(Actor *);
 extern void eng3_19200(void);
 extern unsigned short eng3_1b4a0(short, short, short, int);
@@ -514,7 +514,7 @@ void eng3_10df0(Actor *o)
                             }
                         }
                     }
-                    stop_actor_sounds(c);
+                    RemoveFxLinks_7ef6(c);
                     play_sound(0xe0a7, c);
                     c->sprite = 0;
                     remove_counted_value(group, c);

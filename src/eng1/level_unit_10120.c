@@ -214,7 +214,7 @@ int eng1_2a3d0(Actor *p, Actor *q);
 int eng1_2a710(Bounds *b, Actor *p);
 long eng1_native_code_target_00266a0(Actor *p, int priority, int value);
 unsigned long damped_contact_motion(Actor *p);
-int eng1_31000(Actor *p, Offset2 *pos);
+int title_18600(Actor *p, Offset2 *pos);
 void mark_actor_resource_for_release(Actor *p);
 
 void eng1_107c0(Actor *p);
@@ -1173,7 +1173,7 @@ void eng1_native_code_target_011df0(Actor *p)
         }
         break;
     case 1:
-        eng1_31000(p, &pos);
+        title_18600(p, &pos);
         a = p->link_0e4;
         if (a == 0) {
             p->state = 2;

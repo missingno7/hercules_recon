@@ -1,3 +1,5 @@
+#include "actor_pipeline_storage.h"
+
 /* ENG1 player-mode entries 18a10..19c20, recovered from the original PC code.
  * The setup dispatcher calls these with no physical arguments. Data and helper
  * names are provisional; opaque image arrays are external dependencies, not
@@ -1001,7 +1003,6 @@ typedef struct PlayerModeBounds {
     short max_x, max_y, max_z;
 } PlayerModeBounds;
 
-extern long g_actor_worklist_71a20[];
 extern int __cdecl actor_bounds_2a880(
     void *, PlayerModeBounds *, unsigned long);
 extern int __cdecl point_in_box_2a810(
@@ -1020,12 +1021,12 @@ int __cdecl eng1_19970(int vertical_offset)
     if (!actor_bounds_2a880(((ModeActor *)(void *)g_collision_context), &bounds, 1UL))
         return 0;
     index = 0;
-    if (g_actor_worklist_71a20[0] <= 0)
+    if (((long *)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5e0 / 4])[0] <= 0)
         return 0;
 
-    while (index < g_actor_worklist_71a20[0]) {
+    while (index < ((long *)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5e0 / 4])[0]) {
         actor = (ModeActor *)(unsigned long)
-            g_actor_worklist_71a20[index + 1];
+            ((long *)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x5e0 / 4])[index + 1];
         if (point_in_box_2a810((long)actor->x,
                 (long)(actor->y +
                     ((ModeDword)(unsigned long)vertical_offset << 16)),

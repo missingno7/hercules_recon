@@ -218,8 +218,8 @@ extern void remove_actor_preserving_resource(Actor *p);
 extern void mark_actor_resource_for_release(Actor *p);
 extern void title_17ad0(long x, long y, long z, short kind, int group);
 extern void play_sound(short sound, Actor *p);
-extern void stop_actor_sounds(Actor *p);
-extern long grid_scan_20b50(long x, long y, long z, int group);
+extern void RemoveFxLinks_7ef6(Actor *p);
+extern long eng3_1b2e0(long x, long y, long z, int group);
 extern int extent_producer_30e40(Actor *p, Bounds3D *b, int mode);
 extern Actor *create_eng3_middle_actor(long x, long y, long z, int kind);
 extern void unlink_0e4(Actor *p);
@@ -314,7 +314,7 @@ int eng3_1e000(Actor *p)
                 play_sound(WORD(p), p);
                 break;
             case -46:
-                stop_actor_sounds(p);
+                RemoveFxLinks_7ef6(p);
                 break;
             case -41:
                 ++p->frame_state;
@@ -455,7 +455,7 @@ int eng3_1ea60(Actor *p)
     if (limit < 4)
         limit = 4;
     limit += g_eng3_step_tolerance_431e0;
-    r = grid_scan_20b50(p->x >> 16, p->y >> 16, p->z >> 16, p->frame_group);
+    r = eng3_1b2e0(p->x >> 16, p->y >> 16, p->z >> 16, p->frame_group);
     if (r != 0x7fff7fff && (short)(r >> 16) <= limit) {
         p->y = (p->y & 0xffff0000) - (r & 0xffff0000);
         return 1;
@@ -481,7 +481,7 @@ int eng3_1eaf0(Actor *p)
             return 1;
         }
     }
-    r = grid_scan_20b50(p->x >> 16, p->y >> 16, p->z >> 16, p->frame_group);
+    r = eng3_1b2e0(p->x >> 16, p->y >> 16, p->z >> 16, p->frame_group);
     if (r != 0x7fff7fff) {
         if (!(short)r)
             return 1;
@@ -507,7 +507,7 @@ int eng3_1ec20(Actor *p)
     dz = (short)((p->z - p->prev_z) >> 16);
     if (dz < 0)
         dz = ~dz + 1;
-    r = grid_scan_20b50(p->x >> 16, p->y >> 16, p->z >> 16, p->frame_group);
+    r = eng3_1b2e0(p->x >> 16, p->y >> 16, p->z >> 16, p->frame_group);
     if (r != 0x7fff7fff) {
         if (!(short)r)
             return 1;
@@ -546,7 +546,7 @@ int eng3_1eda0(Actor *p, Bounds3D *b)
 
 void eng3_1eeb0(Actor *p)
 {
-    long r = grid_scan_20b50(p->x >> 16, p->y >> 16, p->z >> 16, p->frame_group);
+    long r = eng3_1b2e0(p->x >> 16, p->y >> 16, p->z >> 16, p->frame_group);
     p->state_025 |= 1;
     if ((unsigned short)r < 0x200) {
         if ((g_engine_interface.context_004->level == 2 || g_engine_interface.context_004->level == 8 ||

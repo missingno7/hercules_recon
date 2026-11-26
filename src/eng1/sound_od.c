@@ -137,7 +137,11 @@ extern char g_prefix_6ef04[];
 extern char g_prefix_6ef08[];
 extern Palette *g_dispatch_frame_current_71ec4;
 extern Palette *g_dispatch_frame_base_71ec8;
-extern unsigned long g_71ec0;
+#ifdef ENGINE3
+extern int g_eng3_vsync_gate_41444;
+#else
+extern unsigned long g_dispatch_callback_flag_71ec0;
+#endif
 extern unsigned long g_dispatch_global_6ff88;
 
 /* sound-effect statics */
@@ -161,7 +165,11 @@ int sprintf(char *buffer, const char *fmt, ...);
 void *title_0c450(void *slot, unsigned long bytes, unsigned long flags);
 unsigned long title_0c3f0(const char *prefix, const char *name, void *dest, unsigned long bytes);
 void resource_destroy(int a);
+#ifdef ENGINE3
+void eng3_1a460(void);
+#else
 void dispatch_local_1f220(void);
+#endif
 void resource_reclaim(int a);
 void engine_shutdown(void);
 void title_0c270(void);
@@ -376,7 +384,11 @@ int game_state_60f9(void)
         }
         if (CTX->handle_0e4)
             title_0c330(CTX->handle_0e4);
+#ifdef ENGINE3
+        eng3_1a460();
+#else
         dispatch_local_1f220();
+#endif
         demo_title_646c();
         title_0c5c0();
         CTX->state_000 = 0xff;
@@ -388,7 +400,11 @@ int game_state_60f9(void)
                 CTX->load_failed_0b4(0);
         }
         CTX->unknown_128 = 0;
-        g_71ec0 = 0;
+#ifdef ENGINE3
+        g_eng3_vsync_gate_41444 = 0;
+#else
+        g_dispatch_callback_flag_71ec0 = 0;
+#endif
         title_0c6e0(0);
         dispatch_engine_2cc40(0);
         title_0c6d0(0);
@@ -409,7 +425,11 @@ int game_state_60f9(void)
         }
         if (CTX->demo_006 == 3)
             CTX->mode_003 = 0x13;
+#ifdef ENGINE3
+        eng3_1a460();
+#else
         dispatch_local_1f220();
+#endif
         title_0c5c0();
         dispatch_engine_2cc30(0);
         CTX->unknown_12c = 0;

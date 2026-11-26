@@ -67,7 +67,11 @@ extern void detach_attachment(Actor *);
 extern void detach_buffer(Actor *);
 extern void unlink_12c(Actor *);
 extern void unlink_0e4(Actor *);
-extern void actor_refusal_296b0(Actor *);
+#if defined(HERCULES_ENGINE3)
+extern void title_098f0(Actor *);
+#else
+extern void hide_and_unlink(Actor *);
+#endif
 extern void release_pending_action(void *);
 
 int remove_actor(Actor *p)
@@ -80,7 +84,11 @@ int remove_actor(Actor *p)
     if (kind & 0x6000) return remove_actor_variant(p);
     if (kind == 0) return 1;
     if (p->render_flags & 0x00000800) {
-        actor_refusal_296b0(p);
+#if defined(HERCULES_ENGINE3)
+        title_098f0(p);
+#else
+        hide_and_unlink(p);
+#endif
         return 0;
     }
     if (p->flags & 0x10000000) {

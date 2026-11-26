@@ -212,7 +212,7 @@ void eng1_24780(Actor *p)
     if (p->state) {
         p->angle += 0x40;
         if (eng1_2bd20(p) & 1) {
-            g_pipeline_dword_71680[++g_pipeline_dword_71680[0]] = 0xffc00000;
+            ((long *)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x240 / 4])[++((long *)(void *)&g_actor_pipeline_storage_71440.dword_cells[0x240 / 4])[0]] = 0xffc00000;
             eng1_24980(p);
             remove_actor(p);
             return;
@@ -245,7 +245,7 @@ void eng1_24780(Actor *p)
         remove_actor(p);
         return;
     }
-    if (g_pipeline_word_6fec4 && eng1_2a710((Bounds *)g_pipeline_actor_slots_71440, p)) {
+    if (g_pipeline_word_6fec4 && eng1_2a710((Bounds *)(&g_actor_pipeline_storage_71440.byte_cells[0x0]), p)) {
         eng1_24980(p);
         switch (g_boss_drop_count_6ffe4) {
         case 0:

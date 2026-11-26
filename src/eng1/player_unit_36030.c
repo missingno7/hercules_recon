@@ -282,7 +282,7 @@ void eng1_1aba0(void);
 void eng1_native_code_target_001a3e0(void);
 void eng1_native_code_target_001a410(void);
 void eng1_27410(Actor *p);
-void eng1_27450(Actor *p);
+void mark_actor_resource_for_release(Actor *p);
 void eng1_empty_c720(Actor *p);
 void measure_absolute_vector(FixedPosition *a, FixedPosition *b, RelativeMeasure *m);
 void eng1_color_rgb_forward_5a30(int r, int g, int b);
@@ -377,7 +377,7 @@ void eng1_361a0(Actor *p)
         }
         break;
     case 2:
-        eng1_27450(p);
+        mark_actor_resource_for_release(p);
         spawn_at_group_300c0(p->x + 0x100000, p->y - 0x700000, p->z, 0x2027, 0);
         spawn_at_group_300c0(p->x - 0x180000, p->y - 0xb40000, p->z - 0x100000, 0x2027, 0);
         spawn_at_group_300c0(p->x, p->y - 0x200000, p->z - 0x200000, 0x2027, 0);

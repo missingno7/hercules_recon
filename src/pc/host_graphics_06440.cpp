@@ -11,7 +11,7 @@
 
 extern "C" {
 extern HWND g_fatal_owner_window;
-extern BYTE g_exe_ba020c;
+extern BYTE g_fatal_suppress_dialog;
 extern IDirectDrawSurface *g_exe_96e3ec;
 extern int g_exe_96e3e0;
 extern unsigned char g_exe_ba01f0;
@@ -33,7 +33,7 @@ extern "C" void __cdecl host_06440(int x, int y, const char *text)
     char line[256];
 
     sprintf(line, "(%c) %s ", (++s_text_sequence & 7) + '0', text);
-    if (g_exe_ba020c) {
+    if (g_fatal_suppress_dialog) {
         if (g_exe_96e3ec)
             g_exe_96e3ec->GetDC(&dc);
         TextOutA(dc, x, y, line, strlen(line));
