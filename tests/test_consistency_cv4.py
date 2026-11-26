@@ -169,7 +169,7 @@ class DeclaredExtents(unittest.TestCase):
         bind(sidecar, '_cv', 0x74)
         bind(sidecar, '_unresolved', 0x1000)
         listing = """_DATA SEGMENT
-_cv DB 0
+_cv DD 0
 _str DB 'abc', 0
 _padded DB 0
     ORG $+3

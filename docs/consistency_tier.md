@@ -105,9 +105,12 @@ For each module separately, a CONSISTENT row satisfies all of the following.
      references a forward declaration for the element. A standalone forward declaration has no size.
      The declared size must fit before the next symbol or section end. A COMMON definition must
      agree exactly with its ordinary COFF size.
-   - A bound CodeView record takes precedence. For a symbol without a data record, the ordinary
-     profile's `/Fa` listing may prove the extent if all operands are recognized and the object
-     ends without a trailing `ORG`. Blank lines, comments and visibility directives preserve the
+   - When CodeView and an exact listing both supply a size, they must agree. An unresolved or
+     invalid data record leaves its definition unsupported. If a data record's relocations
+     cannot identify any symbol, the profile's sidecar cannot establish which symbols lack a
+     record, so no definition in that profile falls back to the listing.
+   - For a symbol without a data record, the ordinary profile's `/Fa` listing may prove the
+     extent if all operands are recognized and the object ends without a trailing `ORG`. Blank lines, comments and visibility directives preserve the
      active object. An internal `ORG` followed by data contributes its stated bytes. A trailing
      `ORG` can encode either alignment or real zeros and leaves the listing extent unproven.
    - A key defined twice in one unit fails.
@@ -163,7 +166,7 @@ took 93.649 s, compared with 565 calls and 35.978 s for the listing-based baseli
 unrecorded candidate provider's ordinary build failed in both runs. Both runs collected the
 same 2,133 code rows and found zero accepted address contradictions.
 
-See [the CodeView-only comparison](../COMPARISON.md) for baseline grades and defects. The [Round 4 comparison](COMPARISON.md) covers the current verifier.
+See [the CodeView-only comparison](../cv4/COMPARISON.md) for baseline grades and defects. The [Round 4 comparison](../cv4/round4/COMPARISON.md) covers that verifier.
 
 ## Round 3 strict pre-integration snapshot (2026-11-26)
 
@@ -177,16 +180,21 @@ See [the CodeView-only comparison](../COMPARISON.md) for baseline grades and def
 Both fresh runs reported zero accepted address contradictions. The revised collector refused 36
 accepted rows with unsupported own-section DIR32 fields. Of the 1,447 accepted rows evaluated, 174
 failed a tier rule and were ineligible to vote. The 22 accepted pin collisions stayed the same.
-See [the strict collector receipt](../../COMPARISON.md) in the repository's `work/velocity_q/fixCON/` lane for each grade change.
+See [the strict collector receipt](../COMPARISON.md) in the repository's `work/velocity_q/fixCON/` lane for each grade change.
 
 The type and symbol record layouts follow [Microsoft's CodeView definitions](https://github.com/microsoft/microsoft-pdb/blob/master/include/cvinfo.h).
+
+## Round 5 measurements
+
+The fresh baseline and revised reports were byte-identical. Grade A stayed at 115, grade B at
+164, and accepted address contradictions at zero. See [the Round 5 comparison](COMPARISON.md).
 
 ## Round 4 measurements
 
 The revised report collected 2,133 code rows, including 1,483 accepted rows, with zero accepted
 address contradictions. The proved listing fallback restored 384 of the 390 previously unsupported
 extents. The 115 grade-A and 164 grade-B rows match the original listing report row for row.
-See [the comparison](COMPARISON.md) for timing and all row and defect changes.
+See [the Round 4 comparison](../cv4/round4/COMPARISON.md) for those row and defect changes.
 
 ## Measured state (2026-11-26, after the round-2 fixes)
 

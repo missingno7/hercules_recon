@@ -121,7 +121,11 @@ def type_sizes(data):
 
 
 def data_sizes(coff, ordinary):
-    """COFF linkage name -> exact size, or None for an invalid or unresolved data record."""
+    """Return sizes by linkage name, with None for invalid or unresolved records.
+
+    An unassignable record prevents the caller from proving which symbols have no
+    record, so a malformed binding of that kind invalidates the sidecar.
+    """
     sections = [s for s in coff.sections if s['name'] == '.debug$S']
     primary = [s for s in sections if s['data'].startswith(C11)]
     types = [s['data'] for s in coff.sections if s['name'] == '.debug$T']
@@ -147,6 +151,10 @@ def data_sizes(coff, ordinary):
             if kind not in (S_LDATA32, S_GDATA32):
                 continue
             location, segment = fields.get(start + 4), fields.get(start + 8)
+            if len(payload) < 10 or not any(
+                    field and field[0] == kind_ and field[1] in debug_symbols
+                    for field, kind_ in ((location, SECREL), (segment, SECTION))):
+                raise ValueError(f'unassignable CodeView data record relocations at {start - 4:#x}')
             names = {field[1] for field in (location, segment) if field}
             for name in names:
                 symbol, original = debug_symbols.get(name), ordinary_symbols.get(name)

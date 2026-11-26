@@ -1068,8 +1068,11 @@ def compile_unit(source, flags):
     try:
         debug, _ = compile_source(ROOT / source, [*flags, '/Z7'])
         sizes = data_sizes(COFF(debug), ordinary)
-    except (OSError, RuntimeError, ValueError, struct.error) as error:
+    except (KeyError, OSError, RuntimeError, ValueError, struct.error) as error:
         return Unit(ordinary, debug_error=str(error).splitlines()[0])
+    for name in listed.keys() & sizes.keys():
+        if listed[name] is not None and listed[name] != sizes[name]:
+            sizes[name] = None
     return Unit(ordinary, listed | sizes)
 
 
