@@ -30,7 +30,7 @@ void init_cursor_44740(Entry16 *base, int index, Cursor *c, int extra)
 int eng1_45010(Cursor *c)
 {
     Entry16 *p,*q,*r;
-    long next,third;
+    long next,third,sum;
     __int64 a,b,t;
     if(!c->remaining){
         if(c->count>c->index)return 0;
@@ -47,7 +47,7 @@ int eng1_45010(Cursor *c)
         c->cx=(long)(((__int64)p->w[0]*0x8000)>>16)+(long)(((__int64)q[-1].w[0]*-0x8000)>>16);
         c->x=c->dx=q->w[0];
         a=c->ax;b=c->bx;t=c->step3;
-        c->vx=(long)(((__int64)c->cx*c->step)>>30)+(long)((b*c->step2)>>30)+(long)((a*t)>>30);
+        sum=(long)(((__int64)c->cx*c->step)>>30);sum+=(long)((b*c->step2)>>30);sum+=(long)((a*t)>>30);c->vx=sum;
         third=(long)((((a*0x60000)>>16)*t)>>30);
         c->ddx=third+(long)((((b*0x20000)>>16)*c->step2)>>30);c->dddx=third;
         c->ay=(long)(((__int64)q->w[1]*0x18000)>>16)+(long)(((__int64)q[2].w[1]*0x8000)>>16)+(long)(((__int64)q[-1].w[1]*-0x8000)>>16)+(long)(((__int64)q[1].w[1]*-0x18000)>>16);
@@ -55,7 +55,7 @@ int eng1_45010(Cursor *c)
         c->cy=(long)(((__int64)q[1].w[1]*0x8000)>>16)+(long)(((__int64)q[-1].w[1]*-0x8000)>>16);
         c->y=c->dy=q->w[1];
         a=c->ay;b=c->by;
-        c->vy=(long)((b*c->step2)>>30)+(long)((a*t)>>30)+(long)(((__int64)c->cy*c->step)>>30);
+        sum=(long)((b*c->step2)>>30);sum+=(long)((a*t)>>30);sum+=(long)(((__int64)c->cy*c->step)>>30);c->vy=sum;
         third=(long)((((a*0x60000)>>16)*t)>>30);
         c->ddy=third+(long)((((b*0x20000)>>16)*c->step2)>>30);c->dddy=third;
         if(c->extra){
@@ -64,7 +64,7 @@ int eng1_45010(Cursor *c)
             c->cz=(long)(((__int64)q[1].w[2]*0x8000)>>16)+(long)(((__int64)q[-1].w[2]*-0x8000)>>16);
             c->z=c->dz=q->w[2];
             a=c->az;b=c->bz;
-            c->vz=(long)((a*t)>>30)+(long)(((__int64)c->cz*c->step)>>30)+(long)((b*c->step2)>>30);
+            sum=(long)((a*t)>>30);sum+=(long)(((__int64)c->cz*c->step)>>30);sum+=(long)((b*c->step2)>>30);c->vz=sum;
             third=(long)((((a*0x60000)>>16)*t)>>30);
             c->ddz=third+(long)((((b*0x20000)>>16)*c->step2)>>30);c->dddz=third;
         }

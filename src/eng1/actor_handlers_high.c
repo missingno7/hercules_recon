@@ -280,7 +280,7 @@ void set_flags_461d0(Actor *p)
 typedef struct ActorList { long count; Actor *items[1]; } ActorList;
 typedef struct BurstEntry { short x, y, z, kind, program, direction; } BurstEntry;
 typedef struct FragmentEntry { short x, y, z; unsigned short kind; } FragmentEntry;
-typedef struct ProfileRows { unsigned char *rows; long count; } ProfileRows;
+typedef struct HighKindInfo { unsigned char *owner; long count; } HighKindInfo;
 extern int damped_contact_motion(Actor *);
 extern void remove_actor_variant(Actor *);
 extern int eng1_native_code_target_002aa30(Actor *, int, int);
@@ -306,7 +306,7 @@ extern int contact_motion(Actor *);
 extern int eng1_26de0(Actor *);
 extern void eng1_1aba0(void);
 extern void eng1_30290(int, int);
-extern void eng1_2b320(ActorList *, Actor *);
+extern void remove_counted_value(ActorList *, Actor *);
 extern unsigned short eng1_20b50(int, int, int, int);
 extern unsigned short eng1_20d30(int, int, int, int);
 extern void eng1_27410(Actor *);
@@ -321,12 +321,13 @@ extern BurstEntry g_eng1_burst_65b98[];
 extern void *g_eng1_programs_67070[];
 extern Actor *g_collision_context;
 extern unsigned short g_eng1_setup_word_72012, g_native_word_72168;
-extern unsigned short g_eng1_word_7082e;
-extern unsigned char *g_eng1_ptr_70f24;
+extern unsigned char g_cold_start_state_bytes_70820[0x1c];
+typedef struct HighEngineInterfacePrefix { unsigned long signature_000; unsigned char *context_004; } HighEngineInterfacePrefix;
+extern HighEngineInterfacePrefix g_engine_interface;
 extern Actor *g_eng1_actor_72860;
 extern unsigned short *g_configuration_dword_713bc;
-extern ProfileRows g_eng1_profiles_6fee8[];
-extern long g_eng1_dword_72110;
+extern HighKindInfo g_kind_info[];
+extern unsigned long eng1_sim_state_72110;
 extern unsigned short g_eng1_word_70ef0, g_eng1_word_70f0e, g_eng1_word_7144c;
 extern FragmentEntry g_eng1_fragments_68970[];
 
@@ -619,15 +620,14 @@ void eng1_42bd0(Actor *p)
         hit = eng1_26de0(p);
         if (hit) {
             if (hit == 0x80) {
-                mask = (unsigned char)g_eng1_setup_word_72012 & 0x5f;
-                { unsigned int used = g_native_word_72168; mask &= ~used; }
+                mask = (signed char)(g_eng1_setup_word_72012 & 0x5f); { unsigned int used = g_native_word_72168; mask &= ~used; }
                 if (mask) {
                     eng1_1aba0(); g_native_word_72168 |= mask;
-                    if ((g_eng1_setup_word_72012 & 2) && g_eng1_word_7082e >= 200) {
-                        eng1_42f90(q); LinkedSoundFx_6da0(0xd071,p); g_eng1_ptr_70f24[2] = 2; q->state = 2;
+                    if ((g_eng1_setup_word_72012 & 2) && *(unsigned short *)(void *)(g_cold_start_state_bytes_70820+14) >= 200) {
+                        eng1_42f90(q); LinkedSoundFx_6da0(0xd071,p); g_engine_interface.context_004[2] = 2; q->state = 2;
                     } else {
                         eng1_42db0(q); --q->hits;
-                        if (q->hits <= 0) { LinkedSoundFx_6da0(0xd071,p); q->state = 2; g_eng1_ptr_70f24[2] = 2; }
+                        if (q->hits <= 0) { LinkedSoundFx_6da0(0xd071,p); q->state = 2; g_engine_interface.context_004[2] = 2; }
                         else { LinkedSoundFx_6da0(0xd04c,p); q->state = 1; }
                     }
                 }
@@ -635,7 +635,7 @@ void eng1_42bd0(Actor *p)
                 eng1_30290(hit,0);
                 if (p->y == p->saved_y) {
                     eng1_42db0(q); q->hits -= 2;
-                    if (q->hits <= 0) { LinkedSoundFx_6da0(0xd071,p); q->state = 2; g_eng1_ptr_70f24[2] = 2; }
+                    if (q->hits <= 0) { LinkedSoundFx_6da0(0xd071,p); q->state = 2; g_engine_interface.context_004[2] = 2; }
                     else { LinkedSoundFx_6da0(0xd04c,p); q->state = 1; }
                 }
             }
@@ -644,7 +644,7 @@ void eng1_42bd0(Actor *p)
     if (p->z < -0x640000) dead = 1;
     if (p->y > 0x3400000) dead = 1;
     if (eng1_native_code_target_002a9e0(p,0x100)) dead = 1;
-    if (dead) { if (q->list) eng1_2b320(q->list,p); remove_actor_variant(p); }
+    if (dead) { if (q->list) remove_counted_value(q->list,p); remove_actor_variant(p); }
 }
 
 void eng1_42db0(Actor *p)
@@ -868,49 +868,49 @@ void eng1_43440(Actor *p)
     eng1_0ef10(p);
     if(eng1_native_code_target_002aa30(p,500,320))remove_actor(p);
 }
+extern unsigned long grid_query_20d30(long,long,long,unsigned long);
+extern Actor *g_normal_actor_pool;
 void eng1_43b50(Actor *p,long dx)
 {
     int random = random_limit(0x8000), category, x,z;
     long offset, absolute;
     unsigned short tile;
-    category=(int)p->category-(int)g_eng1_actor_72860->category;
+    category=(int)p->category-(int)g_normal_actor_pool->category;
     offset=p->record_offset;
-    absolute=p->x-*(long *)(g_eng1_profiles_6fee8[p->profile].rows+offset);
+    absolute=p->x-*(long *)(g_kind_info[p->profile].owner+offset);
     if(absolute<0)absolute=-absolute;
     if(absolute>0x2800000){p->state=45;p->unknown_b8=0;p->unknown_c0=-0x8000;select_frame(p,2);}
     else{
         if(category && random>0x4000){
             if(category>0){
-                z=(p->z>>16)-1;x=p->x>>16;
-                tile=eng1_20d30(x,0,z,0);
+                x=p->x>>16;z=(p->z>>16)-1;
+                tile=grid_query_20d30(x,0,z,0);
                 if(!(g_configuration_dword_713bc[tile]&2)){
                     if(!p->unknown_94)++x;else x+=0xffff;
-                    tile=eng1_20d30(x,0,z,0);
+                    tile=grid_query_20d30(x,0,z,0);
                     if(!(g_configuration_dword_713bc[tile]&2)){p->state=43;select_frame(p,9);goto advance;}
                 }
             }else{
-                z=(p->z>>16)+1;x=p->x>>16;
-                tile=eng1_20d30(x,0,z,0);
+                x=p->x>>16;z=(p->z>>16)+1;
+                tile=grid_query_20d30(x,0,z,0);
                 if(!(g_configuration_dword_713bc[tile]&2)){
                     if(!p->unknown_94)++x;else x+=0xffff;
-                    tile=eng1_20d30(x,0,z,0);
+                    tile=grid_query_20d30(x,0,z,0);
                     if(!(g_configuration_dword_713bc[tile]&2)){p->state=44;select_frame(p,10);goto advance;}
                 }
             }
         }
         if(!p->unknown_94){
-            if(dx>0x3aaaaa){p->state=9;select_frame(p,3);goto advance;}
-            if(!(random&6)){p->state=39;select_frame(p,7);goto advance;}
-            if(dx < -0x3aaaaa && !category && dx > -0xb00000)goto attack;
+            if(dx>0x3aaaaa){p->state=9;select_frame(p,3);}
+            else if(!(random&6)){p->state=39;select_frame(p,7);}
+            else if(dx < -0x3aaaaa && !category && dx > -0xb00000){if(eng1_sim_state_72110){p->state=39;select_frame(p,7);}else{p->state=34;select_frame(p,5);}}
+            else{if(!(random&8)){p->state=39;select_frame(p,7);}else{p->state=2;select_frame(p,2);}}
         }else{
-            if(dx < -0x3aaaaa){p->state=9;select_frame(p,3);goto advance;}
-            if(!(random&6)){p->state=39;select_frame(p,7);goto advance;}
-            if(dx > 0x3aaaaa && !category && dx < 0xb00000)goto attack;
+            if(dx < -0x3aaaaa){p->state=9;select_frame(p,3);}
+            else if(!(random&6)){p->state=39;select_frame(p,7);}
+            else if(dx > 0x3aaaaa && !category && dx < 0xb00000){if(eng1_sim_state_72110){p->state=39;select_frame(p,7);}else{p->state=34;select_frame(p,5);}}
+            else{if(!(random&8)){p->state=39;select_frame(p,7);}else{p->state=2;select_frame(p,2);}}
         }
-        if(!(random&8)){p->state=39;select_frame(p,7);}else{p->state=2;select_frame(p,2);}
-        goto advance;
-attack:
-        if(g_eng1_dword_72110){p->state=39;select_frame(p,7);}else{p->state=34;select_frame(p,5);}
     }
 advance:
     eng1_interpret_signed_pairs(p);
@@ -1028,7 +1028,6 @@ struct HighActor {
     unsigned char unknown_f0[0x120 - 0xf0];
     long *members;
 };
-typedef struct HighKindInfo { unsigned char *owner; long count; } HighKindInfo;
 extern HighKindInfo g_kind_info[];
 extern unsigned long eng1_sim_state_72110;
 extern unsigned short g_eng1_setup_word_718e0;
@@ -1502,7 +1501,6 @@ void eng1_447c0(Actor *p)
     long distance=x*x+y*y, direction=0,flag,finished;
     Actor *q;
     int i,best,delta,kind,damage;
-    long divisor;
     long px,py,pz;
     if(x>=0)direction=1;
     if(p->child->unknown_0c[0x1e-0x0c]!=255)
@@ -1589,11 +1587,11 @@ void eng1_447c0(Actor *p)
             if(i){
                 if(i==128){damage=eng1_19b40(~g_native_word_72168&0x5f);eng1_1ab50();}
                 else{eng1_30290(i,0);damage=2;}
-                if(damage){p->hits-=damage;divisor=200/damage;i=256/divisor;if(p->hits<=0)i=g_native_word_70832;else if(i>=g_native_word_70832)i=g_native_word_70832-1;*(long *)&g_boss_threshold_72184=i;}
+                if(damage){i=256/(200/damage);p->hits-=damage;if(p->hits>0){if(i>=g_native_word_70832)i=g_native_word_70832-1;}else i=g_native_word_70832;*(long *)&g_boss_threshold_72184=i;}
                 p->program=g_eng1_program_69988;p->program_start=g_eng1_program_69988;p->frame_tick=0;p->return_state=0;p->state=1;
                 if(p->unknown_94){p->program=g_eng1_program_69ab8;p->program_start=g_eng1_program_69ab8;p->frame_tick=0;p->return_state=0;p->state=1;}
                 g_eng1_native_state_70244=0;p->invuln=8;
-                i=eng1_44f80();if(i){kind=0x220;if(p->x>0x2800000)kind=0x240;eng1_131c0(p->x,p->y,g_normal_actor_pool->z,i|kind);}
+                {int drop=eng1_44f80();if(drop){kind=0x220;if(p->x>0x2800000)kind=0x240;eng1_131c0(p->x,p->y,g_normal_actor_pool->z,drop|kind);}}
             }
             if(p->hits<=0){p->hits=1;g_eng1_native_state_7028c=300;g_eng1_setup_dword_72014=1;eng1_45780();}
         }

@@ -1,0 +1,74 @@
+{
+  "scope": "w3 original-backed compiler refinement; instruction equality is separate from independent reference acceptance.",
+  "module": "ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "base": {
+    "head": "fa2a3cad8b68ac0751fc76e3cd7e6c6ae3dda789",
+    "recovery_sha256": "f2e5129e714a4cd6d592a77b28c6856ec3a1b87cbfe3608858bf237646514419",
+    "status": [
+      "?? .claude/",
+      "?? evidence/q13_early_anchor_review_2026_11_26.json",
+      "?? evidence/q13_early_bindings_2026_11_26.json",
+      "?? evidence/q13_early_native_review_2026_11_26.json",
+      "?? evidence/repin_snapshots/3e6f6f7bb3ccd1b266d1b50d73013537207d9964ab3409115bfae3a7dd000257.txt",
+      "?? evidence/repin_snapshots/9be4699d27752738cbd674afc822987479a1531410783cf22be8016c1a93c9eb.txt",
+      "?? evidence/repin_snapshots/a623eb32653c6179fdb821e79768bc6fc1c598b713eb581cd6f0e6c5a2d9e924.txt",
+      "?? evidence/repin_snapshots/aaab9257b94112bbea0c15867b4e0ff62065f438e0b98f2d1767b512765743ae.txt",
+      "?? evidence/repin_snapshots/af3891555a25f422e289c6759ef987f6085f99ce0ded240d5876581fbedffe73.txt"
+    ],
+    "sources": {
+      "src/eng1/actor_handlers_high.c": "e5b74a2aa9e2264678f52278d5b40ca2fc418d88ca409a9961f1b85cf2cfcbdf",
+      "src/eng1/cursor_init.c": "009d4248338e1cdeaec2841101cbf1f9ffd38e772675757f26ff208fb86ebcb7"
+    }
+  },
+  "sources": {
+    "src/eng1/actor_handlers_high.c": "6b14e85b1423e85bb62a3f89042bea4e333a11fc616f043d19785937eef9aa65",
+    "src/eng1/cursor_init.c": "80af9ac8eeccf1ef7a0031ac199f01154b6c62dd97d7c2cafc9f3b18bd0ab5d0"
+  },
+  "native_observations": {
+    "42bd0": "Native mask path loads the low byte of setup 72012, zero-extends WORD 72168, ANDs the byte mask with 0x5f, complements the widened used mask, then intersects. Signed-byte conversion after the first mask preserves all possible 0..0x5f values and restores that exact compiler sequence. Call ordering, post-call used-mask update and context/state stores are retained. 7082e is WORD+14 of the existing 28-byte cold-start owner; 70f24 is context_004 of the existing engine-interface owner.",
+    "43b50": "Native facing decisions have duplicated real distance/random predicates and shared attack/fallback tails. Nested if/else structure reproduces the native tail layout. X is initialized before Z in each category branch, restoring the original branch-local Z load and its scheduling. Existing canonical normal-actor, kind-info, grid-query, simulation-state and counted-removal names are reused.",
+    "41490": "Already instruction-equal in the starting canonical source; no body change.",
+    "447c0": "The nested integer quotient is expressed before the health store; emitted SUB WORD remains before IDIV and the subsequent health comparison remains a memory compare, matching native. The real drop value has its own block-local lifetime. Five register-encoding bytes remain unequal in the early interpreter callback/child commands.",
+    "45010": "Sequential 32-bit derivative accumulation retains native term order and arithmetic widths; full native-sized extent and 0x1c frame remain. Coefficient/derivative register and spill scheduling is still unequal.",
+    "43440": "No speculative redundant state==5 compare was inserted. The native comparison at 43a22 remains an unresolved lowering question."
+  },
+  "peers": {
+    "count": 63,
+    "complete_code_identical": true,
+    "ordered_reference_changes": {
+      "eng1.42090": {
+        "bindings_path": "evidence/rename_fa6f975a3cc3_fb2d4bf02c09.json",
+        "bindings_sha256": "4660ea7099c16034f0b3f442a73ce623f65f5371e83df72865a1b0272e8885d1",
+        "renames": {
+          "$L1292": "$L1299",
+          "$L269": "$L271",
+          "$L274": "$L276",
+          "$L271": "$L273",
+          "$L277": "$L279"
+        }
+      }
+    }
+  },
+  "entries": [
+    {
+      "rva": "0x42bd0",
+      "size": 480,
+      "symbol": "_eng1_42bd0",
+      "masked_equal": true,
+      "differing_bytes": 0
+    },
+    {
+      "rva": "0x43b50",
+      "size": 560,
+      "symbol": "_eng1_43b50",
+      "masked_equal": true,
+      "differing_bytes": 0
+    }
+  ],
+  "limits": [
+    "No new RAW or RELOCATED acceptance claim. The two new equal rows are staged CODEGEN_SIMILAR until independent references close.",
+    "No original executable or first-party module was executed; no original code bytes, game assets or data payloads are included.",
+    "All previous recorded peers retain complete bytes and ordered relocation targets, apart from explicitly reviewed compiler-local label spelling."
+  ]
+}
