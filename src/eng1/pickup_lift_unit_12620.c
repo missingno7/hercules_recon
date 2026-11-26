@@ -1,13 +1,15 @@
 /* ENG1.DLL 0x12620..0x14790: bonus-row driver, resource masks, alternate-row setup, pickup spawner and
- * handlers, checkpoint markers and the two lift objects (lane x19).  Plain C: 19/24 masked equal
- * (as C++: 20/24, but 0x13d70/0x142d0 lose the edi/ebp constant caching).  Types/idioms follow
+ * handlers, checkpoint markers and the two lift objects (lane x19). Plain C preserves the
+ * lift updates' edi/ebp constant caching. Types/idioms follow
  * calibration/eng1/player_scene_3a040.c and calibration/eng3/handlers_16240.cpp, whose 0x16f30,
  * 0x17090, 0x17130, 0x168b0, 0x168f0, 0x165f0 and 0x16670 are diverged variants of 0x12620,
  * 0x12790, 0x12960, 0x12a10, 0x12b00, 0x13990 and 0x139f0.
  * Measured spellings: negation is written ~x + 1 (0x12a10, 0x13d70, 0x142d0: -x gives neg);
  * (unsigned long)(x + y) >> 17 (shr); 0x131c0 reuses its int local for the 0xe0 field (sar).
- * Open residues (allocation/context): 0x12620 base/index order and one add/lea temp, 0x12960 base/index
- * (C++ equalises), 0x13880 one temp register, 0x13d70/0x142d0 ecx/edx swap of player pointer and d. */
+ * Measured unit context: the SDK follows the engine-interface declaration, preserving its
+ * address-expression identity while correcting the alternate-pool SIB order (0x12620/0x12960).
+ * The unsigned fixed-point Y expression in 0x13880 preserves the native 32-bit arithmetic.
+ * Open residues: 0x13d70/0x142d0 ecx/edx swap of player pointer and d, and WORD scheduling. */
 
 typedef struct Actor Actor;
 typedef struct ActorEntry {
@@ -159,6 +161,7 @@ typedef struct ActorResource {      /* 20-byte resource slot, 0x5cee0 */
 } ActorResource;
 
 extern EngineInterfaceView g_engine_interface;
+#include <windows.h>
 extern AltActor *g_alternate_actor_pool;
 extern Actor *g_frame_owner_72860;
 extern Actor *g_native_pointer_7217c;
@@ -932,7 +935,7 @@ void eng1_native_code_target_013880(Actor *o)
             o->render_flags |= 5;
         }
         if (g_engine_interface.context_004->tick_038 & 1)
-            eng1_129e0(o->x + ((random_limit(0) + pos.x) << 16), o->y + ((pos.y + 8) << 16), o->z, 0x2010, 0);
+            eng1_129e0(o->x + ((random_limit(0) + pos.x) << 16), o->y + ((pos.y + 8UL) << 16), o->z, 0x2010, 0);
     }
     if (eng1_2a9e0(o, 0x140))
         release_actor(o);
