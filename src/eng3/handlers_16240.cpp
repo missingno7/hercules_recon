@@ -3844,14 +3844,14 @@ void eng3_1c430(void)
 
 void eng3_1c5c0(void)
 {
-    short total = 0, d;
+    short total = 0;
     int i, count;
     if (g_eng3_41380[0]) {
         for (i = 0; i < g_eng3_41380[0];)
             total += g_eng3_41380[++i];
         total = total / i;
     }
-    d = g_eng3_40648 - total;
+    short d = g_eng3_40648 - total;
     if (d) {
         if ((d <= 0x10) & (d >= -0x10)) {
             if (d < 0)

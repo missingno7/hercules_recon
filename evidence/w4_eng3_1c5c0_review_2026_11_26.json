@@ -1,0 +1,26 @@
+{
+  "scope": "Native source and complete instruction comparison; no independent reference identity or acceptance.",
+  "target": "assets/pc/HERCULES/ENG3.DLL",
+  "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "function": {
+    "id": "eng3.1c5c0",
+    "rva": "0x1c5c0",
+    "size": 352,
+    "next_rva": "0x1c720",
+    "body_size": 348,
+    "boundary": "Native entry after 1c430; next complete native entry at 1c720 is already independently recorded.",
+    "semantics": [
+      "First signed-short list: sum in short, divide by visited count, compare the truncated camera difference against +/-16 with bitwise boolean AND.",
+      "Second signed-short list: independent short sum and count, truncate camera angular difference, wrap >2047 and <-2047, then apply the same +/-16 policy.",
+      "Native uses DWORD TEST of separately zero-extended SETLE/SETGE booleans.",
+      "All original global reads, signed divisions, shifts, update order and reloads remain in canonical source."
+    ],
+    "source_change": "Declare short d at its first assignment, rather than with the accumulator at function entry. This changes C2 expression-key order for both boolean AND operands.",
+    "proof_limit": "Only CODEGEN_SIMILAR: list/global identity and ownership are not inferred from the equal instructions."
+  },
+  "source": "src/eng3/handlers_16240.cpp",
+  "before_sha256": "935311e444309c8b54e19cd08c4c103fd5192a79cd69b80f90e7e17d158cc6d0",
+  "candidate_sha256": "1b3d94358bb63fc4c21f2143dcf5cc42592916340a09dcee79fbb9baa72ea563",
+  "peer_check": "Every existing recorded raw/relocated/similar contribution in this full unit retains complete bytes and ordered relocation records; no binding rename.",
+  "compiler": "Pinned VC5 RTM /O2 /Gy; flags unchanged."
+}
