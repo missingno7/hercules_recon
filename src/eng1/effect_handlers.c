@@ -153,7 +153,7 @@ extern unsigned short g_72168,g_configuration_word_713b4,g_56400;
 extern short g_pipeline_word_71740[],g_pipeline_word_71720[],g_pipeline_word_71ca0[];
 extern long g_6f488,g_6f48c,g_6f484,g_70cd0,g_70cd4,g_70d18;
 extern short g_6f490,g_camera_adjust_y_70d04;
-extern long g_71580[];
+extern unsigned long g_actor_worklist_71580[];
 extern void (**g_71370)(NStype *),(**g_7139c)(NStype *);
 extern void (*g_562d0[])(NStype *);
 extern char g_56240[],g_56680[],g_56208[],g_561f0[],g_56220[],g_562a0[],g_56270[],g_56288[],g_56258[];
@@ -287,7 +287,7 @@ void eng1_native_code_target_001bab0(NStype *p)
  g_6f3f8=g_56398[a][0]+((g_56398[b][0]-g_56398[a][0])*rate)/255;
  g_6f444=g_56398[a][1]+((g_56398[b][1]-g_56398[a][1])*rate)/255;
  g_6f448=g_56398[a][2]+((g_56398[b][2]-g_56398[a][2])*rate)/255;
- for(i=0;i<g_71580[0];i++){q=(NStype *)g_71580[i+1];if(q->Type==0x29)g_71370[0x1f4/4](q);}
+ for(i=0;i<(long)g_actor_worklist_71580[0];){q=(NStype *)g_actor_worklist_71580[++i];if(q->Type==0x29)g_71370[0x1f4/4](q);}
  for(q=p->Child;q;q=q->Child){if(q->Type==0x2b)g_71370[0x20c/4](q);if(q->Type==0x2e)g_71370[0x230/4](q);}
  if(g_6f454>=2)remove_actor(p);
 }
