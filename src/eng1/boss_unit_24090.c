@@ -572,3 +572,192 @@ unsigned short g_boss_script_5a060[24] = {
     0,
     3
 };
+
+/* The record at 0x59978 pairs these native entries; 23b30 directly calls
+ * 24090 and 24120. This is the provisional boss-unit boundary hypothesis. */
+#include "cluster_view.h"
+#include <stdlib.h>
+extern int eng1_20250(ClusterActor *);
+extern unsigned long eng1_19b40(unsigned long);
+extern void eng1_1aba0(void);
+extern void eng1_30290(int,unsigned long);
+extern int overlap_wrapped_bounds(Bounds *,Bounds *);
+extern void action_spawn_27d40(Actor *,int);
+void eng1_24120(Actor *);
+
+void eng1_native_code_target_023a50(ClusterActor *p)
+{
+    p->flags=0x202; p->render_flags|=0x80000000;
+    if(p->x<g_frame_owner_72860->x) p->direction=1;
+    p->z=g_frame_owner_72860->z;
+    p->program=p->cursor=g_cluster_program_58d98;
+    p->counter=0; p->phase=0; p->state=1;
+    p->lifetime=50; p->hits=4; ++g_cluster_bosses_6fde8;
+    action_spawn_27d40((Actor *)p,0xa02e);
+    if(p->child) {
+        p->child->render_flags|=0x4000605;
+        p->child->flags=0;
+        p->child->opacity=0x80;
+        p->child->sprite=0x9f;
+        p->render_flags&=~0x800000;
+    }
+    p->range=90;
+    if(g_frame_owner_72860->vx&0xffff0000) p->range=100;
+}
+
+void eng1_native_code_target_023b30(ClusterActor *p)
+{
+    long delta=wrapped_delta(p->x,g_frame_owner_72860->x);
+    int side=0,direction,active;
+    long range;
+    long movement,hide;
+    long op,choice;
+    unsigned long hit;
+    Bounds bounds;
+    if(delta>=0) side=1;
+    direction=p->direction;
+    if(delta>0x400 || delta<-0x400) direction^=1;
+    p->render_flags&=~0x10;
+    if(direction) p->render_flags|=0x10;
+    movement=0; hide=0;
+    range=p->range;
+    active=0;
+    do {
+        switch(p->state) {
+        case 0:
+            if(p->direction!=side) {
+                if(p->program==g_cluster_program_58f18) {
+                    p->program=p->cursor=g_cluster_program_58f80;
+                    p->counter=0; p->phase=0; p->state=1;
+                } else {
+                    p->program=p->cursor=g_cluster_program_58e68;
+                    p->counter=0; p->phase=2; p->state=1;
+                    LinkedSoundFx_6da0(0x51d5,p);
+                }
+            } else if(abs(delta)<=range) {
+                choice=random_limit(11);
+                if(g_eng1_setup_dword_72110) choice=10;
+                switch(choice) {
+                case 0:case 2:
+                    LinkedSoundFx_6da0(0x51d9,p);
+                    p->program=p->cursor=g_cluster_program_58f98;
+                    p->counter=0; p->phase=0; p->state=1;
+                    break;
+                case 1:case 3:case 4:case 5:
+                    p->program=p->cursor=g_cluster_program_59008;
+                    p->counter=0; p->phase=0; p->state=1;
+                    break;
+                case 6:case 7:case 8:
+                    p->program=p->cursor=g_cluster_program_59078;
+                    p->counter=0; p->phase=0; p->state=1;
+                    break;
+                case 9:
+                    p->counter=0; p->program=p->cursor=g_cluster_program_59140;
+                    p->phase=3; p->state=1;
+                    break;
+                case 10:
+                    p->program=p->cursor=g_cluster_program_58eb8;
+                    p->counter=0; p->phase=0; p->state=1;
+                    break;
+                }
+            } else {
+                if(p->program!=g_cluster_program_58f18 && p->program!=g_cluster_program_58ef8)
+                    p->program=p->cursor=g_cluster_program_58ef8;
+                else p->program=p->cursor=g_cluster_program_58f18;
+                p->counter=0; p->phase=0; p->state=1;
+            }
+            break;
+        case 1:
+            active=1;
+            if(--p->counter<=0) {
+                op=*p->cursor++;
+                p->sprite=op;
+                switch(op) {
+                case -2:
+                    p->child->sprite=*p->cursor;
+                    hide=0x800000;
+                    ++p->cursor;
+                    p->child->render_flags&=~0x10;
+                    p->child->render_flags|=p->render_flags&0x10;
+                    active=0;
+                    break;
+                case -1:
+                    LinkedSoundFx_6da0(*p->cursor++,p);
+                    active=0;
+                    break;
+                case 0:
+                    p->state=p->phase;
+                    active=0;
+                    break;
+                default:
+                    p->counter=*p->cursor++;
+                    p->render_flags=(p->render_flags&~0x800000)|hide;
+                    break;
+                }
+            }
+            if((p->program==g_cluster_program_58f18 || p->program==g_cluster_program_58ef8) && abs(delta)<=range && random_limit(4)>0) {
+                p->state=0; active=0;
+            }
+            break;
+        case 2:
+            p->direction^=1; p->render_flags^=0x10;
+            p->program=p->cursor=g_cluster_program_58d88;
+            p->counter=0; p->phase=0; p->state=1;
+            p->range=90;
+            if(g_frame_owner_72860->vx&0xffff0000) p->range=100;
+            break;
+        case 3:
+            movement=-0x240000;
+            p->program=p->cursor=g_cluster_program_58d88;
+            p->counter=0; p->phase=0; p->state=1;
+            break;
+        }
+    } while(!active);
+    if(p->program==g_cluster_program_58f18) movement=0x40000;
+    if(!p->direction) movement=-movement;
+    p->x+=movement;
+    if(((int (*)(Actor *,Bounds *,int))actor_bounds_2a880)((Actor *)p,&bounds,2)) {
+        if(overlap_wrapped_bounds(&g_collision_context->bounds,&bounds)) {
+            if(eng1_native_code_target_00266a0((Actor *)p,1,0)) LinkedSoundFx_6da0(0xd1dd,p);
+        } else if(p->range>70) --p->range;
+    }
+    if(p->lifetime<=0) {
+        hit=eng1_20250(p);
+        if(hit) {
+            if(hit==0x80) {
+                hit=eng1_19b40((~g_native_word_72168)&0x7f);
+                if(hit) {
+                    p->hits-=hit;
+                    p->program=p->cursor=g_cluster_program_590d0;
+                    p->counter=0; p->phase=0; p->state=1;
+                    LinkedSoundFx_6da0(0xd1de,p);
+                }
+                eng1_1aba0();
+            } else {
+                eng1_30290(hit,0); p->hits-=0x80;
+                LinkedSoundFx_6da0(0xd1de,p);
+            }
+            p->lifetime=5;
+            if(p->hits<=0 && !random_limit(8)) {
+                choice=random_limit(3);
+                if(choice==g_cluster_last_6fe58 && --choice<0) choice=2;
+                g_cluster_last_6fe58=choice;
+                switch(choice) {
+                case 0:title_0c4d0(0x27);break;
+                case 1:title_0c4d0(0x28);break;
+                case 2:title_0c4d0(0x29);break;
+                }
+            }
+        }
+    }
+    if(p->hits<=0 || g_cluster_count_6fe20<=0) {
+        LinkedSoundFx_6da0(0xd1df,p);
+        if(!g_eng1_setup_dword_72014) {
+            op=eng1_24090();
+            if(op) eng1_131c0(p->x,p->y,g_frame_owner_72860->z,op|0x280);
+        }
+        eng1_24120((Actor *)p);
+        remove_actor((Actor *)p);
+        --g_cluster_bosses_6fde8;
+    }
+}
