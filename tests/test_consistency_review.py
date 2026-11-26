@@ -58,7 +58,7 @@ class Reproductions(unittest.TestCase):
         self.decoder.detail = True
 
     def row(self, rid, *refs, body=None, start=0x1000, accepted=False):
-        self.ev.rows[rid] = dict(refs=list(refs), body=body or rid, start=start,
+        self.ev.rows[rid] = dict(refs=list(refs), body=body or rid, native=body or rid, start=start,
                                  size=16, module=M, accepted=accepted)
 
     def define(self, name, base, native, payload=None, refs=()):
@@ -77,7 +77,8 @@ class Reproductions(unittest.TestCase):
         self.assertEqual(row['size'], len(native))
         self.image.data[start:start + len(native)] = native
         self.image.fixups.update(start + f for f in fixups)
-        entries = [SimpleNamespace(rva=f, type=3) for f in self.image.fixups]
+        self.image.highlow = set(self.image.fixups)
+        entries = [SimpleNamespace(rva=f, type=c.HIGHLOW) for f in self.image.fixups]
         optional = SimpleNamespace(
             DATA_DIRECTORY=[SimpleNamespace(Size=int(self.image.relocated))] * 6)
         self.image.pe = SimpleNamespace(
@@ -181,7 +182,7 @@ class Reproductions(unittest.TestCase):
                          dict(functions=dict(zip(('0', '1'), entries)))).encode()):
             self.ev.anchors, self.ev.anchor_conflicts, _, self.ev.opaque_pins = c.accepted_anchors(rows, lambda row, name: (M, name))
         self.assertEqual(self.ev.anchors, {})
-        self.assertEqual(self.ev.anchor_conflicts, {(M, '_g')})
+        self.assertEqual(set(self.ev.anchor_conflicts), {(M, '_g')})
         self.assertEqual({(base, size) for _, base, size in self.ev.opaque_pins}, {(0x3200, 4), (0x3210, 4)})
         self.row('a', ref('_g', 0x3220), start=0x1000)
         self.row('b', ref('_g', 0x3220), start=0x1100)

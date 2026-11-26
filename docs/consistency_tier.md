@@ -44,10 +44,12 @@ For each module separately, a CONSISTENT row satisfies all of the following.
    - For a DLL, a reachable flat `jmp dword ptr [reg*4 + disp32]` can identify an inline table. Its
      disp32 must have an own-section DIR32 giving the start of a contiguous run of four-byte local
      DIR32 cells with matching native fixups. Each cell must target a decoded code boundary, and the
-     run must lie outside the decoded code. Unsupported instruction operands and other unclassified
-     fields fail collection.
-   - A REL32 field must name a function symbol and sit in a branch. An own-section REL32 must also be a
-     branch.
+     run must lie outside the decoded code. Operand classification decodes each code range
+     separately around established table spans. Unsupported instruction operands and other
+     unclassified fields fail collection.
+   - A REL32 field must be a branch operand. A reference outside its contribution must name a
+     function. An own-section REL32 may name a local label when the branch stays inside the
+     contribution.
    - A named own-function reference records the row's entry as a use of its key, so it must agree with
      any pin.
    - Function and import references carry no addend.
@@ -61,25 +63,29 @@ For each module separately, a CONSISTENT row satisfies all of the following.
      payload pointers, definitions, pins and recorded rows together. Each key has one base.
    - Canonical values:
      - a function's entry is its function pin, else its recorded rows, else its uses;
-     - an import's value is its IAT slot, named or ordinal;
+     - an import's value is the IAT slot with its unique matching import name;
      - data takes its pin, else its single observed base.
    - An accepted binding fixes the base, and then only disagreeing uses fail. A wrong payload pointer
      fails its own table, not the pinned target.
    - A binding name gets its linkage from the bound row's own compiled unit. A file-local name is
-     scoped to its object. Contradictory accepted records fail their key.
+     scoped to its object. Contradictory accepted records fail their key. Accepted data and BSS
+     records carry exact sizes, including records for compiler-generated names.
    - The rows that observe the map are the module's instruction-equal rows whose operand forms are
      supported. Refused rows and conflicting keys are listed in the report. The map is claimed over
      the rows that survive, not over every byte-equal row.
 3. **Injective, non-overlapping storage.**
    - No two data keys share or overlap storage.
    - Accepted data pin intervals and every named or ordinal PE IAT slot are reserved whether or not
-     any row references them. A pin with unresolved linkage or contradictory records reserves each
-     recorded interval under an opaque identity. Symbolic attribution requires resolved linkage.
+     any row references them. Ordinal IAT slots are reserved. Import resolution is name-based.
+     A pin with unresolved linkage or contradictory records reserves each recorded interval under
+     an opaque identity. Symbolic attribution requires resolved linkage. The report lists the sizes
+     and source rows for disputed accepted pins.
    - An ordinary pin overlapping an IAT slot fails. The PE slot retains its canonical import identity.
      The grade-B cap applies to collisions between two accepted pin intervals.
-   - A verified alias and its scoped owner share placement, definitions and dependency checks. Every
-     pin in the group must agree on the base. Only identical intervals qualify for the overlap
-     exception. An accepted `source_alias` record identifies the compile-renaming owner, and that
+   - A verified alias and its scoped owner share placement, definitions, recorded function kinds
+     and dependency checks. All pins in the group must agree on their base and exact size. The
+     verified owner relation survives an opaque reservation and propagates its binding conflict.
+     Only identical intervals qualify for the overlap exception. An accepted `source_alias` record identifies the compile-renaming owner, and that
      owner's compiled profile establishes its linkage. Unresolved ownership and matching spelling
      alone do not qualify.
    - A use or definition that extends a pinned object beyond its accepted interval is a separate,
@@ -99,9 +105,10 @@ For each module separately, a CONSISTENT row satisfies all of the following.
      metadata. A separate owner entry for the same profile shares these builds. Use the ordinary COFF
      object for all code, data bytes, fixups, and symbol bounds.
    - Bind each C11 `S_GDATA32` or `S_LDATA32` record through its matching offset and section COFF
-     relocations. Both objects must identify the same unique linkage symbol. The type supplies the
-     size for scalars, qualified types, pointers, enums, arrays including nested arrays, and complete
-     structs, unions and classes. Array records specify the total in bytes, including when VC5
+     relocations, with no other effective relocation touching the six location bytes. Both objects
+     must identify the same unique linkage symbol in compatible storage. The type supplies the size
+     for scalars, qualified types, ordinary pointers and references, enums, arrays including nested
+     arrays, and complete structs, unions and classes. C++ pointers to members are unsupported. Array records specify the total in bytes, including when VC5
      references a forward declaration for the element. A standalone forward declaration has no size.
      The declared size must fit before the next symbol or section end. A COMMON definition must
      agree exactly with its ordinary COFF size.
@@ -110,7 +117,8 @@ For each module separately, a CONSISTENT row satisfies all of the following.
      cannot identify any symbol, the profile's sidecar cannot establish which symbols lack a
      record, so no definition in that profile falls back to the listing.
    - For a symbol without a data record, the ordinary profile's `/Fa` listing may prove the
-     extent if all operands are recognized and the object ends without a trailing `ORG`. Blank lines, comments and visibility directives preserve the
+     extent if all operands are recognized, a listing boundary closes the object, and it ends
+     without a trailing `ORG`. Blank lines, comments and visibility directives preserve the
      active object. An internal `ORG` followed by data contributes its stated bytes. A trailing
      `ORG` can encode either alignment or real zeros and leaves the listing extent unproven.
    - A key defined twice in one unit fails.
@@ -136,7 +144,7 @@ For each module separately, a CONSISTENT row satisfies all of the following.
      - Content proof: a function, an import, an accepted binding, or a definition with at least 8
        compared literal bytes of more than 2 distinct values. Pointer addends don't count.
      - One pair of live rows must directly use the key, differ in native bytes and masked bodies, and
-       have disjoint native extents. The same pair must satisfy all three conditions. No third row's
+       have disjoint native extents. Both rows must carry native digests. The same pair must satisfy all three conditions. No third row's
        extent enters that comparison.
      - Compute the greatest fixed point over the eligible rows, including accepted rows, by retesting
        the pair requirement as rows leave the strong set.
@@ -166,7 +174,7 @@ took 93.649 s, compared with 565 calls and 35.978 s for the listing-based baseli
 unrecorded candidate provider's ordinary build failed in both runs. Both runs collected the
 same 2,133 code rows and found zero accepted address contradictions.
 
-See [the CodeView-only comparison](../cv4/COMPARISON.md) for baseline grades and defects. The [Round 4 comparison](../cv4/round4/COMPARISON.md) covers that verifier.
+See [the CodeView-only comparison](../work/velocity_q/fixCON/cv4/COMPARISON.md) for baseline grades and defects. The [Round 4 comparison](../work/velocity_q/fixCON/cv4/round4/COMPARISON.md) covers that verifier.
 
 ## Round 3 strict pre-integration snapshot (2026-11-26)
 
@@ -180,21 +188,28 @@ See [the CodeView-only comparison](../cv4/COMPARISON.md) for baseline grades and
 Both fresh runs reported zero accepted address contradictions. The revised collector refused 36
 accepted rows with unsupported own-section DIR32 fields. Of the 1,447 accepted rows evaluated, 174
 failed a tier rule and were ineligible to vote. The 22 accepted pin collisions stayed the same.
-See [the strict collector receipt](../COMPARISON.md) in the repository's `work/velocity_q/fixCON/` lane for each grade change.
+See [the strict collector receipt](../work/velocity_q/fixCON/COMPARISON.md) in the repository's `work/velocity_q/fixCON/` lane for each grade change.
 
 The type and symbol record layouts follow [Microsoft's CodeView definitions](https://github.com/microsoft/microsoft-pdb/blob/master/include/cvinfo.h).
+
+## Audit 5 measurements
+
+A same-input replay preserved all 122 grade-A rows and 170 grade-B rows, with zero accepted
+address contradictions. Two accepted rows fail this tier because their bindings give
+`_g_eng1_image_53930` incompatible exact sizes of 316 and 320 bytes at the same address.
+See [the Audit 5 comparison](../work/velocity_q/fixCON/a5/COMPARISON.md).
 
 ## Round 5 measurements
 
 The fresh baseline and revised reports were byte-identical. Grade A stayed at 115, grade B at
-164, and accepted address contradictions at zero. See [the Round 5 comparison](COMPARISON.md).
+164, and accepted address contradictions at zero. See [the Round 5 comparison](../work/velocity_q/fixCON/r5/COMPARISON.md).
 
 ## Round 4 measurements
 
 The revised report collected 2,133 code rows, including 1,483 accepted rows, with zero accepted
 address contradictions. The proved listing fallback restored 384 of the 390 previously unsupported
 extents. The 115 grade-A and 164 grade-B rows match the original listing report row for row.
-See [the Round 4 comparison](../cv4/round4/COMPARISON.md) for those row and defect changes.
+See [the Round 4 comparison](../work/velocity_q/fixCON/cv4/round4/COMPARISON.md) for those row and defect changes.
 
 ## Measured state (2026-11-26, after the round-2 fixes)
 
@@ -240,8 +255,11 @@ See [the Round 4 comparison](../cv4/round4/COMPARISON.md) for those row and defe
 
 `python scripts/consistency.py check` fails on any new entry or any accepted-row address contradiction.
 Address disagreements are checked independently of other defects and retain their classification through
-every level of pointer dependencies. A comparator address contradiction also survives a collection
-refusal and fails `check` for an accepted row. A conflict is repaid by giving each object one name and one owner (as pop2 did) or by fixing the
+every level of pointer dependencies. A comparator address contradiction on corroborated relocation operands survives a collection
+refusal and fails `check` for an accepted row. The diagnostic requires equal contribution lengths
+and equal literal instruction bytes. On relocated images, a DIR32 field used for this diagnostic
+requires a matching native HIGHLOW even when another field causes a fixup-set mismatch.
+A size-only binding conflict fails the tier and is reported separately from address contradictions. A conflict is repaid by giving each object one name and one owner (as pop2 did) or by fixing the
 definition, never by editing the ledger.
 
 ## Commands

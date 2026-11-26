@@ -220,7 +220,7 @@ class Round4(unittest.TestCase):
             self.ev.anchors, self.ev.anchor_conflicts, unresolved, self.ev.opaque_pins = c.accepted_anchors(
                 rows, lambda bound, name: (M, name))
         self.assertEqual(unresolved, [])
-        self.assertEqual(self.ev.anchor_conflicts, {(M, '_key')})
+        self.assertEqual(set(self.ev.anchor_conflicts), {(M, '_key')})
         self.assertEqual({(base, size) for _, base, size in self.ev.opaque_pins}, {(0x3200, 8), (0x3220, 8)})
         self.row('claim-first', ref('_first', 0x3204))
         self.row('claim-second', ref('_second', 0x3224), start=0x1100)

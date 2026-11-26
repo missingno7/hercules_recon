@@ -44,7 +44,7 @@ class Rules(unittest.TestCase):
 
     def row(self, rid, refs, body=None, accepted=False):
         start = 0x1000 + 0x20 * len(self.ev.rows)   # the fixture places disjoint rows
-        self.ev.rows[rid] = dict(refs=refs, body=body or rid, start=start, size=16, module=M, accepted=accepted)
+        self.ev.rows[rid] = dict(refs=refs, body=body or rid, native=body or rid, start=start, size=16, module=M, accepted=accepted)
 
     def grades(self):
         return c.evaluate(self.ev)

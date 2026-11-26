@@ -165,7 +165,7 @@ class DeclaredExtents(unittest.TestCase):
     def test_listing_fallback_uses_only_recognized_extents_without_trailing_org(self):
         original = coff(bytes(20), sym('_cv', 1), sym('_str', 1, 4), sym('_padded', 1, 8),
                         sym('_bad', 1, 12), sym('_unresolved', 1, 16))
-        sidecar = add_debug(coff(b'', *original.symbols.values()))
+        sidecar = add_debug(coff(bytes(20), *original.symbols.values()))
         bind(sidecar, '_cv', 0x74)
         bind(sidecar, '_unresolved', 0x1000)
         listing = """_DATA SEGMENT

@@ -1,5 +1,6 @@
 """Declared data extents from the C11 debug records emitted by VC5 /Z7."""
 
+from collections import Counter
 from functools import lru_cache
 from struct import calcsize, unpack_from
 
@@ -8,6 +9,7 @@ S_LDATA32, S_GDATA32 = 0x1007, 0x1008  # C11 counted names
 LF_MODIFIER, LF_POINTER, LF_ARRAY = 0x1001, 0x1002, 0x1003
 LF_CLASS, LF_STRUCTURE, LF_UNION, LF_ENUM = 0x1004, 0x1005, 0x1006, 0x1007
 SECREL, SECTION = 0x000B, 0x000A
+I386_RELOC_WIDTH = {0: 0, 1: 2, 2: 2, 6: 4, 7: 4, 9: 2, SECTION: 2, SECREL: 4, 0x14: 4}
 
 PRIMITIVE = {
     0x10: 1, 0x20: 1, 0x30: 1, 0x68: 1, 0x69: 1, 0x70: 1,
@@ -120,6 +122,21 @@ def type_sizes(data):
     return lambda index: size(index) or None
 
 
+def data_section_kind(obj, symbol):
+    """Identify COMMON, initialized data or zero storage with a valid symbol start."""
+    number, start = symbol['section'], symbol['value']
+    if number == 0 and start > 0:
+        return 'common'
+    if not 0 < number <= len(obj.sections):
+        return None
+    section = obj.sections[number - 1]
+    if (section['flags'] & 0x20000020 or section['name'].startswith(('.debug', '.drectve'))
+            or not 0 <= start < section['size']):
+        return None
+    kind = section['flags'] & 0xc0
+    return kind if kind in (0x40, 0x80) else None
+
+
 def data_sizes(coff, ordinary):
     """Return sizes by linkage name, with None for invalid or unresolved records.
 
@@ -147,6 +164,12 @@ def data_sizes(coff, ordinary):
         fields = {r['offset']: (r['type'], r['symbol']) for r in section['relocations']}
         if len(fields) != len(section['relocations']):
             raise ValueError('ambiguous CodeView relocation offsets')
+        touched = Counter()
+        for at, (kind, _) in fields.items():
+            width = I386_RELOC_WIDTH.get(kind)
+            if width is None or at < 0 or at + width > len(section['data']):
+                raise ValueError('unsupported CodeView relocation field')
+            touched.update(range(at, at + width))
         for kind, start, payload in records(section['data'], offset):
             if kind not in (S_LDATA32, S_GDATA32):
                 continue
@@ -159,11 +182,12 @@ def data_sizes(coff, ordinary):
             for name in names:
                 symbol, original = debug_symbols.get(name), ordinary_symbols.get(name)
                 expected = 2 if kind == S_GDATA32 else 3
+                storage = data_section_kind(coff, symbol) if symbol else None
                 valid = (location == (SECREL, name) and segment == (SECTION, name)
                          and symbol and original and symbol['storage'] == original['storage'] == expected
                          and not (symbol['type'] | original['type']) & 0x20
-                         and (symbol['section'] > 0 or symbol['section'] == 0 and symbol['value'] > 0)
-                         and (symbol['section'] == 0) == (original['section'] == 0)
+                         and storage is not None and storage == data_section_kind(ordinary, original)
+                         and all(touched[at] == 1 for at in range(start + 4, start + 10))
                          and counted_name(payload, 10) and payload[4:10] == bytes(6))
                 extents[name] = size(unpack_from('<I', payload)[0]) if valid and name not in extents else None
     return extents
