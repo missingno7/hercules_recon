@@ -308,7 +308,7 @@ extern void eng1_1aba0(void);
 extern void eng1_30290(int, int);
 extern void remove_counted_value(ActorList *, Actor *);
 extern unsigned short grid_scan_20b50(int, int, int, int);
-extern unsigned short eng1_20d30(int, int, int, int);
+extern unsigned long grid_query_20d30(long,long,long,unsigned long);
 extern void eng1_27410(Actor *);
 extern int eng1_2a710(void *, Actor *);
 extern int eng1_native_code_target_00266a0(Actor *, int, int);
@@ -783,7 +783,7 @@ void eng1_43440(Actor *p)
     int hit;
     eng1_440d0(p,0x26);
     dx = p->x-g_frame_owner_72860->x; dy=p->y-g_frame_owner_72860->y;
-    if (eng1_20d30(p->x >> 16,p->y >> 16,p->z >> 16,p->profile)==0x1a) dy=0xff0000;
+    if ((unsigned short)grid_query_20d30(p->x >> 16,p->y >> 16,p->z >> 16,p->profile)==0x1a) dy=0xff0000;
     absolute=dx; if (absolute<0) absolute=-absolute;
     switch ((unsigned short)p->state) {
     case 38:
@@ -802,7 +802,7 @@ void eng1_43440(Actor *p)
             next=p->x;
             if (!p->unknown_94) { next+=p->unknown_a8; probe=next+0x100000; }
             else { next-=p->unknown_a8; probe=next-0x100000; }
-            tile=eng1_20d30(probe >> 16,p->y >> 16,p->z >> 16,p->profile);
+            tile=(unsigned short)grid_query_20d30(probe >> 16,p->y >> 16,p->z >> 16,p->profile);
             if (!(g_configuration_dword_713bc[tile]&7)) p->x=next;
         }
         if (eng1_interpret_signed_pairs(p)) { p->unknown_b8=0; p->state=2; p->unknown_a8=0x80000; select_frame(p,2); p->frame=2; }
@@ -870,7 +870,6 @@ void eng1_43440(Actor *p)
     eng1_0ef10(p);
     if(eng1_native_code_target_002aa30(p,500,320))remove_actor(p);
 }
-extern unsigned long grid_query_20d30(long,long,long,unsigned long);
 extern Actor *g_normal_actor_pool;
 void eng1_43b50(Actor *p,long dx)
 {
@@ -924,7 +923,7 @@ void eng1_43d80(Actor *p)
     p->y+=p->unknown_b8;
     if(!p->unknown_94){next=p->x+p->unknown_a8;probe=next+0x100000;}
     else{next=p->x-p->unknown_a8;probe=next-0x100000;}
-    tile=eng1_20d30(probe>>16,p->y>>16,p->z>>16,p->profile);
+    tile=(unsigned short)grid_query_20d30(probe>>16,p->y>>16,p->z>>16,p->profile);
     if(!(g_configuration_dword_713bc[tile]&7))p->x=next;
     else if(p->state!=9 && p->state!=35){p->state=9;select_frame(p,3);}
 }
@@ -944,11 +943,11 @@ void eng1_43ea0(Actor *p)
     next=p->x;
     if(!p->unknown_94){next+=p->unknown_a8;probe=next+0x100000;}
     else{next-=p->unknown_a8;probe=next-0x100000;}
-    tile=eng1_20d30(probe>>16,p->y>>16,p->z>>16,p->profile);
+    tile=(unsigned short)grid_query_20d30(probe>>16,p->y>>16,p->z>>16,p->profile);
     if(!(g_configuration_dword_713bc[tile]&7))p->x=next;
     eng1_interpret_word_stream(p);
     if(eng1_29e20(p)){
-        if(g_frame_owner_72860->y-p->y>0x400000)remove_actor_variant(p);
+        if(g_normal_actor_pool->y-p->y>0x400000)remove_actor_variant(p);
         else{
             p->unknown_b8/=-3;
             if(p->unknown_b8<0x2800 && p->unknown_b8 > -0x2800){p->unknown_a8=0;p->frame_tick=9;}

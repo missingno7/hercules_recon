@@ -1,0 +1,19 @@
+{
+  "scope": "Caller naming correction and independent reference reuse; no callee code equality or runtime claim.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "src/eng1/actor_handlers_high.c",
+  "source_before_sha256": "a6c94be8420e0e0c696ce8ae4c002638ebf54cb3bc91c9a9eecb8242e1c9d058",
+  "source_after_sha256": "5a4046f921dffdd44a093b9e76d80c69db0fdc6d861289b219fc9e08db9a9317",
+  "changes": {
+    "_eng1_20d30": "Use the existing _grid_query_20d30 identity. Every affected expression explicitly retains the observed low-WORD return value.",
+    "_g_frame_owner_72860": "Only 43ea0 uses the actual _g_normal_actor_pool already referenced in this unit; avoid alias-owner coalescing in its new proof."
+  },
+  "independent_grid_entry": "evidence/eng1_grid_query_20d30.json#native_entry",
+  "reference_reuse": "Existing active ENG1 reference records retain their identities and native witnesses; only selected caller offsets are reissued.",
+  "peer_protection": {
+    "recorded_rows": 64,
+    "unchanged_other_complete_contributions": 62,
+    "selected_complete_instruction_equal_bytes": 496
+  }
+}
