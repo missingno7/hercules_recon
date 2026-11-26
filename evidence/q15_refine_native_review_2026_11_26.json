@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "scope": "Second q15 package: measured real include context, native complete entries and opaque indirect-call boundaries. Matching does not establish original source or dynamic callback identity.",
+  "base": {
+    "head": "87a981b9554e9178dd6de6aa1bf139c10db67254",
+    "recovery_sha256": "9de8244f451598dc5229fbb41c4baf9f62496f1a54306593f692767f8eb4e2a6"
+  },
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "context_hypothesis": {
+    "source": "src/eng1/actor_handlers_mid.c",
+    "header": "src/eng1/resource_runtime_data.h",
+    "reason": "The unit already implements20d30 and consumes resource row/header/count declarations. This existing header supplies their actual reviewed types and owners. It is included at the start of the added actor cluster, consistent with the existing mid-unit cluster_view include. No type, owner or storage is invented.",
+    "measured_change": "21650:80/96 bytes and64 differences ->96/96 and0 differences. Full existing-row peer comparisons remain instruction-equal."
+  },
+  "functions": {
+    "eng1.21650": {
+      "rva": "0x21650",
+      "size": 96,
+      "native_sha256": "9d92244a856d44581270e6564050db98867c321ae561afe3323d50ce1a3367cd",
+      "compiled_sha256": "2db3fef244cf195672e45cf91ed2b418f522b47233e6e8b088240775e37dc19d"
+    },
+    "eng1.21590": {
+      "rva": "0x21590",
+      "size": 160,
+      "native_sha256": "4abb88bcdbb64e2990c016954d9da08fa2b8c089dcbddd8882373e11c513f8c6",
+      "compiled_sha256": "be7e3b373d67c00a14d0f69cbfc7db03365182ff460dd631dc0cd93684d62810"
+    }
+  },
+  "call_sites": {
+    "eng1.21650": {
+      "offset": 57,
+      "absolute_rva": "0x21689",
+      "native_sha256": "349bdb04cc0c82ec1a89fd8f826deb816b9af41515348c1bd15177c2e526b9e3",
+      "operand": {
+        "base": "edx",
+        "disp": 636,
+        "form": "memory",
+        "index": null,
+        "scale": 1
+      },
+      "scope": "The complete native instruction is CALL [EDX+disp], followed by caller cleanup of one pushed pointer. Target and callback ABI stay unclaimed under the existing opaque-indirect-call-v1 profile."
+    },
+    "eng1.21590": {
+      "offset": 69,
+      "absolute_rva": "0x215d5",
+      "native_sha256": "3e58eaf9f9d60e6cf972fcfbc45190e0c307501bbb8d0584144d540cc6143104",
+      "operand": {
+        "base": "edx",
+        "disp": 336,
+        "form": "memory",
+        "index": null,
+        "scale": 1
+      },
+      "scope": "The complete native instruction is CALL [EDX+disp], followed by caller cleanup of one pushed pointer. Target and callback ABI stay unclaimed under the existing opaque-indirect-call-v1 profile."
+    }
+  },
+  "limits": [
+    "20300 remains880 bytes with4 non-reference differences, at the loop clock store register pair. It is not staged.",
+    "No other unequal provider is staged. No volatile, dummy operations, guessed stubs, flags or object patches are applied.",
+    "Only21650 is a new diagnostic row;21590 already exists and is promoted using independent pre-existing configuration-root and callee identities."
+  ]
+}

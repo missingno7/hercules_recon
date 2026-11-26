@@ -850,6 +850,9 @@ void eng1_native_code_target_023840(ClusterActor *p)
     }
 }
 
+
+#include "resource_runtime_data.h"
+
 /* Native entries 20250..21650 are bracketed by this unit's accepted
  * overlap_wrapped_bounds (201b0) and set_wide_scale (21310), followed by
  * shared effect_state's initialize_backdrop (216b0). Existing providers for
