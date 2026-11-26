@@ -137,7 +137,7 @@ typedef struct Slot {
 } Slot;
 typedef struct Placement { long x,y,z,ax,ay,az,ox,oy,oz,bend,unused0,unused1,unused2,follow,min_x,max_x,ex,ey,ez,unused3,unused4; } Placement;
 typedef struct Flash { NStype *actor; long x,y,z,ax,ay,az,index,state,timer; } Flash;
-extern long g_6f3ec,g_6f44c,g_6efb8,g_6f3f8,g_6f444,g_6f448,g_6f454,g_6f468,g_6f3e4,g_6f480,g_5602c,g_56030,g_6f3e8,g_6f440,g_72110,g_56040,g_6f460,g_6f464,g_72014,g_72184,g_71ecc,g_6f3d8,g_6ffbc,g_6f3d4,g_6f380;
+extern long g_6f3ec,g_6f44c,g_6efb8,g_6f3f8,g_6f444,g_6f448,g_6f454,g_6f468,g_6f3e4,g_6f480,g_5602c,g_56030,g_6f3e8,g_6f440,g_72110,g_56040,g_6f460,g_6f464,g_72184,g_71ecc,g_6f3d8,g_6ffbc,g_6f3d4,g_6f380;
 extern unsigned long g_6f46c,g_6f470;
 extern long *g_6f3c8,*g_6f3cc;
 extern NStype *g_normal_actor_pool,*g_6f3f4,*g_6f474,*g_6f478,*g_734f4,*g_6f47c;
@@ -542,6 +542,8 @@ void eng1_native_code_target_001d5f0(NStype *p)
   }
  }
 }
+extern unsigned long g_eng1_setup_dword_72014;
+
 void eng1_native_code_target_001d6c0(NStype *p)
 {
  NStype *q;
@@ -549,7 +551,7 @@ void eng1_native_code_target_001d6c0(NStype *p)
  p->NAStatus=1;p->Aux3Index=63;
  q=spawn_normal(p->Xpos,p->Ypos,p->Zpos,0x30);g_6f188[p->Aux2Index].extra=q;
  if(g_6f188[p->Aux2Index].extra)g_71370[0x240/4](g_6f188[p->Aux2Index].extra);
- if(--g_6efb8<=0)g_72014=1;g_72184=32;eng1_native_code_target_001d5f0(p);g_71ecc=60;
+ if(--g_6efb8<=0)g_eng1_setup_dword_72014=1;g_72184=32;eng1_native_code_target_001d5f0(p);g_71ecc=60;
 }
 void eng1_native_code_target_001d780(NStype *p)
 {

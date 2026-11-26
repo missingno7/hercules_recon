@@ -61,9 +61,14 @@ struct Actor {
     int unknown_d8;
     int unknown_dc;
     int unknown_e0;
-    unsigned char unknown_e4[0xee - 0xe4];
+    unsigned char unknown_e4[8];
+    unsigned char invuln;
+    unsigned char unknown_ed;
     short hits;
-    unsigned char unknown_f0[0x114 - 0xf0];
+    unsigned char unknown_f0[0x108 - 0xf0];
+    long return_state;
+    void *program_start;
+    unsigned char unknown_110[4];
     short anim_id;
     unsigned char unknown_116[0x120 - 0x116];
     struct ActorList *list;
@@ -306,7 +311,7 @@ extern unsigned short eng1_20b50(int, int, int, int);
 extern unsigned short eng1_20d30(int, int, int, int);
 extern void eng1_27410(Actor *);
 extern int eng1_2a710(void *, Actor *);
-extern void eng1_native_code_target_00266a0(Actor *, int, int);
+extern int eng1_native_code_target_00266a0(Actor *, int, int);
 extern int eng1_19b40(int);
 extern void eng1_0ef10(Actor *);
 extern unsigned short g_eng1_classifier_rows_65678[][6];
@@ -1443,4 +1448,311 @@ void eng1_41c30(HighActor *p)
         } while (p);
     }
     remove_actor_variant(source);
+}
+
+extern int __cdecl abs(int);
+extern long __cdecl labs(long);
+
+/* Native continuation bracketed by accepted 459e0, 45a50 and 461a0. */
+typedef struct Cursor Cursor;
+typedef struct Entry16 { long x,y,z,time; } Entry16;
+struct Cursor { Entry16 *base; long index,count,remaining,last,extra; long step,step2,step3; long ax,bx,cx,dx,ay,by,cy,dy,az,bz,cz,dz; long x,vx,ddx,dddx,y,vy,ddy,dddy,z,vz,ddz,dddz; };
+typedef struct Callback12 { void (*initialize)(Actor *); void (*update)(Actor *); void (*draw)(Actor *); } Callback12;
+typedef struct Callback8 { void (*initialize)(Actor *); void (*update)(Actor *); } Callback8;
+extern Callback12 *g_configuration_dword_71370;
+extern Callback8 *g_configuration_dword_7139c;
+extern Actor *g_eng1_native_actor_701a0;
+extern long *g_eng1_native_dword_7018c, *g_eng1_native_dword_70198;
+extern unsigned long g_eng1_setup_dword_72014;
+extern long g_eng1_native_dword_70190,g_eng1_native_dword_70194,g_eng1_native_dword_7019c;
+extern long g_eng1_native_state_7028c,g_eng1_native_dword_70288;
+extern unsigned long g_eng1_native_dword_70290,g_eng1_native_dword_70294;
+extern long g_eng1_native_dword_7029c,g_eng1_native_state_70244,g_eng1_native_state_702a0;
+extern long g_eng1_native_dword_70188;
+extern unsigned long eng1_sim_state_72110;
+extern Actor *g_normal_actor_pool;
+extern long g_boss_threshold_72184;
+extern Entry16 g_eng1_path_70018[];
+extern Cursor g_eng1_cursor_701b8;
+extern long g_eng1_native_vector_701a8[3];
+extern long g_eng1_bounds_69358[6],g_eng1_bounds_69370[6];
+extern unsigned char g_eng1_palette_70248[];
+extern long g_eng1_program_69988[],g_eng1_program_69ab8[],g_eng1_program_69be8[],g_eng1_program_69ca0[],g_eng1_program_69d58[],g_eng1_program_69df0[],g_eng1_program_69e88[],g_eng1_program_6a010[],g_eng1_program_6a198[],g_eng1_program_6a408[];
+extern unsigned char g_eng1_sequences_693e8[][96];
+extern short g_native_word_70832,g_eng1_atan_68d78[],g_sine_table_5a848[];
+
+extern Actor *spawn_normal(long,long,long,int),*spawn_kind(long,long,long,int);
+extern void eng1_131c0(long,long,long,int);
+extern void title_0c4d0(unsigned long);
+extern void LinkedSoundFxAt_75e3(unsigned short,Actor *,Actor *);
+extern void RemoveFxLinks_7ef6(Actor *);
+extern int actor_bounds_2a880(Actor *,long *,int),bounds_overlap(void *,long *);
+extern int dispatch_local_30010(long,long,long,int);
+extern void eng1_1ab50(void),eng1_05820(void *,int,int),eng1_446d0(void *),eng1_44720(void);
+extern int eng1_2c030(int,int),eng1_45010(Cursor *);
+extern void init_cursor_44740(Entry16 *,int,Cursor *,int);
+void eng1_45780(void);
+int eng1_44f80(void);
+int eng1_45bf0(Actor *,int,int);
+int eng1_46110(long,long,long,long);
+
+void eng1_447c0(Actor *p)
+{
+    long x=(p->x-g_normal_actor_pool->x)>>16,y=(p->y-g_normal_actor_pool->y)>>16;
+    long distance=x*x+y*y, direction=0,flag,finished;
+    Actor *q;
+    int i,best,delta,kind,damage;
+    long divisor;
+    long px,py,pz;
+    if(x>=0)direction=1;
+    if(p->child->unknown_0c[0x1e-0x0c]!=255)
+        eng1_05820(g_eng1_palette_70248,p->child->unknown_0c[0x1e-0x0c],32);
+    flag=0;finished=0;
+    do {
+        switch((unsigned short)p->state){
+        case 0:
+            if(p->unknown_94!=direction){
+                p->program=g_eng1_program_69d58;p->program_start=g_eng1_program_69d58;p->frame_tick=0;p->return_state=2;p->state=1;
+                if(p->unknown_94){p->program=g_eng1_program_69df0;p->program_start=g_eng1_program_69df0;p->frame_tick=0;p->return_state=2;p->state=1;}
+            }else if(distance<=0x24000 && !g_eng1_setup_dword_72014){
+                if(!p->unknown_94){
+                    switch(random_limit(2)){
+                    case 0:p->program=g_eng1_program_69be8;p->program_start=g_eng1_program_69be8;p->frame_tick=0;p->return_state=0;p->state=1;break;
+                    case 1:if(g_eng1_native_dword_7019c){p->program=g_eng1_program_69be8;p->program_start=g_eng1_program_69be8;p->frame_tick=0;p->return_state=0;p->state=1;}
+                        else{p->program=g_eng1_program_6a198;p->program_start=g_eng1_program_6a198;p->frame_tick=0;p->return_state=0;p->state=1;g_eng1_native_state_70244=-1;}break;
+                    }
+                }else{
+                    switch(random_limit(2)){
+                    case 0:p->program=g_eng1_program_69ca0;p->program_start=g_eng1_program_69ca0;p->frame_tick=0;p->return_state=0;p->state=1;break;
+                    case 1:if(g_eng1_native_dword_7019c){p->program=g_eng1_program_69ca0;p->program_start=g_eng1_program_69ca0;p->frame_tick=0;p->return_state=0;p->state=1;}
+                        else{p->program=g_eng1_program_6a408;p->program_start=g_eng1_program_6a408;p->frame_tick=0;p->return_state=0;p->state=1;g_eng1_native_state_70244=-1;}break;
+                    }
+                }
+            }else{
+                switch(random_limit(2)){
+                case 0:p->program=g_eng1_program_69be8;p->program_start=g_eng1_program_69be8;p->frame_tick=0;p->return_state=0;p->state=1;
+                    if(p->unknown_94){p->program=g_eng1_program_69ca0;p->program_start=g_eng1_program_69ca0;p->frame_tick=0;p->return_state=0;p->state=1;}break;
+                case 1:p->program=g_eng1_program_69e88;p->program_start=g_eng1_program_69e88;p->frame_tick=0;p->return_state=0;p->state=1;
+                    if(p->unknown_94){p->program=g_eng1_program_6a010;p->program_start=g_eng1_program_6a010;p->frame_tick=0;p->return_state=0;p->state=1;}break;
+                }
+            }
+            break;
+        case 1:
+            finished=1;
+            if(--p->frame_tick<=0){
+                i=*(long *)p->program;p->sprite=i;p->program=(long *)p->program+1;
+                switch(i){
+                case -4:i=*(long *)p->program;p->program=(long *)p->program+1;eng1_446d0(g_eng1_sequences_693e8[i]);finished=0;break;
+                case -3:q=spawn_normal(0,0,0,42);if(q)g_configuration_dword_71370[42].initialize(q);g_eng1_native_state_70244=1;finished=0;break;
+                case -2:p->child->sprite=*(short *)p->program;flag=0x800000;p->program=(long *)p->program+1;p->child->render_flags&=~0x10;p->child->render_flags|=p->render_flags&0x10;finished=0;break;
+                case -1:i=*(long *)p->program;p->program=(long *)p->program+1;LinkedSoundFx_6da0(i,p);finished=0;break;
+                case 0:p->state=p->return_state;finished=0;break;
+                default:p->frame_tick=*(short *)p->program;p->program=(long *)p->program+1;p->render_flags&=~0x800000;p->render_flags|=flag;break;
+                }
+            }break;
+        case 2:p->state=0;p->unknown_94^=1;finished=0;break;
+        }
+    }while(!finished);
+    if(g_eng1_native_state_70244>=0){
+        while(!eng1_45010(&g_eng1_cursor_701b8)){eng1_44720();g_eng1_native_state_702a0=g_eng1_setup_dword_72014;}
+        if(!g_eng1_native_state_702a0){
+            px=g_eng1_cursor_701b8.x>>16;py=g_eng1_cursor_701b8.y>>16;pz=g_eng1_cursor_701b8.z>>16;
+            if(py>=726){if(px<289)px=289;if(px>993)px=993;}
+            if(py<726 && py>=605){if(px<166)px=166;if(px>1136)px=1136;}
+            if(py<605){if(px<95)px=95;if(px>1186)px=1186;}
+            p->x=px<<16;p->y=py<<16;if(g_eng1_cursor_701b8.extra)p->z=pz<<16;
+        }
+    }
+    if(--g_eng1_native_dword_70194<=0){
+        g_eng1_native_dword_70194=random_limit(90)+15;
+        px=g_eng1_native_dword_70288>>16;best=999999;
+        for(i=0;i<6;++i){delta=abs(px-g_eng1_bounds_69358[i]);if(delta<best){best=delta;direction=i;}
+            delta=abs(px-g_eng1_bounds_69370[i]);if(delta<best){best=delta;direction=i;}}
+        if(px<g_eng1_bounds_69358[direction])px=g_eng1_bounds_69358[direction];
+        if(px>g_eng1_bounds_69370[direction])px=g_eng1_bounds_69370[direction];
+        q=spawn_normal(px<<16,0x400000,g_normal_actor_pool->z,41);if(q)g_configuration_dword_71370[41].initialize(q);
+        g_eng1_native_dword_70288=g_normal_actor_pool->x;
+    }
+    if(--g_eng1_native_dword_70190<=0){
+        g_eng1_native_dword_70190=random_limit(240)+240;kind=32;px=0x560000;
+        if(!random_limit(2)){kind=64;px=0x4a60000;}g_eng1_native_dword_70188=px;
+        switch(random_limit(4)){
+        case 0:eng1_131c0(px,0x600000,g_normal_actor_pool->z,kind|11);break;
+        case 1:eng1_131c0(px,0x600000,g_normal_actor_pool->z,kind|12);break;
+        case 2:eng1_131c0(px,0x600000,g_normal_actor_pool->z,kind|13);break;
+        case 3:eng1_131c0(px,0x600000,g_normal_actor_pool->z,kind|14);break;
+        }
+    }
+    if(p->invuln<=0 && !eng1_sim_state_72110){
+        if(!g_eng1_setup_dword_72014){
+            i=eng1_26de0(p);
+            if(i){
+                if(i==128){damage=eng1_19b40(~g_native_word_72168&0x5f);eng1_1ab50();}
+                else{eng1_30290(i,0);damage=2;}
+                if(damage){p->hits-=damage;divisor=200/damage;i=256/divisor;if(p->hits<=0)i=g_native_word_70832;else if(i>=g_native_word_70832)i=g_native_word_70832-1;*(long *)&g_boss_threshold_72184=i;}
+                p->program=g_eng1_program_69988;p->program_start=g_eng1_program_69988;p->frame_tick=0;p->return_state=0;p->state=1;
+                if(p->unknown_94){p->program=g_eng1_program_69ab8;p->program_start=g_eng1_program_69ab8;p->frame_tick=0;p->return_state=0;p->state=1;}
+                g_eng1_native_state_70244=0;p->invuln=8;
+                i=eng1_44f80();if(i){kind=0x220;if(p->x>0x2800000)kind=0x240;eng1_131c0(p->x,p->y,g_normal_actor_pool->z,i|kind);}
+            }
+            if(p->hits<=0){p->hits=1;g_eng1_native_state_7028c=300;g_eng1_setup_dword_72014=1;eng1_45780();}
+        }
+    }
+    if(g_eng1_setup_dword_72014){
+        i=1;do{
+            q=spawn_kind(p->x+((random_limit(64)-32)<<16),p->y+((random_limit(64)-32)<<16),p->z,45);
+            if(q)g_configuration_dword_7139c[45].initialize(q);
+        }while(--i);
+        if(!(g_eng1_native_state_7028c&7)){
+            q=spawn_kind(p->x,p->y,p->z,41);if(q)g_configuration_dword_7139c[41].initialize(q);q->timer=1;
+        }
+    }
+}
+
+int eng1_44f80(void)
+{
+    long value=*g_eng1_native_dword_7018c++;
+    while(value<=0){
+        if(value==0){g_eng1_native_dword_70290=*g_eng1_native_dword_7018c++;g_eng1_native_dword_70294=*g_eng1_native_dword_7018c++;}
+        if(value<0)g_eng1_native_dword_7018c=g_eng1_native_dword_70198;
+        value=*g_eng1_native_dword_7018c++;
+    }
+    if(g_eng1_native_dword_70290>=random_limit(g_eng1_native_dword_70294)+1 && g_eng1_native_dword_70290!=g_eng1_native_dword_70294){--g_eng1_native_dword_7018c;return 0;}
+    return value;
+}
+
+void eng1_45780(void)
+{
+    int x=g_eng1_native_actor_701a0->x>>16,y=g_eng1_native_actor_701a0->y>>16,z=g_eng1_native_actor_701a0->z>>16;
+    int px,py,pz,dx,dy,steps,base,offset,sign,rise;
+    long *e;
+    g_eng1_path_70018[2].x=x<<16;g_eng1_path_70018[2].y=y<<16;g_eng1_path_70018[2].z=z<<16;g_eng1_path_70018[2].time=16;
+    px=g_normal_actor_pool->x>>16;py=g_normal_actor_pool->y>>16;pz=g_normal_actor_pool->z>>16;
+    g_eng1_path_70018[3].x=px<<16;g_eng1_path_70018[3].y=py<<16;g_eng1_path_70018[3].z=pz<<16;g_eng1_path_70018[3].time=16;
+    dx=abs(x-px);dy=abs(y-py);steps=eng1_2c030(dx,dy)>>4;if(steps<2)steps=2;g_eng1_path_70018[2].time=steps;
+    base=px;offset=128;sign=1;rise=-16;
+    for(e=&g_eng1_path_70018[4].y;(long)e<(long)&g_eng1_path_70018[21].y;e+=4){
+        if(py>=726){if(px<289)px=289;if(px>993)px=993;}
+        if(py<726 && py>=605){if(px<166)px=166;if(px>1136)px=1136;}
+        if(py<605){if(px<95)px=95;if(px>1186)px=1186;}
+        e[-1]=px<<16;e[0]=py<<16;e[1]=pz<<16;e[2]=16;
+        py+=rise;px=sign*offset+base;offset+=32;sign=-sign;rise-=8;
+    }
+    g_eng1_path_70018[21].x=0x2000000;g_eng1_path_70018[21].y=pz<<16;g_eng1_path_70018[21].time=16;
+    init_cursor_44740(g_eng1_path_70018,20,&g_eng1_cursor_701b8,1);
+}
+void eng1_45930(Actor *p)
+{
+    p->sprite=0x9c;
+    if(g_eng1_setup_dword_72014){p->unknown_4a=0x80;p->render_flags|=0x4000605;}
+}
+void eng1_45960(Actor *p)
+{
+    if(--p->frame_tick<=0){p->frame_tick=3;if(++p->sprite>0xb1)p->sprite=0x9c;}
+    if(!p->timer){p->x=g_eng1_native_actor_701a0->x;p->y=g_eng1_native_actor_701a0->y;p->z=g_eng1_native_actor_701a0->z;}
+    else{p->y-=0x10000;p->scale-=6;if(p->scale<=8)release_actor(p);}
+}
+void eng1_45a00(Actor *p)
+{
+    if(--p->frame_tick<=0){p->frame_tick=3;if(++p->sprite>=0x2ba)p->sprite=0x2ad;}
+    p->y+=0x20000;p->scale-=6;if(p->scale<=8)release_actor(p);
+}
+void eng1_45a80(Actor *p)
+{
+    int remove=g_eng1_setup_dword_72014;
+    unsigned long height;
+    Actor *q;
+    if((p->unknown_0c[0x1f-0x0c]&3)==3 && !p->unknown_a8){p->unknown_a8=1;LinkedSoundFxAt_75e3(0xcac1,p,g_eng1_native_actor_701a0);}
+    if(--p->frame_tick<=0){p->frame_tick=1;if(++p->sprite>=0x190)p->sprite=0x188;}
+    switch((unsigned short)p->state){
+    case 0:height=(unsigned short)eng1_20b50(p->x>>16,p->y>>16,p->z>>16,p->profile);if((unsigned long)p->unknown_b8>=height){
+            eng1_native_code_target_002a290(p);q=spawn_kind(p->x,p->y,p->z,42);if(q)g_configuration_dword_7139c[42].initialize(q);p->state=1;
+        }else{p->y+=p->unknown_b8<<16;if(++p->unknown_b8>8)p->unknown_b8=8;}break;
+    case 1:p->scale-=24;if(p->scale<=24)remove=1;break;
+    }
+    if(actor_bounds_2a880(p,g_eng1_native_vector_701a8,1) && bounds_overlap((char *)g_collision_context+0x88,g_eng1_native_vector_701a8))eng1_45bf0(p,18,0);
+    if(remove)remove_actor(p);
+}
+int eng1_45bf0(Actor *p,int kind,int arg)
+{
+    int result=0,value;
+    if(!random_limit(8)){
+        result=eng1_native_code_target_00266a0(p,kind,arg);
+        if(result){
+            value=random_limit(5);if(value==g_eng1_native_dword_7029c){--value;if(value<0)value=4;}g_eng1_native_dword_7029c=value;
+            switch(value){
+            case 0:title_0c4d0(0x70);break;
+            case 1:title_0c4d0(0x71);break;
+            case 2:title_0c4d0(0x73);break;
+            case 3:title_0c4d0(0x75);break;
+            case 4:LinkedSoundFx_6da0(0x4acb,g_eng1_native_actor_701a0);break;
+            }
+        }
+    }
+    return result;
+}
+void eng1_45cc0(Actor *p)
+{
+    p->unknown_4a=0x80;p->render_flags|=0x4000605;p->sprite=0x183;p->unknown_36=3;p->state=0;
+    switch(random_limit(4)){
+    case 0:LinkedSoundFxAt_75e3(0x4ac2,p,g_eng1_native_actor_701a0);break;
+    case 1:LinkedSoundFxAt_75e3(0x4ac3,p,g_eng1_native_actor_701a0);break;
+    case 2:LinkedSoundFxAt_75e3(0x4ac4,p,g_eng1_native_actor_701a0);break;
+    }
+}
+void eng1_45d50(Actor *p)
+{
+    int remove=g_eng1_setup_dword_72014;
+    if(--p->frame_tick<=0){
+        ++p->sprite;p->frame_tick=3;
+        switch((unsigned short)p->state){
+        case 0:if(p->sprite>=0x188){p->sprite=0x174;p->state=1;}break;
+        case 1:if(p->sprite>=0x17e){if(--p->unknown_36<=0)p->state=2;else p->sprite=0x174;}break;
+        case 2:if(p->sprite>=0x183)remove=1;break;
+        }
+    }
+    if(actor_bounds_2a880(p,g_eng1_native_vector_701a8,1) && bounds_overlap((char *)g_collision_context+0x88,g_eng1_native_vector_701a8))eng1_45bf0(p,17,0);
+    if(remove)release_actor(p);
+}
+void eng1_45e20(Actor *p)
+{
+    p->unknown_4a=0x80;p->render_flags|=0x4000605;p->mode=5;
+    p->unknown_94=g_eng1_native_actor_701a0->unknown_94;
+    p->x=g_eng1_native_actor_701a0->x+0x780000;p->unknown_a8=0;
+    if(p->unknown_94){p->x=g_eng1_native_actor_701a0->x-0x780000;p->unknown_a8=0x200;}
+    p->y=g_eng1_native_actor_701a0->y-0x100000;p->z=g_eng1_native_actor_701a0->z;
+    p->sprite=0x1d0;p->unknown_b8=1;p->unknown_c8=16;p->unknown_36=240;g_eng1_native_dword_7019c=1;
+    LinkedSoundFxAt_75e3(0x4ac9,p,g_eng1_native_actor_701a0);
+}
+void eng1_45ef0(Actor *p)
+{
+    int remove=g_eng1_setup_dword_72014,angle,delta;
+    unsigned long height;
+    Actor *q;
+    if(g_eng1_native_state_7028c&1){q=spawn_kind(p->x,p->y,p->z,44);if(q)g_configuration_dword_7139c[44].initialize(q);}
+    if(--p->frame_tick<=0){p->frame_tick=2;if(++p->sprite>=0x1d4)p->sprite=0x1d0;}
+    angle=eng1_46110(g_normal_actor_pool->x,g_normal_actor_pool->y,p->x,p->y);
+    delta=wrap_delta_461a0(angle,p->unknown_a8);
+    if(delta>p->unknown_b8)delta=p->unknown_b8;if(delta < -p->unknown_b8)delta=-p->unknown_b8;
+    p->unknown_a8+=delta;if(p->unknown_b8<32)++p->unknown_b8;
+    p->x+=(g_sine_table_5a848[(p->unknown_a8+256)&1023]<<1)*p->unknown_c8;
+    p->y+=(g_sine_table_5a848[p->unknown_a8&1023]<<1)*p->unknown_c8;
+    if(!(g_eng1_native_state_7028c&1) && p->unknown_c8>10)--p->unknown_c8;
+    if(p->unknown_94)p->unknown_74-=128;else p->unknown_74+=128;
+    height=(unsigned short)eng1_20b50(p->x>>16,(p->y-0x280000)>>16,p->z>>16,p->profile);if(height==0x7fff)remove=1;
+    if(dispatch_local_30010(p->x,p->y,p->z,1))remove=1;
+    if(--p->unknown_36<=0)remove=1;
+    if(actor_bounds_2a880(p,g_eng1_native_vector_701a8,1) && bounds_overlap((char *)g_collision_context+0x88,g_eng1_native_vector_701a8) && eng1_45bf0(p,3,0))remove=1;
+    if(remove){RemoveFxLinks_7ef6(p);if(p->unknown_36>0)LinkedSoundFx_6da0(0xc2ca,p);remove_actor(p);g_eng1_native_dword_7019c=0;}
+}
+int eng1_46110(long x1,long y1,long x2,long y2)
+{
+    long ax,ay,angle;
+    x1=(x2-x1)>>16;ax=labs(x1);
+    y1=(y2-y1)>>16;ay=labs(y1);
+    if(ay==ax)angle=ax?128:0;
+    else if(ay<ax)angle=g_eng1_atan_68d78[(ay<<9)/ax];
+    else angle=256-g_eng1_atan_68d78[(ax<<9)/ay];
+    if(x1<0)angle=512-angle;if(y1<0)angle=1024-angle;
+    return angle;
 }
