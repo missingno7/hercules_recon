@@ -45,8 +45,8 @@ extern void __cdecl dispatch_local_11fc0(void);
 extern void __cdecl dispatch_local_15670(void);
 extern void __cdecl dispatch_local_16790(void);
 extern unsigned long __cdecl eng1_native_code_target_0015d00(void);
-extern void __cdecl eng1_native_code_target_0018f60(void);
-extern void __cdecl eng1_native_code_target_0019160(void);
+extern void __cdecl eng1_18f60(void);
+extern void __cdecl eng1_19160(void);
 extern void __cdecl eng1_native_code_target_002a290(void *actor);
 extern void *__cdecl eng1_native_code_target_0027d40(
     void *actor, unsigned long action);
@@ -75,45 +75,52 @@ void __cdecl dispatch_local_19440(void)
 /* Native 0x16790's default branch uses the source-owned interior view at
  * 0x53820. Its alternate branch uses the separately measured command stream
  * at 0x54558. */
+typedef struct PlayerActor PlayerActor;
+typedef struct PlayerCommand { short opcode, operand; } PlayerCommand;
+struct PlayerActor {
+    long x, y, z;
+    unsigned char unknown_0c[0x21-0x0c];
+    signed char depth;
+    unsigned char category, mode;
+    unsigned char unknown_24[0x30-0x24];
+    short ticks, phase;
+    unsigned short sprite, count, profile, scale;
+    unsigned char unknown_3c[0x4a-0x3c];
+    unsigned short alpha;
+    long parameter;
+    unsigned long flags, render_flags;
+    long record_offset;
+    void *entries;
+    PlayerActor *child;
+    PlayerCommand *program;
+    unsigned char unknown_68[0x94-0x68];
+    unsigned char facing, facing_y, facing_z, unknown_97;
+    short unknown_98, unknown_9a;
+    long prev_x, prev_y, prev_z;
+    long motion_x, velocity_x, rate_x, unknown_b4;
+    long motion_y, velocity_y, rate_y, unknown_c4;
+    unsigned char unknown_c8[0xec-0xc8];
+    unsigned char lifetime, lifetime_flag;
+};
 void __cdecl dispatch_local_16790(void)
 {
-    eng1_setup_u8 *actor;
-
-    if (eng1_sim_state_72170 != 0)
-    {
-        eng1_native_code_target_0019160();
-        return;
-    }
-
-    if (eng1_sim_state_72110 != 0) {
-        if (g_eng1_setup_dword_7201c == 0) {
-            eng1_native_code_target_0018f60();
-            return;
-        }
-        actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
+    if (eng1_sim_state_72170) { eng1_19160(); return; }
+    if (eng1_sim_state_72110) {
+        if (!g_eng1_setup_dword_7201c) { eng1_18f60(); return; }
         eng1_sim_state_72108 = 0x2f;
-        *(void **)(void *)(actor + 0x64) = g_eng1_setup_program_54558;
-        actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
-        *(eng1_setup_u16 *)(void *)(actor + 0x30) = 0xffffU;
-        actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
-        *(eng1_setup_u16 *)(void *)(actor + 0x32) = 0xffffU;
+        ((PlayerActor *)g_normal_actor_pool)->program = (PlayerCommand *)g_eng1_setup_program_54558;
+        ((PlayerActor *)g_normal_actor_pool)->ticks = -1;
+        ((PlayerActor *)g_normal_actor_pool)->phase = -1;
         eng1_native_code_target_0015d00();
         return;
     }
-
-    actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
     eng1_sim_state_72108 = 0;
-    *(void **)(void *)(actor + 0x64) =
-        (void *)((eng1_setup_u8 *)&g_eng1_simulation_lookup_owner_537e0 + 0x40);
-    actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
-    *(eng1_setup_u16 *)(void *)(actor + 0x30) = 0xffffU;
-    actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
-    *(eng1_setup_u16 *)(void *)(actor + 0x32) = 0xffffU;
+    ((PlayerActor *)g_normal_actor_pool)->program = (PlayerCommand *)((unsigned char *)&g_eng1_simulation_lookup_owner_537e0 + 0x40);
+    ((PlayerActor *)g_normal_actor_pool)->ticks = -1;
+    ((PlayerActor *)g_normal_actor_pool)->phase = -1;
     eng1_native_code_target_0015d00();
-    actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
-    *(unsigned long *)(void *)(actor + 0x4c) = 2;
-    actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
-    actor[0x96] = 0xff;
+    ((PlayerActor *)g_normal_actor_pool)->parameter = 2;
+    ((PlayerActor *)g_normal_actor_pool)->facing_z = 0xff;
 }
 
 void __cdecl dispatch_local_15090(void)

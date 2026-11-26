@@ -1,0 +1,48 @@
+{
+  "scope": "PC native instruction and field-access research; no strict acceptance or original TU identity claim",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "region": [
+    "0x156a0",
+    "0x16840"
+  ],
+  "functions": [
+    {
+      "rva": "0x156a0",
+      "size": 224,
+      "symbol": "_dispatch_local_156a0",
+      "outcome": "instruction_equal"
+    },
+    {
+      "rva": "0x15780",
+      "size": 1408,
+      "symbol": "_eng1_native_code_target_0015780",
+      "outcome": "reconstructed_not_equal"
+    },
+    {
+      "rva": "0x15d00",
+      "size": 2704,
+      "symbol": "_dispatch_local_15d00",
+      "outcome": "reconstructed_not_equal"
+    },
+    {
+      "rva": "0x16790",
+      "size": 176,
+      "symbol": "_dispatch_local_16790",
+      "outcome": "instruction_equal"
+    }
+  ],
+  "placement": "Recorded neighbors: setup_leaf_dependencies.c at 15670, mode_handlers_16840.cpp starts 16840. All four bodies were first written in a single leaf-unit experiment. Historical TU membership remains unproved. Equal bodies are integrated into their existing canonical provider units to preserve source ownership and avoid duplicate runtime definitions. Full bracketing-unit candidate remains an unintegrated fragment.",
+  "native_findings": [
+    "156a0 reads the context flags at each input branch, with live pointer reloads after BYTE stores; high input bits have a WORD field view.",
+    "16790 timer and phase are signed WORD fields; plain typed actor stores naturally reload the shared pointer.",
+    "15780 energy path reads timer cell 72150 after actor/collision writes; 6ef90 and 6ef94 index expressions read a DWORD and mask the low WORD.",
+    "15d00 contains all 52 negative opcodes. -28 replaces the local command; nonnegative result becomes sprite/timer. Program restarts, recursion, RNG and call order were transcribed from native transfers.",
+    "The published callers use the existing ledger names dispatch_local_12620, eng1_18f60 and eng1_19160; no second function-entry spelling is introduced."
+  ],
+  "limits": "No host execution, new storage definition, source identity, complete runtime or caller promotion claim.",
+  "source_sha256": {
+    "src/eng1/simulation_iteration.c": "be30454498c2ac22b1eb6588ba624863bacd418a6a9b8ed4892a6b8a668a01cd",
+    "src/eng1/setup_source.c": "029d8ec195cb32cfe80731db31629cf23930e10d2be277bd5eb20b9fcca682b6"
+  }
+}
