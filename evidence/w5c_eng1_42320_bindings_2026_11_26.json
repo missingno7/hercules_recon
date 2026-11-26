@@ -1,0 +1,127 @@
+{
+ "schema": 1,
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "src/eng1/actor_handlers_high.c": "a6c94be8420e0e0c696ce8ae4c002638ebf54cb3bc91c9a9eecb8242e1c9d058",
+  "evidence/solOT_eng1_36c40_bindings_2026_11_01.json": "68a85e93e6907f99a052b7f5b96568c9a7a17837665cd2b42697212894e61be0",
+  "src/eng1/frame_palette_42320.c": "1c2b4eb449fb217c311aa80231dfeb5780b515afb6f4fd14722000073426d72d",
+  "evidence/eng1_tile_draw_2ff0.json": "5b1892d1555a61924ae5f8c6183add5ac063e8848816f14a77ec1005d5517293",
+  "evidence/w5c_camera_anchor_review_2026_11_26.json": "e2fbd850fc10e40005e50cc496fc55f09a2ecc9a737f699460aa1f0328d19884",
+  "src/eng1/camera_storage.c": "361e634bc7cab44dea4efa6fbd8669f08e7913ba51ca4b4048acb65b4e1d6589",
+  "evidence/anchor_658e5e7ae93c_7bc6ee7f7ead.json": "6063015a69ef03ce80d64f3795b02fc08b15dcb0396b0276cc4f22251ff51efe",
+  "src/eng1/player_unit_36030.c": "509a0349a6bc462c842bed75133431ae804ddd2c9fda45c5fa902eeb8a257a10",
+  "evidence/w5c_reference_review_2026_11_26.json": "ff7e0bd855c7f98293cd17dbea6ed6b74c0ff0fb4a8c08780c1b09706d41dc89"
+ },
+ "function_identities": {
+  "eng1.color_rgb_forward_5a30": {
+   "ledger_status": "CODEGEN_SIMILAR",
+   "origin": "recovery.json#functions.eng1.color_rgb_forward_5a30; independently fresh complete own shape",
+   "rva": 23088,
+   "size": 48,
+   "source": "src/eng1/frame_palette_42320.c",
+   "source_sha256": "1c2b4eb449fb217c311aa80231dfeb5780b515afb6f4fd14722000073426d72d",
+   "symbol": "_eng1_color_rgb_forward_5a30",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  }
+ },
+ "functions": {
+  "eng1.42320": {
+   "symbols": {
+    "_eng1_color_rgb_forward_5a30": {
+     "kind": "function",
+     "rva": 23088,
+     "size": 48,
+     "evidence": [
+      "function_identities:eng1.color_rgb_forward_5a30"
+     ],
+     "references": [
+      {
+       "offset": 77,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 98,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng1_tile_draw_2ff0": {
+     "kind": "function",
+     "rva": 12272,
+     "size": 640,
+     "evidence": [
+      "evidence/eng1_tile_draw_2ff0.json#native_entry",
+      "native_review:callees._eng1_tile_draw_2ff0"
+     ],
+     "references": [
+      {
+       "offset": 51,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_camera_x_70ca0": {
+     "evidence": [
+      "evidence/bindK3_proposal_2026_11_01.json#native_owner_review._g_camera_x_70ca0",
+      "evidence/w5c_camera_anchor_review_2026_11_26.json"
+     ],
+     "identity": {
+      "rva": 224323,
+      "size": 5,
+      "operand": 1,
+      "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28"
+     },
+     "kind": "bss",
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng1/camera_storage.c",
+      "symbol": "_g_camera_x_70ca0"
+     },
+     "references": [
+      {
+       "offset": 4,
+       "type": 6,
+       "addend": 0
+      }
+     ],
+     "rva": 461984,
+     "size": 4
+    },
+    "_g_camera_y_70ca4": {
+     "kind": "bss",
+     "rva": 461988,
+     "size": 4,
+     "owner": {
+      "source": "src/eng1/camera_storage.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_camera_y_70ca4"
+     },
+     "identity": {
+      "rva": 12219,
+      "size": 5,
+      "operand": 1,
+      "sha256": "1b5af140e7e0a6647402887a90887a1c64edddcbcfceb2f1834615f07a1e7f9a"
+     },
+     "evidence": [
+      "native_owner_review:_g_camera_y_70ca4"
+     ],
+     "references": [
+      {
+       "offset": 10,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}

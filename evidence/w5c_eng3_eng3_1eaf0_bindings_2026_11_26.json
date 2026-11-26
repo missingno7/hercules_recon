@@ -1,0 +1,151 @@
+{
+ "schema": 1,
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "src/eng3/actor_services_1e000.c": "866d6d520a945c250b45d519e4e2f48c5c0bb4879a49e14ec38b950659657bd1",
+  "evidence/rename_83ffa56bde0a_fd47b2cecf3a.json": "b56bbdd3e0bf3293069b60e542c2e5278ff8e456a0b8d0b9e189f2ecfaad48d8",
+  "evidence/caller_entry_matching_2026_10_25.json": "46b56b8fe8e03350a4b09e6d8386f8bac4e0c00da6b264fbe6bc1199707ff2ce",
+  "evidence/w5c_eng3_tolerance_review_2026_11_26.json": "469f31e4b48fe89635888bf1e2e69371d078f46203111bc9b507ce766f4e483c",
+  "src/eng3/loader_zero_cells_c11_eng3.c": "f09689b958f6d480665acb2fecdac0c98f336bc9c98a04cb5137ea2781e0817d",
+  "src/eng3/handlers_16240.cpp": "aee16b6f920b637f0f1f9e2f359e4a74bd71a91fd43aed1c0f55804a94c07393",
+  "src/shared/macro_actor.c": "bcf5ab8e0a62e31a88c0534a2bb8b5624c083248a5c4a17291d04cff01d4cdba",
+  "evidence/source_layout_2026_10_25/scene_cell_bindings_2026_10_25.json": "f6cba4ce855c084b827054a046171c92149a2ade41f8b650a8da0cf995303e31",
+  "evidence/solOU_eng3_remove_actor_variant_bindings_2026_11_01.json": "aecb6a7a7caa7105fda7d358fcdb5646a00f0260573f90bb6920b7b4918185ec",
+  "src/title/pilot.c": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+  "evidence/w5c_reference_review_2026_11_26.json": "ff7e0bd855c7f98293cd17dbea6ed6b74c0ff0fb4a8c08780c1b09706d41dc89"
+ },
+ "function_identities": {
+  "eng3.eng3_1e6d0": {
+   "ledger_status": "CODEGEN_SIMILAR",
+   "rva": 124624,
+   "size": 352,
+   "source": "src/eng3/actor_services_1e000.c",
+   "source_sha256": "866d6d520a945c250b45d519e4e2f48c5c0bb4879a49e14ec38b950659657bd1",
+   "symbol": "_eng3_1e6d0",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "origin": "Independent complete entry already recorded in recovery.json as eng3.eng3_1e6d0"
+  },
+  "eng3.shared_1e440": {
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "rva": 123968,
+   "size": 128,
+   "source": "src/shared/macro_actor.c",
+   "source_sha256": "bcf5ab8e0a62e31a88c0534a2bb8b5624c083248a5c4a17291d04cff01d4cdba",
+   "symbol": "_insert_scene",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "origin": "Independent complete entry already recorded in recovery.json as eng3.shared_1e440",
+   "accepted_proof": {
+    "bindings_path": "evidence/source_layout_2026_10_25/scene_cell_bindings_2026_10_25.json",
+    "bindings_sha256": "07d9e486c8c5acbc2904df1cc23de2436f9a7381f39707d1fce8d8885606cbfe",
+    "compiled_sha256": "5303e58fe4db56ea523800490d2daa48a6b98e15f03aec7fd9234810bedc0f41"
+   }
+  },
+  "eng3.unlink_0e4": {
+   "ledger_status": "FUNCTION_MATCH",
+   "origin": "recovery.json#functions.eng3.unlink_0e4; freshly checked independent complete callee shape",
+   "rva": 124096,
+   "size": 80,
+   "source": "src/title/pilot.c",
+   "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+   "symbol": "_unlink_0e4",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  }
+ },
+ "functions": {
+  "eng3.eng3_1eaf0": {
+   "symbols": {
+    "_eng3_1b2e0": {
+     "kind": "function",
+     "rva": 111328,
+     "size": 448,
+     "evidence": [
+      "evidence/caller_entry_matching_2026_10_25.json#callee_identities.eng3.eng3_1b2e0"
+     ],
+     "references": [
+      {
+       "offset": 208,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_1e6d0": {
+     "kind": "function",
+     "rva": 124624,
+     "size": 352,
+     "evidence": [
+      "function_identities:eng3.eng3_1e6d0"
+     ],
+     "references": [
+      {
+       "offset": 110,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_step_tolerance_431e0": {
+     "kind": "bss",
+     "rva": 274912,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_c11_eng3.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_step_tolerance_431e0"
+     },
+     "identity": {
+      "rva": 116855,
+      "size": 10,
+      "operand": 0,
+      "sha256": "4ad3b4ecf438f2d0c7c57db9e781b51189e3a4635cf72b5e8df1e31670b4f135"
+     },
+     "evidence": [
+      "evidence/w5c_eng3_tolerance_review_2026_11_26.json"
+     ],
+     "references": [
+      {
+       "offset": 245,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_insert_scene": {
+     "kind": "function",
+     "rva": 123968,
+     "size": 128,
+     "evidence": [
+      "function_identities:eng3.shared_1e440"
+     ],
+     "references": [
+      {
+       "offset": 163,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_unlink_0e4": {
+     "kind": "function",
+     "rva": 124096,
+     "size": 80,
+     "evidence": [
+      "function_identities:eng3.unlink_0e4"
+     ],
+     "references": [
+      {
+       "offset": 101,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}
