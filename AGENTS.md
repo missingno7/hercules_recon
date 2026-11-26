@@ -40,6 +40,12 @@ are the evidence oracle; PSX builds are secondary.
   generated builds, databases, or large disassemblies.
 - Keep experiments in ignored candidates/ or work/. Reuse existing source and
   evidence; do not clone full source trees for experiments.
+- Disk hygiene: a scratch clone or rehearsal tree exists only for its run.
+  Delete it once the run's receipt is written. At handoff a lane keeps its
+  findings, handoff, package and frozen inputs, and the best candidate source;
+  it discards its other regenerable attempts, compiler traces (events.json),
+  base tarballs and bundles. Never delete outside your own lane; the integrator
+  moves stale bulk to the ignored to_delete/ for the owner to remove.
 - Fresh compilation with the pinned historical toolchain and complete target-byte
   equality are required for the existing FUNCTION_MATCH gate.
 - Do not copy original machine code, patch instructions, dispatch into original
