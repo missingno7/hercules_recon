@@ -3949,9 +3949,9 @@
     {
       "rva": "0x41fd0",
       "symbol": "_eng1_native_code_target_0041fd0",
-      "source": "src/eng1/actor_position_classifier_41fd0.c",
-      "implementation_status": "behaviorally_validated_limited",
-      "evidence": "evidence/eng1_actor_position_classifier_41fd0.json"
+      "source": "src/eng1/actor_handlers_high.c",
+      "implementation_status": "native_instruction_equal",
+      "evidence": "evidence/q7_native_review_2026_11_26.json"
     },
     {
       "rva": "0xef10",
@@ -7081,6 +7081,13 @@
         "function": "dbg_printf",
         "reason": "Select ENG1 engine_diagnostic.c renamed dbg_printf; omit only the accepted ENG3 diagnostic contribution from this generated ENG1 unit.",
         "evidence": "evidence/solSP2_final_debug_provider_review_2026_11_02.json"
+      }
+    ],
+    "src/eng1/actor_position_classifier_41fd0.c": [
+      {
+        "function": "eng1_native_code_target_0041fd0",
+        "provider": "src/eng1/actor_handlers_high.c",
+        "reason": "q7 native unbounded sentinel classifier supersedes only the bounded native wrapper; retain its checked helper API and full historical source."
       }
     ]
   }
