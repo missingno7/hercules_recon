@@ -212,6 +212,270 @@ extern Eng3Ordering *g_eng3_frame_41448;
 extern void eng1_2ca50(Eng3Primitive *);
 void eng3_072a0(int, int, int, int, int, int, int);
 
+/* ENG3 0x1aa0..0x2390: earlier variant of the 0x2580 actor family. */
+void eng3_01aa0(Actor *o)
+{
+    PendingActionGroup *group;
+    Actor *c;
+
+    o->unknown_116 = 0;
+    o->unknown_11e = 0;
+    o->unknown_126 = 0;
+    o->flags = 2;
+    o->unknown_d8 = -4;
+    o->unknown_e0 = 0;
+    o->ticks = 0;
+    o->state = 8;
+    o->unknown_dc = o->owner_context[g_kind_info[o->profile].sidecar_offset + 0xc];
+    o->state = 2;
+    o->unknown_ac = (o->x >> 23) * 0x800000 + 0x400000;
+    o->unknown_cc = (o->z >> 23) * 0x800000 + 0x400000;
+    o->x = o->unknown_ac;
+    o->z = o->unknown_cc;
+    group = acquire_pending_action_group();
+    if (group == 0)
+        return;
+    o->unknown_120 = group;
+    c = eng3_1f410(group, o->x, o->y, o->z, 0x4029, o->profile);
+    if (c) {
+        c->unknown_97 = 1;
+        c->flags = 2;
+        c->render_flags |= 0x10000040;
+        c->sprite = 1;
+        c->unknown_e0 = 1;
+        c->ticks = 1;
+        c->unknown_94 = 0;
+        c->unknown_96 = 0;
+        c->unknown_bc = 0xc00000;
+        c->unknown_ac = 0xc00000;
+        c->unknown_cc = 0;
+        c->unknown_b8 = 0x100;
+        c->unknown_c0 = 0x30000;
+        c->unknown_c4 = 0;
+        c->unknown_b0 = 0;
+        c->unknown_b4 = 0;
+        c->unknown_d8 = 0;
+        c->unknown_95 = 0;
+    }
+    c = eng3_1f410(group, o->x, o->y - 0x800000, o->z, 0x4029, o->profile);
+    if (c) {
+        c->flags = 2;
+        c->render_flags |= 0x10000040;
+        c->sprite = 0xb;
+        c->unknown_97 = 1;
+        c->unknown_e0 = 0;
+        c->ticks = 1;
+        c->unknown_94 = 0;
+        c->unknown_96 = 0;
+        c->unknown_bc = 0xc00000;
+        c->unknown_ac = 0xc00000;
+        c->unknown_cc = 0;
+        c->unknown_b8 = 0x900;
+        c->unknown_c0 = 0x30000;
+        c->unknown_c4 = 0;
+        c->unknown_b0 = 0;
+        c->unknown_b4 = 0;
+        c->unknown_d8 = 1;
+        c->unknown_95 = 0;
+    }
+    c = eng3_1f410(group, o->x, o->y - 0x1000000, o->z, 0x4029, o->profile);
+    if (c) {
+        c->unknown_97 = 1;
+        c->render_flags |= 0x10000040;
+        c->unknown_e0 = 0;
+        c->flags = 2;
+        c->sprite = 2;
+        c->ticks = 0;
+        c->unknown_94 = 0;
+        c->unknown_96 = 0;
+        c->unknown_bc = 0xc00000;
+        c->unknown_ac = 0xc00000;
+        c->unknown_cc = 0;
+        c->unknown_b8 = 0x900;
+        c->unknown_c0 = 0x30000;
+        c->unknown_c4 = 0;
+        c->unknown_b0 = 0;
+        c->unknown_b4 = 0;
+        c->unknown_d8 = 1;
+        c->unknown_95 = 0;
+    }
+    c = eng3_1f410(group, o->x, o->y - 0x11b0000, o->z, 0x4029, o->profile);
+    if (c == 0)
+        return;
+    c->flags = 2;
+    c->render_flags |= 0x10000040;
+    c->sprite = 3;
+    if (o->unknown_dc)
+        c->sprite = 0x2a;
+    c->unknown_97 = 1;
+    c->unknown_e0 = 0;
+    c->ticks = 0;
+    c->unknown_94 = 0;
+    c->unknown_96 = 0xff;
+    c->unknown_bc = 0x1200000;
+    c->unknown_ac = 0x1200000;
+    c->unknown_cc = 0x200000;
+    c->unknown_c8 = 0;
+    c->unknown_b8 = 0x2300;
+    c->unknown_c0 = 0x30000;
+    c->unknown_c4 = 0;
+    c->unknown_d0 = 0;
+    c->unknown_b4 = 0;
+    c->unknown_d8 = 1;
+    c->unknown_95 = 0;
+}
+
+int eng3_01e10(Actor *o, Actor *c)
+{
+    long x, y, z;
+    long offsets[4][4];
+    int i, angle, pitch, limit;
+    long dz, dy, ry, rx;
+
+    z = o->z;
+    i = o->unknown_e0;
+    y = o->y;
+    x = o->x;
+    angle = o->unknown_116;
+    offsets[0][0] = 0;
+    offsets[0][1] = 0;
+    offsets[0][2] = 0;
+    offsets[1][0] = 0;
+    offsets[1][1] = -0x80;
+    offsets[1][2] = 0;
+    offsets[2][0] = 0;
+    offsets[2][1] = -0x100;
+    offsets[2][2] = 0;
+    offsets[3][0] = 0;
+    offsets[3][1] = -0x10b;
+    offsets[3][2] = 0;
+    pitch = angle;
+    limit = 0xc00;
+    c->unknown_74 = angle >> 2;
+    if (o->unknown_dc == 2) {
+        pitch = 0;
+        limit = 0xc00;
+    }
+    if (o->unknown_dc == 1) {
+        pitch = 0;
+        limit = 0xc00;
+    }
+    if (o->unknown_dc == 0) {
+        pitch = -pitch;
+        limit = 0xdac;
+    }
+    if (o->unknown_dc == 3)
+        limit = 0xdac;
+    c->speed = pitch >> 2;
+    dz = (offsets[i][0] * g_eng3_table_407b4[angle & 0xfff] - offsets[i][1] * g_eng3_table_407b4[(angle - 0x400) & 0xfff]) >> 12;
+    dy = (offsets[i][0] * g_eng3_table_407b4[(angle - 0x400) & 0xfff] + offsets[i][1] * g_eng3_table_407b4[angle & 0xfff]) >> 12;
+    ry = (dy * g_eng3_table_407b4[pitch & 0xfff] - offsets[i][2] * g_eng3_table_407b4[(pitch - 0x400) & 0xfff]) >> 12;
+    rx = (dy * g_eng3_table_407b4[(pitch - 0x400) & 0xfff] + offsets[i][2] * g_eng3_table_407b4[pitch & 0xfff]) >> 12;
+    c->z = (dz << 16) + z;
+    c->y = (ry << 16) + y;
+    c->x = (rx << 16) + x;
+    if (++o->unknown_e0 >= 4)
+        o->unknown_e0 = 0;
+    return o->unknown_116 <= limit;
+}
+
+void eng3_01fe0(Actor *o)
+{
+    PendingActionGroup *group;
+    Actor *c, *created;
+    long focus[4], position[4]; /* 16-byte frame slots: four-long vectors, three used */
+    short d[6];
+    int i, j, still;
+
+    group = o->unknown_120;
+    focus[0] = g_focus->x;
+    focus[1] = g_focus->y;
+    focus[2] = g_focus->z;
+    if (group == 0)
+        goto done;
+    if (o->ticks == 0 && g_eng3_actor_3fb0c->unknown_11e != 1)
+        goto done;
+    o->ticks = 1;
+    for (i = 0; i < group->count;) {
+        c = group->entries[++i];
+        vec_diff_fixed_1420((const int *)c, (const int *)g_focus, d);
+        position[0] = c->x;
+        position[1] = c->y;
+        position[2] = c->z;
+        if (within_radius_1140((const int *)position, (const int *)focus, 0x80)) {
+            g_focus->unknown_110 = o;
+            g_focus->unknown_116 = 2;
+            if (g_eng3_mode_41cb4 != 5)
+                eng3_19200();
+        }
+        if (o->state != 0x20 && o->state != 8 && o->state != 0x10) {
+            if (d[0] < (o->unknown_dc + 7) << 7)
+                o->state = 4;
+            if (o->state & 4) {
+                if (o->unknown_126 == 0 && (c->sprite == 3 || c->sprite == 0x2a)) {
+                    play_sound(0x6204, c);
+                    o->unknown_126 = 1;
+                }
+                o->unknown_116 = (o->unknown_116 - 6) & 0xfff;
+                if (o->unknown_116 <= 0xe10 && c->unknown_d8)
+                    c->unknown_d8 = 0;
+                if (eng3_01e10(o, c))
+                    o->state = 0x20;
+            }
+        } else if (o->state & 0x20) {
+            still = eng3_01600(c);
+            if (c->unknown_9a && still == 0) {
+                if (c->ticks != 1) {
+                    if (c->sprite == 3 || c->sprite == 0x2a)
+                        play_sound(0xe205, c);
+                    if (i == 4) {
+                        created = create_eng3_kind_actor(c->x - 0x800000, c->y, c->z - 0x600000, 0x2016);
+                        if (created)
+                            g_eng3_host_40bb4->method_b0(created);
+                    }
+                    c->ticks = 1;
+                }
+                if (c->unknown_e0 != 1) {
+                    for (j = 0; j < 6; j++) {
+                        created = create_eng3_middle_actor(c->x, c->y + (random_limit(0x20) << 16),
+                                                           c->z + (random_limit(0x20) << 16), 0x4003);
+                        if (created) {
+                            g_eng3_middle_actions_40b98[3].init(created);
+                            created->unknown_ac = created->unknown_bc = random_limit(0x300000) + 0x300000;
+                            created->unknown_cc = created->unknown_ac >> 1;
+                            if (j < 1)
+                                created->unknown_d8 = 1;
+                            created->unknown_4a = 0x80 + random_limit(0x20);
+                            if (j == 0 || j == 4 || j == 8 || j == 12) {
+                                created->unknown_94 = 0xff;
+                                created->unknown_96 = 0;
+                            }
+                            if (j == 1 || j == 5 || j == 9 || j == 13) {
+                                created->unknown_94 = 0;
+                                created->unknown_96 = 0;
+                            }
+                            if (j == 2 || j == 6 || j == 10 || j == 14) {
+                                created->unknown_94 = 0xff;
+                                created->unknown_96 = 0xff;
+                            }
+                            if (j == 3 || j == 7 || j == 11 || j == 15) {
+                                created->unknown_94 = 0;
+                                created->unknown_96 = 0xff;
+                            }
+                        }
+                    }
+                    c->unknown_e0 = 1;
+                }
+            }
+        }
+    }
+done:
+    if (eng3_1b920(o, 0x100)) {
+        release_pending_action(group);
+        remove_actor(o);
+    }
+}
+
 void eng3_023a0(Actor *o)
 {
     if (o->state == 0)

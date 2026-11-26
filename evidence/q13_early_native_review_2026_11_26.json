@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "target": "assets/pc/HERCULES/ENG3.DLL",
+  "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "source": "src/eng3/handlers_023a0.c",
+  "source_preimage_sha256": "98591ed6c744b76af1dc53eec2f9c80a9351a20ccbf2722bc515679ab1adb14a",
+  "candidate_sha256": "a64ee694f59d1c9d9252e8697ae2f303e7adb1d25cca2f3c3f49ced00204ca73",
+  "bracketing_units": {
+    "0x90e0..0x9d10": "src/title/u02b70.c: 0x9030 and 0x9d10 both recorded shared twins; reuse four emitter sources.",
+    "0x1aa0..0x2390": "src/eng3/handlers_023a0.c: 0x2390 empty callback precedes its 0x23a0 start; 0x1aa0/0x1e10/0x1fe0 are early variants of same-unit 0x2580/0x28f0/0x2ac0. Previous 0x19b0 is shared level start, so it does not establish that the actor bodies belong to its unit."
+  },
+  "call_sites": {
+    "eng3.01fe0@0x223": {
+      "rva": 8707,
+      "size": 6,
+      "sha256": "a872acacb00b13e60c70664dd7985217c3f78f8192b78d4dd4e42bf648b4118b",
+      "operand": {
+        "form": "memory",
+        "base": "ecx",
+        "index": null,
+        "scale": 1,
+        "disp": 176
+      },
+      "abi": "unclaimed",
+      "target": "unidentified"
+    },
+    "eng3.01fe0@0x28a": {
+      "rva": 8810,
+      "size": 3,
+      "sha256": "22558207d1d705fcbda49d89be5b34ebe09d409878b0bf88e6819b7724e29e96",
+      "operand": {
+        "form": "memory",
+        "base": "eax",
+        "index": null,
+        "scale": 1,
+        "disp": 24
+      },
+      "abi": "unclaimed",
+      "target": "unidentified"
+    }
+  },
+  "functions": {
+    "eng3.01aa0": {
+      "rva": 6816,
+      "size": 880,
+      "symbol": "_eng3_01aa0",
+      "native_extent_sha256": "4095482769f65af7e32cb3f19eb84d7a9d960a4f811b4bdd05807bd3ccc9c88e",
+      "source_twin": "eng3.02580",
+      "scope": "Complete source body recovered from same-unit variant and native instructions; no whole-image or runtime claim."
+    },
+    "eng3.01e10": {
+      "rva": 7696,
+      "size": 464,
+      "symbol": "_eng3_01e10",
+      "native_extent_sha256": "e75c9429928455ef97ce5fe640f61c7646e6da12ce88ece4d732b7be9b173f96",
+      "source_twin": "eng3.eng3_028f0",
+      "scope": "Complete source body recovered from same-unit variant and native instructions; no whole-image or runtime claim."
+    },
+    "eng3.01fe0": {
+      "rva": 8160,
+      "size": 944,
+      "symbol": "_eng3_01fe0",
+      "native_extent_sha256": "07c6f1b845c47821b0cd9ff0ad9acbe66447f4de1a48f8876a9432f4f1d73b80",
+      "source_twin": "eng3.02ac0",
+      "scope": "Complete source body recovered from same-unit variant and native instructions; no whole-image or runtime claim."
+    }
+  },
+  "independent_anchor_reuse": {
+    "_g_eng3_host_40bb4": {
+      "identity": {
+        "operand": 0,
+        "rva": 121511,
+        "size": 6,
+        "sha256": "6d02fe262734d8bcd8cfa9f515e21cad88216834728bf63183dc5013d174bfa8"
+      },
+      "native_instruction": "mov dword ptr [0x10040bb4], edx",
+      "host": "eng3.shared_1d9b0",
+      "host_rva": "0x1d9b0",
+      "destination": "0x40bb4",
+      "native_host_extent_sha256": "90ef27a166aa25d9fe565719423c8311e680e61eaaec4f6557b5c68cade524a5",
+      "review": "Independent native interface initializer writes this exact pointer cell. This host is outside every selected caller and every caller affected by the anchor replacement. Matching acceptance of the initializer is not claimed. Old 0x21fc/0x2264 witnesses and the rejected self-anchor in 0x2ac0 are not used."
+    },
+    "_g_eng3_middle_actions_40b98": {
+      "identity": {
+        "operand": 0,
+        "rva": 121473,
+        "size": 6,
+        "sha256": "40160690391cbe1e6d8be96fbbbf857e5b785cb195d479190f3ebdf0eb289e49"
+      },
+      "native_instruction": "mov dword ptr [0x10040b98], edx",
+      "host": "eng3.shared_1d9b0",
+      "host_rva": "0x1d9b0",
+      "destination": "0x40b98",
+      "native_host_extent_sha256": "90ef27a166aa25d9fe565719423c8311e680e61eaaec4f6557b5c68cade524a5",
+      "review": "Independent native interface initializer writes this exact pointer cell. This host is outside every selected caller and every caller affected by the anchor replacement. Matching acceptance of the initializer is not claimed. Old 0x21fc/0x2264 witnesses and the rejected self-anchor in 0x2ac0 are not used."
+    }
+  },
+  "refresh_base": {
+    "head": "d8eb263ee84c390a02cb9bcb3076ba4868911be4",
+    "recovery_sha256": "3b31227d4cc2aaa9502da2bed22d3a303befa140b4a206f6458bba9fa393574f"
+  },
+  "callee_source_provenance_snapshots": {
+    "src/eng3/handlers_16240.cpp": {
+      "path": "evidence/repin_snapshots/6e134a9f655c9dcd88bc0df7f4d29d025b6ab7659d03bf0cc82eeb1a2a45f041.txt",
+      "sha256": "6e134a9f655c9dcd88bc0df7f4d29d025b6ab7659d03bf0cc82eeb1a2a45f041",
+      "frozen": "callee_snapshot_6e134a9f655c9dcd88bc0df7f4d29d025b6ab7659d03bf0cc82eeb1a2a45f041.txt"
+    },
+    "src/eng3/actor_handlers.c": {
+      "path": "evidence/repin_snapshots/3e6f6f7bb3ccd1b266d1b50d73013537207d9964ab3409115bfae3a7dd000257.txt",
+      "sha256": "3e6f6f7bb3ccd1b266d1b50d73013537207d9964ab3409115bfae3a7dd000257",
+      "frozen": "callee_snapshot_3e6f6f7bb3ccd1b266d1b50d73013537207d9964ab3409115bfae3a7dd000257.txt"
+    },
+    "src/eng1/sound_od.c": {
+      "path": "evidence/repin_snapshots/9be4699d27752738cbd674afc822987479a1531410783cf22be8016c1a93c9eb.txt",
+      "sha256": "9be4699d27752738cbd674afc822987479a1531410783cf22be8016c1a93c9eb",
+      "frozen": "callee_snapshot_9be4699d27752738cbd674afc822987479a1531410783cf22be8016c1a93c9eb.txt"
+    },
+    "src/eng3/actor_kind_create.c": {
+      "path": "evidence/repin_snapshots/aaab9257b94112bbea0c15867b4e0ff62065f438e0b98f2d1767b512765743ae.txt",
+      "sha256": "aaab9257b94112bbea0c15867b4e0ff62065f438e0b98f2d1767b512765743ae",
+      "frozen": "callee_snapshot_aaab9257b94112bbea0c15867b4e0ff62065f438e0b98f2d1767b512765743ae.txt"
+    },
+    "src/eng3/actor_middle_create.c": {
+      "path": "evidence/repin_snapshots/a623eb32653c6179fdb821e79768bc6fc1c598b713eb581cd6f0e6c5a2d9e924.txt",
+      "sha256": "a623eb32653c6179fdb821e79768bc6fc1c598b713eb581cd6f0e6c5a2d9e924",
+      "frozen": "callee_snapshot_a623eb32653c6179fdb821e79768bc6fc1c598b713eb581cd6f0e6c5a2d9e924.txt"
+    },
+    "src/shared/action_registry.c": {
+      "path": "evidence/repin_snapshots/af3891555a25f422e289c6759ef987f6085f99ce0ded240d5876581fbedffe73.txt",
+      "sha256": "af3891555a25f422e289c6759ef987f6085f99ce0ded240d5876581fbedffe73",
+      "frozen": "callee_snapshot_af3891555a25f422e289c6759ef987f6085f99ce0ded240d5876581fbedffe73.txt"
+    }
+  }
+}
