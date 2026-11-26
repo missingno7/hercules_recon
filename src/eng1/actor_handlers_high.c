@@ -297,8 +297,8 @@ extern void eng1_interpret_word_stream(Actor *);
 extern void LinkedSoundFx_6da0(unsigned short, Actor *);
 extern void eng1_native_code_target_002ae50(Actor *);
 extern void release_actor(Actor *);
-extern void eng1_02ff0(long *);
-extern void eng1_05a30(int, int, int);
+extern void eng1_tile_draw_2ff0(long *);
+extern void eng1_color_rgb_forward_5a30(int, int, int);
 extern Actor *spawn_middle_277e0(long, long, long, unsigned short);
 extern int eng1_29e20(Actor *);
 extern void mark_actor_resource_for_release(Actor *);
@@ -307,7 +307,7 @@ extern int eng1_26de0(Actor *);
 extern void eng1_1aba0(void);
 extern void eng1_30290(int, int);
 extern void remove_counted_value(ActorList *, Actor *);
-extern unsigned short eng1_20b50(int, int, int, int);
+extern unsigned short grid_scan_20b50(int, int, int, int);
 extern unsigned short eng1_20d30(int, int, int, int);
 extern void eng1_27410(Actor *);
 extern int eng1_2a710(void *, Actor *);
@@ -316,7 +316,7 @@ extern int eng1_19b40(int);
 extern void eng1_0ef10(Actor *);
 extern unsigned short g_eng1_classifier_rows_65678[][6];
 extern short g_eng1_word_70000;
-extern long g_eng1_dword_70ca0, g_eng1_dword_70ca4;
+extern long g_camera_x_70ca0, g_camera_y_70ca4;
 extern BurstEntry g_eng1_burst_65b98[];
 extern void *g_eng1_programs_67070[];
 extern Actor *g_collision_context;
@@ -324,11 +324,13 @@ extern unsigned short g_eng1_setup_word_72012, g_native_word_72168;
 extern unsigned char g_cold_start_state_bytes_70820[0x1c];
 typedef struct HighEngineInterfacePrefix { unsigned long signature_000; unsigned char *context_004; } HighEngineInterfacePrefix;
 extern HighEngineInterfacePrefix g_engine_interface;
-extern Actor *g_eng1_actor_72860;
+extern Actor *g_frame_owner_72860;
 extern unsigned short *g_configuration_dword_713bc;
 extern HighKindInfo g_kind_info[];
 extern unsigned long eng1_sim_state_72110;
-extern unsigned short g_eng1_word_70ef0, g_eng1_word_70f0e, g_eng1_word_7144c;
+extern unsigned short g_eng1_word_70ef0;
+#include "actor_control_state.h"
+#include "actor_pipeline_storage.h"
 extern FragmentEntry g_eng1_fragments_68970[];
 
 void eng1_42db0(Actor *);
@@ -458,11 +460,11 @@ void eng1_422f0(Actor *p)
 void eng1_42320(void)
 {
     long v[3];
-    v[0] = g_eng1_dword_70ca0 >> 2;
-    v[1] = (g_eng1_dword_70ca4 - 0x250) / 3;
-    eng1_02ff0(v);
-    if (v[1] < 32) eng1_05a30(0x3f, 0x75, 0xbc);
-    else eng1_05a30(0x7f, 0x8b, 0x47);
+    v[0] = g_camera_x_70ca0 >> 2;
+    v[1] = (g_camera_y_70ca4 - 0x250) / 3;
+    eng1_tile_draw_2ff0(v);
+    if (v[1] < 32) eng1_color_rgb_forward_5a30(0x3f, 0x75, 0xbc);
+    else eng1_color_rgb_forward_5a30(0x7f, 0x8b, 0x47);
 }
 void eng1_42390(Actor *p)
 {
@@ -766,7 +768,7 @@ void eng1_433d0(Actor *p)
 {
     p->category = ((p->z >> 16)+0x40) >> 7;
     p->flags = 0x202;
-    eng1_20b50(p->x >> 16,p->y >> 16,p->z >> 16,p->profile);
+    grid_scan_20b50(p->x >> 16,p->y >> 16,p->z >> 16,p->profile);
     p->state = 0x21;
     select_frame(p,1);
     advance_frame(p);
@@ -780,7 +782,7 @@ void eng1_43440(Actor *p)
     unsigned short tile;
     int hit;
     eng1_440d0(p,0x26);
-    dx = p->x-g_eng1_actor_72860->x; dy=p->y-g_eng1_actor_72860->y;
+    dx = p->x-g_frame_owner_72860->x; dy=p->y-g_frame_owner_72860->y;
     if (eng1_20d30(p->x >> 16,p->y >> 16,p->z >> 16,p->profile)==0x1a) dy=0xff0000;
     absolute=dx; if (absolute<0) absolute=-absolute;
     switch ((unsigned short)p->state) {
@@ -932,7 +934,7 @@ void eng1_43e20(Actor *p)
     if(p->unknown_a8>0x30000)p->unknown_a8=0x30000;
     if(p->unknown_a8 < -0x30000)p->unknown_a8=-0x30000;
     spawn_at_group_300c0(p->x,p->y,p->z,0x2027,0);
-    eng1_43ff0(p);++g_eng1_word_70f0e;g_eng1_word_7144c=0;
+    eng1_43ff0(p);++g_eng1_actor_control_state_70ed8.words[0x36 / 2];g_actor_pipeline_storage_71440.word_cells[0xc / 2]=0;
 }
 void eng1_43ea0(Actor *p)
 {
@@ -946,7 +948,7 @@ void eng1_43ea0(Actor *p)
     if(!(g_configuration_dword_713bc[tile]&7))p->x=next;
     eng1_interpret_word_stream(p);
     if(eng1_29e20(p)){
-        if(g_eng1_actor_72860->y-p->y>0x400000)remove_actor_variant(p);
+        if(g_frame_owner_72860->y-p->y>0x400000)remove_actor_variant(p);
         else{
             p->unknown_b8/=-3;
             if(p->unknown_b8<0x2800 && p->unknown_b8 > -0x2800){p->unknown_a8=0;p->frame_tick=9;}
@@ -978,7 +980,7 @@ void eng1_43ff0(Actor *p)
 void eng1_440d0(Actor *p,unsigned short margin)
 {
     int delta;
-    delta=(unsigned short)eng1_20b50(p->x>>16,p->y>>16,p->z>>16,p->profile)-margin;
+    delta=(unsigned short)grid_scan_20b50(p->x>>16,p->y>>16,p->z>>16,p->profile)-margin;
     if(delta<0)p->y+=delta<<16;
 }
 
@@ -1031,8 +1033,7 @@ struct HighActor {
 extern HighKindInfo g_kind_info[];
 extern unsigned long eng1_sim_state_72110;
 extern unsigned short g_eng1_setup_word_718e0;
-extern short g_pipeline_dword_716a8;
-extern long g_pipeline_dword_71718;
+
 extern unsigned short g_native_word_72168;
 extern void advance_object_motion(void *);
 extern int eng1_native_code_target_002a710(void *, void *);
@@ -1123,8 +1124,8 @@ void eng1_41320(HighActor *p)
     p->speed = q->speed - 255;
     p->step = 64;
     p->speed = q->speed + 255;
-    p->step = g_pipeline_dword_716a8;
-    p->scale_z += g_pipeline_dword_71718 + 32;
+    p->step = ((short *)g_actor_pipeline_storage_71440.word_cells)[0x268 / 2];
+    p->scale_z += ((long *)g_actor_pipeline_storage_71440.dword_cells)[0x2d8 / 4] + 32;
     p->render_flags |= 1;
     p->z = q->z - 0x40000;
     height = (q->y >> 16) - g_eng1_setup_word_718e0;
@@ -1663,7 +1664,7 @@ void eng1_45a80(Actor *p)
     if((p->unknown_0c[0x1f-0x0c]&3)==3 && !p->unknown_a8){p->unknown_a8=1;LinkedSoundFxAt_75e3(0xcac1,p,g_eng1_native_actor_701a0);}
     if(--p->frame_tick<=0){p->frame_tick=1;if(++p->sprite>=0x190)p->sprite=0x188;}
     switch((unsigned short)p->state){
-    case 0:height=(unsigned short)eng1_20b50(p->x>>16,p->y>>16,p->z>>16,p->profile);if((unsigned long)p->unknown_b8>=height){
+    case 0:height=(unsigned short)grid_scan_20b50(p->x>>16,p->y>>16,p->z>>16,p->profile);if((unsigned long)p->unknown_b8>=height){
             eng1_native_code_target_002a290(p);q=spawn_kind(p->x,p->y,p->z,42);if(q)g_configuration_dword_7139c[42].initialize(q);p->state=1;
         }else{p->y+=p->unknown_b8<<16;if(++p->unknown_b8>8)p->unknown_b8=8;}break;
     case 1:p->scale-=24;if(p->scale<=24)remove=1;break;
@@ -1737,7 +1738,7 @@ void eng1_45ef0(Actor *p)
     p->y+=(g_sine_table_5a848[p->unknown_a8&1023]<<1)*p->unknown_c8;
     if(!(g_eng1_native_state_7028c&1) && p->unknown_c8>10)--p->unknown_c8;
     if(p->unknown_94)p->unknown_74-=128;else p->unknown_74+=128;
-    height=(unsigned short)eng1_20b50(p->x>>16,(p->y-0x280000)>>16,p->z>>16,p->profile);if(height==0x7fff)remove=1;
+    height=(unsigned short)grid_scan_20b50(p->x>>16,(p->y-0x280000)>>16,p->z>>16,p->profile);if(height==0x7fff)remove=1;
     if(dispatch_local_30010(p->x,p->y,p->z,1))remove=1;
     if(--p->unknown_36<=0)remove=1;
     if(actor_bounds_2a880(p,g_eng1_native_vector_701a8,1) && bounds_overlap((char *)g_collision_context+0x88,g_eng1_native_vector_701a8) && eng1_45bf0(p,3,0))remove=1;

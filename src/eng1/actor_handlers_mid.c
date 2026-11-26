@@ -766,7 +766,7 @@ void eng1_native_code_target_023460(ClusterActor *p)
             break;
         case 0:
             p->y=((0x21c-(p->z>>16))<<11)/464;
-            p->y=p->vy-((g_sine_table_70f34[(p->y-0x400)&0xfff]*1920)&0xffff0000);
+            p->y=p->vy-(((*(short **)((unsigned char *)&g_engine_interface + 0x14))[(p->y-0x400)&0xfff]*1920)&0xffff0000);
             p->z-=0x100000;
             if(p->z<=g_frame_owner_72860->z) {
                 p->z=g_frame_owner_72860->z; p->state=1; p->render_flags^=0x10;

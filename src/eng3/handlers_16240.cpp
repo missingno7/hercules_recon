@@ -2677,7 +2677,7 @@ extern long g_eng3_41100[];
 extern long g_eng3_411c0[];
 extern long g_eng3_41200[];
 extern long g_eng3_413a0[];
-extern Actor *g_eng3_actor_41c60;
+extern Actor *g_pipeline_actor_7200c;
 
 extern void dbg_printf(const char *);
 extern void eng3_01870(void);
@@ -3638,7 +3638,7 @@ void eng3_1bd40(void)
         h = (Eng3Host *)g_eng3_413a0[++i];
         g_eng3_host_40bb4[h->kind & 0xfff].update(h);
     }
-    a = g_eng3_actor_41c60;
+    a = g_pipeline_actor_7200c;
     kind = a->kind;
     if (kind)
         ((Eng3Hooks12 *)g_eng3_game_40b8c)[kind].draw(a);
@@ -3781,7 +3781,7 @@ void eng3_1c290(void)
         return;
     record++;
     for (i = 0; i < g_kind_info[group].unknown; i++, record++) {
-        if (g_eng3_actor_431d4 == g_eng3_actor_41c60 && (record->flags & 0x400))
+        if (g_eng3_actor_431d4 == g_pipeline_actor_7200c && (record->flags & 0x400))
             continue;
         flags = record->flags;
         if ((flags & 0xc800) == 0x800) {
@@ -3826,7 +3826,7 @@ void eng3_1c430(void)
             return;
         record++;
         for (i = 0; i < g_kind_info[group].unknown; i++, record++) {
-            if (g_eng3_actor_431d4 == g_eng3_actor_41c60 && (record->flags & 0x400))
+            if (g_eng3_actor_431d4 == g_pipeline_actor_7200c && (record->flags & 0x400))
                 continue;
             if (record->flags & 0xc000)
                 continue;

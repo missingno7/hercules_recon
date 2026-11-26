@@ -165,7 +165,7 @@ extern Actor *g_native_pointer_7217c;
 extern KindInfo g_kind_info[];
 extern ActorResource g_actor_resources[];
 extern long g_resource_ids_53800[];
-extern void *g_bonus_images_537e0[];
+#include "simulation_data_owners.h"
 extern long g_bonus_x_52b50[];
 extern long g_bonus_sprites_52b70[];
 extern short g_flash_sprites_534d0[];
@@ -260,7 +260,7 @@ void dispatch_local_12620(void)
             a->parameter = 0x460000;
             if (i == eng1_sim_state_72104) {
                 a->counter_021 = 0x3c;
-                a->image_064 = g_bonus_images_537e0[i];
+                a->image_064 = ((void **)&g_eng1_simulation_lookup_owner_537e0)[i];
                 reset_frame_state((Actor *)a);
             } else {
                 a->sprite = g_bonus_sprites_52b70[i];
@@ -503,7 +503,7 @@ void eng1_native_code_target_012c00(Actor *o)
     if (kind == 0x200b) {
         if (o->record_offset) {
             o->state = *(unsigned short *)(g_kind_info[o->profile].owner + o->record_offset + 0xc) & 0x3f;
-            o->image_064 = g_bonus_images_537e0[o->state];
+            o->image_064 = ((void **)&g_eng1_simulation_lookup_owner_537e0)[o->state];
             o->unknown_032 = 0;
             eng1_native_code_target_012d10(o);
         } else {

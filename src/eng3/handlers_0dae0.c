@@ -106,7 +106,7 @@ typedef struct Eng3Hooks8 {
 extern Eng3Hooks8 *g_eng3_middle_actions_40b98;
 extern Eng3Hooks8 *g_eng3_host_40bb4;
 extern Actor *g_focus;
-extern Actor *g_eng3_actor_41c60;
+extern Actor *g_pipeline_actor_7200c;
 extern short g_eng3_mode_41cb4;
 extern long g_eng3_3fadc;
 extern long g_eng3_405fc;

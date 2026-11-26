@@ -137,11 +137,11 @@ typedef struct Slot {
 } Slot;
 typedef struct Placement { long x,y,z,ax,ay,az,ox,oy,oz,bend,unused0,unused1,unused2,follow,min_x,max_x,ex,ey,ez,unused3,unused4; } Placement;
 typedef struct Flash { NStype *actor; long x,y,z,ax,ay,az,index,state,timer; } Flash;
-extern long g_6f3ec,g_6f44c,g_6efb8,g_6f3f8,g_6f444,g_6f448,g_6f454,g_6f468,g_scene_cell_6f3e4,g_6f480,g_5602c,g_56030,g_6f3e8,g_6f440,g_72110,g_56040,g_6f460,g_6f464,g_72184,g_71ecc,g_6f3d8,g_6ffbc,g_6f3d4,g_6f380;
+extern long g_6f3ec,g_scene_cell_6f44c,g_scene_cell_6efb8,g_scene_cell_6f3f8,g_scene_cell_6f444,g_scene_cell_6f448,g_scene_cell_6f454,g_6f468,g_scene_cell_6f3e4,g_6f480,g_5602c,g_56030,g_6f3e8,g_6f440,eng1_sim_state_72110,g_56040,g_6f460,g_6f464,g_boss_threshold_72184,g_eng1_color_transition_timer_71ecc,g_6f3d8,g_6ffbc,g_6f3d4,g_6f380;
 extern unsigned long g_6f46c,g_6f470;
-extern long *g_6f3c8,*g_6f3cc;
-extern NStype *g_normal_actor_pool,*g_6f3f4,*g_6f474,*g_6f478,*g_734f4,*g_6f47c;
-extern void *g_7217c;
+extern long *g_scene_current_palette_6f3c8,*g_scene_palette_6f3cc;
+extern NStype *g_normal_actor_pool,*g_6f3f4,*g_6f474,*g_6f478,*g_frame_global_734f4,*g_6f47c;
+extern void *g_collision_context;
 extern Slot g_6f188[];
 extern Placement g_574d8[];
 extern Flash g_57b18[];
@@ -154,7 +154,7 @@ extern short g_pipeline_word_71740[],g_pipeline_word_71720[],g_pipeline_word_71c
 extern long g_6f488,g_6f48c,g_6f484,g_70cd0,g_70cd4,g_70d18;
 extern short g_6f490,g_camera_adjust_y_70d04;
 extern unsigned long g_actor_worklist_71580[];
-extern void (**g_71370)(NStype *),(**g_7139c)(NStype *);
+extern void (**g_configuration_dword_71370)(NStype *),(**g_7139c)(NStype *);
 extern void (*g_562d0[])(NStype *);
 extern char g_56240[],g_56680[],g_56208[],g_561f0[],g_56220[],g_562a0[],g_56270[],g_56288[],g_56258[];
 extern unsigned int random_limit(int);
@@ -185,7 +185,7 @@ void eng1_native_code_target_001b2a0(NStype *p)
 {
  p->Class|=0x20000; p->pCtrl|=0x10001040; p->Shadow=g_56240;
  p->ScaleZ=0xd4;
- if(!g_6f44c)p->Scale=0xd4;else p->Scale=0x90;
+ if(!g_scene_cell_6f44c)p->Scale=0xd4;else p->Scale=0x90;
  p->Xaim=p->Scale; p->SpecialFX=3;
  p->Angle.x=0x300;p->Angle.y=0;p->Angle.z=0x200;
  p->XvelActing=random_limit(5)+5;
@@ -235,13 +235,13 @@ void eng1_native_code_target_001b370(NStype *p,NStype *q)
 }
 int eng1_native_code_target_001b760(void)
 {
- int value=*g_6f3c8++;
+ int value=*g_scene_current_palette_6f3c8++;
  while(value<=0){
-  if(value==0){g_6f46c=*g_6f3c8++;g_6f470=*g_6f3c8++;}
-  if(value<0)g_6f3c8=g_6f3cc;
-  value=*g_6f3c8++;
+  if(value==0){g_6f46c=*g_scene_current_palette_6f3c8++;g_6f470=*g_scene_current_palette_6f3c8++;}
+  if(value<0)g_scene_current_palette_6f3c8=g_scene_palette_6f3cc;
+  value=*g_scene_current_palette_6f3c8++;
  }
- if(g_6f46c>=random_limit(g_6f470)+1 && g_6f46c!=g_6f470){--g_6f3c8;return 0;}
+ if(g_6f46c>=random_limit(g_6f470)+1 && g_6f46c!=g_6f470){--g_scene_current_palette_6f3c8;return 0;}
  return value;
 }
 void eng1_native_code_target_001b7f0(NStype *p)
@@ -282,14 +282,14 @@ void eng1_native_code_target_001b9a0(void)
 void eng1_native_code_target_001bab0(NStype *p)
 {
  int a,b,i;long rate;NStype *q;
- if(g_6efb8>0)eng1_interpret_animation_triples(p);
+ if(g_scene_cell_6efb8>0)eng1_interpret_animation_triples(p);
  a=g_6f3f4->Frame-34;b=g_6f3f4->SubFrame-34;rate=g_6f3f4->StepRate;
- g_6f3f8=g_56398[a][0]+((g_56398[b][0]-g_56398[a][0])*rate)/255;
- g_6f444=g_56398[a][1]+((g_56398[b][1]-g_56398[a][1])*rate)/255;
- g_6f448=g_56398[a][2]+((g_56398[b][2]-g_56398[a][2])*rate)/255;
- for(i=0;i<(long)g_actor_worklist_71580[0];){q=(NStype *)g_actor_worklist_71580[++i];if(q->Type==0x29)g_71370[0x1f4/4](q);}
- for(q=p->Child;q;q=q->Child){if(q->Type==0x2b)g_71370[0x20c/4](q);if(q->Type==0x2e)g_71370[0x230/4](q);}
- if(g_6f454>=2)remove_actor(p);
+ g_scene_cell_6f3f8=g_56398[a][0]+((g_56398[b][0]-g_56398[a][0])*rate)/255;
+ g_scene_cell_6f444=g_56398[a][1]+((g_56398[b][1]-g_56398[a][1])*rate)/255;
+ g_scene_cell_6f448=g_56398[a][2]+((g_56398[b][2]-g_56398[a][2])*rate)/255;
+ for(i=0;i<(long)g_actor_worklist_71580[0];){q=(NStype *)g_actor_worklist_71580[++i];if(q->Type==0x29)g_configuration_dword_71370[0x1f4/4](q);}
+ for(q=p->Child;q;q=q->Child){if(q->Type==0x2b)g_configuration_dword_71370[0x20c/4](q);if(q->Type==0x2e)g_configuration_dword_71370[0x230/4](q);}
+ if(g_scene_cell_6f454>=2)remove_actor(p);
 }
 void eng1_native_code_target_001bc20(NStype *p)
 {
@@ -321,7 +321,7 @@ void eng1_native_code_target_001bce0(NStype *p)
   prev=q;
  }
  if(--p->Aindex<0){p->Aindex=0;p->NAStatus=1;p->Aspeed=random_limit(16)+8;}
- if(g_6f454>=2)remove_actor(p);
+ if(g_scene_cell_6f454>=2)remove_actor(p);
 }
 void eng1_native_code_target_001bf40(NStype *p)
 {
@@ -344,7 +344,7 @@ void eng1_native_code_target_001bf40(NStype *p)
   prev=q;
  }
  if(p->Aindex< -5760){p->Aindex=random_limit(100);p->NAStatus=0;}
- if(g_6f454>=2)remove_actor(p);
+ if(g_scene_cell_6f454>=2)remove_actor(p);
 }
 void eng1_native_code_target_001c200(NStype *p){g_562d0[p->NAStatus](p);}
 void eng1_native_code_target_001c220(NStype *p)
@@ -363,19 +363,19 @@ void eng1_native_code_target_001c2a0(NStype *p)
  x=g_56338[a][0]+((g_56338[b][0]-g_56338[a][0])*rate)/255;p->XYZOffset.x=(short)(x-31);
  y=g_56338[a][1]+((g_56338[b][1]-g_56338[a][1])*rate)/255;p->XYZOffset.y=(short)(y+8);
  z=g_56338[a][2]+((g_56338[b][2]-g_56338[a][2])*rate)/255;p->XYZOffset.z=(short)(z-5);
- if(g_6f454>=2)remove_actor(p);
+ if(g_scene_cell_6f454>=2)remove_actor(p);
 }
 void eng1_native_code_target_001c3f0(NStype *p)
 {
  int next=0,index;
- switch(g_6f44c){
- case 0:eng1_native_code_target_001c4d0(7);++g_6f44c;return;
+ switch(g_scene_cell_6f44c){
+ case 0:eng1_native_code_target_001c4d0(7);++g_scene_cell_6f44c;return;
  case 1:remove_actor(p);g_6f380=0;
-  eng1_native_code_target_001c4d0(3);eng1_native_code_target_001c4d0(1);eng1_native_code_target_001c4d0(5);g_6f44c+=3;return;
+  eng1_native_code_target_001c4d0(3);eng1_native_code_target_001c4d0(1);eng1_native_code_target_001c4d0(5);g_scene_cell_6f44c+=3;return;
  case 4:next=2;break;case 5:next=4;break;case 6:next=0;break;case 7:next=6;break;case 8:next=-1;break;
  }
  index=p->Aux2Index;remove_actor(p);eng1_native_code_target_001c4d0(index);
- if(next>=0){eng1_native_code_target_001c4d0(next);++g_6f44c;}
+ if(next>=0){eng1_native_code_target_001c4d0(next);++g_scene_cell_6f44c;}
 }
 NStype *eng1_native_code_target_001c4d0(int index)
 {
@@ -390,7 +390,7 @@ NStype *eng1_native_code_target_001c4d0(int index)
   if(eng1_native_code_target_002b130(p)){
    eng1_native_code_target_001c660(0x2f);
    q=spawn_normal(p->Xpos,p->Ypos,p->Zpos,0x2d);g_6f188[g_6f3ec].effect=q;
-   if(q)g_71370[0x21c/4](q);
+   if(q)g_configuration_dword_71370[0x21c/4](q);
    g_6f188[g_6f3ec].effect->Special1=g_6f3ec;
    eng1_native_code_target_001dd50(p);eng1_native_code_target_001c720(p);return p;
   }
@@ -416,7 +416,7 @@ void eng1_native_code_target_001c720(NStype *p)
 {
  int index=p->Aux2Index,i,changed=0,lo,hi,t,limit,delta;
  Slot *s=&g_6f188[index];NStype **list=(NStype **)p->Aux3Ptr,*q=0,*effect;
- long ox=g_6f3f8,oy=g_6f444,oz=g_6f448,x=p->Xpos,y=p->Ypos,z=p->Zpos;
+ long ox=g_scene_cell_6f3f8,oy=g_scene_cell_6f444,oz=g_scene_cell_6f448,x=p->Xpos,y=p->Ypos,z=p->Zpos;
  long base=p->Angle.x,angle=base,a=-512,b=-512,radius=0;
  short *program;
  if(s->override){p->Xaim=s->aim;p->Yaim=s->aim;s->program=index+s->sequence*8;p->Zaim=0;p->Zmove=0;}
@@ -457,7 +457,7 @@ void eng1_native_code_target_001c720(NStype *p)
  s->tracking=0;effect=s->effect;
  if(!effect || p->NAStatus==1 || p->NAStatus==2)return;
  effect->Xpos=q->Xpos;effect->Ypos=q->Ypos;effect->Zpos=q->Zpos;
- if(g_6efb8<=0){
+ if(g_scene_cell_6efb8<=0){
   delta=wrap_delta_461a0(0x180,effect->Angle.x);if(delta>8)delta=8;if(delta< -8)delta=-8;effect->Angle.x-=delta;
   if(delta<0x1c8 && !s->sound){s->sound=1;select_frame(effect,3);if(g_6f460){g_6f460=0;play_sound(0x19e,0);}}
   if(!random_limit(120))play_sound(0x184,0);
@@ -491,7 +491,7 @@ void eng1_native_code_target_001cf50(NStype *p)
  p->Zmove=random_limit(1024);p->SpecialFX=5;
  switch(p->Aux2Index){case 1:p->Shadow=g_562a0;break;case 3:p->Shadow=g_56270;break;case 5:p->Shadow=g_56288;break;case 7:p->Shadow=g_56258;break;default:p->SpecialFX=0;}
  advance_frame(p);
- if(!g_6f44c){eng1_native_code_target_001d070(p,0);p->NAStatus=3;p->Aux3Index=60;}
+ if(!g_scene_cell_6f44c){eng1_native_code_target_001d070(p,0);p->NAStatus=3;p->Aux3Index=60;}
  else{eng1_native_code_target_001d070(p,0);p->NAStatus=0;p->Aux3Index=0;if(g_6f460){g_6f460=0;play_sound(0x183,0);}}
 }
 void eng1_native_code_target_001d070(NStype *p,int program)
@@ -503,13 +503,13 @@ void eng1_native_code_target_001d0b0(NStype *p)
  if(!g_6f188[p->Aux2Index].override){g_6f3e8=eng1_native_code_target_001dd50(p);if(g_6f3e8)g_6f188[p->Aux2Index].program=g_6f440;}
  eng1_native_code_target_001c720(p);
  switch(p->NAStatus){case 3:eng1_native_code_target_001d170(p);break;case 4:eng1_native_code_target_001d360(p);break;case 1:eng1_native_code_target_001d780(p);break;case 2:eng1_native_code_target_001da00(p);break;case 0:eng1_native_code_target_001da20(p);break;}
- if(g_6f454>=1){eng1_native_code_target_001d5f0(p);remove_actor(p);}
+ if(g_scene_cell_6f454>=1){eng1_native_code_target_001d5f0(p);remove_actor(p);}
 }
 void eng1_native_code_target_001d170(NStype *p)
 {
  int index=p->Aux2Index,i,clear;Slot *s;long target;
  p->Zmove+=6;
- if(g_6f3e8 && g_6f188[index].delay--<=0 && !g_72110 && g_56040 && eng1_native_code_target_001cf10(p) && !g_6f188[index].state && g_6efb8>0){
+ if(g_6f3e8 && g_6f188[index].delay--<=0 && !eng1_sim_state_72110 && g_56040 && eng1_native_code_target_001cf10(p) && !g_6f188[index].state && g_scene_cell_6efb8>0){
   target=g_normal_actor_pool->Xpos+((random_limit(32)-16)<<16)+(g_574d8[index].ox<<7);
   if(target<0x4800000)target=0x4800000;if(target>0xcf00000)target=0xcf00000;
   clear=1;
@@ -519,7 +519,7 @@ void eng1_native_code_target_001d170(NStype *p)
   }}
   if(clear){g_6f188[index].old_x=g_574d8[index].x;g_6f188[index].target_x=target;p->NAStatus=4;p->Aux3Index=0;eng1_native_code_target_001d070(p,8);g_6f188[index].state=1;}
  }
- if(g_6f188[index].timer--<=0 && g_56040 && eng1_native_code_target_001cf10(p) && g_6f188[index].delay>=0 && !g_6f188[index].state && g_6efb8>0)g_6f188[index].state=2;
+ if(g_6f188[index].timer--<=0 && g_56040 && eng1_native_code_target_001cf10(p) && g_6f188[index].delay>=0 && !g_6f188[index].state && g_scene_cell_6efb8>0)g_6f188[index].state=2;
 }
 void eng1_native_code_target_001d360(NStype *p)
 {
@@ -546,11 +546,11 @@ extern unsigned long g_eng1_setup_dword_72014;
 void eng1_native_code_target_001d6c0(NStype *p)
 {
  NStype *q;
- if((p->NAStatus!=3&&p->NAStatus!=4)||g_72110)return;
+ if((p->NAStatus!=3&&p->NAStatus!=4)||eng1_sim_state_72110)return;
  p->NAStatus=1;p->Aux3Index=63;
  q=spawn_normal(p->Xpos,p->Ypos,p->Zpos,0x30);g_6f188[p->Aux2Index].extra=q;
- if(g_6f188[p->Aux2Index].extra)g_71370[0x240/4](g_6f188[p->Aux2Index].extra);
- if(--g_6efb8<=0)g_eng1_setup_dword_72014=1;g_72184=32;eng1_native_code_target_001d5f0(p);g_71ecc=60;
+ if(g_6f188[p->Aux2Index].extra)g_configuration_dword_71370[0x240/4](g_6f188[p->Aux2Index].extra);
+ if(--g_scene_cell_6efb8<=0)g_eng1_setup_dword_72014=1;g_boss_threshold_72184=32;eng1_native_code_target_001d5f0(p);g_eng1_color_transition_timer_71ecc=60;
 }
 void eng1_native_code_target_001d780(NStype *p)
 {
@@ -561,7 +561,7 @@ void eng1_native_code_target_001d780(NStype *p)
    if(g_6f188[p->Aux2Index].effect){p->Aux3Index=2;return;}
    if(!g_scene_cell_6f3e4){g_scene_cell_6f3e4=1;g_6f3d8=5;g_6ffbc=1;
     for(f=g_57b18;f<g_57b18+3;f++){
-     if(g_6f44c==1){index=f->index;q=spawn_normal(g_574d8[index].x,g_574d8[index].y,g_574d8[index].z,0x30);f->actor=q;if(q)g_71370[0x240/4](q);f->state=0;
+     if(g_scene_cell_6f44c==1){index=f->index;q=spawn_normal(g_574d8[index].x,g_574d8[index].y,g_574d8[index].z,0x30);f->actor=q;if(q)g_configuration_dword_71370[0x240/4](q);f->state=0;
       f->actor->Xpos=f->x;f->actor->Ypos=f->y;f->actor->Zpos=f->z;f->actor->Angle.x=(short)f->ax;f->actor->Angle.y=(short)f->ay;f->actor->Angle.z=(short)f->az;f->actor->Scale=64;
      }else f->actor=0;
     }
@@ -577,14 +577,14 @@ void eng1_native_code_target_001d910(void)
 {
  Flash *f;
  for(f=g_57b18;(long)f<(long)(g_57b18+3);f++)if(f->actor){
-  f->actor->XYZOffset.x=(short)(g_574d8[f->index].ox+g_6f3f8);
-  f->actor->XYZOffset.y=(short)(g_574d8[f->index].oy+g_6f444);
-  f->actor->XYZOffset.z=(short)(g_574d8[f->index].oz+g_6f448);
+  f->actor->XYZOffset.x=(short)(g_574d8[f->index].ox+g_scene_cell_6f3f8);
+  f->actor->XYZOffset.y=(short)(g_574d8[f->index].oy+g_scene_cell_6f444);
+  f->actor->XYZOffset.z=(short)(g_574d8[f->index].oz+g_scene_cell_6f448);
   if(!f->state){f->actor->Scale+=90;if(f->actor->Scale>=0x240){f->state=1;f->timer=15;}}
   else if(--f->timer<0){f->actor->Scale-=8;if(f->actor->Scale<0x100){remove_actor(f->actor);f->actor=0;}}
  }
 }
-void eng1_native_code_target_001da00(NStype *p){eng1_native_code_target_001d910();if(g_6efb8>0)eng1_native_code_target_001c3f0(p);}
+void eng1_native_code_target_001da00(NStype *p){eng1_native_code_target_001d910();if(g_scene_cell_6efb8>0)eng1_native_code_target_001c3f0(p);}
 void eng1_native_code_target_001da20(NStype *p)
 {
  NStype *q=g_6f188[p->Aux2Index].effect;unsigned short scale;
@@ -606,7 +606,7 @@ void eng1_native_code_target_001db70(NStype *p)
 }
 void eng1_native_code_target_001dbc0(NStype *p)
 {
- p->Frame=0;p->pCtrl=0;p->Class=0x20002;p->Shadow=g_7217c;g_734f4=p;p->Aindex=0x145;p->Pindex=0;g_6f47c=p;
+ p->Frame=0;p->pCtrl=0;p->Class=0x20002;p->Shadow=g_collision_context;g_frame_global_734f4=p;p->Aindex=0x145;p->Pindex=0;g_6f47c=p;
 }
 void eng1_native_code_target_001dc00(NStype *p)
 {
