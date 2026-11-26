@@ -1,0 +1,186 @@
+{
+ "schema": 1,
+ "scope": "Exact instructions with established independent native function/data identities, reusing accepted binding records; masked matching alone grants no acceptance.",
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "evidence/bindP_review_2026_10_31.json": "a6827c207dc6e21110e2c9af973e5e6cc1154dc275a0d8d00f724ac3a1053b00",
+  "evidence/eng3_focus_review_2026_10_26.json": "64750b15ca6107a24e911002188a4033cc9bd4c67695a864a1f6ed325cf8fc6b",
+  "evidence/q17_native_review_2026_11_26.json": "481f796b4f978c26ae2bd82ab96c2ca7efd9dac999129ba07e6e7a9feef5607c",
+  "src/eng1/actor_links.c": "74ceb8e53c76aacf69151553c5e27d623ce55b2a30fe4f4199fbe96401e0c182",
+  "src/eng3/actor_middle_create.c": "a623eb32653c6179fdb821e79768bc6fc1c598b713eb581cd6f0e6c5a2d9e924",
+  "src/eng3/actor_services_1e000.c": "2e4a74793b42aa2db5ff5c457990e7714cf27acb0033f78e1b73ec93416b60c8",
+  "src/eng3/engine_pointer_cells.c": "d124c9ac3df67b06e03d1754ed7305ebe42209b3f8eaf8e5425803309e39ad0a",
+  "src/eng3/handlers_0dae0.c": "ea378b6d66eb935554d6e7cfec039f62242499847f3e7d4d099899d7b0dab1fe"
+ },
+ "function_identities": {
+  "eng3.shared_1d600": {
+   "fresh_own_masked_sha256": "b275e1fe9dd7a7b338c872cd255a286f06efff68cec48a677fd0a59698e22843",
+   "fresh_own_shape_equal": true,
+   "origin": "Pre-promotion recovery own function record eng3.shared_1d600; no caller implied symbols",
+   "prior_evidence_sha256": "f8a4c1620af1bbca46ec78e13c45afa731971f43ccc948ccc15d7c18673b2e7f",
+   "prior_proof_scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+   "prior_source_sha256": "17bfe6a5baa9f096dd1ddd05d048635b3780c11e43435187c923c0e3a9fcef0b",
+   "rva": 120320,
+   "size": 112,
+   "source": "src/eng1/actor_links.c",
+   "source_sha256": "17bfe6a5baa9f096dd1ddd05d048635b3780c11e43435187c923c0e3a9fcef0b",
+   "symbol": "_attach_actor",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  },
+  "eng3.create_middle_actor": {
+   "ledger_status": "CODEGEN_SIMILAR",
+   "origin": "recovery.json#functions.eng3.create_middle_actor; the CODEGEN_SIMILAR ledger row is the independent identity source, not derived from the pending caller",
+   "rva": 119056,
+   "size": 128,
+   "source": "src/eng3/actor_middle_create.c",
+   "source_sha256": "a623eb32653c6179fdb821e79768bc6fc1c598b713eb581cd6f0e6c5a2d9e924",
+   "symbol": "_create_eng3_middle_actor",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  },
+  "eng3.random_limit_1fab0": {
+   "fresh_own_shape_check": "evidence/eng3_focus_review_2026_10_26.json#function_identity_reviews._random_limit.fresh_own_shape_check",
+   "identity_basis": [
+    "evidence/eng3_focus_review_2026_10_26.json#function_identity_reviews._random_limit"
+   ],
+   "ledger_proof_scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "rva": 129712,
+   "size": 16,
+   "source": "src/eng3/actor_services_1e000.c",
+   "source_sha256": "d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475",
+   "symbol": "_random_limit",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  }
+ },
+ "functions": {
+  "eng3.0d280": {
+   "symbols": {
+    "_attach_actor": {
+     "evidence": [
+      "function_identities:eng3.shared_1d600"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "offset": 310,
+       "type": 20,
+       "addend": 0
+      }
+     ],
+     "rva": 120320,
+     "size": 112
+    },
+    "_create_eng3_middle_actor": {
+     "evidence": [
+      "function_identities:eng3.create_middle_actor"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "offset": 177,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 247,
+       "type": 20,
+       "addend": 0
+      }
+     ],
+     "rva": 119056,
+     "size": 128
+    },
+    "_g_eng3_middle_actions_40b98": {
+     "evidence": [
+      "evidence/bindP_review_2026_10_31.json#_g_eng3_middle_actions_40b98"
+     ],
+     "identity": {
+      "operand": 1,
+      "rva": 8804,
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "size": 5
+     },
+     "kind": "bss",
+     "owner": {
+      "flags": [
+       "/O2"
+      ],
+      "source": "src/eng3/engine_pointer_cells.c",
+      "symbol": "_g_eng3_middle_actions_40b98"
+     },
+     "references": [
+      {
+       "offset": 203,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 268,
+       "type": 6,
+       "addend": 0
+      }
+     ],
+     "rva": 265112,
+     "size": 4
+    },
+    "_random_limit": {
+     "evidence": [
+      "function_identities:eng3.random_limit_1fab0"
+     ],
+     "kind": "function",
+     "references": [
+      {
+       "offset": 53,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 95,
+       "type": 20,
+       "addend": 0
+      }
+     ],
+     "rva": 129712,
+     "size": 16
+    }
+   },
+   "indirect_calls": [
+    {
+     "profile": "opaque-indirect-call-v1",
+     "offset": 208,
+     "target": "unidentified",
+     "abi": "unclaimed",
+     "operand": {
+      "form": "memory",
+      "base": "eax",
+      "index": null,
+      "scale": 1,
+      "disp": 328
+     },
+     "evidence": [
+      "evidence/q17_native_review_2026_11_26.json"
+     ]
+    },
+    {
+     "profile": "opaque-indirect-call-v1",
+     "offset": 273,
+     "target": "unidentified",
+     "abi": "unclaimed",
+     "operand": {
+      "form": "memory",
+      "base": "edx",
+      "index": null,
+      "scale": 1,
+      "disp": 328
+     },
+     "evidence": [
+      "evidence/q17_native_review_2026_11_26.json"
+     ]
+    }
+   ]
+  }
+ }
+}

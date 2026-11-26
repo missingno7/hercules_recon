@@ -153,8 +153,8 @@ typedef struct EngineInterfaceView {
 
 
 typedef struct KindInfo {
-    unsigned long sidecar_offset;
-    unsigned long unknown;
+    unsigned char *owner;
+    long unknown;
 } KindInfo;
 
 /* Per-object record in the owner context, located through g_kind_info[profile]. */
@@ -234,7 +234,7 @@ extern signed char g_eng3_layer_40638;
 extern signed char g_eng3_bounds_id_40639;
 extern long g_eng3_unknown_40580;
 extern long g_eng3_405b0;
-extern long g_eng3_camera_y_405e4;
+extern long g_camera_y_70ca4;
 extern long g_eng3_camera_z_405e8;
 extern long g_eng3_center_y_40620;
 extern long g_eng3_unknown_3fb88;
@@ -402,7 +402,7 @@ extern int title_0c4f0(int);
 /* Functions in address order. */
 void eng3_16240(Actor *o)
 {
-    o->unknown_dc = ((Sidecar *)(o->owner_context + g_kind_info[o->profile].sidecar_offset))->kind;
+    o->unknown_dc = ((Sidecar *)(o->owner_context + (long)g_kind_info[o->profile].owner))->kind;
     o->profile = g_focus->profile;
     o->flags = 2;
     o->render_flags = 0x80000000;
@@ -727,7 +727,7 @@ void eng3_16c40(void)
     long x, y, w, rest;
 
     x = ((g_eng3_405b0 >> 1) + (g_eng3_camera_z_405e8 >> 4)) & 0x1ff;
-    y = g_eng3_unknown_40580 / 2 - g_eng3_camera_y_405e4 / 10 + g_eng3_center_y_40620 - 0x108;
+    y = g_eng3_unknown_40580 / 2 - g_camera_y_70ca4 / 10 + g_eng3_center_y_40620 - 0x108;
     if (x < 0xff) {
         w = 0x100 - x;
         rest = 0x40 - w;
@@ -2554,7 +2554,8 @@ typedef struct Eng3Layer {
     short entries;
     short neighbours;
     short shape;
-    unsigned char unknown_0c[4];
+    unsigned short placement_count;
+    short placements;
 } Eng3Layer;
 
 /* Per-kind hook records: host 0x40bb4 / middle 0x40b98 (8 bytes), game 0x40b8c (12 bytes). */
@@ -2613,7 +2614,7 @@ extern long *g_eng3_431c8;
 extern unsigned char *g_eng3_map_40790;
 extern unsigned short g_2bf32, g_2bf44, g_2bf62;
 extern unsigned short g_2bf6c, g_2bf72, g_2bff2;
-extern short g_eng3_40bc6;
+extern unsigned short g_eng3_40bc6;
 extern int g_eng3_41048;
 extern int g_eng3_41044;
 extern unsigned char g_eng3_3fb80;
@@ -3653,5 +3654,281 @@ void eng3_1bd40(void)
         for (i = 0; i < g_2bf72; i++, h++)
             h->x = ((h->x - 0x800000) & 0x1fffffff) + 0x800000;
     }
+}
+
+/* Continuation 0x1c010..0x1c8a0, bracketed by 1bd40 and the shared pool helpers.
+ * Placement expansion reuses ENG1 actor_pipeline_255f0.cpp:eng1_call_26040,
+ * with ENG3 layer-relative records and per-layer counters. */
+typedef struct SpatialType {
+    short x, y, z;
+    unsigned short flags, kind;
+} SpatialType;
+typedef struct ForestPlacement {
+    unsigned short x, y, z, type;
+} ForestPlacement;
+typedef struct ForestRecord {
+    long x, y, z;
+    unsigned short flags, state, kind, unused;
+} ForestRecord;
+extern SpatialType *g_2bf50;
+extern long g_eng3_40610;
+extern long g_eng3_40648;
+extern int g_2cbe0[3];
+extern unsigned char g_eng3_iterations_y_40636;
+extern unsigned char g_eng3_iterations_z_40637;
+extern short g_eng3_adjust_y_40642;
+extern long g_eng3_step_tolerance_431e0;
+typedef struct StartPosition {
+    unsigned short x, y;
+    unsigned char z, layer;
+    unsigned char unknown_06[18];
+} StartPosition;
+/* The pointer at 38534 is +12 in the existing Eng3LevelFile array. */
+extern void eng3_1c9f0(ForestRecord *, int);
+extern void eng3_1d050(ForestRecord *, int);
+extern void eng3_1d570(ForestRecord *, int);
+extern void eng3_1db50(unsigned int);
+
+void eng3_1c010(void)
+{
+    SpatialType *types = g_2bf50;
+    int group, i;
+    int count2, count4;
+    unsigned char *block;
+    unsigned char *allocated;
+    ForestPlacement *place;
+    ForestRecord *record;
+    SpatialType *type;
+    if (!types)
+        return;
+    if (!g_eng3_40bc6) {
+        g_eng3_40bc6 = g_eng3_map_40650.layer_count_186;
+        for (group = 0; group < g_eng3_40bc6; group++) {
+            block = (unsigned char *)&g_eng3_map_40650.layers_74[group];
+            g_kind_info[group].owner = 0;
+            count2 = count4 = 0;
+            g_kind_info[group].unknown = *(unsigned short *)(block + 12);
+            if (g_kind_info[group].unknown) {
+                allocated = (unsigned char *)title_0c450((void **)&g_kind_info[group],
+                    (g_kind_info[group].unknown + 1) * 20, 0);
+                if (allocated) {
+                    record = (ForestRecord *)(allocated + 20);
+                    block = (unsigned char *)&g_eng3_map_40650.layers_74[group];
+                    block += 14;
+                    place = (ForestPlacement *)(block + *(short *)block);
+                    for (i = 0; i < g_kind_info[group].unknown; i++) {
+                        type = &types[place->type];
+                        record->x = (place->x + type->x) << 16;
+                        record->y = (place->y + type->y) << 16;
+                        record->z = (place->z + type->z) << 16;
+                        record->flags = type->flags;
+                        record->state = 0;
+                        record->kind = type->kind;
+                        if (record->kind == 6 && (unsigned char)record->flags == 2)
+                            count2++;
+                        if (record->kind == 6 && (unsigned char)record->flags == 4)
+                            count4++;
+                        record++;
+                        place++;
+                    }
+                }
+            }
+            g_eng3_offsets_40c40[group].dx = count4;
+            g_eng3_offsets_40c40[group].dy = count2;
+        }
+        return;
+    }
+    for (group = 0; group < g_eng3_40bc6; group++) {
+        if (!g_kind_info[group].owner)
+            continue;
+        record = (ForestRecord *)(g_kind_info[group].owner + 20);
+        block = (unsigned char *)&g_eng3_map_40650.layers_74[group];
+        block += 14;
+        place = (ForestPlacement *)(block + *(short *)block);
+        for (i = 0; i < g_kind_info[group].unknown; i++) {
+            type = &types[place->type];
+            if (type->flags & 0x200) {
+                record->x = (place->x + type->x) << 16;
+                record->y = (place->y + type->y) << 16;
+                record->z = (place->z + type->z) << 16;
+                record->flags = type->flags;
+                record->state = 0;
+                record->kind = type->kind;
+            }
+            record++;
+            place++;
+        }
+    }
+}
+
+void eng3_1c290(void)
+{
+    unsigned short group = g_focus->profile;
+    long lo, hi, x;
+    ForestRecord *record;
+    int i;
+    unsigned short flags, type;
+    lo = range_first(group);
+    if (lo == -1)
+        return;
+    hi = range_end(group);
+    if (hi == -1)
+        return;
+    lo -= 0x100;
+    hi += 0x100;
+    record = (ForestRecord *)g_kind_info[group].owner;
+    if (!record)
+        return;
+    record++;
+    for (i = 0; i < g_kind_info[group].unknown; i++, record++) {
+        if (g_eng3_actor_431d4 == g_eng3_actor_41c60 && (record->flags & 0x400))
+            continue;
+        flags = record->flags;
+        if ((flags & 0xc800) == 0x800) {
+            type = record->kind & 0x7000;
+            if (type == 0) eng3_1c9f0(record, group);
+            if (type == 0x4000) eng3_1d050(record, group);
+            if (type == 0x2000) eng3_1d570(record, group);
+        } else {
+            if (flags & 0xc000)
+                continue;
+            x = record->x >> 16;
+            if (x <= lo || x >= hi)
+                continue;
+            type = record->kind & 0x7000;
+            if (type == 0x1000) eng3_1db50(record->kind);
+            if (type == 0) eng3_1c9f0(record, group);
+            if (type == 0x4000) eng3_1d050(record, group);
+            if (type == 0x2000) eng3_1d570(record, group);
+        }
+    }
+}
+
+void eng3_1c430(void)
+{
+    unsigned short group;
+    long lo, hi, end, x;
+    ForestRecord *record;
+    int i;
+    unsigned short type;
+    for (group = 0; group < g_eng3_40bc6; group++) {
+        if (g_eng3_ranges_4078c[group].tick != g_engine_interface.context_004->tick)
+            continue;
+        lo = range_first(group);
+        if (lo == -1)
+            continue;
+        hi = range_end(group);
+        if (hi == -1)
+            continue;
+        record = (ForestRecord *)g_kind_info[group].owner;
+        end = hi + 0x100;
+        if (!record)
+            return;
+        record++;
+        for (i = 0; i < g_kind_info[group].unknown; i++, record++) {
+            if (g_eng3_actor_431d4 == g_eng3_actor_41c60 && (record->flags & 0x400))
+                continue;
+            if (record->flags & 0xc000)
+                continue;
+            x = record->x >> 16;
+            if (x <= lo || x <= hi || x >= end)
+                continue;
+            type = record->kind & 0x7000;
+            if (type == 0x1000) eng3_1db50(record->kind);
+            if (type == 0) eng3_1c9f0(record, group);
+            if (type == 0x4000) eng3_1d050(record, group);
+            if (type == 0x2000) eng3_1d570(record, group);
+        }
+    }
+}
+
+void eng3_1c5c0(void)
+{
+    short total = 0, d;
+    int i, count;
+    if (g_eng3_41380[0]) {
+        for (i = 0; i < g_eng3_41380[0];)
+            total += g_eng3_41380[++i];
+        total = total / i;
+    }
+    d = g_eng3_40648 - total;
+    if (d) {
+        if ((d <= 0x10) & (d >= -0x10)) {
+            if (d < 0)
+                g_eng3_40648 += (d & 1) - (d >> 1);
+            else
+                g_eng3_40648 -= (d >> 1) + (d & 1);
+        } else
+            g_eng3_40648 -= d >> 3;
+    }
+    count = 0;
+    total = 0;
+    for (i = 0; i < g_eng3_40f20[0];) {
+        total += g_eng3_40f20[++i];
+        count++;
+    }
+    if (count)
+        total = total / count;
+    d = g_eng3_40610 - total;
+    if (d) {
+        if (d > 0x7ff)
+            d = 0x1000 - d;
+        if (d < -0x7ff)
+            d += 0x1000;
+        if ((d <= 0x10) & (d >= -0x10)) {
+            if (d < 0)
+                g_eng3_40610 += (d & 1) - (d >> 1);
+            else
+                g_eng3_40610 -= (d >> 1) + (d & 1);
+        } else
+            g_eng3_40610 -= d >> 4;
+    }
+}
+
+void eng3_1c720(void)
+{
+    StartPosition *pos, *positions;
+    Actor *a = g_eng3_actor_42540;
+    positions = (StartPosition *)g_eng3_files_38528[g_engine_interface.context_004->level].subs_0c;
+    pos = &positions[g_engine_interface.context_004->sublevel];
+    a->x = pos->x << 16;
+    a->y = pos->y << 16;
+    a->z = pos->z << 23;
+    g_eng3_camera_x_405e0 = pos->x;
+    g_camera_y_70ca4 = pos->y;
+    g_eng3_camera_z_405e8 = pos->z << 7;
+    g_eng3_layer_40638 = pos->layer;
+    g_focus->profile = pos->layer;
+    g_eng3_height_40640 = 0x140;
+    g_2cbe0[2] = 0x140;
+    g_eng3_adjust_y_40642 = -0x40;
+    g_2cbe0[0] = 0xa0;
+    g_2cbe0[1] = -0x100;
+    g_eng3_iterations_x_40635 = 2;
+    g_eng3_iterations_y_40636 = 2;
+    g_eng3_iterations_z_40637 = 1;
+    g_eng3_view_angle_40614 = 0;
+    if (g_engine_interface.context_004->level != 2)
+        g_2cbe0[1] = 0xe8;
+    if (g_engine_interface.context_004->level == 10) {
+        g_2cbe0[1] = 0xc4;
+        g_eng3_spread_4063b = 0xe;
+        g_eng3_iterations_y_40636 = 1;
+        g_eng3_water_level_410e0 = 0x258;
+        g_eng3_step_tolerance_431e0 = 2;
+    }
+    if (g_engine_interface.context_004->level == 8) {
+        g_eng3_spread_4063b = 0x10;
+        g_focus->z = 0x400000;
+        g_eng3_step_tolerance_431e0 = 0x10;
+        g_eng3_water_level_410e0 = 0x258;
+    }
+    if (g_engine_interface.context_004->level == 2) {
+        g_eng3_spread_4063b = 0x18;
+        g_eng3_water_level_410e0 = 0x1e1;
+        g_eng3_step_tolerance_431e0 = 8;
+    }
+    g_eng3_bounds_id_40639 = g_eng3_3fb9c;
+    g_eng3_4063a = 0x2a;
 }
 }
