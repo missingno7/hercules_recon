@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "scope": "Original-backed config offset correction and complete instruction equality; no independent reference or strict acceptance claim.",
+  "row": "exe.host_config_defaults",
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0x4be0",
+  "size": 224,
+  "source": "src/pc/host_config_helpers.c",
+  "before_sha256": "d82edeb9a23163a452dfd38bde12fafb345b315acec56af3f9f85b4bc7b43799",
+  "candidate_sha256": "b17f22df9c142ef9c3e01c59699eeb8ea187683f518e52d3c32a510859fc3df5",
+  "question": "Do native stores use the same registry byte offsets as the existing source?",
+  "native_observations": [
+    {
+      "instruction_rva": "0x4c69",
+      "operation": "mov byte ptr [0xb9e865], al",
+      "config_base_va": "0xb9e858",
+      "offset": "0x0d",
+      "value": 1
+    },
+    {
+      "instruction_rva": "0x4c6e",
+      "operation": "mov byte ptr [0xb9e866], al",
+      "offset": "0x0e",
+      "value": 1
+    },
+    {
+      "instruction_rva": "0x4c95",
+      "operation": "mov byte ptr [0xb9e864], al",
+      "offset": "0x0c",
+      "value": 1
+    },
+    {
+      "instruction_rva": "0x4c9a",
+      "operation": "mov byte ptr [0xb9e85e], al",
+      "offset": "0x06",
+      "value": 1
+    },
+    {
+      "instruction_rva": "0x4c9f",
+      "operation": "mov byte ptr [0xb9e85d], al",
+      "offset": "0x05",
+      "value": 1
+    },
+    {
+      "instruction_rva": "0x4ca4",
+      "operation": "mov byte ptr [0xb9e85c], al",
+      "offset": "0x04",
+      "value": 1
+    }
+  ],
+  "change": "Correct the first byte stores from offsets 5/6 to d/e and the later stores from d/e to 6/5, retaining c and 4. Preserve their native order and the final cleanup_native_4ac0 call.",
+  "measurement": {
+    "compiled_size": 224,
+    "nonreference_differences": 0,
+    "consistent_implied_references": true,
+    "compiler": "Pinned MSVC 5 RTM /O2 /Gy, toolchains/manifest.json",
+    "peer_rows_unchanged": [
+      "exe.host_config_apply",
+      "exe.host_input_mapping_build",
+      "exe.host_input_mapping_append"
+    ]
+  },
+  "limits": "The fixed-base EXE has no base relocations. A consistent implied address map is diagnostic; it does not independently identify the referenced storage or callees. Earlier finite synthetic scenarios did not establish these byte offsets."
+}

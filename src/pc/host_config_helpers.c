@@ -42,15 +42,15 @@ void __cdecl cleanup_native_4be0(void)
     *(unsigned short *)(g_registry_config + 0x28) = (unsigned short)g_config_default_values_rva_36158[6];
     *(unsigned short *)(g_registry_config + 0x2a) = (unsigned short)g_config_default_values_rva_36158[7];
     *(unsigned short *)(g_registry_config + 0x2c) = (unsigned short)g_config_default_values_rva_36158[8];
-    g_registry_config[0x05] = 1;
-    g_registry_config[0x06] = 1;
+    g_registry_config[0x0d] = 1;
+    g_registry_config[0x0e] = 1;
     *(DWORD *)(g_registry_config + 0x10) = 0x00003fff;
     g_registry_config[0x14] = 1;
     *(unsigned short *)(g_registry_config + 0x16) = 0xffff;
     *(DWORD *)(g_registry_config + 0x18) = 3;
     g_registry_config[0x0c] = 1;
-    g_registry_config[0x0d] = 1;
-    g_registry_config[0x0e] = 1;
+    g_registry_config[0x06] = 1;
+    g_registry_config[0x05] = 1;
     g_registry_config[0x04] = 1;
     *(DWORD *)(g_registry_config + 0x08) = 0x00010103;
 
