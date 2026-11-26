@@ -1,0 +1,112 @@
+{
+ "schema": 1,
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "src/eng1/actor_handlers_mid.c": "8d8cfbd936d0a180181b94a695939649e9468b9258ae2901515e574b5304a1ca",
+  "evidence/source_layout_2026_10_25/context_9d3222369d7d_cbf2b6df6980.json": "6fddd0b4428105eed29dd1e89ac082a2ab876eac71071700d5c38fffeb643489",
+  "evidence/repin_snapshots/1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc.txt": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+  "src/eng1/actor_links.c": "74ceb8e53c76aacf69151553c5e27d623ce55b2a30fe4f4199fbe96401e0c182",
+  "evidence/anchor_db3316c4ba44_4bd277942bf0.json": "4a995f79da776e962f1dde2d1d4c9b9ee9177f25efc81be1a6052988384b9633",
+  "evidence/w5_reference_review_2026_11_26.json": "b303cbf1fd46261260bbf9a3137d9e03faeff68058e56c844134c0b36b5aae18"
+ },
+ "function_identities": {
+  "eng1.od_06da0": {
+   "symbol": "_LinkedSoundFx_6da0",
+   "rva": 28064,
+   "size": 2115,
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+   "source": "src/eng1/sound_od.c",
+   "source_sha256": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+   "prior_evidence_sha256": "ce1a87b565cc96cb60b7ec91db8eaf9a2676abec07d6e094c48d40d86f197847",
+   "prior_proof_scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+   "prior_source_sha256": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+   "fresh_own_shape_equal": true,
+   "fresh_own_masked_sha256": "2126e1737326326749edd92fd217ad9850a2c105239b821f349a737e864282d2",
+   "origin": "Pre-promotion recovery own function record eng1.od_06da0; no caller implied symbols"
+  },
+  "eng1.23390": {
+   "ledger_status": "CODEGEN_SIMILAR",
+   "rva": 144272,
+   "size": 176,
+   "source": "src/eng1/actor_handlers_mid.c",
+   "source_sha256": "8d8cfbd936d0a180181b94a695939649e9468b9258ae2901515e574b5304a1ca",
+   "symbol": "_eng1_23390",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+   "origin": "Independent complete entry already recorded in recovery.json as eng1.23390"
+  },
+  "eng1.finish_actor": {
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "rva": 137456,
+   "size": 32,
+   "source": "src/eng1/actor_links.c",
+   "source_sha256": "74ceb8e53c76aacf69151553c5e27d623ce55b2a30fe4f4199fbe96401e0c182",
+   "symbol": "_finish_actor",
+   "target": "assets/pc/HERCULES/ENG1.DLL",
+   "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+   "origin": "Independent complete entry already recorded in recovery.json as eng1.finish_actor",
+   "accepted_proof": {
+    "bindings_path": "evidence/anchor_db3316c4ba44_4bd277942bf0.json",
+    "bindings_sha256": "caeded24bc630ce3b29fc372db12f08f234061a0cd9624bbc7e331e262d3bb4d",
+    "compiled_sha256": "7dfa74ed63c0c52d7ccf684dae9da3bfb57d464d8f591e8549dc281d18ec10ab"
+   }
+  }
+ },
+ "functions": {
+  "eng1.native_code_target_023340": {
+   "symbols": {
+    "_LinkedSoundFx_6da0": {
+     "kind": "function",
+     "rva": 28064,
+     "size": 2115,
+     "evidence": [
+      "function_identities:eng1.od_06da0"
+     ],
+     "references": [
+      {
+       "offset": 61,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng1_23390": {
+     "kind": "function",
+     "rva": 144272,
+     "size": 176,
+     "evidence": [
+      "function_identities:eng1.23390"
+     ],
+     "references": [
+      {
+       "offset": 22,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 46,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_finish_actor": {
+     "kind": "function",
+     "rva": 137456,
+     "size": 32,
+     "evidence": [
+      "function_identities:eng1.finish_actor"
+     ],
+     "references": [
+      {
+       "offset": 70,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}
