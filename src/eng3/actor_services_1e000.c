@@ -5,7 +5,13 @@
  * compiled here as C) and the TITLE wrapper unit (calibration/title/u0c1f0.c).
  * Local views only cover offsets observed in these bodies; names are provisional. */
 
+/* Measured VC5 declaration-context hypothesis: CRT diagnostic/string APIs and
+ * the query prototypes below restore the observed expression-key order. This
+ * does not establish the original include list or parameter spelling. See
+ * evidence/t4_actor_services_context_2026_11_26.json. */
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 typedef struct Actor Actor;
 
@@ -205,8 +211,8 @@ typedef struct EngineInterface {
 
 extern EngineInterface g_engine_interface;
 
-extern Actor *g_support_actor_6fed8;
-extern long g_actor_worklist_714c0[];
+extern Actor *g_scene_anchor;
+extern long g_eng3_40d20[];
 extern long g_eng3_step_tolerance_431e0;
 extern long g_eng3_tangent_table_38e88[];
 extern unsigned short pending_action_group_limit;
@@ -229,6 +235,10 @@ int eng3_1eda0(Actor *p, Bounds3D *b);
 long eng3_1ef50(Actor *p, long x, long z);
 unsigned long eng3_1e6d0(Actor *p);
 int eng3_1f1a0(Actor *p, Bounds3D *b, unsigned short mode);
+unsigned long eng3_1e540(Actor *p);
+int eng3_1ea60(Actor *p);
+void eng3_1eeb0(Actor *);
+long eng3_1f7b0(unsigned short a, unsigned short b);
 /* Measured declaration-context hypothesis: the actor query entrypoints had
  * forward declarations alongside the existing query prototypes. Parameter-name
  * presence below and the named query result affect VC5 symbol identities; see
@@ -344,9 +354,9 @@ unsigned long eng3_1e540(Actor *p)
     int i;
     Bounds3D b;
 
-    g_support_actor_6fed8 = 0;
-    for (i = 0; i < g_actor_worklist_714c0[0]; ) {
-        q = (Actor *)g_actor_worklist_714c0[++i];
+    g_scene_anchor = 0;
+    for (i = 0; i < g_eng3_40d20[0]; ) {
+        q = (Actor *)g_eng3_40d20[++i];
         if (q == p)
             continue;
         if (q->flags & 0x200000) {
@@ -364,7 +374,7 @@ unsigned long eng3_1e540(Actor *p)
                 d >>= 16;
                 if ((unsigned short)d < below) {
                     below = (unsigned short)d;
-                    g_support_actor_6fed8 = q;
+                    g_scene_anchor = q;
                 }
             }
         } else {
@@ -385,13 +395,13 @@ unsigned long eng3_1e540(Actor *p)
                 d >>= 16;
                 if ((unsigned short)d < below) {
                     below = (unsigned short)d;
-                    g_support_actor_6fed8 = q;
+                    g_scene_anchor = q;
                 }
             }
         }
     }
     if (above < below)
-        g_support_actor_6fed8 = above_actor;
+        g_scene_anchor = above_actor;
     return ((unsigned long)above << 16) | below;
 }
 
@@ -405,13 +415,13 @@ unsigned long eng3_1e6d0(Actor *p)
     int i;
     Bounds3D b;
 
-    g_support_actor_6fed8 = 0;
+    g_scene_anchor = 0;
     x = p->x;
     y = p->y;
     z = p->z;
     above = 0x7fff;
-    for (i = 0; i < g_actor_worklist_714c0[0]; ) {
-        q = (Actor *)g_actor_worklist_714c0[++i];
+    for (i = 0; i < g_eng3_40d20[0]; ) {
+        q = (Actor *)g_eng3_40d20[++i];
         if (p == q)
             continue;
         if (q->flags & 0x200000) {
@@ -423,7 +433,7 @@ unsigned long eng3_1e6d0(Actor *p)
                 d = ~d + 1 >> 16;
                 if ((unsigned short)d < above) {
                     above = (unsigned short)d;
-                    g_support_actor_6fed8 = q;
+                    g_scene_anchor = q;
                 }
             }
         } else {
@@ -438,7 +448,7 @@ unsigned long eng3_1e6d0(Actor *p)
                 d = ~(d >> 16) + 1;
                 if ((unsigned short)d < above) {
                     above = (unsigned short)d;
-                    g_support_actor_6fed8 = q;
+                    g_scene_anchor = q;
                 }
             }
         }
@@ -465,7 +475,8 @@ int eng3_1ea60(Actor *p)
 
 int eng3_1eaf0(Actor *p)
 {
-    short dx, dz, dy;
+    /* Declaration order participates in VC5 commutative-expression keys. */
+    short dy, dx, dz;
     long r;
 
     dy = abs((short)((p->y - p->prev_y) >> 16));
@@ -570,7 +581,8 @@ long eng3_1ef50(Actor *p, long x, long z)
     unsigned long h;
 
     if (eng1_2a220(p, &b) &&
-        (lo = p->z + (b.min_z << 16)) <= z && (b.max_z << 16) + lo >= z &&
+        /* Scale as an unsigned fixed-point bit pattern, then compare signed. */
+        (lo = p->z + (long)((unsigned long)(long)b.min_z << 16)) <= z && (b.max_z << 16) + lo >= z &&
         (lo = p->x + (b.min_x << 16)) <= x && (b.max_x << 16) + lo >= x) {
         h = p->heights[((x - lo) >> 16) / p->action_callback_index] << 16;
         if (h != 0x7f0000)

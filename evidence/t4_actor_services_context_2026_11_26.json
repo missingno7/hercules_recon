@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "date": "2026-11-26",
+  "lane": "t4",
+  "source": "src/eng3/actor_services_1e000.c",
+  "candidate_sha256": "866d6d520a945c250b45d519e4e2f48c5c0bb4879a49e14ec38b950659657bd1",
+  "target": "assets/pc/HERCULES/ENG3.DLL",
+  "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "scope": "Compiler-generated complete instruction equality; no independent data or callee identity is claimed. Stage as CODEGEN_SIMILAR only.",
+  "rows": [
+    {
+      "id": "eng3.eng3_1e6d0",
+      "rva": "0x1e6d0",
+      "size": 352,
+      "coff_nonrelocation_differences": 0
+    },
+    {
+      "id": "eng3.eng3_1eaf0",
+      "rva": "0x1eaf0",
+      "size": 304,
+      "coff_nonrelocation_differences": 0
+    }
+  ],
+  "native_review": [
+    "1e6d0: native +0xc8..0xe3 extends b.min_z into ECX, loads q.z into EAX, shifts ECX, adds it to EAX, then forms the upper bound in EDX. Native +0x105..0x116 extends b.min_y into EDX, loads q.y into EAX and subtracts the saved y through ECX.",
+    "1eaf0: native +0xed extends dx into EDX and dy into ECX, adds the tolerance directly from memory at +0xf3, extends dz into EDI, then combines and doubles the sum. All prior snapshots, abs conversions, calls, state reloads, short signed comparisons and stores remain unchanged.",
+    "The original PC function-map extents remain 352 and 304 bytes including NOP alignment. Their existing same-unit native neighbours bracket these definitions; no source unit or function was moved."
+  ],
+  "measured_source_context": [
+    "stdlib.h plus stdio.h and string.h crosses a folded-symbol identity high-bit boundary. Baseline lower-Z shift key 0x01010129 exceeds coordinate key 0x01010013; the final context reverses the relevant order before destructive-operand coalescing.",
+    "Real forward declarations of eng3_1e540, eng3_1ea60, eng3_1eeb0 and eng3_1f7b0 preserve the accepted query predicate orders. Named and unnamed parameters are deliberate measured declaration context, not recovered original source spelling.",
+    "The dy,dx,dz declaration order restores the native threshold tree in this context while retaining actual y,x,z definition order and call-spanning value lifetimes.",
+    "Accepted 1ef50 uses unsigned shift scaling of sign-extended min_z, cast back to signed long. On the pinned 32-bit implementation this preserves every resulting bit and every original signed bound comparison while restoring its accepted destructive input."
+  ],
+  "peer_protection": {
+    "accepted_rows": 71,
+    "all_complete_bytes_and_ordered_relocations_identical": true,
+    "masked_rows": 4,
+    "all_masked_equal": true,
+    "private_label_rename": "eng3.1e000 private $L labels only; this row is restaged through the existing masked gate."
+  },
+  "canonical_names": "g_scene_anchor is the already accepted ENG3 shared_1e440 cell at 0x3fbc0; g_eng3_40d20 is the existing ENG3 1b9f0 worklist spelling. The unit now uses those names directly, with no macros or new address aliases.",
+  "first_binding_blocker": "The ENG3 worklist still lacks an independent binding in this package; 1eaf0 also calls the still-RECONSTRUCTED eng3_1b2e0.",
+  "rebase_validation": {
+    "base_head": "b0122fece5eb8d900953adeb2b1bfcc8c85fdf13",
+    "base_recovery_sha256": "95990cb3dd0870837a95dd96a7f87e013ba3c5690daea1d0f7a7e17e7ffaa75b",
+    "source_preimage_sha256": "2e4a74793b42aa2db5ff5c457990e7714cf27acb0033f78e1b73ec93416b60c8",
+    "accepted_peers_reproved": 71,
+    "masked_peers_reproved": 4,
+    "note": "Closures reapplied from current canonical source after o1 integration. No source/header/profile changes beyond the previously measured closure were needed."
+  }
+}
